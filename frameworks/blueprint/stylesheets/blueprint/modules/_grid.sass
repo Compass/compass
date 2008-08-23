@@ -1,0 +1,148 @@
+//  --------------------------------------------------------------
+//  SASS Gridification
+//  * Author:   Chris Eppstein
+//  A SASS adaptation of Blueprint CSS
+//  * Version:         0.7.1 (2008-02-25)
+//  * Website:         http://code.google.com/p/blueprintcss/
+//  Based on work by:
+//  * Lorin Tacket      [lorintackett.com]
+//  * Olav Bjorkoy      [bjorkoy.com]
+//  * Nathan Borror     [playgroundblues.com]
+//  * Jeff Croft        [jeffcroft.com]
+//  * Christian Metts   [mintchaos.com]
+//  * Khoi Vinh         [subtraction.com]
+//  Read more about using a grid here:
+//  * subtraction.com/archives/2007/0318_oh_yeeaahh.php
+//  --------------------------------------------------------------
+
+@import compass/utilities
+
+// Main layout grid, edit these parameters to build your grid and container sizes.
+!layout_grid_columns = 24
+!layout_grid_width = 30px
+!layout_grid_margin = 10px
+
+// Do not edit below this line unless you really know what you're doing.
+!layout_grid_outer_width = !layout_grid_width + !layout_grid_margin
+!layout_grid_size = !layout_grid_width * !layout_grid_columns + (!layout_grid_margin * (!layout_grid_columns - 1))
+
+// Columns
+// Note: If you use this mixin without the class and want to support ie6
+//       you must set text-align left on your container element in an IE stylesheet.
+=container
+  :width = !layout_grid_size
+  :margin 0 auto
+  +clearfix
+
+// The last column in a row needs this mixin or it will end up on the next row.
+// TODO add this to span mixin when we have optional arguments
+=last
+  :margin
+    :right 0
+
+=span(!n)
+  :width = !layout_grid_width * !n + (!layout_grid_margin * (!n - 1))
+
+// Use this mixins to set the width of n columns.
+=column(!n, !last = false)
+  :float left
+  +span(!n)
+  @if !last
+    +last
+  @if !!last
+    :margin-right = !layout_grid_margin
+
+// Mixin to a column to append n empty cols.
+=append(!n)
+  :padding-right = (!layout_grid_outer_width) * !n
+
+// Mixin to a column to prepend n empty cols.
+=prepend(!n)
+  :padding-left = (!layout_grid_outer_width) * !n
+
+// mixin to a column to move it n columns to the left
+=pull(!n)
+  :float left
+  :position relative
+  :margin-left = -!layout_grid_outer_width * !n
+
+// mixin to a column to push it n columns to the right
+=push(!n)
+  :float right
+  :position relative
+  :margin
+    :top 0
+    :right = -!layout_grid_outer_width * !n
+    :bottom 1.5em
+    :left = -!layout_grid_outer_width * !n
+
+// Border on right hand side of a column.
+=border
+  :padding-right = !layout_grid_margin / 2 - 1
+  :margin-right = !layout_grid_margin / 2
+  :border-right 1px solid #eee
+
+// Border with more whitespace, spans one column.
+=colborder
+  :padding-right= !layout_grid_width - 0.5 * !layout_grid_margin - 1
+  :margin-right= !layout_grid_width - 0.5 * !layout_grid_margin
+  :border-right 1px solid #eee
+
+// Mixin this to an hr to make a horizontal ruler across a column.
+=colruler
+  :background #ddd
+  :color #ddd
+  :clear both
+  :float none
+  :width 100%
+  :height .1em
+  :margin 0 0 1.45em
+  :border none
+
+// Mixin this to an hr to make a horizontal spacer across a column.
+=colspacer
+  +colruler
+  :background #fff
+  :color #fff
+
+=blueprint-grid
+  // A container should group all your columns
+  .container
+    +container
+    // Use these classes (or mixins) to set the width of a column.
+    @for !n from 1 to !layout_grid_columns + 1
+      .span-#{!n}
+        +span(!n)
+      div
+        &.span-#{!n}
+          +column(!n, !n == !layout_grid_columns)
+    // The last column in a row needs this class (or mixin) or it will end up on the next row.
+    div.last
+      +last
+    // Add these to a column to append empty cols.
+    @for !n from 1 to !layout_grid_columns
+      .append-#{!n}
+        +append(!n)
+    // Add these to a column to prepend empty cols.
+    @for !n from 1 to !layout_grid_columns
+      .prepend-#{!n}
+        +prepend(!n)
+    // Use these classes on an element to push it into the
+    // next column, or to pull it into the previous column.
+    @for !n from 1 to !layout_grid_columns + 1
+      .pull-#{!n}
+        +pull(!n)
+    @for !n from 1 to !layout_grid_columns + 1
+      .push-#{!n}
+        +push(!n)
+    //*** The following classes are provided for convenience. You can comment them out if you don't want them. ***//
+    // Border on right hand side of a column. You can comment this out if you don't plan to use it.
+    div.border
+      +border
+    // Border with more whitespace, spans one column.
+    div.colborder
+      +colborder
+    hr
+      +colruler
+    hr.space
+      +colspacer

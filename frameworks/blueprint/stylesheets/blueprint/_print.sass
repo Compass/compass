@@ -1,0 +1,69 @@
+=blueprint-print
+  &
+    :line-height 1.5
+    :font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+    :color #000
+    :background none
+    :font-size 10pt
+  .container
+    :background none
+  hr
+    :background #ccc
+    :color #ccc
+    :width 100%
+    :height 2px
+    :margin 2em 0
+    :padding 0
+    :border none
+    &.space
+      :background #fff
+      :color #fff
+  h1, h2, h3, h4, h5, h6
+    :font-family "Helvetica Neue", Arial, "Lucida Grande", sans-serif
+  code
+    :font .9em "Courier New", Monaco, Courier, monospace
+  img
+    :float left
+    :margin 1.5em 1.5em 1.5em 0
+  a
+    img
+      :border none
+    &:link
+      :background transparent
+      :font-weight 700
+      :text-decoration underline
+  /* This style is in blueprint, but I think it's annoying and it doesn't work in all browsers.
+    &:after
+      :content " (" attr(href) ") "
+      :font-size 90%
+  p img.top
+    :margin-top 0
+  blockquote
+    :margin 1.5em
+    :padding 1em
+    :font-style italic
+    :font-size .9em
+  .small
+    :font-size .9em
+  .large
+    :font-size 1.1em
+  .quiet
+    :color #999
+  .hide,
+  .noprint,
+  .no-print
+    :display none
+  address, blockquote, center, dir, div, dd, dl, dt, fieldset, form, frameset, h1, h2, h3, h4, h5, h6, hr, isindex, li, menu, noframes, noscript, ol, p, pre, table, tbody, td, tfoot, th, thead, tr, ul
+    &.print-only
+      :display block
+  a, abbr, acronym, b, basefont, bdo, big, br, cite, code, dfn, em, font, i, img, input, kbd, label, q, s, samp, select, small, span, strike, strong, sub, sup, textarea, tt, u, var
+    &.print-only
+      :display inline
+  a:visited
+    :background transparent
+    :font-weight 700
+    :text-decoration underline
+  /*
+    a:visited:after
+      :content " (" attr(href) ") "
+      :font-size 90%

@@ -1,0 +1,55 @@
+=feedback-base
+  :padding .8em
+  :margin-bottom 1em
+  :border 2px solid #ddd
+
+=error
+  +feedback-base
+  :background= !error_bg_color
+  :color= !error_color
+  :border-color= !error_border_color
+  a
+    :color= !error_color
+
+=notice
+  +feedback-base
+  :background= !notice_bg_color
+  :color= !notice_color
+  :border-color= !notice_border_color
+  a
+    :color= !notice_color
+
+=success
+  +feedback-base
+  :background= !success_bg_color
+  :color= !success_color
+  :border-color= !success_border_color
+  a
+    :color= !success_color
+
+=highlight
+  :background #ff0
+
+=added
+  :background #060
+  :color #fff
+
+=removed
+  :background #900
+  :color #fff
+
+=blueprint-interaction
+  .error
+    +error
+  .notice
+    +notice
+  .success
+    +success
+  .hide
+    :display none
+  .highlight
+    +highlight
+  .added
+    +added
+  .removed
+    +removed

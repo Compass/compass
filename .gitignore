@@ -1,0 +1,6 @@
+*.DS_Store
+tmp/*
+built_examples/*
+test/tmp
+test/fixtures/*/saved
+test/fixtures/*/tmp
