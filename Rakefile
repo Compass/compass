@@ -21,6 +21,24 @@ To run with an alternate version of Rails, make test/rails a symlink to that ver
 To run with an alternate version of Haml & Sass, make test/haml a symlink to that version.
 END
 
+begin
+  require 'echoe'
+ 
+  Echoe.new('compass', open('VERSION').read) do |p|
+    # p.rubyforge_name = 'github'
+    p.summary = "Sass-Based CSS Meta-Framework."
+    p.description = "Sass-Based CSS Meta-Framework. Semantic, Maintainable CSS."
+    p.url = "http://github.com/chriseppstein/compass"
+    p.author = ['Chris Eppstein']
+    p.email = "chris@eppsteins.net"
+    p.dependencies = ["haml"]
+    p.has_rdoc = false
+  end
+ 
+rescue LoadError => boom
+  puts "You are missing a dependency required for meta-operations on this gem."
+  puts "#{boom.to_s.capitalize}."
+end
 
 desc "Compile Examples into HTML and CSS"
 task :examples do

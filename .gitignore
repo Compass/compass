@@ -4,3 +4,4 @@ built_examples/*
 test/tmp
 test/fixtures/*/saved
 test/fixtures/*/tmp
+pkg/*
