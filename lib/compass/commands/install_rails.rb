@@ -56,7 +56,7 @@ end
   %head
     %meta{'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
     %title= @browser_title || 'Default Browser Title'
-    = stylesheet_link_tag '#{stylesheet_prefix}screen.css', :media => 'print'
+    = stylesheet_link_tag '#{stylesheet_prefix}screen.css', :media => 'screen, projection'
     = stylesheet_link_tag '#{stylesheet_prefix}print.css', :media => 'print'
     /[if IE]
       = stylesheet_link_tag '#{stylesheet_prefix}ie.css', :media => 'screen, projection'
