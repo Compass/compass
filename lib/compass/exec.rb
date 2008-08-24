@@ -39,12 +39,8 @@ module Compass
       protected
       
       def perform!
-        if options[:version]
-          do_command(:print_version)
-        elsif options[:update]
-          do_command(:update_project)
-        elsif options[:project_name]
-          do_command(:create_project)
+        if options[:command]
+          do_command(options[:command])
         else
           puts self.opts
         end
@@ -56,6 +52,7 @@ module Compass
         if ARGV.size > 0
           self.options[:project_name] = ARGV.shift
         end
+        self.options[:command] ||= self.options[:project_name] ? :create_project : :update_project
         self.options[:environment] ||= :production
         self.options[:framework] ||= :compass
       end
@@ -73,18 +70,14 @@ Description:
 Options:
 END
         opts.on('-u', '--update', :NONE, 'Update the current project') do
-          self.options[:update] = true
+          self.options[:command] = :update_project
         end
 
         opts.on('-f FRAMEWORK', '--framework FRAMEWORK', [:compass, :blueprint], 'Set up a new project using the selected framework. Legal values: compass (default), blueprint') do |framework|
           self.options[:framework] = framework
         end
 
-        opts.on('--force', :NONE, 'Force. Allows some commands to succeed when they would otherwise fail.') do
-          self.options[:force] = true
-        end
-
-        opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment (development, production)') do |env|
+        opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment: development, production (default)') do |env|
           self.options[:environment] = env
         end
 
@@ -104,13 +97,17 @@ END
           self.options[:trace] = true
         end
         
+        opts.on('--force', :NONE, 'Force. Allows some commands to succeed when they would otherwise fail.') do
+          self.options[:force] = true
+        end
+
         opts.on_tail("-?", "-h", "--help", "Show this message") do
           puts opts
           exit
         end
 
         opts.on_tail("-v", "--version", "Print version") do
-          self.options[:version] = true
+          self.options[:command] = :print_version
         end
       end
 
