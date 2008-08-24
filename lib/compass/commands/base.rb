@@ -17,7 +17,8 @@ module Compass
         File.join(project_directory, separate(path))
       end
       # create a directory and all the directories necessary to reach it.
-      def directory(subdir, options)
+      def directory(subdir, options = nil)
+        options ||= self.options
         dir = subdir ? projectize(subdir) : project_directory
         if File.exists?(dir) && File.directory?(dir) && options[:force]
             print_action :exists, basename(dir) + File::SEPARATOR
@@ -49,6 +50,21 @@ module Compass
         FileUtils.cp from, to unless options[:dry_run]
       end
 
+      def write_file(file_name, contents)
+        if File.exists?(file_name) && !options[:force]
+          msg = "File #{basename(file_name)} already exists. Run with --force to force creation."
+          raise ::Compass::Exec::ExecError.new(msg)
+        end
+        if File.exists?(file_name)
+          print_action :overwrite, basename(file_name)
+        else
+          print_action :create, basename(file_name)
+        end
+        output = open(file_name,'w')
+        output.write(contents)
+        output.close
+      end
+
       # returns the path to the templates directory and caches it
       def templates_directory
         @templates_directory ||= File.expand_path(File.join(File.dirname(__FILE__), separate("../../../frameworks/#{options[:framework]}/templates")))
@@ -67,7 +83,7 @@ module Compass
         end
       end
       
-      ACTIONS = [:directory, :exists, :remove, :create]
+      ACTIONS = [:directory, :exists, :remove, :create, :overwrite]
       MAX_ACTION_LENGTH = ACTIONS.inject(0){|memo, a| [memo, a.to_s.length].max}
       def print_action(action, extra)
         puts "#{' ' * (MAX_ACTION_LENGTH - action.to_s.length)}#{action} #{extra}" if !options[:quiet] || options[:dry_run]
