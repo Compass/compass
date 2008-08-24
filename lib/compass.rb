@@ -11,3 +11,6 @@ module Compass
 end
 
 require File.join(File.dirname(__FILE__), 'compass', 'frameworks')
+# make sure we're running inside Merb
+require File.join(File.dirname(__FILE__), 'compass', 'merb') if defined?(Merb::Plugins)  
+

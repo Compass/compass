@@ -54,6 +54,7 @@ extra_rdoc_files:
 - lib/compass/frameworks/blueprint.rb
 - lib/compass/frameworks/compass.rb
 - lib/compass/frameworks.rb
+- lib/compass/merb.rb
 - lib/compass/validate/COPYRIGHT.html
 - lib/compass/validate/css-validator-javadoc.jar
 - lib/compass/validate/css-validator.jar
@@ -138,6 +139,7 @@ files:
 - lib/compass/frameworks/blueprint.rb
 - lib/compass/frameworks/compass.rb
 - lib/compass/frameworks.rb
+- lib/compass/merb.rb
 - lib/compass/validate/COPYRIGHT.html
 - lib/compass/validate/css-validator-javadoc.jar
 - lib/compass/validate/css-validator.jar
