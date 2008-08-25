@@ -1,0 +1,52 @@
+// Converts pixels to percents according to 
+// the table found at http://developer.yahoo.com/yui/fonts/#fontsize
+=yui-font-size(!size)
+  @if !size == 10px
+    :font-size 77%
+  @if !size == 11px
+    :font-size 85%
+  @if !size == 12px
+    :font-size 93%
+  @if !size == 13px
+    :font-size 100%
+  @if !size == 14px
+    :font-size 108%
+  @if !size == 15px
+    :font-size 116%
+  @if !size == 16px
+    :font-size 123.1%
+  @if !size == 17px
+    :font-size 131%
+  @if !size == 18px
+    :font-size 138.5%
+  @if !size == 19px
+    :font-size 146.5%
+  @if !size == 20px
+    :font-size 153.9%
+  @if !size == 21px
+    :font-size 161.6%
+  @if !size == 22px
+    :font-size 167%
+  @if !size == 23px
+    :font-size 174%
+  @if !size == 24px
+    :font-size 182%
+  @if !size == 25px
+    :font-size 189%
+  @if !size == 26px
+    :font-size 197%
+
+=yui-fonts
+  body
+    :font 13px/1.231 arial,helvetica,clean,sans-serif
+    :*font-size small
+    :*font x-small
+
+  table
+    :font-size inherit
+    :font 100%
+
+  pre, code, kbd, samp, tt
+    :font-family monospace
+    :*font-size 108%
+    :line-height 100%

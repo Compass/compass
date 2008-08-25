@@ -24,3 +24,4 @@ end
 
 require File.join(File.dirname(__FILE__), 'frameworks', 'compass')
 require File.join(File.dirname(__FILE__), 'frameworks', 'blueprint')
+require File.join(File.dirname(__FILE__), 'frameworks', 'yui')
