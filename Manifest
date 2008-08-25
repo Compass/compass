@@ -96,8 +96,5 @@ test/compass_test.rb
 test/fixtures/default/templates/ie.sass
 test/fixtures/default/templates/print.sass
 test/fixtures/default/templates/screen.sass
-test/fixtures/default/tmp/ie.css
-test/fixtures/default/tmp/print.css
-test/fixtures/default/tmp/screen.css
 test/test_helper.rb
 VERSION
