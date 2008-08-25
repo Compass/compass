@@ -53,6 +53,7 @@ extra_rdoc_files:
 - lib/compass/exec.rb
 - lib/compass/frameworks/blueprint.rb
 - lib/compass/frameworks/compass.rb
+- lib/compass/frameworks/yui.rb
 - lib/compass/frameworks.rb
 - lib/compass/merb.rb
 - lib/compass/validate/COPYRIGHT.html
@@ -70,6 +71,7 @@ extra_rdoc_files:
 - README.markdown
 files: 
 - bin/compass
+- compass.gemspec
 - examples/blueprint_default/index.html
 - examples/blueprint_default/parts/elements.html
 - examples/blueprint_default/parts/forms.html
@@ -105,6 +107,7 @@ files:
 - examples/blueprint_semantic/stylesheets/images/grid.png
 - examples/blueprint_semantic/stylesheets/print.sass
 - examples/blueprint_semantic/stylesheets/screen.sass
+- examples/yui_default/stylesheets/screen.sass
 - frameworks/blueprint/lib/blueprint/constants.rb
 - frameworks/blueprint/lib/blueprint/grid_builder.rb
 - frameworks/blueprint/stylesheets/blueprint/_ie.sass
@@ -129,6 +132,11 @@ files:
 - frameworks/compass/templates/project/ie.sass
 - frameworks/compass/templates/project/print.sass
 - frameworks/compass/templates/project/screen.sass
+- frameworks/yui/COPYRIGHT
+- frameworks/yui/stylesheets/yui/_screen.sass
+- frameworks/yui/stylesheets/yui/modules/_base.sass
+- frameworks/yui/stylesheets/yui/modules/_fonts.sass
+- frameworks/yui/templates/project/screen.sass
 - lib/compass/commands/base.rb
 - lib/compass/commands/create_project.rb
 - lib/compass/commands/install_rails.rb
@@ -138,6 +146,7 @@ files:
 - lib/compass/exec.rb
 - lib/compass/frameworks/blueprint.rb
 - lib/compass/frameworks/compass.rb
+- lib/compass/frameworks/yui.rb
 - lib/compass/frameworks.rb
 - lib/compass/merb.rb
 - lib/compass/validate/COPYRIGHT.html
@@ -164,7 +173,6 @@ files:
 - test/fixtures/default/tmp/screen.css
 - test/test_helper.rb
 - VERSION
-- compass.gemspec
 has_rdoc: false
 homepage: http://github.com/chriseppstein/compass
 post_install_message: 
