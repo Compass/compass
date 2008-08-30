@@ -73,7 +73,7 @@ Congratulations! Your project has been configured to use Compass.
 Next add these lines to the head of your application.html.haml:
 
 %head 
-  = stylesheet_link_tag '#{stylesheet_prefix}screen.css', :media => 'print'
+  = stylesheet_link_tag '#{stylesheet_prefix}screen.css', :media => 'screen, projection'
   = stylesheet_link_tag '#{stylesheet_prefix}print.css', :media => 'print'
   /[if IE]
     = stylesheet_link_tag '#{stylesheet_prefix}ie.css', :media => 'screen, projection'
