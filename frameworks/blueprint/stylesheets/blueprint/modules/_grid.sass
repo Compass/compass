@@ -61,10 +61,13 @@
   :padding-left = (!layout_grid_outer_width) * !n
 
 // mixin to a column to move it n columns to the left
-=pull(!n)
+=pull(!n, !last = false)
   :float left
   :position relative
-  :margin-left = -!layout_grid_outer_width * !n
+  @if !last
+    :margin-left = (-!layout_grid_outer_width * !n) + !layout_grid_margin
+  @if !!last
+    :margin-left = -!layout_grid_outer_width * !n
 
 // mixin to a column to push it n columns to the right
 =push(!n)
