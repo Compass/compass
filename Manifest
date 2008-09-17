@@ -52,6 +52,7 @@ frameworks/blueprint/stylesheets/blueprint/modules/_fancy_type.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_form.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_grid.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_interaction.sass
+frameworks/blueprint/stylesheets/blueprint/modules/_liquid.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_scaffolding.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_typography.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_utilities.sass

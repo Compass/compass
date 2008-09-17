@@ -1,0 +1,134 @@
+//  --------------------------------------------------------------
+//  SASS Gridification
+//  * Author:   Geoff Garside
+//  A SASS adaptation of Blueprint CSS
+//  * Version:         0.7.1 (2008-02-25)
+//  * Website:         http://code.google.com/p/blueprintcss/
+//  Based on work by:
+//  * Lorin Tacket      [lorintackett.com]
+//  * Olav Bjorkoy      [bjorkoy.com]
+//  * Nathan Borror     [playgroundblues.com]
+//  * Jeff Croft        [jeffcroft.com]
+//  * Christian Metts   [mintchaos.com]
+//  * Khoi Vinh         [subtraction.com]
+//  Liquid grid work by:
+//  * Ben Listwon
+//  * David Bedingfield
+//  * Andrei Michael Herasimchuk
+//  Involution Studios, http://www.involutionstudios.com
+//  Read more about using a grid here:
+//  * subtraction.com/archives/2007/0318_oh_yeeaahh.php
+//  -----
+//  By default, the grid is 80% of window width, with 24 columns.
+//  
+//  To make the grid fixed, simply change the .container width
+//  property to a pixel value. e.g., 960px.
+//  --------------------------------------------------------------
+
+@import compass/utilities
+
+// Main layout grid, edit these parameters to build your grid and container sizes.
+// The width shown gives the right floored percentage values.
+!layout_liquid_columns = 24
+!layout_liquid_width = 4.173%
+!layout_liquid_margin = 0.833em
+
+// Do not edit below this line unless you really know what you're doing.
+!layout_liquid_size = 80%
+!layout_liquid_min_size = 950px
+!layout_liquid_push_pull = -(!layout_liquid_margin * 4)
+
+=block
+  :overflow hidden
+
+=container
+  :min-width= !layout_liquid_min_size
+  :width = !layout_liquid_size
+  :margin 0 auto
+  +block
+
+=span(!n)
+  :width= (!layout_liquid_width * !n) - ((!layout_liquid_width * !n) % 1)
+
+=last
+  :margin-right 0
+
+=column(!n, !last = false)
+  :float left
+  :overflow hidden
+  +span(!n)
+  @if !last
+    +last
+  @if !!last
+    :margin-right = !layout_liquid_margin
+
+=append(!n)
+  :padding-right= (!layout_liquid_width * !n) - ((!layout_liquid_width * !n) % 1)
+  
+=prepend(!n)
+  :padding-left= (!layout_liquid_width * !n) - ((!layout_liquid_width * !n) % 1)
+
+=pull(!n, !last = false)
+  :margin-left= (!layout_liquid_push_pull * !n)
+
+=push(!n)
+  :float right
+  :margin
+    :top 0
+    :left 1.5em
+    :right= (!layout_liquid_push_pull * !n)
+    :bottom 0
+
+=border
+  :border-right 1px solid #eee
+
+=colborder
+  :padding-right 2%
+  :margin-right 2%
+  +border
+
+=colruler
+  :background #ddd 
+  :color #ddd
+  :clear both
+  :width 100% 
+  :height 0.083em
+  :margin 0 0 1.583em
+  :border none
+
+=colspacer
+  +colruler
+  :background #fff
+  :color #fff
+
+
+=blueprint-liquid
+  // A container should group all your columns
+  .container
+    +container
+    // Use these classes (or mixins) to set the width of a column.
+    @for !n from 1 to !layout_liquid_columns + 1
+      .span-#{!n}
+        +span(!n)
+      div
+        &.span-#{!n}
+          +column(!n, !n == !layout_liquid_columns)
+    // The last column in a row needs this class (or mixin) or it will end up on the next row.
+    div.last
+      +last
+    // Add these to a column to append empty cols.
+    @for !n from 1 to !layout_liquid_columns
+      .append-#{!n}
+        +append(!n)
+    // Add these to a column to prepend empty cols.
+    @for !n from 1 to !layout_liquid_columns
+      .prepend-#{!n}
+        +prepend(!n)
+    // Use these classes on an element to push it into the
+    // next column, or to pull it into the previous column.
+    @for !n from 1 to !layout_liquid_columns + 1
+      .pull-#{!n}
+        +pull(!n)
+    @for !n from 1 to !layout_liquid_columns + 1
+      .push-#{!n}
+        +push(!n)
