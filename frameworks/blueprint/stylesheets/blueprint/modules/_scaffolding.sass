@@ -1,3 +1,4 @@
+@import grid
 /*
   The styles contained here are meant to provide for an attractive experience out of the box
   and are meant to be removed once custom visual design begins.
@@ -16,3 +17,13 @@
     +body-margins
     .box
       +box
+    // Border on right hand side of a column. You can comment this out if you don't plan to use it.
+    div.border
+      +border
+    // Border with more whitespace, spans one column.
+    div.colborder
+      +colborder
+    hr
+      +colruler
+    hr.space
+      +colspacer
