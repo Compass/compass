@@ -1,0 +1,25 @@
+=alternating-rows-and-columns(!even_row_color, !odd_row_color, !dark_intersection)
+  td,
+  th
+    :padding 2px
+    &.numeric
+      :text-align right
+  tbody
+    th
+      :text-align center
+  thead
+    :font-size .9em
+    th.even
+      :background-color= #fff - !dark_intersection
+  tfoot
+    :font-size .9em
+    td.even
+      :background-color= #fff - !dark_intersection
+  tr.odd
+    :background-color= !odd_row_color
+    td.even
+      :background-color= !odd_row_color - !dark_intersection
+  tr.even
+    :background-color= !even_row_color
+    td.even
+      :background-color= !even_row_color - !dark_intersection

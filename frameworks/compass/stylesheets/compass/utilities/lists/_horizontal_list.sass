@@ -1,0 +1,17 @@
+// A list(ol,ul) that is layed out such that the elements are floated left and won't wrap.
+// This is not an inline list.
+=horizontal-list
+  :overflow auto
+  :list-style-type none
+  :padding-left 0px
+  :margin 0px
+  li
+    :white-space nowrap
+    :float left
+    :padding
+      :left 4px
+      :right 4px
+    &.first
+      :padding-left 0px
+    &.last
+      :padding-right 0px

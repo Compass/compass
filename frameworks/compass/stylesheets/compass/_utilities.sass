@@ -1,16 +1,5 @@
-// Clearing floats without extra markup
-// Based on How To Clear Floats Without Structural Markup by PiE
-// [http://www.positioniseverything.net/easyclearing.html]
-// The above article no longer recommends its approach instead
-// This is recommended now:
-// [http://www.sitepoint.com/examples/clearing_floats/example2.php]
-=clearfix
-  :overflow auto
-  // This makes ie6 get layout
-  :display inline-block
-  // and this puts it back to block
-  &
-    :display block
-
-=nowrap
-  :white-space nowrap
+@import utilities/general
+@import utilities/links
+@import utilities/lists
+@import utilities/tables
+@import utilities/text
