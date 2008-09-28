@@ -58,7 +58,7 @@ task :examples do
       engine = Haml::Engine.new(open(haml_file).read, :filename => haml_file)
       target_dir = "built_examples/#{basename.sub(%r{/[^/]*$},'')}"
       FileUtils.mkdir_p(target_dir)
-      output = open("built_examples/#{basename}",'w')
+      output = open("built_examples/#{basename}.html",'w')
       output.write(engine.render)
       output.close
     end
@@ -81,7 +81,7 @@ task :examples do
     # copy any other non-haml and non-sass files directly over
     target_dir = "built_examples/#{example.sub(%r{.*/},'')}"
     other_files = FileList["#{example}/**/*"]
-    other_files.exclude "**/*.sass", "*.haml"
+    other_files.exclude "**/*.sass", "**/*.haml"
     other_files.each do |file|
       
       if File.directory?(file)
