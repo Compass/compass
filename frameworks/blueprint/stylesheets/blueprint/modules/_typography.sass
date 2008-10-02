@@ -4,7 +4,6 @@
 =normal-text
   :font-family "Helvetica Neue", Helvetica, Arial, sans-serif
   :color= !font_color
-  :background= !font_background
 
 =fixed-width-text
   :font 1em 'andale mono', 'lucida console', monospace
@@ -21,9 +20,8 @@
   :color= !loud_color
 
 =blueprint-typography
-  html &
-    +normal-text
-    :font-size 75%
+  +normal-text
+  :font-size 75%
   h1
     +header-text
     :font-size 3em
