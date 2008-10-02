@@ -1,4 +1,5 @@
 @import colors
+@import compass/utilities/links/link_colors
 
 =normal-text
   :font-family "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -67,7 +68,7 @@
         :margin 1.5em 0 1.5em 1.5em
   a
     :text-decoration underline
-    +link-colors
+    +link-colors(!link_color, !link_hover_color, !link_active_color, !link_visited_color, !link_focus_color)
   blockquote
     :margin 1.5em
     :color #666
