@@ -1,0 +1,8 @@
+// Hides html text and replaces it with an image.
+=replace-text( !img, !x = "50%", !y = "50%" )
+  :display                block
+  :text-indent            -9999em
+  :overflow               hidden
+  :background-image     = url(!img)
+  :background-position  = !x !y
+  :background-repeat      no-repeat

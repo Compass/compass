@@ -80,6 +80,7 @@ frameworks/compass/stylesheets/compass/utilities/lists/_horizontal_list.sass
 frameworks/compass/stylesheets/compass/utilities/lists/_inline_list.sass
 frameworks/compass/stylesheets/compass/utilities/tables/_alternating_rows_and_columns.sass
 frameworks/compass/stylesheets/compass/utilities/text/_nowrap.sass
+frameworks/compass/stylesheets/compass/utilities/text/_replacement.sass
 frameworks/compass/templates/project/grid.png
 frameworks/compass/templates/project/ie.sass
 frameworks/compass/templates/project/print.sass
