@@ -1,0 +1,29 @@
+=reset
+  :margin 0
+  :padding 0
+  :border 0
+  :font
+    :weight inherit
+    :style inherit
+    :size 100%
+    :family inherit
+  :vertical-align baseline
+
+=reset-quotation
+  +reset
+  :quotes "" ""
+  &:before,
+  &:after
+    :content ""
+
+=reset-table-cell
+  +reset
+  :text-align left
+  :font-weight normal
+  :vertical-align middle
+
+=reset-table
+  +reset
+  :border-collapse separate
+  :border-spacing 0
+  :vertical-align middle

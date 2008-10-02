@@ -62,14 +62,15 @@ frameworks/blueprint/templates/project/grid.png
 frameworks/blueprint/templates/project/ie.sass
 frameworks/blueprint/templates/project/print.sass
 frameworks/blueprint/templates/project/screen.sass
-frameworks/compass/stylesheets/compass/_reset.sass
 frameworks/compass/stylesheets/compass/_utilities.sass
+frameworks/compass/stylesheets/compass/reset.sass
 frameworks/compass/stylesheets/compass/utilities/_general.sass
 frameworks/compass/stylesheets/compass/utilities/_links.sass
 frameworks/compass/stylesheets/compass/utilities/_lists.sass
 frameworks/compass/stylesheets/compass/utilities/_tables.sass
 frameworks/compass/stylesheets/compass/utilities/_text.sass
 frameworks/compass/stylesheets/compass/utilities/general/_clearfix.sass
+frameworks/compass/stylesheets/compass/utilities/general/_reset.sass
 frameworks/compass/stylesheets/compass/utilities/general/_tag_cloud.sass
 frameworks/compass/stylesheets/compass/utilities/links/_hover_link.sass
 frameworks/compass/stylesheets/compass/utilities/links/_link_colors.sass
