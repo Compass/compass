@@ -44,7 +44,7 @@ Sass::Plugin.options[:template_location] = {
   "\#{RAILS_ROOT}#{File::SEPARATOR}#{options[:stylesheets_location]}" => "\#{RAILS_ROOT}#{File::SEPARATOR}#{options[:css_location]}"
 }
 Compass::Frameworks::ALL.each do |framework|
-  Sass::Plugin.options[:template_location][framework.stylesheets_directory] = "\#{RAILS_ROOT}/public/stylesheets/#{File::SEPARATOR}#{options[:css_location]}/\#{framework.name}"
+  Sass::Plugin.options[:template_location][framework.stylesheets_directory] = "\#{RAILS_ROOT}#{File::SEPARATOR}public#{File::SEPARATOR}stylesheets#{File::SEPARATOR}#{options[:css_location]}#{File::SEPARATOR}\#{framework.name}"
 end
 }
       end
