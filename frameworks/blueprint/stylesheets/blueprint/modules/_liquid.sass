@@ -5,6 +5,7 @@
 //  * Version:         0.7.1 (2008-02-25)
 //  * Website:         http://code.google.com/p/blueprintcss/
 //  Based on work by:
+//  * Chris Eppstein    [eppsteins.net]
 //  * Lorin Tacket      [lorintackett.com]
 //  * Olav Bjorkoy      [bjorkoy.com]
 //  * Nathan Borror     [playgroundblues.com]
@@ -23,9 +24,14 @@
 //  
 //  To make the grid fixed, simply change the .container width
 //  property to a pixel value. e.g., 960px.
-//  --------------------------------------------------------------
+//  -----
+//  To use:
+//  This module is a REPLACEMENT for the grid module. Simply import it:
+//  @import blueprint/screen.sass
+//  @import blueprint/modules/liquid.sass
+//  -------------------------------------------------------------------
 
-@import compass/utilities
+@import compass/utilities/general/clearfix.sass
 
 // Main layout grid, edit these parameters to build your grid and container sizes.
 // The width shown gives the right floored percentage values.
