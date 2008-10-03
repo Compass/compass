@@ -28,6 +28,7 @@ examples/blueprint_scoped_form/stylesheets/print.sass
 examples/blueprint_scoped_form/stylesheets/screen.sass
 examples/blueprint_semantic/index.html
 examples/blueprint_semantic/parts/fancy_type.html
+examples/blueprint_semantic/parts/liquid.html
 examples/blueprint_semantic/parts/test-small.jpg
 examples/blueprint_semantic/parts/test.jpg
 examples/blueprint_semantic/parts/valid.png
@@ -35,6 +36,7 @@ examples/blueprint_semantic/stylesheets/ie.sass
 examples/blueprint_semantic/stylesheets/images/grid.png
 examples/blueprint_semantic/stylesheets/print.sass
 examples/blueprint_semantic/stylesheets/screen.sass
+examples/blueprint_semantic/stylesheets/liquid.sass
 examples/compass/compass.html
 examples/compass/stylesheets/compass.sass
 examples/compass/stylesheets/images/blue_arrow.gif
