@@ -35,7 +35,7 @@ Merb::BootLoader.after_app_loads do
     Merb::Config[:compass][:stylesheets] => Merb::Config[:compass][:compiled_stylesheets]
   }
   Compass::Frameworks::ALL.each do |framework|
-    template_location[framework.stylesheets_directory] = File.join(Merb::Config[:compass][:compiled_stylesheets], framework.name)
+    template_location[framework.stylesheets_directory] = Merb::Config[:compass][:compiled_stylesheets]
   end
   
   #configure Sass to know about all these sass locations.
