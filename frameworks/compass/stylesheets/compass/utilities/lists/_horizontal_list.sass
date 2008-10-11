@@ -1,11 +1,12 @@
+@import bullets.sass
 // A list(ol,ul) that is layed out such that the elements are floated left and won't wrap.
 // This is not an inline list.
 =horizontal-list
   :overflow auto
-  :list-style-type none
   :padding-left 0px
   :margin 0px
   li
+    +no-bullet
     :white-space nowrap
     :float left
     :padding
