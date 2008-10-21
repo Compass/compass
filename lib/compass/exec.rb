@@ -105,6 +105,12 @@ END
           self.options[:force] = true
         end
 
+        opts.on('--imports', :NONE, 'Emit an import path suitable for use with the Sass command-line tool.') do
+          #XXX cross platform support?
+          print ::Compass::Frameworks::ALL.map{|f| f.stylesheets_directory}.join(File::PATH_SEPARATOR)
+          exit
+        end
+
         opts.on_tail("-?", "-h", "--help", "Show this message") do
           puts opts
           exit
