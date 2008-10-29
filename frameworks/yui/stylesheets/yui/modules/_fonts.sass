@@ -1,44 +1,30 @@
-// Converts pixels to percents according to 
-// the table found at http://developer.yahoo.com/yui/fonts/#fontsize
-=yui-font-size(!size)
-  @if !size == 10px
-    :font-size 77%
-  @if !size == 11px
-    :font-size 85%
-  @if !size == 12px
-    :font-size 93%
-  @if !size == 13px
-    :font-size 100%
-  @if !size == 14px
-    :font-size 108%
-  @if !size == 15px
-    :font-size 116%
-  @if !size == 16px
-    :font-size 123.1%
-  @if !size == 17px
-    :font-size 131%
-  @if !size == 18px
-    :font-size 138.5%
-  @if !size == 19px
-    :font-size 146.5%
-  @if !size == 20px
-    :font-size 153.9%
-  @if !size == 21px
-    :font-size 161.6%
-  @if !size == 22px
-    :font-size 167%
-  @if !size == 23px
-    :font-size 174%
-  @if !size == 24px
-    :font-size 182%
-  @if !size == 25px
-    :font-size 189%
-  @if !size == 26px
-    :font-size 197%
+!default_base_font_size = 13px
+!default_base_line_height = 1.231
+!default_font_family = arial,helvetica,clean,sans-serif
 
-=yui-fonts
+// Sets the font size specified in pixels using percents so that the base
+// font size changes and 1em has the correct value. When nesting font size
+// declarations, within the DOM tree, the base_font_size must be the parent's
+// effective font-size in pixels.
+// Usage Examples:
+//   .big
+//     +font-size(16px)
+//   .bigger
+//     +font-size(18px)
+//   .big .bigger
+//     +font-size(18px, 16px)
+// 
+// For more information see the table found at http://developer.yahoo.com/yui/fonts/#fontsize
+=font-size(!size, !base_font_size = !default_base_font_size)
+  :font-size= percentage(!size / !base_font_size)
+
+// Sets the base fonts for a page, this should be mixed into the top level of a stylesheet.
+=yui-base-fonts(!family = !default_font_family, !size = !default_base_font_size, !line_height = !default_base_line_height)
   body
-    :font 13px/1.231 arial,helvetica,clean,sans-serif
+    :font
+      :size= !size
+      :family= !family
+    :line-height= !line_height
     :*font-size small
     :*font x-small
 

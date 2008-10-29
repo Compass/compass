@@ -1,11 +1,13 @@
 @import yui/screen.sass
 @import compass/reset.sass
 
-body
-  +yui
++yui
 
-#my-small-element
-  +yui-font-size(10px)
+.bigger
+  +font-size(16px)
 
-#my-big-element
-  +yui-font-size(24px)
+.biggest
+  +font-size(18px)
+
+.bigger .biggest
+  +font-size(18px, 16px)
