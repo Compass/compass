@@ -96,3 +96,9 @@ task :examples do
     end
   end
 end
+
+task :git_clean do
+  sh "git", "clean", "-fdx"
+end
+
+task :manifest => :git_clean

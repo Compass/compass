@@ -1,4 +1,5 @@
 bin/compass
+compass.gemspec
 examples/blueprint_default/index.html
 examples/blueprint_default/parts/elements.html
 examples/blueprint_default/parts/forms.html
@@ -122,16 +123,8 @@ Manifest
 Rakefile
 README.markdown
 test/compass_test.rb
-test/fixtures/default/saved/compass/reset.css
-test/fixtures/default/saved/ie.css
-test/fixtures/default/saved/print.css
-test/fixtures/default/saved/screen.css
 test/fixtures/default/templates/ie.sass
 test/fixtures/default/templates/print.sass
 test/fixtures/default/templates/screen.sass
-test/fixtures/default/tmp/compass/reset.css
-test/fixtures/default/tmp/ie.css
-test/fixtures/default/tmp/print.css
-test/fixtures/default/tmp/screen.css
 test/test_helper.rb
 VERSION
