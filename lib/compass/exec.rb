@@ -6,6 +6,30 @@ module Compass
   module Exec
     class ExecError < StandardError
     end
+
+
+    def report_error(e, options)
+      $stderr.puts "#{e.class} on line #{get_line e} of #{get_file e}: #{e.message}"
+      if options[:trace]
+        e.backtrace[1..-1].each { |t| $stderr.puts "  #{t}" }
+      else
+        $stderr.puts "Run with --trace to see the full backtrace"
+      end
+    end
+
+    def get_file(exception)
+      exception.backtrace[0].split(/:/, 2)[0]
+    end
+
+    def get_line(exception)
+      # SyntaxErrors have weird line reporting
+      # when there's trailing whitespace,
+      # which there is for Haml documents.
+      return exception.message.scan(/:(\d+)/)[0] if exception.is_a?(::Haml::SyntaxError)
+      exception.backtrace[0].scan(/:(\d+)/)[0]
+    end
+    module_function :report_error, :get_file, :get_line
+
     class Compass
       
       attr_accessor :args, :options, :opts
@@ -24,12 +48,7 @@ module Compass
           if e.is_a?(ExecError) || e.is_a?(OptionParser::ParseError)
             $stderr.puts e.message
           else
-            $stderr.puts "#{e.class} on line #{get_line e} of #{get_file e}: #{e.message}"
-            if @options[:trace]
-              e.backtrace[1..-1].each { |t| $stderr.puts "  #{t}" } 
-            else
-              $stderr.puts "Run with --trace to see the full backtrace"
-            end
+            ::Compass::Exec.report_error(e, @options)
           end
           exit 1
         end
@@ -71,6 +90,10 @@ Options:
 END
         opts.on('-u', '--update', :NONE, 'Update the current project') do
           self.options[:command] = :update_project
+        end
+
+        opts.on('-w', '--watch', :NONE, 'Monitor the current project for changes and update') do
+          self.options[:command] = :watch_project
         end
 
         opts.on('-f FRAMEWORK', '--framework FRAMEWORK', [:compass, :blueprint], 'Set up a new project using the selected framework. Legal values: compass (default), blueprint') do |framework|
@@ -119,18 +142,6 @@ END
         opts.on_tail("-v", "--version", "Print version") do
           self.options[:command] = :print_version
         end
-      end
-
-      def get_file(exception)
-        exception.backtrace[0].split(/:/, 2)[0]
-      end
-
-      def get_line(exception)
-        # SyntaxErrors have weird line reporting
-        # when there's trailing whitespace,
-        # which there is for Haml documents.
-        return exception.message.scan(/:(\d+)/)[0] if exception.is_a?(::Haml::SyntaxError)
-        exception.backtrace[0].scan(/:(\d+)/)[0]
       end
       
       def do_command(command)
