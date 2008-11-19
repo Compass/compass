@@ -49,6 +49,7 @@ extra_rdoc_files:
 - lib/compass/commands/install_rails.rb
 - lib/compass/commands/print_version.rb
 - lib/compass/commands/update_project.rb
+- lib/compass/commands/watch_project.rb
 - lib/compass/core_ext.rb
 - lib/compass/exec.rb
 - lib/compass/frameworks/blueprint.rb
@@ -171,6 +172,7 @@ files:
 - lib/compass/commands/install_rails.rb
 - lib/compass/commands/print_version.rb
 - lib/compass/commands/update_project.rb
+- lib/compass/commands/watch_project.rb
 - lib/compass/core_ext.rb
 - lib/compass/exec.rb
 - lib/compass/frameworks/blueprint.rb
