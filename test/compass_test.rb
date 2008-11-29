@@ -4,21 +4,19 @@ require 'compass'
 
 class CompassTest < Test::Unit::TestCase
   def setup
-    Dir.glob("fixtures/*/templates").each do |dirname|
-      dirname = dirname[9..-11]
-      mkdir_clean tempfile_loc(dirname)
-    end
     mkdir_clean absolutize("tmp")
     mkdir_clean absolutize("tmp/blueprint")
     mkdir_clean tempfile_loc("default")
+    mkdir_clean tempfile_loc("yui")
+    @original_options = Sass::Plugin.options
   end
   
   def teardown
-    FileUtils.rm_r absolutize("tmp/blueprint")
-    Dir.glob("fixtures/*/templates").each do |dirname|
-      dirname = dirname[9..-11]
-      FileUtils.rm_r tempfile_loc(dirname)
-    end
+    FileUtils.rm_rf absolutize("tmp")
+    FileUtils.rm_rf absolutize("tmp/blueprint")
+    FileUtils.rm_rf tempfile_loc("default")
+    FileUtils.rm_rf tempfile_loc("yui")
+    Sass::Plugin.options = @original_options
   end
 
   def test_blueprint_generates_no_files
@@ -38,7 +36,13 @@ class CompassTest < Test::Unit::TestCase
       end
     end
   end
-  
+  def test_yui
+    with_templates('yui') do
+      each_css_file(tempfile_loc('yui')) do |css_file|
+        assert_no_errors css_file, 'yui'
+      end
+    end
+  end
   private
   def assert_no_errors(css_file, folder)
     file = css_file[(tempfile_loc(folder).size+1)..-1]
@@ -47,7 +51,8 @@ class CompassTest < Test::Unit::TestCase
   end
 
   def with_templates(folder)
-    old_template_loc = Sass::Plugin.options[:template_location].dup
+    old_template_loc = Sass::Plugin.options[:template_location]
+    Sass::Plugin.options[:template_location] = old_template_loc.dup
     begin
       Sass::Plugin.options[:template_location][template_loc(folder)] = tempfile_loc(folder)
       Compass::Frameworks::ALL.each do |framework|
