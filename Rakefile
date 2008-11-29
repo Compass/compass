@@ -4,12 +4,12 @@ require 'lib/compass'
 
 # ----- Default: Testing ------
 
-task :default => :tests
+task :default => :run_tests
 
 require 'rake/testtask'
 require 'fileutils'
 
-Rake::TestTask.new :test do |t|
+Rake::TestTask.new :run_tests do |t|
   t.libs << 'lib'
   test_files = FileList['test/**/*_test.rb']
   test_files.exclude('test/rails/*', 'test/haml/*')

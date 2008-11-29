@@ -1,3 +1,6 @@
+require 'sass'
+require File.join(File.dirname(__FILE__), 'sass_extensions')
+
 ['core_ext', 'version'].each do |file|
   require File.join(File.dirname(__FILE__), 'compass', file)
 end
