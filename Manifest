@@ -93,6 +93,7 @@ frameworks/yui/COPYRIGHT
 frameworks/yui/stylesheets/yui/_screen.sass
 frameworks/yui/stylesheets/yui/modules/_base.sass
 frameworks/yui/stylesheets/yui/modules/_fonts.sass
+frameworks/yui/stylesheets/yui/modules/_grids.sass
 frameworks/yui/templates/project/screen.sass
 lib/compass/commands/base.rb
 lib/compass/commands/create_project.rb
@@ -120,6 +121,7 @@ lib/compass/validate.rb
 lib/compass/validator.rb
 lib/compass/version.rb
 lib/compass.rb
+lib/sass_extensions.rb
 Manifest
 Rakefile
 README.markdown
@@ -127,5 +129,7 @@ test/compass_test.rb
 test/fixtures/default/templates/ie.sass
 test/fixtures/default/templates/print.sass
 test/fixtures/default/templates/screen.sass
+test/fixtures/yui/templates/grids.sass
+test/sass_extensions_test.rb
 test/test_helper.rb
 VERSION
