@@ -35,10 +35,10 @@
   body
     :text-align center
 
-=em-size(!style, !px_size, !base_font_size = !default_base_font_size)
+=em-size(!style, !px_size, !base_font_size = !yui_default_base_font_size)
   :#{!style}= 1em * !px_size / !base_font_size
 
-=em-size-hacked(!style, !px_size, !base_font_size = !default_base_font_size)
+=em-size-hacked(!style, !px_size, !base_font_size = !yui_default_base_font_size)
   +em-size(!style, !px_size, !base_font_size)
   +em-size("*"+!style, !px_size * 39 / 40, !base_font_size)
 
@@ -61,7 +61,7 @@
 
 // Creates a fixed width document container
 // Pass "fluid" for the width to create a document that grows with the width of the browser.
-=yui-document(!width, !min_width = 750px, !base_font_size = !default_base_font_size)
+=yui-document(!width, !min_width = 750px, !base_font_size = !yui_default_base_font_size)
   +yui-document-base(!min_width)
   @if !width == "fluid"
     :margin auto 10px
@@ -69,7 +69,7 @@
   @else
     +em-size-hacked("width", !width, !base_font_size)
 
-=yui-two-column-left-template(!column_width, !main_selector = "#yui-main", !block_selector = ".yui-b", !document_width = 750px, !min_width = 750px, !base_font_size = !default_base_font_size)
+=yui-two-column-left-template(!column_width, !main_selector = "#yui-main", !block_selector = ".yui-b", !document_width = 750px, !min_width = 750px, !base_font_size = !yui_default_base_font_size)
   +yui-document(!document_width, !min_width, !base_font_size)
   #{!main_selector}
     :width 100%
@@ -83,7 +83,7 @@
     :float left
     +em-size-hacked("width", !column_width, !base_font_size)
 
-=yui-two-column-right-template(!column_width, !main_selector = "#yui-main", !block_selector = ".yui-b", !document_width = 750px, !min_width = 750px, !base_font_size = !default_base_font_size)
+=yui-two-column-right-template(!column_width, !main_selector = "#yui-main", !block_selector = ".yui-b", !document_width = 750px, !min_width = 750px, !base_font_size = !yui_default_base_font_size)
   +yui-document(!document_width, !min_width, !base_font_size)
   #{!main_selector}
     :width 100%
@@ -97,7 +97,7 @@
     :float right
     +em-size-hacked("width", !column_width, !base_font_size)
 
-=yui-one-column-template(!main_selector = "#yui-main", !block_selector = ".yui-b", !document_width = 750px, !min_width = 750px, !base_font_size = !default_base_font_size)
+=yui-one-column-template(!main_selector = "#yui-main", !block_selector = ".yui-b", !document_width = 750px, !min_width = 750px, !base_font_size = !yui_default_base_font_size)
   +yui-document(!document_width, !min_width, !base_font_size)
   #{!main_selector}
     :width 100%
