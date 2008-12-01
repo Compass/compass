@@ -42,7 +42,9 @@ examples/compass/stylesheets/compass.sass
 examples/compass/stylesheets/images/blue_arrow.gif
 examples/compass/stylesheets/utilities.sass
 examples/compass/utilities.haml
+examples/yui_default/index.html.haml
 examples/yui_default/stylesheets/screen.sass
+examples/yui_default/templates.html.haml
 examples/yui_default/test.jpg
 examples/yui_default/typography.html.haml
 frameworks/blueprint/lib/blueprint/constants.rb
