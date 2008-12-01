@@ -58,7 +58,7 @@ task :examples do
       engine = Haml::Engine.new(open(haml_file).read, :filename => haml_file)
       target_dir = "built_examples/#{basename.sub(%r{/[^/]*$},'')}"
       FileUtils.mkdir_p(target_dir)
-      output = open("built_examples/#{basename}.html",'w')
+      output = open("built_examples/#{basename}",'w')
       output.write(engine.render)
       output.close
     end
