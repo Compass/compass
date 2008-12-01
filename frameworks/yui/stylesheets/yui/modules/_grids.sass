@@ -31,9 +31,21 @@
   .yui-t6
     +yui-two-column-right-template(300px)
 
-=yui-grids-init(!footer_id = "ft", !content_id = "bd")
+=yui-grids-footer
+  clear: both
+
+=yui-grids-body
+  +clearfix
+
+=yui-grids-init(!footer = "#ft", !body = "#bd")
   body
     :text-align center
+  @if !footer
+    #{!footer}
+      +yui-grids-footer
+  @if !body
+    #{!body}
+      +yui-grids-body
 
 =em-size(!style, !px_size, !base_font_size = !yui_default_base_font_size)
   :#{!style}= 1em * !px_size / !base_font_size
