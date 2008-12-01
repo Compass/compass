@@ -116,27 +116,23 @@
   #{!block_selector}
     +yui-block-base
 
-=yui-one-third-grid
-  float: left
-  margin-left: 2%
-  width: 32%
-
 =yui-grid-divisions(!unit = ".yui-u", !g_50_50 = ".yui-g", !g_33_33_33 = ".yui-gb", !g_67_33 = ".yui-gc", !g_33_67 = ".yui-gd", !g_75_25 = ".yui-ge", !g_25_75 = ".yui-gf")
   #{nest(!g_50_50, !g_33_33_33, !unit)},
   #{nest(!g_67_33, !unit)},
   #{nest(!g_67_33, !g_50_50)},
-  #{nest(!g_33_67, !unit)}
-    +yui-one-third-grid
+  #{nest(!g_33_67, !unit)},
+  #{nest(!g_33_33_33, !g_50_50)},
+  #{nest(!g_33_33_33, !g_33_33_33)},
+  #{nest(!g_33_33_33, !g_67_33)},
+  #{nest(!g_33_33_33, !g_33_67)},
+  #{nest(!g_33_33_33, !g_75_25)},
+  #{nest(!g_33_33_33, !g_25_75)},
+  #{nest(!g_33_33_33, !unit)}
+    float: left
+    margin-left: 2%
+    width: 32%
 
   #{!g_33_33_33}
-    #{!g_50_50},
-    #{!g_33_33_33},
-    #{!g_67_33},
-    #{!g_33_67},
-    #{!g_75_25},
-    #{!g_25_75},
-    #{!unit}
-      +yui-one-third-grid
     #{!g_33_33_33},
     #{!g_67_33}
       #{!unit}
