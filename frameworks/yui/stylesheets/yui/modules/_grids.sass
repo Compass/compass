@@ -1,14 +1,15 @@
+// This is a port of YUI Grids version 2.6.0
+// Note: This is not really tested yet. Use at your own risk.
+
 @import compass/utilities/general/clearfix.sass
 @import fonts.sass
 
-// Note: This is not really tested yet. Use at your own risk.
-
 =yui-grids
   +yui-grids-init
-  #ft
-    :clear both
-  #bd
-    +clearfix
+  +yui-grid-templates
+  +yui-grid-divisions
+
+=yui-grid-templates
   #doc
     +yui-document(750px)
   #doc2
@@ -29,7 +30,6 @@
     +yui-two-column-right-template(240px)
   .yui-t6
     +yui-two-column-right-template(300px)
-  +yui-grid-divisions
 
 =yui-grids-init(!footer_id = "ft", !content_id = "bd")
   body
