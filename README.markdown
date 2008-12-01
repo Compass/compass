@@ -1,11 +1,11 @@
 # Compass
 A [Sass](http://haml.hamptoncatlin.com/docs/rdoc/classes/Sass.html)-based CSS Meta-Framework that allows you to mix and match any of the following CSS frameworks:
-- [Compass Core](http://github.com/chriseppstein/compass/tree/master/frameworks/compass)
-- [Blueprint](http://blueprintcss.org/)
-- [YUI](http://developer.yahoo.com/yui/grids/) - Planned
+- [Compass Core](http://github.com/chriseppstein/compass/tree/master/frameworks/compass) - [Wiki Documentation](http://github.com/chriseppstein/compass/wikis/compass-core-documentation)
+- [Blueprint](http://blueprintcss.org/) - [Wiki Documentation](http://github.com/chriseppstein/compass/wikis/blueprint-documentation)
+- [YUI](http://developer.yahoo.com/yui/grids/) - [Wiki Documentation](http://github.com/chriseppstein/compass/wikis/yui-documentation)
 - [YAML](http://www.yaml.de/en/) - Planned
 - [960](http://960.gs/) - Planned
-- Other frameworks can be added easily.
+- Other frameworks can be added relatively easily.
 
 ## Compass Provides
 1. A command line tool for maintaining your Sass projects.
