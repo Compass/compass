@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2008-12-01}
+  s.date = %q{2008-12-02}
   s.default_executable = %q{compass}
   s.description = %q{Sass-Based CSS Meta-Framework. Semantic, Maintainable CSS.}
   s.email = %q{chris@eppsteins.net}

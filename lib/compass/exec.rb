@@ -130,7 +130,7 @@ END
 
         opts.on('--imports', :NONE, 'Emit an import path suitable for use with the Sass command-line tool.') do
           #XXX cross platform support?
-          print ::Compass::Frameworks::ALL.map{|f| f.stylesheets_directory}.join(File::PATH_SEPARATOR)
+          print ::Compass::Frameworks::ALL.map{|f| "-I #{f.stylesheets_directory}"}.join(' ')
           exit
         end
 
