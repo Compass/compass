@@ -4,35 +4,40 @@ require 'compass'
 
 class CompassTest < Test::Unit::TestCase
   def setup
-    mkdir_clean absolutize("tmp")
-    mkdir_clean absolutize("tmp/blueprint")
-    mkdir_clean tempfile_loc("default")
-    mkdir_clean tempfile_loc("yui")
+    setup_fixtures :default, :yui, :empty
     @original_options = Sass::Plugin.options
   end
   
+  def setup_fixtures(*folders)
+    folders.each do |folder|
+      FileUtils.mkdir_p stylesheet_fixtures(folder)
+      mkdir_clean tempfile_loc(folder)
+    end
+  end
+
   def teardown
-    FileUtils.rm_rf absolutize("tmp")
-    FileUtils.rm_rf absolutize("tmp/blueprint")
-    FileUtils.rm_rf tempfile_loc("default")
-    FileUtils.rm_rf tempfile_loc("yui")
+    teardown_fixtures :default, :yui, :empty
     Sass::Plugin.options = @original_options
   end
 
-  def test_blueprint_generates_no_files
-    Sass::Plugin.options[:template_location][template_loc('default')] = tempfile_loc('default')
-    Sass::Plugin.update_stylesheets
-
-    Dir.new(absolutize("tmp/blueprint")).each do |f|
-      fail "This file is not expected: #{f}" unless f == "." || f == ".."
+  def teardown_fixtures(*folders)
+    folders.each do |folder|
+      FileUtils.rm_rf tempfile_loc(folder)
     end
-    
+  end
+
+  def test_blueprint_generates_no_files
+    with_templates(:empty) do
+      Dir.new(tempfile_loc(:empty)).each do |f|
+        fail "This file should not have been generated: #{f}" unless f == "." || f == ".."
+      end
+    end
   end
 
   def test_default
-    with_templates('default') do
-      each_css_file(tempfile_loc('default')) do |css_file|
-        assert_no_errors css_file, 'default'
+    with_templates(:default) do
+      each_css_file(tempfile_loc(:default)) do |css_file|
+        assert_no_errors css_file, :default
       end
     end
   end
@@ -41,6 +46,7 @@ class CompassTest < Test::Unit::TestCase
       each_css_file(tempfile_loc('yui')) do |css_file|
         assert_no_errors css_file, 'yui'
       end
+      assert_renders_correctly :mixins
     end
   end
   private
@@ -49,10 +55,25 @@ class CompassTest < Test::Unit::TestCase
     msg = "Syntax Error found in #{file}. Results saved into #{save_loc(folder)}/#{file}"
     assert_equal 0, open(css_file).readlines.grep(/Sass::SyntaxError/).size, msg
   end
-
+  def assert_renders_correctly(*arguments)
+    options = arguments.last.is_a?(Hash) ? arguments.pop : {}
+    name = arguments.shift
+    actual_result_file = "#{tempfile_loc(@current_template_folder)}/#{name}.css"
+    expected_result_file = "#{result_loc(@current_template_folder)}/#{name}.css"
+    actual_lines = File.read(actual_result_file).split("\n")
+    expected_lines = File.read(expected_result_file).split("\n")
+    expected_lines.zip(actual_lines).each_with_index do |pair, line|
+      message = "template: #{name}\nline:     #{line + 1}"
+      assert_equal(pair.first, pair.last, message)
+    end
+    if expected_lines.size < actual_lines.size
+      assert(false, "#{actual_lines.size - expected_lines.size} Trailing lines found in #{actual_result_file}.css: #{actual_lines[expected_lines.size..-1].join('\n')}")
+    end
+  end
   def with_templates(folder)
     old_template_loc = Sass::Plugin.options[:template_location]
     Sass::Plugin.options[:template_location] = old_template_loc.dup
+    @current_template_folder = folder
     begin
       Sass::Plugin.options[:template_location][template_loc(folder)] = tempfile_loc(folder)
       Compass::Frameworks::ALL.each do |framework|
@@ -61,6 +82,7 @@ class CompassTest < Test::Unit::TestCase
       Sass::Plugin.update_stylesheets
       yield
     ensure
+      @current_template_folder = nil
       Sass::Plugin.options[:template_location] = old_template_loc
     end
   rescue
@@ -88,20 +110,24 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
+  def stylesheet_fixtures(folder)
+    absolutize("fixtures/stylesheets/#{folder}")
+  end
+
   def tempfile_loc(folder)
-    absolutize("fixtures/#{folder}/tmp")
+    "#{stylesheet_fixtures(folder)}/tmp"
   end
   
   def template_loc(folder)
-    absolutize("fixtures/#{folder}/templates")
+    "#{stylesheet_fixtures(folder)}/sass"
   end
   
   def result_loc(folder)
-    absolutize("fixtures/#{folder}/results")
+    "#{stylesheet_fixtures(folder)}/css"
   end
   
   def save_loc(folder)
-    absolutize("fixtures/#{folder}/saved")
+    "#{stylesheet_fixtures(folder)}/saved"
   end
 
   def absolutize(path)

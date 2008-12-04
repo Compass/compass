@@ -2,6 +2,7 @@
 tmp/*
 built_examples/*
 test/tmp
-test/fixtures/*/saved
-test/fixtures/*/tmp
+test/fixtures/stylesheets/*/tmp
+test/fixtures/stylesheets/*/saved
+test/fixtures/stylesheets/empty
 pkg/*
