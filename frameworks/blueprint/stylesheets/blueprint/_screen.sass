@@ -6,9 +6,9 @@
 @import modules/interaction.sass
 @import modules/debug.sass
 
-=blueprint
+=blueprint(!body_selector = "body")
   +blueprint-grid
-  +blueprint-typography
+  +blueprint-typography(!body_selector)
   +blueprint-utilities
   +blueprint-debug
   +blueprint-interaction

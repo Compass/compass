@@ -12,18 +12,18 @@
   :margin-bottom 1.5em
   :background #E5ECF9
 
-=blueprint-scaffolding
-  html &
+=blueprint-scaffolding(!body_selector = "body")
+  #{!body_selector}
     +body-margins
-    .box
-      +box
-    // Border on right hand side of a column. You can comment this out if you don't plan to use it.
-    div.border
-      +border
-    // Border with more whitespace, spans one column.
-    div.colborder
-      +colborder
-    hr
-      +colruler
-    hr.space
-      +colspacer
+  .box
+    +box
+  // Border on right hand side of a column. You can comment this out if you don't plan to use it.
+  div.border
+    +border
+  // Border with more whitespace, spans one column.
+  div.colborder
+    +colborder
+  hr
+    +colruler
+  hr.space
+    +colspacer

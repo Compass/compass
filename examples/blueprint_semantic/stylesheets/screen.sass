@@ -6,17 +6,19 @@
 .container
   +container
 
++blueprint-typography("body.blueprint")
+
 body.blueprint
-  +blueprint-typography
-  html &
-    +body-margins
-  hr
-    +colruler
-  hr.space
-    +colspacer
-  img#w3c
-    :margin-top 0
-    :padding-top 0
+  +body-margins
+
+hr
+  +colruler
+hr.space
+  +colspacer
+
+img#w3c
+  :margin-top 0
+  :padding-top 0
 
 body#index
   #page-header

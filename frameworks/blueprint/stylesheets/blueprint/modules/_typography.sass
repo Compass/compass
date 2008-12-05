@@ -22,9 +22,10 @@
 =loud
   :color= !loud_color
 
-=blueprint-typography
-  +normal-text
-  :font-size 75%
+=blueprint-typography(!body_selector = "body")
+  #{!body_selector}
+    +normal-text
+    :font-size 75%
   h1
     +header-text
     :font-size 3em
