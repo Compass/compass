@@ -30,32 +30,32 @@
   // A container should group all your columns
   .container
     +container
-    // Use these classes (or mixins) to set the width of a column.
-    @for !n from 1 to !blueprint_grid_columns + 1
-      .span-#{!n}
-        +span(!n)
-      div
-        &.span-#{!n}
-          +column(!n, !n == !blueprint_grid_columns)
-    // The last column in a row needs this class (or mixin) or it will end up on the next row.
-    div.last
-      +last
-    // Add these to a column to append empty cols.
-    @for !n from 1 to !blueprint_grid_columns
-      .append-#{!n}
-        +append(!n)
-    // Add these to a column to prepend empty cols.
-    @for !n from 1 to !blueprint_grid_columns
-      .prepend-#{!n}
-        +prepend(!n)
-    // Use these classes on an element to push it into the
-    // next column, or to pull it into the previous column.
-    @for !n from 1 to !blueprint_grid_columns + 1
-      .pull-#{!n}
-        +pull(!n)
-    @for !n from 1 to !blueprint_grid_columns + 1
-      .push-#{!n}
-        +push(!n)
+  // Use these classes (or mixins) to set the width of a column.
+  @for !n from 1 to !blueprint_grid_columns + 1
+    .span-#{!n}
+      +span(!n)
+    div
+      &.span-#{!n}
+        +column(!n, !n == !blueprint_grid_columns)
+  // The last column in a row needs this class (or mixin) or it will end up on the next row.
+  div.last
+    +last
+  // Add these to a column to append empty cols.
+  @for !n from 1 to !blueprint_grid_columns
+    .append-#{!n}
+      +append(!n)
+  // Add these to a column to prepend empty cols.
+  @for !n from 1 to !blueprint_grid_columns
+    .prepend-#{!n}
+      +prepend(!n)
+  // Use these classes on an element to push it into the
+  // next column, or to pull it into the previous column.
+  @for !n from 1 to !blueprint_grid_columns + 1
+    .pull-#{!n}
+      +pull(!n)
+  @for !n from 1 to !blueprint_grid_columns + 1
+    .push-#{!n}
+      +push(!n)
 
 
 // Columns
