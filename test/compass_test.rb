@@ -4,7 +4,7 @@ require 'compass'
 
 class CompassTest < Test::Unit::TestCase
   def setup
-    setup_fixtures :default, :yui, :empty
+    setup_fixtures :blueprint, :yui, :empty
     @original_options = Sass::Plugin.options
   end
   
@@ -16,7 +16,7 @@ class CompassTest < Test::Unit::TestCase
   end
 
   def teardown
-    teardown_fixtures :default, :yui, :empty
+    teardown_fixtures :blueprint, :yui, :empty
     Sass::Plugin.options = @original_options
   end
 
@@ -34,11 +34,12 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
-  def test_default
-    with_templates(:default) do
-      each_css_file(tempfile_loc(:default)) do |css_file|
-        assert_no_errors css_file, :default
+  def test_blueprint
+    with_templates(:blueprint) do
+      each_css_file(tempfile_loc(:blueprint)) do |css_file|
+        assert_no_errors css_file, :blueprint
       end
+      assert_renders_correctly :typography
     end
   end
   def test_yui
