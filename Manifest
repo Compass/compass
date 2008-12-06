@@ -73,6 +73,7 @@ frameworks/compass/stylesheets/compass/_utilities.sass
 frameworks/compass/stylesheets/compass/utilities/_general.sass
 frameworks/compass/stylesheets/compass/utilities/_links.sass
 frameworks/compass/stylesheets/compass/utilities/_lists.sass
+frameworks/compass/stylesheets/compass/utilities/_print.sass
 frameworks/compass/stylesheets/compass/utilities/_tables.sass
 frameworks/compass/stylesheets/compass/utilities/_text.sass
 frameworks/compass/stylesheets/compass/utilities/general/_clearfix.sass
@@ -130,9 +131,11 @@ Manifest
 Rakefile
 README.markdown
 test/compass_test.rb
-test/fixtures/stylesheets/default/sass/ie.sass
-test/fixtures/stylesheets/default/sass/print.sass
-test/fixtures/stylesheets/default/sass/screen.sass
+test/fixtures/stylesheets/blueprint/css/typography.css
+test/fixtures/stylesheets/blueprint/sass/ie.sass
+test/fixtures/stylesheets/blueprint/sass/print.sass
+test/fixtures/stylesheets/blueprint/sass/screen.sass
+test/fixtures/stylesheets/blueprint/sass/typography.sass
 test/fixtures/stylesheets/yui/css/mixins.css
 test/fixtures/stylesheets/yui/sass/base.sass
 test/fixtures/stylesheets/yui/sass/fonts.sass
