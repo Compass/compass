@@ -30,8 +30,8 @@
   <span class="dquo">&#8220;</span>asdf&#8221;
   (That is, when the title starts with a quote mark). 
   (You may have to change this value depending on your font size).
-=dquo
-  :margin-left -.5em
+=dquo(!offset = 0.5em)
+  :margin-left -!offset
 
 /*
   Reduced size type with incremental leading
@@ -40,20 +40,16 @@
   This could be used for side notes. For smaller type, you don't necessarily want to 
   follow the 1.5x vertical rhythm -- the line-height is too much. 
   
-  Using this class, it reduces your font size and line-height so that for 
+  Using this mixin, reduces your font size and line-height so that for 
   every four lines of normal sized type, there is five lines of the sidenote. eg:
   
-  New type size in em's:
-    10px (wanted side note size) / 12px (existing base size) = 0.8333 (new type size in ems)
-  
-  New line-height value:
-    12px x 1.5 = 18px (old line-height)
-    18px x 4 = 72px 
-    72px / 5 = 14.4px (new line height)
-    14.4px / 10px = 1.44 (new line height in em's)
-=incr
-  :font-size 10px
-  :line-height 1.44em
+  Arguments:
+    font_size - The desired font size in pixels. This will be converted to ems for you. Defaults to 10px.
+    base_font_size - The base font size in pixels. Defaults to 12px
+    old_line_height - The old line height. Defaults to 1.5 times the base_font_size
+=incr(!font_size = 10px, !base_font_size = 12px, !old_line_height = !base_font_size * 1.5)
+  :font-size= 1em * !font_size / !base_font_size
+  :line-height= 1em * !old_line_height / !font_size * 4 / 5
   :margin-bottom 1.5em
 
 /*
