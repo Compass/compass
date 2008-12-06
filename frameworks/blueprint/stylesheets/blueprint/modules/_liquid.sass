@@ -33,28 +33,56 @@
 
 @import compass/utilities/general/clearfix.sass
 
-// Main layout grid, edit these parameters to build your grid and container sizes.
+// Main layout grid, override these constants to build your grid and container sizes.
 // The width shown gives the right floored percentage values.
-!layout_liquid_columns = 24
-!layout_liquid_width = 4.173%
-!layout_liquid_margin = 0.833em
+!blueprint_liquid_grid_columns ||= 24
+!blueprint_liquid_grid_width   ||= 4.173%
+!blueprint_liquid_grid_margin  ||= 0.833em
 
 // Do not edit below this line unless you really know what you're doing.
-!layout_liquid_size = 80%
-!layout_liquid_min_size = 950px
-!layout_liquid_push_pull = -(!layout_liquid_margin * 4)
+!blueprint_liquid_container_width = 80%
+!blueprint_liquid_container_min_width = 950px
+!blueprint_liquid_grid_push_pull = -(!blueprint_liquid_grid_margin * 4)
 
-=block
-  :overflow hidden
+=blueprint-liquid-grid
+  // A container should group all your columns
+  .container
+    +container
+    // Use these classes (or mixins) to set the width of a column.
+    @for !n from 1 to !blueprint_liquid_grid_columns + 1
+      .span-#{!n}
+        +span(!n)
+      div
+        &.span-#{!n}
+          +column(!n, !n == !blueprint_liquid_grid_columns)
+    // The last column in a row needs this class (or mixin) or it will end up on the next row.
+    div.last
+      +last
+    // Add these to a column to append empty cols.
+    @for !n from 1 to !blueprint_liquid_grid_columns
+      .append-#{!n}
+        +append(!n)
+    // Add these to a column to prepend empty cols.
+    @for !n from 1 to !blueprint_liquid_grid_columns
+      .prepend-#{!n}
+        +prepend(!n)
+    // Use these classes on an element to push it into the
+    // next column, or to pull it into the previous column.
+    @for !n from 1 to !blueprint_liquid_grid_columns + 1
+      .pull-#{!n}
+        +pull(!n)
+    @for !n from 1 to !blueprint_liquid_grid_columns + 1
+      .push-#{!n}
+        +push(!n)
 
 =container
-  :min-width= !layout_liquid_min_size
-  :width = !layout_liquid_size
+  :min-width= !blueprint_liquid_container_min_width
+  :width = !blueprint_liquid_container_width
   :margin 0 auto
-  +block
+  +clearfix
 
 =span(!n)
-  :width= (!layout_liquid_width * !n) - ((!layout_liquid_width * !n) % 1)
+  :width= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
 
 =last
   :margin-right 0
@@ -66,23 +94,23 @@
   @if !last
     +last
   @else
-    :margin-right = !layout_liquid_margin
+    :margin-right = !blueprint_liquid_grid_margin
 
 =append(!n)
-  :padding-right= (!layout_liquid_width * !n) - ((!layout_liquid_width * !n) % 1)
+  :padding-right= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
   
 =prepend(!n)
-  :padding-left= (!layout_liquid_width * !n) - ((!layout_liquid_width * !n) % 1)
+  :padding-left= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
 
 =pull(!n, !last = false)
-  :margin-left= (!layout_liquid_push_pull * !n)
+  :margin-left= (!blueprint_liquid_grid_push_pull * !n)
 
 =push(!n)
   :float right
   :margin
     :top 0
     :left 1.5em
-    :right= (!layout_liquid_push_pull * !n)
+    :right= (!blueprint_liquid_grid_push_pull * !n)
     :bottom 0
 
 =border
@@ -107,34 +135,3 @@
   :background #fff
   :color #fff
 
-
-=blueprint-liquid-grid
-  // A container should group all your columns
-  .container
-    +container
-    // Use these classes (or mixins) to set the width of a column.
-    @for !n from 1 to !layout_liquid_columns + 1
-      .span-#{!n}
-        +span(!n)
-      div
-        &.span-#{!n}
-          +column(!n, !n == !layout_liquid_columns)
-    // The last column in a row needs this class (or mixin) or it will end up on the next row.
-    div.last
-      +last
-    // Add these to a column to append empty cols.
-    @for !n from 1 to !layout_liquid_columns
-      .append-#{!n}
-        +append(!n)
-    // Add these to a column to prepend empty cols.
-    @for !n from 1 to !layout_liquid_columns
-      .prepend-#{!n}
-        +prepend(!n)
-    // Use these classes on an element to push it into the
-    // next column, or to pull it into the previous column.
-    @for !n from 1 to !layout_liquid_columns + 1
-      .pull-#{!n}
-        +pull(!n)
-    @for !n from 1 to !layout_liquid_columns + 1
-      .push-#{!n}
-        +push(!n)

@@ -3,22 +3,20 @@
 @import blueprint/modules/scaffolding.sass
 @import compass/reset.sass
 
-.container
-  +container
-
 +blueprint-typography("body.blueprint")
 
 body.blueprint
-  +body-margins
+  +blueprint-scaffolding-body
+  .container
+    +container
+  hr
+    +colruler
+  hr.space
+    +colspacer
 
-hr
-  +colruler
-hr.space
-  +colspacer
-
-img#w3c
-  :margin-top 0
-  :padding-top 0
+  img#w3c
+    :margin-top 0
+    :padding-top 0
 
 body#index
   #page-header

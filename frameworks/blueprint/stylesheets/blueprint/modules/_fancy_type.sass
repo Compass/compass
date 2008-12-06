@@ -2,9 +2,18 @@
   To install the fancy type plugin:
     1. import the fancy_type module:
       @import blueprint/modules/fancy_type
-    2. mixin +fancy-type to your project's body:
+    2. mixin +fancy-type to your project's body or at the top level of your stylesheet:
       body
         +fancy-type
+
+=fancy-type
+  +fancy-paragraphs
+  .caps
+    +caps
+  .dquo
+    +dquo
+  .alt
+    +alt
 
 /* Indentation instead of line shifts for sibling paragraphs. Mixin to a style like p + p
 =sibling-indentation
@@ -70,12 +79,3 @@
   p.incr,
   .incr p
     +incr
-
-=fancy-type
-  +fancy-paragraphs
-  .caps
-    +caps
-  .dquo
-    +dquo
-  .alt
-    +alt

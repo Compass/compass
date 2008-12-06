@@ -1,8 +1,28 @@
 @import colors.sass
 @import compass/utilities/links/link_colors.sass
 
-!blueprint_font_family ||= "Helvetica Neue", Helvetica, Arial, sans-serif
+!blueprint_font_family       ||= "Helvetica Neue", Helvetica, Arial, sans-serif
 !blueprint_fixed_font_family ||= 'andale mono', 'lucida console', monospace
+
+// The +blueprint-typography mixin must be mixed into the top level of your stylesheet.
+// However, you can customize the body selector if you wish to control the scope
+// of this mixin. Examples:
+// Apply to any page including the stylesheet:
+//   +blueprint-typography
+// Scoped by a single presentational body class:
+//   +blueprint-typography("body.blueprint")
+// Semantically:
+//   +blueprint-typography("body#page-1, body#page-2, body.a-special-page-type")
+//   Alternatively, you can use the +blueprint-typography-body and +blueprint-typography-defaults
+//   mixins to construct your own semantic style rules.
+
+=blueprint-typography(!body_selector = "body")
+  #{!body_selector}
+    +blueprint-typography-body
+    @if !body_selector != "body"
+      +blueprint-typography-defaults
+  @if !body_selector == "body"
+    +blueprint-typography-defaults
 
 =normal-text
   :font-family= !blueprint_font_family
@@ -22,10 +42,11 @@
 =loud
   :color= !loud_color
 
-=blueprint-typography(!body_selector = "body")
-  #{!body_selector}
-    +normal-text
-    :font-size 75%
+=blueprint-typography-body
+  +normal-text
+  :font-size 75%
+
+=blueprint-typography-defaults
   h1
     +header-text
     :font-size 3em
