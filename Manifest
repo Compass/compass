@@ -51,6 +51,7 @@ examples/yui/test.jpg
 examples/yui/typography.html.haml
 frameworks/blueprint/lib/blueprint/constants.rb
 frameworks/blueprint/lib/blueprint/grid_builder.rb
+frameworks/blueprint/stylesheets/_blueprint.sass
 frameworks/blueprint/stylesheets/blueprint/_ie.sass
 frameworks/blueprint/stylesheets/blueprint/_print.sass
 frameworks/blueprint/stylesheets/blueprint/_screen.sass
@@ -68,6 +69,7 @@ frameworks/blueprint/templates/project/grid.png
 frameworks/blueprint/templates/project/ie.sass
 frameworks/blueprint/templates/project/print.sass
 frameworks/blueprint/templates/project/screen.sass
+frameworks/compass/stylesheets/_compass.sass
 frameworks/compass/stylesheets/compass/_reset.sass
 frameworks/compass/stylesheets/compass/_utilities.sass
 frameworks/compass/stylesheets/compass/utilities/_general.sass
@@ -95,7 +97,7 @@ frameworks/compass/templates/project/ie.sass
 frameworks/compass/templates/project/print.sass
 frameworks/compass/templates/project/screen.sass
 frameworks/yui/COPYRIGHT
-frameworks/yui/stylesheets/yui/_screen.sass
+frameworks/yui/stylesheets/_yui.sass
 frameworks/yui/stylesheets/yui/modules/_base.sass
 frameworks/yui/stylesheets/yui/modules/_fonts.sass
 frameworks/yui/stylesheets/yui/modules/_grids.sass
