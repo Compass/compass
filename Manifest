@@ -38,8 +38,10 @@ examples/blueprint_semantic/stylesheets/liquid.sass
 examples/blueprint_semantic/stylesheets/print.sass
 examples/blueprint_semantic/stylesheets/screen.sass
 examples/compass/compass.html
+examples/compass/sticky_footer.html.haml
 examples/compass/stylesheets/compass.sass
 examples/compass/stylesheets/images/blue_arrow.gif
+examples/compass/stylesheets/sticky_footer.sass
 examples/compass/stylesheets/utilities.sass
 examples/compass/utilities.html.haml
 examples/yui/divisions.html.haml
@@ -70,8 +72,10 @@ frameworks/blueprint/templates/project/ie.sass
 frameworks/blueprint/templates/project/print.sass
 frameworks/blueprint/templates/project/screen.sass
 frameworks/compass/stylesheets/_compass.sass
+frameworks/compass/stylesheets/compass/_layout.sass
 frameworks/compass/stylesheets/compass/_reset.sass
 frameworks/compass/stylesheets/compass/_utilities.sass
+frameworks/compass/stylesheets/compass/layout/_sticky_footer.sass
 frameworks/compass/stylesheets/compass/utilities/_general.sass
 frameworks/compass/stylesheets/compass/utilities/_links.sass
 frameworks/compass/stylesheets/compass/utilities/_lists.sass
