@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'sass'
 require File.join(File.dirname(__FILE__), 'sass_extensions')
 
