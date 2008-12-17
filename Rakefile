@@ -97,8 +97,16 @@ task :examples do
   end
 end
 
-task :git_clean do
-  sh "git", "clean", "-fdx"
+namespace :git do
+  desc "Perform normal operations required for pushing to github."
+  task :push => [:manifest, :gem]  do
+    sh "git", "add", "Manifest", "compass.gemspec"
+    sh "git", "commit", "-m", "Updated Manifest and gemspec."
+    sh "git", "push", "origin", "master"
+  end
+  task :clean do
+    sh "git", "clean", "-fdx"
+  end
 end
 
-task :manifest => :git_clean
+task :manifest => :"git:clean"
