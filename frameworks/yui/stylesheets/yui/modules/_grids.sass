@@ -157,7 +157,7 @@
   #{nest(!g_33_33_33, !unit)}
     float: right
 
-  #{nest(!g_33_33_33, div.first)}
+  #{nest(!g_33_33_33, "div.first")}
     margin-left: 0
     float: left
 
@@ -179,7 +179,7 @@
     *width: 66%
     _width: 61.2%
 
-  #{nest(!g_33_33_33, !g_33_67, div.first)}
+  #{nest(!g_33_33_33, !g_33_67, "div.first")}
     *width: 31%
     _width: 29.5%
 
@@ -192,7 +192,7 @@
         margin-right: 0
         _margin-left: 0
 
-  #{nest(!g_33_33_33, !g_67_33, div.first)}
+  #{nest(!g_33_33_33, !g_67_33, "div.first")}
     width: 66%
     *float: left
     *margin-left: 0
@@ -223,7 +223,7 @@
   #{nest(!g_50_50, !g_75_25)},
   #{!g_50_50},
   #{!g_67_33},
-  #{nest(!g_67_33, div.first)},
+  #{nest(!g_67_33, "div.first")},
   #{!g_33_67},
   #{!g_75_25},
   #{!g_25_75}
@@ -242,10 +242,10 @@
         *width: 48.1%
         *margin-left: 0
 
-  #{nest(!g_50_50, !g_50_50, div.first)}
+  #{nest(!g_50_50, !g_50_50, "div.first")}
     *margin: 0
 
-  #{nest(!g_33_33_33, !g_50_50, div.first)}
+  #{nest(!g_33_33_33, !g_50_50, "div.first")}
     *margin-right: 4%
     _margin-right: 1.3%
 
@@ -281,8 +281,8 @@
     div.first
       margin-left: 0
 
-  #{nest(!g_50_50, !g_67_33, div.first)},
-  #{nest(!g_67_33, div.first)},
+  #{nest(!g_50_50, !g_67_33, "div.first")},
+  #{nest(!g_67_33, "div.first")},
   #{nest(!g_33_67, !g_50_50)},
   #{nest(!g_33_67, !unit)}
     width: 66%
@@ -292,12 +292,12 @@
     div.first
       width: 32%
 
-  #{nest(!g_50_50, !g_33_67, div.first)}
+  #{nest(!g_50_50, !g_33_67, "div.first")}
     _width: 29.9%
 
   #{nest(!g_75_25, !unit)},
   #{nest(!g_75_25, !g_50_50)},
-  #{nest(!g_25_75, div.first)}
+  #{nest(!g_25_75, "div.first")}
     width: 24%
 
   #{!g_33_33_33}
@@ -312,19 +312,19 @@
       div.first
         float: left
 
-  #{nest(!g_75_25, div.first)},
+  #{nest(!g_75_25, "div.first")},
   #{nest(!g_25_75, !g_50_50)},
   #{nest(!g_25_75, !unit)}
     width: 74.2%
 
   #{!g_33_33_33}
     #{nest(!g_75_25, !unit)},
-    #{nest(!g_25_75, div.first)}
+    #{nest(!g_25_75, "div.first")}
       *width: 24%
       _width: 20%
 
   #{!g_33_33_33}
-    #{nest(!g_75_25, div.first)},
+    #{nest(!g_75_25, "div.first")},
     #{nest(!g_25_75, !unit)}
       *width: 73.5%
       _width: 65.5%

@@ -11,11 +11,11 @@
 // Make a list(ul/ol) have an image bullet
 // mixin should be used like this for an icon that is 5x7:
 // ul.pretty
-//   +pretty-bullets(/images/my-icon.png, 5px, 7px)
+//   +pretty-bullets("/images/my-icon.png", 5px, 7px)
 =pretty-bullets(!bullet_icon, !width, !height, !line_height = 18px, !padding = 14px)
   :margin-left 0
   li
     :padding-left= !padding
-    :background= url(!bullet_icon) no-repeat ((!padding - !width) / 2) ((!line_height - !height) / 2)
+    :background= url(!bullet_icon) "no-repeat" ((!padding - !width) / 2) ((!line_height - !height) / 2)
     :list-style-type none
 
