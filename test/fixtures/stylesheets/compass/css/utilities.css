@@ -1,0 +1,21 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.clearfix {
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  display: inline-block; }
+  .clearfix {
+    display: block; }

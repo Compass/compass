@@ -50,6 +50,14 @@ class CompassTest < Test::Unit::TestCase
       assert_renders_correctly :mixins
     end
   end
+  def test_compass
+    with_templates('compass') do
+      each_css_file(tempfile_loc('compass')) do |css_file|
+        assert_no_errors css_file, 'compass'
+      end
+      assert_renders_correctly :reset, :layout, :utilities
+    end
+  end
   private
   def assert_no_errors(css_file, folder)
     file = css_file[(tempfile_loc(folder).size+1)..-1]
@@ -58,17 +66,18 @@ class CompassTest < Test::Unit::TestCase
   end
   def assert_renders_correctly(*arguments)
     options = arguments.last.is_a?(Hash) ? arguments.pop : {}
-    name = arguments.shift
-    actual_result_file = "#{tempfile_loc(@current_template_folder)}/#{name}.css"
-    expected_result_file = "#{result_loc(@current_template_folder)}/#{name}.css"
-    actual_lines = File.read(actual_result_file).split("\n")
-    expected_lines = File.read(expected_result_file).split("\n")
-    expected_lines.zip(actual_lines).each_with_index do |pair, line|
-      message = "template: #{name}\nline:     #{line + 1}"
-      assert_equal(pair.first, pair.last, message)
-    end
-    if expected_lines.size < actual_lines.size
-      assert(false, "#{actual_lines.size - expected_lines.size} Trailing lines found in #{actual_result_file}.css: #{actual_lines[expected_lines.size..-1].join('\n')}")
+    for name in arguments
+      actual_result_file = "#{tempfile_loc(@current_template_folder)}/#{name}.css"
+      expected_result_file = "#{result_loc(@current_template_folder)}/#{name}.css"
+      actual_lines = File.read(actual_result_file).split("\n")
+      expected_lines = File.read(expected_result_file).split("\n")
+      expected_lines.zip(actual_lines).each_with_index do |pair, line|
+        message = "template: #{name}\nline:     #{line + 1}"
+        assert_equal(pair.first, pair.last, message)
+      end
+      if expected_lines.size < actual_lines.size
+        assert(false, "#{actual_lines.size - expected_lines.size} Trailing lines found in #{actual_result_file}.css: #{actual_lines[expected_lines.size..-1].join('\n')}")
+      end
     end
   end
   def with_templates(folder)
