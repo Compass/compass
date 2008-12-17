@@ -1,10 +1,12 @@
+# -*- encoding: utf-8 -*-
+
 Gem::Specification.new do |s|
   s.name = %q{compass}
   s.version = "0.3.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2008-12-08}
+  s.date = %q{2008-12-17}
   s.default_executable = %q{compass}
   s.description = %q{Sass-Based CSS Meta-Framework. Semantic, Maintainable CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -15,7 +17,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Compass", "--main", "README.markdown"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{compass}
-  s.rubygems_version = %q{1.2.0}
+  s.rubygems_version = %q{1.3.1}
   s.summary = %q{Sass-Based CSS Meta-Framework.}
   s.test_files = ["test/compass_test.rb", "test/sass_extensions_test.rb", "test/test_helper.rb"]
 
@@ -23,7 +25,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 2
 
-    if current_version >= 3 then
+    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<haml>, [">= 0"])
       s.add_development_dependency(%q<echoe>, [">= 0"])
     else

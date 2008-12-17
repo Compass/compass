@@ -142,6 +142,14 @@ test/fixtures/stylesheets/blueprint/sass/ie.sass
 test/fixtures/stylesheets/blueprint/sass/print.sass
 test/fixtures/stylesheets/blueprint/sass/screen.sass
 test/fixtures/stylesheets/blueprint/sass/typography.sass
+test/fixtures/stylesheets/compass/css/layout.css
+test/fixtures/stylesheets/compass/css/print.css
+test/fixtures/stylesheets/compass/css/reset.css
+test/fixtures/stylesheets/compass/css/utilities.css
+test/fixtures/stylesheets/compass/sass/layout.sass
+test/fixtures/stylesheets/compass/sass/print.sass
+test/fixtures/stylesheets/compass/sass/reset.sass
+test/fixtures/stylesheets/compass/sass/utilities.sass
 test/fixtures/stylesheets/yui/css/mixins.css
 test/fixtures/stylesheets/yui/sass/base.sass
 test/fixtures/stylesheets/yui/sass/fonts.sass
