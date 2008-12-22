@@ -96,6 +96,14 @@ END
           self.options[:command] = :watch_project
         end
 
+        opts.on('--source SRC_DIR', "The source directory (where you keep your sass stylesheets).") do |src_dir|
+          self.options[:src_dir] = src_dir
+        end
+
+        opts.on('--target CSS_DIR', "The target directory (where you keep your css stylesheets).") do |css_dir|
+          self.options[:css_dir] = css_dir
+        end
+
         opts.on('-f FRAMEWORK', '--framework FRAMEWORK', [:compass, :blueprint], 'Set up a new project using the selected framework. Legal values: compass (default), blueprint') do |framework|
           self.options[:framework] = framework
         end

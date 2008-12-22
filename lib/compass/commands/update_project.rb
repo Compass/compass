@@ -11,7 +11,7 @@ module Compass
       Base::ACTIONS << :compile
       Base::ACTIONS << :overwrite
 
-      attr_accessor :project_directory, :project_name, :options
+      attr_accessor :project_directory, :project_name, :options, :project_src_subdirectory, :project_css_subdirectory
 
       def initialize(working_directory, options = {})
         super(working_directory, options)
@@ -36,9 +36,9 @@ module Compass
       end
       
       def perform
-        Dir.glob(separate("#{project_directory}/src/**/[^_]*.sass")).each do |sass_file|
-          stylesheet_name = sass_file[("#{project_directory}/src/".length)..-6]
-          compile "src/#{stylesheet_name}.sass", "stylesheets/#{stylesheet_name}.css", options
+        Dir.glob(separate("#{project_src_directory}/**/[^_]*.sass")).each do |sass_file|
+          stylesheet_name = sass_file[("#{project_src_directory}/".length)..-6]
+          compile "#{project_src_subdirectory}/#{stylesheet_name}.sass", "#{project_css_subdirectory}/#{stylesheet_name}.css", options
         end
       end
 
@@ -81,9 +81,19 @@ module Compass
         @sass_load_paths ||= [project_src_directory] + Compass::Frameworks::ALL.map{|f| f.stylesheets_directory}
       end
       
+      # The subdirectory where the sass source is kept.
+      def project_src_subdirectory
+        @project_src_subdirectory ||= options[:src_dir] || "src"
+      end
+
+      # The subdirectory where the css output is kept.
+      def project_css_subdirectory
+        @project_css_subdirectory ||= options[:css_dir] || "stylesheets"
+      end
+
       # The directory where the project source files are located.
       def project_src_directory
-        @project_src_directory ||= separate("#{project_directory}/src")
+        @project_src_directory ||= separate("#{project_directory}/#{project_src_subdirectory}")
       end
 
     end

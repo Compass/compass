@@ -17,11 +17,13 @@ module Compass
       # all commands must implement perform
       def perform
         directory nil, options
-        directory 'stylesheets', options.merge(:force => true)
-        directory 'src', options.merge(:force => true)
-        template 'project/screen.sass', 'src/screen.sass', options
-        template 'project/print.sass',  'src/print.sass', options
-        template 'project/ie.sass',     'src/ie.sass', options
+        src_dir = options[:src_dir] || "src"
+        css_dir = options[:css_dir] || "stylesheets"
+        directory src_dir, options.merge(:force => true)
+        directory css_dir, options.merge(:force => true)
+        template 'project/screen.sass', "#{src_dir}/screen.sass", options
+        template 'project/print.sass',  "#{src_dir}/print.sass", options
+        template 'project/ie.sass',     "#{src_dir}/ie.sass", options
         UpdateProject.new(working_directory, options).perform
       end
 
