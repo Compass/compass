@@ -109,6 +109,7 @@ frameworks/yui/templates/project/screen.sass
 lib/compass/commands/base.rb
 lib/compass/commands/create_project.rb
 lib/compass/commands/install_rails.rb
+lib/compass/commands/list_frameworks.rb
 lib/compass/commands/print_version.rb
 lib/compass/commands/update_project.rb
 lib/compass/commands/watch_project.rb
