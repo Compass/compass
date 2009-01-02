@@ -3,16 +3,13 @@ module Compass
     ALL = []
     class Framework
       attr_accessor :name
-      attr_accessor :path
-      def initialize(name, path)
-        self.name = name
-        self.path = path
-      end
-      def template_directory
-        File.join(self.path, 'templates')
-      end
-      def stylesheets_directory
-        File.join(self.path, 'stylesheets')
+      attr_accessor :templates_directory, :stylesheets_directory
+      def initialize(name, *arguments)
+        options = arguments.last.is_a?(Hash) ? arguments.pop : {}
+        path = options[:path] || arguments.shift
+        @name = name
+        @templates_directory = options[:templates_directory] || File.join(path, 'templates')
+        @stylesheets_directory = options[:stylesheets_directory] || File.join(self.path, 'stylesheets')
       end
     end
     def register(name, path)
