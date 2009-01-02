@@ -108,6 +108,10 @@ END
           self.options[:framework] = framework
         end
 
+        opts.on('--list-frameworks', "List compass frameworks available to use.") do
+          self.options[:command] = :list_frameworks
+        end
+
         opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment: development, production (default)') do |env|
           self.options[:environment] = env
         end
