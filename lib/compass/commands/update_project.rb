@@ -79,7 +79,7 @@ module Compass
 
       # Read the configuration file for this project
       def read_project_configuration
-        config_file = projectize('config.rb')
+        config_file = projectize('src/config.rb')
         if File.exists?(config_file)
           contents = open(config_file) {|f| f.read}
           eval(contents, nil, config_file)
