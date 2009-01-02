@@ -36,6 +36,7 @@ module Compass
       end
       
       def perform
+        read_project_configuration
         Dir.glob(separate("#{project_src_directory}/**/[^_]*.sass")).each do |sass_file|
           stylesheet_name = sass_file[("#{project_src_directory}/".length)..-6]
           compile "#{project_src_subdirectory}/#{stylesheet_name}.sass", "#{project_css_subdirectory}/#{stylesheet_name}.css", options
@@ -75,7 +76,16 @@ module Compass
           :compact
         end
       end
-      
+
+      # Read the configuration file for this project
+      def read_project_configuration
+        config_file = projectize('config.rb')
+        if File.exists?(config_file)
+          contents = open(config_file) {|f| f.read}
+          eval(contents, nil, config_file)
+        end
+      end
+
       # where to load sass files from
       def sass_load_paths
         @sass_load_paths ||= [project_src_directory] + Compass::Frameworks::ALL.map{|f| f.stylesheets_directory}
