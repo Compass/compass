@@ -104,12 +104,12 @@ END
           self.options[:css_dir] = css_dir
         end
 
-        opts.on('-f FRAMEWORK', '--framework FRAMEWORK', [:compass, :blueprint], 'Set up a new project using the selected framework. Legal values: compass (default), blueprint') do |framework|
-          self.options[:framework] = framework
-        end
-
         opts.on('--list-frameworks', "List compass frameworks available to use.") do
           self.options[:command] = :list_frameworks
+        end
+
+        opts.on('-f FRAMEWORK', '--framework FRAMEWORK', 'Set up a new project using the selected framework. Legal values: compass (default), blueprint') do |framework|
+          self.options[:framework] = framework
         end
 
         opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment: development, production (default)') do |env|
