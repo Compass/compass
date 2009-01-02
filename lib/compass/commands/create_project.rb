@@ -21,9 +21,13 @@ module Compass
         css_dir = options[:css_dir] || "stylesheets"
         directory src_dir, options.merge(:force => true)
         directory css_dir, options.merge(:force => true)
-        template 'project/screen.sass', "#{src_dir}/screen.sass", options
-        template 'project/print.sass',  "#{src_dir}/print.sass", options
-        template 'project/ie.sass',     "#{src_dir}/ie.sass", options
+        project_dir = File.join(templates_directory, "project")
+        templates = Dir.chdir(project_dir) do
+          Dir.glob("*")
+        end
+        templates.each do |t|
+          template "project/#{t}", "#{src_dir}/#{t}", options
+        end
         UpdateProject.new(working_directory, options).perform
       end
 

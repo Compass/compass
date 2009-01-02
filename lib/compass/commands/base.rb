@@ -67,7 +67,7 @@ module Compass
 
       # returns the path to the templates directory and caches it
       def templates_directory
-        @templates_directory ||= File.expand_path(File.join(File.dirname(__FILE__), separate("../../../frameworks/#{options[:framework]}/templates")))
+        @templates_directory ||= Compass::Frameworks[options[:framework]].templates_directory
       end
 
       # Write paths like we're on unix and then fix it

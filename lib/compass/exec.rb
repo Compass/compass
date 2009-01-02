@@ -119,6 +119,10 @@ END
         opts.on('-s STYLE', '--output-style STYLE', [:nested, :expanded, :compact, :compressed], 'Select a CSS output mode (nested, expanded, compact, compressed)') do |style|
           self.options[:style] = style
         end
+
+        opts.on('-r LIBRARY', '--require LIBRARY', "Require LIBRARY before running commands. This is used to access compass plugins.") do |library|
+          require library
+        end
         
         opts.on('--rails', "Install compass into your Ruby on Rails project found in the current directory.") do
           self.options[:command] = :install_rails

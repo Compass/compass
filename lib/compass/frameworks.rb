@@ -9,13 +9,16 @@ module Compass
         path = options[:path] || arguments.shift
         @name = name
         @templates_directory = options[:templates_directory] || File.join(path, 'templates')
-        @stylesheets_directory = options[:stylesheets_directory] || File.join(self.path, 'stylesheets')
+        @stylesheets_directory = options[:stylesheets_directory] || File.join(path, 'stylesheets')
       end
     end
-    def register(name, path)
-      ALL << Framework.new(name, path)
+    def register(name, *arguments)
+      ALL << Framework.new(name, *arguments)
     end
-    module_function :register
+    def [](name)
+      ALL.detect{|f| f.name == name}
+    end
+    module_function :register, :[]
   end
 end
 
