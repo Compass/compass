@@ -31,7 +31,3 @@ require 'sass/plugin'
 
 
 require 'test/unit'
-
-Sass::Plugin.options[:template_location] = {
-  "#{File.dirname(__FILE__)}/../src" => "#{File.dirname(__FILE__)}/tmp/blueprint"
-}

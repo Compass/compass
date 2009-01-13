@@ -82,7 +82,11 @@ class CompassTest < Test::Unit::TestCase
   end
   def with_templates(folder)
     old_template_loc = Sass::Plugin.options[:template_location]
-    Sass::Plugin.options[:template_location] = old_template_loc.dup
+    Sass::Plugin.options[:template_location] = if old_template_loc.is_a?(Hash)
+      old_template_loc.dup
+    else
+      Hash.new
+    end
     @current_template_folder = folder
     begin
       Sass::Plugin.options[:template_location][template_loc(folder)] = tempfile_loc(folder)
