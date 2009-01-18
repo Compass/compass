@@ -16,7 +16,7 @@ module Compass
       ALL << Framework.new(name, *arguments)
     end
     def [](name)
-      ALL.detect{|f| f.name == name}
+      ALL.detect{|f| f.name.to_s == name.to_s}
     end
     module_function :register, :[]
   end
