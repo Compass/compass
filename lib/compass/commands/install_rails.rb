@@ -4,7 +4,8 @@ module Compass
   module Commands
     class InstallRails < Base
       def initialize(working_directory, options)
-        super(working_directory, options)
+        wd = options[:project_name] ? File.join(working_directory, options.delete(:project_name)) : working_directory
+        super(wd, options)
       end
       def perform
         set_install_location

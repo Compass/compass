@@ -69,13 +69,17 @@ module Compass
         self.opts = OptionParser.new(&method(:set_opts))
         self.opts.parse!(self.args)    
         if ARGV.size > 0
-          self.options[:project_name] = ARGV.shift
+          self.options[:project_name] = trim_trailing_separator(ARGV.shift)
         end
         self.options[:command] ||= self.options[:project_name] ? :create_project : :update_project
         self.options[:environment] ||= :production
         self.options[:framework] ||= :compass
       end
-      
+
+      def trim_trailing_separator(path)
+        path[-1..-1] == File::SEPARATOR ? path[0..-2] : path
+      end
+
       def set_opts(opts)
         opts.banner = <<END
 Usage: compass [options] [project]
