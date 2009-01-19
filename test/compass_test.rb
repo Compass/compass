@@ -3,6 +3,7 @@ require 'fileutils'
 require 'compass'
 
 class CompassTest < Test::Unit::TestCase
+  include Compass::TestCaseHelper
   def setup
     setup_fixtures :blueprint, :yui, :empty
     @original_options = Sass::Plugin.options
@@ -144,13 +145,4 @@ class CompassTest < Test::Unit::TestCase
     "#{stylesheet_fixtures(folder)}/saved"
   end
 
-  def absolutize(path)
-    if path.blank?
-      File.dirname(__FILE__)
-    elsif path[0] == ?/
-      "#{File.dirname(__FILE__)}#{path}"
-    else
-      "#{File.dirname(__FILE__)}/#{path}"
-    end
-  end
 end
