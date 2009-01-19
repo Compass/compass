@@ -43,16 +43,23 @@ class CommandLineTest < Test::Unit::TestCase
     end
   end
 
-  # def test_rails_install
-  #   within_tmp_directory do
-  #     generate_rails_app("compass_rails")
-  #     Dir.chdir "compass_rails" do
-  #       compass "--rails"
-  #     end
-  #   end
-  # rescue LoadError
-  #   puts "Skipping rails test. Couldn't Load rails"
-  # end
+  def test_rails_install
+    within_tmp_directory do
+      generate_rails_app("compass_rails")
+      Dir.chdir "compass_rails" do
+        compass "--rails" do |responder|
+          responder.respond_to "Is this OK? (Y/n) ", :with => "Y"
+          responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled? (Y/n) ", :with => "Y"
+        end
+        # puts @last_result
+        assert_action_performed :create, "app/stylesheets/screen.sass"
+        assert_action_performed :create, "config/initializers/compass.rb"
+        assert_action_performed :create, "app/views/layouts/application.html.haml"
+      end
+    end
+  rescue LoadError
+    puts "Skipping rails test. Couldn't Load rails"
+  end
 
   protected
   def compass(*arguments)
@@ -130,7 +137,7 @@ class CommandLineTest < Test::Unit::TestCase
     Compass::Exec::Compass.new(arguments).run!
   end
 
-  # def generate_rails_app(name)
-  #   `rails #{name}`
-  # end
+  def generate_rails_app(name)
+    `rails #{name}`
+  end
 end
