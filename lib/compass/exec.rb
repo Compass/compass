@@ -68,8 +68,8 @@ module Compass
       def parse!
         self.opts = OptionParser.new(&method(:set_opts))
         self.opts.parse!(self.args)    
-        if ARGV.size > 0
-          self.options[:project_name] = trim_trailing_separator(ARGV.shift)
+        if self.args.size > 0
+          self.options[:project_name] = trim_trailing_separator(self.args.shift)
         end
         self.options[:command] ||= self.options[:project_name] ? :create_project : :update_project
         self.options[:environment] ||= :production
