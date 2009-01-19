@@ -37,11 +37,11 @@ module Compass
       def initialize(args)
         self.args = args
         self.options = {}
+        parse!
       end
 
       def run!
         begin
-          parse!
           perform!
         rescue Exception => e
           raise e if e.is_a? SystemExit
@@ -50,9 +50,9 @@ module Compass
           else
             ::Compass::Exec.report_error(e, @options)
           end
-          exit 1
+          return 1
         end
-        exit 0
+        return 0
       end
       
       protected
@@ -165,7 +165,6 @@ END
       end
       
       def do_command(command)
-        require File.join(File.dirname(__FILE__), 'commands', command.to_s)
         command_class_name = command.to_s.split(/_/).map{|p| p.capitalize}.join('')
         command_class = eval("::Compass::Commands::#{command_class_name}")
         command_class.new(Dir.getwd, options).perform
@@ -173,4 +172,8 @@ END
 
     end
   end
+end
+
+Dir.glob(File.join(File.dirname(__FILE__), 'commands', "*.rb")).each do |file|
+  require file
 end

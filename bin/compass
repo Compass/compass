@@ -5,4 +5,4 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'compass
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'compass', 'exec'))
 
 command = Compass::Exec::Compass.new(ARGV)
-command.run!
+exit command.run!
