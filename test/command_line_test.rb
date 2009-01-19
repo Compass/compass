@@ -2,6 +2,7 @@ require  File.dirname(__FILE__)+'/test_helper'
 require 'fileutils'
 require 'compass'
 require 'compass/exec'
+require 'timeout'
 
 class CommandLineTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
@@ -55,8 +56,47 @@ class CommandLineTest < Test::Unit::TestCase
 
   protected
   def compass(*arguments)
-    @last_result = capture_output do
-      execute *arguments
+    if block_given?
+      responder = Responder.new
+      yield responder
+      IO.popen("-", "w+") do |io|
+        if io
+          #parent process
+          output = ""
+          while !io.eof?
+            timeout(1) do
+              output << io.readpartial(512)
+            end
+            prompt = output.split("\n").last
+            if response = responder.response_for(prompt)
+              io.puts response
+            end
+          end
+          @last_result = output
+        else
+          #child process
+          execute *arguments
+        end
+      end
+    else
+      @last_result = capture_output do
+        execute *arguments
+      end
+    end
+  rescue Timeout::Error
+    fail "Read from child process timed out"
+  end
+
+  class Responder
+    def initialize
+      @responses = []
+    end
+    def respond_to(prompt, options = {})
+      @responses << [prompt, options[:with]]
+    end
+    def response_for(prompt)
+      pair = @responses.detect{|r| r.first == prompt}
+      pair.last if pair
     end
   end
 
