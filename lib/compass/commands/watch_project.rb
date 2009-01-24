@@ -10,15 +10,22 @@ module Compass
     class WatchProject < UpdateProject
       attr_accessor :last_update_time
       def perform
+        puts ">>> Compiling all stylesheets."
         super
         self.last_update_time = most_recent_update_time
+        puts ">>> Compass is now watching for changes. Press Ctrl-C to Stop."
         loop do
           # TODO: Make this efficient by using filesystem monitoring.
-          sleep 1
+          begin
+            sleep 1
+          rescue Interrupt
+            puts ""
+            exit 0
+          end
           file, t = should_update?
           if t
             begin
-              puts ">>> Change detected to #{file} <<<"
+              puts ">>> Change detected to: #{file}"
               super
             rescue StandardError => e
               ::Compass::Exec.report_error(e, options)
