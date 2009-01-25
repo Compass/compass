@@ -7,6 +7,9 @@ module Compass
     class ExecError < StandardError
     end
 
+    class DirectoryExistsError < ExecError
+    end
+
 
     def report_error(e, options)
       $stderr.puts "#{e.class} on line #{get_line e} of #{get_file e}: #{e.message}"

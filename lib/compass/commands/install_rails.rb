@@ -2,40 +2,24 @@ require File.join(File.dirname(__FILE__), 'base')
 
 module Compass
   module Commands
-    class InstallRails < Base
-      def initialize(working_directory, options)
-        wd = options[:project_name] ? File.join(working_directory, options.delete(:project_name)) : working_directory
-        super(wd, options)
+    class InstallRails < CreateProject
+      def initialize(*args)
+        super        
       end
+
       def perform
         set_install_location
         set_output_location
         directory options[:stylesheets_location]
-        template 'project/screen.sass', "#{options[:stylesheets_location]}/screen.sass", options
-        template 'project/print.sass',  "#{options[:stylesheets_location]}/print.sass", options
-        template 'project/ie.sass',     "#{options[:stylesheets_location]}/ie.sass", options
-        write_file projectize('config/initializers/compass.rb'), initializer_contents
+        framework_templates.each do |t|
+          template "project/#{t}", "#{options[:stylesheets_location]}/#{t}", options
+        end
+        write_file 'config/initializers/compass.rb', initializer_contents
         if has_application_layout?
           next_steps
         else
-          write_file projectize('app/views/layouts/application.html.haml'), application_layout_contents
+          write_file 'app/views/layouts/application.html.haml', application_layout_contents
         end
-      end
-      
-      def initializer
-        init_file = 
-        if File.exists?(init_file) && !options[:force]
-          msg = "File #{basename(init_file)} already exists. Run with --force to force project creation."
-          raise ::Compass::Exec::ExecError.new(msg)
-        end
-        if File.exists?(init_file)
-          print_action :overwrite, basename(init_file)
-        else
-          print_action :create, basename(init_file)
-        end
-        output = open(init_file,'w')
-        output.write(initializer_contents)
-        output.close
       end
       
       def initializer_contents
@@ -97,10 +81,6 @@ NEXTSTEPS
         end
       end
 
-      def project_directory
-        working_directory
-      end
-      
       def set_install_location
         print "Compass recommends that you keep your stylesheets in app/stylesheets/ instead of the Sass default location of public/stylesheets/sass/.\nIs this OK? (Y/n) "
         answer = gets

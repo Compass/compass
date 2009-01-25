@@ -55,6 +55,7 @@ class CommandLineTest < Test::Unit::TestCase
         assert_action_performed :create, "app/stylesheets/screen.sass"
         assert_action_performed :create, "config/initializers/compass.rb"
         assert_action_performed :create, "app/views/layouts/application.html.haml"
+        assert_action_performed :create, "config/initializers/compass.rb"
       end
     end
   rescue LoadError

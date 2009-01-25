@@ -12,19 +12,23 @@ module Compass
       end
 
       protected
-      
-      def projectize(path)
-        File.join(project_directory, separate(path))
+
+      def relativize(path)
+        if path.index(working_directory+File::SEPARATOR) == 0
+          path[(working_directory+File::SEPARATOR).length..-1]
+        else
+          path
+        end
       end
+
       # create a directory and all the directories necessary to reach it.
-      def directory(subdir, options = nil)
+      def directory(dir, options = nil)
         options ||= self.options
-        dir = subdir ? projectize(subdir) : project_directory
         if File.exists?(dir) && File.directory?(dir) && options[:force]
             print_action :exists, basename(dir) + File::SEPARATOR
         elsif File.exists?(dir) && File.directory?(dir)
-          msg = "Directory #{basename(dir)} already exists. Run with --force to force project creation."
-          raise ::Compass::Exec::ExecError.new(msg)
+          msg = "Directory #{basename(dir)} already exists. Run with --force to force creation."
+          raise ::Compass::Exec::DirectoryExistsError.new(msg)
         elsif File.exists?(dir)
           msg = "#{basename(dir)} already exists and is not a directory."
           raise ::Compass::Exec::ExecError.new(msg)
@@ -34,9 +38,13 @@ module Compass
         end          
       end
 
+      def absolute_path?(path)
+        # This is only going to work on unix, gonna need a better implementation.
+        path.index(File::SEPARATOR) == 0
+      end
+
       # copy/process a template in the compass template directory to the project directory.
       def template(from, to, options)
-        to = projectize(to)
         from = File.join(templates_directory, separate(from))
         if File.exists?(to) && !options[:force]
           #TODO: Detect differences & provide an overwrite prompt
@@ -75,9 +83,9 @@ module Compass
         path.gsub(%r{/}, File::SEPARATOR)
       end
       
-      def basename(file, extra = 0)
-        if file.length > (working_directory.length + extra)
-          file[(working_directory.length + extra + 1)..-1]
+      def basename(file)
+        if file.length > working_directory.length
+          relativize(file)
         else
           File.basename(file)
         end
