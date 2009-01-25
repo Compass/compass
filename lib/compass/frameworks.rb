@@ -22,6 +22,8 @@ module Compass
   end
 end
 
-require File.join(File.dirname(__FILE__), 'frameworks', 'compass')
-require File.join(File.dirname(__FILE__), 'frameworks', 'blueprint')
-require File.join(File.dirname(__FILE__), 'frameworks', 'yui')
+# Import all of the default frameworks.
+default_frameworks_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'frameworks'))
+Dir.glob(File.join(default_frameworks_directory, "*.rb")).each do |framework|
+  require framework
+end
