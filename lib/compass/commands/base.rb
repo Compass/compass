@@ -75,7 +75,11 @@ module Compass
 
       # returns the path to the templates directory and caches it
       def templates_directory
-        @templates_directory ||= Compass::Frameworks[options[:framework]].templates_directory
+        @templates_directory ||= framework.templates_directory
+      end
+
+      def framework
+        Compass::Frameworks[options[:framework]]
       end
 
       # Write paths like we're on unix and then fix it
