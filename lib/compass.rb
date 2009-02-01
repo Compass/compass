@@ -25,7 +25,10 @@ module Compass
   def base_directory
     File.expand_path(File.join(File.dirname(__FILE__), '..'))
   end
-  module_function :base_directory
+  def lib_directory
+    File.expand_path(File.join(File.dirname(__FILE__)))
+  end
+  module_function :base_directory, :lib_directory
 end
 
 require File.join(File.dirname(__FILE__), 'compass', 'frameworks')

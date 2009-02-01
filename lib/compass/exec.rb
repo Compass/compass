@@ -1,6 +1,7 @@
 require 'optparse'
 require 'rubygems'
 require 'haml'
+require File.join(Compass.lib_directory, 'compass', 'logger')
 
 module Compass
   module Exec
