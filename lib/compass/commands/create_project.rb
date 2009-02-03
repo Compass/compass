@@ -9,19 +9,27 @@ module Compass
 
       include Compass::Installers
 
+      attr_accessor :installer
+
       def initialize(working_directory, options)
         super(working_directory, options)
+        installer_args = [project_template_directory, project_directory, self.options]
+        @installer = case options[:project_type]
+        when :stand_alone
+          StandAloneInstaller.new *installer_args
+        when :rails
+          RailsInstaller.new *installer_args
+        else
+          raise "Unknown project type: #{project_type}"
+        end
       end
       
       # all commands must implement perform
       def perform
+        installer.init
         installer.run(:skip_finalization => true)
         UpdateProject.new(working_directory, options).perform if installer.compilation_required?
         installer.finalize(:create => true)
-      end
-
-      def installer
-        @installer ||= StandAloneInstaller.new(project_template_directory, project_directory, options)
       end
 
       def project_template_directory

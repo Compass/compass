@@ -47,15 +47,13 @@ class CommandLineTest < Test::Unit::TestCase
     within_tmp_directory do
       generate_rails_app("compass_rails")
       Dir.chdir "compass_rails" do
-        compass "--rails" do |responder|
+        compass("--rails", ".") do |responder|
           responder.respond_to "Is this OK? (Y/n) ", :with => "Y"
-          responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled? (Y/n) ", :with => "Y"
+          responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled/? (Y/n) ", :with => "Y"
         end
         # puts @last_result
-        assert_action_performed :create, "app/stylesheets/screen.sass"
-        assert_action_performed :create, "config/initializers/compass.rb"
-        assert_action_performed :create, "app/views/layouts/application.html.haml"
-        assert_action_performed :create, "config/initializers/compass.rb"
+        assert_action_performed :create, "./app/stylesheets/screen.sass"
+        assert_action_performed :create, "./config/initializers/compass.rb"
       end
     end
   rescue LoadError

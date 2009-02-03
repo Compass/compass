@@ -12,10 +12,13 @@ module Compass
         super
       end
 
-      def prepare
+      def init
         directory ""
         directory css_dir
         directory sass_dir
+      end
+
+      def prepare
         directory images_dir if manifest.has_image?
         directory javascripts_dir if manifest.has_javascript?
       end

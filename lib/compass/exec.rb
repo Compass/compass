@@ -79,6 +79,7 @@ module Compass
         self.options[:command] ||= self.options[:project_name] ? :create_project : :update_project
         self.options[:environment] ||= :production
         self.options[:framework] ||= :compass
+        self.options[:project_type] ||= :stand_alone
       end
 
       def trim_trailing_separator(path)
@@ -133,8 +134,8 @@ END
           require library
         end
         
-        opts.on('--rails', "Install compass into your Ruby on Rails project found in the current directory.") do
-          self.options[:command] = :install_rails
+        opts.on('--rails', "Sets the project type to a rails project.") do
+          self.options[:project_type] = :rails
         end
 
         opts.on('-q', '--quiet', :NONE, 'Quiet mode.') do

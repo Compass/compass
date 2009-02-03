@@ -15,17 +15,21 @@ module Compass
         @options = options
         @manifest = Manifest.new(manifest_file)
         configure_option_with_default :logger
+        configure
       end
 
       def manifest_file
         @manifest_file ||= File.join(template_path, "manifest.rb")
       end
 
+      # Initializes the project to work with compass
+      def init
+      end
+
       # Runs the installer.
-      # Every installer must conform to the installation strategy of configure, prepare, install, and then finalize.
+      # Every installer must conform to the installation strategy of prepare, install, and then finalize.
       # A default implementation is provided for each step.
       def run(options = {})
-        configure
         prepare
         install
         finalize unless options[:skip_finalization]
@@ -36,9 +40,13 @@ module Compass
       # It can be overridden it or augmented for reading config files,
       # prompting the user for more information, etc.
       def configure
-        [:css_dir, :sass_dir, :images_dir, :javascripts_dir].each do |opt|
-          configure_option_with_default opt
+        unless @configured
+          [:css_dir, :sass_dir, :images_dir, :javascripts_dir].each do |opt|
+            configure_option_with_default opt
+          end
         end
+      ensure
+        @configured = true
       end
 
       # The default prepare method -- it is a no-op.
