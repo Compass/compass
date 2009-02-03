@@ -58,7 +58,7 @@ module Compass
       # The default install method. Calls install_<type> methods in the order specified by the manifest.
       def install
         manifest.each do |entry|
-          send("install_#{entry.type}", entry.from, entry.options)
+          send("install_#{entry.type}", entry.from, entry.to, entry.options)
         end
       end
 
@@ -68,23 +68,19 @@ module Compass
       end
 
 
-      def install_stylesheet(from, options)
-        to = options[:to] || from
+      def install_stylesheet(from, to, options)
         copy from, "#{sass_dir}/#{to}"
       end
 
-      def install_image(from, options)
-        to = options[:to] || from
+      def install_image(from, to, options)
         copy from, "#{images_dir}/#{to}"
       end
 
-      def install_script(from, options)
-        to = options[:to] || from
+      def install_script(from, to, options)
         copy from, "#{javascripts_dir}/#{to}"
       end
 
-      def install_file(from, options)
-        to = options[:to] || from
+      def install_file(from, to, options)
         copy from, to
       end
 

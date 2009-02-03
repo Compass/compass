@@ -4,7 +4,11 @@ module Compass
     class Manifest
 
       # A Manifest entry
-      Entry = Struct.new(:type, :from, :options)
+      class Entry < Struct.new(:type, :from, :options)
+        def to
+          options[:to] || from
+        end
+      end
 
       def initialize(manifest_file = nil)
         @entries = []
