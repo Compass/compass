@@ -1,5 +1,5 @@
-stylesheet 'screen.sass'
-stylesheet 'print.sass'
-stylesheet 'ie.sass'
+stylesheet 'screen.sass', :media => 'screen, projection'
+stylesheet 'print.sass',  :media => 'print'
+stylesheet 'ie.sass',     :media => 'screen, projection', :ie => true
 
 image 'grid.png'

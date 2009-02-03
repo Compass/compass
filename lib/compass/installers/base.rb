@@ -24,11 +24,11 @@ module Compass
       # Runs the installer.
       # Every installer must conform to the installation strategy of configure, prepare, install, and then finalize.
       # A default implementation is provided for each step.
-      def run
+      def run(options = {})
         configure
         prepare
         install
-        finalize
+        finalize unless options[:skip_finalization]
       end
 
       # The default configure method -- it sets up directories from the options
@@ -67,6 +67,9 @@ module Compass
       def finalize
       end
 
+      def compilation_required?
+        false
+      end
 
       def install_stylesheet(from, to, options)
         copy from, "#{sass_dir}/#{to}"
@@ -170,6 +173,20 @@ module Compass
         end
       end
 
+      def stylesheet_links
+        html = "<head>\n"
+        manifest.each_stylesheet do |stylesheet|
+          media = if stylesheet.options[:media]
+            %Q{ media="#{stylesheet.options[:media]}"}
+          end
+          ss_line = %Q{  <link href="/stylesheets/#{stylesheet.to.sub(/\.sass$/,'.css')}"#{media} rel="stylesheet" type="text/css" />}
+          if stylesheet.options[:ie]
+            ss_line = "  <!--[if IE]>\n    #{ss_line}\n  <![endif]-->"
+          end
+          html << ss_line + "\n"
+        end
+        html << "</head>"
+      end
     end
   end
 end

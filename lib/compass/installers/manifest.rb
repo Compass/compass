@@ -23,6 +23,9 @@ module Compass
           def has_#{t}?
             @entries.detect {|e| e.type == :#{t}}
           end
+          def each_#{t}
+            @entries.select {|e| e.type == :#{t}}.each {|e| yield e}
+          end
         END
       end
 

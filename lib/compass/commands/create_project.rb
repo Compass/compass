@@ -15,12 +15,13 @@ module Compass
       
       # all commands must implement perform
       def perform
-        installer.run
-        UpdateProject.new(working_directory, options).perform
+        installer.run(:skip_finalization => true)
+        UpdateProject.new(working_directory, options).perform if installer.compilation_required?
+        installer.finalize(:create => true)
       end
 
       def installer
-        StandAloneInstaller.new(project_template_directory, project_directory, options)
+        @installer ||= StandAloneInstaller.new(project_template_directory, project_directory, options)
       end
 
       def project_template_directory

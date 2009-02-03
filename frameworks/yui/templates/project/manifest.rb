@@ -1,1 +1,1 @@
-stylesheet 'screen.sass'
+stylesheet 'screen.sass', :media => "screen, projection"

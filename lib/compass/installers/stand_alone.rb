@@ -44,7 +44,30 @@ module Compass
       def old_config_file
         @old_config_file ||= targetize('src/config.rb')
       end
-    end
 
+      def finalize(options = {})
+        if options[:create]
+          puts <<-NEXTSTEPS
+
+Congratulations! Your compass project has been created.
+You must recompile your sass stylesheets when they change.
+This can be done in one of the following ways:
+  1. From within your project directory run:
+     compass
+  2. From any directory run:
+     compass -u path/to/project
+  3. To monitor your project for changes and automatically recompile:
+     compass --watch [path/to/project]
+
+NEXTSTEPS
+        end
+        puts "To import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"
+        puts stylesheet_links
+      end
+
+      def compilation_required?
+        true
+      end
+    end
   end
 end
