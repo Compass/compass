@@ -13,14 +13,14 @@ module Compass
       end
 
       def init
-        directory ""
-        directory css_dir
-        directory sass_dir
+        directory targetize("")
+        directory targetize(css_dir)
+        directory targetize(sass_dir)
       end
 
       def prepare
-        directory images_dir if manifest.has_image?
-        directory javascripts_dir if manifest.has_javascript?
+        directory targetize(images_dir) if manifest.has_image?
+        directory targetize(javascripts_dir) if manifest.has_javascript?
       end
 
       def default_css_dir

@@ -15,9 +15,9 @@ module Compass
       def init
         set_sass_dir unless sass_dir
         set_css_dir unless css_dir
-        directory css_dir
-        directory sass_dir
-        write_file 'config/initializers/compass.rb', initializer_contents
+        directory targetize(css_dir)
+        directory targetize(sass_dir)
+        write_file targetize('config/initializers/compass.rb'), initializer_contents
       end
 
       def prepare
