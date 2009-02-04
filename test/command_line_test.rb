@@ -6,6 +6,11 @@ require 'timeout'
 
 class CommandLineTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
+
+  def teardown
+    Compass.configuration.reset!
+  end
+
   def test_basic_install
     within_tmp_directory do
       compass "basic"

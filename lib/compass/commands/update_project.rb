@@ -56,12 +56,12 @@ module Compass
       
       # The subdirectory where the sass source is kept.
       def project_src_subdirectory
-        @project_src_subdirectory ||= options[:src_dir] || "src"
+        Compass.configuration.sass_dir ||= options[:src_dir] || "src"
       end
 
       # The subdirectory where the css output is kept.
       def project_css_subdirectory
-        @project_css_subdirectory ||= options[:css_dir] || "stylesheets"
+        Compass.configuration.css_dir ||= options[:css_dir] || "stylesheets"
       end
 
       # The directory where the project source files are located.

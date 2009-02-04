@@ -7,12 +7,12 @@ require File.join(File.dirname(__FILE__), 'base')
 module Compass
   module Commands
     class ProjectBase < Base
-      attr_accessor :project_directory, :project_name, :options, :project_src_subdirectory, :project_css_subdirectory
+      attr_accessor :project_directory, :project_name, :options
 
       def initialize(working_directory, options = {})
         super(working_directory, options)
         self.project_name = determine_project_name(working_directory, options)
-        self.project_directory = determine_project_directory(working_directory, options)
+        Compass.configuration.project_path = determine_project_directory(working_directory, options)
         assert_project_directory_exists!
       end
       
@@ -37,13 +37,23 @@ module Compass
       def projectize(path)
         File.join(project_directory, separate(path))
       end
-      
+
+      def project_directory
+        Compass.configuration.project_path
+      end
+
+      def project_css_subdirectory
+        Compass.configuration.css_dir
+      end
+      def project_src_subdirectory
+        Compass.configuration.sass_dir
+      end
       # Read the configuration file for this project
       def read_project_configuration
-        config_file = projectize('src/config.rb')
-        if File.exists?(config_file)
-          contents = open(config_file) {|f| f.read}
-          eval(contents, nil, config_file)
+        if File.exists?(projectize('config.rb'))
+          Compass.configuration.parse(projectize('config.rb'))
+        elsif File.exists?(projectize('src/config.rb'))
+          Compass.configuration.parse(projectize('src/config.rb'))
         end
       end
 

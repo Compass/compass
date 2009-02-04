@@ -13,6 +13,12 @@ module Compass
       end
     end
 
+    def reset!
+      [:project_path, :css_dir, :sass_dir, :images_dir, :javascripts_dir].each do |attr|
+        send("#{attr}=", nil)
+      end
+    end
+
     def instance_binding
       binding
     end
