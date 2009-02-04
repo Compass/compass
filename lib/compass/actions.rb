@@ -38,6 +38,7 @@ module Compass
       end          
     end
 
+    # Write a file given the file contents as a string
     def write_file(file_name, contents, options = nil)
       options ||= self.options if self.respond_to?(:options)
       if File.exists?(file_name) && !options[:force]
@@ -54,6 +55,26 @@ module Compass
       end
     end
 
+    # Compile one Sass file
+    def compile(sass_filename, css_filename, options)
+      target_directory = File.dirname(css_filename)
+      directory target_directory
+      logger.record :compile, basename(sass_filename)
+      if File.exists?(css_filename)
+        logger.record :overwrite, basename(css_filename)
+      else
+        logger.record :create, basename(css_filename)
+      end
+      engine = ::Sass::Engine.new(open(sass_filename).read,
+                                  :filename => sass_filename,
+                                  :line_comments => options[:environment] == :development,
+                                  :style => options[:style],
+                                  :css_filename => css_filename,
+                                  :load_paths => options[:load_paths])
+      css_content = engine.render
+      open(css_filename,'w') {|output| output.write(css_content)} unless options[:dry_run]
+    end
+
     def basename(file)
       relativize(file) {|f| File.basename(file)}
     end
@@ -66,6 +87,11 @@ module Compass
       else
         path
       end
+    end
+
+    # Write paths like we're on unix and then fix it
+    def separate(path)
+      path.gsub(%r{/}, File::SEPARATOR)
     end
 
   end

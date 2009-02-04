@@ -8,7 +8,9 @@ require File.join(File.dirname(__FILE__), 'update_project')
 module Compass
   module Commands
     class WatchProject < UpdateProject
+
       attr_accessor :last_update_time
+
       def perform
         puts ">>> Compiling all stylesheets."
         super
@@ -34,9 +36,11 @@ module Compass
           end
         end
       end
+
       def most_recent_update_time
         Dir.glob(separate("#{project_src_directory}/**/*.sass")).map {|sass_file| File.stat(sass_file).mtime}.max
       end
+
       def should_update?
         t = most_recent_update_time
         if t > last_update_time

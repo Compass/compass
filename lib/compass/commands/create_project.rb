@@ -11,8 +11,8 @@ module Compass
 
       attr_accessor :installer
 
-      def initialize(working_directory, options)
-        super(working_directory, options)
+      def initialize(working_path, options)
+        super(working_path, options)
         installer_args = [project_template_directory, project_directory, self.options]
         @installer = case options[:project_type]
         when :stand_alone
@@ -28,16 +28,12 @@ module Compass
       def perform
         installer.init
         installer.run(:skip_finalization => true)
-        UpdateProject.new(working_directory, options).perform if installer.compilation_required?
+        UpdateProject.new(working_path, options).perform if installer.compilation_required?
         installer.finalize(:create => true)
       end
 
       def project_template_directory
         File.join(framework.templates_directory, "project")
-      end
-
-      def skip_project_directory_assertion?
-        true
       end
 
     end

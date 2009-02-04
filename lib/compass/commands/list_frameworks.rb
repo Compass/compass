@@ -2,7 +2,7 @@ module Compass
   module Commands
     class ListFrameworks
       attr_accessor :options
-      def initialize(working_directory, options)
+      def initialize(working_path, options)
         self.options = options
       end
   

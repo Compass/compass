@@ -3,7 +3,7 @@ module Compass
 
     class Base
 
-      include Compass::Actions
+      include Actions
 
       attr_accessor :template_path, :target_path, :working_path
       attr_accessor :options
@@ -107,11 +107,6 @@ module Compass
       # Paths can use unix style "/" and will be corrected for the current platform.
       def templatize(path)
         File.join(template_path, separate(path))
-      end
-
-      # Write paths like we're on unix and then fix it
-      def separate(path)
-        path.gsub(%r{/}, File::SEPARATOR)
       end
 
       def stylesheet_links

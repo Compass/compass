@@ -1,7 +1,7 @@
 module Compass
   class Logger
 
-    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite]
+    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile]
 
     attr_accessor :actions, :options
 
