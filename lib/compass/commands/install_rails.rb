@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), 'base')
+require File.join(File.dirname(__FILE__), 'create_project')
 
 module Compass
   module Commands

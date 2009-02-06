@@ -1,4 +1,5 @@
 bin/compass
+compass.gemspec
 examples/blueprint_default/index.html
 examples/blueprint_default/parts/elements.html
 examples/blueprint_default/parts/forms.html
