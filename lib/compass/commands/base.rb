@@ -17,11 +17,6 @@ module Compass
 
       protected
 
-      # returns the path to the templates directory and caches it
-      def templates_directory
-        @templates_directory ||= framework.templates_directory
-      end
-
       def framework
         Compass::Frameworks[options[:framework]]
       end
