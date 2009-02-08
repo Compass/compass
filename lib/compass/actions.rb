@@ -57,8 +57,6 @@ module Compass
 
     # Compile one Sass file
     def compile(sass_filename, css_filename, options)
-      target_directory = File.dirname(css_filename)
-      directory target_directory
       logger.record :compile, basename(sass_filename)
       if File.exists?(css_filename)
         logger.record :overwrite, basename(css_filename)

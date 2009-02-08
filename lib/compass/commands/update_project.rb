@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), 'project_base')
+require File.join(Compass.lib_directory, 'compass', 'compiler')
 
 module Compass
   module Commands
@@ -13,13 +14,10 @@ module Compass
         read_project_configuration
         default_options = { :style => default_output_style }
         compilation_options = default_options.merge(options).merge(:load_paths => sass_load_paths)
-        Dir.glob(separate("#{project_src_directory}/**/[^_]*.sass")).each do |sass_file|
-          stylesheet_name = sass_file[("#{project_src_directory}/".length)..-6]
-
-          sass_filename = projectize("#{project_src_subdirectory}/#{stylesheet_name}.sass")
-          css_filename = projectize("#{project_css_subdirectory}/#{stylesheet_name}.css")
-          compile sass_filename, css_filename, compilation_options
-        end
+        Compass::Compiler.new(working_path,
+                              projectize(project_src_subdirectory),
+                              projectize(project_css_subdirectory),
+                              compilation_options).run
       end
       
       def default_output_style
