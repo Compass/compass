@@ -33,7 +33,7 @@ module Compass
         msg = "#{basename(dir)} already exists and is not a directory."
         raise Compass::FilesystemConflict.new(msg)
       else
-        logger.record :directory, basename(dir)
+        logger.record :directory, separate("#{basename(dir)}/")
         FileUtils.mkdir_p(dir) unless options[:dry_run]
       end          
     end
@@ -92,6 +92,11 @@ module Compass
     # Write paths like we're on unix and then fix it
     def separate(path)
       path.gsub(%r{/}, File::SEPARATOR)
+    end
+
+    # Removes the trailing separator, if any, from a path.
+    def strip_trailing_separator(path)
+      (path[-1..-1] == File::SEPARATOR) ? path[0..-2] : path
     end
 
   end

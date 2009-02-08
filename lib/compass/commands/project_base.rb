@@ -69,9 +69,6 @@ module Compass
         path.index(File::SEPARATOR) == 0
       end
 
-      def strip_trailing_separator(path)
-        (path[-1..-1] == File::SEPARATOR) ? path[0..-2] : path
-      end
     end
   end
 end

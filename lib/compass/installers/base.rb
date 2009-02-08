@@ -107,13 +107,13 @@ module Compass
       # returns an absolute path given a path relative to the current installation target.
       # Paths can use unix style "/" and will be corrected for the current platform.
       def targetize(path)
-        File.join(target_path, separate(path))
+        strip_trailing_separator File.join(target_path, separate(path))
       end
 
       # returns an absolute path given a path relative to the current template.
       # Paths can use unix style "/" and will be corrected for the current platform.
       def templatize(path)
-        File.join(template_path, separate(path))
+        strip_trailing_separator File.join(template_path, separate(path))
       end
 
       def stylesheet_links
