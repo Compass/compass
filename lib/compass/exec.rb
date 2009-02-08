@@ -3,16 +3,11 @@ require 'rubygems'
 require 'haml'
 require File.join(Compass.lib_directory, 'compass', 'logger')
 require File.join(Compass.lib_directory, 'compass', 'configuration')
+require File.join(Compass.lib_directory, 'compass', 'errors')
 require File.join(Compass.lib_directory, 'compass', 'actions')
 
 module Compass
   module Exec
-    class ExecError < StandardError
-    end
-
-    class DirectoryExistsError < ExecError
-    end
-
 
     def report_error(e, options)
       $stderr.puts "#{e.class} on line #{get_line e} of #{get_file e}: #{e.message}"
@@ -51,7 +46,7 @@ module Compass
           perform!
         rescue Exception => e
           raise e if e.is_a? SystemExit
-          if e.is_a?(ExecError) || e.is_a?(OptionParser::ParseError)
+          if e.is_a?(::Compass::Error) || e.is_a?(OptionParser::ParseError)
             $stderr.puts e.message
           else
             ::Compass::Exec.report_error(e, @options)

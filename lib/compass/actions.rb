@@ -13,7 +13,7 @@ module Compass
       if File.exists?(to) && !options[:force]
         #TODO: Detect differences & provide an overwrite prompt
         msg = "#{basename(to)} already exists."
-        raise InstallationError.new(msg)
+        raise Compass::FilesystemConflict.new(msg)
       elsif File.exists?(to)
         logger.record :overwrite, basename(to)
         FileUtils.rm to unless options[:dry_run]
@@ -31,7 +31,7 @@ module Compass
           logger.record :exists, basename(dir)
       elsif File.exists?(dir)
         msg = "#{basename(dir)} already exists and is not a directory."
-        raise InstallationError.new(msg)
+        raise Compass::FilesystemConflict.new(msg)
       else
         logger.record :directory, basename(dir)
         FileUtils.mkdir_p(dir) unless options[:dry_run]
@@ -43,7 +43,7 @@ module Compass
       options ||= self.options if self.respond_to?(:options)
       if File.exists?(file_name) && !options[:force]
         msg = "File #{basename(file_name)} already exists. Run with --force to force creation."
-        raise InstallationError.new(msg)
+        raise Compass::FilesystemConflict.new(msg)
       end
       if File.exists?(file_name)
         logger.record :overwrite, basename(file_name)

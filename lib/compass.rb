@@ -29,9 +29,6 @@ module Compass
     File.expand_path(File.join(File.dirname(__FILE__)))
   end
   module_function :base_directory, :lib_directory
-
-  class Error < StandardError
-  end
 end
 
 require File.join(File.dirname(__FILE__), 'compass', 'frameworks')
