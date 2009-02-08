@@ -64,7 +64,7 @@ module Compass
         end
         send("#{opt}=", value)
       end
-  
+
       # The default install method. Calls install_<type> methods in the order specified by the manifest.
       def install
         manifest.each do |entry|
@@ -81,21 +81,28 @@ module Compass
         false
       end
 
-      def install_stylesheet(from, to, options)
-        copy templatize(from), targetize("#{sass_dir}/#{to}")
+      def self.installer(type, &locator)
+        locator ||= lambda{|to| to}
+        loc_method = "install_location_for_#{type}".to_sym
+        define_method loc_method, locator
+        define_method "install_#{type}" do |from, to, options|
+          copy templatize(from), targetize(send(loc_method, to))
+        end
       end
 
-      def install_image(from, to, options)
-        copy templatize(from), targetize("#{images_dir}/#{to}")
+      installer :stylesheet do |to|
+        "#{sass_dir}/#{to}"
       end
 
-      def install_script(from, to, options)
-        copy templatize(from), targetize("#{javascripts_dir}/#{to}")
+      installer :image do |to|
+        "#{images_dir}/#{to}"
       end
 
-      def install_file(from, to, options)
-        copy templatize(from), targetize(to)
+      installer :script do |to|
+        "#{javascripts_dir}/#{to}"
       end
+
+      installer :file
 
       # returns an absolute path given a path relative to the current installation target.
       # Paths can use unix style "/" and will be corrected for the current platform.
