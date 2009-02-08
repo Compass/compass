@@ -10,18 +10,8 @@ module Compass
     # copy/process a template in the compass template directory to the project directory.
     def copy(from, to, options = nil)
       options ||= self.options if self.respond_to?(:options)
-      if File.exists?(to) && !options[:force]
-        #TODO: Detect differences & provide an overwrite prompt
-        msg = "#{basename(to)} already exists."
-        raise Compass::FilesystemConflict.new(msg)
-      elsif File.exists?(to)
-        logger.record :overwrite, basename(to)
-        FileUtils.rm to unless options[:dry_run]
-        FileUtils.cp from, to unless options[:dry_run]
-      else
-        logger.record :create, basename(to)
-        FileUtils.cp from, to unless options[:dry_run]
-      end
+      contents = File.new(from).read
+      write_file to, contents, options
     end
 
     # create a directory and all the directories necessary to reach it.
@@ -41,28 +31,29 @@ module Compass
     # Write a file given the file contents as a string
     def write_file(file_name, contents, options = nil)
       options ||= self.options if self.respond_to?(:options)
-      if File.exists?(file_name) && !options[:force]
-        msg = "File #{basename(file_name)} already exists. Run with --force to force creation."
-        raise Compass::FilesystemConflict.new(msg)
-      end
+      skip_write = options[:dry_run]
       if File.exists?(file_name)
-        logger.record :overwrite, basename(file_name)
+        existing_contents = File.new(file_name).read
+        if existing_contents == contents
+          logger.record :identical, basename(file_name)
+          skip_write = true
+        elsif options[:force]
+          logger.record :overwrite, basename(file_name)
+        else
+          msg = "File #{basename(file_name)} already exists. Run with --force to force overwrite."
+          raise Compass::FilesystemConflict.new(msg)
+        end
       else
         logger.record :create, basename(file_name)
       end
       open(file_name,'w') do |file|
         file.write(contents)
-      end
+      end unless skip_write
     end
 
     # Compile one Sass file
     def compile(sass_filename, css_filename, options)
       logger.record :compile, basename(sass_filename)
-      if File.exists?(css_filename)
-        logger.record :overwrite, basename(css_filename)
-      else
-        logger.record :create, basename(css_filename)
-      end
       engine = ::Sass::Engine.new(open(sass_filename).read,
                                   :filename => sass_filename,
                                   :line_comments => options[:environment] == :development,
@@ -70,7 +61,7 @@ module Compass
                                   :css_filename => css_filename,
                                   :load_paths => options[:load_paths])
       css_content = engine.render
-      open(css_filename,'w') {|output| output.write(css_content)} unless options[:dry_run]
+      write_file(css_filename, css_content, options.merge(:force => true))
     end
 
     def basename(file)

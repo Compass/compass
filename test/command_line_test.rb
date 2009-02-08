@@ -43,7 +43,7 @@ class CommandLineTest < Test::Unit::TestCase
       Dir.chdir "basic" do
         compass
         assert_action_performed :compile, "src/screen.sass"
-        assert_action_performed :overwrite, "stylesheets/screen.css"
+        assert_action_performed :identical, "stylesheets/screen.css"
       end
     end
   end
