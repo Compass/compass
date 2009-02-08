@@ -31,7 +31,9 @@ module Compass
   module_function :base_directory, :lib_directory
 end
 
+require File.join(File.dirname(__FILE__), 'compass', 'configuration')
 require File.join(File.dirname(__FILE__), 'compass', 'frameworks')
+
 # make sure we're running inside Merb
 require File.join(File.dirname(__FILE__), 'compass', 'merb') if defined?(Merb::Plugins)  
 
