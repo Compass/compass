@@ -1,3 +1,15 @@
+if ENV['RUN_CODE_RUN']
+  # We need to checkout edge haml for the run>code>run test environment.
+  if File.directory?("haml")
+    Dir.chdir("haml") do
+      sh "git", "pull"
+    end
+  else
+    sh "git", "clone", "git://github.com/nex3/haml.git"
+  end
+  $LOAD_PATH.unshift "haml/lib"
+end
+
 require 'rubygems'
 require 'rake'
 require 'lib/compass'
@@ -11,6 +23,7 @@ require 'fileutils'
 
 Rake::TestTask.new :run_tests do |t|
   t.libs << 'lib'
+  t.libs << 'haml/lib' if ENV["RUN_CODE_RUN"]
   test_files = FileList['test/**/*_test.rb']
   test_files.exclude('test/rails/*', 'test/haml/*')
   t.test_files = test_files
@@ -100,7 +113,7 @@ end
 namespace :git do
   desc "Perform normal operations required for pushing to github."
   task :push => [:manifest, :gem]  do
-    sh "git", "add", "Manifest", "compass.gemspec"
+    sh "git", "add", "Manifest", "compass.gemspec", "VERSION"
     sh "git", "commit", "-m", "Updated Manifest and gemspec."
     sh "git", "push", "origin", "master"
   end
