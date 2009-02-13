@@ -151,6 +151,7 @@ Rakefile
 README.markdown
 test/command_line_test.rb
 test/compass_test.rb
+test/configuration_test.rb
 test/fixtures/stylesheets/blueprint/css/typography.css
 test/fixtures/stylesheets/blueprint/sass/ie.sass
 test/fixtures/stylesheets/blueprint/sass/print.sass
