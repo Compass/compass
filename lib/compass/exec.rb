@@ -101,11 +101,11 @@ END
           self.options[:command] = :watch_project
         end
 
-        opts.on('--source SRC_DIR', "The source directory (where you keep your sass stylesheets).") do |src_dir|
-          self.options[:src_dir] = src_dir
+        opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
+          self.options[:sass_dir] = sass_dir
         end
 
-        opts.on('--target CSS_DIR', "The target directory (where you keep your css stylesheets).") do |css_dir|
+        opts.on('--css-dir CSS_DIR', "The target directory where you keep your css stylesheets.") do |css_dir|
           self.options[:css_dir] = css_dir
         end
 
