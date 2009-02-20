@@ -113,7 +113,7 @@ END
           self.options[:command] = :list_frameworks
         end
 
-        opts.on('-f FRAMEWORK', '--framework FRAMEWORK', 'Set up a new project using the selected framework. Legal values: compass (default), blueprint') do |framework|
+        opts.on('-f FRAMEWORK', '--framework FRAMEWORK', 'Set up a new project using the specified framework.') do |framework|
           self.options[:framework] = framework
         end
 
@@ -141,7 +141,7 @@ END
           self.options[:dry_run] = true
         end
 
-        opts.on('--trace', :NONE, 'Show a full traceback on error') do
+        opts.on('--trace', :NONE, 'Show a full stacktrace on error') do
           self.options[:trace] = true
         end
         
