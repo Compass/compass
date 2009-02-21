@@ -18,6 +18,9 @@ module Compass
       protected
 
       def framework
+        unless Compass::Frameworks[options[:framework]]
+          raise Compass::Error.new("No such framework: #{options[:framework].inspect}")
+        end
         Compass::Frameworks[options[:framework]]
       end
 
