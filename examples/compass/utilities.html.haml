@@ -96,10 +96,15 @@
             The first colors are the even/odd colors respectively
             and the last argument is a shade that is subtracted from those
             colors for the even columns.
-          %table.alternating
+          %p
+            The borders are created using
+            %code.mixin +outer-table-borders(2px, #151A99)
+            and
+            %code.mixin +inner-table-borders(1px, #151A99)
+          %table.alternating{:cellspacing => 0, :cellpadding => 0, :border => 0}
             %thead
               %tr
-                %td &nbsp;
+                %th &nbsp;
                 %th.even Header #1
                 %th.odd Header #2
                 %th.even Header #3
@@ -123,7 +128,7 @@
               %td.numeric.even 4.1
               %td.numeric.odd  4.2
               %td.numeric.even 4.3
-            %tr.odd
+            %tr.odd.last
               %th Row #5
               %td.numeric.even 5.1
               %td.numeric.odd  5.2
