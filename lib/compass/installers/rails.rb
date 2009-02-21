@@ -10,6 +10,7 @@ module Compass
             eval(config.read, nil, configuration_file)
           end
         end
+        Compass.configuration.set_maybe(options)
       end
 
       def init
