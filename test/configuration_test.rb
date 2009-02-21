@@ -6,6 +6,7 @@ class ConfigurationTest < Test::Unit::TestCase
     contents = <<-CONFIG
       require 'compass'
       require 'sass'
+      # Require any additional compass plugins here.
 
       css_dir = "css"
       sass_dir = "sass"

@@ -42,6 +42,14 @@ module Compass
         end
       end
 
+      def assert_project_directory_exists!
+        if File.exists?(project_directory) && !File.directory?(project_directory)
+          raise Compass::FilesystemConflict.new("#{project_directory} is not a directory.")
+        elsif !File.directory?(project_directory)
+          raise Compass::Error.new("#{project_directory} does not exist.")
+        end
+      end
+
       private
 
       def determine_project_name(working_path, options)
