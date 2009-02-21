@@ -113,6 +113,10 @@ END
           self.options[:command] = :list_frameworks
         end
 
+        opts.on('-c', '--write-configuration', "Write the current configuration to the configuration file.") do
+          self.options[:command] = :write_configuration
+        end
+
         opts.on('-f FRAMEWORK', '--framework FRAMEWORK', 'Set up a new project using the specified framework.') do |framework|
           self.options[:framework] = framework
         end
