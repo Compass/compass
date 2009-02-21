@@ -96,6 +96,8 @@ frameworks/compass/stylesheets/compass/utilities/lists/_bullets.sass
 frameworks/compass/stylesheets/compass/utilities/lists/_horizontal_list.sass
 frameworks/compass/stylesheets/compass/utilities/lists/_inline_list.sass
 frameworks/compass/stylesheets/compass/utilities/tables/_alternating_rows_and_columns.sass
+frameworks/compass/stylesheets/compass/utilities/tables/_borders.sass
+frameworks/compass/stylesheets/compass/utilities/tables/_scaffolding.sass
 frameworks/compass/stylesheets/compass/utilities/text/_nowrap.sass
 frameworks/compass/stylesheets/compass/utilities/text/_replacement.sass
 frameworks/compass/templates/project/ie.sass
@@ -119,6 +121,7 @@ lib/compass/commands/print_version.rb
 lib/compass/commands/project_base.rb
 lib/compass/commands/update_project.rb
 lib/compass/commands/watch_project.rb
+lib/compass/commands/write_configuration.rb
 lib/compass/compiler.rb
 lib/compass/configuration.rb
 lib/compass/core_ext.rb
