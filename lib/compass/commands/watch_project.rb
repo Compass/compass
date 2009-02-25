@@ -38,13 +38,13 @@ module Compass
       end
 
       def most_recent_update_time
-        Dir.glob(separate("#{project_src_directory}/**/*.sass")).map {|sass_file| File.stat(sass_file).mtime}.max
+        Dir.glob(separate("#{projectize(Compass.configuration.sass_dir)}/**/*.sass")).map {|sass_file| File.stat(sass_file).mtime}.max
       end
 
       def should_update?
         t = most_recent_update_time
         if t > last_update_time
-          file = Dir.glob(separate("#{project_src_directory}/**/*.sass")).detect {|sass_file| File.stat(sass_file).mtime >= t}
+          file = Dir.glob(separate("#{projectize(Compass.configuration.sass_dir)}/**/*.sass")).detect {|sass_file| File.stat(sass_file).mtime >= t}
           [file, t]
         end
       end
