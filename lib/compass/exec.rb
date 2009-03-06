@@ -126,7 +126,7 @@ END
         end
 
         opts.on('-s STYLE', '--output-style STYLE', [:nested, :expanded, :compact, :compressed], 'Select a CSS output mode (nested, expanded, compact, compressed)') do |style|
-          self.options[:style] = style
+          self.options[:output_style] = style
         end
 
         opts.on('-r LIBRARY', '--require LIBRARY', "Require LIBRARY before running commands. This is used to access compass plugins.") do |library|
