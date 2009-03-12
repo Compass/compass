@@ -1,6 +1,7 @@
 *.DS_Store
 tmp/*
-built_examples/*
+examples/*/stylesheets/*
+examples/*/*.html
 test/tmp
 test/fixtures/stylesheets/*/tmp
 test/fixtures/stylesheets/*/saved
