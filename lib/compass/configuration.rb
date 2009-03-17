@@ -114,6 +114,12 @@ module Compass
     end
 
     def to_sass_engine_options
+      engine_opts = {:load_paths => sass_load_paths}
+      engine_opts[:style] = output_style if output_style
+      engine_opts
+    end
+
+    def sass_load_paths
       load_paths = []
       if project_path && sass_dir
         load_paths << File.join(project_path, sass_dir)
@@ -121,9 +127,7 @@ module Compass
       Compass::Frameworks::ALL.each do |framework|
         load_paths << framework.stylesheets_directory
       end
-      engine_opts = {:load_paths => load_paths}
-      engine_opts[:style] = output_style if output_style
-      engine_opts
+      load_paths
     end
 
     # Support for testing.
