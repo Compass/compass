@@ -39,7 +39,6 @@ h2
   :padding 2px
   :line-height 22px
   :white-space nowrap
-  
 
 #tag-cloud
   +column(8)
@@ -67,3 +66,21 @@ h2
     +table-scaffolding
     +outer-table-borders(2px, #151A99)
     +inner-table-borders(1px, #151A99)
+
+#floats
+  +column(16)
+  .clearfix-example
+    :background #ddd
+    :border 2px solid black
+    :text-align center
+    +clearfix
+  .float-left-example, .float-right-example
+    :border 1px solid black
+    :padding 10px
+    :margin 0 20px
+    :width 25%
+    :background #F9E5A7
+  .float-left-example
+    +float-left
+  .float-right-example
+    +float-right

@@ -1,0 +1,24 @@
+// Clearing floats without extra markup
+// Simple Clearing of Floats
+// [http://www.sitepoint.com/blogs/2005/02/26/simple-clearing-of-floats/]
+=clearfix
+  :overflow auto
+  :overflow -moz-scrollbars-none
+  // This makes ie6 get layout
+  :display inline-block
+  // and this puts it back to block
+  &
+    :display block
+
+// Implementation of float:left with fix for double-margin bug
+=float-left
+  +float("left")
+
+// Implementation of float:right with fix for double-margin bug
+=float-right
+  +float("right")
+
+// Available as alternate syntax with just +float
+=float(!side = "left")
+  :display inline
+  :float= !side

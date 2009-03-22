@@ -139,3 +139,25 @@
                 %td.numeric.even 15.5
                 %td.numeric.odd  16.0
                 %td.numeric.even 17.5                    
+      #floats
+        .example
+          %h2 Floats
+          %p
+            Floated elements will extend beyond the bottom boundary of their
+            parent container unless a
+            %code.mixin +clearfix
+            is applied to the parent.
+          %p
+            The float mixins add fixes for the double-margin float
+            bug, so you don't need to remember.
+          .clearfix-example
+            .float-left-example
+              This div is styled with
+              %code.mixin +float-left
+              \. It is taller than its parent and it should be 20px from the left edge.
+            .float-right-example
+              This short div is styled with
+              %code.mixin +float-right
+              and it should be 20px from the right edge, even in IE6.
+            This div is styled with
+            %code.mixin +clearfix
