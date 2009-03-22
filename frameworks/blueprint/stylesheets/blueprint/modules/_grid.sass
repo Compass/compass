@@ -77,7 +77,7 @@
 
 // Use this mixins to set the width of n columns.
 =column(!n, !last = false)
-  :float left
+  +float-left
   +span(!n)
   @if !last
     +last
@@ -94,7 +94,7 @@
 
 // mixin to a column to move it n columns to the left
 =pull(!n, !last = false)
-  :float left
+  +float-left
   :position relative
   @if !last
     :margin-left = (-!blueprint_grid_outer_width * !n) + !blueprint_grid_margin
@@ -103,7 +103,7 @@
 
 // mixin to a column to push it n columns to the right
 =push(!n)
-  :float right
+  +float-right
   :position relative
   :margin
     :top 0
