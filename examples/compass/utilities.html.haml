@@ -138,18 +138,23 @@
                 %th Totals
                 %td.numeric.even 15.5
                 %td.numeric.odd  16.0
-                %td.numeric.even 17.5                    
+                %td.numeric.even 17.5
       #floats
         .example
           %h2 Floats
+          %p
+            The float helpers add fixes for the double-margin float
+            bug, so you don't need to remember.
           %p
             Floated elements will extend beyond the bottom boundary of their
             parent container unless a
             %code.mixin +clearfix
             is applied to the parent.
           %p
-            The float mixins add fixes for the double-margin float
-            bug, so you don't need to remember.
+            The regular
+            %code.mixin +clearfix
+            method uses overflow:hidden. This is a simple and reliable way to
+            get your box wrapped around your float elements.
           .clearfix-example
             .float-left-example
               This div is styled with
@@ -161,3 +166,20 @@
               and it should be 20px from the right edge, even in IE6.
             This div is styled with
             %code.mixin +clearfix
+          %p
+            An alternate clearing method is provided for when elements need
+            to be positioned to hang outside the box. This is based on the
+            \:after content method.
+          .pie-clearfix-example
+            .float-left-example
+              This div is styled with
+              %code.mixin +float-left
+              \. It is taller than its parent and it should be 20px from the left edge.
+            .float-right-example
+              This short div is styled with
+              %code.mixin +float-right
+              and it should be 20px from the right edge, even in IE6.
+            This div is styled with
+            %code.mixin +pie-clearfix
+            .positioned-example
+              Using this clear method, this positioned box is not cut off.
