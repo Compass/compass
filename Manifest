@@ -55,7 +55,6 @@ examples/yui/sub_divisions.html.haml
 examples/yui/templates.html.haml
 examples/yui/test.jpg
 examples/yui/typography.html.haml
-frameworks/blueprint/lib/blueprint/constants.rb
 frameworks/blueprint/lib/blueprint/grid_builder.rb
 frameworks/blueprint/stylesheets/_blueprint.sass
 frameworks/blueprint/stylesheets/blueprint/_ie.sass
@@ -125,6 +124,7 @@ lib/compass/commands/list_frameworks.rb
 lib/compass/commands/print_version.rb
 lib/compass/commands/project_base.rb
 lib/compass/commands/update_project.rb
+lib/compass/commands/validate_project.rb
 lib/compass/commands/watch_project.rb
 lib/compass/commands/write_configuration.rb
 lib/compass/compiler.rb
@@ -149,7 +149,6 @@ lib/compass/validate/JIGSAW_COPYRIGHT
 lib/compass/validate/README.html
 lib/compass/validate/xerces.jar
 lib/compass/validate/XERCES_COPYING.txt
-lib/compass/validate.rb
 lib/compass/validator.rb
 lib/compass/version.rb
 lib/compass.rb

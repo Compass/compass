@@ -158,6 +158,10 @@ END
           exit
         end
 
+        opts.on('--validate', :NONE, 'Validate your project\'s compiled css') do
+          self.options[:command] = :validate_project
+        end
+
         opts.on_tail("-?", "-h", "--help", "Show this message") do
           puts opts
           exit
