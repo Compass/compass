@@ -53,7 +53,6 @@ module Compass
 
     # Compile one Sass file
     def compile(sass_filename, css_filename, options)
-      puts options.inspect
       logger.record :compile, basename(sass_filename)
       engine = ::Sass::Engine.new(open(sass_filename).read,
                                   :filename => sass_filename,
