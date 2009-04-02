@@ -72,7 +72,6 @@ module Compass
           self.options[:project_name] = trim_trailing_separator(self.args.shift)
         end
         self.options[:command] ||= self.options[:project_name] ? :create_project : :update_project
-        self.options[:environment] ||= :production
         self.options[:framework] ||= :compass
         self.options[:project_type] ||= :stand_alone
       end

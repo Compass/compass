@@ -81,6 +81,10 @@ module Compass
       end
     end
 
+    def default_line_comments
+      environment == :development
+    end
+
     def serialize
       contents = ""
       required_libraries.each do |lib|
@@ -110,12 +114,14 @@ module Compass
       end
       plugin_opts = {:template_location => locations}
       plugin_opts[:style] = output_style if output_style
+      engine_opts[:line_comments] = default_line_comments if environment
       plugin_opts
     end
 
     def to_sass_engine_options
       engine_opts = {:load_paths => sass_load_paths}
       engine_opts[:style] = output_style if output_style
+      engine_opts[:line_comments] = default_line_comments if environment
       engine_opts
     end
 
