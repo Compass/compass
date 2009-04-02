@@ -1,4 +1,3 @@
-
 html, body {
   margin: 0;
   padding: 0;
@@ -31,9 +30,8 @@ blockquote, q {
   font-family: inherit;
   vertical-align: baseline;
   quotes: "" ""; }
-  blockquote:before,
-  blockquote:after,   q:before,
-  q:after {
+  blockquote:before, q:before,
+  blockquote:after, q:after {
     content: ""; }
 
 th, td, caption {
