@@ -55,7 +55,6 @@ examples/yui/sub_divisions.html.haml
 examples/yui/templates.html.haml
 examples/yui/test.jpg
 examples/yui/typography.html.haml
-frameworks/blueprint/lib/blueprint/grid_builder.rb
 frameworks/blueprint/stylesheets/_blueprint.sass
 frameworks/blueprint/stylesheets/blueprint/_ie.sass
 frameworks/blueprint/stylesheets/blueprint/_print.sass
@@ -89,6 +88,8 @@ frameworks/compass/stylesheets/compass/utilities/_print.sass
 frameworks/compass/stylesheets/compass/utilities/_tables.sass
 frameworks/compass/stylesheets/compass/utilities/_text.sass
 frameworks/compass/stylesheets/compass/utilities/general/_clearfix.sass
+frameworks/compass/stylesheets/compass/utilities/general/_float.sass
+frameworks/compass/stylesheets/compass/utilities/general/_hacks.sass
 frameworks/compass/stylesheets/compass/utilities/general/_inline_block.sass
 frameworks/compass/stylesheets/compass/utilities/general/_reset.sass
 frameworks/compass/stylesheets/compass/utilities/general/_tabs.sass
@@ -120,6 +121,7 @@ frameworks/yui.rb
 lib/compass/actions.rb
 lib/compass/commands/base.rb
 lib/compass/commands/create_project.rb
+lib/compass/commands/generate_grid_background.rb
 lib/compass/commands/list_frameworks.rb
 lib/compass/commands/print_version.rb
 lib/compass/commands/project_base.rb
@@ -133,6 +135,7 @@ lib/compass/core_ext.rb
 lib/compass/errors.rb
 lib/compass/exec.rb
 lib/compass/frameworks.rb
+lib/compass/grid_builder.rb
 lib/compass/installers/base.rb
 lib/compass/installers/manifest.rb
 lib/compass/installers/rails.rb
