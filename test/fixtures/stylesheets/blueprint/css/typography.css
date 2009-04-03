@@ -53,10 +53,12 @@ h2 img, h3 img, h4 img, h5 img, h6 img {
 p {
   margin: 0 0 1.5em; }
   p img {
+    display: inline;
     float: left;
     margin: 1.5em 1.5em 1.5em 0;
     padding: 0; }
     p img.right {
+      display: inline;
       float: right;
       margin: 1.5em 0 1.5em 1.5em; }
 
