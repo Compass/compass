@@ -1,3 +1,4 @@
+# This file came from the Blueprint Project
 begin
   require 'rubygems'
   gem 'rmagick'
@@ -5,15 +6,17 @@ begin
 rescue Exception => e
 end
 
-module Blueprint
+module Compass
   # Uses ImageMagick and RMagick to generate grid.png file
   class GridBuilder
+    include Actions
+
     begin
       include Magick
     rescue Exception => e
     end
 
-    attr_reader :column_width, :gutter_width, :output_path, :able_to_generate
+    attr_reader :column_width, :gutter_width, :output_path, :able_to_generate, :options
 
     # ==== Options
     # * <tt>options</tt>
@@ -23,9 +26,14 @@ module Blueprint
     def initialize(options={})
       @able_to_generate = Magick::Long_version rescue false
       return unless @able_to_generate
-      @column_width = options[:column_width] || Blueprint::COLUMN_WIDTH
-      @gutter_width = options[:gutter_width] || Blueprint::GUTTER_WIDTH
-      @output_path  = options[:output_path]  || Blueprint::SOURCE_PATH
+      @column_width = options[:column_width]
+      @gutter_width = options[:gutter_width]
+      @output_path  = options[:output_path]
+      @options = options
+    end
+
+    def working_path
+      options[:working_path]
     end
   
     # generates (overwriting if necessary) grid.png image to be tiled in background
@@ -46,9 +54,19 @@ module Blueprint
           baseline.line(0, (height - 1), total_width, (height- 1)).styles(:fill => "#e9e9e9")
         end
       end
-      
-      FileUtils.mkdir self.output_path unless File.exists? self.output_path
-      rvg.draw.write(File.join(self.output_path, "grid.png"))
+
+      filename = File.join(self.output_path, "grid.png")
+      if File.exists?(filename)
+        if options[:force]
+          overwrite = true
+        else
+          msg = "#{filename} already exists. Overwrite with --force."
+          raise Compass::FilesystemConflict.new(msg)
+        end
+      end
+      directory self.output_path
+      logger.record((overwrite ? :overwrite : :create), basename(filename))
+      rvg.draw.write(filename)
     end
   end
 end

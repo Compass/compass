@@ -33,6 +33,10 @@ module Compass
         Compass.configuration.sass_dir
       end
 
+      def project_images_subdirectory
+        Compass.configuration.images_dir
+      end
+
       # Read the configuration file for this project
       def read_project_configuration
         if File.exists?(projectize('config.rb'))

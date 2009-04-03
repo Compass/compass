@@ -73,6 +73,10 @@ module Compass
       "stylesheets"
     end
 
+    def default_images_dir
+      "images"
+    end
+
     def default_output_style
       if environment == :development
         :expanded
