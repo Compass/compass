@@ -14,13 +14,10 @@ module Compass
 
       def init
         directory targetize("")
-        directory targetize(css_dir)
-        directory targetize(sass_dir)
+        super
       end
 
       def prepare
-        directory targetize(images_dir) if manifest.has_image?
-        directory targetize(javascripts_dir) if manifest.has_javascript?
       end
 
       def default_css_dir
@@ -61,10 +58,9 @@ This can be done in one of the following ways:
      compass -u path/to/project
   3. To monitor your project for changes and automatically recompile:
      compass --watch [path/to/project]
-
 NEXTSTEPS
         end
-        puts "To import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"
+        puts "\nTo import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"
         puts stylesheet_links
       end
 

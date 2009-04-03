@@ -2,6 +2,7 @@ module Compass
   module Installers
 
     class Manifest
+      include Enumerable
 
       # A Manifest entry
       class Entry < Struct.new(:type, :from, :options)

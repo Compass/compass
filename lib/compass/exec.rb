@@ -162,6 +162,15 @@ END
           self.options[:command] = :validate_project
         end
 
+        opts.on('-p', '--pattern PATTERN', 'Stamp out a pattern into the current project. Must be used in combination with -f.') do |pattern|
+          self.options[:command] = :stamp_pattern
+          self.options[:pattern] = pattern
+        end
+
+        opts.on('-n', '--pattern-name NAME', 'The name to use when stamping a pattern. Must be used in combination with -p.') do |name|
+          self.options[:pattern_name] = name
+        end
+
         opts.on_tail("-?", "-h", "--help", "Show this message") do
           puts opts
           exit

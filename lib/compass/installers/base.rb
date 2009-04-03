@@ -26,6 +26,18 @@ module Compass
 
       # Initializes the project to work with compass
       def init
+        dirs = manifest.map do |entry|
+          File.dirname(send("install_location_for_#{entry.type}", entry.to))
+        end
+
+        if manifest.has_stylesheet?
+          dirs << sass_dir
+          dirs << css_dir
+        end
+
+        dirs.uniq.sort.each do |dir|
+          directory targetize(dir)
+        end
       end
 
       # Runs the installer.
@@ -81,6 +93,10 @@ module Compass
         false
       end
 
+      def pattern_name_as_dir
+        "#{options[:pattern_name]}/" if options[:pattern_name]
+      end
+
       def self.installer(type, &locator)
         locator ||= lambda{|to| to}
         loc_method = "install_location_for_#{type}".to_sym
@@ -91,7 +107,7 @@ module Compass
       end
 
       installer :stylesheet do |to|
-        "#{sass_dir}/#{to}"
+        "#{sass_dir}/#{pattern_name_as_dir}#{to}"
       end
 
       installer :image do |to|
@@ -102,7 +118,9 @@ module Compass
         "#{javascripts_dir}/#{to}"
       end
 
-      installer :file
+      installer :file do |to|
+        "#{pattern_name_as_dir}#{to}"
+      end
 
       # returns an absolute path given a path relative to the current installation target.
       # Paths can use unix style "/" and will be corrected for the current platform.
