@@ -25,7 +25,7 @@ module Compass
       else
         logger.record :directory, separate("#{basename(dir)}/")
         FileUtils.mkdir_p(dir) unless options[:dry_run]
-      end          
+      end
     end
 
     # Write a file given the file contents as a string
@@ -67,7 +67,7 @@ module Compass
     def basename(file)
       relativize(file) {|f| File.basename(file)}
     end
-    
+
     def relativize(path)
       if path.index(working_path+File::SEPARATOR) == 0
         path[(working_path+File::SEPARATOR).length..-1]
