@@ -11,11 +11,16 @@ examples/blueprint_default/src/ie.sass
 examples/blueprint_default/src/images/grid.png
 examples/blueprint_default/src/print.sass
 examples/blueprint_default/src/screen.sass
+examples/blueprint_plugins/images/buttons/cross.png
+examples/blueprint_plugins/images/buttons/key.png
+examples/blueprint_plugins/images/buttons/tick.png
 examples/blueprint_plugins/index.html
+examples/blueprint_plugins/parts/buttons.html
 examples/blueprint_plugins/parts/fancy_type.html
 examples/blueprint_plugins/parts/test-small.jpg
 examples/blueprint_plugins/parts/test.jpg
 examples/blueprint_plugins/parts/valid.png
+examples/blueprint_plugins/src/buttons.sass
 examples/blueprint_plugins/src/ie.sass
 examples/blueprint_plugins/src/images/grid.png
 examples/blueprint_plugins/src/print.sass
@@ -59,6 +64,7 @@ frameworks/blueprint/stylesheets/_blueprint.sass
 frameworks/blueprint/stylesheets/blueprint/_ie.sass
 frameworks/blueprint/stylesheets/blueprint/_print.sass
 frameworks/blueprint/stylesheets/blueprint/_screen.sass
+frameworks/blueprint/stylesheets/blueprint/modules/_buttons.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_colors.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_debug.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_fancy_type.sass
@@ -69,6 +75,11 @@ frameworks/blueprint/stylesheets/blueprint/modules/_liquid.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_scaffolding.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_typography.sass
 frameworks/blueprint/stylesheets/blueprint/modules/_utilities.sass
+frameworks/blueprint/templates/buttons/buttons/cross.png
+frameworks/blueprint/templates/buttons/buttons/key.png
+frameworks/blueprint/templates/buttons/buttons/tick.png
+frameworks/blueprint/templates/buttons/buttons.sass
+frameworks/blueprint/templates/buttons/manifest.rb
 frameworks/blueprint/templates/project/grid.png
 frameworks/blueprint/templates/project/ie.sass
 frameworks/blueprint/templates/project/manifest.rb
@@ -125,6 +136,7 @@ lib/compass/commands/generate_grid_background.rb
 lib/compass/commands/list_frameworks.rb
 lib/compass/commands/print_version.rb
 lib/compass/commands/project_base.rb
+lib/compass/commands/stamp_pattern.rb
 lib/compass/commands/update_project.rb
 lib/compass/commands/validate_project.rb
 lib/compass/commands/watch_project.rb
