@@ -5,13 +5,15 @@ module Compass
     include Singleton
 
     ATTRIBUTES = [
+      :project_type,
       :project_path,
       :css_dir,
       :sass_dir,
       :images_dir,
       :javascripts_dir,
       :output_style,
-      :environment
+      :environment,
+      :http_images_path
     ]
 
     attr_accessor *ATTRIBUTES
@@ -77,6 +79,14 @@ module Compass
       "images"
     end
 
+    def default_http_images_path
+      "/#{images_dir}"
+    end
+
+    def comment_for_http_images_path
+      "# To enable relative image paths using the images_url() function:\n# http_images_path = :relative\n"
+    end
+
     def default_output_style
       if environment == :development
         :expanded
@@ -98,6 +108,9 @@ module Compass
       contents << "\n" if required_libraries.any?
       ATTRIBUTES.each do |prop|
         value = send(prop)
+        if respond_to?("comment_for_#{prop}")
+          contents << send("comment_for_#{prop}")
+        end
         unless value.nil?
           contents << %Q(#{prop} = #{value.inspect}\n)
         end
