@@ -111,8 +111,10 @@ module Compass
         if respond_to?("comment_for_#{prop}")
           contents << send("comment_for_#{prop}")
         end
-        unless value.nil?
-          contents << %Q(#{prop} = #{value.inspect}\n)
+        if block_given? && (to_emit = yield(prop, value))
+          contents << to_emit
+        else
+          contents << %Q(#{prop} = #{value.inspect}\n) unless value.nil?
         end
       end
       contents

@@ -4,7 +4,7 @@ module Compass
     class RailsInstaller < Base
 
       def configure
-        configuration_file = targetize('config/initializers/compass.rb')
+        configuration_file = targetize('config/compass.config')
         if File.exists?(configuration_file)
           open(configuration_file) do |config|
             eval(config.read, nil, configuration_file)
@@ -20,6 +20,11 @@ module Compass
       end
 
       def prepare
+        write_file(targetize('config/compass.config'), Compass.configuration.serialize do |prop, value|
+          if prop == :project_path
+            "project_path = RAILS_ROOT if defined?(RAILS_ROOT)\n"
+          end
+        end)
         write_file targetize('config/initializers/compass.rb'), initializer_contents
       end
 
@@ -81,11 +86,7 @@ Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
       def initializer_contents
         %Q{require 'compass'
 # If you have any compass plugins, require them here.
-Compass.configuration do |config|
-  config.project_path = RAILS_ROOT
-  config.sass_dir = "#{sass_dir}"
-  config.css_dir = "#{css_dir}"
-end
+Compass.configuration.parse(File.join(RAILS_ROOT, "config", "compass.config"))
 Compass.configure_sass_plugin!
 }
       end
