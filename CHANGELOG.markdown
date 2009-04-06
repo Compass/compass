@@ -1,5 +1,5 @@
-CHANGELOG
-=========
+COMPASS CHANGELOG
+=================
 
 0.6.0
 -----
@@ -28,22 +28,17 @@ Please read the
 
 ### New Command-line options:
 
-1. <code>--validate</code>
-
+1. <code>--validate</code><br/>
    Validate your project's compiled css. Requires java and probably only works on Mac and Unix.
-2. <code>--grid-img [DIMENSIONS]</code>
-
+2. <code>--grid-img [DIMENSIONS]</code><br/>
    Generate a background image to test grid alignment. Dimension is given as
    <column_width>+<gutter_width>. Defaults to 30+10.
-3. <code>-p, --pattern PATTERN</code>
-
+3. <code>-p, --pattern PATTERN</code><br/>
    When combined with with the --framework option, will stamp a plugin's pattern named PATTERN.
-4. <code>-n, --pattern-name NAME</code>
-
+4. <code>-n, --pattern-name NAME</code><br/>
    When combined with the --pattern option, the pattern that gets stamped out will
    be isolated in subdirectories named NAME.
-5. <code>-c, --write-configuration</code>
-
+5. <code>-c, --write-configuration</code><br/>
    Emit a compass configuration file into the current directory, taking any existing configuration
    file and any command line options provided into account. (command line options override
    configuration file options).
@@ -52,12 +47,10 @@ Please read the
 
 Compass projects can call these sass functions within their sass files, if you find them useful.
 
-1. <code>enumerate(prefix, start, end)</code>
-   
+1. <code>enumerate(prefix, start, end)</code><br/>
    Generates selectors with a prefix and a numerical ending
    counting from start to end. E.g. enumerate("foo", 1, 3) returns "foo-1, foo-2, foo-3"
-2. <code>image_url(path)</code>
-
+2. <code>image_url(path)</code><br/>
    Uses the compass configuration to convert a path relative to the compass
    project directory to a path that is either absolute for serving in an HTTP
    context or that is relative to whatever css file the function was being
@@ -66,13 +59,11 @@ Compass projects can call these sass functions within their sass files, if you f
 
 ### New Compass Core Mixins
 
-1. <code>+float-left</code> & <code>+float-right</code>
-
+1. <code>+float-left</code> & <code>+float-right</code><br/>
    In order to include fixes for IE's double-margin bug universally,
    floats were implemented as a utility mixins. These are available by importing
    compass/utilities/general/float.sass which also imports the clearfix module.
-2. <code>+pie-clearfix</code>
-
+2. <code>+pie-clearfix</code><br/>
    Implementation of the
    [position-is-everything clearfix](http://www.positioniseverything.net/easyclearing.html)
    that uses content :after.
@@ -87,18 +78,14 @@ One of the key features of the release was the inclusion of three new core bluep
 (a.k.a. folders you can copy). These are what prompted the development of the compass patterns
 feature and two of them are packaged as patterns:
 
-1. Buttons
-
-   To install: <code>compass --framework blueprint --pattern buttons</code>
-   
+1. Buttons<br/>
+   To install: <code>compass --framework blueprint --pattern buttons</code><br/>
    Then follow your nose.
-2. Link Icons
-
-   To install: <code>compass --framework blueprint --pattern link\_icons</code>
-
+2. Link Icons<br/>
+   To install: <code>compass --framework blueprint --pattern link\_icons</code><br/>
    Then follow your nose.
 
-The third plugin was the RTL (right-to-left) plugin. To use this one, simply import it after the import
+The third plugin is the RTL (right-to-left) plugin. To use this one, simply import it after the import
 of the blueprint grid and your mixins will be redefined to work in a left to right manner. Additionally,
 it provides +rtl-typography mixin that works in conjunction with +blueprint-typography and should be mixed
 in with it.
@@ -115,4 +102,3 @@ that are not yet fixed in blueprint-css and we use a different clearfix implemen
 ### Bugs Introduced
 
 Almost definitely. Please let me know if you encounter any problems and I'll get a patch out
-  
