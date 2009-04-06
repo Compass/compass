@@ -2,7 +2,7 @@
 @import compass/utilities/links/link_colors.sass
 @import compass/utilities/general/float.sass
 
-!blueprint_font_family       ||= "Helvetica Neue, Helvetica, Arial, sans-serif"
+!blueprint_font_family       ||= "Helvetica Neue, Arial, Helvetica, sans-serif"
 !blueprint_fixed_font_family ||= "'andale mono', 'lucida console', monospace"
 
 // The +blueprint-typography mixin must be mixed into the top level of your stylesheet.
@@ -70,7 +70,6 @@
     :font-size 1.2em
     :line-height 1.25
     :margin-bottom 1.25em
-    :height 1.25em
   h5
     +header-text
     :font-size 1em
@@ -84,13 +83,14 @@
     :margin 0
   p
     :margin 0 0 1.5em
-    img
+    img.left
       +float-left
       :margin 1.5em 1.5em 1.5em 0
       :padding 0
-      &.right
-        +float-right
-        :margin 1.5em 0 1.5em 1.5em
+    img.right
+      +float-right
+      :margin 1.5em 0 1.5em 1.5em
+      :padding 0
   a
     :text-decoration underline
     +link-colors(!link_color, !link_hover_color, !link_active_color, !link_visited_color, !link_focus_color)
@@ -114,11 +114,10 @@
     :font-style italic
   del
     :color #666
-  pre, code
+  pre
     :margin 1.5em 0
     :white-space pre
-    +fixed-width-text
-  tt
+  pre, code, tt
     +fixed-width-text
   li ul,  li ol
     :margin 0 1.5em
@@ -139,12 +138,12 @@
     :width 100%
   th
     :font-weight bold
-    :background #C3D9FF
-    :padding 4px 10px 4px 5px
-  td
+  thead th
+    :background= !blueprint_table_header_color
+  th, td, caption
     :padding 4px 10px 4px 5px
   tr.even td
-    :background #E5ECF9
+    :background= !blueprint_table_stripe_color
   tfoot
     :font-style italic
   caption
