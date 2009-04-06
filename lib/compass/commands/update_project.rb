@@ -11,9 +11,6 @@ module Compass
       end
 
       def perform
-        read_project_configuration
-        Compass.configuration.set_maybe(options)
-        Compass.configuration.set_defaults!
         Compass::Compiler.new(working_path,
                               projectize(Compass.configuration.sass_dir),
                               projectize(Compass.configuration.css_dir),

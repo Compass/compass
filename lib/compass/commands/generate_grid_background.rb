@@ -12,9 +12,6 @@ module Compass
       end
 
       def perform
-        read_project_configuration
-        Compass.configuration.set_maybe(options)
-        Compass.configuration.set_defaults!
         column_width, gutter_width = options[:grid_dimensions].split(/\+/).map{|d| d.to_i}
         unless GridBuilder.new(options.merge(:column_width => column_width, :gutter_width => gutter_width, :output_path => projectize(project_images_subdirectory), :working_path => self.working_path)).generate!
           puts "ERROR: Some library dependencies appear to be missing."

@@ -10,9 +10,6 @@ module Compass
       end
 
       def perform
-        read_project_configuration
-        Compass.configuration.set_maybe(options)
-        Compass.configuration.set_defaults!
         config_file = projectize("config.rb")
         if File.exists?(config_file)
           if options[:force]

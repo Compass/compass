@@ -13,6 +13,9 @@ module Compass
         super(working_path, options)
         self.project_name = determine_project_name(working_path, options)
         Compass.configuration.project_path = determine_project_directory(working_path, options)
+        read_project_configuration
+        Compass.configuration.set_maybe(options)
+        Compass.configuration.set_defaults!
       end
 
       protected
