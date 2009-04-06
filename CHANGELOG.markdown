@@ -4,7 +4,7 @@ CHANGELOG
 0.6.0
 -----
 
-* New Core Functionality: **Patterns**
+### New Core Functionality: **Patterns**
 
   Patterns give a framework or plugin access to the compass installer framework
   to install customizable sass, html as well as image and javascript assets.
@@ -26,7 +26,7 @@ CHANGELOG
   Please read the
   [Wiki Page](http://wiki.github.com/chriseppstein/compass/patterns) for more information.
   
-* New Command-line options:
+### New Command-line options:
   1. <code>--validate</code>
   
      Validate your project's compiled css. Requires java and probably only works on Mac and Unix.
@@ -47,7 +47,7 @@ CHANGELOG
      file and any command line options provided into account. (command line options override
      configuration file options).
 
-* New Sass Functions:
+### New Sass Functions:
   Compass projects can call these sass functions within their sass files, if you find them useful.
   1. <code>enumerate(prefix, start, end)</code>
      
@@ -61,7 +61,7 @@ CHANGELOG
      compiled into. In the future, this function may also tap into the rails
      asset host configuration.
 
-* New Compass Core Mixins
+### New Compass Core Mixins
   1. <code>+float-left</code> & <code>+float-right</code>
 
      In order to include fixes for IE's double-margin bug universally,
@@ -73,7 +73,7 @@ CHANGELOG
      [position-is-everything clearfix](http://www.positioniseverything.net/easyclearing.html)
      that uses content :after.
 
-* Blueprint 0.8
+### Blueprint 0.8
   The Compass port of Blueprint has been upgraded from 0.7.1 to 0.8.0. The 0.8.0 release
   brings many bug fixes and a few backward incompatible changes if you use it's presentational
   classnames (you don't do that, do you?). Upgrading to 0.8 is automatic when you upgrade to
@@ -101,11 +101,11 @@ CHANGELOG
   matches the blueprint CSS. Please note that they are not 100% the same because we fix some bugs
   that are not yet fixed in blueprint-css and we use a different clearfix implementation.
 
-* Bug Fixes
+### Bug Fixes
   1. A Safari bug related to the +clearfix mixin was resolved.
   2. Running the compass command line installer a second time.
 
-* Bugs Introduced
+### Bugs Introduced
 
   Almost definitely. Please let me know if you encounter any problems and I'll get a patch out
   
