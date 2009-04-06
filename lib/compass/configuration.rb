@@ -54,12 +54,18 @@ module Compass
 
     def default_all(options)
       ATTRIBUTES.each do |a|
-        self.send("#{a}=", options[a]) unless self.send(a)
+        set_default_unless_set(a, options[a])
       end
     end
 
+    def set_default_unless_set(attribute, value)
+      self.send("#{attribute}=", value) unless self.send(attribute)
+    end
+
     def set_defaults!
-      default_all(ATTRIBUTES.inject({}){|m, a| m[a] = default_for(a); m})
+      ATTRIBUTES.each do |a|
+        set_default_unless_set(a, default_for(a))
+      end
     end
 
     def default_for(attribute)
