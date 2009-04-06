@@ -28,7 +28,10 @@ module Sass::Script::Functions
     else
       Compass.configuration.http_images_path
     end
-    path = "#{http_images_path}/#{path}" if http_images_path
+    if http_images_path
+      http_images_path = "#{http_images_path}/" unless http_images_path[-1..-1] == "/"
+      path = "#{http_images_path}#{path}"
+    end
     Sass::Script::String.new("url(#{path})")
   end
 end
