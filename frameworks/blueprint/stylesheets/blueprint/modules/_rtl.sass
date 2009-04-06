@@ -9,37 +9,6 @@
 !blueprint_grid_outer_width = !blueprint_grid_width + !blueprint_grid_margin
 !blueprint_container_size = !blueprint_grid_outer_width * !blueprint_grid_columns - !blueprint_grid_margin
 
-=blueprint-grid
-  // A container should group all your columns
-  .container
-    +container
-  // Use these classes (or mixins) to set the width of a column.
-  @for !n from 1 to !blueprint_grid_columns + 1
-    .span-#{!n}
-      +span(!n)
-    div
-      &.span-#{!n}
-        +column(!n, !n == !blueprint_grid_columns)
-  // The last column in a row needs this class (or mixin) or it will end up on the next row.
-  div.last
-    +last
-  // Add these to a column to append empty cols.
-  @for !n from 1 to !blueprint_grid_columns
-    .append-#{!n}
-      +append(!n)
-  // Add these to a column to prepend empty cols.
-  @for !n from 1 to !blueprint_grid_columns
-    .prepend-#{!n}
-      +prepend(!n)
-  // Use these classes on an element to push it into the
-  // next column, or to pull it into the previous column.
-  @for !n from 1 to !blueprint_grid_columns + 1
-    .pull-#{!n}
-      +pull(!n)
-  @for !n from 1 to !blueprint_grid_columns + 1
-    .push-#{!n}
-      +push(!n)
-
 // Columns
 // Note: If you use this mixin without the class and want to support ie6
 //       you must set text-align left on your container element in an IE stylesheet.
@@ -54,13 +23,8 @@
 =last
   :margin-left 0
 
-=span(!n)
-  :width = !blueprint_grid_width * !n + (!blueprint_grid_margin * (!n - 1))
-
-// Use this mixins to set the width of n columns.
-=column(!n, !last = false)
+=column-base(!last = false)
   +float-right
-  +span(!n)
   @if !last
     +last
   @else

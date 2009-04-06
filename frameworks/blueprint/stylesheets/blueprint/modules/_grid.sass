@@ -30,16 +30,22 @@
   // A container should group all your columns
   .container
     +container
+  .column, #{enumerate("div.span", 1, !blueprint_grid_columns)}
+    +column-base
+  // The last column in a row needs this class (or mixin) or it will end up on the next row.
+  .last, div.last
+    +last
   // Use these classes (or mixins) to set the width of a column.
-  @for !n from 1 to !blueprint_grid_columns + 1
+  @for !n from 1 to !blueprint_grid_columns
     .span-#{!n}
       +span(!n)
-    div
+  .span-#{!blueprint_grid_columns}, div.span-#{!blueprint_grid_columns}
+    +span(!blueprint_grid_columns)
+    :margin 0
+  input, textarea, select
+    @for !n from 1 through !blueprint_grid_columns
       &.span-#{!n}
-        +column(!n, !n == !blueprint_grid_columns)
-  // The last column in a row needs this class (or mixin) or it will end up on the next row.
-  div.last
-    +last
+        +span(!n, true)
   // Add these to a column to append empty cols.
   @for !n from 1 to !blueprint_grid_columns
     .append-#{!n}
@@ -50,10 +56,10 @@
       +prepend(!n)
   // Use these classes on an element to push it into the
   // next column, or to pull it into the previous column.
-  @for !n from 1 to !blueprint_grid_columns + 1
+  @for !n from 1 through !blueprint_grid_columns
     .pull-#{!n}
       +pull(!n)
-  @for !n from 1 to !blueprint_grid_columns + 1
+  @for !n from 1 through !blueprint_grid_columns
     .push-#{!n}
       +push(!n)
 
@@ -69,22 +75,29 @@
 // The last column in a row needs this mixin or it will end up on the next row.
 // TODO add this to span mixin when we have optional arguments
 =last
-  :margin
-    :right 0
+  :margin-right 0
 
-=span(!n)
-  :width = !blueprint_grid_width * !n + (!blueprint_grid_margin * (!n - 1))
+=span(!n, !override = false)
+  !width = !blueprint_grid_width * !n + (!blueprint_grid_margin * (!n - 1))
+  @if !override
+    :width = !width !important
+  @else
+    :width = !width
 
-// Use this mixins to set the width of n columns.
-=column(!n, !last = false)
+=column-base(!last = false)
   +float-left
-  +span(!n)
   @if !last
     +last
   @else
     :margin-right = !blueprint_grid_margin
   * html &
     :overflow-x hidden
+
+// Use this mixins to set the width of n columns.
+=column(!n, !last = false)
+  +column-base(!last)
+  +span(!n)
+
 
 // Mixin to a column to append n empty cols.
 =append(!n)

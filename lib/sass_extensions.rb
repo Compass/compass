@@ -12,6 +12,11 @@ module Sass::Script::Functions
     Sass::Script::String.new(nested)
   end
 
+  def enumerate(prefix, from, through)
+    selectors = (from.value..through.value).map{|i| "#{prefix.value}-#{i}"}.join(", ")
+    Sass::Script::String.new(selectors)
+  end
+
   def image_url(path)
     http_images_path = if Compass.configuration.http_images_path == :relative
       if (target_css_file = options[:css_filename])
