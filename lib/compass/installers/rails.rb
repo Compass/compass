@@ -34,11 +34,9 @@ Congratulations! Your rails project has been configured to use Compass.
 Sass will automatically compile your stylesheets during the next
 page request and keep them up to date when they change.
 Make sure you restart your server!
-
-Next add these lines to the head of your layouts:
-
 NEXTSTEPS
         end
+        puts "\nNext add these lines to the head of your layouts:\n\n"
         puts stylesheet_links
         puts "\n(You are using haml, aren't you?)"
       end
