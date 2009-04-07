@@ -159,6 +159,7 @@ lib/compass/actions.rb
 lib/compass/commands/base.rb
 lib/compass/commands/create_project.rb
 lib/compass/commands/generate_grid_background.rb
+lib/compass/commands/installer_command.rb
 lib/compass/commands/list_frameworks.rb
 lib/compass/commands/print_version.rb
 lib/compass/commands/project_base.rb
