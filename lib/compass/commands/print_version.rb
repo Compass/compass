@@ -13,7 +13,7 @@ module Compass
         else
           lines = []
           lines << "Compass #{::Compass.version[:string]}"
-          lines << "Copyright (c) 2008 Chris Eppstein"
+          lines << "Copyright (c) 2008-2009 Chris Eppstein"
           lines << "Released under the MIT License."
           puts lines.join("\n")
         end
