@@ -11,6 +11,20 @@ class CommandLineTest < Test::Unit::TestCase
     Compass.configuration.reset!
   end
 
+  def test_print_version
+    compass "-vq"
+    assert_match /\d+\.\d+\.\d+( [0-9a-f]+)?/, @last_result
+  end
+
+  def test_list_frameworks
+    compass "--list-frameworks"
+    assert_equal(<<-FRAMEWORKS, @last_result)
+blueprint
+compass
+yui
+FRAMEWORKS
+  end
+
   def test_basic_install
     within_tmp_directory do
       compass "basic"

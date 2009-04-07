@@ -6,7 +6,7 @@ module Compass
         self.options = options
       end
   
-      def perform
+      def execute
         Compass::Frameworks::ALL.each do |framework|
           puts framework.name
         end

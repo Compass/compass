@@ -6,7 +6,7 @@ module Compass
         self.options = options
       end
   
-      def perform
+      def execute
         if options[:quiet]
           # The quiet option may make scripting easier
           puts ::Compass.version[:string]
