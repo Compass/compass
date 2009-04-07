@@ -81,8 +81,12 @@
   :margin 0 auto
   +clearfix
 
-=span(!n)
-  :width= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
+=span(!n, !override = false)
+  !width = (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
+  @if !override
+    :width = !width !important
+  @else
+    :width = !width
 
 =last
   :margin-right 0
