@@ -12,6 +12,8 @@ class ConfigurationTest < Test::Unit::TestCase
       sass_dir = "sass"
       images_dir = "img"
       javascripts_dir = "js"
+      # To enable relative image paths using the images_url() function:
+      # http_images_path = :relative
     CONFIG
 
     Compass.configuration.parse_string(contents, "test_parse")
