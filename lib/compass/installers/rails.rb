@@ -3,29 +3,27 @@ module Compass
     
     class RailsInstaller < Base
 
-      def configure
-        configuration_file = targetize('config/compass.config')
-        if File.exists?(configuration_file)
-          open(configuration_file) do |config|
-            eval(config.read, nil, configuration_file)
-          end
-        end
-        Compass.configuration.set_maybe(options)
+      def configuration_defaults
+        {
+          :sass_dir => (sass_dir || prompt_sass_dir),
+          :css_dir => (css_dir || prompt_css_dir),
+          :images_dir => default_images_dir,
+          :javascripts_dir => default_javascripts_dir
+        }
       end
 
-      def init
-        set_sass_dir unless sass_dir
-        set_css_dir unless css_dir
-        super
+      def write_configuration_files
+        write_file targetize('config/compass.config'), config_contents
+        write_file targetize('config/initializers/compass.rb'), initializer_contents
+      end
+
+      def config_files_exist?
+        File.exists?(targetize('config/compass.config')) &&
+        File.exists?(targetize('config/initializers/compass.rb'))
       end
 
       def prepare
-        write_file(targetize('config/compass.config'), Compass.configuration.serialize do |prop, value|
-          if prop == :project_path
-            "project_path = RAILS_ROOT if defined?(RAILS_ROOT)\n"
-          end
-        end)
-        write_file targetize('config/initializers/compass.rb'), initializer_contents
+        write_configuration_files unless config_files_exist?
       end
 
       def finalize(options = {})
@@ -45,33 +43,25 @@ NEXTSTEPS
         puts "\n(You are using haml, aren't you?)"
       end
 
-      def sass_dir
-        Compass.configuration.sass_dir
+      def default_images_dir
+        separate("public/images")
       end
 
-      def css_dir
-        Compass.configuration.css_dir
+      def default_javascripts_dir
+        separate("public/javascripts")
       end
 
-      def images_dir
-        separate "public/images"
-      end
-
-      def javascripts_dir
-        separate "public/javascripts"
-      end
-
-      def set_sass_dir
+      def prompt_sass_dir
         recommended_location = separate('app/stylesheets')
         default_location = separate('public/stylesheets/sass')
         print %Q{Compass recommends that you keep your stylesheets in #{recommended_location}
 instead of the Sass default location of #{default_location}.
 Is this OK? (Y/n) }
         answer = gets.downcase[0]
-        Compass.configuration.sass_dir = answer == ?n ? default_location : recommended_location
+        answer == ?n ? default_location : recommended_location
       end
 
-      def set_css_dir
+      def prompt_css_dir
         recommended_location = separate("public/stylesheets/compiled")
         default_location = separate("public/stylesheets")
         puts
@@ -80,7 +70,15 @@ instead the Sass default of #{default_location}/.
 However, if you're exclusively using Sass, then #{default_location}/ is recommended.
 Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
         answer = gets.downcase[0]
-        Compass.configuration.css_dir = answer == ?n ? default_location : recommended_location
+        answer == ?n ? default_location : recommended_location
+      end
+
+      def config_contents
+        Compass.configuration.serialize do |prop, value|
+          if prop == :project_path
+            "project_path = RAILS_ROOT if defined?(RAILS_ROOT)\n"
+          end
+        end
       end
 
       def initializer_contents

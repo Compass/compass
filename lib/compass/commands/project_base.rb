@@ -3,6 +3,7 @@ require 'sass'
 require 'fileutils'
 require 'pathname'
 require File.join(File.dirname(__FILE__), 'base')
+require File.join(File.dirname(__FILE__), 'installer_command')
 
 module Compass
   module Commands
@@ -13,12 +14,20 @@ module Compass
         super(working_path, options)
         self.project_name = determine_project_name(working_path, options)
         Compass.configuration.project_path = determine_project_directory(working_path, options)
+      end
+
+      def execute
+        configure!
+        super
+      end
+
+      protected
+
+      def configure!
         read_project_configuration
         Compass.configuration.set_maybe(options)
         Compass.configuration.set_defaults!
       end
-
-      protected
 
       def projectize(path)
         File.join(project_directory, separate(path))
@@ -42,11 +51,17 @@ module Compass
 
       # Read the configuration file for this project
       def read_project_configuration
-        if File.exists?(projectize('config.rb'))
-          Compass.configuration.parse(projectize('config.rb'))
-        elsif File.exists?(projectize('src/config.rb'))
-          Compass.configuration.parse(projectize('src/config.rb'))
+        if file = detect_configuration_file
+          Compass.configuration.parse(file)
         end
+      end
+
+      # TODO: Deprecate the src/config.rb location.
+      KNOWN_CONFIG_LOCATIONS = ["config/compass.config", "config.rb", "src/config.rb"]
+
+      # Finds the configuration file, if it exists in a known location.
+      def detect_configuration_file
+        KNOWN_CONFIG_LOCATIONS.map{|f| projectize(f)}.detect{|f| File.exists?(f)}
       end
 
       def assert_project_directory_exists!

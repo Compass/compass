@@ -194,7 +194,7 @@ END
       def do_command(command)
         command_class_name = command.to_s.split(/_/).map{|p| p.capitalize}.join('')
         command_class = eval("::Compass::Commands::#{command_class_name}")
-        command_class.new(Dir.getwd, options).perform
+        command_class.new(Dir.getwd, options).execute
       end
 
     end

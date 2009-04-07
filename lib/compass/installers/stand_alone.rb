@@ -3,46 +3,33 @@ module Compass
     
     class StandAloneInstaller < Base
 
-      def configure
-        if File.exists?(config_file)
-          Compass.configuration.parse(config_file)
-        elsif File.exists?(old_config_file)
-          Compass.configuration.parse(old_config_file)
-        end
-        super
-      end
-
       def init
         directory targetize("")
         super
       end
 
+      def write_configuration_files
+        write_file targetize('config.rb'), config_contents
+      end
+
+      def config_files_exist?
+        File.exists? targetize('config.rb')
+      end
+
+      def config_contents
+        project_path, Compass.configuration.project_path = Compass.configuration.project_path, nil
+        Compass.configuration.serialize
+      ensure
+        Compass.configuration.project_path = project_path
+      end
+
       def prepare
+        write_configuration_files unless config_files_exist?
       end
 
-      def default_css_dir
-        Compass.configuration.css_dir || "stylesheets"
-      end
-
-      def default_sass_dir
-        Compass.configuration.sass_dir ||"src"
-      end
-
-      def default_images_dir
-        Compass.configuration.images_dir || "images"
-      end
-
-      def default_javascripts_dir
-        Compass.configuration.javascripts_dir || "javascripts"
-      end
-
-      # Read the configuration file for this project
-      def config_file
-        @config_file ||= targetize('config.rb')
-      end
-
-      def old_config_file
-        @old_config_file ||= targetize('src/config.rb')
+      # We want to rely on the defaults provided by Configuration
+      def configuration_defaults
+        {}
       end
 
       def finalize(options = {})

@@ -120,10 +120,14 @@ module Compass
         if block_given? && (to_emit = yield(prop, value))
           contents << to_emit
         else
-          contents << %Q(#{prop} = #{value.inspect}\n) unless value.nil?
+          contents << Configuration.serialize_property(prop, value) unless value.nil?
         end
       end
       contents
+    end
+
+    def self.serialize_property(prop, value)
+      %Q(#{prop} = #{value.inspect}\n)
     end
 
     def to_sass_plugin_options

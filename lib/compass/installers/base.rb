@@ -8,7 +8,6 @@ module Compass
       attr_accessor :template_path, :target_path, :working_path
       attr_accessor :options
       attr_accessor :manifest
-      attr_accessor :css_dir, :sass_dir, :images_dir, :javascripts_dir
 
       def initialize(template_path, target_path, options = {})
         @template_path = template_path
@@ -17,11 +16,16 @@ module Compass
         @options = options
         @manifest = Manifest.new(manifest_file)
         self.logger = options[:logger]
-        configure
       end
 
       def manifest_file
         @manifest_file ||= File.join(template_path, "manifest.rb")
+      end
+
+      [:css_dir, :sass_dir, :images_dir, :javascripts_dir].each do |dir|
+        define_method dir do
+          Compass.configuration.send(dir)
+        end
       end
 
       # Initializes the project to work with compass
@@ -47,20 +51,6 @@ module Compass
         prepare
         install
         finalize unless options[:skip_finalization]
-      end
-
-      # The default configure method -- it sets up directories from the options
-      # and corresponding default_* methods for those not found in the options hash.
-      # It can be overridden it or augmented for reading config files,
-      # prompting the user for more information, etc.
-      def configure
-        unless @configured
-          [:css_dir, :sass_dir, :images_dir, :javascripts_dir].each do |opt|
-            configure_option_with_default opt
-          end
-        end
-      ensure
-        @configured = true
       end
 
       # The default prepare method -- it is a no-op.

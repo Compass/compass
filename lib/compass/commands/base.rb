@@ -11,6 +11,10 @@ module Compass
         self.options = options
       end
       
+      def execute
+        perform
+      end
+
       def perform
         raise StandardError.new("Not Implemented")
       end
