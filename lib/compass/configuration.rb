@@ -143,7 +143,7 @@ module Compass
       end
       plugin_opts = {:template_location => locations}
       plugin_opts[:style] = output_style if output_style
-      engine_opts[:line_comments] = default_line_comments if environment
+      plugin_opts[:line_comments] = default_line_comments if environment
       plugin_opts
     end
 
