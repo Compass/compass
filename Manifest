@@ -152,6 +152,7 @@ frameworks/yui/stylesheets/_yui.sass
 frameworks/yui/stylesheets/yui/modules/_base.sass
 frameworks/yui/stylesheets/yui/modules/_fonts.sass
 frameworks/yui/stylesheets/yui/modules/_grids.sass
+frameworks/yui/stylesheets/yui/modules/_reset.sass
 frameworks/yui/templates/project/manifest.rb
 frameworks/yui/templates/project/screen.sass
 frameworks/yui.rb
