@@ -8,7 +8,8 @@ module Compass
           :sass_dir => (sass_dir || prompt_sass_dir),
           :css_dir => (css_dir || prompt_css_dir),
           :images_dir => default_images_dir,
-          :javascripts_dir => default_javascripts_dir
+          :javascripts_dir => default_javascripts_dir,
+          :http_images_path => default_http_images_path
         }
       end
 
@@ -47,6 +48,10 @@ NEXTSTEPS
 
       def default_javascripts_dir
         separate("public/javascripts")
+      end
+
+      def default_http_images_path
+        "/images"
       end
 
       def prompt_sass_dir
