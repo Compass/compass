@@ -29,6 +29,7 @@ module Compass
     end
 
     def run
+      Compass.configure_sass_plugin!
       target_directories.each do |dir|
         directory dir
       end

@@ -46,22 +46,30 @@ module Compass
       else
         logger.record :create, basename(file_name)
       end
-      open(file_name,'w') do |file|
-        file.write(contents)
-      end unless skip_write
+      if skip_write
+        FileUtils.touch file_name
+      else
+        open(file_name,'w') do |file|
+          file.write(contents)
+        end
+      end
     end
 
     # Compile one Sass file
     def compile(sass_filename, css_filename, options)
-      logger.record :compile, basename(sass_filename)
-      engine = ::Sass::Engine.new(open(sass_filename).read,
-                                  :filename => sass_filename,
-                                  :line_comments => options[:line_comments],
-                                  :style => options[:style],
-                                  :css_filename => css_filename,
-                                  :load_paths => options[:load_paths])
-      css_content = engine.render
-      write_file(css_filename, css_content, options.merge(:force => true))
+      if Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
+        logger.record :compile, basename(sass_filename)
+        engine = ::Sass::Engine.new(open(sass_filename).read,
+                                    :filename => sass_filename,
+                                    :line_comments => options[:line_comments],
+                                    :style => options[:style],
+                                    :css_filename => css_filename,
+                                    :load_paths => options[:load_paths])
+        css_content = engine.render
+        write_file(css_filename, css_content, options.merge(:force => true))
+      else
+        logger.record :unchanged, basename(sass_filename)
+      end
     end
 
     def basename(file)
