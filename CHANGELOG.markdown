@@ -1,6 +1,51 @@
 COMPASS CHANGELOG
 =================
 
+0.6.3
+-----
+
+### Rails
+
+Bug fix: The http_images_path configuration default should be "/images" instead of "/public/images".
+
+### Command Line
+
+These changes, coupled with upcoming changes to Sass result in significantly reduced time spent on compilation for large projects.
+
+* The compass command line will no longer recompile sass files that haven't changed (taking import dependencies into account).
+* The compass command line will now respect the -q (quiet) option during compilation. Additionally, the quiet option will be set by default when watching a project for changes.
+
+0.6.2
+-----
+
+### Blueprint
+
+Split the push and pull mixins into sub-mixins that separate the common styles from the ones that vary. The generated css when using presentational class names will be smaller as a result. The existing <code>+push</code> and <code>+pull</code> mixins continue to work as expected. The following mixins were added:
+
+    +push-base
+    +push-margins
+    +pull-base
+    +pull-margins
+
+Additonally, the liquid plugin was updated to have a span mixin that matches elsewhere.
+
+### YUI
+
+Added Yahoo's version of the css reset. To use it, mix into the top level of your project:
+
+    @import yui/modules/reset.sass
+    +reset
+
+### Rails
+
+* Conditionally defining #blank? on String/NilClass (Erik Bryn <erik.bryn@gmail.com>)
+* Set compass environment in plugin based on RAILS_ENV (Lee Nussbaum <wln@scrunch.org>)
+
+0.6.1
+-----
+
+Maintenance release that fixes several bugs in the handling of configuration files.
+
 0.6.0
 -----
 
