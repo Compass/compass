@@ -18,7 +18,7 @@ module Compass
     def directory(dir, options = nil)
       options ||= self.options if self.respond_to?(:options)
       if File.exists?(dir) && File.directory?(dir)
-          logger.record :exists, basename(dir)
+          logger.record :exists, basename(dir) unless options[:quiet]
       elsif File.exists?(dir)
         msg = "#{basename(dir)} already exists and is not a directory."
         raise Compass::FilesystemConflict.new(msg)
@@ -58,7 +58,7 @@ module Compass
     # Compile one Sass file
     def compile(sass_filename, css_filename, options)
       if Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
-        logger.record :compile, basename(sass_filename)
+        logger.record :compile, basename(sass_filename) unless options[:quiet]
         engine = ::Sass::Engine.new(open(sass_filename).read,
                                     :filename => sass_filename,
                                     :line_comments => options[:line_comments],
@@ -68,7 +68,7 @@ module Compass
         css_content = engine.render
         write_file(css_filename, css_content, options.merge(:force => true))
       else
-        logger.record :unchanged, basename(sass_filename)
+        logger.record :unchanged, basename(sass_filename) unless options[:quiet]
       end
     end
 

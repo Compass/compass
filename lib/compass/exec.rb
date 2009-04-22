@@ -98,6 +98,7 @@ END
 
         opts.on('-w', '--watch', :NONE, 'Monitor the current project for changes and update') do
           self.options[:command] = :watch_project
+          self.options[:quiet] = true
         end
 
         opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|

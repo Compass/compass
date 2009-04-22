@@ -14,7 +14,7 @@ module Compass
         Compass::Compiler.new(working_path,
                               projectize(Compass.configuration.sass_dir),
                               projectize(Compass.configuration.css_dir),
-                              Compass.sass_engine_options).run
+                              Compass.sass_engine_options.merge(:quiet => options[:quiet])).run
       end
 
     end
