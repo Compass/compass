@@ -163,8 +163,12 @@ END
         end
 
         opts.on('--imports', :NONE, 'Emit an import path suitable for use with the Sass command-line tool.') do
-          #XXX cross platform support?
           print ::Compass::Frameworks::ALL.map{|f| "-I #{f.stylesheets_directory}"}.join(' ')
+          exit
+        end
+
+        opts.on('--install-dir', :NONE, 'Emit the location where compass is installed.') do
+          puts ::Compass.base_directory
           exit
         end
 
