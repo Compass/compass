@@ -101,6 +101,19 @@ END
           self.options[:quiet] = true
         end
 
+        opts.on('-f FRAMEWORK', '--framework FRAMEWORK', 'Use the specified framework.') do |framework|
+          self.options[:framework] = framework
+        end
+
+        opts.on('-p', '--pattern PATTERN', 'Stamp out a pattern into the current project. Must be used in combination with -f.') do |pattern|
+          self.options[:command] = :stamp_pattern
+          self.options[:pattern] = pattern
+        end
+
+        opts.on('-n', '--pattern-name NAME', 'The name to use when stamping a pattern. Must be used in combination with -p.') do |name|
+          self.options[:pattern_name] = name
+        end
+
         opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
           self.options[:sass_dir] = sass_dir
         end
@@ -115,10 +128,6 @@ END
 
         opts.on('-c', '--write-configuration', "Write the current configuration to the configuration file.") do
           self.options[:command] = :write_configuration
-        end
-
-        opts.on('-f FRAMEWORK', '--framework FRAMEWORK', 'Set up a new project using the specified framework.') do |framework|
-          self.options[:framework] = framework
         end
 
         opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment: development, production (default)') do |env|
@@ -159,17 +168,8 @@ END
           exit
         end
 
-        opts.on('--validate', :NONE, 'Validate your project\'s compiled css') do
+        opts.on('--validate', :NONE, 'Validate your project\'s compiled css. Requires Java.') do
           self.options[:command] = :validate_project
-        end
-
-        opts.on('-p', '--pattern PATTERN', 'Stamp out a pattern into the current project. Must be used in combination with -f.') do |pattern|
-          self.options[:command] = :stamp_pattern
-          self.options[:pattern] = pattern
-        end
-
-        opts.on('-n', '--pattern-name NAME', 'The name to use when stamping a pattern. Must be used in combination with -p.') do |name|
-          self.options[:pattern_name] = name
         end
 
         opts.on_tail("-?", "-h", "--help", "Show this message") do
