@@ -139,7 +139,7 @@ END
         end
 
         opts.on('-r LIBRARY', '--require LIBRARY', "Require LIBRARY before running commands. This is used to access compass plugins.") do |library|
-          require library
+          ::Compass.configuration.require library
         end
         
         opts.on('--rails', "Sets the project type to a rails project.") do
