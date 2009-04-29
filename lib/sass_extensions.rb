@@ -19,6 +19,9 @@ module Sass::Script::Functions
   end
 
   def image_url(path)
+    if absolute_path?(path.value)
+      return Sass::Script::String.new("url(#{path})")
+    end
     http_images_path = if Compass.configuration.http_images_path == :relative
       if (target_css_file = options[:css_filename])
         images_path = File.join(Compass.configuration.project_path, Compass.configuration.images_dir)
@@ -34,6 +37,11 @@ module Sass::Script::Functions
       path = "#{http_images_path}#{path}"
     end
     Sass::Script::String.new("url(#{path})")
+  end
+
+  private
+  def absolute_path?(path)
+    path[0..0] == "/" || path[0..3] == "http"
   end
 end
 
