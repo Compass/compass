@@ -1,6 +1,29 @@
 COMPASS CHANGELOG
 =================
 
+0.6.5
+-----
+
+### Compass Core
+
+Converted all mixins definitions referencing images to use the new sass function <code>image\_url()</code>. The following mixins were affected:
+
+* <code>+pretty-bullets</code>
+* <code>+replace-text</code>
+
+The calls to these mixins should now pass a path to the image that is relative to the images directory of the project.
+
+### Command Line
+
+* Required frameworks specified from the command line will now be added into the initial project configuration file.
+
+0.6.4
+-----
+
+### Command Line
+
+Added a command line option --install-dir that will emit the directory where compass is installed. Useful for debugging and drilling into the compass examples and libraries.
+
 0.6.3
 -----
 
