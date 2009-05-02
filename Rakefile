@@ -78,7 +78,7 @@ task :examples do
       output.close
     end
     Dir.chdir example do
-      Compass::Exec::Compass.new([]).run!
+      Compass::Exec::Compass.new(["--force"]).run!
     end
   end
 end

@@ -57,7 +57,7 @@ module Compass
 
     # Compile one Sass file
     def compile(sass_filename, css_filename, options)
-      if Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
+      if options[:force] || Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
         logger.record :compile, basename(sass_filename) unless options[:quiet]
         engine = ::Sass::Engine.new(open(sass_filename).read,
                                     :filename => sass_filename,
