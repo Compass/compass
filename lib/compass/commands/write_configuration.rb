@@ -15,6 +15,10 @@ module Compass
         installer.write_configuration_files
       end
 
+      def installer_args
+        [nil, project_directory, options]
+      end
+
     end
   end
 end
