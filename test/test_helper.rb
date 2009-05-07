@@ -17,6 +17,7 @@ linked_haml = File.dirname(__FILE__) + '/haml'
 if File.exists?(linked_haml) && !$:.include?(linked_haml + '/lib')
   puts "[ using linked Haml ]"
   $:.unshift linked_haml + '/lib'
+  require 'sass'
 else
   need_gems = true
 end
