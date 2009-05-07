@@ -44,7 +44,7 @@ begin
     p.url = "http://github.com/chriseppstein/compass"
     p.author = ['Chris Eppstein']
     p.email = "chris@eppsteins.net"
-    p.dependencies = ["haml"]
+    p.dependencies = ["haml-edge"]
     p.has_rdoc = false
   end
  

@@ -25,9 +25,6 @@ require 'rubygems' if need_gems
 
 require 'action_controller'
 require 'action_view'
-require 'haml'
-require 'sass'
-require 'sass/plugin'
 
 
 require 'test/unit'

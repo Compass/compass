@@ -1,5 +1,4 @@
-require 'rubygems'
-require 'sass'
+require File.join(File.dirname(__FILE__), 'compass', 'dependencies')
 
 def assert_sass_version(obj)
   unless obj.respond_to?(:version) && obj.version[:major] == 2 && obj.version[:minor] >= 1

@@ -1,4 +1,3 @@
-require 'sass'
 require 'sass/plugin'
 
 module Sass::Script::Functions

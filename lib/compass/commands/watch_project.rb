@@ -1,5 +1,3 @@
-require 'rubygems'
-require 'sass'
 require 'fileutils'
 require 'pathname'
 require File.join(File.dirname(__FILE__), 'base')
