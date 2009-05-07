@@ -55,7 +55,11 @@ FRAMEWORKS
     within_tmp_directory do
       compass "basic"
       Dir.chdir "basic" do
+        # basic update with timestamp caching
         compass
+        assert_action_performed :unchanged, "src/screen.sass"
+        # basic update with force option set
+        compass "--force"
         assert_action_performed :compile, "src/screen.sass"
         assert_action_performed :identical, "stylesheets/screen.css"
       end
@@ -126,11 +130,15 @@ FRAMEWORKS
   end
 
   def assert_action_performed(action, path)
+    actions_found = []
     @last_result.split("\n").each do |line|
       line = line.split
       return if line.first == action.to_s && line.last == path
+      actions_found << line.first if line.last == path
     end
-    fail "Action #{action.inspect} was not performed on: #{path}"
+    message = "Action #{action.inspect} was not performed on: #{path}."
+    message += "The following actions were performed: #{actions_found.join(", ")}" if actions_found.any?
+    fail message
   end
 
   def within_tmp_directory(dir = "tmp")
