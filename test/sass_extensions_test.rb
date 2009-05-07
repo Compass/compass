@@ -20,7 +20,13 @@ class SassExtensionsTest < Test::Unit::TestCase
   def test_third_argument_expansion
     assert_equal "a b e, a b f, a c e, a c f, a d e, a d f", nest("a", "b, c, d", "e, f")
   end
+
+protected
+  def evaluation_content(options)
+    Sass::Script::Functions::EvaluationContext.new(options)
+  end
   def nest(*arguments)
-    Sass::Script::Functions.nest(*arguments.map{|a| Sass::Script::String.new(a)}).to_s
+    options = arguments.last.is_a?(Hash) ? arguments.pop : Hash.new
+    evaluation_content(options).nest(*arguments.map{|a| Sass::Script::String.new(a)}).to_s
   end
 end
