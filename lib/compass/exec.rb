@@ -21,10 +21,6 @@ module Compass
     end
 
     def get_line(exception)
-      # SyntaxErrors have weird line reporting
-      # when there's trailing whitespace,
-      # which there is for Haml documents.
-      return exception.message.scan(/:(\d+)/)[0] if exception.is_a?(::Haml::SyntaxError)
       exception.backtrace[0].scan(/:(\d+)/)[0]
     end
     module_function :report_error, :get_file, :get_line
