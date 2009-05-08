@@ -142,6 +142,10 @@ module Compass
       %Q(#{prop} = #{value.inspect}\n)
     end
 
+    def to_compiler_arguments(additional_options)
+      [project_path, sass_path, css_path, to_sass_engine_options.merge(additional_options)]
+    end
+
     def to_sass_plugin_options
       locations = {}
       locations[sass_path] = css_path if sass_path && css_path
