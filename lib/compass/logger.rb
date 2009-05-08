@@ -31,4 +31,12 @@ module Compass
       @max_action_length ||= actions.inject(0){|memo, a| [memo, a.to_s.length].max}
     end
   end
+
+  class NullLogger
+    def record(*args)
+    end
+
+    def log(msg)
+    end
+  end
 end
