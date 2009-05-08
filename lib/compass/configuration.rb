@@ -105,6 +105,18 @@ module Compass
       environment == :development
     end
 
+    def sass_path
+      if project_path && sass_dir
+        File.join(project_path, sass_dir)
+      end
+    end
+
+    def css_path
+      if project_path && css_dir
+        File.join(project_path, css_dir)
+      end
+    end
+
     def serialize
       contents = ""
       required_libraries.each do |lib|
@@ -131,15 +143,10 @@ module Compass
     end
 
     def to_sass_plugin_options
-      if project_path && sass_dir && css_dir
-        proj_sass_path = File.join(project_path, sass_dir)
-        proj_css_path = File.join(project_path, css_dir)
-        locations = {proj_sass_path => proj_css_path}
-      else
-        locations = {}
-      end
+      locations = {}
+      locations[sass_path] = css_path if sass_path && css_path
       Compass::Frameworks::ALL.each do |framework|
-        locations[framework.stylesheets_directory] = proj_css_path || css_dir || "."
+        locations[framework.stylesheets_directory] = css_path || css_dir || "."
       end
       plugin_opts = {:template_location => locations}
       plugin_opts[:style] = output_style if output_style
@@ -156,9 +163,7 @@ module Compass
 
     def sass_load_paths
       load_paths = []
-      if project_path && sass_dir
-        load_paths << File.join(project_path, sass_dir)
-      end
+      load_paths << sass_path if sass_path
       Compass::Frameworks::ALL.each do |framework|
         load_paths << framework.stylesheets_directory
       end
