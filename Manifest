@@ -1,6 +1,8 @@
 bin/compass
 CHANGELOG.markdown
 compass.gemspec
+examples/blueprint_default/config.rb
+examples/blueprint_default/images/grid.png
 examples/blueprint_default/index.html
 examples/blueprint_default/parts/elements.html
 examples/blueprint_default/parts/forms.html
@@ -9,13 +11,13 @@ examples/blueprint_default/parts/test-small.jpg
 examples/blueprint_default/parts/test.jpg
 examples/blueprint_default/parts/valid.png
 examples/blueprint_default/src/ie.sass
-examples/blueprint_default/src/images/grid.png
 examples/blueprint_default/src/print.sass
 examples/blueprint_default/src/screen.sass
 examples/blueprint_plugins/config.rb
 examples/blueprint_plugins/images/buttons/cross.png
 examples/blueprint_plugins/images/buttons/key.png
 examples/blueprint_plugins/images/buttons/tick.png
+examples/blueprint_plugins/images/grid.png
 examples/blueprint_plugins/images/link_icons/doc.png
 examples/blueprint_plugins/images/link_icons/email.png
 examples/blueprint_plugins/images/link_icons/external.png
@@ -34,7 +36,6 @@ examples/blueprint_plugins/plugins/link_icons.html
 examples/blueprint_plugins/plugins/rtl.html
 examples/blueprint_plugins/src/buttons.sass
 examples/blueprint_plugins/src/ie.sass
-examples/blueprint_plugins/src/images/grid.png
 examples/blueprint_plugins/src/link_icons.sass
 examples/blueprint_plugins/src/print.sass
 examples/blueprint_plugins/src/rtl_screen.sass
@@ -45,6 +46,8 @@ examples/blueprint_scoped/src/screen.sass
 examples/blueprint_scoped_form/src/ie.sass
 examples/blueprint_scoped_form/src/print.sass
 examples/blueprint_scoped_form/src/screen.sass
+examples/blueprint_semantic/config.rb
+examples/blueprint_semantic/images/grid.png
 examples/blueprint_semantic/index.html
 examples/blueprint_semantic/parts/fancy_type.html
 examples/blueprint_semantic/parts/liquid.html
@@ -52,13 +55,13 @@ examples/blueprint_semantic/parts/test-small.jpg
 examples/blueprint_semantic/parts/test.jpg
 examples/blueprint_semantic/parts/valid.png
 examples/blueprint_semantic/src/ie.sass
-examples/blueprint_semantic/src/images/grid.png
 examples/blueprint_semantic/src/liquid.sass
 examples/blueprint_semantic/src/print.sass
 examples/blueprint_semantic/src/screen.sass
 examples/compass/compass.html
+examples/compass/config.rb
+examples/compass/images/blue_arrow.gif
 examples/compass/src/compass.sass
-examples/compass/src/images/blue_arrow.gif
 examples/compass/src/sticky_footer.sass
 examples/compass/src/utilities.sass
 examples/compass/sticky_footer.html.haml
@@ -172,6 +175,7 @@ lib/compass/commands/write_configuration.rb
 lib/compass/compiler.rb
 lib/compass/configuration.rb
 lib/compass/core_ext.rb
+lib/compass/dependencies.rb
 lib/compass/errors.rb
 lib/compass/exec.rb
 lib/compass/frameworks.rb
@@ -202,11 +206,13 @@ README.markdown
 test/command_line_test.rb
 test/compass_test.rb
 test/configuration_test.rb
+test/fixtures/stylesheets/blueprint/config.rb
 test/fixtures/stylesheets/blueprint/css/typography.css
 test/fixtures/stylesheets/blueprint/sass/ie.sass
 test/fixtures/stylesheets/blueprint/sass/print.sass
 test/fixtures/stylesheets/blueprint/sass/screen.sass
 test/fixtures/stylesheets/blueprint/sass/typography.sass
+test/fixtures/stylesheets/compass/config.rb
 test/fixtures/stylesheets/compass/css/layout.css
 test/fixtures/stylesheets/compass/css/print.css
 test/fixtures/stylesheets/compass/css/reset.css
@@ -215,6 +221,7 @@ test/fixtures/stylesheets/compass/sass/layout.sass
 test/fixtures/stylesheets/compass/sass/print.sass
 test/fixtures/stylesheets/compass/sass/reset.sass
 test/fixtures/stylesheets/compass/sass/utilities.sass
+test/fixtures/stylesheets/yui/config.rb
 test/fixtures/stylesheets/yui/css/mixins.css
 test/fixtures/stylesheets/yui/sass/base.sass
 test/fixtures/stylesheets/yui/sass/fonts.sass

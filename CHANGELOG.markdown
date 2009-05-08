@@ -1,6 +1,20 @@
 COMPASS CHANGELOG
 =================
 
+0.6.6
+-----
+
+The Haml project now releases a gem called haml-edge that is built from the haml master branch instead of stable. Compass now depends on this gem and will continue to do so until haml 2.2 is released. This should reduce the number of installation problems that have been encountered by new users.
+
+### Command Line
+
+* Fixed a bug that had broken the --write-configuration (-c) option.
+* The --force option will now force recompilation. Useful when the stylesheets don't appear to need a recompile according to the file timestamps.
+
+### Unit tests
+
+* Some unit tests were cleaned up for clarity and to better take advantage of the compass project management facilities.
+
 0.6.5
 -----
 
