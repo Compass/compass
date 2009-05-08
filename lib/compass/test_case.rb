@@ -24,8 +24,7 @@ module Compass
       input =  open(stylesheet)
       template = input.read()
       input.close()
-      @last_compile = ::Sass::Engine.new(template,
-        ::Sass::Plugin.engine_options(:style => :compact, :filename => stylesheet)).render
+      @last_compile = ::Sass::Engine.new(template, ::Sass::Plugin.engine_options(:filename => stylesheet)).render
       yield @last_compile if block_given?
     end
 
