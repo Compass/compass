@@ -3,6 +3,10 @@ require 'compass'
 
 class ConfigurationTest < Test::Unit::TestCase
 
+  def setup
+    Compass.configuration.reset!
+  end
+
   def test_parse_and_serialize
     contents = <<-CONFIG
       require 'compass'
