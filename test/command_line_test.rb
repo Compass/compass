@@ -138,6 +138,7 @@ FRAMEWORKS
     end
     message = "Action #{action.inspect} was not performed on: #{path}."
     message += "The following actions were performed: #{actions_found.join(", ")}" if actions_found.any?
+    puts @last_result
     fail message
   end
 

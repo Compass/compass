@@ -5,71 +5,67 @@ require 'compass'
 class CompassTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
   def setup
-    setup_fixtures :blueprint, :yui, :empty
-    @original_options = Sass::Plugin.options
-  end
-  
-  def setup_fixtures(*folders)
-    folders.each do |folder|
-      FileUtils.mkdir_p stylesheet_fixtures(folder)
-      mkdir_clean tempfile_loc(folder)
-    end
+    Compass.configuration.reset!
   end
 
   def teardown
-    teardown_fixtures :blueprint, :yui, :empty
-    Sass::Plugin.options = @original_options
+    teardown_fixtures :blueprint, :yui, :empty, :compass
   end
 
-  def teardown_fixtures(*folders)
-    folders.each do |folder|
-      FileUtils.rm_rf tempfile_loc(folder)
+  def teardown_fixtures(*project_names)
+    project_names.each do |project_name|
+      FileUtils.rm_rf tempfile_path(project_name)
     end
   end
 
   def test_blueprint_generates_no_files
-    with_templates(:empty) do
-      Dir.new(tempfile_loc(:empty)).each do |f|
+    within_project(:empty) do |proj|
+      return unless File.exists?(proj.css_path)
+      Dir.new(proj.css_path).each do |f|
         fail "This file should not have been generated: #{f}" unless f == "." || f == ".."
       end
     end
   end
 
   def test_blueprint
-    with_templates(:blueprint) do
-      each_css_file(tempfile_loc(:blueprint)) do |css_file|
+    within_project(:blueprint) do |proj|
+      each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, :blueprint
       end
       assert_renders_correctly :typography
     end
   end
+
   def test_yui
-    with_templates('yui') do
-      each_css_file(tempfile_loc('yui')) do |css_file|
+    within_project('yui') do |proj|
+      each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, 'yui'
       end
       assert_renders_correctly :mixins
     end
   end
+
   def test_compass
-    with_templates('compass') do
-      each_css_file(tempfile_loc('compass')) do |css_file|
+    within_project('compass') do |proj|
+      each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, 'compass'
       end
       assert_renders_correctly :reset, :layout, :utilities
     end
   end
-  private
-  def assert_no_errors(css_file, folder)
-    file = css_file[(tempfile_loc(folder).size+1)..-1]
-    msg = "Syntax Error found in #{file}. Results saved into #{save_loc(folder)}/#{file}"
+
+private
+  def assert_no_errors(css_file, project_name)
+    file = css_file[(tempfile_path(project_name).size+1)..-1]
+    msg = "Syntax Error found in #{file}. Results saved into #{save_path(project_name)}/#{file}"
     assert_equal 0, open(css_file).readlines.grep(/Sass::SyntaxError/).size, msg
   end
+
   def assert_renders_correctly(*arguments)
     options = arguments.last.is_a?(Hash) ? arguments.pop : {}
     for name in arguments
-      actual_result_file = "#{tempfile_loc(@current_template_folder)}/#{name}.css"
-      expected_result_file = "#{result_loc(@current_template_folder)}/#{name}.css"
+      actual_result_file = "#{tempfile_path(@current_project)}/#{name}.css"
+      expected_result_file = "#{result_path(@current_project)}/#{name}.css"
       actual_lines = File.read(actual_result_file).split("\n")
       expected_lines = File.read(expected_result_file).split("\n")
       expected_lines.zip(actual_lines).each_with_index do |pair, line|
@@ -81,27 +77,17 @@ class CompassTest < Test::Unit::TestCase
       end
     end
   end
-  def with_templates(folder)
-    old_template_loc = Sass::Plugin.options[:template_location]
-    Sass::Plugin.options[:template_location] = if old_template_loc.is_a?(Hash)
-      old_template_loc.dup
-    else
-      Hash.new
-    end
-    @current_template_folder = folder
-    begin
-      Sass::Plugin.options[:template_location][template_loc(folder)] = tempfile_loc(folder)
-      Compass::Frameworks::ALL.each do |framework|
-        Sass::Plugin.options[:template_location][framework.stylesheets_directory] = tempfile_loc(folder)
-      end
-      Sass::Plugin.update_stylesheets
-      yield
-    ensure
-      @current_template_folder = nil
-      Sass::Plugin.options[:template_location] = old_template_loc
-    end
+
+  def within_project(project_name)
+    @current_project = project_name
+    Compass.configuration.parse(configuration_file(project_name))
+    Compass.configuration.project_path = project_path(project_name)
+    args = Compass.configuration.to_compiler_arguments(:logger => Compass::NullLogger.new)
+    compiler = Compass::Compiler.new *args
+    compiler.run
+    yield Compass.configuration
   rescue
-    save_output(folder)    
+    save_output(project_name)    
     raise
   end
   
@@ -112,37 +98,32 @@ class CompassTest < Test::Unit::TestCase
   end
 
   def save_output(dir)
-    FileUtils.rm_rf(save_loc(dir))
-    FileUtils.cp_r(tempfile_loc(dir), save_loc(dir))
+    FileUtils.rm_rf(save_path(dir))
+    FileUtils.cp_r(tempfile_path(dir), save_path(dir)) if File.exists?(tempfile_path(dir))
   end
 
-  def mkdir_clean(dir)
-    begin
-      FileUtils.mkdir dir
-    rescue Errno::EEXIST
-      FileUtils.rm_r dir
-      FileUtils.mkdir dir
-    end
+  def project_path(project_name)
+    absolutize("fixtures/stylesheets/#{project_name}")
   end
 
-  def stylesheet_fixtures(folder)
-    absolutize("fixtures/stylesheets/#{folder}")
+  def configuration_file(project_name)
+    File.join(project_path(project_name), "config.rb")
   end
 
-  def tempfile_loc(folder)
-    "#{stylesheet_fixtures(folder)}/tmp"
+  def tempfile_path(project_name)
+    File.join(project_path(project_name), "tmp")
   end
   
-  def template_loc(folder)
-    "#{stylesheet_fixtures(folder)}/sass"
+  def template_path(project_name)
+    File.join(project_path(project_name), "sass")
   end
   
-  def result_loc(folder)
-    "#{stylesheet_fixtures(folder)}/css"
+  def result_path(project_name)
+    File.join(project_path(project_name), "css")
   end
   
-  def save_loc(folder)
-    "#{stylesheet_fixtures(folder)}/saved"
+  def save_path(project_name)
+    File.join(project_path(project_name), "saved")
   end
 
 end

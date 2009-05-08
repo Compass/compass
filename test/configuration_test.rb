@@ -2,18 +2,21 @@ require  File.dirname(__FILE__)+'/test_helper'
 require 'compass'
 
 class ConfigurationTest < Test::Unit::TestCase
+
   def test_parse_and_serialize
     contents = <<-CONFIG
       require 'compass'
-      require 'sass'
       # Require any additional compass plugins here.
 
+      project_type = :stand_alone
       css_dir = "css"
       sass_dir = "sass"
       images_dir = "img"
       javascripts_dir = "js"
+      output_style = :nested
       # To enable relative image paths using the images_url() function:
       # http_images_path = :relative
+      http_images_path = "/images"
     CONFIG
 
     Compass.configuration.parse_string(contents, "test_parse")
