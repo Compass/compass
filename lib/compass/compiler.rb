@@ -22,7 +22,7 @@ module Compass
     end
 
     def css_files
-      @css_files || sass_files.map{|sass_file| "#{to}/#{stylesheet_name(sass_file)}.css"}
+      @css_files ||= sass_files.map{|sass_file| "#{to}/#{stylesheet_name(sass_file)}.css"}
     end
 
     def target_directories
