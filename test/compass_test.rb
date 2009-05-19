@@ -18,9 +18,10 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
-  def test_blueprint_generates_no_files
+  def test_empty_project
+    # With no sass files, we should have no css files.
     within_project(:empty) do |proj|
-      return unless File.exists?(proj.css_path)
+      return unless proj.css_path && File.exists?(proj.css_path)
       Dir.new(proj.css_path).each do |f|
         fail "This file should not have been generated: #{f}" unless f == "." || f == ".."
       end
@@ -80,11 +81,13 @@ private
 
   def within_project(project_name)
     @current_project = project_name
-    Compass.configuration.parse(configuration_file(project_name))
+    Compass.configuration.parse(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
     Compass.configuration.project_path = project_path(project_name)
     args = Compass.configuration.to_compiler_arguments(:logger => Compass::NullLogger.new)
-    compiler = Compass::Compiler.new *args
-    compiler.run
+    if Compass.configuration.sass_path && File.exists?(Compass.configuration.sass_path)
+      compiler = Compass::Compiler.new *args
+      compiler.run
+    end
     yield Compass.configuration
   rescue
     save_output(project_name)    

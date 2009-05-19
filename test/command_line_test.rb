@@ -70,7 +70,7 @@ FRAMEWORKS
     within_tmp_directory do
       generate_rails_app("compass_rails")
       Dir.chdir "compass_rails" do
-        compass("--rails", ".") do |responder|
+        compass("--rails", '--trace', ".") do |responder|
           responder.respond_to "Is this OK? (Y/n) ", :with => "Y"
           responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled/? (Y/n) ", :with => "Y"
         end
