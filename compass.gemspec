@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.6.15"
+  s.version = "0.6.16"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2009-06-05}
+  s.date = %q{2009-06-11}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     "examples/blueprint_default/parts/test.jpg",
     "examples/blueprint_default/parts/valid.png",
     "examples/blueprint_default/src/ie.sass",
+    "examples/blueprint_default/src/images/grid.png",
     "examples/blueprint_default/src/print.sass",
     "examples/blueprint_default/src/screen.sass",
     "examples/blueprint_plugins/config.rb",
@@ -55,6 +56,7 @@ Gem::Specification.new do |s|
     "examples/blueprint_plugins/plugins/rtl.html.haml",
     "examples/blueprint_plugins/src/buttons.sass",
     "examples/blueprint_plugins/src/ie.sass",
+    "examples/blueprint_plugins/src/images/grid.png",
     "examples/blueprint_plugins/src/link_icons.sass",
     "examples/blueprint_plugins/src/print.sass",
     "examples/blueprint_plugins/src/rtl_screen.sass",
@@ -74,6 +76,7 @@ Gem::Specification.new do |s|
     "examples/blueprint_semantic/parts/test.jpg",
     "examples/blueprint_semantic/parts/valid.png",
     "examples/blueprint_semantic/src/ie.sass",
+    "examples/blueprint_semantic/src/images/grid.png",
     "examples/blueprint_semantic/src/liquid.sass",
     "examples/blueprint_semantic/src/print.sass",
     "examples/blueprint_semantic/src/screen.sass",
@@ -81,6 +84,7 @@ Gem::Specification.new do |s|
     "examples/compass/config.rb",
     "examples/compass/images/blue_arrow.gif",
     "examples/compass/src/compass.sass",
+    "examples/compass/src/images/blue_arrow.gif",
     "examples/compass/src/sticky_footer.sass",
     "examples/compass/src/utilities.sass",
     "examples/compass/sticky_footer.html.haml",
@@ -179,6 +183,12 @@ Gem::Specification.new do |s|
     "frameworks/yui/templates/project/screen.sass",
     "lib/compass.rb",
     "lib/compass/actions.rb",
+    "lib/compass/app_integration.rb",
+    "lib/compass/app_integration/merb.rb",
+    "lib/compass/app_integration/rails.rb",
+    "lib/compass/app_integration/rails/action_controller.rb",
+    "lib/compass/app_integration/rails/image_url.rb",
+    "lib/compass/app_integration/rails/sass_plugin.rb",
     "lib/compass/commands/base.rb",
     "lib/compass/commands/create_project.rb",
     "lib/compass/commands/generate_grid_background.rb",
@@ -205,16 +215,22 @@ Gem::Specification.new do |s|
     "lib/compass/installers/rails.rb",
     "lib/compass/installers/stand_alone.rb",
     "lib/compass/logger.rb",
-    "lib/compass/merb.rb",
+    "lib/compass/sass_extensions.rb",
+    "lib/compass/sass_extensions/functions.rb",
+    "lib/compass/sass_extensions/functions/enumerate.rb",
+    "lib/compass/sass_extensions/functions/image_url.rb",
+    "lib/compass/sass_extensions/functions/nest.rb",
+    "lib/compass/sass_extensions/monkey_patches.rb",
+    "lib/compass/sass_extensions/monkey_patches/stylesheet_updating.rb",
     "lib/compass/test_case.rb",
     "lib/compass/validator.rb",
     "lib/compass/version.rb",
-    "lib/sass_extensions.rb",
     "test/command_line_test.rb",
     "test/compass_test.rb",
     "test/configuration_test.rb",
     "test/fixtures/stylesheets/blueprint/config.rb",
     "test/fixtures/stylesheets/blueprint/css/typography.css",
+    "test/fixtures/stylesheets/blueprint/images/grid.png",
     "test/fixtures/stylesheets/blueprint/sass/ie.sass",
     "test/fixtures/stylesheets/blueprint/sass/print.sass",
     "test/fixtures/stylesheets/blueprint/sass/screen.sass",
@@ -235,7 +251,9 @@ Gem::Specification.new do |s|
     "test/fixtures/stylesheets/yui/sass/grids.sass",
     "test/fixtures/stylesheets/yui/sass/mixins.sass",
     "test/sass_extensions_test.rb",
-    "test/test_helper.rb"
+    "test/test_case_helper.rb",
+    "test/test_helper.rb",
+    "test/test_rails_helper.rb"
   ]
   s.homepage = %q{http://compass-style.org}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -249,6 +267,7 @@ Gem::Specification.new do |s|
     "test/configuration_test.rb",
     "test/fixtures/stylesheets/blueprint/config.rb",
     "test/fixtures/stylesheets/blueprint/css/typography.css",
+    "test/fixtures/stylesheets/blueprint/images/grid.png",
     "test/fixtures/stylesheets/blueprint/sass/ie.sass",
     "test/fixtures/stylesheets/blueprint/sass/print.sass",
     "test/fixtures/stylesheets/blueprint/sass/screen.sass",
@@ -269,7 +288,9 @@ Gem::Specification.new do |s|
     "test/fixtures/stylesheets/yui/sass/grids.sass",
     "test/fixtures/stylesheets/yui/sass/mixins.sass",
     "test/sass_extensions_test.rb",
-    "test/test_helper.rb"
+    "test/test_case_helper.rb",
+    "test/test_helper.rb",
+    "test/test_rails_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
