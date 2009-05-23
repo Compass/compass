@@ -10,6 +10,7 @@ module Compass
       self.from, self.to = from, to
       self.logger = options.delete(:logger)
       self.options = options
+      self.options[:cache_location] ||= File.join(from, ".sass-cache")
     end
 
     def sass_files

@@ -64,7 +64,8 @@ module Compass
                                     :line_comments => options[:line_comments],
                                     :style => options[:style],
                                     :css_filename => css_filename,
-                                    :load_paths => options[:load_paths])
+                                    :load_paths => options[:load_paths],
+                                    :cache_location => options[:cache_location])
         css_content = engine.render
         write_file(css_filename, css_content, options.merge(:force => true))
       else
