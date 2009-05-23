@@ -4,6 +4,11 @@ COMPASS CHANGELOG
 0.6.8
 -----
 
+No changes to speak of. v0.6.8 was lacking the haml-edge dependency.
+
+0.6.8
+-----
+
 The compass gem is now built with Jeweler instead of Echoe. No changes to speak of.
 
 0.6.7
