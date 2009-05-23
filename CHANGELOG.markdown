@@ -1,5 +1,22 @@
 COMPASS CHANGELOG
 =================
+0.6.7
+-----
+
+Bug fix release.
+
+### Rails
+
+The output_style will no longer be set in the compass.config file. Instead compass will use the runtime rails environment to set a sensible default.
+
+### Command Line
+
+The Sass cache directory will be placed into the sass directory of the project instead of the directory from where the compass command was ran.
+
+### Compass Core
+
+Extracted two new mixins from +horizontal-list.  The new +horizontal-list-container and +horizontal-list-item mixins can be used to build your
+horizontal list when you need more control over the selectors (E.g. when working with nested lists).
 
 0.6.6
 -----

@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.6.6"
+  s.version = "0.6.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2009-05-08}
+  s.date = %q{2009-05-23}
   s.default_executable = %q{compass}
   s.description = %q{Sass-Based CSS Meta-Framework. Semantic, Maintainable CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -27,13 +27,10 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<haml-edge>, [">= 0"])
-      s.add_development_dependency(%q<echoe>, [">= 0"])
     else
       s.add_dependency(%q<haml-edge>, [">= 0"])
-      s.add_dependency(%q<echoe>, [">= 0"])
     end
   else
     s.add_dependency(%q<haml-edge>, [">= 0"])
-    s.add_dependency(%q<echoe>, [">= 0"])
   end
 end
