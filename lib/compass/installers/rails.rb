@@ -80,6 +80,8 @@ Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
         Compass.configuration.serialize do |prop, value|
           if prop == :project_path
             "project_path = RAILS_ROOT if defined?(RAILS_ROOT)\n"
+          elsif prop == :output_style
+            ""
           end
         end
       end
