@@ -1,5 +1,11 @@
 COMPASS CHANGELOG
 =================
+
+0.6.8
+-----
+
+The compass gem is now built with Jeweler instead of Echoe. No changes to speak of.
+
 0.6.7
 -----
 

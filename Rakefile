@@ -35,23 +35,21 @@ To run with an alternate version of Haml & Sass, make test/haml a symlink to tha
 END
 
 begin
-  require 'echoe'
- 
-  Echoe.new('compass', open('VERSION').read) do |p|
-    # p.rubyforge_name = 'github'
-    p.summary = "Sass-Based CSS Meta-Framework."
-    p.description = "Sass-Based CSS Meta-Framework. Semantic, Maintainable CSS."
-    p.url = "http://github.com/chriseppstein/compass"
-    p.author = ['Chris Eppstein']
-    p.email = "chris@eppsteins.net"
-    p.dependencies = ["haml-edge"]
-    p.has_rdoc = false
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.rubyforge_project = "compass"
+    gemspec.name = "compass"
+    gemspec.summary = "A Real Stylesheet Framework"
+    gemspec.email = "chris@eppsteins.net"
+    gemspec.homepage = "http://compass-style.org"
+    gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS."
+    gemspec.authors = ["Chris Eppstein"]
+    gemspec.has_rdoc = false
   end
- 
-rescue LoadError => boom
-  puts "You are missing a dependency required for meta-operations on this gem."
-  puts "#{boom.to_s.capitalize}."
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
+
 
 desc "Compile Examples into HTML and CSS"
 task :examples do
