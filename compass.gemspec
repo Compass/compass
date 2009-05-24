@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.files = [
     "CHANGELOG.markdown",
     "README.markdown",
+    "REVISION",
+    "VERSION.yml",
     "bin/compass",
     "examples/blueprint_default/config.rb",
     "examples/blueprint_default/images/grid.png",
