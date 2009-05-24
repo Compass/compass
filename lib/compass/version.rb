@@ -12,7 +12,6 @@ module Compass
       return @version if defined?(@version)
 
       read_version_file
-      parse_version
 
       if r = revision
         @version[:rev] = r
@@ -29,17 +28,10 @@ module Compass
     end
 
     def read_version_file
-      @version = {
-        :string => File.read(scope('VERSION')).strip
-      }
-    end
-
-    def parse_version
-      dotted_string, @version[:label] = @version[:string].split(/-/, 2)
-      numbers = dotted_string.split('.').map { |n| n.to_i }
-      [:major, :minor, :teeny].zip(numbers).each do |attr, value|
-        @version[attr] = value
-      end
+      require 'yaml'
+      @version = YAML::load(File.read(scope('VERSION.yml')))
+      @version[:string] = "#{@version[:major]}.#{@version[:minor]}.#{@version[:patch]}"
+      @version[:teeny] = @version[:patch]
     end
 
     def revision

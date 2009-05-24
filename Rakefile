@@ -60,6 +60,25 @@ rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
 
+desc "Record the current git revision."
+task :REVISION do
+  require 'git'
+  
+  repo = Git.open('.')
+  open("REVISION", "w") do |f|
+    f.write(repo.object("HEAD").sha)
+  end
+end
+
+desc "Commit the revision file."
+task :commit_revision => :REVISION do
+  require 'git'
+  repo = Git.open('.')  
+  repo.add("REVISION")
+  repo.commit("Record current revision for release.")
+end
+
+task :release => :commit_revision
 
 desc "Compile Examples into HTML and CSS"
 task :examples do
@@ -92,15 +111,7 @@ task :examples do
 end
 
 namespace :git do
-  desc "Perform normal operations required for pushing to github."
-  task :push => [:manifest, :gem]  do
-    sh "git", "add", "Manifest", "compass.gemspec", "VERSION"
-    sh "git", "commit", "-m", "Updated Manifest and gemspec."
-    sh "git", "push", "origin", "master"
-  end
   task :clean do
     sh "git", "clean", "-fdx"
   end
 end
-
-task :manifest => :"git:clean"
