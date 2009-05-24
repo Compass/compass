@@ -46,6 +46,15 @@ begin
     gemspec.authors = ["Chris Eppstein"]
     gemspec.has_rdoc = false
     gemspec.add_dependency('haml-edge', '>= 2.1.12')
+    gemspec.files = []
+    gemspec.files << "CHANGELOG.markdown"
+    gemspec.files << "README.markdown"
+    gemspec.files += Dir.glob("bin/*")
+    gemspec.files += Dir.glob("examples/**/*.*")
+    gemspec.files += Dir.glob("frameworks/**/*.*")
+    gemspec.files += Dir.glob("lib/**/*")
+    gemspec.files += Dir.glob("test/**/*.*")
+    gemspec.test_files = Dir.glob("test/**/*.*")
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
