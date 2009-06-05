@@ -53,6 +53,8 @@ begin
     gemspec.files << "VERSION.yml"
     gemspec.files += Dir.glob("bin/*")
     gemspec.files += Dir.glob("examples/**/*.*")
+    gemspec.files -= Dir.glob("examples/**/*.css")
+    gemspec.files -= Dir.glob("examples/**/*.html")
     gemspec.files += Dir.glob("frameworks/**/*.*")
     gemspec.files += Dir.glob("lib/**/*")
     gemspec.files += Dir.glob("test/**/*.*")
@@ -98,7 +100,7 @@ task :examples do
     puts "\nCompiling #{example}"
     puts "=" * "Compiling #{example}".length
     # compile any haml templates to html
-    FileList["#{example}/*.haml"].each do |haml_file|
+    FileList["#{example}/**/*.haml"].each do |haml_file|
       basename = haml_file[0..-6]
       engine = Haml::Engine.new(open(haml_file).read, :filename => haml_file)
       puts "     haml #{File.basename(basename)}"
