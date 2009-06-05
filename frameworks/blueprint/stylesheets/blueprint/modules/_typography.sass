@@ -4,6 +4,7 @@
 
 !blueprint_font_family       ||= "Helvetica Neue, Arial, Helvetica, sans-serif"
 !blueprint_fixed_font_family ||= "'andale mono', 'lucida console', monospace"
+!blueprint_font_size         ||= 12px
 
 // The +blueprint-typography mixin must be mixed into the top level of your stylesheet.
 // However, you can customize the body selector if you wish to control the scope
@@ -43,10 +44,10 @@
 =loud
   :color= !loud_color
 
-=blueprint-typography-body
+=blueprint-typography-body(!font_size = !blueprint_font_size)
   :line-height 1.5
   +normal-text
-  :font-size 75%
+  :font-size= 100% * !font_size / 16px
 
 =blueprint-typography-defaults
   h1
