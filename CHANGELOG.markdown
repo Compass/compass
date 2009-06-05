@@ -1,15 +1,19 @@
 COMPASS CHANGELOG
 =================
 
-0.6.8
------
+0.6.14
+------
 
-No changes to speak of. v0.6.8 was lacking the haml-edge dependency.
+Extracted the css validator to an external gem that is only required if you try to use the validation feature.
+This makes the compass gem a lot smaller (0.37MB instead of 4MB). To install the validator:
 
-0.6.8
------
+    sudo gem install chriseppstein-compass-validator --source http://gems.github.com/
 
-The compass gem is now built with Jeweler instead of Echoe. No changes to speak of.
+0.6.8 thru 0.6.13
+-----------------
+
+The compass gem is now built with Jeweler instead of Echoe. No changes to speak of. These versions were bug
+fixes and working out the new release process.
 
 0.6.7
 -----
