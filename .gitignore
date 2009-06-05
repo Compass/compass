@@ -2,6 +2,7 @@
 tmp/*
 examples/*/stylesheets/*
 examples/*/*.html
+examples/*/*/*.html
 examples/*/src/.sass-cache
 test/tmp
 test/fixtures/stylesheets/*/tmp
