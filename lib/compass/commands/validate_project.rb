@@ -1,6 +1,5 @@
 require File.join(File.dirname(__FILE__), 'project_base')
 require File.join(File.dirname(__FILE__), 'update_project')
-require File.join(File.dirname(__FILE__), '..', 'validator')
 
 module Compass
   module Commands
@@ -12,6 +11,7 @@ module Compass
       end
 
       def perform
+        require File.join(File.dirname(__FILE__), '..', 'validator')
         UpdateProject.new(working_path, options).perform
         Validator.new(project_css_subdirectory).validate()
       end
