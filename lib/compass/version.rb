@@ -3,8 +3,7 @@ module Compass
     # Returns a hash representing the version.
     # The :major, :minor, and :teeny keys have their respective numbers.
     # The :string key contains a human-readable string representation of the version.
-    # If checked out from Git,
-    # the :rev key will have the revision hash.
+    # The :rev key will have the current revision hash.
     #
     # This method swiped from Haml and then modified, some credit goes to Nathan Weizenbaum
     attr_writer :version
@@ -41,7 +40,7 @@ module Compass
     def revision_from_file
       if File.exists?(scope('REVISION'))
         rev = File.read(scope('REVISION')).strip
-        rev = nil if rev !~ /[a-f0-9]+/
+        rev if rev =~ /[a-f0-9]+/
       end
     end
 
