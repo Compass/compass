@@ -6,6 +6,7 @@ require 'timeout'
 
 class CommandLineTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
+  include Compass::CommandLineHelper
 
   def teardown
     Compass.configuration.reset!
@@ -18,11 +19,7 @@ class CommandLineTest < Test::Unit::TestCase
 
   def test_list_frameworks
     compass "--list-frameworks"
-    assert_equal(<<-FRAMEWORKS, @last_result)
-blueprint
-compass
-yui
-FRAMEWORKS
+    assert_equal("blueprint\ncompass\nyui\n", @last_result)
   end
 
   def test_basic_install
@@ -66,105 +63,4 @@ FRAMEWORKS
     end
   end
 
-  def test_rails_install
-    within_tmp_directory do
-      generate_rails_app("compass_rails")
-      Dir.chdir "compass_rails" do
-        compass("--rails", '--trace', ".") do |responder|
-          responder.respond_to "Is this OK? (Y/n) ", :with => "Y"
-          responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled/? (Y/n) ", :with => "Y"
-        end
-        # puts @last_result
-        assert_action_performed :create, "./app/stylesheets/screen.sass"
-        assert_action_performed :create, "./config/initializers/compass.rb"
-      end
-    end
-  rescue LoadError
-    puts "Skipping rails test. Couldn't Load rails"
-  end
-
-  protected
-  def compass(*arguments)
-    if block_given?
-      responder = Responder.new
-      yield responder
-      IO.popen("-", "w+") do |io|
-        if io
-          #parent process
-          output = ""
-          while !io.eof?
-            timeout(1) do
-              output << io.readpartial(512)
-            end
-            prompt = output.split("\n").last
-            if response = responder.response_for(prompt)
-              io.puts response
-            end
-          end
-          @last_result = output
-        else
-          #child process
-          execute *arguments
-        end
-      end
-    else
-      @last_result = capture_output do
-        execute *arguments
-      end
-    end
-  rescue Timeout::Error
-    fail "Read from child process timed out"
-  end
-
-  class Responder
-    def initialize
-      @responses = []
-    end
-    def respond_to(prompt, options = {})
-      @responses << [prompt, options[:with]]
-    end
-    def response_for(prompt)
-      pair = @responses.detect{|r| r.first == prompt}
-      pair.last if pair
-    end
-  end
-
-  def assert_action_performed(action, path)
-    actions_found = []
-    @last_result.split("\n").each do |line|
-      line = line.split
-      return if line.first == action.to_s && line.last == path
-      actions_found << line.first if line.last == path
-    end
-    message = "Action #{action.inspect} was not performed on: #{path}."
-    message += "The following actions were performed: #{actions_found.join(", ")}" if actions_found.any?
-    puts @last_result
-    fail message
-  end
-
-  def within_tmp_directory(dir = "tmp")
-    d = absolutize(dir)
-    FileUtils.mkdir_p(d)
-    Dir.chdir(d) do
-      yield
-    end
-  ensure
-    FileUtils.rm_r(d)
-  end
-
-  def capture_output
-    real_stdout, $stdout = $stdout, StringIO.new
-    yield
-    $stdout.string
-  ensure
-    $stdout = real_stdout
-  end
-
-  def execute(*arguments)
-    Compass::Exec::Compass.new(arguments).run!
-  end
-
-  def generate_rails_app(name)
-    `rails #{name}`
-  end
 end
