@@ -66,8 +66,8 @@
 
 // Border with more whitespace, spans one column.
 =colborder
-  :padding-left= !blueprint_grid_width - 0.5 * !blueprint_grid_margin - 1
-  :margin-left= !blueprint_grid_width - 0.5 * !blueprint_grid_margin
+  :padding-left= (!blueprint_grid_width - 2 * !blueprint_grid_margin - 1)/2
+  :margin-left= (!blueprint_grid_width - 2 * !blueprint_grid_margin)/2
   :border-left 1px solid #eee
 
 =rtl-typography(!body_selector = "body")
