@@ -16,12 +16,13 @@
 
 =blueprint-scaffolding(!body_selector = "body")
   #{!body_selector}
-    +blueprint-scaffolding-body
     @if !body_selector != "body"
       +blueprint-scaffolding-defaults
   @if !body_selector == "body"
     +blueprint-scaffolding-defaults
 
+// The styles this mixin provides were deprecated in Blueprint 0.9 and is no longer part of the
+// main scaffolding, but the mixin is still available if you want to use it.
 =blueprint-scaffolding-body
   :margin 1.5em 0
 
