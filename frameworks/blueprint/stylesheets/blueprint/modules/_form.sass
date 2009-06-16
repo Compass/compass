@@ -1,5 +1,11 @@
 @import colors.sass
 
+// Mixin for producing Blueprint "inline" forms. Should be used with the blueprint-form mixin.
+=blueprint-inline-form
+  :line-height 3
+  p
+    :margin-bottom 0
+
 =blueprint-form
   label
     :font-weight bold
@@ -13,6 +19,7 @@
   input
     &.text
       :margin 0.5em 0
+      :background-color #fff
       :border 1px solid #bbb
       :width 300px
       :padding 5px
@@ -20,6 +27,12 @@
         :border 1px solid #666
     &.title
       :font-size 1.5em
+  input[type=text]
+    :margin 0.5em 0
+    :background-color #fff
+    :border 1px solid #bbb
+    &:focus
+      :border 1px solid #666
   input.title
     :margin 0.5em 0
     :border 1px solid #bbb
@@ -27,6 +40,9 @@
     :padding 5px
     &:focus
       :border 1px solid #666
+  input[type=checkbox], input[type=radio], input.checkbox, input.radio
+    :position relative
+    :top 0.25em
   textarea
     :margin 0.5em 0
     :border 1px solid #bbb

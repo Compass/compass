@@ -36,6 +36,17 @@
     p code
       :*white-space normal
 
+// Fixes for Blueprint "inline" forms in IE
+=blueprint-inline-form-ie
+  div, p
+    :vertical-align middle
+  label
+    :position relative
+    :top -0.25em
+  input
+    &.checkbox, &.radio, &.button, button
+      :margin 0.5em 0
+
 =blueprint-ie-defaults
   .container
     :text-align left
@@ -49,3 +60,32 @@
     :margin -8px auto 11px
   fieldset
     :padding-top 0
+  input
+    &.text
+      :margin 0.5em 0
+      :background-color #fff
+      :border 1px solid #bbb
+      &:focus
+        :border 1px solid #666
+    &.title
+      :margin 0.5em 0
+      :background-color #fff
+      :border 1px solid #bbb
+      &:focus
+        :border 1px solid #666
+    &.checkbox
+      :position relative
+      :top 0.25em
+    &.radio
+      :position relative
+      :top 0.25em
+    &.button
+      :position relative
+      :top 0.25em
+  textarea
+    :margin 0.5em 0
+  select
+    :margin 0.5em 0
+  button
+    :position relative
+    :top 0.25em
