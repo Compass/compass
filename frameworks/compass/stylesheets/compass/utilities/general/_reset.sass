@@ -1,10 +1,42 @@
+// Based on Eric Meyer's reset http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+
 // Global reset rules.
 // For more specific resets, use the reset mixins provided below
 =global-reset
-  html, body
-    +reset
-  +nested-reset
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, font, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td
+    +reset-box-model
+    +reset-font
+  
+  *:focus
+    +reset-focus
+  
+  body
+    +reset-body
+    
+  ol, ul
+    +reset-list-style
 
+  /* tables still need 'cellspacing="0"' in the markup 
+  table
+    +reset-table
+  
+  caption, th, td
+    +reset-table-cell
+  
+  q, blockquote
+    +reset-quotation
+    
+  img a
+    +reset-image-anchor-border
+ 
+ 
 // Reset all elements within some selector scope.To reset the selector itself,
 // mixin the appropriate reset mixin for that element type as well. This could be
 // useful if you want to style a part of your page in a dramatically different way.
@@ -12,45 +44,62 @@
   div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
   pre, a, abbr, acronym, address, code, del, dfn, em, img,
   dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr
-    +reset
-  blockquote, q
-    +reset-quotation
-  th, td, caption
-    +reset-table-cell
+    +reset-box-model
+    +reset-font
+
+  /* tables still need 'cellspacing="0"' in the markup 
   table
     +reset-table
-  a img
-    :border none
-
+  
+  caption, th, td
+    +reset-table-cell
+  
+  q, blockquote
+    +reset-quotation
+  
+  img a
+    +reset-image-anchor-border
+ 
+//Mixins partials
 =reset-box-model
   :margin 0
   :padding 0
   :border 0
-
-=reset
-  +reset-box-model
+  :outline 0
+ 
+=reset-font
   :font
     :weight inherit
     :style inherit
     :size 100%
     :family inherit
   :vertical-align baseline
-
-=reset-quotation
-  +reset
-  :quotes "" ""
-  &:before,
-  &:after
-    :content ""
-
-=reset-table-cell
-  +reset
-  :text-align left
-  :font-weight normal
-  :vertical-align middle
-
+ 
+=reset-focus
+  :outline 0
+ 
+=reset-body
+  :line-height 1em
+  :color = #000
+  :background #fff
+ 
+=reset-list-style
+  :list-style none
+ 
 =reset-table
-  +reset
   :border-collapse separate
   :border-spacing 0
   :vertical-align middle
+ 
+=reset-table-cell
+  :text-align left
+  :font-weight normal
+  :vertical-align middle
+ 
+=reset-quotation
+  :quotes "" ""
+  &:before, &:after
+    :content ""
+ 
+=reset-image-anchor-border
+  :border none
