@@ -52,13 +52,13 @@ gem "chriseppstein-compass", :source => "http://gems.github.com/", :lib => "comp
 # install and unpack
 rake "gems:install GEM=haml-edge", :sudo => true
 rake "gems:install GEM=chriseppstein-compass", :sudo => true
-rake "gems:unpack GEM=chriseppstein-compass", :sudo => true
+rake "gems:unpack GEM=chriseppstein-compass"
 
 # load any compass framework plugins
 if css_framework =~ /960/
   gem "chriseppstein-compass-960-plugin", :source => "http://gems.github.com", :lib => "ninesixty"
   rake "gems:install GEM=chriseppstein-compass-960-plugin", :sudo => true
-  rake "gems:unpack GEM=chriseppstein-compass-960-plugin", :sudo => true
+  rake "gems:unpack GEM=chriseppstein-compass-960-plugin"
   css_framework = "960" # rename for command
   plugin_require = "-r ninesixty"
 end
