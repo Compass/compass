@@ -28,37 +28,10 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 # =================================================================
-logo = <<LOGO
-
-
-
-
-
-
-
-
-
-
-                                                                                                                                  MMMMMMMMMMHMt   
-                                                                                                                                  MMMMMj=+=+=Mt   
-                                                                                                                                  MMi++=+=+=+Mt   
-   ~;;!!!;!!;!=     :;!!;!!;!;;>    !!;!H!!;;!!;!;!i!!;!!;!!   !!;!Xj;!!;!!;;t     !!;;!!;!!;;!!    ;;!!;!!;!;!     !;!;!;!!;!;Y  M=+=iK=X+++Mt   
-  ;!!!;j! +!;!!;>  ;!;!;i! !i!;!;>  ;;;!;!=  c!;!;;!!i i;;!;!  ;!;!;;>!  c;!!;;   ;;!;j    t;!;!  ~!;!!    c!;!;   ;!!;    !!;!!c N+=YXMMt++=Mt   
- ;!!;>       ;!;; ;!;!!       ;;!;i !;!;;     ;!;;!>    ';!!;  ;;!!;       =!;!;  ;;>       ;!;!' ';!!;c     ;t!  =!!;!+      >:  M=+=+j++++MMt   
- ;!;;             ;!;;>       +!!;! ;!;;;     >!!;!     ;;!;;  ;!;;j        ;!;;     ic!;!;!;!;!t  >!;!;!!!;;c     Y;!;!;!;;;c!   MMMc++++KMMMt   
-i!!;;            ~!;!;+       +!;!; ;!;!+     >!;;!     ;!!;;  ;!;!j        ;!;;  ;!;!;!>i; ;;!;t     :c;!;!;!;!+     'c!;!!;!;!>                 
- ;!;;i       j!;! ;;!;>       >;!;! ;;!;+     >!!;;     ;!;!;  ;;!!;       j!;!; ;;!;t      ;!;!'  >!       +;!!;  :;:      J;;!;:                
- =!;!;>    :!;!;> ;;!;!;!   !!;!;!  ;!;!>     >!;!;     ;;!!;  ;!;;!;>   ;!;!;;~ ;!!;=     !!;!!! +!;;t     Y!;;! =;!;+     !!;;;c                
-   !!;!!;!;!;!;Y    i;!!;!!;!;;!c   !;;!=     c!;!;     +;!!;  ;!;!N!;!;!;!;!!   ~!;!!;!;!;!K!;;!' i;!;!;!;!!;!!   i;;!;!;!;!;!;~                 
-      i'jcJ>            ;tct!        ''~        ':        ':   ;;!!i   :''!         >ccc+     !j      !:tct~c          ;tcc!>                     
-                                                               ;!;;i                                                                              
-                                                               ;!;!i                                                                              
-                                                                ;!+                                                                               
-
-                                                                
-Welcome to the Compass Installer for Ruby on Rails!                                                             
-LOGO
-puts logo
+puts "==================================================="
+puts "Welcome to the Compass Installer for Ruby on Rails!"
+puts "==================================================="
+puts
 
 # css framework prompt
 css_framework = ask("What CSS Framework do you want to use with Compass? (default: 'blueprint')")
