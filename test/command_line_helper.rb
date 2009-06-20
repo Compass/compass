@@ -1,5 +1,7 @@
 module Compass::CommandLineHelper
   def compass(*arguments)
+    options = arguments.last.is_a?(Hash) ? arguments.pop : {}
+    options[:wait] = 0.25
     if block_given?
       responder = Responder.new
       yield responder
@@ -8,7 +10,7 @@ module Compass::CommandLineHelper
           #parent process
           output = ""
           eof_at = nil
-          while !eof_at || (Time.now - eof_at < 1)
+          while !eof_at || (Time.now - eof_at < options[:wait])
             if io.eof?
               eof_at ||= Time.now
               sleep 0.1
