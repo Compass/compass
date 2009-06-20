@@ -67,6 +67,12 @@ end
 compass_command = "compass --rails -f #{css_framework} . --css-dir=#{css_dir} --sass-dir=#{sass_dir} "
 compass_command << plugin_require if plugin_require
 
+# Require compass during plugin loading
+file 'vendor/plugins/compass/init.rb', <<-CODE
+# This is here to make sure that the right version of sass gets loaded (haml-edge) by the compass requires.
+require 'compass'
+CODE
+
 # integrate it!
 run "haml --rails ."
 run compass_command
