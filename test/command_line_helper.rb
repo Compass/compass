@@ -85,7 +85,7 @@ module Compass::CommandLineHelper
       yield
     end
   ensure
-    FileUtils.rm_r(d)
+    FileUtils.rm_rf(d)
   end
 
   def capture_output
@@ -98,9 +98,5 @@ module Compass::CommandLineHelper
 
   def execute(*arguments)
     Compass::Exec::Compass.new(arguments).run!
-  end
-
-  def generate_rails_app(name)
-    `rails #{name}`
   end
 end
