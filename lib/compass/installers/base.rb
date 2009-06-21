@@ -127,6 +127,8 @@ module Compass
       def stylesheet_links
         html = "<head>\n"
         manifest.each_stylesheet do |stylesheet|
+          # Skip partials.
+          next if File.basename(stylesheet.from)[0..0] == "_"
           media = if stylesheet.options[:media]
             %Q{ media="#{stylesheet.options[:media]}"}
           end
