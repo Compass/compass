@@ -13,7 +13,7 @@
 //     +font-size(18px)
 //   .big .bigger
 //     +font-size(18px, 16px)
-// 
+//
 // For more information see the table found at http://developer.yahoo.com/yui/fonts/#fontsize
 =font-size(!size, !base_font_size = !yui_default_base_font_size)
   :font-size= percentage(!size / !base_font_size)
@@ -27,6 +27,13 @@
     :line-height= !line_height
     :*font-size small
     :*font x-small
+
+  select,
+  input,
+  button,
+  textarea,
+  button
+    :font 99% arial,helvetica,clean,sans-serif
 
   table
     :font-size inherit
