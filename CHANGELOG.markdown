@@ -6,6 +6,7 @@ COMPASS CHANGELOG
 
 ### TODO
 * Make the rtl mixin match changes to the grid mixins.
+
 * Bug fixes
 
 ### Rails
@@ -15,6 +16,7 @@ COMPASS CHANGELOG
   to be used when generating your stylesheets**. Unfortunately, all
   that code runs within the context of a controller, so the stylesheets
   have to be generated during first request to use this functionality.
+
 * An official Rails template for Compass is now [provided][rails_template].
   [Commit](http://github.com/chriseppstein/compass/commit/f6948d1d58818ef8babce8f8f9d775562d7cd7ef)
   by [Derek Perez][perezd].
@@ -47,17 +49,21 @@ COMPASS CHANGELOG
     The old body styles can be reinstated by mixing +blueprint-scaffolding-body into your body selector(s).
     [Commit](http://github.com/chriseppstein/compass/commit/45af89d4c7a396fae5d14fab4ef3bab23bcdfb6a)
     by [Enrico Bianco][enricob].
+
   * A bug in the calculations affecting the +colborder mixin has been fixed.
     [Commit](http://github.com/chriseppstein/compass/commit/4b33fae5e5c5421580ba536116cb10194f1318d1)
     by [Enrico Bianco][enricob].
     Related [commit](http://github.com/chriseppstein/compass/commit/0a0a14aab597d2ec31ff9d267f6ee8cfad878e10).
+
   * Blueprint now has inline form support. Mix +blueprint-inline-form into a form selector to make it inline.
     [Commit](http://github.com/chriseppstein/compass/commit/56c745b939c763cfcc5549b54979d48ab1309087)
     by [Enrico Bianco][enricob].
+
   * Please update the conditional comment that surrounds your IE stylesheet to use "lt IE 8" as the condition
     as these styles are not needed in IE8. New blueprint projects will now use this conditional as their default.
     [Commit](http://github.com/chriseppstein/compass/commit/77f6e02c0ec80d2b6fd19e611ced02be003c98ae)
     by [Enrico Bianco][enricob].
+
   * Explicitly define image interpolation mode for IE so that images aren't jagged when resizing.
     [Commit](http://github.com/chriseppstein/compass/commit/63075f82db367913efcce5e1d0f5489888e86ca4)
     by [Enrico Bianco][enricob].
@@ -69,12 +75,14 @@ COMPASS CHANGELOG
   file has the same dimensions.
   [Commit](http://github.com/chriseppstein/compass/commit/1f21d6309140c009188d350ed911eed5d34bf02e)
   by [Thomas Reynolds][tdreyno].
+
 * The compass reset is now based on [Eric Meyer's reset](http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/).
   which makes no attempt to apply base styles like the blueprint reset does. <em>Existing compass projects
   will want to change their reset import to point to blueprint/reset.sass</em> -- which is where the old
   default reset for compass projects now lives -- see the blueprint notes above for more information.
   [Commit](http://github.com/chriseppstein/compass/commit/2126240a1a16edacb0a758d782334a9ced5d9116)
   by [Noel Gomez][noel].
+
 * A bug was fixed in the tag_cloud mixin so that it actually works.
   [Commit](http://github.com/chriseppstein/compass/commit/be5c0ff6731ec5e0cdac73bc47f5603c3db899b5)
   by [Bjørn Arild Mæland][Chrononaut].
@@ -82,11 +90,15 @@ COMPASS CHANGELOG
 ### Compass Internals
 
 * Some internal code was reorganized to make managing sass extensions and functions more manageble.
+
 * Some internal code was reorganized to make managing ruby application integration more manageable.
+
 * The compass unit tests were reorganized to separate rails testing from other tests.
+
 * The [Rip Packaging System](http://hellorip.com) is now supported.
   [Commit](http://github.com/chriseppstein/compass/commit/56f36577c7654b93a349f74abf274327df23402b)
   by [Will Farrington](http://github.com/wfarr).
+
 * A [licence is now available](http://github.com/chriseppstein/compass/blob/master/LICENSE.markdown)
   making the copyrights and terms of use clear for people who care about such things.
 
