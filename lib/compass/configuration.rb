@@ -117,7 +117,41 @@ module Compass
       end
     end
 
+    # When called with a block, defines the asset host url to be used.
+    # The block must return a string that starts with a protocol (E.g. http).
+    # The block will be passed the root-relative url of the asset.
+    # When called without a block, returns the block that was previously set.
+    def asset_host(&block)
+      if block_given?
+        @asset_host = block
+      else
+        @asset_host
+      end
+    end
+
+    # When called with a block, defines the cache buster strategy to be used.
+    # The block must return nil or a string that can be appended to a url as a query parameter.
+    # The returned string must not include the starting '?'.
+    # The block will be passed the root-relative url of the asset.
+    # If the block accepts two arguments, it will also be passed a File object
+    # that points to the asset on disk -- which may or may not exist.
+    # When called without a block, returns the block that was previously set.
+    def asset_cache_buster(&block)
+      if block_given?
+        @asset_cache_buster = block
+      else
+        @asset_cache_buster
+      end
+    end
+
+
     def serialize
+      if asset_cache_buster
+        raise Compass::Error, "Cannot serialize a configuration with asset_cache_buster set."
+      end
+      if asset_host
+        raise Compass::Error, "Cannot serialize a configuration with asset_host set."
+      end
       contents = ""
       required_libraries.each do |lib|
         contents << %Q{require '#{lib}'\n}
@@ -179,6 +213,8 @@ module Compass
       ATTRIBUTES.each do |attr|
         send("#{attr}=", nil)
       end
+      @asset_cache_buster = nil
+      @asset_host = nil
       self.required_libraries = []
     end
 
