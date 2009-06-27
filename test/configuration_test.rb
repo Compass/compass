@@ -89,4 +89,23 @@ EXPECTED
     assert_equal expected_serialization, Compass.configuration.serialize
   end
 
+    def test_sass_options
+      contents = <<-CONFIG
+        sass_options = {:foo => 'bar'}
+      CONFIG
+
+      Compass.configuration.parse_string(contents, "test_sass_options")
+
+      assert_equal 'bar', Compass.configuration.to_sass_engine_options[:foo]
+      assert_equal 'bar', Compass.configuration.to_sass_plugin_options[:foo]
+
+      expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+# To enable relative image paths using the images_url() function:
+# http_images_path = :relative
+sass_options = {:foo=>"bar"}
+EXPECTED
+      assert_equal expected_serialization, Compass.configuration.serialize
+    end
+
 end

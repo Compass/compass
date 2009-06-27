@@ -14,7 +14,8 @@ module Compass
       :output_style,
       :environment,
       :http_images_path,
-      :additional_import_paths
+      :additional_import_paths,
+      :sass_options
     ]
 
     attr_accessor *ATTRIBUTES
@@ -206,6 +207,7 @@ module Compass
       plugin_opts = {:template_location => locations}
       plugin_opts[:style] = output_style if output_style
       plugin_opts[:line_comments] = default_line_comments if environment
+      plugin_opts.merge!(sass_options || {})
       plugin_opts
     end
 
@@ -223,7 +225,7 @@ module Compass
       engine_opts = {:load_paths => sass_load_paths}
       engine_opts[:style] = output_style if output_style
       engine_opts[:line_comments] = default_line_comments if environment
-      engine_opts
+      engine_opts.merge!(sass_options || {})
     end
 
     def sass_load_paths
