@@ -35,4 +35,32 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_equal expected_lines, actual_lines
   end
 
+  def test_serialization_fails_with_asset_host_set
+    contents = <<-CONFIG
+      asset_host do |path|
+        "http://example.com"
+      end
+    CONFIG
+
+    Compass.configuration.parse_string(contents, "test_serialization_fails_with_asset_host_set")
+
+    assert_raise Compass::Error do
+      Compass.configuration.serialize
+    end
+  end
+
+  def test_serialization_fails_with_asset_cache_buster_set
+    contents = <<-CONFIG
+      asset_cache_buster do |path|
+        "http://example.com"
+      end
+    CONFIG
+
+    Compass.configuration.parse_string(contents, "test_serialization_fails_with_asset_cache_buster_set")
+
+    assert_raise Compass::Error do
+      Compass.configuration.serialize
+    end
+  end
+
 end
