@@ -63,4 +63,30 @@ class ConfigurationTest < Test::Unit::TestCase
     end
   end
 
+  def test_additional_import_paths
+    contents = <<-CONFIG
+      project_path = "/home/chris/my_compass_project"
+      css_dir = "css"
+      additional_import_paths = ["../foo"]
+      add_import_path "/path/to/my/framework"
+    CONFIG
+
+    Compass.configuration.parse_string(contents, "test_additional_import_paths")
+
+    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/home/chris/my_compass_project/../foo")
+    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/path/to/my/framework"), Compass.configuration.to_sass_engine_options[:load_paths].inspect
+    assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location]["/path/to/my/framework"]
+    assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location]["/home/chris/my_compass_project/../foo"]
+
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+project_path = "/home/chris/my_compass_project"
+css_dir = "css"
+# To enable relative image paths using the images_url() function:
+# http_images_path = :relative
+additional_import_paths = ["../foo", "/path/to/my/framework"]
+EXPECTED
+    assert_equal expected_serialization, Compass.configuration.serialize
+  end
+
 end

@@ -13,7 +13,8 @@ module Compass
       :javascripts_dir,
       :output_style,
       :environment,
-      :http_images_path
+      :http_images_path,
+      :additional_import_paths
     ]
 
     attr_accessor *ATTRIBUTES
@@ -37,6 +38,10 @@ module Compass
       ATTRIBUTES.each do |prop|
         value = eval(prop.to_s, binding) rescue nil
         self.send("#{prop}=", value) if value
+      end
+      if @added_import_paths
+        self.additional_import_paths ||= []
+        self.additional_import_paths += @added_import_paths
       end
     end
 
@@ -117,6 +122,15 @@ module Compass
       end
     end
 
+    def add_import_path(*paths)
+      # The @added_import_paths variable works around an issue where
+      # the additional_import_paths gets overwritten during parse
+      @added_import_paths ||= []
+      @added_import_paths += paths
+      self.additional_import_paths ||= []
+      self.additional_import_paths += paths
+    end
+
     # When called with a block, defines the asset host url to be used.
     # The block must return a string that starts with a protocol (E.g. http).
     # The block will be passed the root-relative url of the asset.
@@ -186,10 +200,23 @@ module Compass
       Compass::Frameworks::ALL.each do |framework|
         locations[framework.stylesheets_directory] = css_path || css_dir || "."
       end
+      resolve_additional_import_paths.each do |additional_path|
+        locations[additional_path] = File.join(css_path || css_dir || ".", File.basename(additional_path))
+      end
       plugin_opts = {:template_location => locations}
       plugin_opts[:style] = output_style if output_style
       plugin_opts[:line_comments] = default_line_comments if environment
       plugin_opts
+    end
+
+    def resolve_additional_import_paths
+      (additional_import_paths || []).map do |path|
+        if project_path && !absolute_path?(path)
+          File.join(project_path, path)
+        else
+          path
+        end
+      end
     end
 
     def to_sass_engine_options
@@ -205,6 +232,7 @@ module Compass
       Compass::Frameworks::ALL.each do |framework|
         load_paths << framework.stylesheets_directory
       end
+      load_paths += resolve_additional_import_paths
       load_paths
     end
 
@@ -215,6 +243,7 @@ module Compass
       end
       @asset_cache_buster = nil
       @asset_host = nil
+      @added_import_paths = nil
       self.required_libraries = []
     end
 
@@ -223,6 +252,10 @@ module Compass
       super
     end
 
+    def absolute_path?(path)
+      # This is only going to work on unix, gonna need a better implementation.
+      path.index(File::SEPARATOR) == 0
+    end
   end
 
   module ConfigHelpers
