@@ -83,6 +83,15 @@ COMPASS CHANGELOG
   [Commit](http://github.com/chriseppstein/compass/commit/be5c0ff6731ec5e0cdac73bc47f5603c3db899b5)
   by [Bjørn Arild Mæland][Chrononaut].
 
+### Sass Extensions
+
+* The <code>inline_image(image_path)</code> function can now be used to generate a data url that embeds the image data in
+  the generated css file -- avoiding the need for another request.
+  This function works like <code>image_url()</code> in that it expects the image to be a path
+  relative to the images directory. There are clear advantages and disadvantages to this approach.
+  See [Wikipedia](http://en.wikipedia.org/wiki/Data_URI_scheme) for more details.
+  NOTE: Neither IE6 nor IE7 support this feature.
+
 ### Configuration
 
 * **Asset Hosts**. You can now configure the asset host(s) used for images via the image_url() function.
