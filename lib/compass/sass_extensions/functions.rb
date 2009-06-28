@@ -1,7 +1,7 @@
 module Compass::SassExtensions::Functions
 end
 
-['selectors', 'enumerate', 'image_url', 'display'].each do |func|
+['selectors', 'enumerate', 'image_url', 'display', 'inline_image'].each do |func|
   require File.join(File.dirname(__FILE__), 'functions', func)
 end
 
@@ -10,6 +10,7 @@ module Sass::Script::Functions
   include Compass::SassExtensions::Functions::Enumerate
   include Compass::SassExtensions::Functions::ImageUrl
   include Compass::SassExtensions::Functions::Display
+  include Compass::SassExtensions::Functions::InlineImage
 end
 
 # Wierd that this has to be re-included to pick up sub-modules. Ruby bug?
