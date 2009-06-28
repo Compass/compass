@@ -61,7 +61,9 @@ begin
     gemspec.files += Dir.glob("frameworks/**/*.*")
     gemspec.files += Dir.glob("lib/**/*")
     gemspec.files += Dir.glob("test/**/*.*")
+    gemspec.files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
     gemspec.test_files = Dir.glob("test/**/*.*")
+    gemspec.test_files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
