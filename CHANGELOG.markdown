@@ -4,10 +4,8 @@ COMPASS CHANGELOG
 0.8.0
 -----
 
-### TODO
-* Make the rtl mixin match changes to the grid mixins.
-
 ### Rails
+
 * image_url() now integrates with the rails asset handling code when
   stylesheets are generated within the rails container.
   **This causes your rails configuration for cache busting and asset hosts
@@ -91,6 +89,7 @@ COMPASS CHANGELOG
   relative to the images directory. There are clear advantages and disadvantages to this approach.
   See [Wikipedia](http://en.wikipedia.org/wiki/Data_URI_scheme) for more details.
   NOTE: Neither IE6 nor IE7 support this feature.
+  [Commit](http://github.com/chriseppstein/compass/commit/5a015b3824f280af56f1265bf8c3a7c64a252621).
 
 ### Configuration
 
@@ -124,12 +123,30 @@ COMPASS CHANGELOG
     1. By setting <code>additional_import_paths</code> to an array of paths.
     2. By (repeatedly) calling <code>add_import_path(path)</code>
 
+* The compass configuration can now be placed in PROJECT_DIR/.compass/config.rb if you so choose.
+  [Commit](http://github.com/chriseppstein/compass/commit/69cf32f70ac79c155198d2dbf96f50856bee9504).
+
 
 ### Command Line
 
 * **Watch Improvements** The watch command was rewritten for robustness and reliability. The most
-  important change is that css files will be deleted if the originating sass file is removed while
-  watching the project. [Commit](http://github.com/chriseppstein/compass/commit/0a232bd922695f6f659fac9f90466745d4425839)
+  important change is that generated css files will be deleted if the originating sass file is removed while
+  watching the project. [Commit](http://github.com/chriseppstein/compass/commit/0a232bd922695f6f659fac9f90466745d4425839).
+
+* The images and javascripts directories may now be set via the command line.
+  [Commit](http://github.com/chriseppstein/compass/84aec053d0109923ea0208ac0847684cf09cefc1).
+
+* The usage output (-h) of the command-line has been reformatted to make it more readable and understandable.
+  [Commit](http://github.com/chriseppstein/compass/f742f26208f4c5c783ba63aa0cc509bb19e06ab9).
+
+* The configuration file being read can now be specified explicitly using the -c option.
+  This also affects the output location of the --write-configuration command.
+  NOTE: The -c option used to be for writing the configuration file, an infrequently used option.
+  [Commit](http://github.com/chriseppstein/compass/d2acd343b899db960c1d3a377e2ee6f58595c6b1).
+
+* You can now install into the current working directory by explicitly setting the command line mode to -i
+  and providing no project name.
+  [Commit](http://github.com/chriseppstein/compass/f742f26208f4c5c783ba63aa0cc509bb19e06ab9).
 
 ### Compass Internals
 
