@@ -11,12 +11,22 @@ module Compass
       end
 
       def perform
-        compiler = Compass::Compiler.new(working_path,
+        compiler = new_compiler_instance
+        if compiler.sass_files.empty?
+          message = "Nothing to compile. If you're trying to start a new project, you have left off the directory argument.\n"
+          message << "Run \"compass -h\" to get help."
+          raise Compass::Error, message
+        else
+          compiler.run
+        end
+      end
+
+      def new_compiler_instance(options = {})
+        Compass::Compiler.new(working_path,
           projectize(Compass.configuration.sass_dir),
           projectize(Compass.configuration.css_dir),
           Compass.sass_engine_options.merge(:quiet => options[:quiet],
-                                            :force => options[:force]))
-        compiler.run
+                                            :force => options[:force]).merge(options))
       end
 
     end
