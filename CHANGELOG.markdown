@@ -7,15 +7,16 @@ COMPASS CHANGELOG
 ### TODO
 * Make the rtl mixin match changes to the grid mixins.
 
-* Bug fixes
-
 ### Rails
 * image_url() now integrates with the rails asset handling code when
   stylesheets are generated within the rails container.
   **This causes your rails configuration for cache busting and asset hosts
   to be used when generating your stylesheets**. Unfortunately, all
   that code runs within the context of a controller, so the stylesheets
-  have to be generated during first request to use this functionality.
+  have to be generated during first request to use this functionality. If you
+  need to compile stylesheets offline, use the compass configuration file to set
+  the <code>asset_host</code> and <code>asset_cache_buster</code>.
+  [Commit](http://github.com/chriseppstein/compass/commit/998168160b11c8702ded0a32820ea15b70d51e83).
 
 * An official Rails template for Compass is now [provided][rails_template].
   [Commit](http://github.com/chriseppstein/compass/commit/f6948d1d58818ef8babce8f8f9d775562d7cd7ef)
@@ -85,6 +86,8 @@ COMPASS CHANGELOG
 ### Configuration
 
 * **Asset Hosts**. You can now configure the asset host(s) used for images via the image_url() function.
+  Asset hosts are off unless configured and also off when relative urls are enabled. 
+  [Commit](http://github.com/chriseppstein/compass/commit/ef47f3dd9dbfc087de8b12a90f9a82993bbb592e).
   In your compass configuration file, you must define an asset_host algorithm to be used like so:
       # Return the same host for all images:
       asset_host {|path| "http://assets.example.com" }
@@ -93,20 +96,22 @@ COMPASS CHANGELOG
         "http://assets%d.example.com" % (path.hash % 4)
       end
 
-  Asset hosts are off unless configured and also off when relative urls are enabled.
 
 * **Configurable Cache Buster**. You can now configure the cache buster that gets placed at the end of
   images via the image_url function. This might be useful if you need to coordinate the query string
-  or use something other than a timestamp. Example:
+  or use something other than a timestamp.
+  [Commit](http://github.com/chriseppstein/compass/commit/ef47f3dd9dbfc087de8b12a90f9a82993bbb592e)
+  Example:
       asset_cache_buster do |path, file|
         "busted=true"
       end
 
 * You can now set/override arbitrary sass options by setting the <code>sass_options</code> configuration property
-  to a hash.
+  to a hash. [Commit](http://github.com/chriseppstein/compass/commit/802bca61741db31da7131c82d31fff45f9323696).
 
-* You can now specify additional import paths to look for sass code outside the project. This can be done
-  in two ways:
+* You can now specify additional import paths to look for sass code outside the project.
+  [Commit](http://github.com/chriseppstein/compass/commit/047be06a0a63923846f53849fc220fb4be69513b).
+  This can be done in two ways:
     1. By setting <code>additional_import_paths</code> to an array of paths.
     2. By (repeatedly) calling <code>add_import_path(path)</code>
 
@@ -115,11 +120,11 @@ COMPASS CHANGELOG
 
 * **Watch Improvements** The watch command was rewritten for robustness and reliability. The most
   important change is that css files will be deleted if the originating sass file is removed while
-  watching the project.
+  watching the project. [Commit](http://github.com/chriseppstein/compass/commit/0a232bd922695f6f659fac9f90466745d4425839)
 
 ### Compass Internals
 
-* Some internal code was reorganized to make managing sass extensions and functions more manageble.
+* Some internal code was reorganized to make managing sass extensions and functions more manageable.
 
 * Some internal code was reorganized to make managing ruby application integration more manageable.
 
