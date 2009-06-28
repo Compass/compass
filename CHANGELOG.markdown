@@ -70,13 +70,13 @@ COMPASS CHANGELOG
 
 ### Compass Core
 
-* A basic sprite mixin is now available. Import compass/utilities/sprites.sass and use the +sprite-img
+* **Sprites**. A basic sprite mixin is now available. Import compass/utilities/sprites.sass and use the +sprite-img
   mixin to set the background image from a sprite image file. Assumes every sprite in the sprite image
   file has the same dimensions.
   [Commit](http://github.com/chriseppstein/compass/commit/1f21d6309140c009188d350ed911eed5d34bf02e)
   by [Thomas Reynolds][tdreyno].
 
-* The compass reset is now based on [Eric Meyer's reset](http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/).
+* **Reset**. The compass reset is now based on [Eric Meyer's reset](http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/).
   which makes no attempt to apply base styles like the blueprint reset does. <em>Existing compass projects
   will want to change their reset import to point to blueprint/reset.sass</em> -- which is where the old
   default reset for compass projects now lives -- see the blueprint notes above for more information.
@@ -86,6 +86,44 @@ COMPASS CHANGELOG
 * A bug was fixed in the tag_cloud mixin so that it actually works.
   [Commit](http://github.com/chriseppstein/compass/commit/be5c0ff6731ec5e0cdac73bc47f5603c3db899b5)
   by [Bjørn Arild Mæland][Chrononaut].
+
+### Configuration
+
+* **Asset Hosts**. You can now configure the asset host(s) used for images via the image_url() function.
+  In your compass configuration file, you must define an asset_host algorithm to be used like so:
+  <pre><code>
+	# Return the same host for all images:
+	asset_host {|path| "http://assets.example.com" }
+	# Return a different host based on the image path.
+	asset_host do |path|
+	  "http://assets%d.example.com" % (path.hash % 4)
+	end
+  </code></pre>
+  Asset hosts are off unless configured and also off when relative urls are enabled.
+
+* **Configurable Cache Buster**. You can now configure the cache buster that gets placed at the end of
+  images via the image_url function. This might be useful if you need to coordinate the query string
+  or use something other than a timestamp. Example:
+  <pre><code>
+	asset_cache_buster do |path, file|
+	  "busted=true"
+	end
+  </code></pre>
+
+* You can now set/override arbitrary sass options by setting the <code>sass_options</code> configuration property
+  to a hash.
+
+* You can now specify additional import paths to look for sass code outside the project. This can be done
+  in two ways:
+    1. By setting <code>additional_import_paths</code> to an array of paths.
+    2. By (repeatedly) calling <code>add_import_path(path)</code>
+
+
+### Command Line
+
+* **Watch Improvements** The watch command was rewritten for robustness and reliability. The most
+  important change is that css files will be deleted if the originating sass file is removed while
+  watching the project.
 
 ### Compass Internals
 
