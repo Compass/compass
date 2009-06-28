@@ -8,8 +8,9 @@ module Compass
         super
       end
 
-      def write_configuration_files
-        write_file targetize('config.rb'), config_contents
+      def write_configuration_files(config_file = nil)
+        config_file ||= targetize('config.rb')
+        write_file config_file, config_contents
       end
 
       def config_files_exist?

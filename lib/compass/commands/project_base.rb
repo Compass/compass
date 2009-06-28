@@ -50,8 +50,12 @@ module Compass
       # Read the configuration file for this project
       def read_project_configuration
         if file = detect_configuration_file
-          Compass.configuration.parse(file)
+          Compass.configuration.parse(file) if File.readable?(file)
         end
+      end
+
+      def explicit_config_file_must_be_readable?
+        true
       end
 
       # TODO: Deprecate the src/config.rb location.
@@ -59,6 +63,12 @@ module Compass
 
       # Finds the configuration file, if it exists in a known location.
       def detect_configuration_file
+        if options[:configuration_file]
+          if explicit_config_file_must_be_readable? && !File.readable?(options[:configuration_file])
+            raise Compass::Error, "Configuration file, #{file}, not found or not readable."
+          end
+          return options[:configuration_file]
+        end
         KNOWN_CONFIG_LOCATIONS.map{|f| projectize(f)}.detect{|f| File.exists?(f)}
       end
 

@@ -154,6 +154,10 @@ END
         opts.separator ''
         opts.separator 'Configuration Options:'
 
+        opts.on('-c', '--config CONFIG_FILE', 'Specify the location of the configuration file explicitly.') do |configuration_file|
+          self.options[:configuration_file] = configuration_file
+        end
+
         opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
           self.options[:sass_dir] = sass_dir
         end

@@ -12,11 +12,15 @@ module Compass
       end
 
       def perform
-        installer.write_configuration_files
+        installer.write_configuration_files(options[:configuration_file])
       end
 
       def installer_args
         [nil, project_directory, options]
+      end
+
+      def explicit_config_file_must_be_readable?
+        false
       end
 
     end
