@@ -86,23 +86,21 @@ COMPASS CHANGELOG
 
 * **Asset Hosts**. You can now configure the asset host(s) used for images via the image_url() function.
   In your compass configuration file, you must define an asset_host algorithm to be used like so:
-    # Return the same host for all images:
-    asset_host {|path| "http://assets.example.com" }
-    # Return a different host based on the image path.
-    asset_host do |path|
-      "http://assets%d.example.com" % (path.hash % 4)
-    end
+      # Return the same host for all images:
+      asset_host {|path| "http://assets.example.com" }
+      # Return a different host based on the image path.
+      asset_host do |path|
+        "http://assets%d.example.com" % (path.hash % 4)
+      end
 
   Asset hosts are off unless configured and also off when relative urls are enabled.
 
 * **Configurable Cache Buster**. You can now configure the cache buster that gets placed at the end of
   images via the image_url function. This might be useful if you need to coordinate the query string
   or use something other than a timestamp. Example:
-  <pre><code>
-	asset_cache_buster do |path, file|
-	  "busted=true"
-	end
-  </code></pre>
+      asset_cache_buster do |path, file|
+        "busted=true"
+      end
 
 * You can now set/override arbitrary sass options by setting the <code>sass_options</code> configuration property
   to a hash.
