@@ -1,6 +1,11 @@
 COMPASS CHANGELOG
 =================
 
+0.8.1
+-----
+
+Fixed some build issues and a bug in the rewritten --watch mode that caused changes to partials to go unnoticed.
+
 0.8.0
 -----
 
