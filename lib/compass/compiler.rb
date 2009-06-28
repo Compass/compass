@@ -22,11 +22,23 @@ module Compass
     end
 
     def css_files
-      @css_files ||= sass_files.map{|sass_file| "#{to}/#{stylesheet_name(sass_file)}.css"}
+      @css_files ||= sass_files.map{|sass_file| corresponding_css_file(sass_file)}
+    end
+
+    def corresponding_css_file(sass_file)
+      "#{to}/#{stylesheet_name(sass_file)}.css"
     end
 
     def target_directories
       css_files.map{|css_file| File.dirname(css_file)}.uniq.sort.sort_by{|d| d.length }
+    end
+
+    def out_of_date?
+      sass_files.zip(css_files).each do |sass_filename, css_filename|
+        return sass_filename unless File.exists?(css_filename)
+        return sass_filename if File.stat(sass_filename).mtime > File.stat(css_filename).mtime
+      end
+      false
     end
 
     def run

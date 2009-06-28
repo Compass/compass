@@ -73,6 +73,13 @@ module Compass
       end
     end
 
+    def remove(file_name)
+      if File.exists?(file_name)
+        File.unlink file_name
+        logger.record :remove, basename(file_name)
+      end
+    end
+
     def basename(file)
       relativize(file) {|f| File.basename(file)}
     end

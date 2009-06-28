@@ -21,12 +21,12 @@ module Compass
         end
       end
 
-      def new_compiler_instance(options = {})
+      def new_compiler_instance(additional_options = {})
         Compass::Compiler.new(working_path,
           projectize(Compass.configuration.sass_dir),
           projectize(Compass.configuration.css_dir),
           Compass.sass_engine_options.merge(:quiet => options[:quiet],
-                                            :force => options[:force]).merge(options))
+                                            :force => options[:force]).merge(additional_options))
       end
 
     end
