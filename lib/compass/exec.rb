@@ -117,6 +117,14 @@ END
           self.options[:css_dir] = css_dir
         end
 
+        opts.on('--images-dir IMAGES_DIR', "The directory where you keep your images.") do |images_dir|
+          self.options[:images_dir] = images_dir
+        end
+
+        opts.on('--javascripts-dir JAVASCRIPTS_DIR', "The directory where you keep your javascripts.") do |javascripts_dir|
+          self.options[:javascripts_dir] = javascripts_dir
+        end
+
         opts.on('--list-frameworks', "List compass frameworks available to use.") do
           self.options[:command] = :list_frameworks
         end
