@@ -49,8 +49,11 @@ begin
     gemspec.files = []
     gemspec.files << "CHANGELOG.markdown"
     gemspec.files << "README.markdown"
+    gemspec.files << "LICENSE.markdown"
     gemspec.files << "REVISION"
     gemspec.files << "VERSION.yml"
+    gemspec.files << "Rakefile"
+    gemspec.files << "deps.rip"
     gemspec.files += Dir.glob("bin/*")
     gemspec.files += Dir.glob("examples/**/*.*")
     gemspec.files -= Dir.glob("examples/**/*.css")
