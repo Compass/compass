@@ -273,7 +273,12 @@ module Compass
     end
 
     def configure_sass_plugin!
+      @sass_plugin_configured = true
       Sass::Plugin.options.merge!(sass_plugin_configuration)
+    end
+
+    def sass_plugin_configured?
+      @sass_plugin_configured
     end
 
     def sass_engine_options

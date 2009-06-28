@@ -34,15 +34,15 @@ module Compass
     end
 
     def out_of_date?
+      Compass.configure_sass_plugin! unless Compass.sass_plugin_configured?
       sass_files.zip(css_files).each do |sass_filename, css_filename|
-        return sass_filename unless File.exists?(css_filename)
-        return sass_filename if File.stat(sass_filename).mtime > File.stat(css_filename).mtime
+        return sass_filename if Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
       end
       false
     end
 
     def run
-      Compass.configure_sass_plugin!
+      Compass.configure_sass_plugin! unless Compass.sass_plugin_configured?
       target_directories.each do |dir|
         directory dir
       end
