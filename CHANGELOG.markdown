@@ -44,26 +44,21 @@ COMPASS CHANGELOG
 
 * The Blueprint port has been upgraded to match Blueprint 0.9. The following changes were made as part
   of that project:
-
   * Removed body margins from blueprint scaffolding by default.
     The old body styles can be reinstated by mixing +blueprint-scaffolding-body into your body selector(s).
     [Commit](http://github.com/chriseppstein/compass/commit/45af89d4c7a396fae5d14fab4ef3bab23bcdfb6a)
     by [Enrico Bianco][enricob].
-
   * A bug in the calculations affecting the +colborder mixin has been fixed.
     [Commit](http://github.com/chriseppstein/compass/commit/4b33fae5e5c5421580ba536116cb10194f1318d1)
     by [Enrico Bianco][enricob].
     Related [commit](http://github.com/chriseppstein/compass/commit/0a0a14aab597d2ec31ff9d267f6ee8cfad878e10).
-
   * Blueprint now has inline form support. Mix +blueprint-inline-form into a form selector to make it inline.
     [Commit](http://github.com/chriseppstein/compass/commit/56c745b939c763cfcc5549b54979d48ab1309087)
     by [Enrico Bianco][enricob].
-
   * Please update the conditional comment that surrounds your IE stylesheet to use "lt IE 8" as the condition
     as these styles are not needed in IE8. New blueprint projects will now use this conditional as their default.
     [Commit](http://github.com/chriseppstein/compass/commit/77f6e02c0ec80d2b6fd19e611ced02be003c98ae)
     by [Enrico Bianco][enricob].
-
   * Explicitly define image interpolation mode for IE so that images aren't jagged when resizing.
     [Commit](http://github.com/chriseppstein/compass/commit/63075f82db367913efcce5e1d0f5489888e86ca4)
     by [Enrico Bianco][enricob].
@@ -77,8 +72,8 @@ COMPASS CHANGELOG
   by [Thomas Reynolds][tdreyno].
 
 * **Reset**. The compass reset is now based on [Eric Meyer's reset](http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/).
-  which makes no attempt to apply base styles like the blueprint reset does. <em>Existing compass projects
-  will want to change their reset import to point to blueprint/reset.sass</em> -- which is where the old
+  which makes no attempt to apply base styles like the blueprint reset does. **Existing compass projects
+  will want to change their reset import to point to blueprint/reset.sass** -- which is where the old
   default reset for compass projects now lives -- see the blueprint notes above for more information.
   [Commit](http://github.com/chriseppstein/compass/commit/2126240a1a16edacb0a758d782334a9ced5d9116)
   by [Noel Gomez][noel].
@@ -91,14 +86,13 @@ COMPASS CHANGELOG
 
 * **Asset Hosts**. You can now configure the asset host(s) used for images via the image_url() function.
   In your compass configuration file, you must define an asset_host algorithm to be used like so:
-  <pre><code>
-	# Return the same host for all images:
-	asset_host {|path| "http://assets.example.com" }
-	# Return a different host based on the image path.
-	asset_host do |path|
-	  "http://assets%d.example.com" % (path.hash % 4)
-	end
-  </code></pre>
+    # Return the same host for all images:
+    asset_host {|path| "http://assets.example.com" }
+    # Return a different host based on the image path.
+    asset_host do |path|
+      "http://assets%d.example.com" % (path.hash % 4)
+    end
+
   Asset hosts are off unless configured and also off when relative urls are enabled.
 
 * **Configurable Cache Buster**. You can now configure the cache buster that gets placed at the end of
