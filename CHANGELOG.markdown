@@ -24,25 +24,6 @@ COMPASS CHANGELOG
 
 ### Blueprint
 
-* When starting a new project based on Blueprint, a more complete screen.sass file will be
-  provided that follows compass best practices instead of matching blueprint css exactly. A
-  partials/_base.sass file is provided and already set up for blueprint customization.
-  [Commit](http://github.com/chriseppstein/compass/commit/11b6ea14c3ee919711fa4bdce349f88b64b68d51)
-
-* The sizes and borders for form styling can now be altered via mixin arguments.
-  [Commit](http://github.com/chriseppstein/compass/commit/b84dd3031b82547cff8e1ef1f85de66d98cd162b)
-  by [Thomas Reynolds][tdreyno].
-
-* Grid borders can now be altered via mixin arguments.
-  [Commit](http://github.com/chriseppstein/compass/commit/0a0a14aab597d2ec31ff9d267f6ee8cfad878e10)
-  by [Thomas Reynolds][tdreyno].
-
-* The reset file for blueprint has moved from compass/reset.sass to blueprint/reset.sass. Please
-  update your imports accordingly. Also note that some of the reset mixin names have changed
-  (now prefixed with blueprint-*).
-  [Commit](http://github.com/chriseppstein/compass/commit/2126240a1a16edacb0a758d782334a9ced5d9116)
-  by [Noel Gomez][noel].
-
 * The Blueprint port has been upgraded to match Blueprint 0.9. The following changes were made as part
   of that project:
   * Removed body margins from blueprint scaffolding by default.
@@ -63,6 +44,25 @@ COMPASS CHANGELOG
   * Explicitly define image interpolation mode for IE so that images aren't jagged when resizing.
     [Commit](http://github.com/chriseppstein/compass/commit/63075f82db367913efcce5e1d0f5489888e86ca4)
     by [Enrico Bianco][enricob].
+
+* When starting a new project based on Blueprint, a more complete screen.sass file will be
+  provided that follows compass best practices instead of matching blueprint css exactly. A
+  partials/_base.sass file is provided and already set up for blueprint customization.
+  [Commit](http://github.com/chriseppstein/compass/commit/11b6ea14c3ee919711fa4bdce349f88b64b68d51)
+
+* The sizes and borders for form styling can now be altered via mixin arguments.
+  [Commit](http://github.com/chriseppstein/compass/commit/b84dd3031b82547cff8e1ef1f85de66d98cd162b)
+  by [Thomas Reynolds][tdreyno].
+
+* Grid borders can now be altered via mixin arguments.
+  [Commit](http://github.com/chriseppstein/compass/commit/0a0a14aab597d2ec31ff9d267f6ee8cfad878e10)
+  by [Thomas Reynolds][tdreyno].
+
+* The reset file for blueprint has moved from compass/reset.sass to blueprint/reset.sass. Please
+  update your imports accordingly. Also note that some of the reset mixin names have changed
+  (now prefixed with blueprint-*).
+  [Commit](http://github.com/chriseppstein/compass/commit/2126240a1a16edacb0a758d782334a9ced5d9116)
+  by [Noel Gomez][noel].
 
 ### Compass Core
 
