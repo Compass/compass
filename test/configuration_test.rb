@@ -18,9 +18,8 @@ class ConfigurationTest < Test::Unit::TestCase
       images_dir = "img"
       javascripts_dir = "js"
       output_style = :nested
-      # To enable relative image paths using the images_url() function:
-      # http_images_path = :relative
-      http_images_path = "/images"
+      # To enable relative paths to assets via compass helper functions. Uncomment:
+      # relative_assets = true
     CONFIG
 
     Compass.configuration.parse_string(contents, "test_parse")
@@ -82,8 +81,8 @@ class ConfigurationTest < Test::Unit::TestCase
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
 css_dir = "css"
-# To enable relative image paths using the images_url() function:
-# http_images_path = :relative
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
 additional_import_paths = ["../foo", "/path/to/my/framework"]
 EXPECTED
     assert_equal expected_serialization, Compass.configuration.serialize
@@ -101,10 +100,12 @@ EXPECTED
 
       expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
-# To enable relative image paths using the images_url() function:
-# http_images_path = :relative
+# Set this to the root of your project when deployed:
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
 sass_options = {:foo=>"bar"}
 EXPECTED
+
       assert_equal expected_serialization, Compass.configuration.serialize
     end
 

@@ -13,6 +13,7 @@ module Compass
       :javascripts_dir,
       :output_style,
       :environment,
+      :relative_assets,
       :http_images_path,
       :additional_import_paths,
       :sass_options
@@ -44,6 +45,7 @@ module Compass
         self.additional_import_paths ||= []
         self.additional_import_paths += @added_import_paths
       end
+      issue_deprecation_warnings
     end
 
     def set_all(options)
@@ -97,6 +99,21 @@ module Compass
 
     def comment_for_http_images_path
       "# To enable relative image paths using the images_url() function:\n# http_images_path = :relative\n"
+    end
+
+    def relative_assets?
+      # the http_images_path is deprecated, but here for backwards compatibility.
+      relative_assets || http_images_path == :relative
+    end
+
+    def comment_for_relative_assets
+      unless relative_assets
+        %q{# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+}
+      else
+        ""
+      end
     end
 
     def default_output_style
@@ -247,6 +264,12 @@ module Compass
       @asset_host = nil
       @added_import_paths = nil
       self.required_libraries = []
+    end
+
+    def issue_deprecation_warnings
+      if http_images_path == :relative
+        puts "DEPRECATION WARNING: Please set relative_assets = true to enable relative paths."
+      end
     end
 
     def require(lib)

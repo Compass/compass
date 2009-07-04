@@ -184,6 +184,10 @@ END
           self.options[:output_style] = style
         end
 
+        opts.on('--relative-assets', :NONE, 'Make compass asset helpers generate relative urls to assets.') do
+          self.options[:relative_assets] = true
+        end
+
         opts.separator ''
         opts.separator 'General Options:'
 
