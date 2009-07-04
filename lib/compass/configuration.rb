@@ -7,6 +7,7 @@ module Compass
     ATTRIBUTES = [
       :project_type,
       :project_path,
+      :http_path,
       :css_dir,
       :sass_dir,
       :images_dir,
@@ -15,6 +16,8 @@ module Compass
       :environment,
       :relative_assets,
       :http_images_path,
+      :http_stylesheets_path,
+      :http_javascripts_path,
       :additional_import_paths,
       :sass_options
     ]
@@ -93,12 +96,12 @@ module Compass
       "images"
     end
 
-    def default_http_images_path
-      "/#{images_dir}"
+    def default_http_path
+      "/"
     end
 
-    def comment_for_http_images_path
-      "# To enable relative image paths using the images_url() function:\n# http_images_path = :relative\n"
+    def comment_for_http_path
+      "# Set this to the root of your project when deployed:\n"
     end
 
     def relative_assets?
@@ -138,6 +141,11 @@ module Compass
       if project_path && css_dir
         File.join(project_path, css_dir)
       end
+    end
+
+    def mk_http_path(path)
+      hp = http_path[0..-2] if http_path[-1..-1] == "/"
+      "#{hp}/#{path}"
     end
 
     def add_import_path(*paths)

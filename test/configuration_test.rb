@@ -13,6 +13,8 @@ class ConfigurationTest < Test::Unit::TestCase
       # Require any additional compass plugins here.
 
       project_type = :stand_alone
+      # Set this to the root of your project when deployed:
+      http_path = "/"
       css_dir = "css"
       sass_dir = "sass"
       images_dir = "img"
@@ -64,6 +66,7 @@ class ConfigurationTest < Test::Unit::TestCase
 
   def test_additional_import_paths
     contents = <<-CONFIG
+      http_path = "/"
       project_path = "/home/chris/my_compass_project"
       css_dir = "css"
       additional_import_paths = ["../foo"]
@@ -80,11 +83,14 @@ class ConfigurationTest < Test::Unit::TestCase
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
+# Set this to the root of your project when deployed:
+http_path = "/"
 css_dir = "css"
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
 additional_import_paths = ["../foo", "/path/to/my/framework"]
 EXPECTED
+    assert_equal "/", Compass.configuration.http_path
     assert_equal expected_serialization, Compass.configuration.serialize
   end
 
