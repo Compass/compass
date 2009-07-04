@@ -120,6 +120,21 @@ module Compass
       end
     end
 
+    def relative_assets?
+      # the http_images_path is deprecated, but here for backwards compatibility.
+      relative_assets || http_images_path == :relative
+    end
+
+    def comment_for_relative_assets
+      unless relative_assets
+        %q{# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+}
+      else
+        ""
+      end
+    end
+
     def default_output_style
       if environment == :development
         :expanded
