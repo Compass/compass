@@ -33,7 +33,7 @@ module Compass
       options ||= self.options if self.respond_to?(:options)
       skip_write = options[:dry_run]
       if File.exists?(file_name)
-        existing_contents = File.new(file_name).read
+        existing_contents = IO.read(file_name)
         if existing_contents == contents
           logger.record :identical, basename(file_name)
           skip_write = true
