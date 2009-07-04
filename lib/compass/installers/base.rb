@@ -31,7 +31,7 @@ module Compass
       # Initializes the project to work with compass
       def init
         dirs = manifest.map do |entry|
-          File.dirname(send("install_location_for_#{entry.type}", entry.to))
+          File.dirname(send("install_location_for_#{entry.type}", entry.to, entry.options))
         end
 
         if manifest.has_stylesheet?
@@ -90,14 +90,25 @@ module Compass
       def self.installer(type, &locator)
         locator ||= lambda{|to| to}
         loc_method = "install_location_for_#{type}".to_sym
-        define_method loc_method, locator
+        define_method("simple_#{loc_method}", locator)
+        define_method(loc_method) do |to, options|
+          if options[:like] && options[:like] != type
+            send("install_location_for_#{options[:like]}", to, options)
+          else
+            send("simple_#{loc_method}", to)
+          end
+        end
         define_method "install_#{type}" do |from, to, options|
-          copy templatize(from), targetize(send(loc_method, to))
+          copy templatize(from), targetize(send(loc_method, to, options))
         end
       end
 
       installer :stylesheet do |to|
         "#{sass_dir}/#{pattern_name_as_dir}#{to}"
+      end
+
+      installer :css do |to|
+        "#{css_dir}/#{to}"
       end
 
       installer :image do |to|
