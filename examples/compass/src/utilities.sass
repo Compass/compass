@@ -3,6 +3,7 @@
 @import yui/modules/base.sass
 @import blueprint/modules/grid.sass
 @import blueprint/modules/scaffolding.sass
+@import compass/utilities/text/ellipsis.sass
 
 html
   +yui-base
@@ -66,6 +67,12 @@ h2
     +table-scaffolding
     +outer-table-borders(2px, #151A99)
     +inner-table-borders(1px, #151A99)
+
+#ellipsis
+  +column(8, true)
+  td
+    width: 50%
+    +ellipsis
 
 #floats
   +column(16)
