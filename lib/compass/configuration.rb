@@ -143,8 +143,9 @@ module Compass
       end
     end
 
-    def mk_http_path(path)
-      hp = http_path[0..-2] if http_path[-1..-1] == "/"
+    def root_relative(path)
+      hp = http_path || default_http_path
+      hp = hp[0..-2] if hp[-1..-1] == "/"
       "#{hp}/#{path}"
     end
 

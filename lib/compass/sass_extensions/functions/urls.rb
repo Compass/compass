@@ -1,4 +1,19 @@
-module Compass::SassExtensions::Functions::ImageUrl
+module Compass::SassExtensions::Functions::Urls
+
+  def stylesheet_url(path)
+    # Compute the path to the stylesheet, either root relative or stylesheet relative
+    # or nil if the http_images_path is not set in the configuration.
+    http_stylesheets_path = if relative?
+      compute_relative_path(Compass.configuration.css_dir)
+    elsif Compass.configuration.http_stylesheets_path
+      Compass.configuration.http_stylesheets_path
+    else
+      Compass.configuration.root_relative(Compass.configuration.css_dir)
+    end
+
+    url("#{http_stylesheets_path}/#{path}")
+  end
+
   def image_url(path)
     path = path.value # get to the string value of the literal.
     # Short curcuit if they have provided an absolute url.
@@ -10,9 +25,11 @@ module Compass::SassExtensions::Functions::ImageUrl
     # Compute the path to the image, either root relative or stylesheet relative
     # or nil if the http_images_path is not set in the configuration.
     http_images_path = if relative?
-      compute_relative_path
-    else
+      compute_relative_path(Compass.configuration.images_dir)
+    elsif Compass.configuration.http_stylesheets_path
       Compass.configuration.http_images_path
+    else
+      Compass.configuration.root_relative(Compass.configuration.images_dir)
     end
 
     # Compute the real path to the image on the file stystem if the images_dir is set.
@@ -37,23 +54,30 @@ module Compass::SassExtensions::Functions::ImageUrl
     # prepend the asset host if there is one.
     path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
-    Sass::Script::String.new("url(#{path})")
+    url(path)
+  end
+
+  # Emits a url, taking off any leading "./"
+  def url(url)
+    url = url.to_s
+    url = url[0..1] == "./" ? url[2..-1] : url
+    Sass::Script::String.new("url('#{url}')")
   end
 
   private
 
   def relative?
-    Compass.configuration.http_images_path == :relative
+    Compass.configuration.relative_assets?
   end
 
   def absolute_path?(path)
     path[0..0] == "/" || path[0..3] == "http"
   end
 
-  def compute_relative_path
+  def compute_relative_path(dir)
     if (target_css_file = options[:css_filename])
-      images_path = File.join(Compass.configuration.project_path, Compass.configuration.images_dir)
-      Pathname.new(images_path).relative_path_from(Pathname.new(File.dirname(target_css_file))).to_s
+      path = File.join(Compass.configuration.project_path, dir)
+      Pathname.new(path).relative_path_from(Pathname.new(File.dirname(target_css_file))).to_s
     end
   end
 

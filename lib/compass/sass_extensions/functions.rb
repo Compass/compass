@@ -1,14 +1,14 @@
 module Compass::SassExtensions::Functions
 end
 
-['selectors', 'enumerate', 'image_url', 'display', 'inline_image'].each do |func|
+['selectors', 'enumerate', 'urls', 'display', 'inline_image'].each do |func|
   require File.join(File.dirname(__FILE__), 'functions', func)
 end
 
 module Sass::Script::Functions
   include Compass::SassExtensions::Functions::Selectors
   include Compass::SassExtensions::Functions::Enumerate
-  include Compass::SassExtensions::Functions::ImageUrl
+  include Compass::SassExtensions::Functions::Urls
   include Compass::SassExtensions::Functions::Display
   include Compass::SassExtensions::Functions::InlineImage
 end
