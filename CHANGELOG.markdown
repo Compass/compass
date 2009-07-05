@@ -1,6 +1,11 @@
 COMPASS CHANGELOG
 =================
 
+0.8.2 (July 04, 2009)
+---------------------
+
+Fixed a bug that caused touch to fail on windows due to open files. (Contributor: Joe Wasson)
+
 0.8.1
 -----
 
