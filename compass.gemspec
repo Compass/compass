@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.8.1"
+  s.version = "0.8.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2009-06-28}
+  s.date = %q{2009-07-04}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -94,6 +94,7 @@ Gem::Specification.new do |s|
     "examples/compass/src/sticky_footer.sass",
     "examples/compass/src/utilities.sass",
     "examples/compass/sticky_footer.html.haml",
+    "examples/compass/stylesheets/xml/ellipsis.xml",
     "examples/compass/utilities.html.haml",
     "examples/logo/logo.html.haml",
     "examples/logo/src/ie.sass",
