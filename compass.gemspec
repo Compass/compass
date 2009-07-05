@@ -94,7 +94,6 @@ Gem::Specification.new do |s|
     "examples/compass/src/sticky_footer.sass",
     "examples/compass/src/utilities.sass",
     "examples/compass/sticky_footer.html.haml",
-    "examples/compass/stylesheets/xml/ellipsis.xml",
     "examples/compass/utilities.html.haml",
     "examples/logo/logo.html.haml",
     "examples/logo/src/ie.sass",
