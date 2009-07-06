@@ -45,7 +45,7 @@ begin
     gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS."
     gemspec.authors = ["Chris Eppstein"]
     gemspec.has_rdoc = false
-    gemspec.add_dependency('haml-edge', '>= 2.1.12')
+    gemspec.add_dependency('haml', '>= 2.2.0')
     gemspec.files = []
     gemspec.files << "CHANGELOG.markdown"
     gemspec.files << "README.markdown"
