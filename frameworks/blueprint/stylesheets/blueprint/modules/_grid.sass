@@ -151,9 +151,9 @@
   :border-right #{!border_width} solid #{!border_color}
 
 // Mixin this to an hr to make a horizontal ruler across a column.
-=colruler
-  :background #ddd
-  :color #ddd
+=colruler(!border_color = #ddd)
+  :background= !border_color
+  :color= !border_color
   :clear both
   :float none
   :width 100%
