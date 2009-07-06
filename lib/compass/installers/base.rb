@@ -104,7 +104,7 @@ module Compass
         "#{images_dir}/#{to}"
       end
 
-      installer :script do |to|
+      installer :javascript do |to|
         "#{javascripts_dir}/#{to}"
       end
 
