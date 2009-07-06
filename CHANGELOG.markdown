@@ -1,6 +1,50 @@
 COMPASS CHANGELOG
 =================
 
+0.8.3 (July 06, 2009)
+---------------------
+
+Note: Compass now depends on the stable release of haml with version 2.2.0 or greater.
+
+### Compass Core
+
+* A new helper function `stylesheet_url(path)` can now be used to refer to assets that are relative to the css directory.
+  [Commit](http://github.com/chriseppstein/compass/commit/ff5c8500144272ee2b94271b06cce1690cbbc000).
+* Cross browser ellipsis mixin is now available. Use `compass -p ellipsis` to install it into your project since it
+  requires some additional assets.
+  [Commit](http://github.com/chriseppstein/compass/commit/3d909ceda997bdcde2aec09bd72e646098389e7d).
+
+### Blueprint
+
+* The +colruler mixin now accepts an argument for the color.
+  [Commit](http://github.com/chriseppstein/compass/commit/a5393bbb7cd0941ab8add5be188aea1d6f9d4b00)
+  by [Thomas Reynolds][tdreyno].
+
+### Extensions
+
+* A bug was fixed related to how javascript installation as part of an extension manifest.
+  [Commit](http://github.com/chriseppstein/compass/commit/a5393bbb7cd0941ab8add5be188aea1d6f9d4b00)
+  by [dturnbull][dturnbull].
+* When installing a file, the :like option can now be set to have it installed into the
+  same location as what it is like. E.g. `file 'foo.xml', :like => :css` will install
+  the foo.xml file into the top level of the project's css directory.
+  [Commit](http://github.com/chriseppstein/compass/commit/21cfce33db81e185ce5517818844a9849b5a836e).
+
+### Configuration
+* Setting `http_images_path` to `:relative` is now **deprecated**. Instead, please set `relative_assets` to
+  `true`.
+  [Commit](http://github.com/chriseppstein/compass/commit/956c437fe9ffaad08b6b34d91b6cfb80d6121a2f).
+* New configuration option `http_path` can be used to set the project's path relative to the server's root.
+  Defaults to "/". The http paths to images, stylesheets, and javascripts are now assumed to be relative to that
+  path but can be overridden using the `http_images_path`, `http_css_path`, `http_javascripts_path`.
+  [Commit](http://github.com/chriseppstein/compass/commit/6555ab3952ae37d736d54f43ee7053c2a88f4a69).
+
+### Command Line
+
+* A new command line option `--relative-assets` can be used to cause links to assets generated
+  via compass helper functions to be relative to the target css file.
+  [Commit](http://github.com/chriseppstein/compass/commit/956c437fe9ffaad08b6b34d91b6cfb80d6121a2f).
+
 0.8.2 (July 04, 2009)
 ---------------------
 
@@ -396,3 +440,4 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [perezd]: http://github.com/perezd
 [Chrononaut]: http://github.com/Chrononaut
 [rails_template]: http://github.com/chriseppstein/compass/raw/4e7e51e2c5491851f66c77abf3f15194f2f8fb8d/lib/compass/app_integration/rails/templates/compass-install-rails.rb
+[dturnbull]: http://github.com/dturnbull
