@@ -1,4 +1,4 @@
-module Compass::SassExtensions::Functions::ImageUrl
+module Compass::SassExtensions::Functions::Urls
   def image_url_with_rails_integration(path)
     if @controller = Sass::Plugin.rails_controller
       begin

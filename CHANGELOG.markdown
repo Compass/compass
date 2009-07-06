@@ -1,6 +1,11 @@
 COMPASS CHANGELOG
 =================
 
+0.8.4 (July 06, 2009)
+---------------------
+
+Fixed a bug in rails integration introduced in 0.8.3.
+
 0.8.3 (July 06, 2009)
 ---------------------
 
