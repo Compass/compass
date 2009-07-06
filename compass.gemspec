@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.8.3"
+  s.version = "0.8.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
@@ -202,9 +202,9 @@ Gem::Specification.new do |s|
     "lib/compass/app_integration/merb.rb",
     "lib/compass/app_integration/rails.rb",
     "lib/compass/app_integration/rails/action_controller.rb",
-    "lib/compass/app_integration/rails/image_url.rb",
     "lib/compass/app_integration/rails/sass_plugin.rb",
     "lib/compass/app_integration/rails/templates/compass-install-rails.rb",
+    "lib/compass/app_integration/rails/urls.rb",
     "lib/compass/commands/base.rb",
     "lib/compass/commands/create_project.rb",
     "lib/compass/commands/generate_grid_background.rb",
