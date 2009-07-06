@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.8.2"
+  s.version = "0.8.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2009-07-04}
+  s.date = %q{2009-07-06}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -178,8 +178,12 @@ Gem::Specification.new do |s|
     "frameworks/compass/stylesheets/compass/utilities/tables/_alternating_rows_and_columns.sass",
     "frameworks/compass/stylesheets/compass/utilities/tables/_borders.sass",
     "frameworks/compass/stylesheets/compass/utilities/tables/_scaffolding.sass",
+    "frameworks/compass/stylesheets/compass/utilities/text/_ellipsis.sass",
     "frameworks/compass/stylesheets/compass/utilities/text/_nowrap.sass",
     "frameworks/compass/stylesheets/compass/utilities/text/_replacement.sass",
+    "frameworks/compass/templates/ellipsis/ellipsis.sass",
+    "frameworks/compass/templates/ellipsis/manifest.rb",
+    "frameworks/compass/templates/ellipsis/xml/ellipsis.xml",
     "frameworks/compass/templates/project/ie.sass",
     "frameworks/compass/templates/project/manifest.rb",
     "frameworks/compass/templates/project/print.sass",
@@ -231,9 +235,9 @@ Gem::Specification.new do |s|
     "lib/compass/sass_extensions/functions.rb",
     "lib/compass/sass_extensions/functions/display.rb",
     "lib/compass/sass_extensions/functions/enumerate.rb",
-    "lib/compass/sass_extensions/functions/image_url.rb",
     "lib/compass/sass_extensions/functions/inline_image.rb",
     "lib/compass/sass_extensions/functions/selectors.rb",
+    "lib/compass/sass_extensions/functions/urls.rb",
     "lib/compass/sass_extensions/monkey_patches.rb",
     "lib/compass/sass_extensions/monkey_patches/stylesheet_updating.rb",
     "lib/compass/test_case.rb",
@@ -324,11 +328,11 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<haml-edge>, [">= 2.1.12"])
+      s.add_runtime_dependency(%q<haml>, [">= 2.2.0"])
     else
-      s.add_dependency(%q<haml-edge>, [">= 2.1.12"])
+      s.add_dependency(%q<haml>, [">= 2.2.0"])
     end
   else
-    s.add_dependency(%q<haml-edge>, [">= 2.1.12"])
+    s.add_dependency(%q<haml>, [">= 2.2.0"])
   end
 end
