@@ -121,8 +121,8 @@ Compass.configure_sass_plugin!
           if stylesheet.options[:media]
             ss_line += ", :media => '#{stylesheet.options[:media]}'"
           end
-          if stylesheet.options[:ie]
-            ss_line = "  /[if IE]\n  " + ss_line
+          if stylesheet.options[:condition]
+            ss_line = "  /[if #{stylesheet.options[:condition]}]\n  " + ss_line
           end
           html << ss_line + "\n"
         end
