@@ -15,8 +15,10 @@ module Compass
   #     Dir.glob(File.expand_path(File.join(File.dirname(__FILE__), "../..", "app/stylesheets/**/[^_]*.sass")))
   #   end
   # end
-  class TestCase < Test::Unit::TestCase
+  class TestCase < (defined?(ActiveSupport::TestCase) ? ActiveSupport::TestCase : Test::Unit::TestCase)
+
     def setup
+      super
       @last_compile = nil
     end
 
