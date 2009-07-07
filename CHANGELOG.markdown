@@ -1,6 +1,12 @@
 COMPASS CHANGELOG
 =================
 
+0.8.5 (July 06, 2009)
+---------------------
+
+The Compass::TestCase class now inherits from ActiveSupport::TestCase if it exists.
+[Commit](http://github.com/chriseppstein/compass/commit/71d5ae8544d1c5ae49e28dcd6b3768fc39d7f01c)
+
 0.8.4 (July 06, 2009)
 ---------------------
 
