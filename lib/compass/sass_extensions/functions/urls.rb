@@ -25,7 +25,7 @@ module Compass::SassExtensions::Functions::Urls
     # or nil if the http_images_path is not set in the configuration.
     http_images_path = if relative?
       compute_relative_path(Compass.configuration.images_dir)
-    elsif Compass.configuration.http_stylesheets_path
+    elsif Compass.configuration.http_images_path
       Compass.configuration.http_images_path
     else
       Compass.configuration.root_relative(Compass.configuration.images_dir)
