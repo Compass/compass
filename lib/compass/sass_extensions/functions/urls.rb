@@ -18,7 +18,6 @@ module Compass::SassExtensions::Functions::Urls
     path = path.value # get to the string value of the literal.
     # Short curcuit if they have provided an absolute url.
     if absolute_path?(path)
-      puts "#{path} is absolute"
       return Sass::Script::String.new("url(#{path})")
     end
 
@@ -44,7 +43,9 @@ module Compass::SassExtensions::Functions::Urls
     end
 
     # Compute the asset host unless in relative mode.
-    asset_host = (compute_asset_host(path) unless relative?)
+    asset_host = if !relative? && Compass.configuration.asset_host
+      Compass.configuration.asset_host.call(path)
+    end
 
     # Compute and append the cache buster if there is one.
     if buster = compute_cache_buster(path, real_path)
@@ -98,14 +99,6 @@ module Compass::SassExtensions::Functions::Urls
       File.mtime(real_path).strftime("%s") 
     else
       $stderr.puts "WARNING: '#{File.basename(path)}' was not found (or cannot be read) in #{File.dirname(real_path)}"
-    end
-  end
-
-  def compute_asset_host(path)
-    if Compass.configuration.asset_host
-      Compass.configuration.asset_host.call(path)
-    else
-      nil
     end
   end
 
