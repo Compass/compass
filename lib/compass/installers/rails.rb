@@ -9,6 +9,8 @@ module Compass
           :css_dir => (css_dir || prompt_css_dir),
           :images_dir => default_images_dir,
           :javascripts_dir => default_javascripts_dir,
+          :http_stylesheets_path => default_http_stylesheets_path,
+          :http_javascripts_path => default_http_javascripts_path,
           :http_images_path => default_http_images_path
         }
       end
@@ -53,6 +55,14 @@ NEXTSTEPS
 
       def default_http_images_path
         "/images"
+      end
+
+      def default_http_javascripts_path
+        "/javascripts"
+      end
+
+      def default_http_stylesheets_path
+        "/stylesheets"
       end
 
       def prompt_sass_dir
