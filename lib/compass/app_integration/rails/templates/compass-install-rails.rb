@@ -2,11 +2,11 @@
 # Compass Ruby on Rails Installer (template) v.1.0
 # written by Derek Perez (derek@derekperez.com)
 # -----------------------------------------------------------------
-# NOTE: This installer is designed to work as a Rails template, 
+# NOTE: This installer is designed to work as a Rails template,
 # and can only be used with Rails 2.3+.
 # -----------------------------------------------------------------
 # Copyright (c) 2009 Derek Perez
-# 
+#
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
 # files (the "Software"), to deal in the Software without
@@ -15,10 +15,10 @@
 # copies of the Software, and to permit persons to whom the
 # Software is furnished to do so, subject to the following
 # conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 # OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -46,11 +46,11 @@ css_dir = ask("Where would you like Compass to store your compiled css files? (d
 css_dir = "public/stylesheets/compiled" if css_dir.blank?
 
 # define dependencies
-gem "haml-edge", :lib => "haml"
+gem "haml", :lib => "haml", :version => ">=2.2.0"
 gem "chriseppstein-compass", :source => "http://gems.github.com/", :lib => "compass"
 
 # install and unpack
-rake "gems:install GEM=haml-edge", :sudo => true
+rake "gems:install GEM=haml", :sudo => true
 rake "gems:install GEM=chriseppstein-compass", :sudo => true
 rake "gems:unpack GEM=chriseppstein-compass"
 
@@ -69,7 +69,7 @@ compass_command << plugin_require if plugin_require
 
 # Require compass during plugin loading
 file 'vendor/plugins/compass/init.rb', <<-CODE
-# This is here to make sure that the right version of sass gets loaded (haml-edge) by the compass requires.
+# This is here to make sure that the right version of sass gets loaded (haml 2.2) by the compass requires.
 require 'compass'
 CODE
 
