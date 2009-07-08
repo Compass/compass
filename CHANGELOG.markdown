@@ -1,6 +1,11 @@
 COMPASS CHANGELOG
 =================
 
+0.8.6 (July 08, 2009)
+---------------------
+
+Haml 2.2 dependency.
+
 0.8.5 (July 06, 2009)
 ---------------------
 
@@ -159,7 +164,7 @@ Fixed some build issues and a bug in the rewritten --watch mode that caused chan
 ### Configuration
 
 * **Asset Hosts**. You can now configure the asset host(s) used for images via the image_url() function.
-  Asset hosts are off unless configured and also off when relative urls are enabled. 
+  Asset hosts are off unless configured and also off when relative urls are enabled.
   [Commit](http://github.com/chriseppstein/compass/commit/ef47f3dd9dbfc087de8b12a90f9a82993bbb592e).
   In your compass configuration file, you must define an asset_host algorithm to be used like so:
       # Return the same host for all images:

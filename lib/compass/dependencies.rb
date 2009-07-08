@@ -1,9 +1,9 @@
 unless defined?(Sass)
   require 'rubygems'
   begin
-    gem 'haml-edge','>= 2.1'
+    gem 'haml','>= 2.2.0'
   rescue Exception
-    $stderr.puts "WARNING: haml-edge gem not found. Trying to find haml on the load path."
+    $stderr.puts "WARNING: haml 2.2 gem not found. Trying to find haml on the load path."
   end
   require 'sass'
 end
