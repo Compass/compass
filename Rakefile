@@ -89,6 +89,8 @@ end
 
 task :release => :commit_revision
 
+task :gem => :build
+
 desc "Compile Examples into HTML and CSS"
 task :examples do
   linked_haml = "tests/haml"
