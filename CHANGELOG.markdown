@@ -4,7 +4,27 @@ COMPASS CHANGELOG
 0.8.6 (July 08, 2009)
 ---------------------
 
-Haml 2.2 dependency.
+### Rails
+
+* The rails installer now correctly references the haml 2.2 dependency.
+  [Commit](http://github.com/chriseppstein/compass/commit/85bb337f50a3a3dfaafa2820d5463f7296140c9e)
+  by [Filip Tepper][filiptepper].
+* When installing into a new rails project, set the http paths correctly for stylesheets and javascripts
+  in the configuration file.
+  [Commit](http://github.com/chriseppstein/compass/commit/94e9696b30a9a9fd750c45e6fe3c2bc93eba506a)
+* Fixed a bug in asset hosts support when compiling outside the context of a controller.
+  [Commit](http://github.com/chriseppstein/compass/commit/6b8bbd22b13ef4c329777913a633948e66e3da99)
+
+### Command Line
+
+* Fixed a bug that caused the output after installing to not display the conditional comments.
+  [Commit](http://github.com/chriseppstein/compass/commit/48a0356ad8bc7b965e64f82498a9adcc1872abad)
+
+### Compass Core
+
+* Fixed a copy & paste error in image_url() that caused the http_images_path to not get picked up unless the
+  http_stylesheets_path was also set.
+  [Commit](http://github.com/chriseppstein/compass/commit/b7a9772efb89b2b882d3fafe02813c0fc650719a)
 
 0.8.5 (July 06, 2009)
 ---------------------
@@ -457,3 +477,4 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [Chrononaut]: http://github.com/Chrononaut
 [rails_template]: http://github.com/chriseppstein/compass/raw/4e7e51e2c5491851f66c77abf3f15194f2f8fb8d/lib/compass/app_integration/rails/templates/compass-install-rails.rb
 [dturnbull]: http://github.com/dturnbull
+[filiptepper]: http://github.com/filiptepper
