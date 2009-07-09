@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::Urls
   def image_url_with_rails_integration(path)
-    if @controller = Sass::Plugin.rails_controller
+    if (@controller = Sass::Plugin.rails_controller) && @controller.respond_to?(:request) && @controller.request
       begin
         Sass::Script::String.new "url(#{image_path(path.value)})"
       ensure
