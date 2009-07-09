@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.8.6"
+  s.version = "0.8.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2009-07-08}
+  s.date = %q{2009-07-09}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "VERSION.yml",
     "bin/compass",
     "deps.rip",
+    "examples/README.markdown",
     "examples/blueprint_default/config.rb",
     "examples/blueprint_default/images/grid.png",
     "examples/blueprint_default/index.html.haml",
