@@ -102,6 +102,7 @@ task :examples do
   require 'lib/compass'
   require 'lib/compass/exec'
   FileList['examples/*'].each do |example|
+    next unless File.directory?(example)
     puts "\nCompiling #{example}"
     puts "=" * "Compiling #{example}".length
     # compile any haml templates to html
