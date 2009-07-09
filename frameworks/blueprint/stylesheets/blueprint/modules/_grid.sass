@@ -146,8 +146,8 @@
 
 // Border with more whitespace, spans one column.
 =colborder(!border_color = #eee, !border_width = 1px)
-  :padding-right= floor((!blueprint_grid_width - 2 * !blueprint_grid_margin - !border_width)/2)
-  :margin-right= ceil((!blueprint_grid_width - 2 * !blueprint_grid_margin - !border_width)/2)
+  :padding-right= floor((!blueprint_grid_width + 2 * !blueprint_grid_margin - !border_width)/2)
+  :margin-right= ceil((!blueprint_grid_width + 2 * !blueprint_grid_margin - !border_width)/2)
   :border-right #{!border_width} solid #{!border_color}
 
 // Mixin this to an hr to make a horizontal ruler across a column.
