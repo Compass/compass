@@ -19,7 +19,7 @@
 //   You can pass the body selector as the first argument when used as a top-level mixin
 //   +blueprint("body#page-1, body#page-2, body.a-special-page-type")
 =blueprint(!body_selector = "body")
-  @if !body_selector != "body"
+  @if not (!body_selector == "body" or !body_selector == true)
     @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint, pass true as the first argument and mix it into #{!body_selector}."
   +blueprint-typography(!body_selector)
   +blueprint-utilities
