@@ -1,25 +1,32 @@
 @import modules/typography.sass
 @import compass/utilities/general/float.sass
 
-// The +blueprint-print mixin must be mixed into the top level of your stylesheet.
-// However, you can customize the body selector if you wish to control the scope
-// of this mixin. Examples:
-// Apply to any page including the stylesheet:
-//   +blueprint-print
-// Scoped by a single presentational body class:
-//   +blueprint-print("body.blueprint")
-// Semantically:
-//   +blueprint-print("body#page-1, body#page-2, body.a-special-page-type")
-//   Alternatively, you can use the +blueprint-print-body and +blueprint-print-defaults
-//   mixins to construct your own semantic style rules.
 
+
+// Usage examples:
+// As a top-level mixin, apply to any page that includes the stylesheet:
+//   +blueprint-print
+// Scoped by a presentational class:
+//   body.blueprint
+//    +blueprint-print(true)
+// Scoped by semantic selectors:
+//   body#page-1, body#page-2, body.a-special-page-type
+//     +blueprint-print(true)
+// Deprecated:
+//   You can pass the body selector as the first argument when used as a top-level mixin
+//   +blueprint-print("body#page-1, body#page-2, body.a-special-page-type")
 =blueprint-print(!body_selector = "body")
-  #{!body_selector}
+  @if !body_selector == true
     +blueprint-print-body
-    @if !body_selector != "body"
-      +blueprint-print-defaults
-  @if !body_selector == "body"
     +blueprint-print-defaults
+  @else
+    #{!body_selector}
+      +blueprint-print-body
+      @if !body_selector != "body"
+        @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-print, pass true as the first argument and mix it into #{!body_selector}."
+        +blueprint-print-defaults
+    @if !body_selector == "body"
+      +blueprint-print-defaults
 
 // This style is in blueprint, but I think it's annoying and it doesn't work in all browsers.
 // Feel free to mix it into anchors where you want it.

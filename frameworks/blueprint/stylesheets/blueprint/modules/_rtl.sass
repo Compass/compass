@@ -70,14 +70,32 @@
   :margin-left= (!blueprint_grid_width - 2 * !blueprint_grid_margin)/2
   :border-left 1px solid #eee
 
+// Usage examples:
+// As a top-level mixin, apply to any page that includes the stylesheet:
+//   +rtl-typography
+// Scoped by a presentational class:
+//   body.blueprint
+//    +rtl-typography(true)
+// Scoped by semantic selectors:
+//   body#page-1, body#page-2, body.a-special-page-type
+//     +rtl-typography(true)
+// Deprecated:
+//   You can pass the body selector as the first argument when used as a top-level mixin
+//   +rtl-typography("body#page-1, body#page-2, body.a-special-page-type")
 =rtl-typography(!body_selector = "body")
-  html #{!body_selector}
-    :font-family Arial, sans-serif
-    @if !body_selector != "body"
-      +rtl-typography-defaults
-  @if !body_selector == "body"
-    body
-      +rtl-typography-defaults
+  @if !body_selector == true
+    html &
+      :font-family Arial, sans-serif  
+    +rtl-typography-defaults
+  @else
+    html #{!body_selector}
+      :font-family Arial, sans-serif
+      @if !body_selector != "body"
+        @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +rtl-typography, pass true as the first argument and mix it into #{!body_selector}."
+        +rtl-typography-defaults
+    @if !body_selector == "body"
+      body
+        +rtl-typography-defaults
 
 =rtl-typography-defaults
   h1, h2, h3, h4, h5, h6

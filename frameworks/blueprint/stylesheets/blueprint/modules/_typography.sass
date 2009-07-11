@@ -6,25 +6,30 @@
 !blueprint_fixed_font_family ||= "'andale mono', 'lucida console', monospace"
 !blueprint_font_size         ||= 12px
 
-// The +blueprint-typography mixin must be mixed into the top level of your stylesheet.
-// However, you can customize the body selector if you wish to control the scope
-// of this mixin. Examples:
-// Apply to any page including the stylesheet:
+// Usage examples:
+// As a top-level mixin, apply to any page that includes the stylesheet:
 //   +blueprint-typography
-// Scoped by a single presentational body class:
-//   +blueprint-typography("body.blueprint")
-// Semantically:
+// Scoped by a presentational class:
+//   body.blueprint
+//    +blueprint-typography(true)
+// Scoped by semantic selectors:
+//   body#page-1, body#page-2, body.a-special-page-type
+//     +blueprint-typography(true)
+// Deprecated:
+//   You can pass the body selector as the first argument when used as a top-level mixin
 //   +blueprint-typography("body#page-1, body#page-2, body.a-special-page-type")
-//   Alternatively, you can use the +blueprint-typography-body and +blueprint-typography-defaults
-//   mixins to construct your own semantic style rules.
-
 =blueprint-typography(!body_selector = "body")
-  #{!body_selector}
+  @if !body_selector == true
     +blueprint-typography-body
-    @if !body_selector != "body"
-      +blueprint-typography-defaults
-  @if !body_selector == "body"
     +blueprint-typography-defaults
+  @else
+    #{!body_selector}
+      +blueprint-typography-body
+      @if !body_selector != "body"
+        @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-typography, pass true as the first argument and mix it into #{!body_selector}."
+        +blueprint-typography-defaults
+    @if !body_selector == "body"
+      +blueprint-typography-defaults
 
 =normal-text
   :font-family= !blueprint_font_family
