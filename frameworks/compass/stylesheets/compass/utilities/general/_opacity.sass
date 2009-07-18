@@ -1,0 +1,15 @@
+// expects a number from 0 to 1
+=opacity(!opacity = 1)
+  :opacity= !opacity
+  :-moz-opacity= !opacity
+  :-khtml-opacity= !opacity
+  :-ms-filter= "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + round(!opacity*100) + ")"
+  :filter= "alpha(opacity=" + round(!opacity*100) + ")"
+
+// Make an element completely transparent.
+=transparent
+  +opacity(0)
+
+// Make an element completely opaque.
+=opaque
+  +opacity(1)
