@@ -1,6 +1,29 @@
 COMPASS CHANGELOG
 =================
 
+0.8.8 (July 21, 2009)
+---------------------
+
+Bug Fix Release:
+* [Compass Core] Fixed a bug in alternating_rows_and_columns. Improper nesting caused some styles to be improperly rendered.
+  [Commit](http://github.com/chriseppstein/compass/commit/e277ed2cd3fded0b98ddaa87fc4d3b9d37cb7354)
+* [YUI] Fixed a bug in yui grids where the .first div wouldn't get the right styles in some rare cases due to incorrect nesting.
+  [Commit](http://github.com/chriseppstein/compass/commit/4bfcef4f376ee6e5d5a2b47419d2f21ef4c6eff8)
+
+
+0.8.7 (July 09, 2009)
+---------------------
+
+Bug Fix Release:
+* Load haml-edge only if it's all new and shiny. Closes GH-26.
+  [Commit](http://github.com/chriseppstein/compass/commit/59a6067b3a67a79bfd9a5ce325fc1be4bb6c9e78)
+* [Blueprint] Added more descriptive comments to the Blueprint IE template.
+  [Commit](http://github.com/chriseppstein/compass/commit/8684966be1e8166a986ae81abd3daf6c44ed4f94)
+* [Rails] Fixed a bug in rails integration if the request is not set on the controller.
+  [Commit](http://github.com/chriseppstein/compass/commit/7fba6028d8073a9124a6505aab9246b5b459db34)
+* [Blueprint] Fixed a bug in the calculations for the +colborder mixin. Closes GH-25.
+  [Commit](http://github.com/chriseppstein/compass/commit/d2b1370c80a32f70ae6ec94126b737f4f0fc0851)
+
 0.8.6 (July 08, 2009)
 ---------------------
 
