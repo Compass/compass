@@ -19,5 +19,3 @@ end
 require File.join(File.dirname(__FILE__), 'compass', 'configuration')
 require File.join(File.dirname(__FILE__), 'compass', 'frameworks')
 require File.join(File.dirname(__FILE__), 'compass', 'app_integration')
-
-
