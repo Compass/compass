@@ -39,9 +39,10 @@ module Compass
     end
 
     def parse_string(contents, filename)
-      eval(contents, binding, filename)
+      bind = binding
+      eval(contents, bind, filename)
       ATTRIBUTES.each do |prop|
-        value = eval(prop.to_s, binding) rescue nil
+        value = eval(prop.to_s, bind) rescue nil
         self.send("#{prop}=", value) if value
       end
       if @added_import_paths
