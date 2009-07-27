@@ -58,6 +58,7 @@ begin
     gemspec.files += Dir.glob("examples/**/*.*")
     gemspec.files -= Dir.glob("examples/**/*.css")
     gemspec.files -= Dir.glob("examples/**/*.html")
+    gemspec.files -= Dir.glob("examples/*/extensions/**")
     gemspec.files += Dir.glob("frameworks/**/*.*")
     gemspec.files += Dir.glob("lib/**/*")
     gemspec.files += Dir.glob("test/**/*.*")
@@ -107,6 +108,8 @@ task :examples do
     next unless File.directory?(example)
     puts "\nCompiling #{example}"
     puts "=" * "Compiling #{example}".length
+    bootstrap_file = File.join(example, "bootstrap.rb")
+    load bootstrap_file if File.exists?(bootstrap_file)
     # compile any haml templates to html
     FileList["#{example}/**/*.haml"].each do |haml_file|
       basename = haml_file[0..-6]
