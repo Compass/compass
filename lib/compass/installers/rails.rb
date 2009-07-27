@@ -62,9 +62,11 @@ page request and keep them up to date when they change.
 Make sure you restart your server!
 NEXTSTEPS
         end
-        puts "\nNext add these lines to the head of your layouts:\n\n"
-        puts stylesheet_links
-        puts "\n(You are using haml, aren't you?)"
+        if manifest.has_stylesheet?
+          puts "\nNext add these lines to the head of your layouts:\n\n"
+          puts stylesheet_links
+          puts "\n(You are using haml, aren't you?)"
+        end
       end
 
 

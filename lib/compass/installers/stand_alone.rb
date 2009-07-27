@@ -43,7 +43,7 @@ module Compass
       end
 
       def prepare
-        write_configuration_files unless config_files_exist?
+        write_configuration_files unless config_files_exist? || !@manifest.generate_config?
       end
 
       def default_configuration
@@ -69,12 +69,14 @@ This can be done in one of the following ways:
      compass --watch [path/to/project]
 NEXTSTEPS
         end
-        puts "\nTo import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"
-        puts stylesheet_links
+        if manifest.has_stylesheet?
+          puts "\nTo import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"
+          puts stylesheet_links
+        end
       end
 
       def compilation_required?
-        true
+        @manifest.compile?
       end
     end
   end

@@ -14,7 +14,7 @@ module Compass
         @target_path = target_path
         @working_path = Dir.getwd
         @options = options
-        @manifest = Manifest.new(manifest_file) if template_path
+        @manifest = Manifest.new(manifest_file, options) if template_path
         self.logger = options[:logger]
       end
 

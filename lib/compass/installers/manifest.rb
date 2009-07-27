@@ -11,8 +11,12 @@ module Compass
         end
       end
 
-      def initialize(manifest_file = nil)
+      attr_reader :options
+      def initialize(manifest_file = nil, options = {})
         @entries = []
+        @options = options
+        @generate_config = true
+        @compile_after_generation = true
         parse(manifest_file) if manifest_file
       end
 
@@ -41,8 +45,24 @@ module Compass
         @entries.each {|e| yield e}
       end
 
+      def generate_config?
+        @generate_config
+      end
+
+      def compile?
+        @compile_after_generation
+      end
 
       protected
+
+      def no_configuration_file!
+        @generate_config = false
+      end
+
+      def skip_compilation!
+        @compile_after_generation = false
+      end
+
       # parses a manifest file which is a ruby script
       # evaluated in a Manifest instance context
       def parse(manifest_file)
