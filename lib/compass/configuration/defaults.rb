@@ -10,6 +10,10 @@ module Compass
         "/"
       end
 
+      def default_extensions_dir
+        "extensions"
+      end
+
       def default_output_style
         if top_level.environment == :development
           :expanded
@@ -45,6 +49,13 @@ module Compass
           File.join(pp, dir)
         end
       end
+
+      def default_extensions_path
+        if (pp = top_level.project_path) && (dir = top_level.extensions_dir)
+          File.join(pp, dir)
+        end
+      end
+
 
       def default_http_images_dir
         top_level.images_dir

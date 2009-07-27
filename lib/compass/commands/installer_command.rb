@@ -10,6 +10,9 @@ module Compass
         read_project_configuration
         Compass.add_configuration(options)
         Compass.add_configuration(installer.completed_configuration)
+        if File.exists?(Compass.configuration.extensions_path)
+          Compass::Frameworks.discover(Compass.configuration.extensions_path)
+        end
       end
 
       def installer

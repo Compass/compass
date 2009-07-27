@@ -12,10 +12,10 @@ module Compass
         super(working_path, options)
         self.project_name = determine_project_name(working_path, options)
         Compass.configuration.project_path = determine_project_directory(working_path, options)
+        configure!
       end
 
       def execute
-        configure!
         super
       end
 
@@ -23,6 +23,9 @@ module Compass
 
       def configure!
         read_project_configuration
+        if File.exists?(Compass.configuration.extensions_path)
+          Compass::Frameworks.discover(Compass.configuration.extensions_path)
+        end
       end
 
       def projectize(path)
