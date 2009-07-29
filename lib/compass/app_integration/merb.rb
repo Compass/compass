@@ -37,6 +37,12 @@ module Compass
       template_location[framework.stylesheets_directory] = Merb::Plugins.config[:compass][:compiled_stylesheets]
     end
 
+    # merge existing template locations if present
+    if Merb::Plugins.config[:sass][:template_location].is_a?(Hash)
+      template_location.merge!(Merb::Plugins.config[:sass][:template_location])
+      Merb::Plugins.config[:sass][:template_location] = template_location
+    end
+
     #configure Sass to know about all these sass locations.
     Sass::Plugin.options[:template_location] = template_location
   end
