@@ -1,10 +1,8 @@
 unless defined?(Sass)
-  require 'rubygems'
   begin
-    gem 'haml-edge', '>= 2.3.0'
-    $stderr.puts "Loading haml-edge gem."
-  rescue Exception
-    #pass
+    require 'sass'
+  rescue LoadError
+    require 'rubygems'
+    require 'sass'
   end
-  require 'sass'
 end
