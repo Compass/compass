@@ -125,6 +125,25 @@ module Compass
         "#{pattern_name_as_dir}#{to}"
       end
 
+      installer :html do |to|
+        "#{pattern_name_as_dir}#{to}"
+      end
+
+      alias install_html_without_haml install_html
+      def install_html(from, to, options)
+        if to =~ /\.haml$/
+          require 'haml'
+          html = Haml::Engine.new(File.read(templatize(from)), :filename => templatize(from)).render
+          to = to[0..-(".haml".length+1)]
+          if respond_to?(:install_location_for_html)
+            to = install_location_for_html(to, options)
+          end
+          write_file(targetize(to), html, options)
+        else
+          install_html_without_haml(from, to, options)
+        end
+      end
+
       # returns an absolute path given a path relative to the current installation target.
       # Paths can use unix style "/" and will be corrected for the current platform.
       def targetize(path)

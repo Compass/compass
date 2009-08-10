@@ -65,6 +65,10 @@ NEXTSTEPS
         "/stylesheets"
       end
 
+      def install_location_for_html(to, options)
+        separate("public/#{pattern_name_as_dir}#{to}")
+      end
+
       def prompt_sass_dir
         recommended_location = separate('app/stylesheets')
         default_location = separate('public/stylesheets/sass')

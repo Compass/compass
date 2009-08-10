@@ -34,6 +34,7 @@ module Compass
       type :image
       type :javascript
       type :file
+      type :html
 
       # Enumerates over the manifest files
       def each
