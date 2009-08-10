@@ -1,5 +1,9 @@
 COMPASS CHANGELOG
 =================
+0.8.9 (August 9, 2009)
+----------------------
+Bug Fix Release:
+* [Blueprint] The default screen.sass generated invalid selectors due to improper nesting. A better fix is coming in the next release.
 
 0.8.8 (July 21, 2009)
 ---------------------
