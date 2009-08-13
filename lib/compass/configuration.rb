@@ -2,7 +2,6 @@ require 'singleton'
 
 module Compass
   class Configuration
-    include Singleton
 
     ATTRIBUTES = [
       :project_type,
@@ -295,10 +294,11 @@ module Compass
 
   module ConfigHelpers
     def configuration
+      @configuration ||= Configuration.new
       if block_given?
-        yield Configuration.instance
+        yield @configuration
       end
-      Configuration.instance
+      @configuration
     end
 
     def sass_plugin_configuration
