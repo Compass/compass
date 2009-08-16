@@ -1,14 +1,23 @@
 COMPASS CHANGELOG
 =================
+0.8.10 (August 16, 2009)
+------------------------
+Bug Fix Release:
+
+* Write files in binary mode to avoid data corruption when installing images on windows.
+  Fixes [Issue #39](http://github.com/chriseppstein/compass/issues/#issue/39)
+
 0.8.9 (August 9, 2009)
 ----------------------
 Bug Fix Release:
+
 * [Blueprint] The default screen.sass generated invalid selectors due to improper nesting. A better fix is coming in the next release.
 
 0.8.8 (July 21, 2009)
 ---------------------
 
 Bug Fix Release:
+
 * [Compass Core] Fixed a bug in alternating_rows_and_columns. Improper nesting caused some styles to be improperly rendered.
   [Commit](http://github.com/chriseppstein/compass/commit/e277ed2cd3fded0b98ddaa87fc4d3b9d37cb7354)
 * [YUI] Fixed a bug in yui grids where the .first div wouldn't get the right styles in some rare cases due to incorrect nesting.
@@ -19,6 +28,7 @@ Bug Fix Release:
 ---------------------
 
 Bug Fix Release:
+
 * Load haml-edge only if it's all new and shiny. Closes GH-26.
   [Commit](http://github.com/chriseppstein/compass/commit/59a6067b3a67a79bfd9a5ce325fc1be4bb6c9e78)
 * [Blueprint] Added more descriptive comments to the Blueprint IE template.

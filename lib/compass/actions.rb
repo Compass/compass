@@ -8,10 +8,10 @@ module Compass
     end
 
     # copy/process a template in the compass template directory to the project directory.
-    def copy(from, to, options = nil)
+    def copy(from, to, options = nil, binary = false)
       options ||= self.options if self.respond_to?(:options)
       contents = File.new(from).read
-      write_file to, contents, options
+      write_file to, contents, options, binary
     end
 
     # create a directory and all the directories necessary to reach it.
@@ -29,7 +29,7 @@ module Compass
     end
 
     # Write a file given the file contents as a string
-    def write_file(file_name, contents, options = nil)
+    def write_file(file_name, contents, options = nil, binary = false)
       options ||= self.options if self.respond_to?(:options)
       skip_write = options[:dry_run]
       if File.exists?(file_name)
@@ -49,7 +49,9 @@ module Compass
       if skip_write
         FileUtils.touch file_name
       else
-        open(file_name,'w') do |file|
+        mode = "w"
+        mode << "b" if binary
+        open(file_name, mode) do |file|
           file.write(contents)
         end
       end

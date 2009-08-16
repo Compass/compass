@@ -87,7 +87,7 @@ module Compass
         "#{options[:pattern_name]}/" if options[:pattern_name]
       end
 
-      def self.installer(type, &locator)
+      def self.installer(type, installer_opts = {}, &locator)
         locator ||= lambda{|to| to}
         loc_method = "install_location_for_#{type}".to_sym
         define_method("simple_#{loc_method}", locator)
@@ -99,7 +99,9 @@ module Compass
           end
         end
         define_method "install_#{type}" do |from, to, options|
-          copy templatize(from), targetize(send(loc_method, to, options))
+          from = templatize(from)
+          to = targetize(send(loc_method, to, options))
+          copy from, to, nil, (installer_opts[:binary] || options[:binary])
         end
       end
 
@@ -111,7 +113,7 @@ module Compass
         "#{css_dir}/#{to}"
       end
 
-      installer :image do |to|
+      installer :image, :binary => true do |to|
         "#{images_dir}/#{to}"
       end
 
