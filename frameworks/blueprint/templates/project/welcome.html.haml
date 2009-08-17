@@ -3,10 +3,11 @@
 %html(xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en")
   %head
     %title Welcome to Compass &amp; Blueprint
-    %link(rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen, projection")
-    %link(href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css")
+    %link(rel="stylesheet" href="<%= http_stylesheets_path %>/screen.css" type="text/css" media="screen, projection")
+    %link(href="<%= http_stylesheets_path %>/print.css" media="print" rel="stylesheet" type="text/css")
     /[if lt IE 8]
-      %link(href="stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css")    
+      %link(href="<%= http_stylesheets_path %>/ie.css" media="screen, projection" rel="stylesheet" type="text/css")    
   %body#welcome.bp
     #container
       %h1 Welcome to Compass!
+      %p This is <%= "ERB" %>

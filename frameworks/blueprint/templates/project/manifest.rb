@@ -4,3 +4,5 @@ stylesheet 'print.sass',  :media => 'print'
 stylesheet 'ie.sass',     :media => 'screen, projection', :condition => "lt IE 8"
 
 image 'grid.png'
+
+html 'welcome.html.haml', :erb => true
