@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), 'installers', 'manifest')
-require File.join(File.dirname(__FILE__), 'installers', 'base')
-require File.join(File.dirname(__FILE__), 'installers', 'stand_alone')
-require File.join(File.dirname(__FILE__), 'installers', 'rails')
-
+%w(manifest template_context base stand_alone rails).each do |f|
+  require File.join(File.dirname(__FILE__), 'installers', f)
+end
