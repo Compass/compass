@@ -133,11 +133,16 @@ module Compass
       def install_html(from, to, options)
         if to =~ /\.haml$/
           require 'haml'
-          html = Haml::Engine.new(File.read(templatize(from)), :filename => templatize(from)).render
           to = to[0..-(".haml".length+1)]
           if respond_to?(:install_location_for_html)
             to = install_location_for_html(to, options)
           end
+          contents = File.read(templatize(from))
+          if options.delete(:erb)
+            ctx = TemplateContext.ctx(:to => to, :options => options)
+            contents = process_erb(contents, ctx)
+          end
+          html = Haml::Engine.new(contents, :filename => templatize(from)).render
           write_file(targetize(to), html, options)
         else
           install_html_without_haml(from, to, options)
