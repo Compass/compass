@@ -1,7 +1,7 @@
 COMPASS CHANGELOG
 =================
 
-0.8.11 (August 22, 2009)
+0.8.12 (August 22, 2009)
 ------------------------
 
 Bug Fix Release:
