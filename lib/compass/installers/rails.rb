@@ -117,6 +117,8 @@ Compass.configure_sass_plugin!
       def stylesheet_links
         html = "%head\n"
         manifest.each_stylesheet do |stylesheet|
+          # Skip partials.
+          next if File.basename(stylesheet.from)[0..0] == "_"
           ss_line = "  = stylesheet_link_tag '#{stylesheet_prefix}#{stylesheet.to.sub(/\.sass$/,'.css')}'"
           if stylesheet.options[:media]
             ss_line += ", :media => '#{stylesheet.options[:media]}'"

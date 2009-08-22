@@ -1,5 +1,16 @@
 COMPASS CHANGELOG
 =================
+
+0.8.11 (August 22, 2009)
+------------------------
+
+Bug Fix Release:
+
+* [Compass Core] Bug fix to sprites: fixed width and height assignments for x and y position variables
+* Ruby 1.9.1 fix: binding for parse_string
+* [Rails] Don't suggest creating a stylesheet link to partials.
+
+
 0.8.10 (August 16, 2009)
 ------------------------
 Bug Fix Release:

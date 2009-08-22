@@ -19,7 +19,7 @@ class CommandLineTest < Test::Unit::TestCase
 
   def test_list_frameworks
     compass "--list-frameworks"
-    assert_equal("blueprint\ncompass\nyui\n", @last_result)
+    assert_equal(%w(blueprint compass yui), @last_result.split.sort)
   end
 
   def test_basic_install
