@@ -3,16 +3,38 @@ module Compass
     
     class RailsInstaller < Base
 
-      def configuration_defaults
-        {
-          :sass_dir => (sass_dir || prompt_sass_dir),
-          :css_dir => (css_dir || prompt_css_dir),
-          :images_dir => default_images_dir,
-          :javascripts_dir => default_javascripts_dir,
-          :http_stylesheets_path => default_http_stylesheets_path,
-          :http_javascripts_path => default_http_javascripts_path,
-          :http_images_path => default_http_images_path
-        }
+      module ConfigurationDefaults
+        def default_images_dir
+          File.join("public", "images")
+        end
+
+        def default_javascripts_dir
+          File.join("public", "javascripts")
+        end
+
+        def default_http_images_path
+          "/images"
+        end
+
+        def default_http_javascripts_path
+          "/javascripts"
+        end
+
+        def default_http_stylesheets_path
+          "/stylesheets"
+        end
+
+      end
+
+      def default_configuration
+        Compass::Configuration::Data.new.extend(ConfigurationDefaults)
+      end
+
+      def completed_configuration
+        config = {}
+        config[:sass_dir] = prompt_sass_dir unless sass_dir_without_default
+        config[:css_dir] = prompt_css_dir unless css_dir_without_default
+        config unless config.empty?
       end
 
       def write_configuration_files(config_file = nil)
@@ -45,25 +67,6 @@ NEXTSTEPS
         puts "\n(You are using haml, aren't you?)"
       end
 
-      def default_images_dir
-        separate("public/images")
-      end
-
-      def default_javascripts_dir
-        separate("public/javascripts")
-      end
-
-      def default_http_images_path
-        "/images"
-      end
-
-      def default_http_javascripts_path
-        "/javascripts"
-      end
-
-      def default_http_stylesheets_path
-        "/stylesheets"
-      end
 
       def install_location_for_html(to, options)
         separate("public/#{pattern_name_as_dir}#{to}")

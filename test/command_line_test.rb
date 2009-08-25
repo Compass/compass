@@ -7,9 +7,10 @@ require 'timeout'
 class CommandLineTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
   include Compass::CommandLineHelper
+  include Compass::IoHelper
 
   def teardown
-    Compass.configuration.reset!
+    Compass.reset_configuration!
   end
 
   def test_print_version

@@ -23,8 +23,6 @@ module Compass
 
       def configure!
         read_project_configuration
-        Compass.configuration.set_maybe(options)
-        Compass.configuration.set_defaults!
       end
 
       def projectize(path)
@@ -49,8 +47,8 @@ module Compass
 
       # Read the configuration file for this project
       def read_project_configuration
-        if file = detect_configuration_file
-          Compass.configuration.parse(file) if File.readable?(file)
+        if (file = detect_configuration_file) && File.readable?(file)
+          Compass.add_configuration(file)
         end
       end
 

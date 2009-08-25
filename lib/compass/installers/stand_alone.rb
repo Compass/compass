@@ -3,6 +3,24 @@ module Compass
     
     class StandAloneInstaller < Base
 
+      module ConfigurationDefaults
+        def sass_dir_without_default
+          "src"
+        end
+
+        def javascripts_dir_without_default
+          "javascripts"
+        end
+
+        def css_dir_without_default
+          "stylesheets"
+        end
+
+        def images_dir_without_default
+          "images"
+        end
+      end
+
       def init
         directory targetize("")
         super
@@ -28,9 +46,12 @@ module Compass
         write_configuration_files unless config_files_exist?
       end
 
-      # We want to rely on the defaults provided by Configuration
-      def configuration_defaults
-        {}
+      def default_configuration
+        Compass::Configuration::Data.new.extend(ConfigurationDefaults)
+      end
+
+      def completed_configuration
+        nil
       end
 
       def finalize(options = {})

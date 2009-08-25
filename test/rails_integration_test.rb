@@ -7,9 +7,10 @@ require 'timeout'
 class RailsIntegrationTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
   include Compass::CommandLineHelper
+  include Compass::IoHelper
 
   def setup
-    Compass.configuration.reset!
+    Compass.reset_configuration!
   end
 
   def test_rails_install

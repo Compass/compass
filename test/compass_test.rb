@@ -5,7 +5,7 @@ require 'compass'
 class CompassTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
   def setup
-    Compass.configuration.reset!
+    Compass.reset_configuration!
   end
 
   def teardown
@@ -90,7 +90,7 @@ private
 
   def within_project(project_name)
     @current_project = project_name
-    Compass.configuration.parse(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
+    Compass.add_configuration(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
     Compass.configuration.project_path = project_path(project_name)
     args = Compass.configuration.to_compiler_arguments(:logger => Compass::NullLogger.new)
     if Compass.configuration.sass_path && File.exists?(Compass.configuration.sass_path)

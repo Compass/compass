@@ -26,12 +26,16 @@ module Compass
         define_method dir do
           Compass.configuration.send(dir)
         end
+        define_method "#{dir}_without_default" do
+          Compass.configuration.send("#{dir}_without_default")
+        end
       end
 
       # Initializes the project to work with compass
       def init
         dirs = manifest.map do |entry|
-          File.dirname(send("install_location_for_#{entry.type}", entry.to, entry.options))
+          loc = send("install_location_for_#{entry.type}", entry.to, entry.options)
+          File.dirname(loc)
         end
 
         if manifest.has_stylesheet?

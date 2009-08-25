@@ -6,10 +6,10 @@ module Compass
       include Compass::Installers
 
       def configure!
+        Compass.add_configuration(installer.default_configuration)
         read_project_configuration
-        Compass.configuration.set_maybe(options)
-        Compass.configuration.default_all(installer.configuration_defaults)
-        Compass.configuration.set_defaults!
+        Compass.add_configuration(options)
+        Compass.add_configuration(installer.completed_configuration)
       end
 
       def installer

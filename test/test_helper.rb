@@ -18,4 +18,5 @@ require 'compass'
 require 'test/unit'
 
 require File.join(File.dirname(__FILE__), 'test_case_helper')
+require File.join(File.dirname(__FILE__), 'io_helper')
 require File.join(File.dirname(__FILE__), 'command_line_helper')

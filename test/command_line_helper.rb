@@ -88,14 +88,6 @@ module Compass::CommandLineHelper
     FileUtils.rm_rf(d)
   end
 
-  def capture_output
-    real_stdout, $stdout = $stdout, StringIO.new
-    yield
-    $stdout.string
-  ensure
-    $stdout = real_stdout
-  end
-
   def execute(*arguments)
     Compass::Exec::Compass.new(arguments).run!
   end
