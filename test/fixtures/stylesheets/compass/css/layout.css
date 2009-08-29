@@ -3,6 +3,8 @@ html, body {
 
 #layout {
   min-height: 100%;
+  height: auto !important;
+  height: 100%;
   margin-bottom: -72px; }
   #layout #layout_footer {
     height: 72px; }

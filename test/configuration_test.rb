@@ -88,9 +88,6 @@ class ConfigurationTest < Test::Unit::TestCase
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
 css_dir = "css"
-sass_dir = "src"
-images_dir = "images"
-javascripts_dir = "javascripts"
 # Set this to the root of your project when deployed:
 http_path = "/"
 # To enable relative paths to assets via compass helper functions. Uncomment:
@@ -113,10 +110,6 @@ EXPECTED
 
       expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
-css_dir = "stylesheets"
-sass_dir = "src"
-images_dir = "images"
-javascripts_dir = "javascripts"
 # Set this to the root of your project when deployed:
 http_path = "/"
 # To enable relative paths to assets via compass helper functions. Uncomment:
