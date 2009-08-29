@@ -68,7 +68,6 @@ module Compass
         end
         self.options[:command] ||= self.options[:project_name] ? :create_project : :update_project
         self.options[:framework] ||= :compass
-        self.options[:project_type] ||= :stand_alone
       end
 
       def trim_trailing_separator(path)

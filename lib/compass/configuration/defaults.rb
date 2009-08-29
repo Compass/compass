@@ -2,6 +2,10 @@ module Compass
   module Configuration
     module Defaults
 
+      def default_project_type
+        :stand_alone
+      end
+
       def http_path_without_default
         "/"
       end
