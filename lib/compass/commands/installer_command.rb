@@ -13,7 +13,7 @@ module Compass
       end
 
       def installer
-        @installer ||= case Compass.configuration.project_type
+        @installer ||= case (options[:project_type] || Compass.configuration.project_type)
         when :stand_alone
           StandAloneInstaller.new *installer_args
         when :rails
