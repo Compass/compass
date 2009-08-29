@@ -20,20 +20,26 @@ end
 
 
 if !File.exists?(extdir)
-  puts "Downloading and unpacking the ninesixty plugin."
-  FileUtils.mkdir(extdir)
-  zipfile = File.join(extdir, "ninesixty.zip")
-  open(zipfile, "wb") do |tgz|
-    tgz << fetch(download_link).body
+  begin
+    puts "Downloading the ninesixty plugin."
+    FileUtils.mkdir(extdir)
+    zipfile = File.join(extdir, "ninesixty.zip")
+    open(zipfile, "wb") do |tgz|
+      tgz << fetch(download_link).body
+    end
+    puts "Unzipping the ninesixty plugin."
+    Zip::ZipFile::open(zipfile) { |zf|
+       zf.each { |e|
+         fpath = File.join(extdir, e.name)
+         FileUtils.mkdir_p(File.dirname(fpath))
+         zf.extract(e, fpath)
+       }
+    }
+    File.unlink(zipfile)
+    funky_directory = Dir.glob(File.join(extdir,'chriseppstein-compass-960-plugin-*'))[0]
+    FileUtils.mv(funky_directory, File.join(extdir,'ninesixty'))
+  rescue Exception => e
+    FileUtils.rmdir(extdir)
+    raise
   end
-  Zip::ZipFile::open(zipfile) { |zf|
-     zf.each { |e|
-       fpath = File.join(extdir, e.name)
-       FileUtils.mkdir_p(File.dirname(fpath))
-       zf.extract(e, fpath)
-     }
-  }
-  File.unlink(zipfile)
-  funky_directory = Dir.glob(File.join(extdir,'chriseppstein-compass-960-plugin-*'))[0]
-  FileUtils.mv(funky_directory, File.join(extdir,'ninesixty'))
 end
