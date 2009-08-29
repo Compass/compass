@@ -108,8 +108,10 @@ task :examples do
     next unless File.directory?(example)
     puts "\nCompiling #{example}"
     puts "=" * "Compiling #{example}".length
-    bootstrap_file = File.join(example, "bootstrap.rb")
-    load bootstrap_file if File.exists?(bootstrap_file)
+    Dir.chdir example do
+      load "bootstrap.rb" if File.exists?("bootstrap.rb")
+      Compass::Exec::Compass.new(["--force"]).run!
+    end
     # compile any haml templates to html
     FileList["#{example}/**/*.haml"].each do |haml_file|
       basename = haml_file[0..-6]
@@ -118,9 +120,6 @@ task :examples do
       output = open(basename,'w')
       output.write(engine.render)
       output.close
-    end
-    Dir.chdir example do
-      Compass::Exec::Compass.new(["--force"]).run!
     end
   end
 end
