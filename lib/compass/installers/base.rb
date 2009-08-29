@@ -22,7 +22,7 @@ module Compass
         @manifest_file ||= File.join(template_path, "manifest.rb")
       end
 
-      [:css_dir, :sass_dir, :images_dir, :javascripts_dir].each do |dir|
+      [:css_dir, :sass_dir, :images_dir, :javascripts_dir, :http_stylesheets_path].each do |dir|
         define_method dir do
           Compass.configuration.send(dir)
         end
@@ -173,7 +173,7 @@ module Compass
           media = if stylesheet.options[:media]
             %Q{ media="#{stylesheet.options[:media]}"}
           end
-          ss_line = %Q{  <link href="/stylesheets/#{stylesheet.to.sub(/\.sass$/,'.css')}"#{media} rel="stylesheet" type="text/css" />}
+          ss_line = %Q{  <link href="#{http_stylesheets_path}/#{stylesheet.to.sub(/\.sass$/,'.css')}"#{media} rel="stylesheet" type="text/css" />}
           if stylesheet.options[:condition]
             ss_line = "  <!--[if #{stylesheet.options[:condition]}]>\n    #{ss_line}\n  <![endif]-->"
           end
