@@ -1,7 +1,7 @@
 Compass Extensions
 ==================
 
-Compass, at it's heart, is a framework upon which sass-based stylesheet frameworks are built. It provides the tools for building, installing and using reusable stylesheets that provide anything from full-fledged layout frameworks to designs for widgets or even full page designs. All using the power of sass to keep the semantic meaning of the html pages clear and free of design details.
+Compass, at its heart, is a framework upon which sass-based stylesheet frameworks are built. It provides the tools for building, installing and using reusable stylesheets that provide anything from full-fledged layout frameworks to designs for widgets or even full page designs. All using the power of sass to keep the semantic meaning of the html pages clear and free of design details.
 
 This document describes the compass extension toolset so that you can build your own compass extension.
 
