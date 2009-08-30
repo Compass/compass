@@ -66,6 +66,10 @@
   @for !n from 1 through !blueprint_grid_columns
     .push-#{!n}
       +push-margins(!n)
+  .prepend-top
+    +prepend-top
+  .append-bottom
+    +append-bottom
 
 
 // Columns
@@ -110,6 +114,12 @@
 // Mixin to a column to prepend n empty cols.
 =prepend(!n)
   :padding-left = (!blueprint_grid_outer_width) * !n
+
+=append-bottom(!amount = 1.5em)
+  :margin-bottom= !amount
+
+=prepend-top(!amount = 1.5em)
+  :margin-top= !amount
 
 =pull-base
   +float-left
