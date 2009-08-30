@@ -14,17 +14,30 @@ module Compass
           puts ""
           exit 0
         end
+
+        recompile
+
         puts ">>> Compass is watching for changes. Press Ctrl-C to Stop."
-        loop do
-          # TODO: Make this efficient by using filesystem monitoring.
-          compiler = new_compiler_instance(:quiet => true)
-          remove_obsolete_css(compiler)
-          recompile(compiler)
-          sleep 1
+
+        require File.join(Compass.lib_directory, 'vendor', 'fssm')
+
+        FSSM.monitor do |monitor|
+          Compass.configuration.sass_load_paths.each do |load_path|
+            monitor.path load_path do |path|
+              path.glob '**/*.sass'
+
+              path.update &method(:recompile)
+              path.delete {|base, relative| remove_obsolete_css(base,relative); recompile(base, relative)}
+              path.create &method(:recompile)
+            end
+          end
+
         end
+        
       end
 
-      def remove_obsolete_css(compiler)
+      def remove_obsolete_css(base = nil, relative = nil)
+        compiler = new_compiler_instance(:quiet => true)
         sass_files = compiler.sass_files
         deleted_sass_files = (last_sass_files || []) - sass_files
         deleted_sass_files.each do |deleted_sass_file|
@@ -34,7 +47,8 @@ module Compass
         self.last_sass_files = sass_files
       end
 
-      def recompile(compiler)
+      def recompile(base = nil, relative = nil)
+        compiler = new_compiler_instance(:quiet => true)
         if file = compiler.out_of_date?
           begin
             puts ">>> Change detected to: #{file}"
