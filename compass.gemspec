@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
+
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.8.12"
+  s.version = "0.8.13"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2009-08-22}
+  s.date = %q{2009-08-30}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -243,6 +244,14 @@ Gem::Specification.new do |s|
     "lib/compass/test_case.rb",
     "lib/compass/validator.rb",
     "lib/compass/version.rb",
+    "lib/vendor/fssm.rb",
+    "lib/vendor/fssm/backends/fsevents.rb",
+    "lib/vendor/fssm/backends/polling.rb",
+    "lib/vendor/fssm/ext.rb",
+    "lib/vendor/fssm/monitor.rb",
+    "lib/vendor/fssm/path.rb",
+    "lib/vendor/fssm/state.rb",
+    "lib/vendor/fssm/support.rb",
     "test/command_line_helper.rb",
     "test/command_line_test.rb",
     "test/compass_test.rb",
