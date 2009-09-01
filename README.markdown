@@ -25,7 +25,7 @@ Copyright (c) 2008-2009 Christopher M. Eppstein<br>
 All Rights Reserved.<br>
 Released under a [slightly modified MIT License][license].
 
-[sass]: http://haml.hamptoncatlin.com/docs/rdoc/classes/Sass.html "Syntactically Awesome StyleSheets"
+[sass]: http://sass-lang.com/ "Syntactically Awesome StyleSheets"
 [compass_core_website]: http://github.com/chriseppstein/compass/tree/master/frameworks/compass
 [compass_core_wiki]: http://github.com/chriseppstein/compass/wikis/compass-core-documentation
 [blueprint_website]: http://blueprintcss.org/
