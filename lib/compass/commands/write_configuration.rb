@@ -11,6 +11,10 @@ module Compass
         assert_project_directory_exists!
       end
 
+      def add_project_configuration
+        Compass.add_project_configuration
+      end
+
       def perform
         installer.write_configuration_files(options[:configuration_file])
       end

@@ -13,6 +13,7 @@ module Compass
           data.parse(config_file)
           data
         end
+
         def new_from_string(contents, filename)
           data = Data.new
           data.parse_string(contents, filename)
@@ -23,6 +24,9 @@ module Compass
       module InstanceMethods
         # parses a configuration file which is a ruby script
         def parse(config_file)
+          unless File.readable?(config_file)
+            raise Compass::Error, "Configuration file, #{config_file}, not found or not readable."
+          end
           open(config_file) do |f|
             parse_string(f.read, config_file)
           end

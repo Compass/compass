@@ -53,6 +53,28 @@ module Compass
       def sass_engine_options
         configuration.to_sass_engine_options
       end
+
+      # Read the configuration file for this project
+      def add_project_configuration(configuration_file_path = nil)
+        configuration_file_path ||= detect_configuration_file
+        Compass.add_configuration(configuration_file_path) if configuration_file_path
+      end
+
+      # Returns a full path to the relative path to the project directory
+      def projectize(path, project_path = nil)
+        project_path ||= configuration.project_path
+        File.join(project_path, *path.split('/'))
+      end
+
+      # TODO: Deprecate the src/config.rb location.
+      KNOWN_CONFIG_LOCATIONS = [".compass/config.rb", "config/compass.config", "config.rb", "src/config.rb"]
+
+      # Finds the configuration file, if it exists in a known location.
+      def detect_configuration_file(project_path = nil)
+        possible_files = KNOWN_CONFIG_LOCATIONS.map{|f| projectize(f, project_path) }
+        possible_files.detect{|f| File.exists?(f)}
+      end
+
     end
   end
 

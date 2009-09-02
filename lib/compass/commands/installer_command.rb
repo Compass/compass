@@ -7,7 +7,7 @@ module Compass
 
       def configure!
         Compass.add_configuration(installer.default_configuration)
-        read_project_configuration
+        Compass.add_project_configuration
         Compass.add_configuration(options)
         Compass.add_configuration(installer.completed_configuration)
         if File.exists?(Compass.configuration.extensions_path)
