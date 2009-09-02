@@ -124,13 +124,9 @@ END
         end
 
         opts.on('--grid-img [DIMENSIONS]', 'Generate a background image to test grid alignment.',
-                                           '  Dimension is given as <column_width>+<gutter_width>.',
-                                           '  Defaults to 30+10.') do |dimensions|
+                                           '  Dimension is given as <column_width>+<gutter_width>x<height>.',
+                                           '  Defaults to 30+10x20. Height is optional.') do |dimensions|
           self.options[:grid_dimensions] = dimensions || "30+10"
-          unless self.options[:grid_dimensions] =~ /^\d+\+\d+$/
-            puts "Please enter your dimensions as <column_width>+<gutter_width>. E.g. 20+5 or 30+10."
-            exit
-          end
           self.options[:command] = :generate_grid_background
         end
 
