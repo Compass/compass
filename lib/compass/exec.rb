@@ -146,8 +146,12 @@ END
           self.options[:pattern_name] = name
         end
 
-        opts.on('--rails', "Sets the project type to a rails project.") do
+        opts.on('--rails', "Sets the app type to a rails project (same as --app rails).") do
           self.options[:project_type] = :rails
+        end
+
+        opts.on('--app APP_TYPE', 'Specify the kind of application to integrate with.') do |project_type|
+          self.options[:project_type] = project_type.to_sym
         end
 
         opts.separator ''

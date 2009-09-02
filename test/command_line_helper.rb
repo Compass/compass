@@ -17,9 +17,11 @@ module Compass::CommandLineHelper
             else
               eof_at = nil
               timeout(1) do
-                output << io.readpartial(1024)
+                partial_output = io.readpartial(1024)
+                # puts "))))#{partial_output}((((("
+                output << partial_output
               end
-              prompt = output.split("\n").last
+              prompt = output.split("\n").last.strip
               if response = responder.response_for(prompt)
                 io.puts response
               end

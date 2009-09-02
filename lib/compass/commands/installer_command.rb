@@ -16,14 +16,14 @@ module Compass
       end
 
       def installer
-        @installer ||= case (options[:project_type] || Compass.configuration.project_type)
-        when :stand_alone
-          StandAloneInstaller.new *installer_args
-        when :rails
-          RailsInstaller.new *installer_args
-        else
-          raise "Unknown project type: #{options[:project_type].inspect}"
-        end
+        project_type = options[:project_type] || Compass.configuration.project_type
+        installer_class = "Compass::AppIntegration::#{camelize(project_type)}::Installer"
+        @installer = eval("#{installer_class}.new *installer_args")
+      end
+
+      # Stolen from ActiveSupport
+      def camelize(s)
+        s.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
       end
 
       def installer_args

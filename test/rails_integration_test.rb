@@ -18,8 +18,8 @@ class RailsIntegrationTest < Test::Unit::TestCase
       generate_rails_app_directories("compass_rails")
       Dir.chdir "compass_rails" do
         compass("--rails", '--trace', ".") do |responder|
-          responder.respond_to "Is this OK? (Y/n) ", :with => "Y", :required => true
-          responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled/? (Y/n) ", :with => "Y", :required => true
+          responder.respond_to "Is this OK? (Y/n)", :with => "Y", :required => true
+          responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled/? (Y/n)", :with => "Y", :required => true
         end
         # puts ">>>#{@last_result}<<<"
         assert_action_performed :create, "./app/stylesheets/screen.sass"

@@ -1,12 +1,8 @@
-unless defined?(Compass::RAILS_LOADED)
-  Compass::RAILS_LOADED = true
-  require File.join(File.dirname(__FILE__), 'rails', 'action_controller')
-  require File.join(File.dirname(__FILE__), 'rails', 'sass_plugin')
-  require File.join(File.dirname(__FILE__), 'rails', 'urls')
-  # Wierd that this has to be re-included to pick up sub-modules. Ruby bug?
-  class Sass::Script::Functions::EvaluationContext
-    include Sass::Script::Functions
-    private
-    include ActionView::Helpers::AssetTagHelper
-  end
+%w(configuration_defaults installer).each do |lib|
+  require File.join(File.dirname(__FILE__), 'rails', lib)
 end
+
+require File.join(File.dirname(__FILE__), 'rails', 'runtime') if defined?(ActionController::Base)
+
+
+
