@@ -1,6 +1,11 @@
 COMPASS CHANGELOG
 =================
 
+0.8.14 (September 2, 2009)
+--------------------------
+
+* Upgrade the FSSM library to 0.0.4 to fix bugs and enable FS Events on Mac OS.
+
 0.8.13 (August 30, 2009)
 ------------------------
 
