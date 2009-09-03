@@ -12,7 +12,8 @@ end
 
 require 'rubygems'
 require 'rake'
-require 'lib/compass'
+$:.unshift File.join(File.dirname(__FILE__), 'lib')
+require 'compass'
 
 # ----- Default: Testing ------
 

@@ -1,8 +1,6 @@
-unless defined?(Sass)
-  begin
-    require 'sass'
-  rescue LoadError
-    require 'rubygems'
-    require 'sass'
-  end
+begin
+  require 'sass'
+rescue LoadError
+  require 'rubygems'
+  require 'sass'
 end

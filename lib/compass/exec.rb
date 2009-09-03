@@ -1,8 +1,8 @@
-require File.join(Compass.lib_directory, 'compass', 'dependencies')
+require 'compass/dependencies'
 require 'optparse'
-require File.join(Compass.lib_directory, 'compass', 'logger')
-require File.join(Compass.lib_directory, 'compass', 'errors')
-require File.join(Compass.lib_directory, 'compass', 'actions')
+require 'compass/logger'
+require 'compass/errors'
+require 'compass/actions'
 
 module Compass
   module Exec
@@ -245,6 +245,8 @@ END
   end
 end
 
-Dir.glob(File.join(File.dirname(__FILE__), 'commands', "*.rb")).each do |file|
-  require file
+%w(base generate_grid_background list_frameworks project_base
+   update_project watch_project create_project installer_command
+   print_version stamp_pattern validate_project	write_configuration).each do |lib|
+  require "compass/commands/#{lib}"
 end

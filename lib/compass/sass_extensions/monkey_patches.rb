@@ -1,3 +1,3 @@
-['stylesheet_updating'].each do |patch|
-  require File.join(File.dirname(__FILE__), 'monkey_patches', patch)
+%w(stylesheet_updating).each do |patch|
+  require "compass/sass_extensions/monkey_patches/#{patch}"
 end

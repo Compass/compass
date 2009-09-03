@@ -1,4 +1,4 @@
-require File.join(Compass.lib_directory, 'compass', 'installers')
+require 'compass/installers'
 
 module Compass
   module Commands

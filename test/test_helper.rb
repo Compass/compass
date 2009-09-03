@@ -1,5 +1,8 @@
 need_gems = false
 
+lib_dir = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
+$:.unshift(lib_dir) unless $:.include?(lib_dir)
+
 # allows testing with edge Haml by creating a test/haml symlink
 linked_haml = File.dirname(__FILE__) + '/haml'
 

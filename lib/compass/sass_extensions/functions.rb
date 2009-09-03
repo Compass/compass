@@ -1,8 +1,8 @@
 module Compass::SassExtensions::Functions
 end
 
-['selectors', 'enumerate', 'urls', 'display', 'inline_image'].each do |func|
-  require File.join(File.dirname(__FILE__), 'functions', func)
+%w(selectors enumerate urls display inline_image).each do |func|
+  require "compass/sass_extensions/functions/#{func}"
 end
 
 module Sass::Script::Functions

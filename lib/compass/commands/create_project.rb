@@ -1,6 +1,5 @@
 require 'fileutils'
-require File.join(File.dirname(__FILE__), 'stamp_pattern')
-require File.join(File.dirname(__FILE__), 'update_project')
+require 'compass/commands/stamp_pattern'
 
 module Compass
   module Commands

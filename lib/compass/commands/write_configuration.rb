@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'project_base')
+require 'compass/commands/project_base'
 
 module Compass
   module Commands

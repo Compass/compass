@@ -1,6 +1,6 @@
-require File.join(File.dirname(__FILE__), 'project_base')
-require File.join(File.dirname(__FILE__), 'update_project')
-require File.join(File.dirname(__FILE__), '..', 'grid_builder')
+require 'compass/commands/project_base'
+require 'compass/commands/update_project'
+require 'compass/grid_builder'
 
 module Compass
   module Commands

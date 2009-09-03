@@ -1,6 +1,6 @@
 require 'fileutils'
-require File.join(File.dirname(__FILE__), 'base')
-require File.join(File.dirname(__FILE__), 'update_project')
+require 'compass/commands/base'
+require 'compass/commands/update_project'
 
 module Compass
   module Commands

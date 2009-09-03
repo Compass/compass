@@ -34,5 +34,5 @@ module Compass
 end
 
 ['adapters', 'comments', 'defaults', 'helpers', 'inheritance', 'serialization', 'data'].each do |lib|
-  require File.join(File.dirname(__FILE__), 'configuration', lib)
+  require "compass/configuration/#{lib}"
 end

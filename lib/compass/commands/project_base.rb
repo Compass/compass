@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'pathname'
-require File.join(File.dirname(__FILE__), 'base')
-require File.join(File.dirname(__FILE__), 'installer_command')
+require 'compass/commands/base'
+require 'compass/commands/installer_command'
 
 module Compass
   module Commands

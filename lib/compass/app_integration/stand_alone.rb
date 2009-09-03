@@ -1,3 +1,3 @@
-['configuration_defaults', 'installer'].each do |lib|
-  require File.join(File.dirname(__FILE__), 'stand_alone', lib)
+%w(configuration_defaults installer).each do |lib|
+  require "compass/app_integration/stand_alone/#{lib}"
 end

@@ -1,8 +1,8 @@
 module Compass
 end
 
-['dependencies', 'sass_extensions', 'core_ext', 'version', 'errors'].each do |file|
-  require File.join(File.dirname(__FILE__), 'compass', file)
+%w(dependencies sass_extensions core_ext version errors).each do |lib|
+  require "compass/#{lib}"
 end
 
 module Compass
@@ -16,6 +16,6 @@ module Compass
   module_function :base_directory, :lib_directory
 end
 
-require File.join(File.dirname(__FILE__), 'compass', 'configuration')
-require File.join(File.dirname(__FILE__), 'compass', 'frameworks')
-require File.join(File.dirname(__FILE__), 'compass', 'app_integration')
+%w(configuration frameworks app_integration).each do |lib|
+  require "compass/#{lib}"
+end
