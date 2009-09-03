@@ -7,6 +7,7 @@ end
 
 module Compass
   extend Compass::Version
+  VERSION = "#{version[:major]}.#{version[:minor]}.#{version[:patch]}"
   def base_directory
     File.expand_path(File.join(File.dirname(__FILE__), '..'))
   end
