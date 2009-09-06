@@ -6,7 +6,9 @@ module FSSM::Backends
     end
 
     def add_path(path, preload=true)
-      @handlers << FSSM::State.new(path, preload)
+      handler = FSSM::State.new(path)
+      handler.refresh(path.to_pathname, true) if preload
+      @handlers << handler
     end
 
     def run

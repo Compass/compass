@@ -1,17 +1,18 @@
 require 'yaml'
 class FSSM::State
-  def initialize(path, preload=true)
+  def initialize(path)
     @path = path
-    @cache = FSSM::Cache.new
-    snapshot(@path.to_pathname) if preload
+    @cache = FSSM::Tree::Cache.new
   end
 
-  def refresh(base=nil)
+  def refresh(base=nil, skip_callbacks=false)
     previous, current = recache(base || @path.to_pathname)
 
-    deleted(previous, current)
-    created(previous, current)
-    modified(previous, current)
+    unless skip_callbacks
+      deleted(previous, current)
+      created(previous, current)
+      modified(previous, current)
+    end
   end
 
   private
