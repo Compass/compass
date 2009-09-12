@@ -259,7 +259,7 @@ module Compass
       load_paths = []
       load_paths << sass_path if sass_path
       Compass::Frameworks::ALL.each do |framework|
-        load_paths << framework.stylesheets_directory
+        load_paths << framework.stylesheets_directory if File.exists?(framework.stylesheets_directory)
       end
       load_paths += resolve_additional_import_paths
       load_paths
