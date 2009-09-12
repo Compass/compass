@@ -1,6 +1,17 @@
 COMPASS CHANGELOG
 =================
 
+0.8.16 (September 12, 2009)
+---------------------------
+
+* Fixed a bug in compass that assumed compass extensions would provide stylesheets.
+
+0.8.15 (September 5, 2009)
+--------------------------
+
+* Upgrade the FSSM library to 0.0.6 to fix bugs on windows.
+
+
 0.8.14 (September 2, 2009)
 --------------------------
 
