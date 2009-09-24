@@ -1,6 +1,12 @@
 COMPASS CHANGELOG
 =================
 
+0.8.17 (September 24, 2009)
+---------------------------
+
+* The enumerate function now accepts an optional fourth parameter that specifies the separator to be used.
+  Enables fixing a bug in the Compass 960 Plugin.
+
 0.8.16 (September 12, 2009)
 ---------------------------
 
