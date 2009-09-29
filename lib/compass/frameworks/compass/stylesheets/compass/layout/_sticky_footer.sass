@@ -5,15 +5,15 @@
 
 =sticky-footer(!footer_height, !root_selector = "#root", !root_footer_selector = "#root_footer", !footer_selector = "#footer")
   html, body
-    :height 100%
+    height: 100%
   #{!root_selector}
-    :min-height 100%
-    :height auto !important
-    :height 100%
-    :margin-bottom= -!footer_height
+    min-height: 100%
+    height: auto !important
+    height: 100%
+    margin-bottom= -!footer_height
     #{!root_footer_selector}
-      :height= !footer_height
+      height= !footer_height
   #{!footer_selector}
-    :clear both
-    :position relative
-    :height= !footer_height
+    clear: both
+    position: relative
+    height= !footer_height

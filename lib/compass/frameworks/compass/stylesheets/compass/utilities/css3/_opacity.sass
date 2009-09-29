@@ -3,11 +3,11 @@
   @param !opacity
     A number between 0 and 1, where 0 is transparent and 1 is opaque.
 =opacity(!opacity)
-  :opacity= !opacity
-  :-moz-opacity= !opacity
-  :-khtml-opacity= !opacity
-  :-ms-filter= "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + round(!opacity*100) + ")"
-  :filter= "alpha(opacity=" + round(!opacity*100) + ")"
+  opacity= !opacity
+  -moz-opacity= !opacity
+  -khtml-opacity= !opacity
+  -ms-filter= "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + round(!opacity*100) + ")"
+  filter= "alpha(opacity=" + round(!opacity*100) + ")"
 
 // Make an element completely transparent.
 =transparent

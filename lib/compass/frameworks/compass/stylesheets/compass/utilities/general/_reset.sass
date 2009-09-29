@@ -62,47 +62,47 @@
  
 //Mixins partials
 =reset-box-model
-  :margin 0
-  :padding 0
-  :border 0
-  :outline 0
+  margin: 0
+  padding: 0
+  border: 0
+  outline: 0
  
 =reset-font
-  :font
-    :weight inherit
-    :style inherit
-    :size 100%
-    :family inherit
-  :vertical-align baseline
+  font:
+    weight: inherit
+    style: inherit
+    size: 100%
+    family: inherit
+  vertical-align: baseline
  
 =reset-focus
-  :outline 0
+  outline: 0
  
 =reset-body
-  :line-height 1em
-  :color = #000
-  :background #fff
+  line-height: 1em
+  color: #000
+  background: #fff
  
 =reset-list-style
-  :list-style none
+  list-style: none
  
 =reset-table
-  :border-collapse separate
-  :border-spacing 0
-  :vertical-align middle
+  border-collapse: separate
+  border-spacing: 0
+  vertical-align: middle
  
 =reset-table-cell
-  :text-align left
-  :font-weight normal
-  :vertical-align middle
+  text-align: left
+  font-weight: normal
+  vertical-align: middle
  
 =reset-quotation
-  :quotes "" ""
+  quotes: "" ""
   &:before, &:after
-    :content ""
+    content: ""
  
 =reset-image-anchor-border
-  :border none
+  border: none
 
 =reset-html5
   section, article, aside, header, footer, nav, dialog, figure
@@ -115,7 +115,7 @@
   Usage Example:
     // Turn off the display for both of these classes
     .unregistered-only, .registered-only
-      :display none
+      display: none
     // Now turn only one of them back on depending on some other context.
     body.registered
       +reset-display(".registered-only")

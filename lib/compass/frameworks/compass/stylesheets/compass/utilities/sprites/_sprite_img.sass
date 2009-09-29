@@ -32,10 +32,10 @@
  
 // Sets rules common for all sprites, assumes a rectangular region.
 =sprite-background-rectangle(!img, !width = !sprite_image_default_width, !height = !sprite_image_default_height)
-  :background= image_url(!img) "no-repeat"
-  :width= !width
-  :height= !height
-  :overflow hidden
+  background= image_url(!img) "no-repeat"
+  width= !width
+  height= !height
+  overflow: hidden
  
 // Allows horizontal sprite positioning optimized for a single row of sprites.
 =sprite-column(!col, !width = !sprite_image_default_width, !margin = !sprite_default_margin)
@@ -49,4 +49,4 @@
 =sprite-position(!col, !row = 1, !width = !sprite_image_default_width, !height = !sprite_image_default_height, !margin = !sprite_default_margin)
   !x = ((!col - 1) * -!width) - ((!col - 1) * !margin)
   !y = ((!row - 1) * -!height) - ((!row - 1) * !margin)
-  :background-position= !x !y
+  background-position= !x !y

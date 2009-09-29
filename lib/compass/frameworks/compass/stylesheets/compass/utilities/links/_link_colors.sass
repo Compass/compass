@@ -7,18 +7,18 @@
 //   +link-colors(#00c, #0cc, #c0c, #ccc, #cc0)
 
 =link-colors(!normal, !hover = false, !active = false, !visited = false, !focus = false)
-  :color= !normal
+  color= !normal
   @if !visited
     &:visited
-      :color= !visited
+      color= !visited
   @if !focus
     &:focus
-      :color= !focus
+      color= !focus
   @if !hover
     &:hover
-      :color= !hover
+      color= !hover
   @if !active
     &:active
-      :color= !active
+      color= !active
 
   

@@ -1,14 +1,14 @@
 // makes a list inline.
 
 =inline-list
-  :list-style-type none
-  :margin 0px
-  :padding 0px
-  :display inline
+  list-style-type: none
+  margin: 0px
+  padding: 0px
+  display: inline
   li
-    :margin 0px
-    :padding 0px
-    :display inline
+    margin: 0px
+    padding: 0px
+    display: inline
 
 // makes an inlin list that is comma delimited.
 // use of this recipe is not recommended at this time due to browser support issues.
@@ -23,7 +23,7 @@
   +inline-list
   li
     &:after
-      :content ", "
+      content: ", "
     &:last-child, &.last
       &:after
-        :content ""
+        content: ""

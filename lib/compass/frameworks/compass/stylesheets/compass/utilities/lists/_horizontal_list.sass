@@ -32,15 +32,15 @@
   Used to implement +horizontal-list.
 =horizontal-list-item(!padding = 4px)
   +no-bullet
-  :white-space nowrap
+  white-space: nowrap
   +float-left
-  :padding
-    :left= !padding
-    :right= !padding
+  padding:
+    left= !padding
+    right= !padding
   &.first
-    :padding-left 0px
+    padding-left: 0px
   &.last
-    :padding-right 0px
+    padding-right: 0px
 
 //**
   A list(ol,ul) that is layed out such that the elements are floated left and won't wrap.
