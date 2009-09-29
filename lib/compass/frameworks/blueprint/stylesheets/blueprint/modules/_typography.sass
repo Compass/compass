@@ -32,128 +32,128 @@
       +blueprint-typography-defaults
 
 =normal-text
-  :font-family= !blueprint_font_family
-  :color= !font_color
+  font-family= !blueprint_font_family
+  color= !font_color
 
 =fixed-width-text
-  :font= 1em !blueprint_fixed_font_family
-  :line-height 1.5
+  font= 1em !blueprint_fixed_font_family
+  line-height: 1.5
 
 =header-text
-  :font-weight normal
-  :color= !header_color
+  font-weight: normal
+  color= !header_color
 
 =quiet
-  :color= !quiet_color
+  color= !quiet_color
 
 =loud
-  :color= !loud_color
+  color= !loud_color
 
 =blueprint-typography-body(!font_size = !blueprint_font_size)
-  :line-height 1.5
+  line-height: 1.5
   +normal-text
-  :font-size= 100% * !font_size / 16px
+  font-size= 100% * !font_size / 16px
 
 =blueprint-typography-defaults
   h1
     +header-text
-    :font-size 3em
-    :line-height 1
-    :margin-bottom 0.5em
+    font-size: 3em
+    line-height: 1
+    margin-bottom: 0.5em
     img
-      :margin 0
+      margin: 0
   h2
     +header-text
-    :font-size 2em
-    :margin-bottom 0.75em
+    font-size: 2em
+    margin-bottom: 0.75em
   h3
     +header-text
-    :font-size 1.5em
-    :line-height 1
-    :margin-bottom 1em
+    font-size: 1.5em
+    line-height: 1
+    margin-bottom: 1em
   h4
     +header-text
-    :font-size 1.2em
-    :line-height 1.25
-    :margin-bottom 1.25em
+    font-size: 1.2em
+    line-height: 1.25
+    margin-bottom: 1.25em
   h5
     +header-text
-    :font-size 1em
-    :font-weight bold
-    :margin-bottom 1.5em
+    font-size: 1em
+    font-weight: bold
+    margin-bottom: 1.5em
   h6
     +header-text
-    :font-size 1em
-    :font-weight bold
+    font-size: 1em
+    font-weight: bold
   h2 img,  h3 img,  h4 img,  h5 img,  h6 img
-    :margin 0
+    margin: 0
   p
-    :margin 0 0 1.5em
+    margin: 0 0 1.5em
     img.left
       +float-left
-      :margin 1.5em 1.5em 1.5em 0
-      :padding 0
+      margin: 1.5em 1.5em 1.5em 0
+      padding: 0
     img.right
       +float-right
-      :margin 1.5em 0 1.5em 1.5em
-      :padding 0
+      margin: 1.5em 0 1.5em 1.5em
+      padding: 0
   a
-    :text-decoration underline
+    text-decoration: underline
     +link-colors(!link_color, !link_hover_color, !link_active_color, !link_visited_color, !link_focus_color)
   blockquote
-    :margin 1.5em
-    :color #666
-    :font-style italic
+    margin: 1.5em
+    color: #666
+    font-style: italic
   strong
-    :font-weight bold
+    font-weight: bold
   em
-    :font-style italic
+    font-style: italic
   dfn
-    :font-style italic
-    :font-weight bold
+    font-style: italic
+    font-weight: bold
   sup,  sub
-    :line-height 0
+    line-height: 0
   abbr,  acronym
-    :border-bottom 1px dotted #666
+    border-bottom: 1px dotted #666
   address
-    :margin 0 0 1.5em
-    :font-style italic
+    margin: 0 0 1.5em
+    font-style: italic
   del
-    :color #666
+    color: #666
   pre
-    :margin 1.5em 0
-    :white-space pre
+    margin: 1.5em 0
+    white-space: pre
   pre, code, tt
     +fixed-width-text
   li ul,  li ol
-    :margin 0 1.5em
+    margin: 0 1.5em
   ul
-    :margin 0 1.5em 1.5em 1.5em
-    :list-style-type disc
+    margin: 0 1.5em 1.5em 1.5em
+    list-style-type: disc
   ol
-    :margin 0 1.5em 1.5em 1.5em
-    :list-style-type decimal
+    margin: 0 1.5em 1.5em 1.5em
+    list-style-type: decimal
   dl
-    :margin 0 0 1.5em 0
+    margin: 0 0 1.5em 0
     dt
-      :font-weight bold
+      font-weight: bold
   dd
-    :margin-left 1.5em
+    margin-left: 1.5em
   table
-    :margin-bottom 1.4em
-    :width 100%
+    margin-bottom: 1.4em
+    width: 100%
   th
-    :font-weight bold
+    font-weight: bold
   thead th
-    :background= !blueprint_table_header_color
+    background= !blueprint_table_header_color
   th, td, caption
-    :padding 4px 10px 4px 5px
+    padding: 4px 10px 4px 5px
   tr.even td
-    :background= !blueprint_table_stripe_color
+    background= !blueprint_table_stripe_color
   tfoot
-    :font-style italic
+    font-style: italic
   caption
-    :background #eee
+    background: #eee
   .quiet
     +quiet
   .loud

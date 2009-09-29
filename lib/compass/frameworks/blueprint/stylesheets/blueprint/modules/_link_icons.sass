@@ -1,18 +1,18 @@
 =no-link-icon
-  :background transparent none !important
-  :padding 0 !important
-  :margin 0 !important
+  background: transparent none !important
+  padding: 0 !important
+  margin: 0 !important
 
 =link-icon-base
-  :padding 2px 22px 2px 0
-  :margin -2px 0
-  :background-repeat no-repeat
-  :background-position right center
+  padding: 2px 22px 2px 0
+  margin: -2px 0
+  background-repeat: no-repeat
+  background-position: right center
 
 =link-icon(!name, !include_base = true)
   @if !include_base
     +link-icon-base
-  :background-image= image_url("link_icons/#{!name}")
+  background-image= image_url("link_icons/#{!name}")
 
 =link-icons
   a[href^="http:"],

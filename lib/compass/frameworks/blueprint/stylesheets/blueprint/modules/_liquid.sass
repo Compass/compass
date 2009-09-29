@@ -76,66 +76,66 @@
       +push(!n)
 
 =container
-  :min-width= !blueprint_liquid_container_min_width
-  :width = !blueprint_liquid_container_width
-  :margin 0 auto
+  min-width= !blueprint_liquid_container_min_width
+  width= !blueprint_liquid_container_width
+  margin: 0 auto
   +clearfix
 
 =span(!n, !override = false)
   !width = (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
   @if !override
-    :width = !width !important
+    width= !width !important
   @else
-    :width = !width
+    width= !width
 
 =last
-  :margin-right 0
+  margin-right: 0
 
 =column(!n, !last = false)
   +float-left
-  :overflow hidden
+  overflow: hidden
   +span(!n)
   @if !last
     +last
   @else
-    :margin-right = !blueprint_liquid_grid_margin
+    margin-right= !blueprint_liquid_grid_margin
 
 =append(!n)
-  :padding-right= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
+  padding-right= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
   
 =prepend(!n)
-  :padding-left= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
+  padding-left= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
 
 =pull(!n, !last = false)
-  :margin-left= (!blueprint_liquid_grid_push_pull * !n)
+  margin-left= (!blueprint_liquid_grid_push_pull * !n)
 
 =push(!n)
   +float-right
-  :margin
-    :top 0
-    :left 1.5em
-    :right= (!blueprint_liquid_grid_push_pull * !n)
-    :bottom 0
+  margin:
+    top: 0
+    left: 1.5em
+    right= (!blueprint_liquid_grid_push_pull * !n)
+    bottom: 0
 
 =border
-  :border-right 1px solid #eee
+  border-right: 1px solid #eee
 
 =colborder
-  :padding-right 2%
-  :margin-right 2%
+  padding-right: 2%
+  margin-right: 2%
   +border
 
 =colruler
-  :background #ddd 
-  :color #ddd
-  :clear both
-  :width 100% 
-  :height 0.083em
-  :margin 0 0 1.583em
-  :border none
+  background: #ddd 
+  color: #ddd
+  clear: both
+  width: 100% 
+  height: 0.083em
+  margin: 0 0 1.583em
+  border: none
 
 =colspacer
   +colruler
-  :background #fff
-  :color #fff
+  background: #fff
+  color: #fff
 
