@@ -91,6 +91,6 @@ module Compass::CommandLineHelper
   end
 
   def execute(*arguments)
-    Compass::Exec::Compass.new(arguments).run!
+    Compass::Exec::SwitchUI.new(arguments).run!
   end
 end

@@ -1,6 +1,11 @@
 module Compass
   module Commands
     class Base
+      def self.inherited(command_class)
+        if command_class.respond_to? :name
+          Compass::Commands[command_class.name] = command_class
+        end
+      end
 
       include Actions
 
