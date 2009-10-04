@@ -56,6 +56,14 @@ module Compass
           option_parser([]).to_s
         end
 
+        def description(command)
+          if command.to_sym == :create
+            "Create a new compass project"
+          else
+            "Initialize an existing project"
+          end
+        end
+
         def parse!(arguments)
           parser = option_parser(arguments)
           parse_options!(parser, arguments)

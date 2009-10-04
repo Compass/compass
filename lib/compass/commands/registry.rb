@@ -12,6 +12,9 @@ module Compass::Commands
       @commands ||= Hash.new
       @commands.has_key?(name.to_sym)
     end
+    def all
+      @commands.keys
+    end
     alias_method :[], :get
     alias_method :[]=, :register
   end
