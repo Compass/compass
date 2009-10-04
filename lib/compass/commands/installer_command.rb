@@ -27,7 +27,7 @@ module Compass
       end
 
       def installer_args
-        [template_directory(options[:pattern]), project_directory, options]
+        [template_directory(options[:pattern] || "project"), project_directory, options]
       end
     end
   end

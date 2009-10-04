@@ -1,6 +1,10 @@
+require 'compass/exec/global_options_parser'
+require 'compass/exec/project_options_parser'
+
 module Compass::Exec
   class SwitchUI
-
+    include GlobalOptionsParser
+    include ProjectOptionsParser
     attr_accessor :args, :options, :opts
 
     def initialize(args)
@@ -127,64 +131,12 @@ END
       opts.separator ''
       opts.separator 'Configuration Options:'
 
-      opts.on('-c', '--config CONFIG_FILE', 'Specify the location of the configuration file explicitly.') do |configuration_file|
-        self.options[:configuration_file] = configuration_file
-      end
-
-      opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
-        self.options[:sass_dir] = sass_dir
-      end
-
-      opts.on('--css-dir CSS_DIR', "The target directory where you keep your css stylesheets.") do |css_dir|
-        self.options[:css_dir] = css_dir
-      end
-
-      opts.on('--images-dir IMAGES_DIR', "The directory where you keep your images.") do |images_dir|
-        self.options[:images_dir] = images_dir
-      end
-
-      opts.on('--javascripts-dir JS_DIR', "The directory where you keep your javascripts.") do |javascripts_dir|
-        self.options[:javascripts_dir] = javascripts_dir
-      end
-
-      opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment.',
-              '  One of: development, production (default)') do |env|
-        self.options[:environment] = env
-      end
-
-      opts.on('-s STYLE', '--output-style STYLE', [:nested, :expanded, :compact, :compressed], 'Select a CSS output mode.',
-               '  One of: nested, expanded, compact, compressed') do |style|
-        self.options[:output_style] = style
-      end
-
-      opts.on('--relative-assets', :NONE, 'Make compass asset helpers generate relative urls to assets.') do
-        self.options[:relative_assets] = true
-      end
+      set_project_options(opts)
 
       opts.separator ''
       opts.separator 'General Options:'
 
-      opts.on('-r LIBRARY', '--require LIBRARY', "Require the given ruby LIBRARY before running commands.",
-                                                 "  This is used to access compass plugins without having a",
-                                                 "  project configuration file.") do |library|
-        ::Compass.configuration.require library
-      end
-      
-      opts.on('-q', '--quiet', :NONE, 'Quiet mode.') do
-        self.options[:quiet] = true
-      end
-
-      opts.on('--dry-run', :NONE, 'Dry Run. Tells you what it plans to do.') do
-        self.options[:dry_run] = true
-      end
-
-      opts.on('--trace', :NONE, 'Show a full stacktrace on error') do
-        self.options[:trace] = true
-      end
-      
-      opts.on('--force', :NONE, 'Force. Allows some failing commands to succeed instead.') do
-        self.options[:force] = true
-      end
+      set_global_options(opts)
 
       opts.on('--imports', :NONE, 'Emit an imports suitable for passing to the sass command-line.',
                                   '  Example: sass `compass --imports`',
@@ -195,11 +147,6 @@ END
 
       opts.on('--install-dir', :NONE, 'Emit the location where compass is installed.') do
         puts ::Compass.base_directory
-        exit
-      end
-
-      opts.on_tail("-?", "-h", "--help", "Show this message") do
-        puts opts
         exit
       end
 

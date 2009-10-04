@@ -8,8 +8,8 @@ require 'compass/commands'
 module Compass::Exec
 end
 
-require 'compass/exec/helpers'
-require 'compass/exec/switch_ui'
-require 'compass/exec/sub_command_ui'
-
-
+%w(helpers switch_ui sub_command_ui
+   global_options_parser project_options_parser
+   command_option_parser).each do |lib|
+  require "compass/exec/#{lib}"
+end
