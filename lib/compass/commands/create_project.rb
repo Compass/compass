@@ -6,12 +6,28 @@ module Compass
     module CreateProjectOptionsParser
       def set_options(opts)
 
-        opts.banner = %q{
-          Usage: compass create path/to/project [options]
+        if $command == "create"
+          opts.banner = %Q{
+            Usage: compass create path/to/project [options]
 
-          Description:
-          Create a new compass project at the path specified.
-        }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n")
+            Description:
+            Create a new compass project at the path specified.
+
+            Options:
+          }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n")
+        else
+          opts.banner = %Q{
+            Usage: compass init project_type path/to/project [options]
+
+            Description:
+            Initialize an existing project at the path specified.
+
+            Supported Project Types:
+            * rails
+
+            Options:
+          }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n").strip
+        end
 
         opts.on("--using FRAMEWORK", "Framework to use when creating the project.") do |framework|
           framework = framework.split('/', 2)
@@ -29,15 +45,28 @@ module Compass
       register :init
 
       class << self
+        def option_parser(arguments)
+          parser = Compass::Exec::CommandOptionParser.new(arguments)
+          parser.extend(Compass::Exec::GlobalOptionsParser)
+          parser.extend(Compass::Exec::ProjectOptionsParser)
+          parser.extend(CreateProjectOptionsParser)
+        end
+
+        def usage
+          option_parser([]).to_s
+        end
+
         def parse!(arguments)
-          parser = parse_options!(arguments)
+          parser = option_parser(arguments)
+          parse_options!(parser, arguments)
           parse_arguments!(parser, arguments)
           set_default_arguments(parser)
           parser.options
         end
 
         def parse_init!(arguments)
-          parser = parse_options!(arguments)
+          parser = option_parser(arguments)
+          parse_options!(parser, arguments)
           if arguments.size > 0
             parser.options[:project_type] = arguments.shift.to_sym
           end
@@ -46,11 +75,7 @@ module Compass
           parser.options
         end
 
-        def parse_options!(arguments)
-          parser = Compass::Exec::CommandOptionParser.new(arguments)
-          parser.extend(Compass::Exec::GlobalOptionsParser)
-          parser.extend(Compass::Exec::ProjectOptionsParser)
-          parser.extend(CreateProjectOptionsParser)
+        def parse_options!(parser, arguments)
           parser.parse!
           parser
         end

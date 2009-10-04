@@ -28,14 +28,17 @@ module Compass::Exec
     protected
     
     def perform!
-      command = args.shift
-      command_class = Compass::Commands[command]
-      options = if command_class.respond_to?("parse_#{command}!")
-        command_class.send("parse_#{command}!", args)
+      $command = args.shift
+      command_class = Compass::Commands[$command]
+      options = if command_class.respond_to?("parse_#{$command}!")
+        command_class.send("parse_#{$command}!", args)
       else
         command_class.parse!(args)
       end
       command_class.new(Dir.getwd, options).execute
+    rescue OptionParser::ParseError => e
+      puts "Error: #{e.message}"
+      puts command_class.usage
     end
     
   end
