@@ -47,7 +47,7 @@ misc commands
 -------------
 
     # Generate a background image that can be used to verify grid alignment
-    compass grid-background W+GxH [path/to/image.png]
+    compass grid-img W+GxH [path/to/grid.png]
     
     # Emit the version of compass
     compass version
