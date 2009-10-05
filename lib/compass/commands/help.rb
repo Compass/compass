@@ -17,7 +17,7 @@ Available commands:
         Compass::Commands.all.sort_by{|c| c.to_s}.each do |command|
           banner << "  * #{command}"
           if Compass::Commands[command].respond_to? :description
-            banner << " - #{Compass::Commands[command].description(command)}"
+            banner << "\t- #{Compass::Commands[command].description(command)}"
           end
           banner << "\n"
         end
