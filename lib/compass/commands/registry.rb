@@ -10,7 +10,7 @@ module Compass::Commands
     end
     def command_exists?(name)
       @commands ||= Hash.new
-      @commands.has_key?(name.to_sym)
+      name && @commands.has_key?(name.to_sym)
     end
     def all
       @commands.keys
