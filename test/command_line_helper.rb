@@ -91,6 +91,7 @@ module Compass::CommandLineHelper
   end
 
   def execute(*arguments)
-    Compass::Exec::SwitchUI.new(arguments).run!
+    command_line_class = Compass::Exec::Helpers.select_appropriate_command_line_ui(arguments)
+    command_line_class.new(arguments).run!
   end
 end

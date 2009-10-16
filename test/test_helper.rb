@@ -2,6 +2,8 @@ need_gems = false
 
 lib_dir = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $:.unshift(lib_dir) unless $:.include?(lib_dir)
+test_dir = File.dirname(__FILE__)
+$:.unshift(test_dir) unless $:.include?(test_dir)
 
 # allows testing with edge Haml by creating a test/haml symlink
 linked_haml = File.dirname(__FILE__) + '/haml'
@@ -20,6 +22,6 @@ require 'compass'
 
 require 'test/unit'
 
-require File.join(File.dirname(__FILE__), 'test_case_helper')
-require File.join(File.dirname(__FILE__), 'io_helper')
-require File.join(File.dirname(__FILE__), 'command_line_helper')
+require 'test_case_helper'
+require 'io_helper'
+require 'command_line_helper'
