@@ -54,7 +54,7 @@ module Compass
       def run(options = {})
         prepare
         install
-        finalize unless options[:skip_finalization]
+        finalize(options) unless options[:skip_finalization]
       end
 
       # The default prepare method -- it is a no-op.

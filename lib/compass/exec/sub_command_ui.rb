@@ -18,7 +18,7 @@ module Compass::Exec
         if e.is_a?(::Compass::Error) || e.is_a?(OptionParser::ParseError)
           $stderr.puts e.message
         else
-          ::Compass::Exec::Helpers.report_error(e, @options)
+          ::Compass::Exec::Helpers.report_error(e, @options || {})
         end
         return 1
       end
@@ -30,12 +30,12 @@ module Compass::Exec
     def perform!
       $command = args.shift
       command_class = Compass::Commands[$command]
-      options = if command_class.respond_to?("parse_#{$command}!")
+      @options = if command_class.respond_to?("parse_#{$command}!")
         command_class.send("parse_#{$command}!", args)
       else
         command_class.parse!(args)
       end
-      command_class.new(Dir.getwd, options).execute
+      command_class.new(Dir.getwd, @options).execute
     rescue OptionParser::ParseError => e
       puts "Error: #{e.message}"
       puts command_class.usage

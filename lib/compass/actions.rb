@@ -48,7 +48,7 @@ module Compass
         logger.record :create, basename(file_name)
       end
       if skip_write
-        FileUtils.touch file_name
+        FileUtils.touch file_name unless options[:dry_run]
       else
         mode = "w"
         mode << "b" if binary
