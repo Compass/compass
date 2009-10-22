@@ -35,8 +35,10 @@ module Compass::CommandLineHelper
         end
       end
     else
-      @last_result = capture_output do
-        execute *arguments
+      @last_error = capture_warning do
+        @last_result = capture_output do
+          @last_exit_code = execute *arguments
+        end
       end
     end
   rescue Timeout::Error

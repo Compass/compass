@@ -16,8 +16,12 @@ module Compass
       end
 
       def installer
-        project_type = options[:project_type] || Compass.configuration.project_type
-        installer_class = "Compass::AppIntegration::#{camelize(project_type)}::Installer"
+        installer_class = if options[:bare]
+          "Compass::Installers::BareInstaller"
+        else
+          project_type = options[:project_type] || Compass.configuration.project_type
+          "Compass::AppIntegration::#{camelize(project_type)}::Installer"
+        end
         @installer = eval("#{installer_class}.new *installer_args")
       end
 

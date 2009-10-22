@@ -59,3 +59,17 @@ Feature: Command Line
     And I am told how to link to /stylesheets/print.css for media "print"
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
 
+  Scenario: Creating a bare project
+    When I run: compass create bare_project --bare
+    Then a directory bare_project/ is created
+    And a configuration file bare_project/config.rb is created
+    And a directory custom_project/src/ is created
+    And a directory custom_project/stylesheets/ is not created
+    And I am congratulated
+    And I am told where to place stylesheets
+    And how to compile them
+
+  Scenario: Creating a bare project with a framework
+    When I run: compass create bare_project --using blueprint --bare
+    Then an error message is printed out: A bare project cannot be created when a framework is specified.
+    And the command exits with a non-zero error code

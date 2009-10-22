@@ -2,11 +2,13 @@ module Compass
   module Installers
     class Base
     end
+    class ManifestInstaller < Base
+    end
   end
 
   module AppIntegration
     module Rails    
-      class Installer < Compass::Installers::Base
+      class Installer < Compass::Installers::ManifestInstaller
 
         def default_configuration
           Compass::Configuration::Data.new.extend(ConfigurationDefaults)

@@ -51,3 +51,25 @@ end
 Then /I am told how to conditionally link "([^"]+)" to ([^ ]+) for media "([^"]+)"/ do |condition, stylesheet, media|
   @last_result.should =~ %r{<!--\[if #{condition}\]>\s+<link href="#{stylesheet}" media="#{media}" rel="stylesheet" type="text/css" />\s+<!\[endif\]-->}mi
 end
+
+Then /^an error message is printed out: (.+)$/ do |error_message|
+  @last_error.should =~ Regexp.new(Regexp.escape(error_message))
+end
+
+Then /^the command exits with a non\-zero error code$/ do
+  @last_exit_code.should_not == 0
+end
+
+
+Then /^I am congratulated$/ do
+  pending
+end
+
+Then /^I am told where to place stylesheets$/ do
+  pending
+end
+
+Then /^how to compile them$/ do
+  pending
+end
+

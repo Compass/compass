@@ -2,11 +2,13 @@ module Compass
   module Installers
     class Base
     end
+    class ManifestInstaller < Base
+    end
   end
 
   module AppIntegration
     module StandAlone
-      class Installer < Compass::Installers::Base
+      class Installer < Compass::Installers::ManifestInstaller
 
         def init
           directory targetize("")

@@ -3,6 +3,7 @@ require 'optparse'
 require 'compass/logger'
 require 'compass/errors'
 require 'compass/actions'
+require 'compass/installers'
 require 'compass/commands'
 
 module Compass::Exec

@@ -15,6 +15,10 @@ module Compass
 
             Options:
           }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n")
+
+          opts.on_tail("--bare", "Don't generate any Sass or CSS files.") do
+            self.options[:bare] = true
+          end
         else
           opts.banner = %Q{
             Usage: compass init project_type path/to/project [options]
@@ -68,6 +72,9 @@ module Compass
           parser = option_parser(arguments)
           parse_options!(parser, arguments)
           parse_arguments!(parser, arguments)
+          if parser.options[:framework] && parser.options[:bare]
+            raise Compass::Error, "A bare project cannot be created when a framework is specified."
+          end
           set_default_arguments(parser)
           parser.options
         end
