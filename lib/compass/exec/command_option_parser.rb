@@ -9,7 +9,9 @@ module Compass::Exec
       opts.parse!(arguments)
     end
     def opts
-      OptionParser.new(&method(:set_options))
+      OptionParser.new do |opts|
+        self.set_options(opts)
+      end
     end
     def set_options(opts)
 
