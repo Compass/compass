@@ -4,7 +4,7 @@ Feature: Command Line
   I want to create a new project
 
   Scenario: Install a project without a framework
-    When I enter the command: compass create my_project
+    When I run: compass create my_project
     Then a directory my_project/ is created
     And a configuration file my_project/config.rb is created
     And a sass file my_project/src/screen.sass is created
@@ -21,7 +21,7 @@ Feature: Command Line
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
 
   Scenario: Install a project with blueprint
-    When I enter the command: compass create bp_project --using blueprint
+    When I run: compass create bp_project --using blueprint
     Then a directory bp_project/ is created
     And a configuration file bp_project/config.rb is created
     And a sass file bp_project/src/screen.sass is created
@@ -39,7 +39,7 @@ Feature: Command Line
     And I am told how to conditionally link "lt IE 8" to /stylesheets/ie.css for media "screen, projection"
 
   Scenario: Install a project with specific directories
-    When I enter the command: compass create custom_project --using blueprint --sass-dir sass --css-dir css --images-dir assets/imgs
+    When I run: compass create custom_project --using blueprint --sass-dir sass --css-dir css --images-dir assets/imgs
     Then a directory custom_project/ is created
     And a directory custom_project/sass/ is created
     And a directory custom_project/css/ is created
@@ -49,7 +49,7 @@ Feature: Command Line
     And an image file custom_project/assets/imgs/grid.png is created
 
   Scenario: Perform a dry run of creating a project
-    When I enter the command: compass create my_project --dry-run
+    When I run: compass create my_project --dry-run
     Then a directory my_project/ is not created
     But a configuration file my_project/config.rb is reported created
     And a sass file my_project/src/screen.sass is reported created

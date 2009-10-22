@@ -18,12 +18,12 @@ After do
   end
 end
 
-When /I enter the command: compass create ([^\s]+) ?(.+)?/ do |dir, args|
+When /I run: compass create ([^\s]+) ?(.+)?/ do |dir, args|
   @cleanup_directories << dir
   compass 'create', dir, *(args || '').split
 end
 
-# When /I enter the command: compass ([^\s]+) ?(.+)?/ do |command, args|
+# When /I run: compass ([^\s]+) ?(.+)?/ do |command, args|
 #   compass command, *args.split
 # end
 
