@@ -46,7 +46,7 @@ module Compass
 
       # The default finalize method -- it is a no-op.
       # This could print out a message or something.
-      def finalize
+      def finalize(options = {})
       end
 
       def compilation_required?

@@ -47,16 +47,29 @@ module Compass
           if options[:create]
             puts <<-NEXTSTEPS
 
-  Congratulations! Your compass project has been created.
-  You must recompile your sass stylesheets when they change.
-  This can be done in one of the following ways:
-    1. From within your project directory run:
-       compass
-    2. From any directory run:
-       compass -u path/to/project
-    3. To monitor your project for changes and automatically recompile:
-       compass --watch [path/to/project]
-  NEXTSTEPS
+*********************************************************************
+Congratulations! Your compass project has been created.
+
+You may now add and edit sass stylesheets in the #{Compass.configuration.sass_dir} subdirectory of your project.
+
+Sass files beginning with an underscore are called partials and won't be
+compiled to CSS, but they can be imported into other sass stylesheets.
+
+You can configure your project by editing the config.rb configuration file.
+
+You must compile your sass stylesheets into CSS when they change.
+This can be done in one of the following ways:
+  1. To compile on demand:
+     compass compile [path/to/project]
+  2. To monitor your project for changes and automatically recompile:
+     compass watch [path/to/project]
+
+More Resources:
+  * Wiki: http://wiki.github.com/chriseppstein/compass
+  * Sass: http://sass-lang.com
+  * Community: http://groups.google.com/group/compass-users/
+
+NEXTSTEPS
           end
           if manifest.has_stylesheet?
             puts "\nTo import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"

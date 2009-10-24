@@ -63,11 +63,11 @@ Feature: Command Line
     When I run: compass create bare_project --bare
     Then a directory bare_project/ is created
     And a configuration file bare_project/config.rb is created
-    And a directory custom_project/src/ is created
-    And a directory custom_project/stylesheets/ is not created
+    And a directory bare_project/src/ is created
+    And a directory bare_project/stylesheets/ is not created
     And I am congratulated
-    And I am told where to place stylesheets
-    And how to compile them
+    And I am told that I can place stylesheets in the src subdirectory
+    And I am told how to compile my sass stylesheets
 
   Scenario: Creating a bare project with a framework
     When I run: compass create bare_project --using blueprint --bare

@@ -62,14 +62,14 @@ end
 
 
 Then /^I am congratulated$/ do
-  pending
+  @last_result.should =~ /Congratulations!/
 end
 
-Then /^I am told where to place stylesheets$/ do
-  pending
+Then /^I am told that I can place stylesheets in the ([^\s]+) subdirectory$/ do |subdir|
+  @last_result.should =~ /You may now add sass stylesheets to the #{subdir} subdirectory of your project./
 end
 
-Then /^how to compile them$/ do
-  pending
+Then /^I am told how to compile my sass stylesheets$/ do
+  @last_result.should =~ /You must compile your sass stylesheets into CSS when they change.\nThis can be done in one of the following ways:/
 end
 
