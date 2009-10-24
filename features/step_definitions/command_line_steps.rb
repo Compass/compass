@@ -10,25 +10,48 @@ include Compass::IoHelper
 
 Before do
   @cleanup_directories = []
+  @original_working_directory = Dir.pwd
 end
  
 After do
+  Dir.chdir @original_working_directory
   @cleanup_directories.each do |dir|
     FileUtils.rm_rf dir
   end
 end
 
-When /I run: compass create ([^\s]+) ?(.+)?/ do |dir, args|
+# Given Preconditions
+Given %r{^I am using the existing project in ([^\s]+)$} do |project|
+  tmp_project = "tmp_#{File.basename(project)}"
+  @cleanup_directories << tmp_project
+  FileUtils.cp_r project, tmp_project
+  Dir.chdir tmp_project
+end
+
+Given %r{^I am in the parent directory$} do
+  Dir.chdir ".."
+end
+
+# When Actions are performed
+When /^I create a project using: compass create ([^\s]+) ?(.+)?$/ do |dir, args|
   @cleanup_directories << dir
   compass 'create', dir, *(args || '').split
 end
 
-# When /I run: compass ([^\s]+) ?(.+)?/ do |command, args|
-#   compass command, *args.split
-# end
+When /^I run: compass ([^\s]+) ?(.+)?$/ do |command, args|
+  compass command, *(args || '').split
+end
 
- 
-Then /a directory ([^ ]+) is (not )?created/ do |directory, negated|
+When /^I touch ([^\s]+)$/ do |filename|
+  FileUtils.touch filename
+end
+
+When /^I wait ([\d.]+) seconds?$/ do |count|
+  sleep count.to_f
+end
+
+# Then postconditions
+Then /^a directory ([^ ]+) is (not )?created$/ do |directory, negated|
   File.directory?(directory).should == !negated
 end
  
@@ -42,6 +65,14 @@ end
 
 Then /a \w+ file ([^ ]+) is (?:reported )?compiled/ do |filename|
   @last_result.should =~ /compile #{Regexp.escape(filename)}/
+end
+
+Then /a \w+ file ([^ ]+) is reported unchanged/ do |filename|
+  @last_result.should =~ /unchanged #{Regexp.escape(filename)}/
+end
+
+Then /a \w+ file ([^ ]+) is reported identical/ do |filename|
+  @last_result.should =~ /identical #{Regexp.escape(filename)}/
 end
 
 Then /I am told how to link to ([^ ]+) for media "([^"]+)"/ do |stylesheet, media|
@@ -71,5 +102,7 @@ end
 
 Then /^I am told how to compile my sass stylesheets$/ do
   @last_result.should =~ /You must compile your sass stylesheets into CSS when they change.\nThis can be done in one of the following ways:/
+end
+
 end
 
