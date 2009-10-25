@@ -7,6 +7,8 @@ module Compass
   module Commands
     class WatchProject < UpdateProject
 
+      register :watch
+
       attr_accessor :last_update_time, :last_sass_files
 
       def perform

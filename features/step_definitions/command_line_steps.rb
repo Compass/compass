@@ -42,6 +42,35 @@ When /^I run: compass ([^\s]+) ?(.+)?$/ do |command, args|
   compass command, *(args || '').split
 end
 
+When /^I run in a separate process: compass ([^\s]+) ?(.+)?$/ do |command, args|
+  unless @other_process = fork 
+    @last_result = ''
+    @last_error = ''
+    Signal.trap("HUP") do
+      open('/tmp/last_result.compass_test.txt', 'w') do |file|
+        file.puts $stdout.string
+      end
+      open('/tmp/last_error.compass_test.txt', 'w') do |file|
+        file.puts @stderr.string
+      end
+      exit # This doesn't exit
+    end
+    # this command will run forever
+    # we kill it with a HUP signal from the parent process.
+    args = (args || '').split
+    args << { :wait => 5 }
+    compass command, *args
+    exit
+  end
+end
+
+When /^I shutdown the other process$/ do
+  Process.kill("HUP", @other_process)
+  Process.wait
+  @last_result = File.read('/tmp/last_result.compass_test.txt')
+  @last_error = File.read('/tmp/last_error.compass_test.txt')
+end
+
 When /^I touch ([^\s]+)$/ do |filename|
   FileUtils.touch filename
 end

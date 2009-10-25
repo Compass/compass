@@ -144,3 +144,13 @@ Feature: Command Line
     And a sass file sass/print.sass is reported unchanged
     And a sass file sass/reset.sass is reported unchanged
     And a sass file sass/utilities.sass is reported unchanged
+
+  Scenario: Watching a project for changes
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass compile
+    And I run in a separate process: compass watch 
+    And I wait 1 second
+    And I touch sass/layout.sass
+    And I wait 2 seconds
+    And I shutdown the other process
+    And a css file tmp/layout.css is reported identical
