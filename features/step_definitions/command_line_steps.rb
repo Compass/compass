@@ -50,6 +50,13 @@ When /^I wait ([\d.]+) seconds?$/ do |count|
   sleep count.to_f
 end
 
+When /^I add some sass to ([^\s]+)$/ do |filename|
+  open(filename, "w+") do |file|
+    file.puts ".added .some .arbitrary"
+    file.puts "  sass: code"
+  end
+end
+
 # Then postconditions
 Then /^a directory ([^ ]+) is (not )?created$/ do |directory, negated|
   File.directory?(directory).should == !negated
@@ -73,6 +80,10 @@ end
 
 Then /a \w+ file ([^ ]+) is reported identical/ do |filename|
   @last_result.should =~ /identical #{Regexp.escape(filename)}/
+end
+
+Then /a \w+ file ([^ ]+) is reported overwritten/ do |filename|
+  @last_result.should =~ /overwrite #{Regexp.escape(filename)}/
 end
 
 Then /I am told how to link to ([^ ]+) for media "([^"]+)"/ do |stylesheet, media|

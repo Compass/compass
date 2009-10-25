@@ -132,3 +132,15 @@ Feature: Command Line
     And a sass file sass/print.sass is reported unchanged
     And a sass file sass/reset.sass is reported unchanged
     And a sass file sass/utilities.sass is reported unchanged
+
+  Scenario: Recompiling a project with changes
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass compile
+    And I wait 1 second
+    And I add some sass to sass/layout.sass
+    And I run: compass compile
+    Then a sass file sass/layout.sass is reported compiled
+    And a css file tmp/layout.css is reported overwritten
+    And a sass file sass/print.sass is reported unchanged
+    And a sass file sass/reset.sass is reported unchanged
+    And a sass file sass/utilities.sass is reported unchanged
