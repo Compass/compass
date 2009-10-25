@@ -104,5 +104,11 @@ Then /^I am told how to compile my sass stylesheets$/ do
   @last_result.should =~ /You must compile your sass stylesheets into CSS when they change.\nThis can be done in one of the following ways:/
 end
 
+Then /^I should be shown a list of available commands$/ do
+  @last_result.should =~ /^Available commands:$/
+end
+
+Then /^the list of commands should describe the ([^ ]+) command$/ do |command|
+  @last_result.should =~ /^\s+\* #{command}\s+- [A-Z].+$/
 end
 

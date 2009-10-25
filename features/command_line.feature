@@ -110,6 +110,17 @@ Feature: Command Line
     And a sass file sass/reset.sass is reported unchanged
     And a sass file sass/utilities.sass is reported unchanged
 
+  Scenario: Basic help
+    When I run: compass help
+    Then I should be shown a list of available commands
+    And the list of commands should describe the compile command
+    And the list of commands should describe the create command
+    And the list of commands should describe the grid-img command
+    And the list of commands should describe the help command
+    And the list of commands should describe the init command
+    And the list of commands should describe the install command
+    And the list of commands should describe the version command
+
   Scenario: Recompiling a project with no material changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
