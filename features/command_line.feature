@@ -121,6 +121,15 @@ Feature: Command Line
     And a sass file sass/reset.sass is reported unchanged
     And a sass file sass/utilities.sass is reported unchanged
 
+  Scenario: Installing a pattern into a project
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass install blueprint/buttons
+    Then a sass file sass/buttons.sass is created
+    And an image file images/buttons/cross.png is created
+    And an image file images/buttons/key.png is created
+    And an image file images/buttons/tick.png is created
+    And a css file tmp/buttons.css is created
+
   Scenario: Basic help
     When I run: compass help
     Then I should be shown a list of available commands
