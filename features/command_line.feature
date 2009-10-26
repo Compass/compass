@@ -204,7 +204,7 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass validate
     Then my css is validated
-    And I am informed that it is not, because IE6 hacks suck.
+    And I am informed that my css is valid.
 
   Scenario: Get stats for my project
     Given I am using the existing project in test/fixtures/stylesheets/compass

@@ -170,11 +170,11 @@ Then /^the following configuration properties are set in config\/compass\.rb:$/ 
 end
 
 Then /^my css is validated$/ do
-  pending
+  @last_result.should =~ /Compass CSS Validator/
 end
 
-Then /^I am informed that it is not, because IE6 hacks suck\.$/ do
-  pending
+Then /^I am informed that my css is valid.$/ do
+  @last_result.should =~ /Your CSS files are valid\./
 end
 
 Then /^I am told statistics for each file:$/ do |table|
