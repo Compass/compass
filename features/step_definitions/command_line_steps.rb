@@ -7,8 +7,10 @@ require 'compass/exec'
 
 include Compass::CommandLineHelper
 include Compass::IoHelper
+include Compass::RailsHelper
 
 Before do
+  Compass.reset_configuration!
   @cleanup_directories = []
   @original_working_directory = Dir.pwd
 end
@@ -32,10 +34,20 @@ Given %r{^I am in the parent directory$} do
   Dir.chdir ".."
 end
 
+Given /^I'm in a newly created rails project: (.+)$/ do |project_name|
+  @cleanup_directories << project_name
+  generate_rails_app project_name
+  Dir.chdir project_name
+end
+
 # When Actions are performed
 When /^I create a project using: compass create ([^\s]+) ?(.+)?$/ do |dir, args|
   @cleanup_directories << dir
   compass 'create', dir, *(args || '').split
+end
+
+When /^I initialize a project using: compass init ?(.+)?$/ do |args|
+  compass 'init', *(args || '').split
 end
 
 When /^I run: compass ([^\s]+) ?(.+)?$/ do |command, args|
@@ -91,8 +103,8 @@ Then /^a directory ([^ ]+) is (not )?created$/ do |directory, negated|
   File.directory?(directory).should == !negated
 end
  
-Then /an? \w+ file ([^ ]+) is created/ do |filename|
-  File.exists?(filename).should == true
+Then /an? \w+ file ([^ ]+) is (not )?created/ do |filename, negated|
+  File.exists?(filename).should == !negated
 end
 
 Then /an? \w+ file ([^ ]+) is reported created/ do |filename|

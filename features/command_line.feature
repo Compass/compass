@@ -74,6 +74,17 @@ Feature: Command Line
     Then an error message is printed out: A bare project cannot be created when a framework is specified.
     And the command exits with a non-zero error code
 
+  Scenario: Initializing a rails project
+    Given I'm in a newly created rails project: my_rails_project
+    When I initialize a project using: compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets/compiled
+    Then a config file config/compass.config is reported created
+    Then a config file config/compass.config is created
+    And a ruby file config/compass.config is created
+    And a sass file config/initializers/compass.rb is created
+    And a sass file app/stylesheets/screen.sass is created
+    And a sass file app/stylesheets/print.sass is created
+    And a sass file app/stylesheets/ie.sass is created
+
   Scenario: Compiling an existing project.
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile

@@ -24,4 +24,5 @@ require 'test/unit'
 
 require 'test_case_helper'
 require 'io_helper'
+require 'rails_helper'
 require 'command_line_helper'

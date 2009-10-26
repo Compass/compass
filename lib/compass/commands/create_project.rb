@@ -99,7 +99,7 @@ module Compass
           if arguments.size == 1
             parser.options[:project_name] = arguments.shift
           elsif arguments.size == 0
-            raise Compass::Error, "Please specify a path to the project."
+            # default to the current directory.
           else
             raise Compass::Error, "Too many arguments were specified."
           end
