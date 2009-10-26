@@ -191,3 +191,27 @@ Feature: Command Line
     When I run: compass grid-img 50x24 assets/wide_grid.png
     Then a directory assets is not created
     And a png file assets/wide_grid.png is not created
+
+  Scenario: Generate a compass configuration file
+    When I run: compass config config/compass.rb --sass-dir sass --css-dir assets/css
+    Then a configuration file config/compass.rb is created
+    And the following configuration properties are set in config/compass.rb:
+      | property | value      |
+      | sass_dir | sass       |
+      | css_dir  | assets/css |
+
+  Scenario: Validate the generated CSS
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass validate
+    Then my css is validated
+    And I am informed that it is not, because IE6 hacks suck.
+
+  Scenario: Get stats for my project
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass stats
+    Then I am told statistics for each file:
+      | filename        | lines | mixins | selectors | properties |
+      | src/screen.sass |    22 |      1 |       134 |      1,320 |
+      | src/print.sass  |    22 |      1 |       134 |      1,320 |
+      | src/ie.sass     |    22 |      1 |       134 |      1,320 |
+

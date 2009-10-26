@@ -164,3 +164,20 @@ Then /^the list of commands should describe the ([^ ]+) command$/ do |command|
   @last_result.should =~ /^\s+\* #{command}\s+- [A-Z].+$/
 end
 
+Then /^the following configuration properties are set in config\/compass\.rb:$/ do |table|
+  # table is a Cucumber::Ast::Table
+  pending
+end
+
+Then /^my css is validated$/ do
+  pending
+end
+
+Then /^I am informed that it is not, because IE6 hacks suck\.$/ do
+  pending
+end
+
+Then /^I am told statistics for each file:$/ do |table|
+  # table is a Cucumber::Ast::Table
+  pending
+end
