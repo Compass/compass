@@ -53,14 +53,14 @@ When /^I run in a separate process: compass ([^\s]+) ?(.+)?$/ do |command, args|
       open('/tmp/last_error.compass_test.txt', 'w') do |file|
         file.puts @stderr.string
       end
-      exit # This doesn't exit
+      exit!
     end
     # this command will run forever
     # we kill it with a HUP signal from the parent process.
     args = (args || '').split
     args << { :wait => 5 }
     compass command, *args
-    exit
+    exit!
   end
 end
 
