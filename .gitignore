@@ -11,3 +11,4 @@ test/fixtures/stylesheets/*/saved
 test/fixtures/stylesheets/empty
 test/fixtures/stylesheets/*/sass/.sass-cache
 pkg/*
+coverage*

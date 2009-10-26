@@ -14,6 +14,7 @@ require 'rubygems'
 require 'rake'
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 require 'compass'
+require 'rcov/rcovtask'
 
 # ----- Default: Testing ------
 
@@ -129,3 +130,34 @@ namespace :git do
     sh "git", "clean", "-fdx"
   end
 end
+
+require 'cucumber/rake/task'
+
+namespace :rcov do
+  Cucumber::Rake::Task.new(:cucumber) do |t|    
+    t.rcov = true
+    t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
+    t.rcov_opts << %[-o "coverage"]
+  end
+  
+  Rcov::RcovTask.new(:units) do |rcov|
+    rcov.libs << 'lib'
+    rcov.libs << 'haml/lib' if ENV["RUN_CODE_RUN"]
+    test_files = FileList['test/**/*_test.rb']
+    test_files.exclude('test/rails/*', 'test/haml/*')
+    rcov.pattern    = test_files
+    rcov.output_dir = 'coverage'
+    rcov.verbose    = true
+    rcov.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
+    rcov.rcov_opts << %[-o "coverage" --sort coverage]
+  end
+  
+  
+  desc "Run both specs and features to generate aggregated coverage"
+  task :all do |t|
+    rm "coverage.data" if File.exist?("coverage.data")
+    Rake::Task["rcov:units"].invoke
+    Rake::Task["rcov:cucumber"].invoke
+  end
+end
+
