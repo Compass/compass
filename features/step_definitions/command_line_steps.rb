@@ -164,9 +164,12 @@ Then /^the list of commands should describe the ([^ ]+) command$/ do |command|
   @last_result.should =~ /^\s+\* #{command}\s+- [A-Z].+$/
 end
 
-Then /^the following configuration properties are set in config\/compass\.rb:$/ do |table|
-  # table is a Cucumber::Ast::Table
-  pending
+Then /^the following configuration properties are set in ([^ ]+):$/ do |config_file, table|
+  
+  config = Compass::Configuration::Data.new_from_file(config_file)
+  table.hashes.each do |hash|
+   config.send(hash['property']).should == hash['value']
+  end
 end
 
 Then /^my css is validated$/ do
