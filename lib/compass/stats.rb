@@ -27,15 +27,29 @@ module Compass
       end
     end
     class CssFile
-      attr_accessor :path
+      attr_accessor :path, :css
+      attr_accessor :selector_count, :prop_count
       def initialize(path)
+        require 'css_parser'
         self.path = path
+        self.css = CssParser::Parser.new
+        self.css.add_block!(contents)
+        self.selector_count = 0
+        self.prop_count = 0
       end
       def contents
         @contents ||= File.read(path)
       end
       def lines
         contents.inject(0){|m,c| m + 1 }
+      end
+      def analyze!
+        css.each_selector do |selector, declarations, specificity|
+          sels = selector.split(/,/).size
+          props = declarations.split(/;/).size
+          self.selector_count += sels
+          self.prop_count += props
+        end
       end
     end
     class SassFile

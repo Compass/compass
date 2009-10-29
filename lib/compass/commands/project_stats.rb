@@ -33,32 +33,36 @@ module Compass
         require 'compass/stats'
         compiler = new_compiler_instance
         sass_files = sorted_sass_files(compiler)
-        rows       = [[           :-,           :-,           :-,            :-,            :- ],
-                      [   'Filename',      'Rules', 'Properties', 'Mixins Defs', 'Mixins Used' ],
-                      [           :-,           :-,           :-,            :-,            :- ]]
-        maximums   =  [            8,            5,           10,            14,            11 ]
-        alignments =  [        :left,       :right,       :right,        :right,        :right ]
-        delimiters =  [ ['| ', ' |'],  [' ', ' |'],  [' ', ' |'],   [' ', ' |'],   [' ', ' |'] ]
-        totals     =  [ "Total (#{sass_files.size} files):", 0, 0,            0,             0 ]
+        rows       = [[           :-,           :-,           :-,            :-,            :-,            :-,               :- ],
+                      [   'Filename',      'Rules', 'Properties', 'Mixins Defs', 'Mixins Used',   'CSS Rules', 'CSS Properties' ],
+                      [           :-,           :-,           :-,            :-,            :-,            :-,               :- ]]
+        maximums   =  [            8,            5,           10,            14,            11,             9,               14 ]
+        alignments =  [        :left,       :right,       :right,        :right,        :right,        :right,           :right ]
+        delimiters =  [ ['| ', ' |'],  [' ', ' |'],  [' ', ' |'],   [' ', ' |'],   [' ', ' |'],   [' ', ' |'],      [' ', ' |'] ]
+        totals     =  [ "Total (#{sass_files.size} files):", 0, 0,            0,             0,             0,                0 ]
 
         sass_files.each do |sass_file|
           css_file = compiler.corresponding_css_file(sass_file) unless sass_file[0..0] == '_'
           row = filename_columns(sass_file)
           row += sass_columns(sass_file)
+          row += css_columns(css_file)
           row.each_with_index do |c, i|
             maximums[i] = [maximums[i].to_i, c.size].max
             totals[i] = totals[i] + c.to_i if i > 0
           end
           rows << row
         end
-        rows << [:-, :-, :-, :-, :-]
+        rows << [:-] * 7
         rows << totals.map{|t| t.to_s}
-        rows << [:-, :-, :-, :-, :-]
+        rows << [:-] * 7
         rows.each do |row|
           row.each_with_index do |col, i|
             print pad(col, maximums[i], :align => alignments[i], :left => delimiters[i].first, :right => delimiters[i].last)
           end
           print "\n"
+        end
+        if @missing_css_parser
+          puts "\nInstall css_parser to enable stats on your css files:\n\n\tgem install css_parser"
         end
       end
 
@@ -98,6 +102,21 @@ module Compass
         %w(rule_count prop_count mixin_def_count mixin_count).map do |t|
           sf.send(t).to_s
         end
+      end
+
+      def css_columns(css_file)
+        if File.exists?(css_file)
+          cf = Compass::Stats::CssFile.new(css_file)
+          cf.analyze!
+          %w(selector_count prop_count).map do |t|
+            cf.send(t).to_s
+          end
+        else
+          return [ '--', '--' ]
+        end
+      rescue LoadError
+        @missing_css_parser = true
+        return [ 'DISABLED', 'DISABLED' ]
       end
 
       class << self
