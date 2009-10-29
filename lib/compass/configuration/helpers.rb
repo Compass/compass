@@ -66,6 +66,15 @@ module Compass
         File.join(project_path, *path.split('/'))
       end
 
+      def deprojectize(path, project_path = nil)
+        project_path ||= configuration.project_path
+        if path[0..(project_path.size - 1)] == project_path
+          path[(project_path.size + 1)..-1]
+        else
+          path
+        end
+      end
+
       # TODO: Deprecate the src/config.rb location.
       KNOWN_CONFIG_LOCATIONS = [".compass/config.rb", "config/compass.config", "config.rb", "src/config.rb"]
 
