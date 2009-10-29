@@ -182,5 +182,10 @@ end
 
 Then /^I am told statistics for each file:$/ do |table|
   # table is a Cucumber::Ast::Table
-  pending
+  table.raw.each do |row|
+    re = Regexp.new row.join(' *\| *')
+    @last_result.should =~ re
+  end
 end
+
+

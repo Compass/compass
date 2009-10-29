@@ -210,8 +210,9 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass stats
     Then I am told statistics for each file:
-      | filename        | lines | mixins | selectors | properties |
-      | src/screen.sass |    22 |      1 |       134 |      1,320 |
-      | src/print.sass  |    22 |      1 |       134 |      1,320 |
-      | src/ie.sass     |    22 |      1 |       134 |      1,320 |
+      | Filename            | Rules | Properties | Mixins Defs | Mixins Used |
+      | sass/layout.sass    |     0 |          0 |           0 |           1 |
+      | sass/print.sass     |     0 |          0 |           0 |           2 |
+      | sass/reset.sass     |     4 |          1 |           0 |           2 |
+      | sass/utilities.sass |     2 |          0 |           0 |           2 |
 
