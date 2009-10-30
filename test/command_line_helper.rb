@@ -1,3 +1,5 @@
+require 'timeout'
+
 module Compass::CommandLineHelper
   def compass(*arguments)
     options = arguments.last.is_a?(Hash) ? arguments.pop : {}

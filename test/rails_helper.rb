@@ -28,7 +28,7 @@ module Compass
             Rails::Generator::Scripts::Generate.new.run([name], :generator => 'app')
           end
         rescue LoadError
-          Kernel.exit(2)
+          Kernel.exit!(2)
         rescue => e
           $stderr.puts e
           Kernel.exit!(1)

@@ -36,8 +36,12 @@ end
 
 Given /^I'm in a newly created rails project: (.+)$/ do |project_name|
   @cleanup_directories << project_name
-  generate_rails_app project_name
-  Dir.chdir project_name
+  begin
+    generate_rails_app project_name
+    Dir.chdir project_name
+  rescue LoadError
+    pending "Missing Ruby-on-rails gems: sudo gem install rails"
+  end
 end
 
 # When Actions are performed
@@ -173,7 +177,11 @@ Then /^the following configuration properties are set in ([^ ]+):$/ do |config_f
 end
 
 Then /^my css is validated$/ do
-  @last_result.should =~ /Compass CSS Validator/
+  if @last_error =~ /The Compass CSS Validator could not be loaded/
+    pending "Missing Dependency: sudo gem install chriseppstein-compass-validator"
+  else
+    @last_result.should =~ /Compass CSS Validator/
+  end
 end
 
 Then /^I am informed that my css is valid.$/ do
