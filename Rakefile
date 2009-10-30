@@ -40,7 +40,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.rubyforge_project = "compass"
-    gemspec.name = "compass"
+    gemspec.name = "compass-edge"
     gemspec.summary = "A Real Stylesheet Framework"
     gemspec.email = "chris@eppsteins.net"
     gemspec.homepage = "http://compass-style.org"
