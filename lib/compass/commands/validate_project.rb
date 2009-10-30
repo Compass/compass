@@ -31,7 +31,9 @@ module Compass
       def perform
         require 'compass/validator'
         UpdateProject.new(working_path, options).perform
-        Validator.new(project_css_subdirectory).validate()
+        Dir.chdir Compass.configuration.project_path do
+          Validator.new(project_css_subdirectory).validate()
+        end
       end
 
       class << self
