@@ -17,6 +17,9 @@ module Compass
 
           Options:
         }.strip.split("\n").map{|l| l.gsub(/^ {0,10}/,'')}.join("\n")
+        opts.on("--debug [PROPERTY]", "Debug your configuration by printing out details.") do |prop|
+          self.options[:debug] = prop.nil? ? true : prop.to_sym
+        end
 
         super
       end
@@ -37,8 +40,20 @@ module Compass
       end
 
       def perform
-        directory projectize(File.dirname(options[:configuration_file]))
-        installer.write_configuration_files(options[:configuration_file])
+        if options[:debug]
+          Compass.configuration.debug.each do |prop, values|
+            if options[:debug].is_a?(Symbol)
+              next unless prop == options[:debug]
+            end
+            puts "***** #{prop} = #{values.first[:resolved].inspect} *****"
+            [:default, :value, :raw, :resolved].each do |kind|
+              puts "#{kind}: " + values.inject([]){|m, v| m << v[kind]}.map{|v| v.nil? ? '-' : v.inspect}.join(", ")
+            end
+          end
+        else
+          directory projectize(File.dirname(options[:configuration_file]))
+          installer.write_configuration_files(options[:configuration_file])
+        end
       end
 
       def installer_args

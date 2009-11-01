@@ -156,7 +156,7 @@ module Compass
                 :raw => (instance.send("raw_#{prop}") rescue nil),
                 :value => (instance.send("#{prop}_without_default") rescue nil),
                 :default => (instance.send("default_#{prop}") rescue nil),
-                :resoved => instance.send(prop)
+                :resolved => instance.send(prop)
               }
             end
             normalized_attrs[prop] = values
