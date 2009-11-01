@@ -15,6 +15,9 @@ module Compass
         @templates_directory = options[:templates_directory] || File.join(path, 'templates')
         @stylesheets_directory = options[:stylesheets_directory] || File.join(path, 'stylesheets')
       end
+      def template_directories
+        Dir.glob(File.join(templates_directory, "*")).map{|f| File.basename(f)}
+      end
     end
 
     def register(name, *arguments)
@@ -44,6 +47,29 @@ module Compass
         require loader
       else
         register File.basename(directory), directory
+      end
+    end
+
+    def template_exists?(template)
+      framework_name, template = template.split(%r{/}, 2)
+      template ||= "project"
+      if framework = self[framework_name]
+        return File.directory?(File.join(framework.templates_directory, template))
+      end
+      false
+    end
+
+    def template_usage(template)
+      framework_name, template = template.split(%r{/}, 2)
+      framework = self[framework_name]
+      template ||= "project"
+      usage_file = File.join(framework.templates_directory, template, "USAGE.markdown")
+      if File.exists?(usage_file)
+        File.read(usage_file)
+      else
+        <<-END.gsub(/^ {8}/, '')
+          No Usage!
+        END
       end
     end
 

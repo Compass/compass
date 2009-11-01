@@ -21,6 +21,15 @@ Available commands:
           end
           banner << "\n"
         end
+ 
+        banner << "\nAvailable Frameworks & Patterns:\n\n"
+        Compass::Frameworks::ALL.each do |framework|
+          banner << "  * #{framework.name}\n"
+          framework.template_directories.each do |pattern|
+            banner << "    - #{framework.name}/#{pattern}\n"
+          end
+        end
+
         opts.banner = banner
 
         super
@@ -53,6 +62,8 @@ Available commands:
           $command = options[:help_command]
           puts Compass::Commands[options[:help_command]].usage
           $command = "help"
+        elsif Compass::Frameworks.template_exists? options[:help_command]
+          puts Compass::Frameworks.template_usage(options[:help_command])
         else
           raise OptionParser::ParseError, "No such command: #{options[:help_command]}"
         end
