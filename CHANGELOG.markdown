@@ -1,6 +1,129 @@
 COMPASS CHANGELOG
 =================
 
+0.10.0 (UNRELEASED)
+------------
+
+Command-Line:
+
+* The compass command-line tool has been re-written to allow be easier to
+  use and be more flexible. The old command line is still supported at
+  this time. "compass help" will get you started on using the new
+  command line syntax.
+* Allow specification of a height for the grid image
+* For the truly hardcore compass users, you may now create a
+  compass project using "compass create my_project --bare"
+  and you'll have a completely bare project created for you with no
+  sass files provided for you.
+* Get stats on your compass project with "compass stats". You'll
+  need to install the "css_parser" ruby gem to get stats on your
+  css files.
+
+Configuration:
+
+* The entire configuration infrastructure has been re-written to make it
+  easier to support the various sources of configuration data (project type,
+  config file, command line, and hard coded defaults)
+* Whether to generate relative links to assets is now controlled by a
+  separate boolean configuration flag called `relative_assets` in the
+  configuration file and `--relative-assets` on the command line.
+  Setting `http_images_path` to `:relative` is deprecated.
+* You may now configure the http locations for your project by simply setting
+  `http_path` for the top level path of the project. You
+  may also set `http_images_dir`, `http_stylesheets_dir`, and
+  `http_javascripts_dir` relative to the `http_path` instead of
+  setting the absolute `http_XXX_path` counterparts.
+
+Compass Core:
+
+* A new helper function `stylesheet_url(path)` can now be used to refer
+  to assets that are relative to the css directory.
+* Compass sprite mixins are now more flexible and feature rich.
+* Fixed the append_selector function to allow comma-delimited selectors
+  for both arguments instead of just the first
+* There is no longer any outline on unstyled links in the :active and :focused states.
+* IE6 bug fixes for sticky-footer
+* New CSS3 Compatibility Mixins. You can import them all with `@import compass/css3`
+    * `+opacity(amount)` where amount should be between 0 and 1, where 0 is transparent and 1 is opaque.
+    * `+opaque` and `+transparent` mixins for convenience. Built on top of the opacity mixin.
+    * `+border-radius(amount)` as well as the following convenience mixins:
+        * `+border-top-left-radius(amount)`
+        * `+border-top-right-radius(amount)`
+        * `+border-top-right-radius(amount)`,
+        * `+border-bottom-left-radius(amount)`
+        * `+border-bottom-right-radius(amount)`
+        * `+border-top-radius(amount)`
+        * `+border-right-radius(amount)`
+        * `+border-left-radius(amount)`
+        * `+border-bottom-radius(amount)`
+    * `+box-shadow(!horiz_offset, !vert_offset, !blur, !color)`
+    * `+box-sizing(!sizing_mode)`
+    * Column support via the following mixins:
+        * `+column-count`
+        * `+column-gap`
+        * `+column-width`
+        * `+column-rule-width`
+        * `+column-rule-style`
+        * `+column-rule-color`
+        * `+column-rule`
+    * The import for `+inline-block` has moved from compass/utilities/general/inline_block
+      to compass/css3/inline_block
+    * The import for `+opacity` has moved from compass/utilities/general/opacity
+      to compass/css3/opacity
+    * Note: If you are using the `+opacity` or `+inline-block` mixins,
+      you may need to update your imports.
+
+Blueprint:
+
+* Make the primary blueprint mixins easier to use by allowing them to be nested when passing true as the first argument.
+  The old approach of passing a selector as the first argument is now deprecated in favor of a simple flag to indicate nesting or not.
+
+YUI:
+
+* YUI was upgraded to 2.7.0
+* Yahoo has deprecated the YUI CSS framework, as such YUI has been extracted to a plugin.
+  If you use it, please install it with: `sudo gem install compass-yui`
+
+Extensions:
+
+* Extensions can now be installed locally by unpacking them into a project's
+  "extensions" directory.
+* Extensions can deliver html to projects if they like. The html can be in
+  haml and will be transformed to html.
+* All files can be processed using ERB before being copied into the user's
+  project.
+* Compass extensions can now add support for other application frameworks.
+  These extensions can help compass understand the project structure of that
+  framework as well as provide runtime integration for ruby-based apps.
+  Contact me if you plan to do this -- the first couple times may be a little
+  rough.
+* Compass extensions can now add new command line commands. Contact me if you
+  plan to do this -- the first couple times may be a little rough.
+* Extensions can now provide help documentation just after a project is
+  created and on demand when the user uses the command line help system.
+  This can be done via the manifest file or by adding a USAGE.markdown file
+  at the top level of the framework template.
+
+Miscellaneous:
+
+* The compass configuration object is no longer a singleton, this makes it
+  possible for other ruby software to manage multiple compass projects at a
+  time.
+* Compass no longer requires rubygems in order to work, this is a ruby
+  best-practice.
+* All sass provided by compass now uses css-style property syntax.
+* The command line tool is now tested using the cucumber testing framework.
+
+Many thanks to the following Contributors:
+
+  * Brandon Mathis - CSS3 (+opacity, +border-radius) and sprites
+  * Eric Meyer - CSS3 (+box-shadow, +columns, +box-sizing)
+  * Jacques Crocker - Merb Compatibility fixes
+  * Gabriel Mansour - Fixes to +unstyled-link
+  * John Debs - IE6 Fixes for +sticky-footer
+  * Brian Johnson - Upgraded to YUI 2.7.0
+  * Beau Smith - fixing my dyslexia.
+
 0.8.12 (August 22, 2009)
 ------------------------
 
