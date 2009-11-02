@@ -44,7 +44,7 @@ module Compass
         end
 
         def finalize(options = {})
-          if options[:create]
+          if options[:create] && !manifest.welcome_message_options[:replace]
             puts <<-NEXTSTEPS
 
 *********************************************************************
@@ -72,7 +72,7 @@ More Resources:
 NEXTSTEPS
           end
           puts manifest.welcome_message if manifest.welcome_message
-          if manifest.has_stylesheet?
+          if manifest.has_stylesheet? && !manifest.welcome_message_options[:replace]
             puts "\nTo import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"
             puts stylesheet_links
           end

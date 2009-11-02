@@ -48,9 +48,12 @@ module Compass
         end
       end
 
-      def welcome_message(value = nil)
+      attr_reader :welcome_message_options
+
+      def welcome_message(value = nil, options = {})
         if value
           @welcome_message = value
+          @welcome_message_options = options
         else
           @welcome_message
         end
