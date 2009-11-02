@@ -40,6 +40,30 @@ module Compass
       type :file
       type :html
 
+      def help(value = nil)
+        if value
+          @help = value
+        else
+          @help
+        end
+      end
+
+      def welcome_message(value = nil)
+        if value
+          @welcome_message = value
+        else
+          @welcome_message
+        end
+      end
+
+      def description(value = nil)
+        if value
+          @description = value
+        else
+          @description
+        end
+      end
+
       # Enumerates over the manifest files
       def each
         @entries.each {|e| yield e}

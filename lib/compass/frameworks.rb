@@ -18,6 +18,13 @@ module Compass
       def template_directories
         Dir.glob(File.join(templates_directory, "*")).map{|f| File.basename(f)}
       end
+      def manifest_file(pattern)
+        File.join(templates_directory, pattern.to_s, "manifest.rb")
+      end
+      def manifest(pattern, options = {})
+        options[:pattern_name] ||= pattern
+        Compass::Installers::Manifest.new(manifest_file(pattern), options)
+      end
     end
 
     def register(name, *arguments)
@@ -66,6 +73,8 @@ module Compass
       usage_file = File.join(framework.templates_directory, template, "USAGE.markdown")
       if File.exists?(usage_file)
         File.read(usage_file)
+      elsif help = framework.manifest(template).help
+        help
       else
         <<-END.gsub(/^ {8}/, '')
           No Usage!

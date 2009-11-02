@@ -71,6 +71,7 @@ More Resources:
 
 NEXTSTEPS
           end
+          puts manifest.welcome_message if manifest.welcome_message
           if manifest.has_stylesheet?
             puts "\nTo import your new stylesheets add the following lines of HTML (or equivalent) to your webpage:"
             puts stylesheet_links

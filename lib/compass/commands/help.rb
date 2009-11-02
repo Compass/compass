@@ -26,7 +26,11 @@ Available commands:
         Compass::Frameworks::ALL.each do |framework|
           banner << "  * #{framework.name}\n"
           framework.template_directories.each do |pattern|
-            banner << "    - #{framework.name}/#{pattern}\n"
+            banner << "    - #{framework.name}/#{pattern}"
+            if description = framework.manifest(pattern).description
+              banner << "\t- #{description}"
+            end
+            banner << "\n"
           end
         end
 
