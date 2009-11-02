@@ -59,6 +59,10 @@ module Compass
         end
       end
 
+      def welcome_message_options
+        @welcome_message_options || {}
+      end
+
       def description(value = nil)
         if value
           @description = value
