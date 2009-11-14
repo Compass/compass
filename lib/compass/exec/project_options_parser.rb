@@ -8,6 +8,10 @@ module Compass::Exec::ProjectOptionsParser
       self.options[:configuration_file] = configuration_file
     end
 
+    opts.on('--app APP', 'Tell compass what kind of application it is integrating with. E.g. rails') do |project_type|
+      self.options[:project_type] = project_type.to_sym
+    end
+
     opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
       self.options[:sass_dir] = sass_dir
     end

@@ -51,7 +51,7 @@ module Compass
             end
           end
         else
-          directory projectize(File.dirname(options[:configuration_file]))
+          directory File.dirname(options[:configuration_file])
           installer.write_configuration_files(options[:configuration_file])
         end
       end

@@ -6,8 +6,8 @@ module Compass
       include Compass::Installers
 
       def configure!
-        Compass.add_configuration(installer.default_configuration)
-        Compass.add_project_configuration
+        Compass.add_configuration(options[:project_type] || :stand_alone)
+        Compass.add_project_configuration unless respond_to?(:is_project_creation?) && is_project_creation?
         Compass.add_configuration(options)
         Compass.add_configuration(installer.completed_configuration)
         if File.exists?(Compass.configuration.extensions_path)
@@ -15,19 +15,16 @@ module Compass
         end
       end
 
-      def installer
-        installer_class = if options[:bare]
-          "Compass::Installers::BareInstaller"
-        else
-          project_type = options[:project_type] || Compass.configuration.project_type
-          "Compass::AppIntegration::#{camelize(project_type)}::Installer"
-        end
-        @installer = eval("#{installer_class}.new *installer_args")
+      def app
+        @app ||= Compass::AppIntegration.lookup(Compass.configuration.project_type)
       end
 
-      # Stolen from ActiveSupport
-      def camelize(s)
-        s.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+      def installer
+        @installer ||= if options[:bare]
+          Compass::Installers::BareInstaller.new(*installer_args)
+        else
+          app.installer(*installer_args)
+        end
       end
 
       def installer_args

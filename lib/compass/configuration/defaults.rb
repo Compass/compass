@@ -85,6 +85,7 @@ module Compass
 
       def http_join(*segments)
         segments.map do |segment|
+          next unless segment
           segment = http_pathify(segment)
           segment[-1..-1] == "/" ? segment[0..-2] : segment
         end.join("/")

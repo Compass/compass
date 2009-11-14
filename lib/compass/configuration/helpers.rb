@@ -16,7 +16,16 @@ module Compass
 
       def add_configuration(config, filename = nil)
         return if config.nil?
-        data = if config.is_a?(Compass::Configuration::Data)
+
+        data = configuration_for(config, filename)
+
+        data.inherit_from!(configuration)
+        data.on_top!
+        @configuration = data
+      end
+
+      def configuration_for(config, filename = nil)
+        if config.is_a?(Compass::Configuration::Data)
           config
         elsif config.respond_to?(:read)
           Compass::Configuration::Data.new_from_string(config.read, filename)
@@ -24,12 +33,11 @@ module Compass
           Compass::Configuration::Data.new(config)
         elsif config.is_a?(String)
           Compass::Configuration::Data.new_from_file(config)
+        elsif config.is_a?(Symbol)
+          Compass::AppIntegration.lookup(config).configuration
         else
           raise "I don't know what to do with: #{config.inspect}"
         end
-        data.inherit_from!(configuration)
-        data.on_top!
-        @configuration = data
       end
 
       # Support for testing.
@@ -57,7 +65,20 @@ module Compass
       # Read the configuration file for this project
       def add_project_configuration(configuration_file_path = nil)
         configuration_file_path ||= detect_configuration_file
-        Compass.add_configuration(configuration_file_path) if configuration_file_path
+        if configuration_file_path
+
+          data = configuration_for(configuration_file_path) 
+
+          if data.raw_project_type
+            add_configuration(data.raw_project_type.to_sym)
+          else
+            add_configuration(:stand_alone)
+          end
+
+          add_configuration(data)
+        else
+          add_configuration(configuration.project_type || :stand_alone)
+        end
       end
 
       # Returns a full path to the relative path to the project directory

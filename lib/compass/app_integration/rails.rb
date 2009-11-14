@@ -5,4 +5,22 @@ end
 require 'compass/app_integration/rails/runtime' if defined?(ActionController::Base)
 
 
+module Compass
+  module AppIntegration
+    module Rails
+
+      extend self
+
+      def installer(*args)
+        Installer.new(*args)
+      end
+
+      def configuration
+        Compass::Configuration::Data.new.
+          extend(ConfigurationDefaults)
+      end
+
+    end
+  end
+end
 
