@@ -22,8 +22,10 @@ module Compass
         end
 
         def write_configuration_files(config_file = nil)
-          config_file ||= targetize('config/compass.config')
+          config_file ||= targetize('config/compass.rb')
+          directory File.dirname(config_file)
           write_file config_file, config_contents
+          directory File.dirname(targetize('config/initializers/compass.rb'))
           write_file targetize('config/initializers/compass.rb'), initializer_contents
         end
 

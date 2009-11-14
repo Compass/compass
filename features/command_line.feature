@@ -77,9 +77,8 @@ Feature: Command Line
   Scenario: Initializing a rails project
     Given I'm in a newly created rails project: my_rails_project
     When I initialize a project using: compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets/compiled
-    Then a config file config/compass.config is reported created
-    Then a config file config/compass.config is created
-    And a ruby file config/compass.config is created
+    Then a config file config/compass.rb is reported created
+    Then a config file config/compass.rb is created
     And a sass file config/initializers/compass.rb is created
     And a sass file app/stylesheets/screen.sass is created
     And a sass file app/stylesheets/print.sass is created
