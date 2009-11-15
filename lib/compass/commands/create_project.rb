@@ -68,6 +68,8 @@ module Compass
           end
         end
 
+        def primary; true; end
+
         def parse!(arguments)
           parser = option_parser(arguments)
           parse_options!(parser, arguments)

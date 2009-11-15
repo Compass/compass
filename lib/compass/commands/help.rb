@@ -11,16 +11,16 @@ Description:
 
 To get help on a particular command please specify the command.
 
-Available commands:
-
 }
-        Compass::Commands.all.sort_by{|c| c.to_s}.each do |command|
-          banner << "  * #{command}"
-          if Compass::Commands[command].respond_to? :description
-            banner << "\t- #{Compass::Commands[command].description(command)}"
-          end
-          banner << "\n"
+        
+        primary_commands = Compass::Commands.all.select do |c|
+          cmd = Compass::Commands[c]
+          cmd.respond_to?(:primary) && cmd.primary
         end
+        other_commands = Compass::Commands.all - primary_commands
+
+        banner << command_list("Primary Commands:", primary_commands)
+        banner << command_list("Other Commands:", other_commands)
  
         banner << "\nAvailable Frameworks & Patterns:\n\n"
         Compass::Frameworks::ALL.each do |framework|
@@ -37,6 +37,18 @@ Available commands:
         opts.banner = banner
 
         super
+      end
+
+      def command_list(header, commands)
+        list = "#{header}\n"
+        commands.sort_by{|c| c.to_s}.each do |command|
+          list << "  * #{command}"
+          if Compass::Commands[command].respond_to? :description
+            list << "\t- #{Compass::Commands[command].description(command)}"
+          end
+          list << "\n"
+        end
+        list
       end
     end
     class Help < Base

@@ -160,8 +160,21 @@ Then /^I am told how to compile my sass stylesheets$/ do
   @last_result.should =~ /You must compile your sass stylesheets into CSS when they change.\nThis can be done in one of the following ways:/
 end
 
-Then /^I should be shown a list of available commands$/ do
-  @last_result.should =~ /^Available commands:$/
+Then /^I should be shown a list of "([^"]+)" commands$/ do |kind|
+  @last_result.should =~ /^#{kind.capitalize} Commands:$/
+  @last_command_list = []
+  found = false
+  indent = nil
+  @last_result.split("\n").each do |line|
+    if line =~ /^#{kind.capitalize} Commands:$/
+      found = true
+    elsif found && line =~ /^\s+/
+      @last_command_list << line
+    elsif found && line =~ /^$|^\w/
+      break
+    end
+  end
+
 end
 
 Then /^the list of commands should describe the ([^ ]+) command$/ do |command|
@@ -196,4 +209,11 @@ Then /^I am told statistics for each file:$/ do |table|
   end
 end
 
+Then /^I should see the following "([^"]+)" commands:$/ do |kind, table|
 
+
+  Then %Q{I should be shown a list of "#{kind}" commands}
+
+  commands = @last_command_list.map{|c| c =~ /^\s+\* ([^ ]+)\s+- [A-Z].+$/; [$1]}
+  table.diff!(commands)
+end

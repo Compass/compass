@@ -62,6 +62,8 @@ module Compass
           option_parser([]).to_s
         end
 
+        def primary; true; end
+
         def description(command)
           "Compile Sass stylesheets to CSS"
         end

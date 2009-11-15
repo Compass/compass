@@ -136,6 +136,8 @@ module Compass
           "Report statistics about your stylesheets"
         end
 
+        def primary; false; end
+
         def parse!(arguments)
           parser = option_parser(arguments)
           parser.parse!

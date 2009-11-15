@@ -129,16 +129,23 @@ Feature: Command Line
     And an image file images/buttons/tick.png is created
     And a css file tmp/buttons.css is created
 
+  @now
   Scenario: Basic help
     When I run: compass help
-    Then I should be shown a list of available commands
-    And the list of commands should describe the compile command
-    And the list of commands should describe the create command
-    And the list of commands should describe the grid-img command
-    And the list of commands should describe the help command
-    And the list of commands should describe the init command
-    And the list of commands should describe the install command
-    And the list of commands should describe the version command
+    Then I should see the following "primary" commands:
+      | compile |
+      | create  |
+      | init    |
+      | watch   |
+    And I should see the following "other" commands:
+      | config      |
+      | grid-img    |
+      | help        |
+      | install     |
+      | interactive |
+      | stats       |
+      | validate    |
+      | version     |
 
   Scenario: Recompiling a project with no material changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
