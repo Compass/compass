@@ -199,6 +199,7 @@ Feature: Command Line
     And a png file assets/wide_grid.png is not created
 
   Scenario: Generate a compass configuration file
+    Given I should clean up the directory: config
     When I run: compass config config/compass.rb --sass-dir sass --css-dir assets/css
     Then a configuration file config/compass.rb is created
     And the following configuration properties are set in config/compass.rb:

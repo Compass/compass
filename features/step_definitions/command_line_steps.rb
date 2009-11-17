@@ -44,6 +44,10 @@ Given /^I'm in a newly created rails project: (.+)$/ do |project_name|
   end
 end
 
+Given /^I should clean up the directory: (\w+)$/ do |directory|
+  @cleanup_directories << directory
+end
+
 # When Actions are performed
 When /^I create a project using: compass create ([^\s]+) ?(.+)?$/ do |dir, args|
   @cleanup_directories << dir
