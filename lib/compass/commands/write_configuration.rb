@@ -41,6 +41,14 @@ module Compass
 
       def perform
         if options[:debug]
+          puts "Configuration sources:"
+          c = Compass.configuration
+          while c
+            print c.name
+            c = c.inherited_data
+            print ", " if c
+          end
+          print "\n"
           Compass.configuration.debug.each do |prop, values|
             if options[:debug].is_a?(Symbol)
               next unless prop == options[:debug]

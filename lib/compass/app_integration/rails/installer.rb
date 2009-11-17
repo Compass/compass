@@ -10,10 +10,6 @@ module Compass
     module Rails    
       class Installer < Compass::Installers::ManifestInstaller
 
-        def default_configuration
-          Compass::Configuration::Data.new.extend(ConfigurationDefaults)
-        end
-
         def completed_configuration
           config = {}
           config[:sass_dir] = prompt_sass_dir unless sass_dir_without_default

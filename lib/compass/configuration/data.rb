@@ -18,6 +18,7 @@ module Compass
     class Data
 
       attr_accessor :required_libraries
+      attr_reader :name
 
       include Compass::Configuration::Inheritance
       include Compass::Configuration::Serialization
@@ -25,7 +26,9 @@ module Compass
 
       inherited_accessor *ATTRIBUTES
 
-      def initialize(attr_hash = nil)
+      def initialize(name, attr_hash = nil)
+        raise "I need a name!" unless name
+        @name = name
         self.required_libraries = []
         set_all(attr_hash) if attr_hash
         self.top_level = self

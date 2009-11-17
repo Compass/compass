@@ -11,14 +11,17 @@ module Compass
       end
 
       def default_configuration
-        Data.new.extend(Defaults).extend(Comments)
+        Data.new('defaults').extend(Defaults).extend(Comments)
       end
 
       def add_configuration(config, filename = nil)
         return if config.nil?
 
+
         data = configuration_for(config, filename)
 
+        # puts "New configuration: #{data.name}"
+        # puts caller.join("\n")
         data.inherit_from!(configuration)
         data.on_top!
         @configuration = data
@@ -30,7 +33,7 @@ module Compass
         elsif config.respond_to?(:read)
           Compass::Configuration::Data.new_from_string(config.read, filename)
         elsif config.is_a?(Hash)
-          Compass::Configuration::Data.new(config)
+          Compass::Configuration::Data.new(filename, config)
         elsif config.is_a?(String)
           Compass::Configuration::Data.new_from_file(config)
         elsif config.is_a?(Symbol)
@@ -67,7 +70,7 @@ module Compass
         configuration_file_path ||= detect_configuration_file
         if configuration_file_path
 
-          data = configuration_for(configuration_file_path) 
+          data = configuration_for(configuration_file_path)
 
           if data.raw_project_type
             add_configuration(data.raw_project_type.to_sym)

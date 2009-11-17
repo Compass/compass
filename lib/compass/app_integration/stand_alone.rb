@@ -13,7 +13,7 @@ module Compass
       end
 
       def configuration
-        Compass::Configuration::Data.new.
+        Compass::Configuration::Data.new('stand_alone').
           extend(ConfigurationDefaults)
       end
 

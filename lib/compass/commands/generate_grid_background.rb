@@ -66,7 +66,7 @@ Options:
       def initialize(working_path, options)
         super
         assert_project_directory_exists!
-        Compass.add_configuration(options)
+        Compass.add_configuration(options, 'command_line')
       end
 
       def perform

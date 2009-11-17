@@ -35,10 +35,6 @@ module Compass
           write_configuration_files unless config_files_exist? || !@manifest.generate_config?
         end
 
-        def default_configuration
-          Compass::Configuration::Data.new.extend(Compass::AppIntegration::StandAlone::ConfigurationDefaults)
-        end
-
         def completed_configuration
           nil
         end

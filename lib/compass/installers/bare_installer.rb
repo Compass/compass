@@ -2,10 +2,6 @@ module Compass
   module Installers
 
     class BareInstaller < Base
-      def default_configuration
-        Compass::Configuration::Data.new.extend(Compass::AppIntegration::StandAlone::ConfigurationDefaults)
-      end
-
       def completed_configuration
         nil
       end

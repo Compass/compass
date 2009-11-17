@@ -16,7 +16,7 @@ module Compass
       end
 
       def configuration
-        Compass::Configuration::Data.new.
+        Compass::Configuration::Data.new('rails').
           extend(ConfigurationDefaults)
       end
 

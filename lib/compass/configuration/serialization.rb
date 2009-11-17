@@ -9,13 +9,13 @@ module Compass
 
       module ClassMethods
         def new_from_file(config_file)
-          data = Data.new
+          data = Data.new(config_file)
           data.parse(config_file)
           data
         end
 
         def new_from_string(contents, filename)
-          data = Data.new
+          data = Data.new(filename)
           data.parse_string(contents, filename)
           data
         end
