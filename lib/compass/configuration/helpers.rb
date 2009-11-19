@@ -66,21 +66,25 @@ module Compass
       end
 
       # Read the configuration file for this project
-      def add_project_configuration(configuration_file_path = nil)
-        configuration_file_path ||= detect_configuration_file
+      def add_project_configuration(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        configuration_file_path = args.shift || detect_configuration_file
+        raise ArgumentError, "Too many arguments" if args.any?
         if configuration_file_path
 
           data = configuration_for(configuration_file_path)
 
           if data.raw_project_type
             add_configuration(data.raw_project_type.to_sym)
+          elsif options[:project_type]
+            add_configuration(options[:project_type])
           else
             add_configuration(:stand_alone)
           end
 
           add_configuration(data)
         else
-          add_configuration(configuration.project_type || :stand_alone)
+          add_configuration(options[:project_type] || configuration.project_type || :stand_alone)
         end
       end
 

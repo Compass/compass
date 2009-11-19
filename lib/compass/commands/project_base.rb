@@ -11,7 +11,7 @@ module Compass
       def initialize(working_path, options = {})
         super(working_path, options)
         self.project_name = determine_project_name(working_path, options)
-        Compass.configuration.project_path = determine_project_directory(working_path, options)
+        Compass.add_configuration({:project_path => determine_project_directory(working_path, options)}, "implied")
         configure!
       end
 

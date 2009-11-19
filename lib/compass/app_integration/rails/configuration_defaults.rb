@@ -3,6 +3,10 @@ module Compass
     module Rails
       module ConfigurationDefaults
 
+        def default_project_type
+          :rails
+        end
+
         def default_images_dir
           File.join("public", "images")
         end

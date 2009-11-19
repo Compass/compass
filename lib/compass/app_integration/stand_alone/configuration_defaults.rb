@@ -2,6 +2,10 @@ module Compass
   module AppIntegration
     module StandAlone
       module ConfigurationDefaults
+        def default_project_type
+          :stand_alone
+        end
+
         def sass_dir_without_default
           "src"
         end
