@@ -112,6 +112,7 @@ module Compass
             ctx = TemplateContext.ctx(:to => to, :options => options)
             contents = process_erb(contents, ctx)
           end
+          Compass.configure_sass_plugin!
           html = Haml::Engine.new(contents, :filename => templatize(from)).render
           write_file(targetize(to), html, options)
         else
