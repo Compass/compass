@@ -27,6 +27,10 @@ module Compass
           "/stylesheets"
         end
 
+        def default_extensions_dir
+          "vendor/plugins/compass/extensions"
+        end
+
       end
     end
   end
