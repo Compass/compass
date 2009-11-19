@@ -28,7 +28,11 @@ module Compass
     end
 
     def register(name, *arguments)
-      ALL << Framework.new(name, *arguments)
+      if idx = ALL.index{|f| f.name.to_s == name.to_s}
+        ALL[idx] = Framework.new(name, *arguments)
+      else
+        ALL << Framework.new(name, *arguments)
+      end
     end
 
     def [](name)
