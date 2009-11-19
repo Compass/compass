@@ -37,7 +37,7 @@ class FSSM::State
   end
   
   def add_glob(snap, glob)
-    Pathname.glob(@path.to_pathname.join(glob)).each do |fn|
+    Pathname.glob(@path.to_pathname.join(glob).to_s).each do |fn|
       next unless fn.file?
       snap["#{fn}"] = fn.mtime
     end
