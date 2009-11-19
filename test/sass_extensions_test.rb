@@ -1,4 +1,4 @@
-require  File.dirname(__FILE__)+'/test_helper'
+require 'test_helper'
 
 class SassExtensionsTest < Test::Unit::TestCase
   def test_simple

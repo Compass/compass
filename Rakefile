@@ -25,6 +25,7 @@ require 'fileutils'
 
 Rake::TestTask.new :run_tests do |t|
   t.libs << 'lib'
+  t.libs << 'test'
   t.libs << 'haml/lib' if ENV["RUN_CODE_RUN"]
   test_files = FileList['test/**/*_test.rb']
   test_files.exclude('test/rails/*', 'test/haml/*')
