@@ -46,7 +46,7 @@ class FSSM::State
   end
 
   def add_glob(base, glob)
-    Pathname.glob(base.join(glob)).each do |fn|
+    Pathname.glob(base.join(glob).to_s).each do |fn|
       @cache.set(fn)
     end
   end

@@ -1,15 +1,15 @@
-require  File.dirname(__FILE__)+'/test_helper'
+require 'test_helper'
 require 'fileutils'
 require 'compass'
 
 class CompassTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
   def setup
-    Compass.configuration.reset!
+    Compass.reset_configuration!
   end
 
   def teardown
-    teardown_fixtures :blueprint, :yui, :empty, :compass, :image_urls
+    teardown_fixtures :blueprint, :empty, :compass, :image_urls
   end
 
   def teardown_fixtures(*project_names)
@@ -34,15 +34,6 @@ class CompassTest < Test::Unit::TestCase
         assert_no_errors css_file, :blueprint
       end
       assert_renders_correctly :typography
-    end
-  end
-
-  def test_yui
-    within_project('yui') do |proj|
-      each_css_file(proj.css_path) do |css_file|
-        assert_no_errors css_file, 'yui'
-      end
-      assert_renders_correctly :mixins
     end
   end
 
@@ -90,7 +81,7 @@ private
 
   def within_project(project_name)
     @current_project = project_name
-    Compass.configuration.parse(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
+    Compass.add_configuration(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
     Compass.configuration.project_path = project_path(project_name)
     args = Compass.configuration.to_compiler_arguments(:logger => Compass::NullLogger.new)
     if Compass.configuration.sass_path && File.exists?(Compass.configuration.sass_path)

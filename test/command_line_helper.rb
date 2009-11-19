@@ -1,3 +1,5 @@
+require 'timeout'
+
 module Compass::CommandLineHelper
   def compass(*arguments)
     options = arguments.last.is_a?(Hash) ? arguments.pop : {}
@@ -17,9 +19,11 @@ module Compass::CommandLineHelper
             else
               eof_at = nil
               timeout(1) do
-                output << io.readpartial(1024)
+                partial_output = io.readpartial(1024)
+                # puts "))))#{partial_output}((((("
+                output << partial_output
               end
-              prompt = output.split("\n").last
+              prompt = output.split("\n").last.strip
               if response = responder.response_for(prompt)
                 io.puts response
               end
@@ -33,8 +37,10 @@ module Compass::CommandLineHelper
         end
       end
     else
-      @last_result = capture_output do
-        execute *arguments
+      @last_error = capture_warning do
+        @last_result = capture_output do
+          @last_exit_code = execute *arguments
+        end
       end
     end
   rescue Timeout::Error
@@ -88,15 +94,8 @@ module Compass::CommandLineHelper
     FileUtils.rm_rf(d)
   end
 
-  def capture_output
-    real_stdout, $stdout = $stdout, StringIO.new
-    yield
-    $stdout.string
-  ensure
-    $stdout = real_stdout
-  end
-
   def execute(*arguments)
-    Compass::Exec::Compass.new(arguments).run!
+    command_line_class = Compass::Exec::Helpers.select_appropriate_command_line_ui(arguments)
+    command_line_class.new(arguments).run!
   end
 end

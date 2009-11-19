@@ -3,6 +3,7 @@ tmp/*
 examples/*/stylesheets/*
 examples/*/*.html
 examples/*/*/*.html
+examples/*/extensions/*
 examples/*/src/.sass-cache
 test/tmp
 test/fixtures/stylesheets/*/tmp
@@ -10,3 +11,4 @@ test/fixtures/stylesheets/*/saved
 test/fixtures/stylesheets/empty
 test/fixtures/stylesheets/*/sass/.sass-cache
 pkg/*
+coverage*

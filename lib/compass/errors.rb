@@ -4,4 +4,7 @@ module Compass
 
   class FilesystemConflict < Error
   end
+
+  class MissingDependency < Error
+  end
 end

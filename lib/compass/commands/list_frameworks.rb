@@ -1,9 +1,9 @@
 module Compass
   module Commands
-    class ListFrameworks
+    class ListFrameworks < ProjectBase
       attr_accessor :options
       def initialize(working_path, options)
-        self.options = options
+        super
       end
   
       def execute

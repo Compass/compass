@@ -1,6 +1,9 @@
 module Compass
   module Commands
     class Base
+      def self.register(command_name)
+        Compass::Commands[command_name] = self
+      end
 
       include Actions
 

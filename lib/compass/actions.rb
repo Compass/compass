@@ -32,6 +32,7 @@ module Compass
     def write_file(file_name, contents, options = nil, binary = false)
       options ||= self.options if self.respond_to?(:options)
       skip_write = options[:dry_run]
+      contents = process_erb(contents, options[:erb]) if options[:erb]
       if File.exists?(file_name)
         existing_contents = IO.read(file_name)
         if existing_contents == contents
@@ -47,7 +48,7 @@ module Compass
         logger.record :create, basename(file_name)
       end
       if skip_write
-        FileUtils.touch file_name
+        FileUtils.touch file_name unless options[:dry_run]
       else
         mode = "w"
         mode << "b" if binary
@@ -55,6 +56,11 @@ module Compass
           file.write(contents)
         end
       end
+    end
+
+    def process_erb(contents, ctx = nil)
+      ctx = Object.new.instance_eval("binding") unless ctx.is_a? Binding
+      ERB.new(contents).result(ctx)
     end
 
     # Compile one Sass file

@@ -5,6 +5,7 @@ A [Sass][sass]-based CSS Meta-Framework that allows you to mix and match any of 
 - [Blueprint][blueprint_website] - [Wiki Documentation][bleuprint_wiki]
 - [YUI][yui_website] - [Wiki Documentation][yui_wiki]
 - [960][ninesixty_website] - [Wiki Documentation][ninesixty_wiki]
+- New frameworks and extensions are [tracked on the wiki][plugins_wiki] as they are created.
 - Other frameworks can be added relatively easily. Create your own!
 
 ## Compass Provides
@@ -25,13 +26,14 @@ Copyright (c) 2008-2009 Christopher M. Eppstein<br>
 All Rights Reserved.<br>
 Released under a [slightly modified MIT License][license].
 
-[sass]: http://haml.hamptoncatlin.com/docs/rdoc/classes/Sass.html "Syntactically Awesome StyleSheets"
+[sass]: http://sass-lang.com/ "Syntactically Awesome StyleSheets"
 [compass_core_website]: http://github.com/chriseppstein/compass/tree/master/frameworks/compass
 [compass_core_wiki]: http://github.com/chriseppstein/compass/wikis/compass-core-documentation
 [blueprint_website]: http://blueprintcss.org/
 [bleuprint_wiki]: http://github.com/chriseppstein/compass/wikis/blueprint-documentation
 [yui_website]: http://developer.yahoo.com/yui/grids/
 [yui_wiki]: http://github.com/chriseppstein/compass/wikis/yui-documentation
+[plugins_wiki]: http://github.com/chriseppstein/compass/wikis/compass-plugins
 [ninesixty_website]: http://960.gs/
 [ninesixty_wiki]: http://github.com/chriseppstein/compass/wikis/960gs-documentation
 [command_line_wiki]: http://wiki.github.com/chriseppstein/compass/command-line-tool

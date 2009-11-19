@@ -21,7 +21,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 body {
   line-height: 1em;
-  color: black;
+  color: #000;
   background: #fff; }
 
 ol, ul {
@@ -43,7 +43,7 @@ q, blockquote {
   q:before, q:after, blockquote:before, blockquote:after {
     content: ""; }
 
-img a {
+a img {
   border: none; }
 
 .unregistered-only, .registered-only {

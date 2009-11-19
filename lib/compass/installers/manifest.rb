@@ -11,8 +11,12 @@ module Compass
         end
       end
 
-      def initialize(manifest_file = nil)
+      attr_reader :options
+      def initialize(manifest_file = nil, options = {})
         @entries = []
+        @options = options
+        @generate_config = true
+        @compile_after_generation = true
         parse(manifest_file) if manifest_file
       end
 
@@ -34,14 +38,62 @@ module Compass
       type :image
       type :javascript
       type :file
+      type :html
+
+      def help(value = nil)
+        if value
+          @help = value
+        else
+          @help
+        end
+      end
+
+      attr_reader :welcome_message_options
+
+      def welcome_message(value = nil, options = {})
+        if value
+          @welcome_message = value
+          @welcome_message_options = options
+        else
+          @welcome_message
+        end
+      end
+
+      def welcome_message_options
+        @welcome_message_options || {}
+      end
+
+      def description(value = nil)
+        if value
+          @description = value
+        else
+          @description
+        end
+      end
 
       # Enumerates over the manifest files
       def each
         @entries.each {|e| yield e}
       end
 
+      def generate_config?
+        @generate_config
+      end
+
+      def compile?
+        @compile_after_generation
+      end
 
       protected
+
+      def no_configuration_file!
+        @generate_config = false
+      end
+
+      def skip_compilation!
+        @compile_after_generation = false
+      end
+
       # parses a manifest file which is a ruby script
       # evaluated in a Manifest instance context
       def parse(manifest_file)

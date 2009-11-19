@@ -1,11 +1,13 @@
 require 'fileutils'
 require 'pathname'
-require File.join(File.dirname(__FILE__), 'base')
-require File.join(File.dirname(__FILE__), 'update_project')
+require 'compass/commands/base'
+require 'compass/commands/update_project'
 
 module Compass
   module Commands
     class WatchProject < UpdateProject
+
+      register :watch
 
       attr_accessor :last_update_time, :last_sass_files
 
@@ -19,7 +21,12 @@ module Compass
 
         puts ">>> Compass is watching for changes. Press Ctrl-C to Stop."
 
-        require File.join(Compass.lib_directory, 'vendor', 'fssm')
+        begin
+          require 'fssm'
+        rescue LoadError
+          $: << File.join(Compass.lib_directory, 'vendor')
+          retry
+        end
 
         FSSM.monitor do |monitor|
           Compass.configuration.sass_load_paths.each do |load_path|

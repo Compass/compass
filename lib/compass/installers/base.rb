@@ -7,40 +7,21 @@ module Compass
 
       attr_accessor :template_path, :target_path, :working_path
       attr_accessor :options
-      attr_accessor :manifest
 
       def initialize(template_path, target_path, options = {})
         @template_path = template_path
         @target_path = target_path
         @working_path = Dir.getwd
         @options = options
-        @manifest = Manifest.new(manifest_file) if template_path
         self.logger = options[:logger]
       end
 
-      def manifest_file
-        @manifest_file ||= File.join(template_path, "manifest.rb")
-      end
-
-      [:css_dir, :sass_dir, :images_dir, :javascripts_dir].each do |dir|
+      [:css_dir, :sass_dir, :images_dir, :javascripts_dir, :http_stylesheets_path].each do |dir|
         define_method dir do
           Compass.configuration.send(dir)
         end
-      end
-
-      # Initializes the project to work with compass
-      def init
-        dirs = manifest.map do |entry|
-          File.dirname(send("install_location_for_#{entry.type}", entry.to, entry.options))
-        end
-
-        if manifest.has_stylesheet?
-          dirs << sass_dir
-          dirs << css_dir
-        end
-
-        dirs.uniq.sort.each do |dir|
-          directory targetize(dir)
+        define_method "#{dir}_without_default" do
+          Compass.configuration.send("#{dir}_without_default")
         end
       end
 
@@ -50,7 +31,7 @@ module Compass
       def run(options = {})
         prepare
         install
-        finalize unless options[:skip_finalization]
+        finalize(options) unless options[:skip_finalization]
       end
 
       # The default prepare method -- it is a no-op.
@@ -58,25 +39,14 @@ module Compass
       def prepare
       end
 
-      def configure_option_with_default(opt)
-        value = options[opt]
-        value ||= begin
-          default_method = "default_#{opt}".to_sym
-          send(default_method) if respond_to?(default_method)
-        end
-        send("#{opt}=", value)
-      end
-
-      # The default install method. Calls install_<type> methods in the order specified by the manifest.
+      # The install method override this to install
       def install
-        manifest.each do |entry|
-          send("install_#{entry.type}", entry.from, entry.to, entry.options)
-        end
+        raise "Not Yet Implemented"
       end
 
       # The default finalize method -- it is a no-op.
       # This could print out a message or something.
-      def finalize
+      def finalize(options = {})
       end
 
       def compilation_required?
@@ -125,6 +95,31 @@ module Compass
         "#{pattern_name_as_dir}#{to}"
       end
 
+      installer :html do |to|
+        "#{pattern_name_as_dir}#{to}"
+      end
+
+      alias install_html_without_haml install_html
+      def install_html(from, to, options)
+        if to =~ /\.haml$/
+          require 'haml'
+          to = to[0..-(".haml".length+1)]
+          if respond_to?(:install_location_for_html)
+            to = install_location_for_html(to, options)
+          end
+          contents = File.read(templatize(from))
+          if options.delete(:erb)
+            ctx = TemplateContext.ctx(:to => to, :options => options)
+            contents = process_erb(contents, ctx)
+          end
+          Compass.configure_sass_plugin!
+          html = Haml::Engine.new(contents, :filename => templatize(from)).render
+          write_file(targetize(to), html, options)
+        else
+          install_html_without_haml(from, to, options)
+        end
+      end
+
       # returns an absolute path given a path relative to the current installation target.
       # Paths can use unix style "/" and will be corrected for the current platform.
       def targetize(path)
@@ -137,22 +132,12 @@ module Compass
         strip_trailing_separator File.join(template_path, separate(path))
       end
 
+      # Emits an HTML fragment that can be used to link to the compiled css files
       def stylesheet_links
-        html = "<head>\n"
-        manifest.each_stylesheet do |stylesheet|
-          # Skip partials.
-          next if File.basename(stylesheet.from)[0..0] == "_"
-          media = if stylesheet.options[:media]
-            %Q{ media="#{stylesheet.options[:media]}"}
-          end
-          ss_line = %Q{  <link href="/stylesheets/#{stylesheet.to.sub(/\.sass$/,'.css')}"#{media} rel="stylesheet" type="text/css" />}
-          if stylesheet.options[:condition]
-            ss_line = "  <!--[if #{stylesheet.options[:condition]}]>\n    #{ss_line}\n  <![endif]-->"
-          end
-          html << ss_line + "\n"
-        end
-        html << "</head>"
+        ""
       end
     end
   end
 end
+require 'compass/installers/bare_installer'
+require 'compass/installers/manifest_installer'

@@ -1,0 +1,29 @@
+@import modules/colors.sass
+@import modules/grid.sass
+@import modules/typography.sass
+@import modules/utilities.sass
+@import modules/form.sass
+@import modules/interaction.sass
+@import modules/debug.sass
+
+// Usage examples:
+// As a top-level mixin, apply to any page that includes the stylesheet:
+//   +blueprint
+// Scoped by a presentational class:
+//   body.blueprint
+//    +blueprint(true)
+// Scoped by semantic selectors:
+//   body#page-1, body#page-2, body.a-special-page-type
+//     +blueprint(true)
+// Deprecated:
+//   You can pass the body selector as the first argument when used as a top-level mixin
+//   +blueprint("body#page-1, body#page-2, body.a-special-page-type")
+=blueprint(!body_selector = "body")
+  @if not (!body_selector == "body" or !body_selector == true)
+    @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint, pass true as the first argument and mix it into #{!body_selector}."
+  +blueprint-typography(!body_selector)
+  +blueprint-utilities
+  +blueprint-grid
+  +blueprint-debug
+  +blueprint-interaction
+  +blueprint-form

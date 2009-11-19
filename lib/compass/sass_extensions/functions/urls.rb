@@ -8,7 +8,7 @@ module Compass::SassExtensions::Functions::Urls
     elsif Compass.configuration.http_stylesheets_path
       Compass.configuration.http_stylesheets_path
     else
-      Compass.configuration.root_relative(Compass.configuration.css_dir)
+      Compass.configuration.http_root_relative(Compass.configuration.css_dir)
     end
 
     url("#{http_stylesheets_path}/#{path}")
@@ -28,7 +28,7 @@ module Compass::SassExtensions::Functions::Urls
     elsif Compass.configuration.http_images_path
       Compass.configuration.http_images_path
     else
-      Compass.configuration.root_relative(Compass.configuration.images_dir)
+      Compass.configuration.http_root_relative(Compass.configuration.images_dir)
     end
 
     # Compute the real path to the image on the file stystem if the images_dir is set.

@@ -12,7 +12,9 @@ end
 
 require 'rubygems'
 require 'rake'
-require 'lib/compass'
+$:.unshift File.join(File.dirname(__FILE__), 'lib')
+require 'compass'
+require 'rcov/rcovtask'
 
 # ----- Default: Testing ------
 
@@ -23,6 +25,7 @@ require 'fileutils'
 
 Rake::TestTask.new :run_tests do |t|
   t.libs << 'lib'
+  t.libs << 'test'
   t.libs << 'haml/lib' if ENV["RUN_CODE_RUN"]
   test_files = FileList['test/**/*_test.rb']
   test_files.exclude('test/rails/*', 'test/haml/*')
@@ -58,12 +61,13 @@ begin
     gemspec.files += Dir.glob("examples/**/*.*")
     gemspec.files -= Dir.glob("examples/**/*.css")
     gemspec.files -= Dir.glob("examples/**/*.html")
-    gemspec.files += Dir.glob("frameworks/**/*.*")
+    gemspec.files -= Dir.glob("examples/*/extensions/**")
     gemspec.files += Dir.glob("lib/**/*")
     gemspec.files += Dir.glob("test/**/*.*")
     gemspec.files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
     gemspec.test_files = Dir.glob("test/**/*.*")
     gemspec.test_files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
+    gemspec.test_files += Dir.glob("features/**/*.*")
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
@@ -89,6 +93,8 @@ end
 
 task :release => :commit_revision
 
+task :gem => :build
+
 desc "Compile Examples into HTML and CSS"
 task :examples do
   linked_haml = "tests/haml"
@@ -105,6 +111,10 @@ task :examples do
     next unless File.directory?(example)
     puts "\nCompiling #{example}"
     puts "=" * "Compiling #{example}".length
+    Dir.chdir example do
+      load "bootstrap.rb" if File.exists?("bootstrap.rb")
+      Compass::Exec::SwitchUI.new(["--force"]).run!
+    end
     # compile any haml templates to html
     FileList["#{example}/**/*.haml"].each do |haml_file|
       basename = haml_file[0..-6]
@@ -114,9 +124,6 @@ task :examples do
       output.write(engine.render)
       output.close
     end
-    Dir.chdir example do
-      Compass::Exec::Compass.new(["--force"]).run!
-    end
   end
 end
 
@@ -125,3 +132,34 @@ namespace :git do
     sh "git", "clean", "-fdx"
   end
 end
+
+require 'cucumber/rake/task'
+
+namespace :rcov do
+  Cucumber::Rake::Task.new(:cucumber) do |t|    
+    t.rcov = true
+    t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
+    t.rcov_opts << %[-o "coverage"]
+  end
+  
+  Rcov::RcovTask.new(:units) do |rcov|
+    rcov.libs << 'lib'
+    rcov.libs << 'haml/lib' if ENV["RUN_CODE_RUN"]
+    test_files = FileList['test/**/*_test.rb']
+    test_files.exclude('test/rails/*', 'test/haml/*')
+    rcov.pattern    = test_files
+    rcov.output_dir = 'coverage'
+    rcov.verbose    = true
+    rcov.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
+    rcov.rcov_opts << %[-o "coverage" --sort coverage]
+  end
+  
+  
+  desc "Run both specs and features to generate aggregated coverage"
+  task :all do |t|
+    rm "coverage.data" if File.exist?("coverage.data")
+    Rake::Task["rcov:units"].invoke
+    Rake::Task["rcov:cucumber"].invoke
+  end
+end
+

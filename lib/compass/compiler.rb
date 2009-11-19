@@ -13,8 +13,9 @@ module Compass
       self.options[:cache_location] ||= File.join(from, ".sass-cache")
     end
 
-    def sass_files
-      @sass_files || Dir.glob(separate("#{from}/**/[^_]*.sass"))
+    def sass_files(options = {})
+      exclude_partials = options.fetch(:exclude_partials, true)
+      @sass_files || Dir.glob(separate("#{from}/**/#{'[^_]' if exclude_partials}*.sass"))
     end
 
     def stylesheet_name(sass_file)

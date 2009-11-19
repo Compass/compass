@@ -33,7 +33,10 @@ module Compass::SassExtensions::Functions::Selectors
   #   #{append_selector(!selector, !to_append)}
   #     width: 2px
   def append_selector(selector, to_append)
-    Sass::Script::String.new(selector.value.split(COMMA_SEPARATOR).map{|s| "#{s}#{to_append}"}.join(", "))
+    ancestors = selector.value.split(COMMA_SEPARATOR)
+    descendants = to_append.value.split(COMMA_SEPARATOR)
+    nested = ancestors.map{|a| descendants.map{|d| "#{a}#{d}"}.join(", ")}.join(", ")
+    Sass::Script::String.new(nested)
   end
 
 end

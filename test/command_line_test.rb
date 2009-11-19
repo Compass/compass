@@ -1,4 +1,4 @@
-require  File.dirname(__FILE__)+'/test_helper'
+require 'test_helper'
 require 'fileutils'
 require 'compass'
 require 'compass/exec'
@@ -7,9 +7,10 @@ require 'timeout'
 class CommandLineTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
   include Compass::CommandLineHelper
+  include Compass::IoHelper
 
   def teardown
-    Compass.configuration.reset!
+    Compass.reset_configuration!
   end
 
   def test_print_version
@@ -19,7 +20,7 @@ class CommandLineTest < Test::Unit::TestCase
 
   def test_list_frameworks
     compass "--list-frameworks"
-    assert_equal(%w(blueprint compass yui), @last_result.split.sort)
+    assert_equal(%w(blueprint compass), @last_result.split.sort)
   end
 
   def test_basic_install
