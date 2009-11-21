@@ -10,8 +10,11 @@
     %style(type="text/css")
       :sass
         @import blueprint.sass
-        .foo
-          +column(8)
+        body#welcome
+          #container
+            +container
+          h1
+            +column(24)
   %body#welcome.bp
     #container
       %h1 Welcome to Compass!
