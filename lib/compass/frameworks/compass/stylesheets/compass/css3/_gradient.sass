@@ -1,0 +1,19 @@
+=gradient(!type, !coords, !color_start, !color_end, !stop_1 = 0, !stop_1_pos = .3, !stop_2 = 0, !stop_2_pos = .6, !stop_3 = 0, !stop_3_pos = .9)
+  !gradient: #{!coords}, from(#{!color_start}), to(#{!color_end})
+  @if !stop_1 != 0
+    !gradient= !gradient + color-stop(#{!stop_1_pos}, #{!stop_1})
+  @if !stop_2 != 0
+    !gradient= !gradient + color-stop(#{!stop_2_pos}, #{!stop_2})
+  @if !stop_3 != 0
+    !gradient= !gradient + color-stop(#{!stop_3_pos}, #{!stop_3})
+  background: -webkit-gradient(#{!type}, #{!gradient})
+  background: -moz-#{!type}-gradient(#{!gradient})
+
+=linear-gradient(!coords, !color1, !color2)
+  +gradient("linear", !coords, !color1, !color2)
+
+=v-gradient(!color1, !color2)
+  =linear-gradient("left top, left bottom", !color1, !color2)
+
+=h-gradient(!color1, !color2)
+  =linear-gradient("left top, right top", !color1, !color2)
