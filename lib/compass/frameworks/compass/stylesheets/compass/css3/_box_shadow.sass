@@ -1,12 +1,20 @@
 //**
-  Provides cross-browser css box shadows 
-    for Webkit and the future
-  arguments are horizontal offset, vertical offset, blur and color
+  Provides cross-browser css box shadows for Webkit, Gecko, and CSS3 standard
+  arguments are horizontal color, horizontal offset, vertical offset, and blur
 
-=box-shadow(!ho, !vo, !b, !c )
-  /* Webkit (Safari, Chrome)
-  -webkit-box-shadow= !ho !vo !b !c
-  /* Mozilla (Firefox, Camino)
-  -moz-box-shadow= !ho !vo !b !c
-  /* CSS3
-  box-shadow= !ho !vo !b !c
+//**
+  These defaults make the arguments optional for this mixin
+  If you like, set different defaults in your project
+  
+!default_box_shadow_color     ||= #333
+!default_box_shadow_h_offset  ||= 1px
+!default_box_shadow_v_offset  ||= 1px
+!default_box_shadow_blur      ||= 5px
+
+=box-shadow(!color = !default_box_shadow, !hoff = !default_box_shadow, !voff = !default_box_shadow, !blur = !default_box_shadow)
+  /* Webkit (Safari, Chrome) */
+  -webkit-box-shadow= !color !hoff !voff !blur
+  /* Gecko (Firefox, Camino) */
+  -moz-box-shadow= !color !hoff !voff !blur
+  /* CSS3 */
+  box-shadow= !color !hoff !voff !blur
