@@ -11,7 +11,7 @@
 !default_box_shadow_v_offset  ||= 1px
 !default_box_shadow_blur      ||= 5px
 
-=box-shadow(!color = !default_box_shadow, !hoff = !default_box_shadow, !voff = !default_box_shadow, !blur = !default_box_shadow)
+=box-shadow(!color = !default_box_shadow_color, !hoff = !default_box_shadow_h_offset, !voff = !default_box_shadow_v_offset, !blur = !default_box_shadow_blur)
   /* Webkit (Safari, Chrome) */
   -webkit-box-shadow= !color !hoff !voff !blur
   /* Gecko (Firefox, Camino) */
