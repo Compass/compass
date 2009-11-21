@@ -9,7 +9,7 @@ class CompassTest < Test::Unit::TestCase
   end
 
   def teardown
-    teardown_fixtures :blueprint, :empty, :compass, :image_urls
+    teardown_fixtures :blueprint, :empty, :compass, :image_urls, :relative
   end
 
   def teardown_fixtures(*project_names)
@@ -50,6 +50,15 @@ class CompassTest < Test::Unit::TestCase
     within_project('image_urls') do |proj|
       each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, 'image_urls'
+      end
+      assert_renders_correctly :screen
+    end
+  end
+
+  def test_image_urls
+    within_project('relative') do |proj|
+      each_css_file(proj.css_path) do |css_file|
+        assert_no_errors css_file, 'relative'
       end
       assert_renders_correctly :screen
     end
