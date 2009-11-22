@@ -184,6 +184,8 @@
               %input#q.text{ :type => "text", :name => "q", :value => "Field with class .text" }
             .span-2.last
               %input.button{ :type => "submit", :value => "submit" }
+              / WTF This doesn't render correctly without some space.
+              &nbsp;
       %hr
       %p
         %a{ :href => "http://validator.w3.org/check?uri=referer" }
