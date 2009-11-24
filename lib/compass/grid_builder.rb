@@ -48,7 +48,7 @@ module Compass
         canvas.background_fill = 'white'
 
         canvas.g do |column|
-          column.rect(self.column_width, @height).styles(:fill => "#e8effb")
+          column.rect(self.column_width - 1, @height).styles(:fill => "#e8effb")
         end
 
         canvas.g do |baseline|
