@@ -12,6 +12,7 @@ module Sass::Script::Functions
   include Compass::SassExtensions::Functions::Display
   include Compass::SassExtensions::Functions::InlineImage
   include Compass::SassExtensions::Functions::ColorStop
+  include Compass::SassExtensions::Functions::FontFiles
 end
 
 # Wierd that this has to be re-included to pick up sub-modules. Ruby bug?
