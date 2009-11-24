@@ -21,7 +21,7 @@
     font-weight: bold
     font-size: 1.2em
   input
-    &.text, &.title, &[type=text]
+    &.text, &.title, &[type=text], &[type=password]
       margin: 0.5em 0
       background-color: #fff
       padding: 5px
@@ -38,8 +38,9 @@
     margin: 0.5em 0
 
 =blueprint-form-sizes(!input_width = 300px, !textarea_width = 390px, !textarea_height = 250px)
-  input.text, input.title
-    width= !input_width
+  input
+    &.text, &.title, &[type=text], &[type=password]
+      width= !input_width
   textarea
     width= !textarea_width
     height= !textarea_height
@@ -47,7 +48,7 @@
 =blueprint-form-borders(!unfocused_border_color = #bbb, !focus_border_color = #666, !fieldset_border_color = #ccc)
   fieldset
     border= 1px "solid" !fieldset_border_color
-  input.text, input.title,
+  input.text, input.title, input[type=text], input[type=password],
   textarea,
   select
     border= 1px "solid" !unfocused_border_color
