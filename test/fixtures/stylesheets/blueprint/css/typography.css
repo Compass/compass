@@ -111,14 +111,16 @@ pre, code, tt {
   line-height: 1.5; }
 
 li ul, li ol {
-  margin: 0 1.5em; }
+  margin: 0; }
+
+ul, ol {
+  margin: 0 1.5em 1.5em 0;
+  padding-left: 3.333em; }
 
 ul {
-  margin: 0 1.5em 1.5em 1.5em;
   list-style-type: disc; }
 
 ol {
-  margin: 0 1.5em 1.5em 1.5em;
   list-style-type: decimal; }
 
 dl {
