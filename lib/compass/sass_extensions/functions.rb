@@ -1,7 +1,7 @@
 module Compass::SassExtensions::Functions
 end
 
-%w(selectors enumerate urls display inline_image color_stop).each do |func|
+%w(selectors enumerate urls display inline_image color_stop font_files).each do |func|
   require "compass/sass_extensions/functions/#{func}"
 end
 
