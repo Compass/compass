@@ -1,1 +1,1 @@
-test { background: url('../assets/images/testing.png?1258839056'); }
+test { background: url('../assets/images/testing.png?<%= File.mtime(File.join(Compass.configuration.project_path, 'assets', 'images', 'testing.png')).strftime("%s") %>'); }

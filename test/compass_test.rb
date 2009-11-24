@@ -77,7 +77,7 @@ private
       actual_result_file = "#{tempfile_path(@current_project)}/#{name}.css"
       expected_result_file = "#{result_path(@current_project)}/#{name}.css"
       actual_lines = File.read(actual_result_file).split("\n")
-      expected_lines = File.read(expected_result_file).split("\n")
+      expected_lines = ERB.new(File.read(expected_result_file)).result(binding).split("\n")
       expected_lines.zip(actual_lines).each_with_index do |pair, line|
         message = "template: #{name}\nline:     #{line + 1}"
         assert_equal(pair.first, pair.last, message)
