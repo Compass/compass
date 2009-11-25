@@ -18,7 +18,7 @@
       src: local('#{!name}'), #{!font_files}
 
 // EXAMPLE
-  +font-face("this name", font_files("this.otf", "opentype", "this.woff", "woff"), "fonts/this.eot", "thisname")
+  +font-face("this name", font_files("this.woff", "woff", "this.otf", "opentype"), "fonts/this.eot", "thisname")
   
   will generate:
     
@@ -26,6 +26,6 @@
       font-family: 'this name'; 
       src: url('fonts/this.eot'); 
       src: local('this name'), local('thisname'), 
-        url('this.otf') format('opentype'), 
-        url('this.woff') format('woff'); 
+        url('this.otf') format('woff'), 
+        url('this.woff') format('opentype'); 
     }
