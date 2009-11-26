@@ -11,14 +11,14 @@
     @if !style
       font-style= !style
     @if !eot
-      src: url('#{!eot}')
+      src= stylesheet_url(!eot)
     @if !postscript
       src: local('#{!name}'), local('#{!postscript}'), #{!font_files}
     @else
       src: local('#{!name}'), #{!font_files}
 
 // EXAMPLE
-  +font-face("this name", font_files("this.woff", "woff", "this.otf", "opentype"), "fonts/this.eot", "thisname")
+  +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "fonts/this.eot", "thisname")
   
   will generate:
     
