@@ -24,8 +24,8 @@ def fetch(uri_str, limit = 10)
   end
 end
 
-def install_from_github(user, project, ext_name, working_directory = Dir.pwd)
-  download_link = "http://github.com/#{user}/#{project}/zipball/master"
+def install_from_github(user, project, ext_name, branch = "master", working_directory = Dir.pwd)
+  download_link = "http://github.com/#{user}/#{project}/zipball/#{branch}"
   extdir = File.join(working_directory,'extensions')
   
   if !File.exists?(extdir)
