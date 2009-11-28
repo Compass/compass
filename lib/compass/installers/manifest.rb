@@ -37,6 +37,7 @@ module Compass
       type :stylesheet
       type :image
       type :javascript
+      type :font
       type :file
       type :html
 

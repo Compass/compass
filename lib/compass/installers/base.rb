@@ -16,7 +16,7 @@ module Compass
         self.logger = options[:logger]
       end
 
-      [:css_dir, :sass_dir, :images_dir, :javascripts_dir, :http_stylesheets_path].each do |dir|
+      [:css_dir, :sass_dir, :images_dir, :javascripts_dir, :http_stylesheets_path, :fonts_dir].each do |dir|
         define_method dir do
           Compass.configuration.send(dir)
         end
@@ -89,6 +89,10 @@ module Compass
 
       installer :javascript do |to|
         "#{javascripts_dir}/#{to}"
+      end
+
+      installer :font do |to|
+        "#{fonts_dir}/#{to}"
       end
 
       installer :file do |to|
