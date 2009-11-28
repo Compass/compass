@@ -14,8 +14,28 @@ module Compass::SassExtensions::Functions::Urls
     url("#{http_stylesheets_path}/#{path}")
   end
 
+  def font_url(path)
+    path = path.value # get to the string value of the literal.
+
+    # Short curcuit if they have provided an absolute url.
+    if absolute_path?(path)
+      return Sass::Script::String.new("url(#{path})")
+    end
+
+    # Compute the path to the font file, either root relative or stylesheet relative
+    # or nil if the http_fonts_path cannot be determined from the configuration.
+    http_fonts_path = if relative?
+                        compute_relative_path(Compass.configuration.fonts_dir)
+                      else
+                        Compass.configuration.http_fonts_path
+                      end
+
+    url("#{http_fonts_path}/#{path}")
+  end
+
   def image_url(path)
     path = path.value # get to the string value of the literal.
+
     # Short curcuit if they have provided an absolute url.
     if absolute_path?(path)
       return Sass::Script::String.new("url(#{path})")
