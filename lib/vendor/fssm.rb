@@ -39,7 +39,3 @@ require 'fssm/monitor'
 
 require "fssm/backends/#{FSSM::Support.backend.downcase}"
 FSSM::Backends::Default = FSSM::Backends.const_get(FSSM::Support.backend)
-<<<<<<< HEAD:lib/vendor/fssm.rb
-=======
-
->>>>>>> edge:lib/vendor/fssm.rb
