@@ -15,12 +15,12 @@ class ConfigurationTest < Test::Unit::TestCase
       # Require any additional compass plugins here.
 
       project_type = :stand_alone
+      # Set this to the root of your project when deployed:
+      http_path = "/"
       css_dir = "css"
       sass_dir = "sass"
       images_dir = "img"
       javascripts_dir = "js"
-      # Set this to the root of your project when deployed:
-      http_path = "/"
       output_style = :nested
       # To enable relative paths to assets via compass helper functions. Uncomment:
       # relative_assets = true
@@ -87,9 +87,9 @@ class ConfigurationTest < Test::Unit::TestCase
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
-css_dir = "css"
 # Set this to the root of your project when deployed:
 http_path = "/"
+css_dir = "css"
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
 additional_import_paths = ["../foo", "/path/to/my/framework"]

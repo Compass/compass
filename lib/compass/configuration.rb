@@ -1,26 +1,29 @@
 module Compass
   module Configuration
 
+    def self.attributes_for_directory(dir_name, http_dir_name = dir_name)
+      [
+        "#{dir_name}_dir",
+        "#{dir_name}_path",
+        ("http_#{http_dir_name}_dir" if http_dir_name),
+        ("http_#{http_dir_name}_path" if http_dir_name)
+      ].compact.map{|a| a.to_sym}
+    end
+
     ATTRIBUTES = [
+      # What kind of project?
       :project_type,
+      # Where is the project?
       :project_path,
-      :css_dir,
-      :sass_dir,
-      :images_dir,
-      :javascripts_dir,
-      :extensions_dir,
-      :css_path,
-      :sass_path,
-      :images_path,
-      :javascripts_path,
-      :extensions_path,
       :http_path,
-      :http_images_dir,
-      :http_stylesheets_dir,
-      :http_javascripts_dir,
-      :http_images_path,
-      :http_stylesheets_path,
-      :http_javascripts_path,
+      # Where are the various bits of the project
+      attributes_for_directory(:css, :stylesheets),
+      attributes_for_directory(:sass, nil),
+      attributes_for_directory(:images),
+      attributes_for_directory(:javascripts),
+      attributes_for_directory(:fonts),
+      attributes_for_directory(:extensions, nil),
+      # Compilation options
       :output_style,
       :environment,
       :relative_assets,
@@ -28,7 +31,7 @@ module Compass
       :sass_options,
       :asset_host,
       :asset_cache_buster
-    ]
+    ].flatten
 
   end
 end

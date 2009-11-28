@@ -14,6 +14,10 @@ module Compass
         "extensions"
       end
 
+      def default_fonts_dir
+        File.join(top_level.css_dir, "fonts")
+      end
+
       def default_output_style
         if top_level.environment == :development
           :expanded
@@ -56,6 +60,12 @@ module Compass
         end
       end
 
+      def default_fonts_path
+        if (pp = top_level.project_path) && (dir = top_level.fonts_dir)
+          File.join(pp, dir)
+        end
+      end
+
 
       def default_http_images_dir
         top_level.images_dir
@@ -71,6 +81,18 @@ module Compass
 
       def default_http_stylesheets_path
         http_root_relative top_level.http_stylesheets_dir
+      end
+
+      def default_http_fonts_dir
+        if fd = top_level.fonts_dir_without_default
+          fd
+        else
+          "#{top_level.http_stylesheets_dir}/fonts"
+        end
+      end
+
+      def default_http_fonts_path
+        http_root_relative top_level.http_fonts_dir
       end
 
       def default_http_javascripts_dir
