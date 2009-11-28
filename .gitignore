@@ -5,6 +5,7 @@ examples/*/*.html
 examples/*/*/*.html
 examples/*/extensions/*
 examples/*/src/.sass-cache
+.sass-cache
 test/tmp
 test/fixtures/stylesheets/*/tmp
 test/fixtures/stylesheets/*/saved
