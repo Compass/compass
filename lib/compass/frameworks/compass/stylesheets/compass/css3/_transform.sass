@@ -1,13 +1,13 @@
 // CSS Transform and Transform-Origin
 
 // Apply a transform sent as a complete string
-=apply_transform(!transform = false)
+=apply-transform(!transform = false)
   transform= !transform
   -webkit-transform= !transform
   -moz-transform= !transform
 
 // Apply a transform-origin sent as a complete string
-=apply_origin(!origin = false)
+=apply-origin(!origin = false)
   transform-origin= !origin
   -webkit-transform-origin= !origin
   -moz-transform-origin= !origin
@@ -17,12 +17,14 @@
 //    so that it can be called by scale, rotate and skew safely
 =transform-origin(!originx = 50%, !originy = 50%)
   !origin = false
-  @if !originx
+  @if !originx and !originy
+    !origin = "#{!originx} #{!originy}"
+  @else if !originx
     !origin = "#{!originx}"
-  @if !originy
-    !origin = !origin + "#{!originy}"
+  @else if !originy
+    !origin = "#{!originy}"
   @if !origin 
-    +apply_origin(!origin)
+    +apply-origin(!origin)
 
 // A full transform mixin with everything you could want
 //  - including origin adjustments if you want them
@@ -30,7 +32,7 @@
 //    scale takes a multiplier, rotate and skew take degrees
 =transform(!scale = 1, !rotate = 0, !transx = 0, !transy = 0, !skewx = 0, !skewy = 0, !originx = false, !originy = false)
   !transform = "scale(#{!scale}) rotate(#{!rotate}deg) translate(#{!transx}, #{!transy}) skew(#{!skewx}deg, #{!skewy}deg)"
-  +apply_transform(!transform)
+  +apply-transform(!transform)
   +transform-origin(!originx, !originy)
 
 // Transform Partials
@@ -40,21 +42,21 @@
 // adjust only the scale
 //  - with optional origin coordinates
 =scale(!scale = 1.25, !originx = false, !originy = false)
-  +apply_transform("scale(#{!scale})")
+  +apply-transform("scale(#{!scale})")
   +transform-origin(!originx, !originy)
 
 // adjust only the rotation
 //  - with optional origin coordinates
 =rotate(!rotate = 45, !originx = false, !originy = false)
-  +apply_transform("rotate(#{!rotate}deg)")
+  +apply-transform("rotate(#{!rotate}deg)")
   +transform-origin(!originx, !originy)
 
 // adjust only the translation
 =translate(!transx = 0, !transy = 0)
-  +apply_transform("translate(#{!transx}, #{!transy})")
+  +apply-transform("translate(#{!transx}, #{!transy})")
 
 // adjust only the skew
 //  - with optional origin coordinates
 =skew(!skewx = 0, !skewy = 0, !originx = false, !originy = false)
-  +apply_transform("skew(#{!skewx}deg, #{!skewy}deg)")
+  +apply-transform("skew(#{!skewx}deg, #{!skewy}deg)")
   +transform-origin(!originx, !originy)
