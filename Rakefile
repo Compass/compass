@@ -2,7 +2,8 @@ if ENV['RUN_CODE_RUN']
   # We need to checkout edge haml for the run>code>run test environment.
   if File.directory?("haml")
     Dir.chdir("haml") do
-      sh "git", "pull"
+      sh "git", "fetch"
+      sh "git", "reset", "--hard", "origin/stable"
     end
   else
     sh "git", "clone", "git://github.com/nex3/haml.git"
