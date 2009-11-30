@@ -30,7 +30,8 @@ module Compass
       :additional_import_paths,
       :sass_options,
       :asset_host,
-      :asset_cache_buster
+      :asset_cache_buster,
+      :line_comments
     ].flatten
 
   end

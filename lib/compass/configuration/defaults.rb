@@ -18,6 +18,10 @@ module Compass
         File.join(top_level.css_dir, "fonts")
       end
 
+      def default_environment
+        :development
+      end
+
       def default_output_style
         if top_level.environment == :development
           :expanded

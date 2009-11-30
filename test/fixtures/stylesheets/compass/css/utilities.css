@@ -1,11 +1,15 @@
+/* line 3, ../sass/utilities.sass */
 .clearfix {
   overflow: hidden;
   display: inline-block; }
+  /* line 5, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/utilities/general/./_hacks.sass */
   .clearfix {
     display: block; }
 
+/* line 5, ../sass/utilities.sass */
 .pie-clearfix {
   display: inline-block; }
+  /* line 17, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.sass */
   .pie-clearfix:after {
     content: " ";
     display: block;
@@ -13,5 +17,6 @@
     clear: both;
     overflow: hidden;
     visibility: hidden; }
+  /* line 5, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/utilities/general/./_hacks.sass */
   .pie-clearfix {
     display: block; }

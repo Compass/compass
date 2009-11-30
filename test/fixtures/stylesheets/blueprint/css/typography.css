@@ -1,24 +1,29 @@
+/* line 26, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 body {
   line-height: 1.5;
   font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
   color: #333333;
   font-size: 75%; }
 
+/* line 58, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 h1 {
   font-weight: normal;
   color: #222222;
   font-size: 3em;
   line-height: 1;
   margin-bottom: 0.5em; }
+  /* line 63, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
   h1 img {
     margin: 0; }
 
+/* line 65, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 h2 {
   font-weight: normal;
   color: #222222;
   font-size: 2em;
   margin-bottom: 0.75em; }
 
+/* line 69, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 h3 {
   font-weight: normal;
   color: #222222;
@@ -26,6 +31,7 @@ h3 {
   line-height: 1;
   margin-bottom: 1em; }
 
+/* line 74, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 h4 {
   font-weight: normal;
   color: #222222;
@@ -33,6 +39,7 @@ h4 {
   line-height: 1.25;
   margin-bottom: 1.25em; }
 
+/* line 79, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 h5 {
   font-weight: normal;
   color: #222222;
@@ -40,121 +47,157 @@ h5 {
   font-weight: bold;
   margin-bottom: 1.5em; }
 
+/* line 84, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 h6 {
   font-weight: normal;
   color: #222222;
   font-size: 1em;
   font-weight: bold; }
 
+/* line 88, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 h2 img, h3 img, h4 img, h5 img, h6 img {
   margin: 0; }
 
+/* line 90, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 p {
   margin: 0 0 1.5em; }
+  /* line 92, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
   p img.left {
     display: inline;
     float: left;
     margin: 1.5em 1.5em 1.5em 0;
     padding: 0; }
+  /* line 96, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
   p img.right {
     display: inline;
     float: right;
     margin: 1.5em 0 1.5em 1.5em;
     padding: 0; }
 
+/* line 100, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 a {
   text-decoration: underline;
   color: #000099; }
+  /* line 12, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/utilities/links/_link_colors.sass */
   a:visited {
     color: #000066; }
+  /* line 15, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/utilities/links/_link_colors.sass */
   a:focus {
     color: black; }
+  /* line 18, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/utilities/links/_link_colors.sass */
   a:hover {
     color: black; }
+  /* line 21, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/utilities/links/_link_colors.sass */
   a:active {
     color: #cc0099; }
 
+/* line 103, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 blockquote {
   margin: 1.5em;
   color: #666;
   font-style: italic; }
 
+/* line 107, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 strong {
   font-weight: bold; }
 
+/* line 109, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 em {
   font-style: italic; }
 
+/* line 111, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 dfn {
   font-style: italic;
   font-weight: bold; }
 
+/* line 114, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 sup, sub {
   line-height: 0; }
 
+/* line 116, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 abbr, acronym {
   border-bottom: 1px dotted #666; }
 
+/* line 118, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 address {
   margin: 0 0 1.5em;
   font-style: italic; }
 
+/* line 121, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 del {
   color: #666; }
 
+/* line 123, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 pre {
   margin: 1.5em 0;
   white-space: pre; }
 
+/* line 126, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 pre, code, tt {
   font: 1em 'andale mono', 'lucida console', monospace;
   line-height: 1.5; }
 
+/* line 129, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 li ul, li ol {
   margin: 0; }
 
+/* line 131, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 ul, ol {
   margin: 0 1.5em 1.5em 0;
   padding-left: 3.333em; }
 
+/* line 134, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 ul {
   list-style-type: disc; }
 
+/* line 136, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 ol {
   list-style-type: decimal; }
 
+/* line 138, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 dl {
   margin: 0 0 1.5em 0; }
+  /* line 140, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
   dl dt {
     font-weight: bold; }
 
+/* line 142, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 dd {
   margin-left: 1.5em; }
 
+/* line 144, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 table {
   margin-bottom: 1.4em;
   width: 100%; }
 
+/* line 147, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 th {
   font-weight: bold; }
 
+/* line 149, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 thead th {
   background: #c3d9ff; }
 
+/* line 151, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 th, td, caption {
   padding: 4px 10px 4px 5px; }
 
+/* line 153, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 tr.even td {
   background: #e5ecf9; }
 
+/* line 155, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 tfoot {
   font-style: italic; }
 
+/* line 157, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 caption {
   background: #eee; }
 
+/* line 159, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 .quiet {
   color: #666666; }
 
+/* line 161, /Users/chris/Projects/compass/lib/compass/frameworks/blueprint/stylesheets/blueprint/./_typography.sass */
 .loud {
   color: #111111; }
