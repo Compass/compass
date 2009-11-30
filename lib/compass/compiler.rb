@@ -48,7 +48,15 @@ module Compass
         directory dir
       end
       sass_files.zip(css_files).each do |sass_filename, css_filename|
-        compile sass_filename, css_filename, options
+        begin
+          compile sass_filename, css_filename, options
+        rescue Sass::SyntaxError => e
+          full_exception = Compass.configuration.environment == :development
+          logger.record :error, basename(sass_filename)
+          write_file(css_filename,
+            Sass::SyntaxError.exception_to_css(e, :full_exception => full_exception),
+            options.merge(:force => true))
+        end
       end
     end
   end
