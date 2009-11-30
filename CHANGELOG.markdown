@@ -1,8 +1,22 @@
 COMPASS CHANGELOG
 =================
 
-0.10.0 (UNRELEASED)
-------------
+0.10.0.pre1 (November 29, 2009)
+--------------------------------
+
+Deprecated in this release:
+
+* The usless blueprint "modules" folder will be removed. Please update your
+  blueprint imports by removing the modules folder. Deprecation warnings will be
+  emitted if you use the old imports.
+* Blueprint mixins that used to accept a "body selector" argument, are now
+  deprecated, instead you should pass `true` to them and mix them into
+  the selector of your choice.
+* If you are using the `+opacity` or `+inline-block` mixins, you may need to update your imports.
+* In your configuration file, setting `http_images_path` to `:relative` is
+  deprecated in favor of setting `relative_assets` to `true`
+* The YUI framework has been extracted to a plugin.
+  If you use it, please follow the [installation instructions](http://github.com/chriseppstein/yui-compass-plugin)
 
 Command-Line:
 
@@ -33,6 +47,9 @@ Configuration:
   may also set `http_images_dir`, `http_stylesheets_dir`, and
   `http_javascripts_dir` relative to the `http_path` instead of
   setting the absolute `http_XXX_path` counterparts.
+* You may now configure the fonts directory for your project (fonts_dir).
+  By default, for standalone projects, it is the "fonts" subdirectory of
+	your css directory. Rails projects will default to "public/fonts".
 
 Compass Core:
 
@@ -43,7 +60,7 @@ Compass Core:
   for both arguments instead of just the first
 * There is no longer any outline on unstyled links in the :active and :focused states.
 * IE6 bug fixes for sticky-footer
-* New CSS3 Compatibility Mixins. You can import them all with `@import compass/css3`
+* New CSS3 Compatibility Mixins. You can import them all with `@import compass/css3.sass`
     * `+opacity(amount)` where amount should be between 0 and 1, where 0 is transparent and 1 is opaque.
     * `+opaque` and `+transparent` mixins for convenience. Built on top of the opacity mixin.
     * `+border-radius(amount)` as well as the following convenience mixins:
@@ -66,6 +83,30 @@ Compass Core:
         * `+column-rule-style`
         * `+column-rule-color`
         * `+column-rule`
+    * `+background-clip(clip)` where clip can be `padding-box` or `border-box`
+    * `+background-origin(origin)` where origin can be `padding-box`, `border-box`, or `content-box`
+    * `+background-size(size)` where size is a width and height. E.g. "50% 75%"
+    * `+font-face` should be mixed into the top level of your document.
+      Usage Example: `+font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "fonts/this.eot", "thisname")`
+    * Simple Background Gradient Support:
+      * `+gradient` - Generic background gradient mixin
+      * `+radial-gradient` - Radial gradient mixin
+      * `+linear-gradient` - Linear gradient mixin
+      * `+h-gradient` - Horizontal linear gradient mixin
+      * `+v-gradient` - Vertical linear gradient mixin
+    * `+text-shadow` - Create a text shadow effect.
+    * Transforms Support:
+      * `+transform`
+      * `+scale`
+      * `+rotate`
+      * `+translate`
+      * `+skew`
+    * Transition Support:
+      * `+transition-property`
+      * `+transition-duration`
+      * `+transition-timing-function`
+      * `+transition-delay`
+      * `+transition`
     * The import for `+inline-block` has moved from compass/utilities/general/inline_block
       to compass/css3/inline_block
     * The import for `+opacity` has moved from compass/utilities/general/opacity
