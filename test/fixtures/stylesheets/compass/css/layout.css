@@ -1,18 +1,14 @@
-/* line 7, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/layout/_sticky_footer.sass */
 html, body {
   height: 100%; }
 
-/* line 9, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/layout/_sticky_footer.sass */
 #layout {
   min-height: 100%;
   height: auto !important;
   height: 100%;
   margin-bottom: -72px; }
-  /* line 14, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/layout/_sticky_footer.sass */
   #layout #layout_footer {
     height: 72px; }
 
-/* line 16, /Users/chris/Projects/compass/lib/compass/frameworks/compass/stylesheets/compass/layout/_sticky_footer.sass */
 #footer {
   clear: both;
   position: relative;

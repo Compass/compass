@@ -92,6 +92,7 @@ private
     @current_project = project_name
     Compass.add_configuration(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
     Compass.configuration.project_path = project_path(project_name)
+    Compass.configuration.environment = :production
     args = Compass.configuration.to_compiler_arguments(:logger => Compass::NullLogger.new)
     if Compass.configuration.sass_path && File.exists?(Compass.configuration.sass_path)
       compiler = Compass::Compiler.new *args
