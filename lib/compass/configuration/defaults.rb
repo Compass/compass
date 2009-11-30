@@ -34,6 +34,10 @@ module Compass
         top_level.environment == :development
       end
 
+      def default_color_output
+        true
+      end
+
       def default_sass_path
         if (pp = top_level.project_path) && (dir = top_level.sass_dir)
           File.join(pp, dir)

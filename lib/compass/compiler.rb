@@ -52,7 +52,7 @@ module Compass
           compile sass_filename, css_filename, options
         rescue Sass::SyntaxError => e
           full_exception = Compass.configuration.environment == :development
-          logger.record :error, basename(sass_filename)
+          logger.record :error, basename(sass_filename), "(Line #{e.sass_line}: #{e.message})"
           write_file(css_filename,
             Sass::SyntaxError.exception_to_css(e, :full_exception => full_exception),
             options.merge(:force => true))

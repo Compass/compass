@@ -1,7 +1,20 @@
 module Compass
   class Logger
 
-    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile]
+    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical]
+
+    ACTION_COLORS = {
+      :error => :red,
+      :compile => :green,
+      :overwrite => :yellow,
+      :create => :green,
+      :remove => :yellow,
+      :exists => :green,
+      :directory => :green,
+      :identical => :green
+    }
+
+    COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     attr_accessor :actions, :options
 
@@ -13,9 +26,22 @@ module Compass
 
     # Record an action that has occurred
     def record(action, *arguments)
+      emit color(ACTION_COLORS[action]) if Compass.configuration.color_output
       log "#{action_padding(action)}#{action} #{arguments.join(' ')}"
+      emit color(:clear) if Compass.configuration.color_output
     end
 
+    def color(c)
+      if c && COLORS.has_key?(c.to_sym)
+        "\e[#{COLORS[c.to_sym]}m"
+      else
+        ""
+      end
+    end
+
+    def emit(msg)
+      print msg
+    end
     # Emit a log message
     def log(msg)
       puts msg

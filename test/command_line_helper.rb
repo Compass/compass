@@ -30,7 +30,7 @@ module Compass::CommandLineHelper
             end
           end
           responder.assert_required_responses!
-          @last_result = output
+          @last_result = decolorize(output)
         else
           #child process
           execute *arguments
@@ -38,13 +38,17 @@ module Compass::CommandLineHelper
       end
     else
       @last_error = capture_warning do
-        @last_result = capture_output do
+        @last_result = decolorize(capture_output do
           @last_exit_code = execute *arguments
-        end
+        end)
       end
     end
   rescue Timeout::Error
     fail "Read from child process timed out"
+  end
+
+  def decolorize(str)
+    str.gsub(/\e\[\d+m/,'')
   end
 
   class Responder
@@ -79,7 +83,7 @@ module Compass::CommandLineHelper
       actions_found << line.first if line.last == path
     end
     message = "Action #{action.inspect} was not performed on: #{path}."
-    message += "The following actions were performed: #{actions_found.join(", ")}" if actions_found.any?
+    message += "The following actions were performed: #{actions_found.map{|a|a.inspect}.join(", ")}" if actions_found.any?
     puts @last_result
     fail message
   end
