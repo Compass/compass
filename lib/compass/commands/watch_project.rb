@@ -61,7 +61,7 @@ module Compass
             puts ">>> Change detected to: #{file}"
             compiler.run
           rescue StandardError => e
-            ::Compass::Exec.report_error(e, options)
+            ::Compass::Exec::Helpers.report_error(e, options)
           end
         end
       end
