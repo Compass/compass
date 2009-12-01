@@ -1,7 +1,10 @@
 module Compass
+
   class Logger
 
     DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical]
+
+    COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     ACTION_COLORS = {
       :error => :red,
@@ -14,7 +17,6 @@ module Compass
       :identical => :green
     }
 
-    COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     attr_accessor :actions, :options
 
@@ -26,9 +28,21 @@ module Compass
 
     # Record an action that has occurred
     def record(action, *arguments)
-      emit color(ACTION_COLORS[action]) if Compass.configuration.color_output
-      log "#{action_padding(action)}#{action} #{arguments.join(' ')}"
-      emit color(:clear) if Compass.configuration.color_output
+      msg = ""
+      msg << color(ACTION_COLORS[action]) if Compass.configuration.color_output
+      msg << "#{action_padding(action)}#{action} #{arguments.join(' ')}"
+      msg << color(:clear) if Compass.configuration.color_output
+      log msg
+    end
+
+    def red
+      return yield unless Compass.configuration.color_output
+      $stderr.write(color(:red))
+      $stdout.write(color(:red))
+      yield
+    ensure
+      $stderr.write(color(:clear))
+      $stdout.write(color(:clear))
     end
 
     def color(c)
@@ -42,6 +56,7 @@ module Compass
     def emit(msg)
       print msg
     end
+
     # Emit a log message
     def log(msg)
       puts msg
@@ -63,6 +78,10 @@ module Compass
     end
 
     def log(msg)
+    end
+
+    def red
+      yield
     end
   end
 end

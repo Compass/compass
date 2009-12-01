@@ -74,7 +74,9 @@ module Compass
                                     :css_filename => css_filename,
                                     :load_paths => options[:load_paths],
                                     :cache_location => options[:cache_location])
-        css_content = engine.render
+        css_content = logger.red do
+          engine.render
+        end
         write_file(css_filename, css_content, options.merge(:force => true))
       else
         logger.record :unchanged, basename(sass_filename) unless options[:quiet]
