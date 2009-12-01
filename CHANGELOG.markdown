@@ -1,6 +1,14 @@
 COMPASS CHANGELOG
 =================
 
+0.10.0.pre2 (November 30, 2009)
+--------------------------------
+Bug fixes:
+
+* The line-height in the compass reset should have been 1 and not 1em.
+* Fixed the reference in the rails initializer to the compass configuration file.
+* Use the correct error formatting function based on what sass version is installed.
+
 0.10.0.pre1 (November 29, 2009)
 --------------------------------
 
