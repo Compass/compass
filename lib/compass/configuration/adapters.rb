@@ -18,7 +18,7 @@ module Compass
         end
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
-        plugin_opts[:line_comments] = line_comments if environment
+        plugin_opts[:line_comments] = line_comments
         plugin_opts.merge!(sass_options || {})
         plugin_opts
       end
@@ -41,7 +41,7 @@ module Compass
       def to_sass_engine_options
         engine_opts = {:load_paths => sass_load_paths}
         engine_opts[:style] = output_style if output_style
-        engine_opts[:line_comments] = line_comments if environment
+        engine_opts[:line_comments] = line_comments
         engine_opts.merge!(sass_options || {})
       end
 

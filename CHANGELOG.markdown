@@ -8,6 +8,7 @@ Bug fixes:
 * The line-height in the compass reset should have been 1 and not 1em.
 * Fixed the reference in the rails initializer to the compass configuration file.
 * Use the correct error formatting function based on what sass version is installed.
+* Boolean properties like line_comments can now be set to false in configuration files
 
 0.10.0.pre1 (November 29, 2009)
 --------------------------------
