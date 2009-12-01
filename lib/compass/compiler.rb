@@ -42,7 +42,25 @@ module Compass
       false
     end
 
+    def new_config?
+      config_file = Compass.detect_configuration_file
+      return false unless config_file
+      config_mtime = File.mtime(config_file)
+      css_files.each do |css_filename|
+        return config_file if File.exists?(css_filename) && config_mtime > File.mtime(css_filename)
+      end
+      nil
+    end
+
+    def cache_location
+      Compass.configuration.cache_path || Sass::Plugin.options[:cache_location] || "./.sass-cache"
+    end
+
     def run
+      if new_config?
+        FileUtils.rm_rf cache_location
+        options[:force] = true
+      end
       Compass.configure_sass_plugin! unless Compass.sass_plugin_configured?
       target_directories.each do |dir|
         directory dir
