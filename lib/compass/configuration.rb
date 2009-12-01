@@ -29,6 +29,7 @@ module Compass
       :relative_assets,
       :additional_import_paths,
       :sass_options,
+      # Helper configuration
       :asset_host,
       :asset_cache_buster,
       :line_comments,

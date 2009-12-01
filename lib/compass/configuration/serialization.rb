@@ -48,11 +48,11 @@ module Compass
 
         def serialize
           contents = ""
-          required_libraries.each do |lib|
+          (required_libraries || []).each do |lib|
             contents << %Q{require '#{lib}'\n}
           end
           contents << "# Require any additional compass plugins here.\n"
-          contents << "\n" if required_libraries.any?
+          contents << "\n" if (required_libraries || []).any?
           ATTRIBUTES.each do |prop|
             value = send("#{prop}_without_default")
             if value.is_a?(Proc)

@@ -17,7 +17,6 @@ module Compass
     #    required.
     class Data
 
-      attr_accessor :required_libraries
       attr_reader :name
 
       include Compass::Configuration::Inheritance
@@ -25,11 +24,11 @@ module Compass
       include Compass::Configuration::Adapters
 
       inherited_accessor *ATTRIBUTES
+      inherited_accessor :required_libraries #XXX we should make this array add up cumulatively.
 
       def initialize(name, attr_hash = nil)
         raise "I need a name!" unless name
         @name = name
-        self.required_libraries = []
         set_all(attr_hash) if attr_hash
         self.top_level = self
       end
@@ -81,7 +80,7 @@ module Compass
 
       # Require a compass plugin and capture that it occured so that the configuration serialization works next time.
       def require(lib)
-        required_libraries << lib
+        (self.required_libraries ||= []) << lib
         super
       end
 
