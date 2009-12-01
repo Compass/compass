@@ -20,7 +20,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   outline: 0; }
 
 body {
-  line-height: 1em;
+  line-height: 1;
   color: #000;
   background: #fff; }
 
