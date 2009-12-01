@@ -19,6 +19,8 @@ module Compass
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
         plugin_opts[:line_comments] = line_comments
+        plugin_opts[:cache] = cache
+        plugin_opts[:cache_location] = cache_path
         plugin_opts.merge!(sass_options || {})
         plugin_opts
       end
@@ -42,6 +44,8 @@ module Compass
         engine_opts = {:load_paths => sass_load_paths}
         engine_opts[:style] = output_style if output_style
         engine_opts[:line_comments] = line_comments
+        engine_opts[:cache] = cache
+        engine_opts[:cache_location] = cache_path
         engine_opts.merge!(sass_options || {})
       end
 

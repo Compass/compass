@@ -21,6 +21,10 @@ module Compass
         def images_dir_without_default
           "images"
         end
+
+        def default_cache_dir
+          ".sass-cache"
+        end
       end
 
     end

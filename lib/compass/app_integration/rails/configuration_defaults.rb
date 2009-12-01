@@ -36,7 +36,11 @@ module Compass
         end
 
         def default_extensions_dir
-          "vendor/plugins/compass/extensions"
+          File.join("vendor", "plugins", "compass", "extensions")
+        end
+
+        def default_cache_dir
+          File.join("tmp", "sass-cache")
         end
 
       end

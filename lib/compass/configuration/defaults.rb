@@ -74,6 +74,12 @@ module Compass
         end
       end
 
+      def default_cache_path
+        if (pp = top_level.project_path) && (dir = top_level.cache_dir)
+          File.join(pp, dir)
+        end
+      end
+
 
       def default_http_images_dir
         top_level.images_dir
@@ -109,6 +115,10 @@ module Compass
 
       def default_http_javascripts_path
         http_root_relative top_level.http_javascripts_dir
+      end
+
+      def default_cache
+        true
       end
 
       # helper functions

@@ -29,6 +29,8 @@ module Compass
       :relative_assets,
       :additional_import_paths,
       :sass_options,
+      attributes_for_directory(:cache, nil),
+      :cache,
       # Helper configuration
       :asset_host,
       :asset_cache_buster,
