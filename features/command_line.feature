@@ -120,6 +120,26 @@ Feature: Command Line
     And a sass file sass/reset.sass is reported unchanged
     And a sass file sass/utilities.sass is reported unchanged
 
+  Scenario: compiling a specific file in a project
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    And I run: compass compile sass/utilities.sass
+    Then a sass file sass/layout.sass is not mentioned
+    And a sass file sass/print.sass is not mentioned
+    And a sass file sass/reset.sass is not mentioned
+    And a sass file sass/utilities.sass is reported compiled
+    And a css file tmp/utilities.css is reported created
+    And a css file tmp/utilities.css is created
+
+  Scenario: Re-compiling a specific file in a project with no changes
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass compile
+    And I run: compass compile sass/utilities.sass
+    Then a sass file sass/layout.sass is not mentioned
+    And a sass file sass/print.sass is not mentioned
+    And a sass file sass/reset.sass is not mentioned
+    And a sass file sass/utilities.sass is reported compiled
+    And a css file tmp/utilities.css is reported identical
+
   Scenario: Installing a pattern into a project
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass install blueprint/buttons
@@ -129,7 +149,6 @@ Feature: Command Line
     And an image file images/buttons/tick.png is created
     And a css file tmp/buttons.css is created
 
-  @now
   Scenario: Basic help
     When I run: compass help
     Then I should see the following "primary" commands:

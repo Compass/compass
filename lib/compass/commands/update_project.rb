@@ -6,7 +6,7 @@ module Compass
     module CompileProjectOptionsParser
       def set_options(opts)
         opts.banner = %Q{
-          Usage: compass compile [path/to/project] [options]
+          Usage: compass compile [path/to/project] [path/to/project/src/file.sass ...] [options]
 
           Description:
           compile project at the path specified or the current director if not specified.
@@ -47,8 +47,21 @@ module Compass
           projectize(Compass.configuration.sass_dir),
           projectize(Compass.configuration.css_dir),
           Compass.sass_engine_options.merge(:quiet => options[:quiet],
-                                            :force => options[:force]).merge(additional_options))
+                                            :force => options[:force],
+                                            :sass_files => explicit_sass_files).merge(additional_options))
       end
+
+      def explicit_sass_files
+        return unless options[:sass_files]
+        options[:sass_files].map do |sass_file|
+          if absolute_path? sass_file
+            sass_file
+          else
+            File.join(Dir.pwd, sass_file)
+          end
+        end
+      end
+
 
       class << self
         def option_parser(arguments)
@@ -76,10 +89,12 @@ module Compass
         end
 
         def parse_arguments!(parser, arguments)
-          if arguments.size == 1
-            parser.options[:project_name] = arguments.shift
-          elsif arguments.size > 1
-            raise Compass::Error, "Too many arguments were specified."
+          if arguments.size > 0
+            parser.options[:project_name] = arguments.shift if File.directory?(arguments.first)
+            unless arguments.empty?
+              parser.options[:sass_files] = arguments.dup
+              parser.options[:force] = true
+            end
           end
         end
       end

@@ -135,6 +135,10 @@ Then /a \w+ file ([^ ]+) is reported overwritten/ do |filename|
   @last_result.should =~ /overwrite #{Regexp.escape(filename)}/
 end
 
+Then /a \w+ file ([^ ]+) is not mentioned/ do |filename|
+  @last_result.should_not =~ /#{Regexp.escape(filename)}/
+end
+
 Then /I am told how to link to ([^ ]+) for media "([^"]+)"/ do |stylesheet, media|
   @last_result.should =~ %r{<link href="#{stylesheet}" media="#{media}" rel="stylesheet" type="text/css" />}
 end
