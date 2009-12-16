@@ -32,7 +32,7 @@ class FSSM::State
   end
 
   def recache(base)
-    base = Pathname.for(base)
+    base = FSSM::Pathname.for(base)
     previous = @cache.files
     snapshot(base)
     current = @cache.files
@@ -40,13 +40,13 @@ class FSSM::State
   end
 
   def snapshot(base)
-    base = Pathname.for(base)
+    base = FSSM::Pathname.for(base)
     @cache.unset(base)
     @path.glob.each {|glob| add_glob(base, glob)}
   end
 
   def add_glob(base, glob)
-    Pathname.glob(base.join(glob).to_s).each do |fn|
+    FSSM::Pathname.glob(base.join(glob).to_s).each do |fn|
       @cache.set(fn)
     end
   end
