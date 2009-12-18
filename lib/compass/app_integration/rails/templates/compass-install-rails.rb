@@ -50,14 +50,23 @@ gem "haml", :lib => "haml", :version => ">=2.2.0"
 gem "chriseppstein-compass", :source => "http://gems.github.com/", :lib => "compass"
 
 # install and unpack
-rake "gems:install GEM=haml", :sudo => true
-rake "gems:install GEM=chriseppstein-compass", :sudo => true
+unless RUBY_PLATFORM =~ /(win|w)32$/ # true if win32, cygwin or mingw32
+  rake "gems:install GEM=haml", :sudo => true
+  rake "gems:install GEM=chriseppstein-compass", :sudo => true
+else
+  rake "gems:install GEM=haml"
+  rake "gems:install GEM=chriseppstein-compass"
+end
 rake "gems:unpack GEM=chriseppstein-compass"
 
 # load any compass framework plugins
 if css_framework =~ /960/
   gem "chriseppstein-compass-960-plugin", :source => "http://gems.github.com", :lib => "ninesixty"
-  rake "gems:install GEM=chriseppstein-compass-960-plugin", :sudo => true
+  unless RUBY_PLATFORM =~ /(win|w)32$/
+    rake "gems:install GEM=chriseppstein-compass-960-plugin", :sudo => true
+  else
+    rake "gems:install GEM=chriseppstein-compass-960-plugin"
+  end
   rake "gems:unpack GEM=chriseppstein-compass-960-plugin"
   css_framework = "960" # rename for command
   plugin_require = "-r ninesixty"
