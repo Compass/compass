@@ -9,9 +9,12 @@
   @param y
     the y position of the background image.
 =replace-text( !img, !x = 50%, !y = 50% )
-  text-indent: -9999em
-  overflow:    hidden
+  +hide-text
   background:
     image= image_url(!img)
     repeat: no-repeat
     position= !x !y
+
+=hide-text
+  :text-indent -9999em
+  :overflow    hidden
