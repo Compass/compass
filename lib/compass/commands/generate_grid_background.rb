@@ -80,11 +80,7 @@ Options:
         gutter_width = $2.to_i
         height = $3.to_i if $3
         filename = options[:grid_filename] || projectize("#{project_images_subdirectory}/grid.png")
-        unless GridBuilder.new(options.merge(:column_width => column_width, :gutter_width => gutter_width, :height => height, :filename => filename, :working_path => self.working_path)).generate!
-          puts "ERROR: Some library dependencies appear to be missing."
-          puts "Have you installed rmagick? If not, please run:"
-          puts "sudo gem install rmagick"
-        end
+        GridBuilder.new(options.merge(:column_width => column_width, :gutter_width => gutter_width, :height => height, :filename => filename, :working_path => self.working_path)).generate!
       end
     end
   end
