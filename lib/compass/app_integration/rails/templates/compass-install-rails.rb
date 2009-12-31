@@ -46,28 +46,28 @@ css_dir = ask("Where would you like Compass to store your compiled css files? (d
 css_dir = "public/stylesheets/compiled" if css_dir.blank?
 
 # define dependencies
-gem "haml", :lib => "haml", :version => ">=2.2.0"
-gem "chriseppstein-compass", :source => "http://gems.github.com/", :lib => "compass"
+gem "haml", :version => ">=2.2.16"
+gem "compass", :version => ">= 0.8.17"
 
 # install and unpack
 unless RUBY_PLATFORM =~ /(win|w)32$/ # true if win32, cygwin or mingw32
   rake "gems:install GEM=haml", :sudo => true
-  rake "gems:install GEM=chriseppstein-compass", :sudo => true
+  rake "gems:install GEM=compass", :sudo => true
 else
   rake "gems:install GEM=haml"
-  rake "gems:install GEM=chriseppstein-compass"
+  rake "gems:install GEM=compass"
 end
-rake "gems:unpack GEM=chriseppstein-compass"
+rake "gems:unpack GEM=compass"
 
 # load any compass framework plugins
 if css_framework =~ /960/
-  gem "chriseppstein-compass-960-plugin", :source => "http://gems.github.com", :lib => "ninesixty"
+  gem "compass-960-plugin", :lib => "ninesixty"
   unless RUBY_PLATFORM =~ /(win|w)32$/
-    rake "gems:install GEM=chriseppstein-compass-960-plugin", :sudo => true
+    rake "gems:install GEM=compass-960-plugin", :sudo => true
   else
-    rake "gems:install GEM=chriseppstein-compass-960-plugin"
+    rake "gems:install GEM=compass-960-plugin"
   end
-  rake "gems:unpack GEM=chriseppstein-compass-960-plugin"
+  rake "gems:unpack GEM=compass-960-plugin"
   css_framework = "960" # rename for command
   plugin_require = "-r ninesixty"
 end
