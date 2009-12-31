@@ -5,22 +5,22 @@ module Compass
   # A simple class to represent and create a PNG-File
   # No drawing features given
   # Just subclass and write [R,G,B]-Byte-Values into the <tt>@data</tt> matrix
-  # Build for compactness, so not much error checking!                                       
+  # Build for compactness, so not much error checking!
   #
   # Code based on seattlerb's png, see http://seattlerb.rubyforge.org/png/
   class PNG
-    CRC_TABLE = (0..255).map do |n|   
+    CRC_TABLE = (0..255).map do |n|
       8.times.inject(n){|x,i| x = ((x & 1) == 1) ? 0xedb88320 ^ (x >> 1) : x >> 1}
-    end       
+    end
 
     class << self
-      def crc(chunkdata='') 
+      def crc(chunkdata='')
         chunkdata.bytes.to_a.inject(0xffffffff){|crc, byte| CRC_TABLE[(crc ^ byte)  & 0xff] ^ (crc >> 8) } ^  0xffffffff
       end
 
       def chunk(type, data="")
         [data.size, type, data, crc(type + data)].pack("Na*a*N")
-      end     
+      end
     end
 
     # Initiates a new PNG-Object
@@ -30,13 +30,13 @@ module Compass
     def initialize(width, height, background = [255,255,255])
       @height = height
       @width = width
-      @data = Array.new(@height) { |x| Array.new(@width, background) }    
+      @data = Array.new(@height) { |x| Array.new(@width, background) }
     end
-      
+
     BITS    = 8
     RGB     = 2 # Color Types ( RGBA = 6)
     NONE    = 0 # Filter
-    
+
     # binary representation of the PNG, write to file with binary mode
     def to_blob
       blob = []
@@ -51,7 +51,7 @@ module Compass
       @data.map { |row| "\0" + row.map { |p| "%c%c%c" % p}.join }.join
     end
   end
-  
+
   class GridBuilder < PNG
     include Actions
 
@@ -70,18 +70,18 @@ module Compass
       height = options[:height] || 20
       @filename = options[:filename]
       @options = options
-      
-      super(@column_width + gutter_width, height, [0xe9,0xe9,0xe9]) 
+
+      super(@column_width + gutter_width, height, [0xe9,0xe9,0xe9])
     end
 
     def working_path
       options[:working_path]
     end
-  
+
     # generates (overwriting if necessary) grid.png image to be tiled in background
     def generate!
       (0...@height-1).each do |line|
-        @data[line] = Array.new(@width){|x| x < @column_width ? [0xe8, 0xef, 0xfb] : [0xff,0xff,0xff] }    
+        @data[line] = Array.new(@width){|x| x < @column_width ? [0xe8, 0xef, 0xfb] : [0xff,0xff,0xff] }
       end
 
       if File.exists?(filename)
