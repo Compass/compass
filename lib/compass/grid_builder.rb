@@ -1,20 +1,59 @@
-# This file came from the Blueprint Project
-begin
-  require 'rubygems'
-  gem 'rmagick'
-  require 'rvg/rvg'
-rescue Exception => e
-end
+require 'zlib'
 
 module Compass
-  # Uses ImageMagick and RMagick to generate grid.png file
-  class GridBuilder
-    include Actions
 
-    begin
-      include Magick
-    rescue Exception => e
+  # A simple class to represent and create a PNG-File
+  # No drawing features given
+  # Just subclass and write [R,G,B]-Byte-Values into the <tt>@data</tt> matrix
+  # Build for compactness, so not much error checking!                                       
+  #
+  # Code based on seattlerb's png, see http://seattlerb.rubyforge.org/png/
+  class PNG
+    CRC_TABLE = (0..255).map do |n|   
+      8.times.inject(n){|x,i| x = ((x & 1) == 1) ? 0xedb88320 ^ (x >> 1) : x >> 1}
+    end       
+
+    class << self
+      def crc(chunkdata='') 
+        chunkdata.bytes.to_a.inject(0xffffffff){|crc, byte| CRC_TABLE[(crc ^ byte)  & 0xff] ^ (crc >> 8) } ^  0xffffffff
+      end
+
+      def chunk(type, data="")
+        [data.size, type, data, crc(type + data)].pack("Na*a*N")
+      end     
     end
+
+    # Initiates a new PNG-Object
+    # * <tt>width</tt>: Width of the image in pixels
+    # * <tt>height</tt>: Height of the image in pixels
+    # * <tt>background</tt>: Background-color represented as [R,G,B]-Byte-Array
+    def initialize(width, height, background = [255,255,255])
+      @height = height
+      @width = width
+      @data = Array.new(@height) { |x| Array.new(@width, background) }    
+    end
+      
+    BITS    = 8
+    RGB     = 2 # Color Types ( RGBA = 6)
+    NONE    = 0 # Filter
+    
+    # binary representation of the PNG, write to file with binary mode
+    def to_blob
+      blob = []
+      blob <<  [137, 80, 78, 71, 13, 10, 26, 10].pack("C*")
+      blob << PNG.chunk('IHDR', [@width, @height, BITS, RGB, NONE, NONE, NONE].pack("N2C5"))
+      blob << PNG.chunk('IDAT', Zlib::Deflate.deflate(self.png_join))
+      blob << PNG.chunk('IEND', '')
+      blob.join
+    end
+
+    def png_join
+      @data.map { |row| "\0" + row.map { |p| "%c%c%c" % p}.join }.join
+    end
+  end
+  
+  class GridBuilder < PNG
+    include Actions
 
     attr_reader :column_width, :gutter_width, :filename, :able_to_generate, :options
 
@@ -25,13 +64,14 @@ module Compass
     #   * <tt>:height</tt> -- Height (in pixels) of a row
     #   * <tt>:filename</tt> -- Output path of grid.png file
     def initialize(options={})
-      @able_to_generate = Magick::Long_version rescue false
-      return unless @able_to_generate
       @column_width = options[:column_width]
-      @gutter_width = options[:gutter_width]
-      @height = options[:height] || 20
+      gutter_width = options[:gutter_width]
+
+      height = options[:height] || 20
       @filename = options[:filename]
       @options = options
+      
+      super(@column_width + gutter_width, height, [0xe9,0xe9,0xe9]) 
     end
 
     def working_path
@@ -40,20 +80,8 @@ module Compass
   
     # generates (overwriting if necessary) grid.png image to be tiled in background
     def generate!
-      return false unless self.able_to_generate
-      total_width = self.column_width + self.gutter_width
-      RVG::dpi = 100
-
-      rvg = RVG.new((total_width.to_f/RVG::dpi).in, (@height.to_f/RVG::dpi).in).viewbox(0, 0, total_width, @height) do |canvas|
-        canvas.background_fill = 'white'
-
-        canvas.g do |column|
-          column.rect(self.column_width - 1, @height).styles(:fill => "#e8effb")
-        end
-
-        canvas.g do |baseline|
-          baseline.line(0, (@height - 1), total_width, (@height- 1)).styles(:fill => "#e9e9e9")
-        end
+      (0...@height-1).each do |line|
+        @data[line] = Array.new(@width){|x| x < @column_width ? [0xe8, 0xef, 0xfb] : [0xff,0xff,0xff] }    
       end
 
       if File.exists?(filename)
@@ -66,8 +94,8 @@ module Compass
       end
       directory File.dirname(filename)
       logger.record((overwrite ? :overwrite : :create), basename(filename))
-      unless options[:dry_run]
-        rvg.draw.write(filename)
+      unless options[:dry_run]    
+        write_file(filename, self.to_blob)
       else
         true
       end

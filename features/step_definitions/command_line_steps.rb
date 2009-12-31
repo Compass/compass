@@ -225,3 +225,10 @@ Then /^I should see the following "([^"]+)" commands:$/ do |kind, table|
   commands = @last_command_list.map{|c| c =~ /^\s+\* ([^ ]+)\s+- [A-Z].+$/; [$1]}
   table.diff!(commands)
 end
+     
+
+Then /^the image ([^ ]+) has a size of (\d+)x(\d+)$/ do |file, width, height| 
+  # see http://snippets.dzone.com/posts/show/805
+  IO.read(file)[0x10..0x18].unpack('NN').should == [width.to_i, height.to_i]
+end
+
