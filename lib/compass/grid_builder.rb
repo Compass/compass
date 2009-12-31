@@ -93,12 +93,7 @@ module Compass
         end
       end
       directory File.dirname(filename)
-      logger.record((overwrite ? :overwrite : :create), basename(filename))
-      unless options[:dry_run]    
-        write_file(filename, self.to_blob)
-      else
-        true
-      end
+      write_file(filename, self.to_blob, options, true)
     end
   end
 end
