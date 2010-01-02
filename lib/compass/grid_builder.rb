@@ -10,7 +10,7 @@ module Compass
   # Code based on seattlerb's png, see http://seattlerb.rubyforge.org/png/
   class PNG
     CRC_TABLE = (0..255).map do |n|
-      8.times.inject(n){|x,i| x = ((x & 1) == 1) ? 0xedb88320 ^ (x >> 1) : x >> 1}
+      (0...8).inject(n){|x,i| x = ((x & 1) == 1) ? 0xedb88320 ^ (x >> 1) : x >> 1}
     end
 
     class << self
