@@ -63,26 +63,6 @@ module Compass
       ERB.new(contents).result(ctx)
     end
 
-    # Compile one Sass file
-    def compile(sass_filename, css_filename, options)
-      if options[:force] || Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
-        logger.record :compile, basename(sass_filename) unless options[:quiet]
-        engine = ::Sass::Engine.new(open(sass_filename).read,
-                                    :filename => sass_filename,
-                                    :line_comments => options[:line_comments],
-                                    :style => options[:style],
-                                    :css_filename => css_filename,
-                                    :load_paths => options[:load_paths],
-                                    :cache_location => options[:cache_location])
-        css_content = logger.red do
-          engine.render
-        end
-        write_file(css_filename, css_content, options.merge(:force => true))
-      else
-        logger.record :unchanged, basename(sass_filename) unless options[:quiet]
-      end
-    end
-
     def remove(file_name)
       if File.exists?(file_name)
         File.unlink file_name
