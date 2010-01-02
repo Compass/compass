@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2009-12-01}
+  s.date = %q{2010-01-02}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -263,6 +263,38 @@ Gem::Specification.new do |s|
      "lib/compass/frameworks/blueprint/stylesheets/blueprint/_screen.sass",
      "lib/compass/frameworks/blueprint/stylesheets/blueprint/_typography.sass",
      "lib/compass/frameworks/blueprint/stylesheets/blueprint/_utilities.sass",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_buttons.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_colors.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_debug.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_fancy_type.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_form.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_grid.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_ie.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_interaction.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_link_icons.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_liquid.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_print.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_reset.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_rtl.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_scaffolding.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_screen.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_typography.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/_utilities.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/index.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_buttons.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_colors.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_debug.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_fancy_type.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_form.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_grid.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_interaction.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_link_icons.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_liquid.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_reset.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_rtl.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_scaffolding.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_typography.sass.html",
+     "lib/compass/frameworks/blueprint/stylesheets/blueprint/docs/modules/_utilities.sass.html",
      "lib/compass/frameworks/blueprint/stylesheets/blueprint/modules/_buttons.sass",
      "lib/compass/frameworks/blueprint/stylesheets/blueprint/modules/_colors.sass",
      "lib/compass/frameworks/blueprint/stylesheets/blueprint/modules/_debug.sass",
@@ -330,6 +362,7 @@ Gem::Specification.new do |s|
      "lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.sass",
      "lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_float.sass",
      "lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_hacks.sass",
+     "lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_min.sass",
      "lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_reset.sass",
      "lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_tabs.sass",
      "lib/compass/frameworks/compass/stylesheets/compass/utilities/general/_tag_cloud.sass",
@@ -384,17 +417,18 @@ Gem::Specification.new do |s|
      "lib/compass/version.rb",
      "lib/vendor/fssm.rb",
      "lib/vendor/fssm/backends/fsevents.rb",
+     "lib/vendor/fssm/backends/inotify.rb",
      "lib/vendor/fssm/backends/polling.rb",
-     "lib/vendor/fssm/cache.rb",
-     "lib/vendor/fssm/ext.rb",
-     "lib/vendor/fssm/fsevents.rb",
+     "lib/vendor/fssm/backends/rubycocoa/fsevents.rb",
      "lib/vendor/fssm/monitor.rb",
      "lib/vendor/fssm/path.rb",
+     "lib/vendor/fssm/pathname.rb",
      "lib/vendor/fssm/state.rb",
      "lib/vendor/fssm/support.rb",
      "lib/vendor/fssm/tree.rb",
      "test/command_line_helper.rb",
      "test/command_line_test.rb",
+     "test/compass_png_test.rb",
      "test/compass_test.rb",
      "test/configuration_test.rb",
      "test/fixtures/stylesheets/blueprint/config.rb",
@@ -433,7 +467,6 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/test_rails_helper.rb"
   ]
-  s.has_rdoc = false
   s.homepage = %q{http://compass-style.org}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
@@ -443,6 +476,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/command_line_helper.rb",
      "test/command_line_test.rb",
+     "test/compass_png_test.rb",
      "test/compass_test.rb",
      "test/configuration_test.rb",
      "test/fixtures/stylesheets/blueprint/config.rb",
