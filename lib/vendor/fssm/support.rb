@@ -39,10 +39,11 @@ module FSSM::Support
     def rb_inotify?
       begin
         require 'rubygems'
+        gem 'rb-inotify', '>= 0.3.0'
         require 'rb-inotify'
         true
       rescue LoadError, Gem::LoadError
-        STDERR.puts("Warning: Unable to load rb-inotify. Inotify will be unavailable.")
+        STDERR.puts("Warning: Unable to load rb-inotify >= 0.3.0. Inotify will be unavailable.")
         false
       end
     end
