@@ -1,6 +1,41 @@
 COMPASS CHANGELOG
 =================
 
+0.10.0.pre3 (January 02, 2010)
+------------------------------
+
+Bug fixes:
+
+* [Blueprint] Bug Fix: variable referenced in a non-script context within the
+  dquo mixin in the fancy_type module.
+* [Rails] fixed win32 sudo incompatibility issue in the rails installer template.
+  (Credit: [Jonathan Silverman][jsilver])
+* [Rails] Update the gem dependencies for the rails installer template.
+* If the configuration file changes, wipe out the sass cache and force compilation
+* Upgrade the vendored version of FSSM to version 0.1.2.
+  Fixes some bugs with jruby and adds inotify support for linux.
+  (Credit: [Travis Tilley][ttilley])
+* Patched hide-text to account for items that are not left aligned.
+  (Credit: [Josh Pyles][pixelmatrix])
+
+Minor Enhancements:
+
+* Support for SCSS files if haml edge is installed.
+* Color any stderr or stdout output from the `Sass::Engine` red during compilation.
+* [Configuration] The sass cache location can now be set in the compass config
+  file using the `cache_dir` property and the cache can be disabled by setting
+  `cache = false`.
+* [Compass Core] `+min-height`, `+min-width`, and `+bang-hack` mixins in the
+  compass/utilities/general/min.sass module.
+  (Credit: [Adam Stacoviak][adamstac])
+* [Command Line] If you only want to compile certain files, you can now
+  specify them when invoking compass compile. E.g. `compass compile src/foo.sass`
+* [Compass Core] Split out `+hide-text` as its own mixin.
+  (Credit: [Andrew Vit][avit])
+* Some code cleanup for the compass project compiler.
+* Removed the dependency on RMagic for grid image generation.
+  (Credit: [Richard Wöber][der-rich])
+
 0.10.0.pre2 (November 30, 2009)
 --------------------------------
 Bug fixes:
@@ -729,3 +764,9 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [rails_template]: http://github.com/chriseppstein/compass/raw/4e7e51e2c5491851f66c77abf3f15194f2f8fb8d/lib/compass/app_integration/rails/templates/compass-install-rails.rb
 [dturnbull]: http://github.com/dturnbull
 [filiptepper]: http://github.com/filiptepper
+[pixelmatrix]: http://github.com/pixelmatrix
+[jsilver]: http://github.com/jsilver
+[avit]: http://github.com/avit
+[der-rich]: http://github.com/der-rich
+[adamstac]: http://github.com/adamstac
+[ttilley]: http://github.com/ttilley
