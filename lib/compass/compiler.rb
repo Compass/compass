@@ -19,7 +19,7 @@ module Compass
 
     def sass_files(options = {})
       exclude_partials = options.fetch(:exclude_partials, true)
-      @sass_files = self.options[:sass_files] || Dir.glob(separate("#{from}/**/#{'[^_]' if exclude_partials}*.sass"))
+      @sass_files = self.options[:sass_files] || Dir.glob(separate("#{from}/**/#{'[^_]' if exclude_partials}*.s[ac]ss"))
     end
 
     def stylesheet_name(sass_file)
@@ -104,7 +104,8 @@ module Compass
 
     # A sass engine for compiling a single file.
     def engine(sass_filename, css_filename)
-      opts = options.merge :filename => sass_filename, :css_filename => css_filename
+      syntax = (sass_filename =~ /\.(s[ac]ss)$/) && $1.to_sym || :sass
+      opts = options.merge :filename => sass_filename, :css_filename => css_filename, :syntax => syntax
       Sass::Engine.new(open(sass_filename).read, opts)
     end
 
