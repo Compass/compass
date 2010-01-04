@@ -1,6 +1,11 @@
 COMPASS CHANGELOG
 =================
 
+0.10.0.pre4 (January 04, 2010)
+------------------------------
+* Fixed an FSSM loading issue that broke the compass watcher.
+* Fixed some compatibility issues with edge versions of Sass.
+
 0.10.0.pre3 (January 02, 2010)
 ------------------------------
 
