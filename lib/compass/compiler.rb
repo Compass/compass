@@ -42,7 +42,7 @@ module Compass
     def out_of_date?
       Compass.configure_sass_plugin! unless Compass.sass_plugin_configured?
       sass_files.zip(css_files).each do |sass_filename, css_filename|
-        return sass_filename if Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
+        return sass_filename if Sass::Plugin.send(:exact_stylesheet_needs_update?, css_filename, sass_filename)
       end
       false
     end
@@ -99,7 +99,7 @@ module Compass
     end
 
     def should_compile?(sass_filename, css_filename)
-      options[:force] || Sass::Plugin.exact_stylesheet_needs_update?(css_filename, sass_filename)
+      options[:force] || Sass::Plugin.send(:exact_stylesheet_needs_update?, css_filename, sass_filename)
     end
 
     # A sass engine for compiling a single file.
@@ -114,12 +114,13 @@ module Compass
     # if there's an error.
     def handle_exception(sass_filename, css_filename, e)
       logger.record :error, basename(sass_filename), "(Line #{e.sass_line}: #{e.message})"
-      write_file css_filename, error_contents(e), options.merge(:force => true)
+      write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
     end
 
     # Haml refactored this logic in 2.3, this is backwards compatibility for either one
-    def error_contents(e)
+    def error_contents(e, sass_filename)
       if Sass::SyntaxError.respond_to?(:exception_to_css)
+        e.sass_template = sass_filename
         Sass::SyntaxError.exception_to_css(e, :full_exception => show_full_exception?)
       else
         Sass::Plugin.options[:full_exception] ||= show_full_exception?
