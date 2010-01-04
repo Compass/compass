@@ -15,7 +15,7 @@ module Compass
 
     class << self
       def crc(chunkdata='') 
-        chunkdata.bytes.to_a.inject(0xffffffff){|crc, byte| CRC_TABLE[(crc ^ byte)  & 0xff] ^ (crc >> 8) } ^  0xffffffff
+        chunkdata.unpack('C*').to_a.inject(0xffffffff){|crc, byte| CRC_TABLE[(crc ^ byte)  & 0xff] ^ (crc >> 8) } ^  0xffffffff
       end
 
       def chunk(type, data="")
