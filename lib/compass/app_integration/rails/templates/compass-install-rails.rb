@@ -33,6 +33,7 @@
 # on win32, cygwin, or mingw32 or they ask us not to
 def use_sudo?
   return false if RUBY_PLATFORM =~ /(win|w)32$/ # true if win32, cygwin or mingw32
+  return false if ENV['NO_SUDO'] =~ /true/i
   return true
 end
 
