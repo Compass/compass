@@ -28,6 +28,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 # =================================================================
+
+# Determine if we use sudo, defaults to true unless we are
+# on win32, cygwin, or mingw32 or they ask us not to
+def use_sudo?
+  return false if RUBY_PLATFORM =~ /(win|w)32$/ # true if win32, cygwin or mingw32
+  return true
+end
+
 puts "==================================================="
 puts "Welcome to the Compass Installer for Ruby on Rails!"
 puts "==================================================="
@@ -50,24 +58,14 @@ gem "haml", :version => ">=2.2.16"
 gem "compass", :version => ">= 0.8.17"
 
 # install and unpack
-unless RUBY_PLATFORM =~ /(win|w)32$/ # true if win32, cygwin or mingw32
-  rake "gems:install GEM=haml", :sudo => true
-  rake "gems:install GEM=compass", :sudo => true
-else
-  rake "gems:install GEM=haml"
-  rake "gems:install GEM=compass"
-end
+rake "gems:install GEM=haml", :sudo => use_sudo?
+rake "gems:install GEM=compass", :sudo => use_sudo?
 rake "gems:unpack GEM=compass"
 
 # load any compass framework plugins
 if css_framework =~ /960/
   gem "compass-960-plugin", :lib => "ninesixty"
-  unless RUBY_PLATFORM =~ /(win|w)32$/
-    rake "gems:install GEM=compass-960-plugin", :sudo => true
-  else
-    rake "gems:install GEM=compass-960-plugin"
-  end
-  rake "gems:unpack GEM=compass-960-plugin"
+  rake "gems:install GEM=compass-960-plugin", :sudo => use_sudo?
   css_framework = "960" # rename for command
   plugin_require = "-r ninesixty"
 end
