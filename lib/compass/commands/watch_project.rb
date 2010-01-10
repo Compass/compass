@@ -31,7 +31,7 @@ module Compass
         FSSM.monitor do |monitor|
           Compass.configuration.sass_load_paths.each do |load_path|
             monitor.path load_path do |path|
-              path.glob '**/*.sass'
+              path.glob '**/*.s[ac]ss'
 
               path.update &method(:recompile)
               path.delete {|base, relative| remove_obsolete_css(base,relative); recompile(base, relative)}
