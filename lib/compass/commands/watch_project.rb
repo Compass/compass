@@ -5,6 +5,25 @@ require 'compass/commands/update_project'
 
 module Compass
   module Commands
+    module WatchProjectOptionsParser
+      def set_options(opts)
+        super
+
+        opts.banner = %Q{
+          Usage: compass watch [path/to/project] [path/to/project/src/file.sass ...] [options]
+
+          Description:
+          watch the project for changes and recompile when they occur.
+
+          Options:
+        }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n")
+
+        opts.on("--poll", :NONE, "Check periodically if there's been changes.") do
+          self.options[:poll] = 1 # check every 1 second.
+        end
+
+      end
+    end
     class WatchProject < UpdateProject
 
       register :watch
@@ -19,14 +38,24 @@ module Compass
 
         recompile
 
-        puts ">>> Compass is watching for changes. Press Ctrl-C to Stop."
-
         begin
           require 'fssm'
         rescue LoadError
           $: << File.join(Compass.lib_directory, 'vendor')
           retry
         end
+
+        if options[:poll]
+          require "fssm/backends/polling"
+          # have to silence the ruby warning about chaning a constant.
+          stderr, $stderr = $stderr, StringIO.new
+          FSSM::Backends.const_set("Default", FSSM::Backends::Polling)
+          $stderr = stderr
+        end
+
+        action = FSSM::Backends::Default.to_s == "FSSM::Backends::Polling" ? "polling" : "watching"
+
+        puts ">>> Compass is #{action} for changes. Press Ctrl-C to Stop."
 
         FSSM.monitor do |monitor|
           Compass.configuration.sass_load_paths.each do |load_path|
@@ -66,6 +95,15 @@ module Compass
         end
       end
 
+      class << self
+        def option_parser(arguments)
+          parser = Compass::Exec::CommandOptionParser.new(arguments)
+          parser.extend(Compass::Exec::GlobalOptionsParser)
+          parser.extend(Compass::Exec::ProjectOptionsParser)
+          parser.extend(CompileProjectOptionsParser)
+          parser.extend(WatchProjectOptionsParser)
+        end
+      end
     end
   end
 end
