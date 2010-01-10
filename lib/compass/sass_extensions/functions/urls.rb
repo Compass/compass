@@ -116,7 +116,7 @@ module Compass::SassExtensions::Functions::Urls
 
   def default_cache_buster(path, real_path)
     if File.readable?(real_path)
-      File.mtime(real_path).strftime("%s") 
+      File.mtime(real_path).to_i.to_s
     else
       $stderr.puts "WARNING: '#{File.basename(path)}' was not found (or cannot be read) in #{File.dirname(real_path)}"
     end
