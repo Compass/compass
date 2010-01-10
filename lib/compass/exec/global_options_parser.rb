@@ -27,6 +27,10 @@ module Compass::Exec::GlobalOptionsParser
       self.options[:dry_run] = true
     end
 
+    opts.on('--boring', :NONE, 'Turn off colorized output.') do
+      self.options[:color_output] = false
+    end
+
     opts.on_tail("-?", "-h", "--help", "Show this message") do
       puts opts
       exit

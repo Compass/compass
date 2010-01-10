@@ -154,6 +154,10 @@ END
         self.options[:command] = :print_version
       end
 
+      opts.on('--boring', :NONE, 'Turn off colorized output.') do
+        self.options[:color_output] = false
+      end
+
     end
     
     def do_command(command)
