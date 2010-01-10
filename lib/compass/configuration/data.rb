@@ -22,9 +22,12 @@ module Compass
       include Compass::Configuration::Inheritance
       include Compass::Configuration::Serialization
       include Compass::Configuration::Adapters
+      extend  Compass::Configuration::Paths
 
       inherited_accessor *ATTRIBUTES
       inherited_accessor :required_libraries #XXX we should make this array add up cumulatively.
+
+      strip_trailing_separator *ATTRIBUTES.select{|a| a.to_s =~ /dir|path/}
 
       def initialize(name, attr_hash = nil)
         raise "I need a name!" unless name

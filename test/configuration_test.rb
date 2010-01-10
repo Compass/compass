@@ -120,4 +120,29 @@ EXPECTED
       assert_equal expected_serialization, Compass.configuration.serialize
     end
 
+  def test_strip_trailing_directory_separators
+    contents = StringIO.new(<<-CONFIG)
+      css_dir = "css/"
+      sass_dir = "sass/"
+      images_dir = "images/"
+      javascripts_dir = "js/"
+      fonts_dir = "fonts/"
+      extensions_dir = "extensions/"
+      css_path = "css/"
+      sass_path = "sass/"
+      images_path = "images/"
+      javascripts_path = "js/"
+      fonts_path = "fonts/"
+      extensions_path = "extensions/"
+    CONFIG
+
+    Compass.add_configuration(contents, "test_strip_trailing_directory_separators")
+
+    assert_equal "css", Compass.configuration.css_dir
+    assert_equal "sass", Compass.configuration.sass_dir
+    assert_equal "images", Compass.configuration.images_dir
+    assert_equal "js", Compass.configuration.javascripts_dir
+    assert_equal "fonts", Compass.configuration.fonts_dir
+    assert_equal "extensions", Compass.configuration.extensions_dir
+  end
 end
