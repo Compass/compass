@@ -5,6 +5,8 @@ require 'compass/errors'
 require 'compass/actions'
 require 'compass/installers'
 require 'compass/commands'
+require 'rbconfig'
+require 'win32console' if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
 
 module Compass::Exec
 end
