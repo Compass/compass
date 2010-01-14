@@ -64,14 +64,17 @@ module Compass
     #   * <tt>:height</tt> -- Height (in pixels) of a row
     #   * <tt>:filename</tt> -- Output path of grid.png file
     def initialize(options={})
-      @column_width = options[:column_width]
-      gutter_width = options[:gutter_width]
+      @column_width = options[:column_width] || 0
+      gutter_width = options[:gutter_width] || 0
 
       height = options[:height] || 20
+      width = @column_width + gutter_width
+      width = 10 if width == 0
+
       @filename = options[:filename]
       @options = options
 
-      super(@column_width + gutter_width, height, [0xe9,0xe9,0xe9])
+      super(width, height, [0xe9,0xe9,0xe9])
     end
 
     def working_path
