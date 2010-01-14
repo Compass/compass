@@ -31,7 +31,7 @@
 
 # Determine if we use sudo, defaults to true unless we are
 # on win32, cygwin, or mingw32 or they ask us not to
-def use_sudo?
+def sudo_is_an_option?
   return false if RUBY_PLATFORM =~ /(win|w)32$/ # true if win32, cygwin or mingw32
   return false if ENV['NO_SUDO'] =~ /true/i
   return true
@@ -54,19 +54,25 @@ sass_dir = "app/stylesheets" if sass_dir.blank?
 css_dir = ask("Where would you like Compass to store your compiled css files? (default: 'public/stylesheets/compiled')")
 css_dir = "public/stylesheets/compiled" if css_dir.blank?
 
+# use sudo for gem commands?
+use_sudo = sudo_is_an_option?
+if sudo_is_an_option? # dont give them the option if they are on a system that can't use sudo (aka windows)
+  use_sudo = yes?("Use sudo for the gem commands? (the default for your system is #{sudo_is_an_option? ? 'yes' : 'no'})")
+end
+
 # define dependencies
 gem "haml", :version => ">=2.2.16"
 gem "compass", :version => ">= 0.8.17"
 
 # install and unpack
-rake "gems:install GEM=haml", :sudo => use_sudo?
-rake "gems:install GEM=compass", :sudo => use_sudo?
+rake "gems:install GEM=haml", :sudo => use_sudo
+rake "gems:install GEM=compass", :sudo => use_sudo
 rake "gems:unpack GEM=compass"
 
 # load any compass framework plugins
 if css_framework =~ /960/
   gem "compass-960-plugin", :lib => "ninesixty"
-  rake "gems:install GEM=compass-960-plugin", :sudo => use_sudo?
+  rake "gems:install GEM=compass-960-plugin", :sudo => use_sudo
   css_framework = "960" # rename for command
   plugin_require = "-r ninesixty"
 end
