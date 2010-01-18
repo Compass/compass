@@ -3,7 +3,7 @@ module Compass
     extend self
 
     ALL = []
-    DEFAULT_FRAMEWORKS_PATH = File.join(Compass.lib_directory, 'compass', 'frameworks')
+    DEFAULT_FRAMEWORKS_PATH = File.join(Compass.base_directory, 'frameworks')
 
     class Framework
       attr_accessor :name
