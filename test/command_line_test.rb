@@ -25,7 +25,7 @@ class CommandLineTest < Test::Unit::TestCase
 
   def test_basic_install
     within_tmp_directory do
-      compass "basic"
+      compass "--boring", "basic"
       assert File.exists?("basic/src/screen.sass")
       assert File.exists?("basic/stylesheets/screen.css")
       assert_action_performed :directory, "basic/"
@@ -35,11 +35,11 @@ class CommandLineTest < Test::Unit::TestCase
     end
   end
 
-  def test_framework_installs
-    Compass::Frameworks::ALL.each do |framework|
+  Compass::Frameworks::ALL.each do |framework|
+    define_method "test_#{framework.name}_installation" do
       within_tmp_directory do
-        compass *%W(--framework #{framework.name} #{framework.name}_project)
-        assert File.exists?("#{framework.name}_project/src/screen.sass")
+        compass *%W(--boring --framework #{framework.name} #{framework.name}_project)
+        assert File.exists?("#{framework.name}_project/src/screen.sass"), "src/screen.sass is missing. Found: #{Dir.glob("#{framework.name}_project/**/*").join(", ")}"
         assert File.exists?("#{framework.name}_project/stylesheets/screen.css")
         assert_action_performed :directory, "#{framework.name}_project/"
         assert_action_performed    :create, "#{framework.name}_project/src/screen.sass"
@@ -51,13 +51,13 @@ class CommandLineTest < Test::Unit::TestCase
 
   def test_basic_update
     within_tmp_directory do
-      compass "basic"
+      compass "--boring", "basic"
       Dir.chdir "basic" do
         # basic update with timestamp caching
-        compass
+        compass "--boring"
         assert_action_performed :unchanged, "src/screen.sass"
         # basic update with force option set
-        compass "--force"
+        compass "--force", "--boring"
         assert_action_performed :compile, "src/screen.sass"
         assert_action_performed :identical, "stylesheets/screen.css"
       end

@@ -7,7 +7,7 @@ module Compass::CommandLineHelper
     if block_given?
       responder = Responder.new
       yield responder
-      IO.popen("-", "w+") do |io|
+      IO.popen("-", "r+") do |io|
         if io
           #parent process
           output = ""
@@ -26,6 +26,7 @@ module Compass::CommandLineHelper
               prompt = output.split("\n").last.strip
               if response = responder.response_for(prompt)
                 io.puts response
+                io.flush
               end
             end
           end
@@ -60,7 +61,14 @@ module Compass::CommandLineHelper
       @responses << Response.new(prompt, options[:with], options[:required])
     end
     def response_for(prompt)
-      response = @responses.detect{|r| r.prompt == prompt}
+      response = @responses.detect do |r|
+        case r.prompt
+        when Regexp
+          prompt =~ r.prompt
+        when String
+          r.prompt == prompt
+        end
+      end
       if response
         response.responded = true
         response.text
@@ -84,7 +92,7 @@ module Compass::CommandLineHelper
     end
     message = "Action #{action.inspect} was not performed on: #{path}."
     message += "The following actions were performed: #{actions_found.map{|a|a.inspect}.join(", ")}" if actions_found.any?
-    puts @last_result
+    # puts @last_result
     fail message
   end
 
@@ -100,6 +108,8 @@ module Compass::CommandLineHelper
 
   def execute(*arguments)
     command_line_class = Compass::Exec::Helpers.select_appropriate_command_line_ui(arguments)
-    command_line_class.new(arguments).run!
+    exit_code = command_line_class.new(arguments).run!
+    # fail "Command Failed with exit code: #{exit_code}" unless exit_code == 0
+    exit_code
   end
 end

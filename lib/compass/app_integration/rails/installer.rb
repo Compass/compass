@@ -62,7 +62,7 @@ module Compass
           print %Q{Compass recommends that you keep your stylesheets in #{recommended_location}
   instead of the Sass default location of #{default_location}.
   Is this OK? (Y/n) }
-          answer = gets.downcase[0]
+          answer = $stdin.gets.downcase[0]
           answer == ?n ? default_location : recommended_location
         end
 
@@ -74,7 +74,8 @@ module Compass
   instead the Sass default of #{default_location}/.
   However, if you're exclusively using Sass, then #{default_location}/ is recommended.
   Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
-          answer = gets.downcase[0]
+          answer = $stdin.gets
+          answer = answer.downcase[0]
           answer == ?n ? default_location : recommended_location
         end
 

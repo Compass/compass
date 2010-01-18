@@ -15,18 +15,22 @@ class RailsIntegrationTest < Test::Unit::TestCase
   end
 
   def test_rails_install
-    within_tmp_directory do
+    # within_tmp_directory do
+    begin
       generate_rails_app_directories("compass_rails")
       Dir.chdir "compass_rails" do
-        compass("--rails", '--trace', ".") do |responder|
-          responder.respond_to "Is this OK? (Y/n)", :with => "Y", :required => true
-          responder.respond_to "Emit compiled stylesheets to public/stylesheets/compiled/? (Y/n)", :with => "Y", :required => true
+        compass(*%w(--rails --trace --boring .)) do |responder|
+          responder.respond_to %r{^\s*Is this OK\? \(Y/n\)\s*$}, :with => "Y", :required => true
+          responder.respond_to %r{^\s*Emit compiled stylesheets to public/stylesheets/compiled/\? \(Y/n\)\s*$}, :with => "Y", :required => true
         end
         # puts ">>>#{@last_result}<<<"
         assert_action_performed :create, "./app/stylesheets/screen.sass"
         assert_action_performed :create, "./config/initializers/compass.rb"
       end
+    ensure
+      FileUtils.rm_rf "compass_rails"
     end
+    #end
   rescue LoadError
     puts "Skipping rails test. Couldn't Load rails"
   end
@@ -35,7 +39,7 @@ class RailsIntegrationTest < Test::Unit::TestCase
     within_tmp_directory do
       generate_rails_app_directories("compass_rails")
       Dir.chdir "compass_rails" do
-        compass(*%w(--rails --trace --sass-dir app/stylesheets --css-dir public/stylesheets/compiled .))
+        compass(*%w(--rails --trace --boring --sass-dir app/stylesheets --css-dir public/stylesheets/compiled .))
         assert_action_performed :create, "./app/stylesheets/screen.sass"
         assert_action_performed :create, "./config/initializers/compass.rb"
       end
