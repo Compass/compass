@@ -12,15 +12,7 @@ module FSSM
 
     def monitor(*args, &block)
       monitor = FSSM::Monitor.new
-      context = args.empty? ? monitor : monitor.path(*args)
-
-      if block_given?
-        if block.arity == 1
-          block.call(context)
-        else
-          context.instance_eval(&block)
-        end
-      end
+      FSSM::Support.use_block(args.empty? ? monitor : monitor.path(*args), block)
 
       monitor.run
     end
@@ -33,7 +25,8 @@ require 'fssm/pathname'
 require 'fssm/support'
 require 'fssm/tree'
 require 'fssm/path'
-require 'fssm/state'
+require 'fssm/state/directory'
+require 'fssm/state/file'
 require 'fssm/monitor'
 
 require "fssm/backends/#{FSSM::Support.backend.downcase}"

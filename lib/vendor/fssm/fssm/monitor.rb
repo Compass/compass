@@ -6,16 +6,17 @@ class FSSM::Monitor
 
   def path(*args, &block)
     path = FSSM::Path.new(*args)
+    FSSM::Support.use_block(path, block)
 
-    if block_given?
-      if block.arity == 1
-        block.call(path)
-      else
-        path.instance_eval(&block)
-      end
-    end
+    @backend.add_handler(FSSM::State::Directory.new(path))
+    path
+  end
 
-    @backend.add_path(path)
+  def file(*args, &block)
+    path = FSSM::Path.new(*args)
+    FSSM::Support.use_block(path, block)
+
+    @backend.add_handler(FSSM::State::File.new(path))
     path
   end
 

@@ -4,14 +4,12 @@ module FSSM::Backends
       @notifier = INotify::Notifier.new
     end
 
-    def add_path(path, preload=true)
-      handler = FSSM::State.new(path)
-
-      @notifier.watch(path.to_s, :all_events) do |event|
+    def add_handler(handler, preload=true)
+      @notifier.watch(handler.path.to_s, :all_events) do |event|
         handler.refresh(event.name)
       end
 
-      handler.refresh(path.to_pathname, true) if preload
+      handler.refresh(nil, true) if preload
     end
 
     def run

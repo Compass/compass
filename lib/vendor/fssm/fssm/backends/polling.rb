@@ -5,9 +5,8 @@ module FSSM::Backends
       @latency = options[:latency] || 1.5
     end
 
-    def add_path(path, preload=true)
-      handler = FSSM::State.new(path)
-      handler.refresh(path.to_pathname, true) if preload
+    def add_handler(handler, preload=true)
+      handler.refresh(nil, true) if preload
       @handlers << handler
     end
 

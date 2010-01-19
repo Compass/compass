@@ -81,7 +81,7 @@ class FSSM::Path
 
   def set_path(path)
     path = FSSM::Pathname.for(path)
-    raise FSSM::FileNotFoundError, "#{path}" unless path.exist?
+    raise FSSM::FileNotFoundError, "No such file or directory - #{path}" unless path.exist?
     @path = path.expand_path
   end
 

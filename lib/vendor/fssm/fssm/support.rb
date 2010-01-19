@@ -37,14 +37,22 @@ module FSSM::Support
     end
 
     def rb_inotify?
-      begin
-        require 'rubygems'
-        gem 'rb-inotify', '>= 0.3.0'
+      found = begin
         require 'rb-inotify'
-        true
-      rescue LoadError, Gem::LoadError
-        STDERR.puts("Warning: Unable to load rb-inotify >= 0.3.0. Inotify will be unavailable.")
+        INotify::Notifier.ancestors.include?(IO)
+      rescue LoadError
         false
+      end
+      STDERR.puts("Warning: Unable to load rb-inotify >= 0.3.0. Inotify will be unavailable.") unless found
+      found
+    end
+
+    def use_block(context, block)
+      return if block.nil?
+      if block.arity == 1
+        block.call(context)
+      else
+        context.instance_eval(&block)
       end
     end
 
