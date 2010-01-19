@@ -63,6 +63,7 @@ begin
     gemspec.files -= Dir.glob("examples/**/*.css")
     gemspec.files -= Dir.glob("examples/**/*.html")
     gemspec.files -= Dir.glob("examples/*/extensions/**")
+    gemspec.files += Dir.glob("frameworks/**/*")
     gemspec.files += Dir.glob("lib/**/*")
     gemspec.files += Dir.glob("test/**/*.*")
     gemspec.files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
