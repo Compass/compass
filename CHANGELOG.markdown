@@ -1,6 +1,22 @@
 COMPASS CHANGELOG
 =================
 
+0.10.0.pre5 (January 18, 2010)
+------------------------------
+* Fixed a bug in the grid builder in ruby 1.8.6 (Credit: [Richard Wöber][der-rich])
+* Better sudo handling for the rails installer via environment variables or prompt. (Credit: Ryan Shaw, Evan Sharp)
+* Removed support for the rip package manager.
+* Support for scss files in the compass watcher.
+* Cache buster timestamps were not working in some cases.
+* Make ANSI color output work on windows.
+* Command line switch (--boring) to turn off colorized output.
+* Strip trailing slash from directory and path configuration variables.
+* Added a --poll option to the compass watch subcommand to force polling.
+* Fixed a test failure in ruby 1.9 due to faulty test code.
+* Move the frameworks directory back to the top level. There's not actually a good reason for it to be buried in the ruby source.
+* Upgrade FSSM. (Hopfully) Fixes a watcher issue that caused the watcher to not trigger for some users.
+* Silence a deprecation warning in Rails 3.
+
 0.10.0.pre4 (January 04, 2010)
 ------------------------------
 * Fixed an FSSM loading issue that broke the compass watcher.
