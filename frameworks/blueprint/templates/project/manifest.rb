@@ -7,8 +7,6 @@ stylesheet 'ie.sass',     :media => 'screen, projection', :condition => "lt IE 8
 
 image 'grid.png'
 
-html 'welcome.html.haml', :erb => true
-
 help %Q{
 Please see the blueprint website for documentation on how blueprint works:
 
