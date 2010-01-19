@@ -41,7 +41,7 @@ module Compass
         begin
           require 'fssm'
         rescue LoadError
-          $: << File.join(Compass.lib_directory, 'vendor')
+          $: << File.join(Compass.lib_directory, 'vendor', 'fssm')
           retry
         end
 
