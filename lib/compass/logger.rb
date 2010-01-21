@@ -36,7 +36,6 @@ module Compass
     end
 
     def red
-      return yield unless Compass.configuration.color_output
       $stderr.write(color(:red))
       $stdout.write(color(:red))
       yield
@@ -46,7 +45,7 @@ module Compass
     end
 
     def color(c)
-      if c && COLORS.has_key?(c.to_sym)
+      if Compass.configuration.color_output && c && COLORS.has_key?(c.to_sym)
         "\e[#{COLORS[c.to_sym]}m"
       else
         ""
