@@ -2,3 +2,18 @@
 # before nanoc starts compiling.
 
 include Nanoc3::Helpers::LinkTo
+
+def body_class(item)
+  (item[:classnames] || []).join(" ")
+end
+
+def body_id(item)
+  item.identifier.chop[1..-1].gsub(/\/|_/, "-")
+end
+
+def body_attributes(item)
+  {
+    :id => body_id(item),
+    :class => body_class(item)
+  }
+end

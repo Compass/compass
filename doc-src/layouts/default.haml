@@ -5,7 +5,7 @@
       #{@item[:title]} - Compass
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
     %link{ :href => "/stylesheets/main.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
-  %body
+  %body{body_attributes(@item)}
     #container
       #main
         = yield

@@ -1,0 +1,6 @@
+--- 
+title: Blueprint Module
+framework: blueprint
+stylesheet: _blueprint.sass
+classnames:
+  - reference
