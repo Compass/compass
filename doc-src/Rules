@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'compass'
+ 
+Compass.configuration.parse "#{File.dirname(__FILE__)}/.compass/config.rb"
+
+compile '/stylesheets/*/' do
+  filter :sass, Compass.sass_engine_options
+end
+
+compile '*' do
+  filter :haml
+  layout 'default'
+end
+
+route '/stylesheets/_*/' do
+  # don't output partials, so return nil
+  nil
+end
+ 
+route '/stylesheets/*/' do
+  # don't generate a directory like we do for HTML files
+  item.identifier.chop + '.css'
+end
+
+route '*' do
+  item.identifier + 'index.html'
+end
+
+layout '*', :haml
