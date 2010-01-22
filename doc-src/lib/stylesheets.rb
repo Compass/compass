@@ -26,3 +26,38 @@ def imports(item)
   end
   imports
 end
+
+def mixins(item)
+  sass_tree = tree(item)
+  mixins = []
+  comment = nil
+  sass_tree.children.each do |child|
+    if child.is_a?(Sass::Tree::MixinDefNode)
+      child.comment = comment
+      comment = nil
+      mixins << child
+    elsif child.is_a?(Sass::Tree::CommentNode)
+      comment ||= ""
+      comment << "\n" unless comment.empty?
+      comment << child.docstring
+    else
+      comment = nil
+    end
+  end
+  mixins
+end
+
+def mixin_signature(mixin)
+  signature = "+#{mixin.name}"
+  if mixin.args && mixin.args.any?
+    signature << "("
+    signature << mixin.args.map do |a|
+      var = a.first
+      default_value = a.last
+      "#{var.inspect}#{" = " + default_value.inspect if default_value}"
+    end.join(", ")
+    signature << ")"
+  end
+  signature
+end
+

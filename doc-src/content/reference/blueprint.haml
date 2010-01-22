@@ -12,3 +12,9 @@
   - imports(@item).each do |import|
     %li= import
 
+%h2 Mixins
+
+- mixins(@item).each do |mixin|
+  %h3= mixin_signature mixin
+
+  %pre= mixin.comment
