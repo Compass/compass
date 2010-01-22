@@ -8,7 +8,11 @@ def body_class(item)
 end
 
 def body_id(item)
-  item.identifier.chop[1..-1].gsub(/\/|_/, "-")
+  if id = item.identifier.chop[1..-1]
+    id.gsub(/\/|_/, "-")
+  else
+    nil
+  end
 end
 
 def body_attributes(item)

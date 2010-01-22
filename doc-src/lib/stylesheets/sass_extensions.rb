@@ -1,3 +1,4 @@
+require 'sass'
 module Sass
   module Tree
     class VariableNode < Node
