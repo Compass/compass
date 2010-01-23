@@ -1,1 +1,19 @@
 require 'nanoc3/tasks'
+
+desc "Make files into items."
+task :itemize do
+  Dir.glob("content/**/*").each do |filename|
+    yaml_file = File.join(File.dirname(filename), File.basename(filename)[0..-(File.extname(filename).size)]) + "yaml"
+    if File.extname(filename) == ".yaml"
+      # skip
+    elsif File.exists?(yaml_file)
+      # skip
+    elsif File.directory?(filename)
+    else
+      puts "Itemizing #{filename}"
+      File.open(yaml_file,"w") do |f|
+        f.write("---\nextension: #{File.extname(filename)[1..-1]}")
+      end
+    end
+  end
+end
