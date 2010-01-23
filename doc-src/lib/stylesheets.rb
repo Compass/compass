@@ -49,17 +49,7 @@ def mixins(item)
 end
 
 def mixin_signature(mixin)
-  signature = "+#{mixin.name}"
-  if mixin.args && mixin.args.any?
-    signature << "("
-    signature << mixin.args.map do |a|
-      var = a.first
-      default_value = a.last
-      "#{var.inspect}#{" = " + default_value.inspect if default_value}"
-    end.join(", ")
-    signature << ")"
-  end
-  signature
+  mixin.sass_signature(:include)
 end
 
 def format_doc(docstring)
