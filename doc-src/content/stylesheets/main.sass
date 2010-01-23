@@ -1,4 +1,5 @@
 @import blueprint/reset
+@import compass/utilities
 
 @import blueprint
 
@@ -23,9 +24,15 @@ body.reference
     border: 3px solid #aaa
     padding: 0.75em
     margin-bottom: 0
+    a.permalink
+      +hover-link
+      +link-colors("inherit", "inherit")
   .source-documentation
     background-color: #eee
     border: 3px solid #aaa
     border-top-width: 0
     padding: 0.75em
+  a.view-source
+    float: right
+    margin: 1.25em
   

@@ -2,6 +2,8 @@
 # before nanoc starts compiling.
 
 include Nanoc3::Helpers::LinkTo
+include Nanoc3::Helpers::Capturing
+include Nanoc3::Helpers::Rendering
 
 def body_class(item)
   (item[:classnames] || []).join(" ")
