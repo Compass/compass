@@ -4,6 +4,14 @@ require 'compass'
  
 Compass.configuration.parse "#{File.dirname(__FILE__)}/.compass/config.rb"
 
+compile '/css/*/' do
+  nil
+end
+
+compile '/javascripts/*/' do
+  nil
+end
+
 compile '/stylesheets/*/' do
   filter :sass, Compass.sass_engine_options
 end
@@ -17,7 +25,15 @@ route '/stylesheets/_*/' do
   # don't output partials, so return nil
   nil
 end
- 
+
+route '/css/*/' do
+  item.identifier.chop.gsub(%r{/css}, '/stylesheets')+"."+item[:extension]
+end
+
+route '/javascripts/*/' do
+  item.identifier.chop.gsub(%r{/css}, '/javascripts')+"."+item[:extension]
+end
+
 route '/stylesheets/*/' do
   # don't generate a directory like we do for HTML files
   item.identifier.chop + '.css'

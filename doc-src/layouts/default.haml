@@ -5,6 +5,9 @@
       #{@item[:title]} - Compass
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
     %link{ :href => "/stylesheets/main.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
+    %link{ :href => "/stylesheets/ui-lightness/jquery-ui-1.7.2.custom.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
+    %script{:src => "/javascripts/jquery-1.3.2.min.js", :type => "text/javascript"}
+    %script{:src => "/javascripts/jquery-ui-1.7.2.custom.min.js", :type => "text/javascript"}
   %body{body_attributes(@item)}
     #container
       #main
