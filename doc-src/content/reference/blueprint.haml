@@ -15,6 +15,6 @@
 %h2 Mixins
 
 - mixins(@item).each do |mixin|
-  %h3= mixin_signature mixin
+  %h3.mixin= mixin_signature mixin
 
-  %pre= mixin.comment
+  .source-documentation= format_doc(mixin.comment)

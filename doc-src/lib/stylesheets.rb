@@ -1,3 +1,4 @@
+require 'rdiscount'
 
 def stylesheets_dir(framework)
   Compass::Frameworks[framework].stylesheets_directory
@@ -59,5 +60,9 @@ def mixin_signature(mixin)
     signature << ")"
   end
   signature
+end
+
+def format_doc(docstring)
+  RDiscount.new(docstring).to_html
 end
 
