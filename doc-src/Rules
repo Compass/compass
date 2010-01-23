@@ -9,7 +9,7 @@ compile '/stylesheets/*/' do
 end
 
 compile '*' do
-  filter :haml
+  filter :haml, :ugly => true
   layout 'default'
 end
 
@@ -27,4 +27,4 @@ route '*' do
   item.identifier + 'index.html'
 end
 
-layout '*', :haml
+layout '*', :haml, :ugly => true
