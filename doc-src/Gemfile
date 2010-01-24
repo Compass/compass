@@ -1,0 +1,2 @@
+gem 'nanoc3', :lib => false
+
