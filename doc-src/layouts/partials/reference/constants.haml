@@ -1,6 +1,6 @@
 - if (constant_defs = constants(@item)).any?
   %h2 Constants
-
+  - show_description = constant_defs.detect{|d| d.comment } && true
   - cycle 'even', 'odd' do |row_classes|
     - cycle 'even', 'odd' do |col_classes|
       %table.constants{:cellspacing => "0", :cellpadding=>"0", :border => "0"}
@@ -8,7 +8,9 @@
           %tr{:class => row_classes.next}
             %th{:class => col_classes.next} Constant
             %th{:class => col_classes.next} Value
-            %th{:class => col_classes.next} Overridable?
+            - if show_description
+              %th{:class => col_classes.next} Description
+            %th{:class => col_classes.next} Configurable?
             - col_classes.reset!
         - constant_defs.each do |constant_def|
           %tr{:class => row_classes.next}
@@ -16,6 +18,12 @@
               %code= "!"+constant_def.name
             %td{:class => col_classes.next}
               %code= constant_def.expr.to_sass(:html)
+            - if show_description
+              %td{:class => col_classes.next}
+                - if constant_def.comment
+                  = format_doc constant_def.comment
+                - else
+                  &nbsp;
             %td{:class => col_classes.next}
               %code= constant_def.guarded ? "Y" : "N"
             - col_classes.reset!
