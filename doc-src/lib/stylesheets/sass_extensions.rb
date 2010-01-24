@@ -142,18 +142,20 @@ module Sass
       end
     end
     class Operation < Node
-      OPERATORS_TO_SASS = {
-        :plus => '+',
-        :minus => '-',
-        :div => '/',
-        :mult => '*',
-        :comma => ',',
-        :concat => ' ',
-        :neq => '!=',
-        :eq => '==',
-        :or => 'or',
-        :and => 'and'
-      }
+      unless defined? OPERATORS_TO_SASS
+        OPERATORS_TO_SASS = {
+          :plus => '+',
+          :minus => '-',
+          :div => '/',
+          :mult => '*',
+          :comma => ',',
+          :concat => ' ',
+          :neq => '!=',
+          :eq => '==',
+          :or => 'or',
+          :and => 'and'
+        }
+      end
       def to_sass
         "#{operand_to_sass(@operand1)} #{OPERATORS_TO_SASS[@operator]} #{operand_to_sass(@operand2)}"
       end
