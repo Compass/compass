@@ -1,0 +1,21 @@
+- if (constant_defs = constants(@item)).any?
+  %h2 Constants
+
+  - cycle 'even', 'odd' do |row_classes|
+    - cycle 'even', 'odd' do |col_classes|
+      %table.constants{:cellspacing => "0", :cellpadding=>"0", :border => "0"}
+        %thead
+          %tr{:class => row_classes.next}
+            %th{:class => col_classes.next} Constant
+            %th{:class => col_classes.next} Value
+            %th{:class => col_classes.next} Overridable?
+            - col_classes.reset!
+        - constant_defs.each do |constant_def|
+          %tr{:class => row_classes.next}
+            %td{:class => col_classes.next}
+              %code= "!"+constant_def.name
+            %td{:class => col_classes.next}
+              %code= constant_def.expr.to_sass
+            %td{:class => col_classes.next}
+              %code= constant_def.guarded ? "Y" : "N"
+            - col_classes.reset!

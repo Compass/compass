@@ -25,6 +25,9 @@ module Sass
     end
     class VariableNode < Node
       attr_accessor :name unless method_defined? :name
+      attr_accessor :expr unless method_defined? :expr
+      attr_accessor :guarded unless method_defined? :guarded
+      attr_accessor :comment unless method_defined? :comment
     end
     class IfNode < Node
       def to_sass
@@ -54,6 +57,9 @@ module Sass
         end
         sass_str
       end
+    end
+    class VariableNode < Node
+      attr_accessor :comment unless method_defined? :comment
     end
     class MixinDefNode < Node
       attr_accessor :name unless method_defined? :name
@@ -107,5 +113,68 @@ module Sass
         end
       end
     end
+  end
+  module Script
+    class Bool < Literal; alias to_sass to_s; end
+    class Color < Literal; alias to_sass to_s; end
+    class Funcall < Node
+      def to_sass
+        "#{name}(#{args.map {|a| a.to_sass}.join(', ')})"
+      end
+    end
+    class Number < Literal
+      def to_sass
+        value = if self.value.is_a?(Float) && (self.value.infinite? || self.value.nan?)
+          self.value
+        elsif int?
+          self.value.to_i
+        else
+          (self.value * PRECISION).round / PRECISION
+        end
+        value = "#{value}#{numerator_units.first}"
+        if (nu = numerator_units[1..-1]).any?
+          value << " * " + nu.map{|u| "1#{u}"}.join(" * ")
+        end
+        if (du = denominator_units).any?
+          value << " / " + du.map{|u| "1#{u}"}.join(" / ")
+        end
+        value
+      end
+    end
+    class Operation < Node
+      OPERATORS_TO_SASS = {
+        :plus => '+',
+        :minus => '-',
+        :div => '/',
+        :mult => '*',
+        :comma => ',',
+        :concat => ' ',
+        :neq => '!=',
+        :eq => '==',
+        :or => 'or',
+        :and => 'and'
+      }
+      def to_sass
+        "#{operand_to_sass(@operand1)} #{OPERATORS_TO_SASS[@operator]} #{operand_to_sass(@operand2)}"
+      end
+      def operand_to_sass(operand)
+        if operand.is_a? Operation
+          "(#{operand.to_sass})"
+        else
+          operand.to_sass
+        end
+      end
+    end
+    class String < Literal
+      def to_sass
+        value.inspect
+      end
+    end
+    class UnaryOperation < Node
+      def to_sass
+        "#{@operator}#{@operand}"
+      end
+    end
+    class Variable < Node; alias to_sass inspect; end
   end
 end

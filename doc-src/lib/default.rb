@@ -23,3 +23,25 @@ def body_attributes(item)
     :class => body_class(item)
   }
 end
+
+class Recycler
+  attr_accessor :values
+  attr_accessor :index
+  def initialize *values
+    self.values = values
+    self.index = 0
+  end
+  def next
+    values[index]
+  ensure
+    self.index += 1
+    self.index = 0 if self.index >= self.values.size
+  end
+  def reset!
+    self.index = 0
+  end
+end
+
+def cycle(*args)
+  yield Recycler.new *args
+end
