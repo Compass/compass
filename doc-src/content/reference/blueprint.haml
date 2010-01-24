@@ -8,19 +8,4 @@
 
 = render "partials/reference/imports"
 
-%h2 Mixins
-
-- mixins(@item).each do |mixin|
-  %a.view-source{:href=>"#", :onclick => "$('#mixin-source-#{mixin.name}').dialog('open'); return false;"} View Source
-  %h3.mixin{:id=>"mixin-#{mixin.name}"}
-    %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature mixin
-
-  .source-documentation= format_doc(mixin.comment)
-  - render 'dialog', :title => "Source for +#{mixin.name}", :id => "mixin-source-#{mixin.name}" do
-    %pre.source-code.sass= mixin.to_sass
-
-- content_for :footer do
-  :javascript
-    $(function(){
-      $('.ui-dialog').dialog({hide: true, modal: true, autoOpen: false, width: 400});
-    });
+= render "partials/reference/mixins"

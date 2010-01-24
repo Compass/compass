@@ -1,1 +1,1 @@
-.ui-dialog{:style => "display: none;", :id => @id, :title => @title}= yield
+.ui-dialog{(@html || {}).merge(:style => "display: none;")}= yield

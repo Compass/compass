@@ -48,8 +48,39 @@ def mixins(item)
   mixins
 end
 
+def constants(item)
+  sass_tree = tree(item)
+  constants = []
+  comment = nil
+  sass_tree.children.each do |child|
+    if child.is_a?(Sass::Tree::VariableNode)
+      child.comment = comment
+      comment = nil
+      constants << child
+    elsif child.is_a?(Sass::Tree::CommentNode)
+      comment ||= ""
+      comment << "\n" unless comment.empty?
+      comment << child.docstring
+    else
+      comment = nil
+    end
+  end
+  constants
+end
+
 def mixin_signature(mixin)
   mixin.sass_signature(:include)
+end
+
+def mixin_source_dialog(mixin, &block)
+  vars = {
+    :html => {
+      :id => "mixin-source-#{mixin.name}",
+      :class => "mixin",
+      :title => "Source for +#{mixin.name}"
+    }
+  }
+  render 'dialog', vars, &block
 end
 
 def format_doc(docstring)

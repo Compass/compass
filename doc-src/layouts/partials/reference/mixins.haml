@@ -1,0 +1,16 @@
+- if (mixin_defs = mixins(@item)).any?
+  %h2 Mixins
+
+  - mixin_defs.each do |mixin|
+    %a.view-source{:href=>"#", :onclick => "$('#mixin-source-#{mixin.name}').dialog('open'); return false;"} View Source
+    %h3.mixin{:id=>"mixin-#{mixin.name}"}
+      %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature mixin
+
+    .source-documentation= format_doc(mixin.comment)
+    = mixin_source_dialog(mixin) do
+      %pre.source-code.sass= mixin.to_sass
+
+    :javascript
+      $(function(){
+        $('.ui-dialog.mixin').dialog({hide: true, modal: true, autoOpen: false, width: 400});
+      });
