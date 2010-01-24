@@ -7,6 +7,7 @@ module Sass
         s.split("\n").join("\n" + "  " * indent_level)
       end
       def children_to_sass
+        # remove hidden code
         clean_children = children.inject([[],true]) do |m,c|
           if c.respond_to?(:doc) && !c.doc.nil?
             [m.first, c.doc]
@@ -115,15 +116,27 @@ module Sass
     end
   end
   module Script
-    class Bool < Literal; alias to_sass to_s; end
-    class Color < Literal; alias to_sass to_s; end
+    class Bool < Literal
+      def to_sass(format = :text)
+        to_s
+      end
+    end
+    class Color < Literal
+      def to_sass(format = :text)
+        if format == :html
+          %Q{<span class="color">#{to_s}</span>}
+        else
+          to_s
+        end
+      end
+    end
     class Funcall < Node
-      def to_sass
-        "#{name}(#{args.map {|a| a.to_sass}.join(', ')})"
+      def to_sass(format = :text)
+        "#{name}(#{args.map {|a| a.to_sass(format)}.join(', ')})"
       end
     end
     class Number < Literal
-      def to_sass
+      def to_sass(format = :text)
         value = if self.value.is_a?(Float) && (self.value.infinite? || self.value.nan?)
           self.value
         elsif int?
@@ -156,27 +169,31 @@ module Sass
           :and => 'and'
         }
       end
-      def to_sass
-        "#{operand_to_sass(@operand1)} #{OPERATORS_TO_SASS[@operator]} #{operand_to_sass(@operand2)}"
+      def to_sass(format = :text)
+        "#{operand_to_sass(@operand1, format)} #{OPERATORS_TO_SASS[@operator]} #{operand_to_sass(@operand2, format)}"
       end
-      def operand_to_sass(operand)
+      def operand_to_sass(operand, format = :text)
         if operand.is_a? Operation
-          "(#{operand.to_sass})"
+          "(#{operand.to_sass(format)})"
         else
-          operand.to_sass
+          operand.to_sass(format)
         end
       end
     end
     class String < Literal
-      def to_sass
+      def to_sass(format = :text)
         value.inspect
       end
     end
     class UnaryOperation < Node
-      def to_sass
+      def to_sass(format = :text)
         "#{@operator}#{@operand}"
       end
     end
-    class Variable < Node; alias to_sass inspect; end
+    class Variable < Node
+      def to_sass(format = :text)
+        inspect
+      end
+    end
   end
 end

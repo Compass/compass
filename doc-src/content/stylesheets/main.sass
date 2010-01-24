@@ -1,5 +1,6 @@
 @import blueprint/reset
 @import compass/utilities
+@import compass/css3
 
 @import blueprint
 
@@ -35,6 +36,39 @@ body.reference
   a.view-source
     float: right
     margin: 1.25em
+  span.color
+    border-bottom: 1px dotted #333
+  .color-snippet
+    width: 100px
+    height: 20px
+    +border-radius(3px)
+
+  
+  .tipsy
+    padding: 5px
+    font-size: 10px
+    background-repeat: no-repeat
+    background-image= image_url("tipsy.gif")
+    &-north
+      background-position: top center
+    &-south
+      background-position: bottom center
+    &-east
+      background-position: right center
+    &-west
+      background-position: left center
+    &-inner
+      padding: 5px 8px 5px 8px
+      background-color: black
+      color: white
+      max-width: 200px
+      text-align: center
+      +border-radius(3px)
+
+
+
+
+    
 
 table.constants
   width: 100%

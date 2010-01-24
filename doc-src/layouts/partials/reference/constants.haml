@@ -15,7 +15,7 @@
             %td{:class => col_classes.next}
               %code= "!"+constant_def.name
             %td{:class => col_classes.next}
-              %code= constant_def.expr.to_sass
+              %code= constant_def.expr.to_sass(:html)
             %td{:class => col_classes.next}
               %code= constant_def.guarded ? "Y" : "N"
             - col_classes.reset!

@@ -8,6 +8,10 @@ compile '/css/*/' do
   nil
 end
 
+compile '/images/*/' do
+  nil
+end
+
 compile '/javascripts/*/' do
   nil
 end
@@ -30,8 +34,12 @@ route '/css/*/' do
   item.identifier.chop.gsub(%r{/css}, '/stylesheets')+"."+item[:extension]
 end
 
+route '/images/*/' do
+  item.identifier.chop+"."+item[:extension]
+end
+
 route '/javascripts/*/' do
-  item.identifier.chop.gsub(%r{/css}, '/javascripts')+"."+item[:extension]
+  item.identifier.chop+"."+item[:extension]
 end
 
 route '/stylesheets/*/' do
