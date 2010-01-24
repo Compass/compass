@@ -50,7 +50,6 @@ def stylesheet_path(ss)
   possible_filenames_for_stylesheet(ss).each do |filename|
     import_paths.each do |import_path|
       full_path = File.join(import_path, filename)
-      puts "Looking for #{full_path}"
       if File.exist?(full_path)
         return filename
       end
