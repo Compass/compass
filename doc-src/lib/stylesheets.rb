@@ -28,6 +28,55 @@ def imports(item)
   imports
 end
 
+def reference_path(options)
+  stylesheet = options[:stylesheet]
+  path = stylesheet_path(stylesheet)
+  if path
+    item = @items.detect do |i|
+      i[:stylesheet] == path
+    end
+    if item
+      rep = item.reps.find { |r| r.name == :default }
+      rep.path
+    end
+  end
+end
+
+def import_paths
+  Compass::Frameworks::ALL.inject([]) {|m, f| m << f.stylesheets_directory}
+end
+
+def stylesheet_path(ss)
+  possible_filenames_for_stylesheet(ss).each do |filename|
+    import_paths.each do |import_path|
+      full_path = File.join(import_path, filename)
+      puts "Looking for #{full_path}"
+      if File.exist?(full_path)
+        return filename
+      end
+    end
+  end
+end
+
+def possible_filenames_for_stylesheet(ss)
+  ext = File.extname(ss)
+  path = File.dirname(ss)
+  base = File.basename(ss)[0..-(ext.size+1)]
+  extensions = if ext.size > 0
+    [ext]
+  else
+    [".sass", ".scss"]
+  end
+  basenames = [base, "_#{base}"]
+  filenames = []
+  basenames.each do |basename|
+    extensions.each do |extension|
+      filenames << "#{path}/#{basename}#{extension}"
+    end
+  end
+  filenames
+end
+
 def mixins(item)
   sass_tree = tree(item)
   mixins = []

@@ -3,4 +3,8 @@
 
   %ol
     - imported_libs.each do |import|
-      %li= import
+      %li
+        - if path = reference_path(:stylesheet => import)
+          %a{:href => path}= import
+        - else
+          = import
