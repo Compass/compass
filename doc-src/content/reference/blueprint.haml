@@ -6,11 +6,7 @@
   a single mixin, <code class="mixin">+blueprint</code>, that
   can be used to generate the blueprint css styles.
 
-%h2 Imports
-
-%ol
-  - imports(@item).each do |import|
-    %li= import
+= render "partials/reference/imports"
 
 %h2 Mixins
 

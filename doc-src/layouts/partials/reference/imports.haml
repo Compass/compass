@@ -1,0 +1,6 @@
+- if (imported_libs = imports(@item)).any?
+  %h2 Imports
+
+  %ol
+    - imported_libs.each do |import|
+      %li= import
