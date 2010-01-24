@@ -1,2 +1,2 @@
-gem 'nanoc3', :lib => false
-
+gem 'nanoc3', :require_as => false
+gem 'rdiscount', :require_as => 'rdiscount'
