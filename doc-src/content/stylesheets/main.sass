@@ -78,4 +78,10 @@ table.constants
   td, th
     padding: 0.25em 0.5em
   
-  
+ol#breadcrumbs
+  +horizontal-list
+  +no-bullets
+  li:after
+    content: " > "
+  li.last:after
+    content: ""
