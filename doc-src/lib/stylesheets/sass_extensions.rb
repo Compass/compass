@@ -33,7 +33,7 @@ module Sass
     class IfNode < Node
       def to_sass
         sass_str = %Q{@if #{@expr.inspect unless @expr.nil?}
-                     -  #{tab children_to_sass}
+                     -  #{children_to_sass}
                      -}.gsub(/^\s+-/,'')
         if @else
           sass_str << %Q{@else
@@ -48,12 +48,48 @@ module Sass
         ""
       end
     end
+    class CommentNode < Node
+      def to_sass
+        comment = silent ? "//" : "/*"
+        comment << value
+        lines.each do |line|
+          comment << "  " << line
+        end
+        comment
+      end
+    end
+    class RuleNode < Node
+      def to_sass
+        rules.join(",\n")+"\n  #{children_to_sass}"
+      end
+    end
+    class ForNode < Node
+      def to_sass
+       sass_str = "@for !#{@var} from #{@from.to_sass} #{@exclusive ? "to" : "thru"} #{@to.to_sass}"
+       sass_str << "\n  #{children_to_sass}"
+       sass_str
+      end
+    end
+    class PropNode < Node
+      def to_sass
+        sass_str = "#{name}"
+        sass_str << (value.is_a?(Script::Node) ? "=" : ":")
+        if value
+          sass_str << " " unless value.nil?
+          sass_str << (value.is_a?(Script::Node) ? value.to_sass : value)
+        end
+        unless (s = children_to_sass).empty?
+          sass_str << "\n  #{s}"
+        end
+        sass_str
+      end
+    end
     class MixinNode < Node
       attr_accessor :name unless method_defined? :name
       attr_accessor :args unless method_defined? :args
       def to_sass
         sass_str = "+#{name}"
-        if args.any?
+        if args && args.any?
           sass_str << "(#{args.map{|a| a.inspect}.join(", ")})"
         end
         sass_str
@@ -61,6 +97,9 @@ module Sass
     end
     class VariableNode < Node
       attr_accessor :comment unless method_defined? :comment
+      def to_sass
+        "!#{@name} #{"||" if @guarded}= #{expr.to_sass}"
+      end
     end
     class MixinDefNode < Node
       attr_accessor :name unless method_defined? :name
@@ -83,7 +122,7 @@ module Sass
 
       private
       def arglist_to_sass
-        if args.any?
+        if args && args.any?
           "(#{args.map{|a| arg_to_sass(a)}.join(", ")})"
         else
           ""
@@ -145,10 +184,10 @@ module Sass
           (self.value * PRECISION).round / PRECISION
         end
         value = "#{value}#{numerator_units.first}"
-        if (nu = numerator_units[1..-1]).any?
+        if (nu = numerator_units[1..-1]) && nu.any?
           value << " * " + nu.map{|u| "1#{u}"}.join(" * ")
         end
-        if (du = denominator_units).any?
+        if (du = denominator_units) && du.any?
           value << " / " + du.map{|u| "1#{u}"}.join(" / ")
         end
         value
@@ -182,7 +221,7 @@ module Sass
     end
     class String < Literal
       def to_sass(format = :text)
-        value.inspect
+        %q{"}+value.gsub(%r{"},%q{\"})+%q{"}
       end
     end
     class UnaryOperation < Node

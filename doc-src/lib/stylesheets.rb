@@ -60,6 +60,7 @@ end
 def possible_filenames_for_stylesheet(ss)
   ext = File.extname(ss)
   path = File.dirname(ss)
+  path = path == "." ? "" : "#{path}/"
   base = File.basename(ss)[0..-(ext.size+1)]
   extensions = if ext.size > 0
     [ext]
@@ -70,7 +71,7 @@ def possible_filenames_for_stylesheet(ss)
   filenames = []
   basenames.each do |basename|
     extensions.each do |extension|
-      filenames << "#{path}/#{basename}#{extension}"
+      filenames << "#{path}#{basename}#{extension}"
     end
   end
   filenames
@@ -132,6 +133,8 @@ def mixin_source_dialog(mixin, &block)
 end
 
 def format_doc(docstring)
-  RDiscount.new(docstring).to_html
+  if docstring
+    RDiscount.new(docstring).to_html
+  end
 end
 
