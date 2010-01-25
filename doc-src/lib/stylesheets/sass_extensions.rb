@@ -19,7 +19,6 @@ module Sass
             end
           end
         end
-        raise clean_children.first.inspect if clean_children.first.detect{|c| TrueClass === c}
         tab(clean_children.first.
           map{|c| c.to_sass}.join("\n"))
       end
