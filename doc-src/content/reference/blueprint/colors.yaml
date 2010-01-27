@@ -1,7 +1,0 @@
---- 
-title: Blueprint Color Module
-crumb: Colors
-framework: blueprint
-stylesheet: blueprint/_colors.sass
-classnames:
-  - reference

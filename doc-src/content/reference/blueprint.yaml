@@ -1,7 +1,0 @@
---- 
-title: Blueprint Module
-crumb: Blueprint
-framework: blueprint
-stylesheet: _blueprint.sass
-classnames:
-  - reference

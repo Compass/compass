@@ -1,7 +1,0 @@
---- 
-title: Blueprint Grid Module
-crumb: Grid
-framework: blueprint
-stylesheet: blueprint/_grid.sass
-classnames:
-  - reference

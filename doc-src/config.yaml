@@ -2,7 +2,7 @@
 data_sources: 
 - items_root: /
   layouts_root: /
-  type: filesystem_compact
+  type: better_combined
 - items_root: /assets
   layouts_root: /assets
   type: filesystem_assets
