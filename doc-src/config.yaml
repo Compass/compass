@@ -3,4 +3,7 @@ data_sources:
 - items_root: /
   layouts_root: /
   type: filesystem_compact
+- items_root: /assets
+  layouts_root: /assets
+  type: filesystem_assets
 output_dir: ../docs

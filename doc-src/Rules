@@ -4,11 +4,7 @@ require 'compass'
  
 Compass.configuration.parse "#{File.dirname(__FILE__)}/.compass/config.rb"
 
-compile '/css/*/' do
-  nil
-end
-
-compile '/images/*/' do
+compile '/assets/*/' do
   nil
 end
 
@@ -17,10 +13,6 @@ compile '/examples/*/markup/' do
 end
 
 compile '/examples/*/stylesheet/' do
-  nil
-end
-
-compile '/javascripts/*/' do
   nil
 end
 
@@ -43,16 +35,16 @@ route '/stylesheets/_*/' do
   nil
 end
 
-route '/css/*/' do
-  item.identifier.chop.gsub(%r{/css}, '/stylesheets')+"."+item[:extension]
+route '/assets/css/*/' do
+  "/stylesheets"+item.identifier.chop[11..-1]+"."+item[:extension]
 end
 
-route '/images/*/' do
-  item.identifier.chop+"."+item[:extension]
+route '/assets/images/*/' do
+  item.identifier.chop[7..-1]+"."+item[:extension]
 end
 
-route '/javascripts/*/' do
-  item.identifier.chop+"."+item[:extension]
+route '/assets/javascripts/*/' do
+  item.identifier.chop[7..-1]+"."+item[:extension]
 end
 
 route '/stylesheets/*/' do
