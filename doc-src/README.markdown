@@ -21,10 +21,10 @@ link to each other.
 * `content/` - This directory is where content for the documentation project is kept.
 * `content/reference` - This is where reference documentation is kept.
 * `content/tutorials` - This is where tutorial documentation is kept.
-* `content/css` - Third-party, plain old CSS files.
-* `content/images` - Images. Duh.
-* `content/javascripts` - Javascripts. Double Duh.
 * `content/stylesheets` - Sass stylesheets for the project.
+* `assets/css` - Third-party, plain old CSS files.
+* `assets/images` - Images.
+* `assets/javascripts` - Javascripts.
 * `layouts` - Layouts are kept here.
 * `layouts/partials` - Partials are kept here.
 * `lib` - Ruby code. Helper code and sass source inspection is done here.
@@ -58,19 +58,38 @@ Then open `http://localhost:3000/` in your web browser.
 
 ### How to Add an Asset
 
-If you are adding an asset (E.g. image, css, javascript) place the file(s) in the appropriate directories under the `content` directory. Then run: `rake itemize` and a yaml file will be generated for each of the new files.
+If you are adding an asset (E.g. image, css, javascript) place the file(s) in the appropriate directories under the `assets` directory.
+
+### How to Add a New Example
+
+Running the following command will generate a new example:
+
+    ./bin/thor generate:example blueprint/grid/simple/
+
+An example consists of three files:
+
+1. The Example Container - The default generated container uses a shared partial for the container, but doesn't have to.
+2. Some Markup - The `markup.haml` file is located within a directory of the same name as container. This Haml gets converted to HTML and then displayed to the user as well as included into the page for styling.
+3. Some Sass - The `stylesheet.sass` file is located within a directory of the same name as container. This Sass gets displayed to the user. Also, the sass will be compiled and the CSS will be used to style the example as well as displayed to the user.
+
+Example Metadata is used to associate the example to a mixin in the reference documentation:
+
+    --- 
+    example: true
+    title: My Example
+    description: This is an example of some awesome mixin.
+    framework: compass
+    stylesheet: compass/_awesome.sass
+    mixin: awesome
+    ---
+
+After adding the example and adjusting the metadata, go to the reference page and you can verify that a link to the example has appeared.
 
 ### How to Add New Reference Documentation
 
-In the appropriate directory under content/reference add two files:
+In the appropriate directory under content/reference add a haml file. You will probably find it convenient to copy another reference item and edit it.
 
-1. `some_module.haml`
-2. `some_module.yaml`
-
-You will find it convenient to copy the yaml file of another reference item and edit it.
-Likewise, you'll find it convenient to copy the haml file of another reference item and edit it.
-
-The item metadata must provide some details about what stylesheet is being documented. For instance, here is the metadata for the blueprint color module item:
+The item metadata (at the top of the file) must provide some details about what stylesheet is being documented. For instance, here is the metadata for the blueprint color module item:
 
     --- 
     title: Blueprint Color Module
@@ -79,9 +98,10 @@ The item metadata must provide some details about what stylesheet is being docum
     stylesheet: blueprint/_colors.sass
     classnames:
       - reference
+    ---
 
 The `title` and `crumb` attributes are the H1 and the Breadcrumb label respectively. The `framework` attributes specifies what framework is being documented and similarly, the `stylesheet` attribute specifies what stylesheet. The `classnames` array allows class names to be applied to the body. Be sure to apply the `reference` class at a minimum.
 
-There are some shared partials that do most of the sass file inspection and formatting. Most of the docs are kept in the source code, but if there are times when you need more control, you can drop down to more powerful tools.
+There are some shared partials that do most of the sass file inspection and formatting. __Most of the docs are kept in the source code__, but if there are times when you need more control, you can drop down to more powerful tools.
 
 All source comments are formatted in Markdown.
