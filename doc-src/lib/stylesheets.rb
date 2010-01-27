@@ -33,7 +33,8 @@ def reference_path(options)
   path = stylesheet_path(stylesheet)
   if path
     item = @items.detect do |i|
-      i[:stylesheet] == path
+      i[:stylesheet] == path &&
+      i.identifier =~ /^\/reference/
     end
     if item
       rep = item.reps.find { |r| r.name == :default }
@@ -120,6 +121,16 @@ end
 def mixin_signature(mixin)
   mixin.sass_signature(:include)
 end
+
+def mixin_examples(item, mixin)
+  @items.select do |i|
+    i[:example] &&
+    i[:framework] == item[:framework] &&
+    i[:stylesheet] == item[:stylesheet] &&
+    i[:mixin] == mixin.name
+  end.map{|i| i.reps.find{|r| r.name == :default}}
+end
+  
 
 def mixin_source_dialog(mixin, &block)
   vars = {

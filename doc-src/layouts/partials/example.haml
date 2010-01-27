@@ -1,0 +1,22 @@
+%h1= @item[:title]
+
+%table#example{:cellspacing=>"0", :cellpadding=>"0", :border=>"0"}
+  %tr.source
+    %th HTML
+    %th Sass
+  %tr.source
+    %td.markup
+      %pre
+        %code= h(example_html)
+    %td.stylesheet
+      %pre
+        %code= h(example_sass)
+  %tr.output
+    %th Display
+    %th Generated CSS
+  %tr.output
+    %td.markup
+      = example_html
+    %td.stylesheet
+      %pre
+        %code= h(example_css)

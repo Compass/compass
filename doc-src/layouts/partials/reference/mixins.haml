@@ -6,7 +6,14 @@
     %h3.mixin{:id=>"mixin-#{mixin.name}"}
       %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature mixin
 
-    .source-documentation= format_doc(mixin.comment)
+    .source-documentation
+      = format_doc(mixin.comment)
+      - if (examples = mixin_examples(@item, mixin)).any?
+        %dl.examples
+          - examples.each do |example|
+            %dt= link_to example.item[:title], example, :target => "_blank"
+            - if example.item[:description]
+              %dd= example.item[:description]
     = mixin_source_dialog(mixin) do
       %pre.source-code.sass= mixin.to_sass
 

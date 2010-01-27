@@ -12,8 +12,21 @@ compile '/images/*/' do
   nil
 end
 
+compile '/examples/*/markup/' do
+  nil
+end
+
+compile '/examples/*/stylesheet/' do
+  nil
+end
+
 compile '/javascripts/*/' do
   nil
+end
+
+compile '/examples/*/' do
+  filter :haml, :ugly => true
+  layout 'example'
 end
 
 compile '/stylesheets/*/' do
@@ -45,6 +58,14 @@ end
 route '/stylesheets/*/' do
   # don't generate a directory like we do for HTML files
   item.identifier.chop + '.css'
+end
+
+route '/examples/*/markup/' do
+  nil
+end
+
+route '/examples/*/stylesheet/' do
+  nil
 end
 
 route '*' do
