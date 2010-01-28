@@ -44,15 +44,21 @@ def reference_path(options)
 end
 
 def import_paths
-  Compass::Frameworks::ALL.inject([]) {|m, f| m << f.stylesheets_directory}
+  paths = Compass::Frameworks::ALL.inject([]) {|m, f| m << f.stylesheets_directory}
+  paths.map!{|p|[p, '']}
+  if @item[:stylesheet]
+    paths << [File.join(Compass::Frameworks[@item[:framework]].stylesheets_directory,
+                       File.dirname(@item[:stylesheet])), File.dirname(@item[:stylesheet])]
+  end
+  paths
 end
 
 def stylesheet_path(ss)
   possible_filenames_for_stylesheet(ss).each do |filename|
     import_paths.each do |import_path|
-      full_path = File.join(import_path, filename)
+      full_path = File.join(import_path.first, filename)
       if File.exist?(full_path)
-        return filename
+        return "#{import_path.last}#{"/" if import_path.last && import_path.last.length > 0}#{filename}"
       end
     end
   end
