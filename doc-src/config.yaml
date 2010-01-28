@@ -6,4 +6,4 @@ data_sources:
 - items_root: /assets
   layouts_root: /assets
   type: filesystem_assets
-output_dir: ../docs
+output_dir: ..

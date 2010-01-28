@@ -4,6 +4,8 @@ require 'compass'
  
 Compass.configuration.parse "#{File.dirname(__FILE__)}/.compass/config.rb"
 
+SITE_ROOT = "/docs"
+
 compile '/assets/*/' do
   nil
 end
@@ -36,20 +38,20 @@ route '/stylesheets/_*/' do
 end
 
 route '/assets/css/*/' do
-  "/stylesheets"+item.identifier.chop[11..-1]+"."+item[:extension]
+  "#{SITE_ROOT}/stylesheets"+item.identifier.chop[11..-1]+"."+item[:extension]
 end
 
 route '/assets/images/*/' do
-  item.identifier.chop[7..-1]+"."+item[:extension]
+  SITE_ROOT+item.identifier.chop[7..-1]+"."+item[:extension]
 end
 
 route '/assets/javascripts/*/' do
-  item.identifier.chop[7..-1]+"."+item[:extension]
+  SITE_ROOT+item.identifier.chop[7..-1]+"."+item[:extension]
 end
 
 route '/stylesheets/*/' do
   # don't generate a directory like we do for HTML files
-  item.identifier.chop + '.css'
+  SITE_ROOT+item.identifier.chop + '.css'
 end
 
 route '/examples/*/markup/' do
@@ -61,7 +63,7 @@ route '/examples/*/stylesheet/' do
 end
 
 route '*' do
-  item.identifier + 'index.html'
+  SITE_ROOT+item.identifier + 'index.html'
 end
 
 layout '*', :haml, :ugly => true
