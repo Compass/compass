@@ -54,7 +54,7 @@ module Sass
     class CommentNode < Node
       def to_sass
         comment = silent ? "//" : "/*"
-        comment << value
+        comment << " " << value
         lines.each do |line|
           comment << "  " << line
         end
@@ -204,20 +204,20 @@ module Sass
     class Operation < Node
       unless defined? OPERATORS_TO_SASS
         OPERATORS_TO_SASS = {
-          :plus => '+',
-          :minus => '-',
-          :div => '/',
-          :mult => '*',
-          :comma => ',',
+          :plus => ' + ',
+          :minus => ' - ',
+          :div => ' / ',
+          :times => ' * ',
+          :comma => ', ',
           :concat => ' ',
-          :neq => '!=',
-          :eq => '==',
-          :or => 'or',
-          :and => 'and'
+          :neq => ' ! =',
+          :eq => ' == ',
+          :or => ' or ',
+          :and => ' and '
         }
       end
       def to_sass(format = :text)
-        "#{operand_to_sass(@operand1, format)} #{OPERATORS_TO_SASS[@operator]} #{operand_to_sass(@operand2, format)}"
+        "#{operand_to_sass(@operand1, format)}#{OPERATORS_TO_SASS[@operator]}#{operand_to_sass(@operand2, format)}"
       end
       def operand_to_sass(operand, format = :text)
         if operand.is_a? Operation
@@ -233,8 +233,13 @@ module Sass
       end
     end
     class UnaryOperation < Node
+      OPERATORS_TO_SASS = {
+        :minus => "-",
+        :div   => "/",
+        :not   => "not "
+      }
       def to_sass(format = :text)
-        "#{@operator}#{@operand}"
+        "#{OPERATORS_TO_SASS[@operator]}#{@operand.to_sass}"
       end
     end
     class Variable < Node
