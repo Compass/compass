@@ -1,21 +1,11 @@
 --- 
-title: Blueprint Color Module
+title: Blueprint Colors
 crumb: Colors
 framework: blueprint
 stylesheet: blueprint/_colors.sass
 classnames:
   - reference
 ---
-%h1= item[:title]
-
-= render "partials/breadcrumbs"
-
-%p
-  The blueprint colors module defines the default colors that are used by the blueprint
-  framework.
-
-= render "partials/reference/imports"
-
-= render "partials/reference/constants"
-
-= render "partials/reference/mixins"
+- render 'reference' do
+  %p
+    Lorem ipsum dolor sit amet.
