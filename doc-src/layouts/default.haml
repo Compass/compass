@@ -17,12 +17,8 @@
         %h2
           Compass Documentation
         %ul
-          %li
-            %a{ :href => "http://nanoc.stoneship.org/tutorial/" }
-              Reference
-          %li
-            %a{ :href => "http://nanoc.stoneship.org/manual/" }
-              Tutorial
+          %li= link_to "Blueprint Reference", reference_path(:stylesheet => "_blueprint.sass")
+          %li= link_to "Compass Reference", reference_path(:stylesheet => "_compass.sass")
       #footer= @item[:content_for_footer]
     :javascript
       $(function(){
