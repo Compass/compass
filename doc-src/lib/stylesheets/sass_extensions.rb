@@ -100,6 +100,11 @@ module Sass
         "!#{@name} #{"||" if @guarded}= #{expr.to_sass}"
       end
     end
+    class DirectiveNode < Node
+      def to_sass
+        "#{self.value}\n  #{children_to_sass}\n"
+      end
+    end
     class MixinDefNode < Node
       attr_accessor :name unless method_defined? :name
       attr_accessor :args unless method_defined? :args
