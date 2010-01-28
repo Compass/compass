@@ -202,6 +202,7 @@ module Sass
       end
     end
     class Operation < Node
+      attr_accessor :operator unless method_defined? :operator
       unless defined? OPERATORS_TO_SASS
         OPERATORS_TO_SASS = {
           :plus => ' + ',
@@ -209,22 +210,41 @@ module Sass
           :div => ' / ',
           :times => ' * ',
           :comma => ', ',
-          :concat => ' ',
-          :neq => ' ! =',
+          :concat => '  ',
+          :neq => ' != ',
           :eq => ' == ',
           :or => ' or ',
-          :and => ' and '
+          :and => ' and ',
+          :mod => ' % '
+        }
+        # higher numbers take predence over lower numbers
+        OPERATOR_PRECEDENCE = {
+          :plus => 2,
+          :minus => 2,
+          :div => 3,
+          :times => 3,
+          :comma => 1,
+          :concat => 1,
+          :neq => 0,
+          :eq => 0,
+          :or => 2,
+          :and => 3,
+          :mod => 4
         }
       end
       def to_sass(format = :text)
         "#{operand_to_sass(@operand1, format)}#{OPERATORS_TO_SASS[@operator]}#{operand_to_sass(@operand2, format)}"
       end
       def operand_to_sass(operand, format = :text)
-        if operand.is_a? Operation
+        if parenthize_operand?(operand)
           "(#{operand.to_sass(format)})"
         else
           operand.to_sass(format)
         end
+      end
+      def parenthize_operand?(operand)
+        return false unless operand.is_a?(Operation)
+        OPERATOR_PRECEDENCE[operand.operator] < OPERATOR_PRECEDENCE[self.operator]
       end
     end
     class String < Literal
