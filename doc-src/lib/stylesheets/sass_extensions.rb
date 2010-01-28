@@ -31,15 +31,19 @@ module Sass
     end
     class IfNode < Node
       def to_sass
-        sass_str = %Q{@if #{@expr.inspect unless @expr.nil?}
-                     -  #{children_to_sass}
-                     -}.gsub(/^\s+-/,'')
-        if @else
-          sass_str << %Q{@else
-                       -  #{tab @else.to_sass}
+        if @expr.nil?
+          children_to_sass
+        else
+          sass_str = %Q{@if #{@expr.to_sass}
+                       -  #{children_to_sass}
                        -}.gsub(/^\s+-/,'')
+          if @else
+            sass_str << %Q{@else
+                         -  #{tab @else.to_sass}
+                         -}.gsub(/^\s+-/,'')
+          end
+          sass_str
         end
-        sass_str
       end
     end
     class DebugNode < Node
