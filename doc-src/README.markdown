@@ -87,9 +87,11 @@ After adding the example and adjusting the metadata, go to the reference page an
 
 ### How to Add New Reference Documentation
 
-In the appropriate directory under content/reference add a haml file. You will probably find it convenient to copy another reference item and edit it.
+Generate a reference file for a stylesheet:
 
-The item metadata (at the top of the file) must provide some details about what stylesheet is being documented. For instance, here is the metadata for the blueprint color module item:
+    ./bin/thor generate:reference ../frameworks/compass/stylesheets/_compass.sass
+
+The item metadata (at the top of the file) provides some details about what stylesheet is being documented. For instance, here is the metadata for the blueprint color module item:
 
     --- 
     title: Blueprint Color Module

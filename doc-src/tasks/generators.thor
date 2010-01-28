@@ -1,7 +1,10 @@
+$: << File.join(File.dirname(__FILE__), '..', '..', 'lib')
 require 'fileutils'
+require 'compass'
 
 class Generate < Thor
   desc "example IDENTIFIER", "Generate a new example."
+  method_options :title => :string, :framework => :string, :stylesheet => :string, :mixin => :string
   def example(identifier)
     identifier = identifier.dup
     identifier << "/" unless identifier[identifier.length - 1] == ?/
@@ -49,7 +52,56 @@ class Generate < Thor
     end
   end
 
-  desc "reference FRAMEWORK STYLESHEET", "Generate a reference page for the given stylesheet."
-  def reference(identifier)
+  desc "reference ../frameworks/fmwk/stylesheets/path/to/_module.sass", "Generate a reference page for the given stylesheet."
+  method_options :title => :string
+  def reference(stylesheet)
+    stylesheet = dereference(stylesheet)
+    identifier = "reference/#{stylesheet[:framework]}/#{stylesheet[:stylesheet]}"
+    identifier.gsub!(%r{/_},'/')
+    identifier.gsub!(/\.sass/,'')
+    identifier.gsub!(%r{/#{stylesheet[:framework]}/#{stylesheet[:framework]}/},"/#{stylesheet[:framework]}/")
+
+    module_name = File.basename(identifier).gsub(/\.[^.]+$/,'').capitalize
+    framework_name = stylesheet[:framework].capitalize
+
+    title = @options[:title] || "#{framework_name} #{module_name}"
+    crumb = @options[:title] || module_name
+
+    file_name = "content/#{identifier}.haml"
+    directory = File.dirname(file_name)
+
+    puts "DIRECTORY #{directory}"
+    FileUtils.mkdir_p directory
+
+    puts "   CREATE #{file_name}"
+    open(file_name, "w") do |reference_file|
+      contents = <<-CONTENTS
+      | --- 
+      | title: #{title}
+      | crumb: #{crumb}
+      | framework: #{stylesheet[:framework]}
+      | stylesheet: #{stylesheet[:stylesheet]}
+      | classnames:
+      |   - reference
+      | ---
+      | - render 'reference' do
+      |   %p
+      |     Lorem ipsum dolor sit amet.
+      CONTENTS
+      reference_file.puts contents.gsub(/^ +\| /, '')
+
+      puts "     ITEM /#{identifier}/"
+    end
+  end
+
+  private
+  def dereference(stylesheet)
+    stylesheet = File.expand_path(stylesheet)
+    framework = Compass::Frameworks::ALL.find{|f| stylesheet.index(f.stylesheets_directory) == 0}
+    raise "No Framework found for #{stylesheet}" unless framework
+    {
+      :framework => framework.name,
+      :stylesheet => stylesheet[framework.stylesheets_directory.length+1..-1]
+    }
   end
 end

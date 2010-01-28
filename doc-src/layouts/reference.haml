@@ -1,0 +1,9 @@
+= render "partials/breadcrumbs"
+
+%h1= item[:title]
+
+= yield
+
+= render "partials/reference/imports"
+
+= render "partials/reference/mixins"
