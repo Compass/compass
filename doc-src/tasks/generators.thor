@@ -3,25 +3,27 @@ require 'fileutils'
 require 'compass'
 
 class Generate < Thor
-  desc "example IDENTIFIER", "Generate a new example."
+  desc "example IDENTIFIER [../frameworks/fmwk/stylesheets/path/to/_module.sass]", "Generate a new example."
   method_options :title => :string, :framework => :string, :stylesheet => :string, :mixin => :string
-  def example(identifier)
+  def example(identifier, stylesheet = nil)
     identifier = identifier.dup
     identifier << "/" unless identifier[identifier.length - 1] == ?/
     identifier = identifier[1..-1] if identifier[0] == ?/
+    stylesheet = stylesheet && dereference(stylesheet) || {}
+    options = @options.merge(stylesheet)
     puts "Generating /examples/#{identifier}"
     puts "DIRECTORY content/examples/#{identifier}"
     FileUtils.mkdir_p("content/examples/#{identifier}")
     puts "   CREATE content/examples/#{identifier[0..-2]}.haml"
     open("content/examples/#{identifier[0..-2]}.haml", "w") do |example_file|
+      mixin = "mixin: #{options[:mixin]}\n" if options[:mixin]
       example_contents = <<-EXAMPLE
       | ---
-      | title: Blueprint Pull Example
-      | description: Uses pull to change the display order of columns.
-      | framework: blueprint
-      | stylesheet: blueprint/_grid.sass
-      | mixin: pull
-      | example: true
+      | title: #{options[:framework].capitalize} #{options[:mixin].capitalize if options[:mixin]} Example
+      | description: How to do X with Y
+      | framework: #{options[:framework]}
+      | stylesheet: #{options[:stylesheet]}
+      | #{mixin}example: true
       | ---
       | = render "partials/example"
       EXAMPLE
