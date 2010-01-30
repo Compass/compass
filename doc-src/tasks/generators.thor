@@ -47,8 +47,7 @@ class Generate < Thor
         |       /* And the source is shown to the user as Sass and as CSS. */
       EXAMPLE
       example_file.puts example_contents.gsub(/^ +\| /, '')
-      puts "open http://localhost:3000/examples/#{identifier}"
-      puts "./bin/nanoc3 aco"
+      puts "./bin/nanoc3 co && open http://localhost:3000/docs/examples/#{identifier} && ./bin/nanoc3 aco"
     end
   end
 
