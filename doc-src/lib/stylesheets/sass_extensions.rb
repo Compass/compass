@@ -253,11 +253,13 @@ module Sass
       end
     end
     class UnaryOperation < Node
-      OPERATORS_TO_SASS = {
-        :minus => "-",
-        :div   => "/",
-        :not   => "not "
-      }
+      unless defined? OPERATORS_TO_SASS
+        OPERATORS_TO_SASS = {
+          :minus => "-",
+          :div   => "/",
+          :not   => "not "
+        }
+      end
       def to_sass(format = :text)
         "#{OPERATORS_TO_SASS[@operator]}#{@operand.to_sass}"
       end
