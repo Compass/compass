@@ -1,3 +1,5 @@
+gem 'fssm'
 gem 'nanoc3', :require_as => false
 gem 'rdiscount'
+gem 'serve'
 gem 'thor'
