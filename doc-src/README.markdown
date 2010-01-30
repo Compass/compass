@@ -46,6 +46,7 @@ Your new app executables for this app are located in the bin/ directory.
 To compile (and auto recompile) and preview the site in your browser:
 
     $ cd doc-src
+    $ export RUBYLIB="../lib:../../haml/lib"
     $ bin/nanoc3 aco
 
 Then open `http://localhost:3000/` in your web browser.

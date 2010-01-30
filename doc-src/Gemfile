@@ -1,5 +1,9 @@
-gem 'fssm'
+disable_system_gems
+
 gem 'nanoc3', :require_as => false
 gem 'rdiscount'
-gem 'serve'
 gem 'thor'
+gem 'rack'
+gem 'mime-types'
+gem 'fssm'
+gem 'serve'
