@@ -6,16 +6,10 @@ stylesheet: _blueprint.sass
 classnames:
   - reference
 ---
-%h1= item[:title]
 
-= render "partials/breadcrumbs"
-
-%p
-  The blueprint module is a simple way of importing all of the most
-  commonly used blueprint modules. In addition, it provides
-  a single mixin, <code class="mixin">+blueprint</code>, that
-  can be used to generate the blueprint css styles.
-
-= render "partials/reference/imports"
-
-= render "partials/reference/mixins"
+- render 'reference' do
+  %p
+    The blueprint module is a simple way of importing all of the most
+    commonly used blueprint modules. In addition, it provides
+    a single mixin, <code class="mixin">+blueprint</code>, that
+    can be used to generate the blueprint css styles.

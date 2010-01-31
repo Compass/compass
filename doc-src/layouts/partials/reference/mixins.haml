@@ -8,7 +8,7 @@
 
     .source-documentation
       = format_doc(mixin.comment)
-      - if (examples = mixin_examples(@item, mixin)).any?
+      - if (examples = examples(@item, mixin)).any?
         %dl.examples
           - examples.each do |example|
             %dt= link_to example.item[:title], example, :target => "_blank"

@@ -29,6 +29,7 @@ task :watch do
       `growlnotify -m "Compilation Complete" --image misc/success-icon.png; exit 0`
     rescue Exception => e
       puts ">>> ERROR: #{e.message} <<<"
+      puts e.backtrace.join("\n")
       `growlnotify -m "Compilation Error!" --image misc/error-icon.png; exit 0`
     end
   end

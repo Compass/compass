@@ -128,13 +128,26 @@ def mixin_signature(mixin)
   mixin.sass_signature(:include)
 end
 
-def mixin_examples(item, mixin)
-  @items.select do |i|
-    i[:example] &&
+def example_items
+  @example_items ||= @items.select{|i| i[:example]}
+end
+
+def examples_for_item(item)
+  @examples ||= {}
+  @examples[item] ||= example_items.select do |i|
     i[:framework] == item[:framework] &&
-    i[:stylesheet] == item[:stylesheet] &&
-    i[:mixin] == mixin.name
-  end.map{|i| i.reps.find{|r| r.name == :default}}
+    i[:stylesheet] == item[:stylesheet]
+  end
+end
+
+def examples(item, mixin = nil)
+  examples = examples_for_item(item)
+  if mixin
+    examples = examples.select {|i| i[:mixin] == mixin.name }
+  else
+    examples = examples.reject {|i| i[:mixin] }
+  end
+  examples.map{|i| i.reps.find{|r| r.name == :default}}
 end
   
 
