@@ -1,9 +1,11 @@
-// Background Origin
-// position the background off the edge of the padding, border or content
-//  - [padding-box | border-box | content-box]
-//  - browser defaults to padding-box, mixin defaults to content-box
+//
+  Position the background off the edge of the padding, border or content
+  
+  * Possible values: [padding-box | border-box | content-box]
+  * browser defaults to padding-box, mixin defaults to content-box
 
-//  override constants to change defaults
+  Override constants to change defaults.
+
 !default_background_origin ||= "content-box"
 
 =background-origin(!origin = !default_background_origin)

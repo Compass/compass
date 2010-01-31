@@ -1,9 +1,13 @@
-// Background Clip
-// clip the background (image and color) at the edge of the padding or border
-//  - [padding-box | border-box]
-//  - browser defaults to border-box, mixin defaults to padding-box
+//
+  Clip the background (image and color) at the edge of the padding or border.
 
-//  override constants to change defaults
+  Default constant is padding-box, the box model used by modern browsers.
+
+  If you wish to do so, you can override the default constant with <code>border-box</code>
+
+  To override to the border-box model, use this code:
+      !default_background_clip = "border-box"
+
 !default_background_clip ||= "padding-box"
 
 =background-clip(!clip = !default_background_clip)

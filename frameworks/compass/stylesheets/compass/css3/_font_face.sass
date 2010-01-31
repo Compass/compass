@@ -1,10 +1,12 @@
-// @Font-Face
-// Cross-browser support for @font-face
-//  - !name is required, arbitrary, and what you will use in font stacks.
-//  - !font_files is required using font_files('relative_location', 'format').
-//     - for best results use this order: woff, opentype/truetype, svg
-//  - !eot is required by IE, and is a relative location of the eot file.
-//  - postscript name is required by some browsers to look for local fonts.
+//
+  Cross-browser support for @font-face. Supports IE, Gecko, Webkit, Opera.
+
+  * !name is required, arbitrary, and what you will use in font stacks.
+  * !font_files is required using font_files('relative_location', 'format').
+    * for best results use this order: woff, opentype/truetype, svg
+  * !eot is required by IE, and is a relative location of the eot file.
+  * postscript name is required by some browsers to look for local fonts.
+
 =font-face( !name, !font_files, !eot = false, !postscript = false, !style = false)
   @font-face
     font-family: '#{!name}'
