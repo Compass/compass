@@ -84,7 +84,7 @@ Example Metadata is used to associate the example to a mixin in the reference do
     mixin: awesome
     ---
 
-After adding the example and adjusting the metadata, go to the reference page and you can verify that a link to the example has appeared.
+After adding the example and adjusting the metadata, go to the reference page and you can verify that a link to the example has appeared. If the mixin property is omitted, then the example will be a general example for the stylesheet.
 
 ### How to Add New Reference Documentation
 

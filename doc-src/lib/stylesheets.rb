@@ -140,10 +140,14 @@ def examples_for_item(item)
   end
 end
 
-def mixin_examples(item, mixin)
-  examples_for_item(item).select do |i|
-    i[:mixin] == mixin.name
-  end.map{|i| i.reps.find{|r| r.name == :default}}
+def examples(item, mixin = nil)
+  examples = examples_for_item(item)
+  if mixin
+    examples = examples.select {|i| i[:mixin] == mixin.name }
+  else
+    examples = examples.reject {|i| i[:mixin] }
+  end
+  examples.map{|i| i.reps.find{|r| r.name == :default}}
 end
   
 
