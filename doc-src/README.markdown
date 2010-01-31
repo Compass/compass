@@ -49,13 +49,13 @@ To compile (and auto recompile) and preview the site in your browser:
     $ export RUBYLIB="../lib:../../haml/lib"
     $ bin/nanoc3 aco
 
-Then open `http://localhost:3000/` in your web browser.
+Then open `http://localhost:3000/docs/` in your web browser.
 
 If you find `bin/nanoc3 aco` to be sluggish, try this alternative workflow:
 
     $ cd doc-src
     $ export RUBYLIB="../lib:../../haml/lib"
-    $ serve 3000 .. &
+    $ ./bin/serve 3000 .. &
     $ rake watch
 
 ## Documentation on Nanoc

@@ -11,10 +11,10 @@ def body_class(item)
 end
 
 def body_id(item)
-  if id = item.identifier.chop[1..-1]
+  if item[:body_id]
+    item[:body_id]
+  elsif id = item.identifier.chop[1..-1]
     id.gsub(/\/|_/, "-")
-  else
-    nil
   end
 end
 
