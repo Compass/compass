@@ -55,7 +55,7 @@ If you find `bin/nanoc3 aco` to be sluggish, try this alternative workflow:
 
     $ cd doc-src
     $ export RUBYLIB="../lib:../../haml/lib"
-    $ serve 3000 .. &
+    $ ./bin/serve 3000 .. &
     $ rake watch
 
 ## Documentation on Nanoc
