@@ -1,5 +1,15 @@
-Documentation README
-====================
+# Compass documentation
+
+This document consists of 2 parts:
+
+* [Documentation README: general structure and how-to's](#documentation_readme)
+* [How to get your documentation up and running](#documentation_setup) 
+
+If you want to work on a specific part of the docs, please let everyone know via the [Compass-devs google group](http://groups.google.com/group/compass-devs/browse_thread/thread/41dc723721a194f8).
+
+---
+
+# Documentation README
 
 This is the documentation for Compass. Much of the documentation is read from the
 sass source files to keep the docs in-line with current state of the code as much as
@@ -28,39 +38,6 @@ link to each other.
 * `layouts` - Layouts are kept here.
 * `layouts/partials` - Partials are kept here.
 * `lib` - Ruby code. Helper code and sass source inspection is done here.
-
-## Installing Dependencies
-
-If you haven't yet done so, install bundler:
-
-    gem install bundler
-
-Bundle the gems for this application:
-
-    gem bundle
-
-Your new app executables for this app are located in the bin/ directory.
-
-## Compiling the Site
-
-To compile (and auto recompile) and preview the site in your browser:
-
-    $ cd doc-src
-    $ export RUBYLIB="../lib:../../haml/lib"
-    $ bin/nanoc3 aco
-
-Then open `http://localhost:3000/docs/` in your web browser.
-
-If you find `bin/nanoc3 aco` to be sluggish, try this alternative workflow:
-
-    $ cd doc-src
-    $ export RUBYLIB="../lib:../../haml/lib"
-    $ ./bin/serve 3000 .. &
-    $ rake watch
-
-## Documentation on Nanoc
-
-* [Nanoc Homepage](http://nanoc.stoneship.org/)
 
 ## HOW-TOs
 
@@ -115,3 +92,123 @@ The `title` and `crumb` attributes are the H1 and the Breadcrumb label respectiv
 There are some shared partials that do most of the sass file inspection and formatting. __Most of the docs are kept in the source code__, but if there are times when you need more control, you can drop down to more powerful tools.
 
 All source comments are formatted in Markdown.
+
+---
+
+# Documentation setup
+
+So you want to help documenting Compass?
+
+Setting up the documentation for Compass is not super-easy, but it's pretty doable.
+
+The Compass docs live in the source code of Compass. Not directly in the Sass files though: the documentation is a combination of inline comments and source code read directly from the Sass files, and hand-maintained documentation and examples. We use [Nanoc](http://nanoc.stoneship.org/) to generate a static website, combined with some Ruby to read the Compass source.
+
+The reasons for this setup are simple:
+
+* To keep the documentation current, we need to read from the source code
+* To read from the source code, we need to be in the source code
+
+If you encounter any problems, there's usually some people around to help at #compass on freenode IRC.
+
+### Prerequisites:
+
+* A Github account, setup to be able to clone repos (see (GitHub Help)[http://help.github.com/])
+* Git installed on your computer
+  * The git installer for OSX can be found here: http://code.google.com/p/git-osx-installer/
+* A basic knowledge of git
+
+Make sure you are running the latest version of the Compass and Haml gems:
+
+    $ sudo gem install compass --pre
+    $ sudo gem install haml-edge
+
+If that doesn't work, RubyGems is probably out of date, try:
+
+    $ sudo gem update --system
+
+You will also need the bundler gem, so if you don't have it:
+
+    $ gem install bundler
+
+(A list of the gems on your system can be accessed via `gem list`)
+
+### 1. Get your own copy of Compass (Fork)
+
+Make your own Fork of Compass on Github: click the 'Fork' button on http://github.com/chriseppstein/compass
+
+Go to your fork of Compass on github. Your compass fork will be available on http://github.com/**yourusername**/compass .
+
+### 2. Directory setup
+
+`git clone` your Fork of the Compass repository:
+
+    $ git clone git@github.com:**yourusername**/compass.git
+
+It's important that you have the haml source tree at the same directory level as compass. In the same directory that you git cloned Compass, make a git clone of Haml:
+
+    $ git clone git://github.com/nex3/haml.git
+
+If your Compass Fork lives in Sites/compass, haml should live in Sites/haml.
+
+### 3. Switch to the docs branch
+
+To work on the docs, you need to do a checkout of the docs branch
+
+    $ git checkout docs
+
+(A list branches can be accessed through `git branch` with no arguments)
+
+### 4. Don't forget: bundler!
+
+If you haven't yet done so, install bundler:
+
+    $ sudo gem install bundler
+
+Bundle the gems for this application:
+
+    $ cd doc-src
+    $ gem bundle
+
+Your new app executables for this app are located in the bin/ directory.
+
+### 6. Compile the docs
+
+To compile (and auto recompile) and preview the site in your browser: (make sure you run nanoc3/aco from the doc-src directory)
+
+    $ cd doc-src
+    $ export RUBYLIB="../lib:../../haml/lib"
+    $ bin/nanoc3 aco
+
+Then open `http://localhost:3000/docs/` in your web browser.
+
+aco stands for autocompiler; the site will recompile every time you request a new page.
+
+If you find `bin/nanoc3 aco` to be sluggish, try this alternative workflow:
+
+    $ cd doc-src
+    $ export RUBYLIB="../lib:../../haml/lib"
+    $ /bin/serve 3000 .. &
+    $ rake watch
+
+It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.org/tutorial/) on Nanoc.
+
+### 7. Commit your changes to your Fork
+
+    git commit -a
+    git push
+
+Your changes are now reflected on your github repo. Go to Github and click the 'pull request' button on top of your repo to notify Chris of changes. He will verify them and merge them into the master.
+
+#### How to pull in new changes
+
+Add git://github.com/chriseppstein/compass.git to your git remotes:
+
+    git remote add chris git://github.com/chriseppstein/compass.git
+
+Then get the new changes with fetch:
+
+    git fetch chris
+
+And merge them with your local docs branch:
+
+    git merge chris/docs
