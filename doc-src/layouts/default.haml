@@ -14,11 +14,7 @@
       #main
         = yield
       #sidebar
-        %h2
-          Compass Documentation
-        %ul
-          %li= link_to "Blueprint Reference", reference_path(:stylesheet => "_blueprint.sass")
-          %li= link_to "Compass Reference", reference_path(:stylesheet => "_compass.sass")
+        = render "partials/sidebar"
       #footer= @item[:content_for_footer]
     :javascript
       $(function(){
