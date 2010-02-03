@@ -141,7 +141,7 @@ module Sass
         sass_str = "#{name.inspect}"
         if default_value
           sass_str << " = "
-          sass_str << default_value.inspect
+          sass_str << default_value.to_sass
         end
         sass_str
       end
