@@ -46,3 +46,22 @@ end
 def cycle(*args)
   yield Recycler.new *args
 end
+
+def default_path(item)
+  item.reps.find{|r| r.name == :default}.path
+end
+
+def item_tree(item)
+  crumb = item[:crumb] || item[:title]
+  child_html = ""
+  if item.children.any?
+    child_html << "<ol>"
+    item.children.each do |child|
+      child_html << item_tree(child)
+    end
+    child_html << "</ol>"
+  end
+  %Q{<li><a href="#{default_path(item)}">#{crumb}</a>#{child_html}</li>}
+end
+
+

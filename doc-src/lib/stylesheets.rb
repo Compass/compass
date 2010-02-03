@@ -28,18 +28,21 @@ def imports(item)
   imports
 end
 
-def reference_path(options)
+def reference_item(options)
   stylesheet = options[:stylesheet]
   path = stylesheet_path(stylesheet)
   if path
-    item = @items.detect do |i|
+    @items.detect do |i|
       i[:stylesheet] == path &&
       i.identifier =~ /^\/reference/
     end
-    if item
-      rep = item.reps.find { |r| r.name == :default }
-      rep.path
-    end
+  end
+end
+
+def reference_path(options)
+  if item = reference_item(options)
+    rep = item.reps.find { |r| r.name == :default }
+    rep.path
   end
 end
 
