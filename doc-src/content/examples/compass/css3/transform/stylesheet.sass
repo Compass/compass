@@ -1,0 +1,37 @@
+@import compass/css3
+
+.transform-example
+  width: 40px
+  height: 40px
+  background: red
+  margin: 20px
+
+#scale
+  +scale(1)
+
+#scale:hover
+  +scale(2)
+
+#rotate
+  +rotate(0)
+
+#rotate:hover
+  +rotate(45)
+
+#translate
+  +translate(0, 0)
+
+#translate:hover
+  +translate(20px, 20px)
+
+#skew
+  +skew(0, 0)
+
+#skew:hover
+  +skew(20, 20)
+
+#combo
+  +transform(1, 0, 0, 0, 0, 0)
+
+#combo:hover
+  +transform(1, 45, 20px, 20px, 20, 20)

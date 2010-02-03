@@ -1,0 +1,31 @@
+@import compass/css3
+
+.gradient-example
+  width: 80px
+  height: 80px
+  background: red
+  margin: 20px
+
+// This will yield a radial gradient with an apparent specular highlight  
+#radial-gradient
+  +radial-gradient("45 45, 10, 52 50, 30", "Cyan", "DodgerBlue")
+
+// This yields a linear gradient spanning from !start to !end coordinates  
+#linear-gradient
+  +linear-gradient("left top", "left bottom", #fff, #ddd)
+
+// This yields a gradient starting at the top with #fff, ending in #aaa  
+#v-gradient
+  +v-gradient(#fff, #aaa)
+
+// Same as above but with a #ccc at the halfway point  
+#v-gradient-2
+  +v-gradient(#fff, #aaa, color_stop(50%, #ccc))
+
+// Same as the first example but with #ccc at the 30% from the top, and #bbb at 70% from the top  
+#v-gradient-3
+  +v-gradient(#fff, #aaa, color_stop(30%, #ccc, 70%, #bbb))
+
+// This yields a horizontal linear gradient spanning from left to right. It can be used just like v-gradient above  
+#h-gradient
+  +h-gradient(#fff, #ddd)
