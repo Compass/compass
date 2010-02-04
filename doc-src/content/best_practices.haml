@@ -1,0 +1,104 @@
+---
+title: Best practices
+crumb: Best practices
+---
+
+%h3
+  Use a Base stylesheet file
+%p
+  Create a
+  %code
+    _base.sass
+  %a{ :href => "http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#partials" }
+    partial
+  to initialize your stylesheets with common variables and (
+  %a{ :href => "http://groups.google.com/group/compass-users/browse_frm/thread/0ed216d409476f88" }
+    often
+  ) the framework utilities you plan to use:
+%h4
+  _base.sass
+%pre
+  \!blueprint_grid_columns = 24
+  \!blueprint_grid_width   = 30px
+  \!blueprint_grid_margin  = 10px
+  \!font_color              = #333
+  \
+  @import compass/reset.sass
+  @import compass/utilities.sass
+  @import blueprint/screen.sass
+  \
+  \// etc.
+%p
+  The
+  %code
+    _base.sass
+  file is also a great place to keep your own custom mixins, so they’re available to any stylesheet that includes it.
+%p
+  Then you can include this file in all other stylesheets:
+%h4
+  application.sass
+%pre
+  @import base.sass
+  \
+  \#wrapper
+  \  +container
+  \
+  \// etc.
+%p
+  It is important to define any compass/framework constants that you want to override in base.sass first, before @import-ing the framework files.  See
+  %a{ :href => "http://wiki.github.com/chriseppstein/compass/overriding-constants" }
+    Overriding Constants
+  , for an example of where the number of grid columns for blueprint is overridden/set to 32.
+  %br
+  Note that you can refer to
+  %code
+    _base.sass
+  without the leading underscore, since it is a
+  %a{ :href => "http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#partials" }
+    partial
+  \.
+%h3
+  Write your own Custom Mixins
+%p
+  Mixins let you insert any number of style rules into a selector (and its descendants!) with a single line. This is a great way to
+  %a{ :href => "http://c2.com/cgi/wiki?DontRepeatYourself" }
+    %span.caps
+      DRY
+  up your stylesheet source code and make it much more maintainable. Using mixins will also make your stylesheet look like self-documented source code &mdash; like using descriptive method names in a programming language. It’s much more obvious to read something like
+  %code
+    +round_corners(6px, #f00)
+  than the whole list of rules which define that appearance.
+%h4
+  Mixin Example
+%pre
+  \// Mixin for the html element, so the footer stays at the bottom of the screen.
+  \// Relies on the following html structure, and a fixed-height #footer element:
+  \//
+  \//  %body
+  \//    #root
+  \//      #root_footer
+  \//    #footer
+  \
+  \=attach_footer( !footer_height )
+  \  :height 100%
+  \
+  body
+  \  :height 100%
+  \
+  \#root
+  \  :min-height 100%
+  \  :margin-bottom  = -!footer_height
+  \
+  \#root_footer
+  \  :clear both
+  \  :height = !footer_height
+  \
+  \#footer
+  \  :clear            both
+  \  :position         relative
+  \  :height         = !footer_height
+%p
+  A single line is all that’s needed to use the mixin, which moves the implementation details out of the way and replaces them with a clear and concise label:
+%pre
+  \html
+  \  +attach_footer( 54px )

@@ -1,5 +1,23 @@
 %h2
   Compass Documentation
+
+%h3
+  General
+
+%ul
+  %li
+    %a{:href => "/docs/"}
+      Home
+  %li
+    %a{:href => "/docs/best_practices/"}
+      Best practices
+  %li
+    %a{:href => "/docs/frameworks/"}
+      Working with plugins and frameworks
+
+%h3
+  Frameworks
+
 %ul
   = item_tree(reference_item(:stylesheet => "_blueprint.sass"))
   = item_tree(reference_item(:stylesheet => "_compass.sass"))

@@ -29,6 +29,26 @@ body
 blockquote
   :font-style italic
 
+hr
+  :background none
+  :height 0
+  :font-size 0
+  :line-height 0
+  :border none
+  :border-top 2px solid #CCC
+
+// Regular data tables
+table.datagrid
+  border-collapse: collapse
+  th
+    :background #EEE
+  td,
+  th
+    border: 1px solid #CCC
+    text-align: left
+    padding: 5px
+    cell-spacing: 0
+
 // Reference
 
 body.reference
@@ -94,6 +114,6 @@ ol#breadcrumbs
     content: ""
   li.last
     visibility: hidden
-body#home h1
+body#home #logo
   +replace-text("compass.png", 0px)
   height: 159px
