@@ -1,15 +1,14 @@
-@import blueprint/reset
 @import compass/utilities
 @import compass/css3
-
 @import blueprint
 
 body
   font-family: "Lucida Sans", "Lucida Grande", Lucida, sans-serif
   line-height: 1.5
+  font-size: 13px
 
 #container
-  +container
+  +pie-clearfix
 
 #main
   +column(16, true)
@@ -18,11 +17,16 @@ body
 #sidebar
   +column(8)
   +pull(24, true)
+  background: #F5F5F5
+  h2
+    font-size: 16px
+    ul
+      padding: 5px
 
 body.reference
   h3.mixin
     background-color: #eee
-    border: 3px solid #aaa
+    border: 1px solid #aaa
     padding: 0.75em
     margin-bottom: 0
     a.permalink
@@ -30,7 +34,7 @@ body.reference
       +link-colors("inherit", "inherit")
   .source-documentation
     background-color: #eee
-    border: 3px solid #aaa
+    border: 1px solid #aaa
     border-top-width: 0
     padding: 0.75em
   a.view-source
@@ -67,8 +71,8 @@ body.reference
 
 table.constants
   width: 100%
-  +alternating-rows-and-columns(#eee, #bbb, #191919)
-  +outer-table-borders(2px)
+  +alternating-rows-and-columns(#EEE, #bbb, #191919)
+  +outer-table-borders(1px)
   +inner-table-borders(1px)
   td, th
     padding: 0.25em 0.5em
