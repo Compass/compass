@@ -30,6 +30,10 @@
 //**
   Can be mixed into any li selector that is meant to participate in a horizontal layout.
   Used to implement +horizontal-list.
+
+  :last-child is not fully supported
+  see http://www.quirksmode.org/css/contents.html#t29 for the support matrix
+
 =horizontal-list-item(!padding = 4px)
   +no-bullet
   white-space: nowrap
@@ -37,9 +41,9 @@
   padding:
     left= !padding
     right= !padding
-  &.first
+  &:first-child, &.first
     padding-left: 0px
-  &.last
+  &:last-child, &.last
     padding-right: 0px
 
 //**
