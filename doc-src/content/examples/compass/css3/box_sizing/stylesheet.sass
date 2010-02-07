@@ -1,17 +1,14 @@
 @import compass/css3
 
-#contentBox
-	+box-sizing('content-box')
-	:background red
-	:padding 20px
-	:border 10px solid green
-	:margin 20px
-	:width 200px
+.box-sizing-example
+  background: red
+  padding: 20px
+  border: 10px solid green
+  margin: 20px
+  width: 200px
 
-#borderBox
-	+box-sizing('border-box')
-	:background red
-	:padding 20px
-	:border 10px solid green
-	:margin 20px
-	:width 200px
+#content-box
+  +box-sizing('content-box')
+
+#border-box
+  +box-sizing('border-box')

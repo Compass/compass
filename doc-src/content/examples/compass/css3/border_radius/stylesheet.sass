@@ -1,7 +1,40 @@
 @import compass/css3
 
+.border-radius-example
+  width: 40px
+  height: 40px
+  background: red
+  margin: 20px
+
 #border-radius
-	+border-radius('10px')
-	:width 40px
-	:height 40px
-	:background red
+  +border-radius("10px")
+
+#border-radius-top-left
+  +border-top-left-radius("10px")
+
+#border-radius-top-right
+  +border-top-right-radius("10px")
+
+#border-radius-bottom-left
+  +border-bottom-left-radius("10px")
+
+#border-radius-bottom-right
+  +border-bottom-right-radius("10px")
+
+#border-radius-top
+  +border-top-radius("10px")
+
+#border-radius-bottom
+  +border-bottom-radius("10px")
+
+#border-radius-left
+  +border-left-radius("10px")
+
+#border-radius-right
+  +border-right-radius("10px")
+
+#border-radius-combo
+  +border-corner-radius("top", "left", "20px")
+  +border-corner-radius("top", "right", "5px")
+  +border-corner-radius("bottom", "left", "12px")
+  +border-corner-radius("bottom", "right", "28px")

@@ -1,15 +1,15 @@
-@import blueprint/reset
 @import compass/utilities
 @import compass/css3
-
 @import blueprint
 
 body
   font-family: "Lucida Sans", "Lucida Grande", Lucida, sans-serif
   line-height: 1.5
+  font-size: 13px
 
+// Layout
 #container
-  +container
+  +pie-clearfix
 
 #main
   +column(16, true)
@@ -18,11 +18,43 @@ body
 #sidebar
   +column(8)
   +pull(24, true)
+  background: #F5F5F5
+  h2
+    font-size: 16px
+    ul
+      padding: 5px
+
+// Typography
+
+blockquote
+  :font-style italic
+
+hr
+  :background none
+  :height 0
+  :font-size 0
+  :line-height 0
+  :border none
+  :border-top 2px solid #CCC
+
+// Regular data tables
+table.datagrid
+  border-collapse: collapse
+  th
+    :background #EEE
+  td,
+  th
+    border: 1px solid #CCC
+    text-align: left
+    padding: 5px
+    cell-spacing: 0
+
+// Reference
 
 body.reference
   h3.mixin
     background-color: #eee
-    border: 3px solid #aaa
+    border: 1px solid #aaa
     padding: 0.75em
     margin-bottom: 0
     a.permalink
@@ -30,7 +62,7 @@ body.reference
       +link-colors("inherit", "inherit")
   .source-documentation
     background-color: #eee
-    border: 3px solid #aaa
+    border: 1px solid #aaa
     border-top-width: 0
     padding: 0.75em
   a.view-source
@@ -67,8 +99,8 @@ body.reference
 
 table.constants
   width: 100%
-  +alternating-rows-and-columns(#eee, #bbb, #191919)
-  +outer-table-borders(2px)
+  +alternating-rows-and-columns(#EEE, #bbb, #191919)
+  +outer-table-borders(1px)
   +inner-table-borders(1px)
   td, th
     padding: 0.25em 0.5em
@@ -82,6 +114,6 @@ ol#breadcrumbs
     content: ""
   li.last
     visibility: hidden
-body#home h1
+body#home #logo
   +replace-text("compass.png", 0px)
   height: 159px

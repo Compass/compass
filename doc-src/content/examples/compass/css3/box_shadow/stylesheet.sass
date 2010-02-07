@@ -1,17 +1,15 @@
 @import compass/css3
 
+.box-shadow-example
+  width: 40px
+  height: 40px
+  background: #EEE
+  margin: 20px
+
 // Default box shadow
 #box-shadow-default
-	+box-shadow
-	:width 40px
-	:height 40px
-	:background #EEE
-	:margin 20px
+  +box-shadow
 
 // Box shadow with custom settings
 #box-shadow-custom
-	+box-shadow(red, 2px, 2px, 10px)
-	:width 40px
-	:height 40px
-	:background #EEE
-	:margin 20px
+  +box-shadow(red, 2px, 2px, 10px)
