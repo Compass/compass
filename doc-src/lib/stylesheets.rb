@@ -33,8 +33,9 @@ def reference_item(options)
     path = stylesheet_path(stylesheet)
     if path
       @items.detect do |i|
-        i[:stylesheet] == path &&
-        i.identifier =~ /^\/reference/
+        i.identifier =~ /^\/reference/ &&
+        i[:stylesheet] == path
+        
       end
     end
   end
@@ -136,7 +137,9 @@ end
 
 def example_items
   @site.cached("examples") do
-    @items.select{|i| i[:example]}
+    @items.select do |i|
+      i.identifier =~ /^\/examples/ && i[:example]
+    end
   end
 end
 
