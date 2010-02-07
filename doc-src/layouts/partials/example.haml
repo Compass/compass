@@ -7,10 +7,10 @@
   %tr.source
     %td.markup
       %pre
-        %code= h(example_html)
+        %code.html= h(example_html)
     %td.stylesheet
       %pre
-        %code= h(example_sass)
+        %code.sass= h(example_sass)
   %tr.output
     %th Display
     %th Generated CSS
@@ -19,4 +19,4 @@
       = example_html
     %td.stylesheet
       %pre
-        %code= h(example_css)
+        %code.css= h(example_css)

@@ -22,6 +22,7 @@ end
 
 compile '/examples/*/' do
   filter :haml, :ugly => true
+  filter :highlight if ENV['SYNTAX']
   layout 'example'
 end
 
@@ -29,12 +30,18 @@ compile '/stylesheets/*/' do
   filter :sass, Compass.sass_engine_options
 end
 
+compile '/reference/*/' do
+  filter :haml, :ugly => true
+  filter :highlight if ENV['SYNTAX']
+  layout 'default'
+end
+
 compile '*' do
   filter :haml, :ugly => true
   layout 'default'
 end
 
-route '/stylesheets/_*/' do
+route '/stylesheets/*/_*/' do
   # don't output partials, so return nil
   nil
 end

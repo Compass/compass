@@ -3,12 +3,24 @@ body
 
 #example
   width: 100%
-  td
+  > tbody > tr > td
     border: 2px solid black
-    padding: 6px 4px
     vertical-align: top
     width: 48%
+    min-width: 400px
+    pre
+      margin: 0
+      overflow: auto
+  td.line_numbers, td.linenos
+    padding: 6px 3px
+    border-right: 1px solid #333
+    background-color: #ccc
+  td.code
+    padding: 6px 3px
     max-width: 400px
     pre
       margin: 0
       overflow: auto
+
+@import partials/syntax.sass
+  
