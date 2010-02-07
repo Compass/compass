@@ -4,13 +4,12 @@ def stylesheets_dir(framework)
   Compass::Frameworks[framework].stylesheets_directory
 end
 
-def stylesheet_key(item)
-  [item[:framework], item[:stylesheet]].join("/")
+def tree_key(item)
+  "tree/"+[item[:framework], item[:stylesheet]].join("/")
 end
 
 def tree(item)
-  @stylesheets ||= {}
-  @stylesheets[stylesheet_key(item)] ||= begin
+  @site.cached(tree_key(item)) do
     file = File.join(stylesheets_dir(item[:framework]), item[:stylesheet])
     contents = File.read(file)
     Sass::Engine.new(contents).send :to_tree
@@ -30,11 +29,13 @@ end
 
 def reference_item(options)
   stylesheet = options[:stylesheet]
-  path = stylesheet_path(stylesheet)
-  if path
-    @items.detect do |i|
-      i[:stylesheet] == path &&
-      i.identifier =~ /^\/reference/
+  @site.cached("reference/item/#{stylesheet}") do
+    path = stylesheet_path(stylesheet)
+    if path
+      @items.detect do |i|
+        i[:stylesheet] == path &&
+        i.identifier =~ /^\/reference/
+      end
     end
   end
 end
@@ -57,11 +58,13 @@ def import_paths
 end
 
 def stylesheet_path(ss)
-  possible_filenames_for_stylesheet(ss).each do |filename|
-    import_paths.each do |import_path|
-      full_path = File.join(import_path.first, filename)
-      if File.exist?(full_path)
-        return "#{import_path.last}#{"/" if import_path.last && import_path.last.length > 0}#{filename}"
+  @site.cached("stylesheet/path/#{ss}") do
+    possible_filenames_for_stylesheet(ss).each do |filename|
+      import_paths.each do |import_path|
+        full_path = File.join(import_path.first, filename)
+        if File.exist?(full_path)
+          return "#{import_path.last}#{"/" if import_path.last && import_path.last.length > 0}#{filename}"
+        end
       end
     end
   end
@@ -132,14 +135,17 @@ def mixin_signature(mixin)
 end
 
 def example_items
-  @example_items ||= @items.select{|i| i[:example]}
+  @site.cached("examples") do
+    @items.select{|i| i[:example]}
+  end
 end
 
 def examples_for_item(item)
-  @examples ||= {}
-  @examples[item] ||= example_items.select do |i|
-    i[:framework] == item[:framework] &&
-    i[:stylesheet] == item[:stylesheet]
+  @site.cached("examples/#{item.identifier}") do
+    example_items.select do |i|
+      i[:framework] == item[:framework] &&
+      i[:stylesheet] == item[:stylesheet]
+    end
   end
 end
 
