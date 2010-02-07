@@ -1,4 +1,5 @@
 *.DS_Store
+sync
 tmp/*
 examples/*/stylesheets/*
 examples/*/*.html
