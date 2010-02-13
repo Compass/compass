@@ -59,8 +59,11 @@ module Compass
             end
           end
         else
-          directory File.dirname(options[:configuration_file])
-          installer.write_configuration_files(options[:configuration_file])
+          config_file = options[:configuration_file]
+          config_file ||= Compass.detect_configuration_file
+          config_file ||= Compass::Configuration::Helpers::KNOWN_CONFIG_LOCATIONS.first
+          directory File.dirname(config_file)
+          installer.write_configuration_files(config_file)
         end
       end
 
