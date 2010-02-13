@@ -36,13 +36,13 @@
 // Main layout grid, override these constants to build your grid and container sizes.
 // The width shown gives the right floored percentage values.
 !blueprint_liquid_grid_columns ||= 24
-!blueprint_liquid_grid_width   ||= 4.173%
-!blueprint_liquid_grid_margin  ||= 0.833em
+!blueprint_liquid_grid_width   ||= 3.167%
+!blueprint_liquid_grid_margin  ||= 1.042%
 
 // Do not edit below this line unless you really know what you're doing.
 !blueprint_liquid_container_width = 80%
 !blueprint_liquid_container_min_width = 950px
-!blueprint_liquid_grid_push_pull = -(!blueprint_liquid_grid_margin * 4)
+!blueprint_liquid_grid_push_pull = -(!blueprint_liquid_grid_margin + !blueprint_liquid_grid_width)
 
 =blueprint-liquid-grid
   // A container should group all your columns
@@ -82,7 +82,7 @@
   +clearfix
 
 =span(!n, !override = false)
-  !width = (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
+  !width = (!blueprint_liquid_grid_width * !n) + (!blueprint_liquid_grid_margin * (!n - 1))
   @if !override
     width= !width !important
   @else
@@ -101,10 +101,10 @@
     margin-right= !blueprint_liquid_grid_margin
 
 =append(!n)
-  padding-right= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
+  padding-right= (!blueprint_liquid_grid_width + !blueprint_liquid_grid_margin) * !n
   
 =prepend(!n)
-  padding-left= (!blueprint_liquid_grid_width * !n) - ((!blueprint_liquid_grid_width * !n) % 1)
+  padding-left= (!blueprint_liquid_grid_width + !blueprint_liquid_grid_margin) * !n
 
 =pull(!n, !last = false)
   margin-left= (!blueprint_liquid_grid_push_pull * !n)
@@ -113,7 +113,7 @@
   +float-right
   margin:
     top: 0
-    left: 1.5em
+    left= !blueprint_liquid_grid_margin
     right= (!blueprint_liquid_grid_push_pull * !n)
     bottom: 0
 
@@ -121,8 +121,8 @@
   border-right: 1px solid #eee
 
 =colborder
-  padding-right: 2%
-  margin-right: 2%
+  padding-right= !blueprint_liquid_grid_margin * 2
+  margin-right= !blueprint_liquid_grid_margin * 2
   +border
 
 =colruler
@@ -131,7 +131,9 @@
   clear: both
   width: 100% 
   height: 0.083em
-  margin: 0 0 1.583em
+  margin: 0
+  margin-left= !blueprint_liquid_grid_margin * 2
+  margin-right= !blueprint_liquid_grid_margin * 2
   border: none
 
 =colspacer
