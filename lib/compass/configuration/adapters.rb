@@ -3,7 +3,7 @@ module Compass
     # The adapters module provides methods that make configuration data from a compass project
     # adapt to various consumers of configuration data
     module Adapters
-      def to_compiler_arguments(additional_options)
+      def to_compiler_arguments(additional_options = {})
         [project_path, sass_path, css_path, to_sass_engine_options.merge(additional_options)]
       end
 

@@ -112,6 +112,15 @@ module Compass
         possible_files.detect{|f| File.exists?(f)}
       end
 
+      def handle_configuration_change!
+        if (compiler = Compass.compiler).new_config?
+          compiler.clean!
+        end
+      end
+
+      def compiler
+        Compass::Compiler.new(*Compass.configuration.to_compiler_arguments)
+      end
     end
   end
 

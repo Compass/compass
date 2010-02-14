@@ -58,6 +58,13 @@ module Compass
       nil
     end
 
+    def clean!
+      FileUtils.rm_rf options[:cache_location]
+      css_files.each do |css_file|
+        FileUtils.rm_f css_file
+      end
+    end
+
     def run
       if new_config?
         # Wipe out the cache and force compilation if the configuration has changed.
