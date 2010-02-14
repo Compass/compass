@@ -6,7 +6,11 @@ require 'compass/actions'
 require 'compass/installers'
 require 'compass/commands'
 require 'rbconfig'
-require 'win32console' if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
+begin
+  require 'win32console' if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
+rescue LoadError
+  $boring = true
+end
 
 module Compass::Exec
 end

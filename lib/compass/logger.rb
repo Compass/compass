@@ -46,7 +46,11 @@ module Compass
 
     def color(c)
       if Compass.configuration.color_output && c && COLORS.has_key?(c.to_sym)
-        "\e[#{COLORS[c.to_sym]}m"
+        if defined?($boring) && $boring
+          ""
+        else
+          "\e[#{COLORS[c.to_sym]}m"
+        end
       else
         ""
       end
