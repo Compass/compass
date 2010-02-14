@@ -10,7 +10,7 @@ module Compass
       module ClassMethods
         def new_from_file(config_file)
           data = Data.new(config_file)
-          data.parse(config_file)
+          data._parse(config_file)
           data
         end
 
@@ -22,8 +22,12 @@ module Compass
       end
 
       module InstanceMethods
-        # parses a configuration file which is a ruby script
         def parse(config_file)
+          raise Compass::Error, "Compass.configuration.parse(filename) has been removed. Please call Compass.add_project_configuration(filename) instead."
+        end
+
+        # parses a configuration file which is a ruby script
+        def _parse(config_file)
           unless File.readable?(config_file)
             raise Compass::Error, "Configuration file, #{config_file}, not found or not readable."
           end
