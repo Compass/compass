@@ -80,9 +80,12 @@ module Compass
         end
 
         def config_contents
+          "# This configuration file works with both the Compass command line tool and within Rails.\n" +
           Compass.configuration.serialize do |prop, value|
             if prop == :project_path
               "project_path = RAILS_ROOT if defined?(RAILS_ROOT)\n"
+            elsif prop == :environment
+              "environment = Compass::AppIntegration::Rails.env\n"
             elsif prop == :output_style
               ""
             end
@@ -91,11 +94,11 @@ module Compass
 
         def initializer_contents
           %Q{require 'compass'
-  # If you have any compass plugins, require them here.
-  Compass.configuration.parse(File.join(RAILS_ROOT, "config", "compass.rb"))
-  Compass.configuration.environment = (defined?(Rails) ? Rails.env : RAILS_ENV).to_sym
-  Compass.configure_sass_plugin!
-  }
+            |rails_root = (defined?(Rails) ? Rails.root : RAILS_ROOT).to_s
+            |Compass.add_project_configuration(File.join(rails_root, "config", "compass.rb"))
+            |Compass.configure_sass_plugin!
+            |Compass.handle_configuration_change!
+            |}.gsub(/^\s+\|/,'')
         end
 
         def stylesheet_prefix

@@ -73,7 +73,7 @@ module Compass
         def serialize_property(prop, value)
           %Q(#{prop} = #{value.inspect}\n)
         end
-        
+
         def issue_deprecation_warnings
           if http_images_path == :relative
             $stderr.puts "DEPRECATION WARNING: Please set relative_assets = true to enable relative paths."
