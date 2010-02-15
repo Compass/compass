@@ -27,11 +27,20 @@ module Compass
       end
     end
 
+    def detect_registration
+      @registered = nil
+      yield
+      @registered
+    ensure
+      @registered = nil
+    end
+
     def register(name, *arguments)
+      @registered = Framework.new(name, *arguments)
       if idx = ALL.index(self[name])
-        ALL[idx] = Framework.new(name, *arguments)
+        ALL[idx] = @registered
       else
-        ALL << Framework.new(name, *arguments)
+        ALL << @registered
       end
     end
 
@@ -54,9 +63,10 @@ module Compass
         File.join(directory, File.basename(directory)+".rb")
       ]
       loader = loaders.detect{|l| File.exists?(l)}
-      if loader
-        require loader
-      else
+      registered_framework = detect_registration do
+        require loader if loader
+      end
+      unless registered_framework
         register File.basename(directory), directory
       end
     end
