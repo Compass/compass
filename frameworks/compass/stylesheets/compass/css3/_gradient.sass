@@ -6,35 +6,39 @@
   background: -moz-#{!type}-gradient(#{!gradient})
 
 //*
-  // This will yeild a radial gradient with an apparent specular highlight
+  // This will yield a radial gradient with an apparent specular highlight
   +radial-gradient("45 45, 10, 52 50, 30", Cyan, DodgerBlue)
     
 =radial-gradient(!coords, !color1, !color2, !color_stop = false)
   +gradient("radial", !coords, !color1, !color2, !color_stop)
 
 //* 
-  // This yields a linear gradient spanning from !start to !end coordinates
-  +linear-gradient("left top", "left bottom", #fff, #ddd)
-
-=linear-gradient(!start, !end, !color1, !color2, !color_stop = false)
-  !coords = !start + ", " + !end
-  +gradient("linear", !coords, !color1, !color2, !color_stop)
-
-//*
-  // This yields a gradient starting at the top with #fff, ending in #aaa
-  +v-gradient(#fff, #aaa)
-  // Same as above but with a #ccc at the halfway point
-  +v-gradient(#fff, #aaa, color_stop(50%, #ccc))
-  // Same as the first example but with #ccc at the 30% from the top, and #bbb at 70% from the top
-  +v-gradient(#fff, #aaa, color_stop(30%, #ccc, 70%, #bbb))
-
-=v-gradient(!color1, !color2, !color_stop = false)
-  +linear-gradient("left top", "left bottom", !color1, !color2, !color_stop)
-
-//* 
-  // This yields a horizontal linear gradient spanning from left to right
-  // It can be used just like v-gradient above
-  h-gradient(#fff, #ddd)
+  // This yields a linear gradient spanning from top to bottom
+  +linear-gradient(color_stops(white, black))
   
-=h-gradient(!color1, !color2, !color_stop = false)
-  +linear-gradient("left top", "right top", !color1, !color2, !color_stop)
+  // This yields a linear gradient spanning from bottom to top
+  +linear-gradient(color_stops(white, black), "bottom")
+
+  // This yields a linear gradient spanning from left to right
+  +linear-gradient(color_stops(white, black), "left")
+
+  // This yields a linear gradient starting at white passing
+  // thru blue at 33% down and then to black
+  +linear-gradient(color_stops(white, blue 33%, black))
+
+  // This yields a linear gradient starting at white passing
+  // thru blue at 33% down and then to black at 67% until the end
+  +linear-gradient(color_stops(white, blue 33%, black 67%))
+
+=linear-gradient(!color_stops, !start = "top")
+  // Firefox's gradient api is nice.
+  // Webkit's gradient api sucks -- hence these backflips:
+  !end = grad_opposite_position(!start)
+  !start_color = grad_start_color(!color_stops)
+  !end_color = grad_end_color(!color_stops)
+  !webkit_stops = grad_color_stops(!color_stops)
+  !gradient= "#{grad_point(!start)}, #{grad_point(!end)}, from(#{!start_color}), to(#{!end_color})"
+  @if !webkit_stops
+    !gradient= !gradient + ", " + !webkit_stops
+  background-image: -webkit-gradient(linear, #{!gradient})
+  background-image: -moz-linear-gradient(#{!start}, #{!color_stops})

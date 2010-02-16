@@ -42,7 +42,7 @@ class CompassTest < Test::Unit::TestCase
       each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, 'compass'
       end
-      assert_renders_correctly :reset, :layout, :utilities
+      assert_renders_correctly :reset, :layout, :utilities, :gradients
     end
   end
 

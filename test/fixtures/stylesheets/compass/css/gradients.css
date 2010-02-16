@@ -1,0 +1,43 @@
+.linear-1 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd, #aaaaaa); }
+
+.linear-2 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dddddd), to(#aaaaaa));
+  background-image: -moz-linear-gradient(left, #dddddd, #aaaaaa); }
+
+.linear-3 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#dddddd), to(#aaaaaa));
+  background-image: -moz-linear-gradient(top left, #dddddd, #aaaaaa); }
+
+.linear-4 {
+  background-image: -webkit-gradient(linear, 0% 100%, 100% 0%, from(#dddddd), to(#aaaaaa));
+  background-image: -moz-linear-gradient(top right, #dddddd, #aaaaaa); }
+
+.linear-5 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa), color-stop(50%, #cccccc));
+  background-image: -moz-linear-gradient(top, #dddddd, #cccccc, #aaaaaa); }
+
+.linear-6 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa), color-stop(20%, #cccccc));
+  background-image: -moz-linear-gradient(top, #dddddd, #cccccc 20%, #aaaaaa); }
+
+.linear-7 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa), color-stop(20%, #cccccc), color-stop(60%, #eeeeee));
+  background-image: -moz-linear-gradient(top, #dddddd, #cccccc 20%, #eeeeee, #aaaaaa); }
+
+.linear-8 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa), color-stop(80%, #dddddd));
+  background-image: -moz-linear-gradient(top, #dddddd 80%, #aaaaaa); }
+
+.linear-9 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa), color-stop(20%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd, #aaaaaa 20%); }
+
+.linear-10 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa), color-stop(40%, #dddddd), color-stop(50%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 40%, #aaaaaa 50%); }
+
+.linear-11 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#dddddd), to(#aaaaaa), color-stop(40%, #dddddd), color-stop(45%, black), color-stop(50%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 40%, black, #aaaaaa 50%); }
