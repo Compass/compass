@@ -39,7 +39,7 @@ h1
   content: " "
 
 .example
-  +v-gradient(#fff, #ccc)
+  +linear-gradient(color_stops(#fff, #ccc))
   pre
     padding: 1em
     margin: 1em
@@ -48,8 +48,8 @@ h1
     font-weight: bold
 #background-clip
   pre
-    background: transparent #{image-url("fresh-peas.jpg")} no-repeat
-    border: 1em solid #{transparentize(red, .75)}
+    background: transparent #{image_url("fresh-peas.jpg")} no-repeat
+    border: 1em solid rgba(255,0,0,.25)
   .padding-box
     +background-clip("padding-box")
     +background-origin("padding-box")
@@ -59,8 +59,9 @@ h1
 
 #background-size
   pre
-    background: transparent #{image-url("fresh-peas.jpg")} no-repeat
-    border: 1em solid #{transparentize(red, .75)}
+    background: transparent #{image_url("fresh-peas.jpg")} no-repeat
+    border: 1em solid #{mix(red, white, .5)}
+    border: 1em solid rgba(255,0,0,.25)
   .top-left
     +background-size(50% 50%)
   .centered
@@ -69,12 +70,13 @@ h1
 
 #gradients
   .horizontal
-    +h-gradient(#d92626, #2626d9)
+    +linear-gradient(color_stops(#d92626, #2626d9), "left")
   .vertical
-    +v-gradient(#d92626, #2626d9)
+    +linear-gradient(color_stops(#d92626, #2626d9))
   .diagonal
-    +linear-gradient("left top", "right bottom", #d92626, #2626d9)
+    +linear-gradient(color_stops(#d92626, #2626d9), "right top")
   .radial
-    +radial-gradient("center center, 10, center center, 100", #d92626, #2626d9) 
+    +radial-gradient("center center, 10, center center, 100", #d92626, #2626d9)
+    background-image: -moz-radial-gradient(20px center, circle, 40px center #d92626 10px, #2626d9 100px)
     background-color: #2626d9
 

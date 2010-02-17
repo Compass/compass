@@ -33,6 +33,7 @@ module Compass::SassExtensions::Functions::GradientSupport
   end
 
   module Functions
+    # returns the opposite position of a side or corner.
     def grad_opposite_position(position)
       opposite = position.value.split(/ +/).map do |pos|
         case pos
@@ -46,6 +47,8 @@ module Compass::SassExtensions::Functions::GradientSupport
       end
       Sass::Script::String.new(opposite.join(" "))
     end
+
+    # returns color-stop() calls for use in webkit.
     def grad_color_stops(color_list)
       positions = color_list.values.map{|c| [c.stop && c.stop.value, c.color]}
       # fill in the blank positions
@@ -74,12 +77,18 @@ module Compass::SassExtensions::Functions::GradientSupport
         Sass::Script::String.new(color_stops.join(", "))
       end
     end
+
+    # the first color from a list of color stops
     def grad_start_color(color_list)
       color_list.values.first.color
     end
+
+    # the last color from a list of color stops
     def grad_end_color(color_list)
       color_list.values.last.color
     end
+
+    # the given a position, return a point in percents
     def grad_point(position)
       position = position.value
       position = if position[" "]
