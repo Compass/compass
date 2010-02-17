@@ -92,17 +92,22 @@ module Compass::SassExtensions::Functions::GradientSupport
     def grad_point(position)
       position = position.value
       position = if position[" "]
-        position
+        if position =~ /(top|bottom) (left|right)/
+          "#{$2} #{$1}"
+        else
+          position
+        end
       else
         case position
         when /top|bottom/
-          "#{position} left"
+          "left #{position}"
         when /left|right/
-          "top #{position}"
+          "#{position} top"
         end
       end
       Sass::Script::String.new position.gsub(/top/, "0%").gsub(/bottom/, "100%").gsub(/left/,"0%").gsub(/right/,"100%")
     end
+
     def color_stops(*args)
       List.new(*args.map do |arg|
         case arg
