@@ -98,6 +98,36 @@ EXPECTED
     assert_equal expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
   end
 
+  def test_config_with_pathname
+    contents = StringIO.new(<<-CONFIG)
+      http_path = "/"
+      project_path = Pathname.new("/home/chris/my_compass_project")
+      css_dir = "css"
+      additional_import_paths = ["../foo"]
+      add_import_path "/path/to/my/framework"
+    CONFIG
+
+    Compass.add_configuration(contents, "test_additional_import_paths")
+
+    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/home/chris/my_compass_project/../foo")
+    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/path/to/my/framework"), Compass.configuration.to_sass_engine_options[:load_paths].inspect
+    assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location]["/path/to/my/framework"]
+    assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location]["/home/chris/my_compass_project/../foo"]
+
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+project_path = "/home/chris/my_compass_project"
+# Set this to the root of your project when deployed:
+http_path = "/"
+css_dir = "css"
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+additional_import_paths = ["../foo", "/path/to/my/framework"]
+EXPECTED
+    assert_equal "/", Compass.configuration.http_path
+    assert_equal expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
+  end
+
     def test_sass_options
       contents = StringIO.new(<<-CONFIG)
         sass_options = {:foo => 'bar'}
