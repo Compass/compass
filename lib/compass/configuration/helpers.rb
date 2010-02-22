@@ -88,6 +88,12 @@ module Compass
         end
       end
 
+      def discover_extensions!
+        if File.exists?(configuration.extensions_path)
+          Compass::Frameworks.discover(configuration.extensions_path)
+        end
+      end
+
       # Returns a full path to the relative path to the project directory
       def projectize(path, project_path = nil)
         project_path ||= configuration.project_path
