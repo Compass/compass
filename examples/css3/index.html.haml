@@ -39,24 +39,10 @@
               :preserve
                 +linear-gradient(
                   color_stops(#d92626, #2626d9))
-          %pre.diagonal
-            %code<
-              :preserve
-                
-                
-                
-                
-                
-                +linear-gradient(
-                  color_stops(#d92626, #2626d9),
-                  "top left")
-                
-                
-                
-                
           %pre.radial
             %code<>
-              +radial-gradient(<br />  "center center, 10, center center, 100",<br />  #d92626, #2626d9)
+              +radial-gradient(<br>  color_stops(#d92626, #2626d9))
+          %a(href="gradients.html") More Gradients
       .examples
         #border-radius.example
           %h2 Border Radius

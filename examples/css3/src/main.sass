@@ -76,7 +76,33 @@ h1
   .diagonal
     +linear-gradient(color_stops(#d92626, #2626d9), "right top")
   .radial
-    +radial-gradient("center center, 10, center center, 100", #d92626, #2626d9)
-    background-image: -moz-radial-gradient(20px center, circle, 40px center #d92626 10px, #2626d9 100px)
-    background-color: #2626d9
+    /* +radial-gradient(color_stops(#d92626 0, #2626d9 1))
+    +radial-gradient(color_stops(#d92626 10px, #2626d9 150px))
+    // +radial-gradient("center center, 10, center center, 100", #d92626, #2626d9)
+    // background-image: -moz-radial-gradient(20px center, circle, #d92626 10px, #2626d9 100px)
+    // background-color: #2626d9
+  .radial-1
+    // A default radial gradient:
+    /* +radial-gradient(color_stops(#ddd, #aaa))
+    +radial-gradient(color_stops(#ddd, #aaa))
+  .radial-2
+    // A centered gradient
+    /* +radial-gradient(color_stops(#ddd, #aaa))
+    +radial-gradient(color_stops(#ddd, #aaa))
+  .radial-3
+    // A centered radial gradient at the top
+    /* +radial-gradient(color_stops(#ddd, #aaa), "top center")
+    +radial-gradient(color_stops(#ddd, #aaa), "top center")
+  .radial-4
+    // A centered radial gradient with fixed color stops
+    /* +radial-gradient(color_stops(#ddd 20px, #aaa 50px))
+    +radial-gradient(color_stops(#ddd 20px, #aaa 50px))
+  .radial-5
+    // A centered gradient with several color stops
+    /* +radial-gradient(color_stops(#ddd 20%, #aaa 50%, #c00))
+    +radial-gradient(color_stops(#ddd 20px, #aaa 50%, #c00 200px))
+  .radial-6
+    // A centered gradient with color stops
+    /* +radial-gradient(color_stops(#0c0, #ddd 20%, #aaa 50%, #00c))
+    +radial-gradient(color_stops(#0c0 0px, #ddd 20px, #aaa 50px, #00c 100px))
 
