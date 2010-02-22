@@ -1,10 +1,12 @@
 module Compass::SassExtensions::Functions::ImageSize
+  # Returns the width of the image relative to the images directory
   def image_width(image_file)
     image_path = real_path(image_file)
     width = ImageProperties.new(image_path).size.first
     Sass::Script::Number.new(width,["px"])
   end
 
+  # Returns the height of the image relative to the images directory
   def image_height(image_file)
     image_path = real_path(image_file)
     height = ImageProperties.new(image_path).size.last
@@ -15,8 +17,8 @@ private
   def real_path(image_file)
     path = image_file.value
     # Compute the real path to the image on the file stystem if the images_dir is set.
-    if Compass.configuration.images_dir
-      File.join(Compass.configuration.project_path, Compass.configuration.images_dir, path)
+    if Compass.configuration.images_path
+      File.join(Compass.configuration.images_path, path)
     else
       File.join(Compass.configuration.project_path, path)
     end
@@ -29,7 +31,9 @@ private
     end
 
     def size
-      @dimensions ||=  send("get_size_for_#{@file_type}")
+      @dimensions ||= send(:"get_size_for_#{@file_type}")
+    rescue NoMethodError
+      raise Sass::SyntaxError, "Unrecognized file type: #{@file_type}"
     end
 
   private
@@ -39,12 +43,6 @@ private
 
     def get_size_for_gif
       size = IO.read(@file)[6..10].unpack('SS')
-      size.inspect
-    end
-
-    def get_size_for_bmp
-      d = IO.read(@file)[14..28]
-      d[0] == 40 ? d[4..-1].unpack('LL') : d[4..8].unpack('SS')
     end
 
     def get_size_for_jpg
