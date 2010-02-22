@@ -86,10 +86,10 @@ private
           when 0xC0..0xC3, 0xC5..0xC7, 0xC9..0xCB, 0xCD..0xCF # SOF markers
             length, @bits, @height, @width, components = io.readsof
             raise 'malformed JPEG' unless length == 8 + components * 3
-          when 0xD9, 0xDA:  break # EOI, SOS
-          when 0xFE:        @comment = io.readframe # COM
-          when 0xE1:        io.readframe # APP1, contains EXIF tag
-          else              io.readframe # ignore frame
+          when 0xD9, 0xDA then  break # EOI, SOS
+          when 0xFE then @comment = io.readframe # COM
+          when 0xE1 then io.readframe # APP1, contains EXIF tag
+          else io.readframe # ignore frame
         end
       end
     end
