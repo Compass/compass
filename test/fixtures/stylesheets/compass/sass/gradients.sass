@@ -22,3 +22,27 @@
   +linear-gradient(color_stops(#ddd 40%, #aaa 50%))
 .linear-11
   +linear-gradient(color_stops(#ddd 40%, #000, #aaa 50%))
+.radial-1
+  // A default radial gradient:
+  // A centered gradient having the shape of the container (aka ellipse)
+  +radial-gradient(color_stops(#ddd, #aaa))
+.radial-2
+  // A centered gradient having the shape of the container (aka ellipse)
+  +radial-gradient(color_stops(#ddd, #aaa))
+.radial-3
+  // A centered gradient at the top having the shape of the container (aka ellipse)
+  +radial-gradient(color_stops(#ddd, #aaa), "top center")
+.radial-4
+  // A centered gradient having a circular shape
+  +radial-gradient(color_stops(#ddd, #aaa))
+.radial-5
+  // A centered gradient at the top having a circular shape
+  +radial-gradient(color_stops(#ddd, #aaa), "top center")
+.radial-6
+  // A centered circular gradient with color stops
+  // The color stops must be absolute units
+  +radial-gradient(color_stops(#ddd 20px, #aaa 50px))
+.radial-7
+  // A centered elliptical gradient with color stops
+  // The color stops must be relative units
+  +radial-gradient(color_stops(#ddd 20%, #aaa 50px))
