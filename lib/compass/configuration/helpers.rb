@@ -31,6 +31,7 @@ module Compass
         if config.is_a?(Compass::Configuration::Data)
           config
         elsif config.respond_to?(:read)
+          filename ||= config.to_s if config.is_a?(Pathname)
           Compass::Configuration::Data.new_from_string(config.read, filename)
         elsif config.is_a?(Hash)
           Compass::Configuration::Data.new(filename, config)

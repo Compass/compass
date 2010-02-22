@@ -41,6 +41,7 @@ module Compass
           eval(contents, bind, filename)
           ATTRIBUTES.each do |prop|
             value = eval(prop.to_s, bind) rescue nil
+            value = value.to_s if value.is_a?(Pathname)
             self.send("#{prop}=", value) unless value.nil?
           end
           if @added_import_paths
