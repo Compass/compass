@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.10.0.pre5"
+  s.version = "0.10.0.pre6"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2010-01-19}
+  s.date = %q{2010-02-22}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -107,15 +107,37 @@ Gem::Specification.new do |s|
      "examples/compass/sticky_footer.html.haml",
      "examples/compass/utilities.html.haml",
      "examples/css3/config.rb",
+     "examples/css3/extensions/compass-colors/README.markdown",
+     "examples/css3/extensions/compass-colors/VERSION.yml",
+     "examples/css3/extensions/compass-colors/example/config.rb",
+     "examples/css3/extensions/compass-colors/example/src/_split_compliment_theme.sass",
+     "examples/css3/extensions/compass-colors/example/src/screen.sass",
+     "examples/css3/extensions/compass-colors/lib/compass-colors.rb",
+     "examples/css3/extensions/compass-colors/lib/compass-colors/compass_extension.rb",
+     "examples/css3/extensions/compass-colors/lib/compass-colors/hsl.rb",
+     "examples/css3/extensions/compass-colors/lib/compass-colors/sass_extensions.rb",
+     "examples/css3/extensions/compass-colors/spec/approximate_color_matching.rb",
+     "examples/css3/extensions/compass-colors/spec/sass_extensions_spec.rb",
+     "examples/css3/extensions/compass-colors/templates/analogous/_theme.sass",
+     "examples/css3/extensions/compass-colors/templates/analogous/manifest.rb",
+     "examples/css3/extensions/compass-colors/templates/basic/_theme.sass",
+     "examples/css3/extensions/compass-colors/templates/basic/manifest.rb",
+     "examples/css3/extensions/compass-colors/templates/complementary/_theme.sass",
+     "examples/css3/extensions/compass-colors/templates/complementary/manifest.rb",
+     "examples/css3/extensions/compass-colors/templates/split_complement/_theme.sass",
+     "examples/css3/extensions/compass-colors/templates/split_complement/manifest.rb",
+     "examples/css3/extensions/compass-colors/templates/triadic/_theme.sass",
+     "examples/css3/extensions/compass-colors/templates/triadic/manifest.rb",
      "examples/css3/extensions/fancy-fonts/templates/project/Vtks Revolt.ttf",
      "examples/css3/extensions/fancy-fonts/templates/project/angelina.ttf",
      "examples/css3/extensions/fancy-fonts/templates/project/fancy-fonts.sass",
      "examples/css3/extensions/fancy-fonts/templates/project/manifest.rb",
+     "examples/css3/gradients.html.haml",
      "examples/css3/images/fresh-peas.jpg",
      "examples/css3/index.html.haml",
      "examples/css3/src/_base.sass",
      "examples/css3/src/fancy-fonts.sass",
-     "examples/css3/src/gradient.sass",
+     "examples/css3/src/gradients.sass",
      "examples/css3/src/main.sass",
      "examples/css3/stylesheets/fonts/Vtks Revolt.ttf",
      "examples/css3/stylesheets/fonts/angelina.ttf",
@@ -342,13 +364,13 @@ Gem::Specification.new do |s|
      "lib/compass/app_integration/merb.rb",
      "lib/compass/app_integration/merb/runtime.rb",
      "lib/compass/app_integration/rails.rb",
-     "lib/compass/app_integration/rails/action_controller.rb",
+     "lib/compass/app_integration/rails/actionpack2/action_controller.rb",
+     "lib/compass/app_integration/rails/actionpack2/sass_plugin.rb",
+     "lib/compass/app_integration/rails/actionpack2/urls.rb",
      "lib/compass/app_integration/rails/configuration_defaults.rb",
      "lib/compass/app_integration/rails/installer.rb",
      "lib/compass/app_integration/rails/runtime.rb",
-     "lib/compass/app_integration/rails/sass_plugin.rb",
      "lib/compass/app_integration/rails/templates/compass-install-rails.rb",
-     "lib/compass/app_integration/rails/urls.rb",
      "lib/compass/app_integration/stand_alone.rb",
      "lib/compass/app_integration/stand_alone/configuration_defaults.rb",
      "lib/compass/app_integration/stand_alone/installer.rb",
@@ -400,10 +422,11 @@ Gem::Specification.new do |s|
      "lib/compass/logger.rb",
      "lib/compass/sass_extensions.rb",
      "lib/compass/sass_extensions/functions.rb",
-     "lib/compass/sass_extensions/functions/color_stop.rb",
      "lib/compass/sass_extensions/functions/display.rb",
      "lib/compass/sass_extensions/functions/enumerate.rb",
      "lib/compass/sass_extensions/functions/font_files.rb",
+     "lib/compass/sass_extensions/functions/gradient_support.rb",
+     "lib/compass/sass_extensions/functions/image_size.rb",
      "lib/compass/sass_extensions/functions/inline_image.rb",
      "lib/compass/sass_extensions/functions/selectors.rb",
      "lib/compass/sass_extensions/functions/urls.rb",
@@ -438,11 +461,20 @@ Gem::Specification.new do |s|
      "test/fixtures/stylesheets/blueprint/sass/print.sass",
      "test/fixtures/stylesheets/blueprint/sass/screen.sass",
      "test/fixtures/stylesheets/blueprint/sass/typography.sass",
+     "test/fixtures/stylesheets/compass/100x150.jpg",
      "test/fixtures/stylesheets/compass/config.rb",
+     "test/fixtures/stylesheets/compass/css/gradients.css",
+     "test/fixtures/stylesheets/compass/css/image_size.css",
      "test/fixtures/stylesheets/compass/css/layout.css",
      "test/fixtures/stylesheets/compass/css/print.css",
      "test/fixtures/stylesheets/compass/css/reset.css",
      "test/fixtures/stylesheets/compass/css/utilities.css",
+     "test/fixtures/stylesheets/compass/images/100x150.gif",
+     "test/fixtures/stylesheets/compass/images/100x150.jpeg",
+     "test/fixtures/stylesheets/compass/images/100x150.jpg",
+     "test/fixtures/stylesheets/compass/images/100x150.png",
+     "test/fixtures/stylesheets/compass/sass/gradients.sass",
+     "test/fixtures/stylesheets/compass/sass/image_size.sass",
      "test/fixtures/stylesheets/compass/sass/layout.sass",
      "test/fixtures/stylesheets/compass/sass/print.sass",
      "test/fixtures/stylesheets/compass/sass/reset.sass",
@@ -467,11 +499,12 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/test_rails_helper.rb"
   ]
+  s.has_rdoc = false
   s.homepage = %q{http://compass-style.org}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{compass}
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{A Real Stylesheet Framework}
   s.test_files = [
     "test/command_line_helper.rb",
@@ -486,11 +519,20 @@ Gem::Specification.new do |s|
      "test/fixtures/stylesheets/blueprint/sass/print.sass",
      "test/fixtures/stylesheets/blueprint/sass/screen.sass",
      "test/fixtures/stylesheets/blueprint/sass/typography.sass",
+     "test/fixtures/stylesheets/compass/100x150.jpg",
      "test/fixtures/stylesheets/compass/config.rb",
+     "test/fixtures/stylesheets/compass/css/gradients.css",
+     "test/fixtures/stylesheets/compass/css/image_size.css",
      "test/fixtures/stylesheets/compass/css/layout.css",
      "test/fixtures/stylesheets/compass/css/print.css",
      "test/fixtures/stylesheets/compass/css/reset.css",
      "test/fixtures/stylesheets/compass/css/utilities.css",
+     "test/fixtures/stylesheets/compass/images/100x150.gif",
+     "test/fixtures/stylesheets/compass/images/100x150.jpeg",
+     "test/fixtures/stylesheets/compass/images/100x150.jpg",
+     "test/fixtures/stylesheets/compass/images/100x150.png",
+     "test/fixtures/stylesheets/compass/sass/gradients.sass",
+     "test/fixtures/stylesheets/compass/sass/image_size.sass",
      "test/fixtures/stylesheets/compass/sass/layout.sass",
      "test/fixtures/stylesheets/compass/sass/print.sass",
      "test/fixtures/stylesheets/compass/sass/reset.sass",
