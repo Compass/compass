@@ -54,6 +54,7 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     # returns color-stop() calls for use in webkit.
     def grad_color_stops(color_list)
+      assert_list(color_list)
       normalize_stops!(color_list)
       max = color_list.values.last.stop
       color_stops = color_list.values.map do |pos|
@@ -64,14 +65,16 @@ module Compass::SassExtensions::Functions::GradientSupport
       end
       Sass::Script::String.new(color_stops.join(", "))
     end
-    
+
     # returns the end position of the gradient from the color stop
     def grad_end_position(color_list, radial = Sass::Script::Bool.new(false))
+      assert_list(color_list)
       default = Sass::Script::Number.new(100)
       grad_position(color_list, Sass::Script::Number.new(color_list.values.size), default, radial)
     end
 
     def grad_position(color_list, index, default, radial = Sass::Script::Bool.new(false))
+      assert_list(color_list)
       stop = color_list.values[index.value - 1].stop
       if stop && radial.to_bool
         orig_stop = stop
@@ -129,26 +132,28 @@ module Compass::SassExtensions::Functions::GradientSupport
         when Sass::Script::Color
           ColorStop.new(arg)
         when Sass::Script::String
+          # We get a string as the result of concatenation
+          # So we have to reparse the expression
           color = stop = nil
           expr = Sass::Script::Parser.parse(arg.value, 0, 0)
           case expr
           when Sass::Script::Color
             color = expr
+          when Sass::Script::Funcall
+            color = expr
           when Sass::Script::Operation
             unless expr.instance_variable_get("@operator") == :concat
+              # This should never happen.
               raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
             end
             color = expr.instance_variable_get("@operand1")
             stop = expr.instance_variable_get("@operand2")
-          when Sass::Script::Funcall
-            color = expr
           else
-            puts expr.class.name
-            raise Sass::SyntaxError, "Couldn't parse a color stop from:: #{arg.value}"
+            raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
           end
           ColorStop.new(color, stop)
         else
-          raise Sass::SyntaxError, "Not a valid color stop: #{arg}"          
+          raise Sass::SyntaxError, "Not a valid color stop: #{arg}"
         end
       end)
     end
@@ -181,6 +186,10 @@ module Compass::SassExtensions::Functions::GradientSupport
         end
       end
       nil
+    end
+    def assert_list(value)
+      return if value.is_a?(List)
+      raise ArgumentError.new("#{value.inspect} is not a list of color stops. Expected: color_stops(<color> <number>?, ...)")
     end
   end
 end
