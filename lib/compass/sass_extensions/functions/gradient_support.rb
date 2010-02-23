@@ -6,10 +6,10 @@ module Compass::SassExtensions::Functions::GradientSupport
       self.values = values
     end
     def inspect
-      to_s
+      values.map{|v| v.inspect}.join(", ")
     end
     def to_s
-      values.map{|v| v.to_s}.join(", ")
+      inspect
     end
   end
 
@@ -22,13 +22,13 @@ module Compass::SassExtensions::Functions::GradientSupport
       to_s
     end
     def to_s
-      s = "#{color}"
+      s = color.inspect.dup
       if stop
         s << " "
         if stop.unitless?
-          s << stop.times(Sass::Script::Number.new(100, ["%"])).to_s
+          s << stop.times(Sass::Script::Number.new(100, ["%"])).inspect
         else
-          s << stop.to_s
+          s << stop.inspect
         end
       end
       s
@@ -60,7 +60,7 @@ module Compass::SassExtensions::Functions::GradientSupport
         # have to convert absolute units to percentages for use in color stop functions.
         stop = pos.stop
         stop = stop.div(max).times(Sass::Script::Number.new(100,["%"])) if stop.numerator_units == max.numerator_units
-        "color-stop(#{stop}, #{pos.color})"
+        "color-stop(#{stop.inspect}, #{pos.color.inspect})"
       end
       Sass::Script::String.new(color_stops.join(", "))
     end
@@ -129,22 +129,22 @@ module Compass::SassExtensions::Functions::GradientSupport
         when Sass::Script::Color
           ColorStop.new(arg)
         when Sass::Script::String
-          color, stop = arg.value.split(/ +/, 2)
-          color = Sass::Script::Parser.parse(color, 0, 0)
-          if stop =~ /^(\d+)?(?:\.(\d+))?(%)?$/
-            integral, decimal, percent = $1, $2, $3
-            number = "#{integral || 0}.#{decimal || 0}".to_f
-            number = number / 100 if percent
-            if number > 1
-              raise Sass::SyntaxError, "A color stop location must be between 0#{"%" if percent} and 1#{"00%" if percent}. Got: #{stop}"
+          color = stop = nil
+          expr = Sass::Script::Parser.parse(arg.value, 0, 0)
+          case expr
+          when Sass::Script::Color
+            color = expr
+          when Sass::Script::Operation
+            unless expr.instance_variable_get("@operator") == :concat
+              raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
             end
-            stop = Sass::Script::Number.new(number)
-          elsif !stop.nil?
-            number = Sass::Script::Parser.parse(stop, 0, 0)
-            unless number.is_a?(Sass::Script::Number)
-              raise Sass::SyntaxError, "A color stop location must be a number. Got: #{stop}"
-            end
-            stop = number
+            color = expr.instance_variable_get("@operand1")
+            stop = expr.instance_variable_get("@operand2")
+          when Sass::Script::Funcall
+            color = expr
+          else
+            puts expr.class.name
+            raise Sass::SyntaxError, "Couldn't parse a color stop from:: #{arg.value}"
           end
           ColorStop.new(color, stop)
         else
