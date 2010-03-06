@@ -68,18 +68,18 @@ private
 
   private
     def examine(io)
-      raise 'malformed JPEG' unless io.getc == 0xFF && io.getc == 0xD8 # SOI
-
       class << io
-        def readint; (readchar << 8) + readchar; end
+        def readint; (readbyte << 8) + readbyte; end
         def readframe; read(readint - 2); end
-        def readsof; [readint, readchar, readint, readint, readchar]; end
+        def readsof; [readint, readbyte, readint, readint, readbyte]; end
         def next
-          c = readchar while c != 0xFF
-          c = readchar while c == 0xFF
+          c = readbyte while c != 0xFF
+          c = readbyte while c == 0xFF
           c
         end
       end
+
+      raise 'malformed JPEG!' unless io.readbyte == 0xFF && io.readbyte == 0xD8 # SOI
 
       while marker = io.next
         case marker
