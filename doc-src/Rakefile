@@ -1,4 +1,13 @@
-require File.join(File.dirname(__FILE__), 'vendor/gems/environment')
+begin
+  # Try to require the preresolved locked set of gems.
+  require File.expand_path('../.bundle/environment', __FILE__)
+rescue LoadError
+  # Fall back on doing an unlocked resolve at runtime.
+  require "rubygems"
+  require "bundler"
+  Bundler.setup
+end
+
 require 'nanoc3/tasks'
 $: << "lib"
 
@@ -36,7 +45,7 @@ task :watch do
   rebuild_site.call(nil,nil)
 
   puts ">>> Watching for Changes <<<"
-  puts "Run: ./bin/serve .."
+  puts "Run: bundle exec serve .."
   monitor = FSSM::Monitor.new
   monitor.path("#{File.dirname(__FILE__)}/content", '**/*') do
     update(&rebuild_site)

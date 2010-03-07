@@ -49,7 +49,7 @@ If you are adding an asset (E.g. image, css, javascript) place the file(s) in th
 
 Running the following command will generate a new example:
 
-    ./bin/thor generate:example blueprint/grid/simple/
+    bundle exec thor generate:example blueprint/grid/simple/
 
 An example consists of three files:
 
@@ -74,7 +74,7 @@ After adding the example and adjusting the metadata, go to the reference page an
 
 Generate a reference file for a stylesheet:
 
-    ./bin/thor generate:reference ../frameworks/compass/stylesheets/_compass.sass
+    bundle exec thor generate:reference ../frameworks/compass/stylesheets/_compass.sass
 
 The item metadata (at the top of the file) provides some details about what stylesheet is being documented. For instance, here is the metadata for the blueprint color module item:
 
@@ -117,16 +117,15 @@ If you encounter any problems, there's usually some people around to help at #co
   * The git installer for OSX can be found here: http://code.google.com/p/git-osx-installer/
 * A basic knowledge of git
 
-Make sure you are running the latest version of the Compass and Haml gems:
+Make sure that you have RubyGems v1.3.6 or greater:
 
-    $ sudo gem install compass --pre
-    $ sudo gem install haml-edge
+    $ gem -v
 
 If that doesn't work, RubyGems is probably out of date, try:
 
     $ sudo gem update --system
 
-You will also need the bundler gem, so if you don't have it:
+You will need the bundler gem, so if you don't have it:
 
     $ gem install bundler
 
@@ -143,12 +142,6 @@ Go to your fork of Compass on github. Your compass fork will be available on htt
 `git clone` your Fork of the Compass repository:
 
     $ git clone git@github.com:**yourusername**/compass.git
-
-It's important that you have the haml source tree at the same directory level as compass. In the same directory that you git cloned Compass, make a git clone of Haml:
-
-    $ git clone git://github.com/nex3/haml.git
-
-If your Compass Fork lives in Sites/compass, haml should live in Sites/haml.
 
 ### 3. Switch to the docs branch
 
@@ -167,28 +160,26 @@ If you haven't yet done so, install bundler:
 Bundle the gems for this application:
 
     $ cd doc-src
-    $ gem bundle
-
-Your new app executables for this app are located in the bin/ directory.
+    $ bundle install
 
 ### 6. Compile the docs
 
 To compile (and auto recompile) and preview the site in your browser: (make sure you run nanoc3/aco from the doc-src directory)
 
     $ cd doc-src
-    $ export RUBYLIB="../lib:../../haml/lib"
-    $ bin/nanoc3 aco
+    $ export RUBYLIB="../lib"
+    $ bundle exec nanoc3 aco
 
 Then open `http://localhost:3000/docs/` in your web browser.
 
 aco stands for autocompiler; the site will recompile every time you request a new page.
 
-If you find `bin/nanoc3 aco` to be sluggish, try this alternative workflow:
+If you find `bundle exec nanoc3 aco` to be sluggish, try this alternative workflow:
 
     $ cd doc-src
-    $ export RUBYLIB="../lib:../../haml/lib"
-    $ /bin/serve 3000 .. &
-    $ rake watch
+    $ export RUBYLIB="../lib"
+    $ bundle exec serve 3000 .. &
+    $ bundle exec rake watch
 
 It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.org/tutorial/) on Nanoc.
 

@@ -1,6 +1,6 @@
-disable_system_gems
+source :gemcutter
 
-gem 'nanoc3', :require_as => false
+gem 'nanoc3', :require => false
 gem 'rdiscount'
 gem 'thor'
 gem 'rack'
@@ -9,3 +9,5 @@ gem 'fssm'
 gem 'serve'
 gem 'nokogiri'
 gem 'coderay'
+gem 'haml-edge', :require => 'sass'
+gem 'rake'
