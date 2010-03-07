@@ -69,6 +69,11 @@ private
   private
     def examine(io)
       class << io
+        unless method_defined?(:readbyte)
+          def readbyte
+            getc
+          end
+        end
         def readint; (readbyte << 8) + readbyte; end
         def readframe; read(readint - 2); end
         def readsof; [readint, readbyte, readint, readint, readbyte]; end
