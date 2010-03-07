@@ -2,12 +2,13 @@ module Compass
 
   class Logger
 
-    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical]
+    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical, :warning]
 
     COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     ACTION_COLORS = {
       :error => :red,
+      :warning => :yellow,
       :compile => :green,
       :overwrite => :yellow,
       :create => :green,
@@ -46,7 +47,11 @@ module Compass
 
     def color(c)
       if Compass.configuration.color_output && c && COLORS.has_key?(c.to_sym)
-        "\e[#{COLORS[c.to_sym]}m"
+        if defined?($boring) && $boring
+          ""
+        else
+          "\e[#{COLORS[c.to_sym]}m"
+        end
       else
         ""
       end

@@ -10,7 +10,7 @@ module Compass
       module ClassMethods
         def new_from_file(config_file)
           data = Data.new(config_file)
-          data.parse(config_file)
+          data._parse(config_file)
           data
         end
 
@@ -22,8 +22,12 @@ module Compass
       end
 
       module InstanceMethods
-        # parses a configuration file which is a ruby script
         def parse(config_file)
+          raise Compass::Error, "Compass.configuration.parse(filename) has been removed. Please call Compass.add_project_configuration(filename) instead."
+        end
+
+        # parses a configuration file which is a ruby script
+        def _parse(config_file)
           unless File.readable?(config_file)
             raise Compass::Error, "Configuration file, #{config_file}, not found or not readable."
           end
@@ -37,6 +41,7 @@ module Compass
           eval(contents, bind, filename)
           ATTRIBUTES.each do |prop|
             value = eval(prop.to_s, bind) rescue nil
+            value = value.to_s if value.is_a?(Pathname)
             self.send("#{prop}=", value) unless value.nil?
           end
           if @added_import_paths
@@ -73,7 +78,7 @@ module Compass
         def serialize_property(prop, value)
           %Q(#{prop} = #{value.inspect}\n)
         end
-        
+
         def issue_deprecation_warnings
           if http_images_path == :relative
             $stderr.puts "DEPRECATION WARNING: Please set relative_assets = true to enable relative paths."

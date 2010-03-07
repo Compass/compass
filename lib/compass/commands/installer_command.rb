@@ -12,9 +12,7 @@ module Compass
           Compass.add_project_configuration(:project_type => options.delete(:project_type))
         end
         Compass.add_configuration(options, 'command_line')
-        if File.exists?(Compass.configuration.extensions_path)
-          Compass::Frameworks.discover(Compass.configuration.extensions_path)
-        end
+        Compass.discover_extensions!
         Compass.add_configuration(installer.completed_configuration, 'installer')
       end
 

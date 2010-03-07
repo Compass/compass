@@ -3,7 +3,7 @@ module Compass
     # The adapters module provides methods that make configuration data from a compass project
     # adapt to various consumers of configuration data
     module Adapters
-      def to_compiler_arguments(additional_options)
+      def to_compiler_arguments(additional_options = {})
         [project_path, sass_path, css_path, to_sass_engine_options.merge(additional_options)]
       end
 
@@ -19,8 +19,8 @@ module Compass
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
         plugin_opts[:line_comments] = line_comments
-        plugin_opts[:cache] = cache
-        plugin_opts[:cache_location] = cache_path
+        plugin_opts[:cache] = cache unless cache.nil?
+        plugin_opts[:cache_location] = cache_path unless cache_path.nil?
         plugin_opts.merge!(sass_options || {})
         plugin_opts
       end

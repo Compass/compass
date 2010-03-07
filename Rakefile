@@ -3,10 +3,12 @@ if ENV['RUN_CODE_RUN']
   if File.directory?("haml")
     Dir.chdir("haml") do
       sh "git", "fetch"
-      sh "git", "reset", "--hard", "origin/stable"
     end
   else
     sh "git", "clone", "git://github.com/nex3/haml.git"
+  end
+  Dir.chdir("haml") do
+    sh "git", "reset", "--hard", "origin/stable"
   end
   $LOAD_PATH.unshift "haml/lib"
 end

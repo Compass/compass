@@ -1,0 +1,75 @@
+.linear-1 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 0%, #aaaaaa 100%); }
+
+.linear-2 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(left, #dddddd 0%, #aaaaaa 100%); }
+
+.linear-3 {
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top left, #dddddd 0%, #aaaaaa 100%); }
+
+.linear-4 {
+  background-image: -webkit-gradient(linear, 100% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top right, #dddddd 0%, #aaaaaa 100%); }
+
+.linear-5 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(50%, #cccccc), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 0%, #cccccc 50%, #aaaaaa 100%); }
+
+.linear-6 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(20%, #cccccc), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 0%, #cccccc 20%, #aaaaaa 100%); }
+
+.linear-7 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(20%, #cccccc), color-stop(60%, #eeeeee), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 0%, #cccccc 20%, #eeeeee 60%, #aaaaaa 100%); }
+
+.linear-8 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(80%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 80%, #aaaaaa 100%); }
+
+.linear-9 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 0%, #aaaaaa 20%); }
+
+.linear-10 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(80%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 40%, #aaaaaa 50%); }
+
+.linear-11 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(80%, #dddddd), color-stop(90%, black), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(top, #dddddd 40%, black 45%, #aaaaaa 50%); }
+
+.radial-1 {
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(center center, circle, #dddddd 0%, #aaaaaa 100%); }
+
+.radial-2 {
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(center center, circle, #dddddd 0%, #aaaaaa 100%); }
+
+.radial-3 {
+  background-image: -webkit-gradient(radial, 50% 0%, 0, 50% 0%, 100, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(top center, circle, #dddddd 0%, #aaaaaa 100%); }
+
+.radial-4 {
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(center center, circle, #dddddd 0%, #aaaaaa 100%); }
+
+.radial-5 {
+  background-image: -webkit-gradient(radial, 50% 0%, 0, 50% 0%, 100, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(top center, circle, #dddddd 0%, #aaaaaa 100%); }
+
+.radial-6 {
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 50, color-stop(40%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(center center, circle, #dddddd 20px, #aaaaaa 50px); }
+
+.radial-7 {
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 50, color-stop(20%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(center center, circle, #dddddd 20%, #aaaaaa 50px); }
+
+.alpha-linear {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(80%, rgba(255, 255, 255, 0)), color-stop(90%, rgba(255, 127, 127, 0.5)), color-stop(100%, rgba(255, 255, 255, 1)));
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 40%, rgba(255, 127, 127, 0.5) 45%, rgba(255, 255, 255, 1) 50%); }

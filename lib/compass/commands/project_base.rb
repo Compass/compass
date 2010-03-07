@@ -23,9 +23,7 @@ module Compass
 
       def configure!
         add_project_configuration
-        if File.exists?(Compass.configuration.extensions_path)
-          Compass::Frameworks.discover(Compass.configuration.extensions_path)
-        end
+        Compass.discover_extensions!
       end
 
       def add_project_configuration

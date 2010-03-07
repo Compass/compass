@@ -20,6 +20,12 @@ module Compass
           extend(ConfigurationDefaults)
       end
 
+      def env
+        if rails_env = (defined?(::Rails) ? ::Rails.env : (defined?(RAILS_ENV) ? RAILS_ENV : nil))
+          rails_env.production? ? :production : :development
+        end
+      end
+
     end
   end
 end

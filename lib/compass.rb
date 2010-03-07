@@ -17,6 +17,6 @@ module Compass
   module_function :base_directory, :lib_directory
 end
 
-%w(configuration frameworks app_integration).each do |lib|
+%w(configuration frameworks app_integration actions compiler).each do |lib|
   require "compass/#{lib}"
 end

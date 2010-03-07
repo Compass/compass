@@ -145,13 +145,17 @@ module Compass
           end
         end
 
-        def debug
+        def chain
           instances = [self]
           instances << instances.last.inherited_data while instances.last.inherited_data
+          instances
+        end
+
+        def debug
           normalized_attrs = {}
           ATTRIBUTES.each do |prop|
             values = []
-            instances.each do |instance|
+            chain.each do |instance|
               values << {
                 :raw => (instance.send("raw_#{prop}") rescue nil),
                 :value => (instance.send("#{prop}_without_default") rescue nil),

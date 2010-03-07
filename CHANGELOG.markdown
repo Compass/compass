@@ -1,6 +1,68 @@
 COMPASS CHANGELOG
 =================
 
+0.10.0.pre9 (March 6, 2010)
+---------------------------
+
+* Fix a ruby 1.9 bug in the image_size helper functions for jpeg images.
+* Silence a deprecation warning.
+
+
+0.10.0.pre7 & 0.10.0.pre8 (February 23, 2010)
+---------------------------------------------
+
+* Rails 3 compatibility fixes
+* Fix for rgba colors with the new gradient mixins
+* A better error message if a color stop list is not passed in to the gradient mixins.
+
+0.10.0.pre6 (February 22, 2010)
+-------------------------------
+
+**IMPORTANT:**
+
+* Rails users need to update their compass initializer.
+* The CSS 3 Gradient mixins were re-written and their usage has changed.
+
+Read on for the details:
+
+### CLI
+* Fixed some issues with colorized output.
+* Don't force the user to specify the configuration path when calling compass config
+
+### Compass Core
+* Fix to the bang_hack mixin (Credit: Mark Rajcok)
+* Support :first-child and :last-child pseudo selectors for +horizontal-list. (Credit: Cody Robbins)
+* Clear the sticky footer so that it works correctly with grid layouts.
+* The css3 gradient module has been re-written and has a new, much simpler mixins. If you have been using the css3 gradient mixins, you'll need to update your sass stylesheets. The new mixins can be seen in action [here](http://compass-style.org/examples/css3/gradients.html).
+* Added new helper functions: `image_width("path/to/image.png")` & `image_height("path/to/image.png")` that return the size in pixels. (Credit: Deepak Jois & Richard Aday)
+
+### Blueprint
+* Take margins into account in liquid grid. (Credit: Christoffer Eliesen)
+
+### Rails
+* Several Rails 3 bug fixes (Credit: Jacques Crocker) 
+* Don't set unset options on the Sass::Plugin
+* Fixed a setup bug and handle compass configuration changes at rails boot.
+
+**IMPORTANT:** Existing rails projects _must_ change their compass initializer file to:
+
+    require 'compass'
+    rails_root = (defined?(Rails) ? Rails.root : RAILS_ROOT).to_s
+    Compass.add_project_configuration(File.join(rails_root, "config", "compass.rb"))
+    Compass.configure_sass_plugin!
+    Compass.handle_configuration_change!
+
+### Internals
+* New APIs for dealing with configuration changes and accessing a compiler instance.
+* Provide a convenience function for discovering extensions: `Compass.discover_extensions!` that can be called during project configuration w/ other ruby frameworks.
+
+### Extensions
+
+* Don't force an extension to register itself just because it has ruby code.
+  This makes it easier for extensions to provide Sass functions from ruby.
+
+Special thanks to Daniel Hofstetter for fixing my typos.
+
 0.10.0.pre5 (January 18, 2010)
 ------------------------------
 * Fixed a bug in the grid builder in ruby 1.8.6 (Credit: [Richard Wöber][der-rich])

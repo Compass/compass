@@ -1,0 +1,51 @@
+@import compass/css3.sass
+
+.linear-1
+  +linear-gradient(color_stops(#ddd, #aaa))
+.linear-2
+  +linear-gradient(color_stops(#ddd, #aaa), "left")
+.linear-3
+  +linear-gradient(color_stops(#ddd, #aaa), "top left")
+.linear-4
+  +linear-gradient(color_stops(#ddd, #aaa), "top right")
+.linear-5
+  +linear-gradient(color_stops(#ddd, #ccc, #aaa))
+.linear-6
+  +linear-gradient(color_stops(#ddd, #ccc 20%, #aaa))
+.linear-7
+  +linear-gradient(color_stops(#ddd, #ccc 20%, #eee, #aaa))
+.linear-8
+  +linear-gradient(color_stops(#ddd 80%, #aaa))
+.linear-9
+  +linear-gradient(color_stops(#ddd, #aaa 20%))
+.linear-10
+  +linear-gradient(color_stops(#ddd 40%, #aaa 50%))
+.linear-11
+  +linear-gradient(color_stops(#ddd 40%, #000, #aaa 50%))
+.radial-1
+  // A default radial gradient:
+  // A centered gradient having the shape of the container (aka ellipse)
+  +radial-gradient(color_stops(#ddd, #aaa))
+.radial-2
+  // A centered gradient having the shape of the container (aka ellipse)
+  +radial-gradient(color_stops(#ddd, #aaa))
+.radial-3
+  // A centered gradient at the top having the shape of the container (aka ellipse)
+  +radial-gradient(color_stops(#ddd, #aaa), "top center")
+.radial-4
+  // A centered gradient having a circular shape
+  +radial-gradient(color_stops(#ddd, #aaa))
+.radial-5
+  // A centered gradient at the top having a circular shape
+  +radial-gradient(color_stops(#ddd, #aaa), "top center")
+.radial-6
+  // A centered circular gradient with color stops
+  // The color stops must be absolute units
+  +radial-gradient(color_stops(#ddd 20px, #aaa 50px))
+.radial-7
+  // A centered elliptical gradient with color stops
+  // The color stops must be relative units
+  +radial-gradient(color_stops(#ddd 20%, #aaa 50px))
+
+.alpha-linear
+  +linear-gradient(color_stops(rgba(255, 255, 255, 0) 40%, rgba(255, 127, 127, 0.5), rgba(255, 255, 255, 1) 50%))

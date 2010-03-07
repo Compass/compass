@@ -31,6 +31,7 @@ module Compass
         if config.is_a?(Compass::Configuration::Data)
           config
         elsif config.respond_to?(:read)
+          filename ||= config.to_s if config.is_a?(Pathname)
           Compass::Configuration::Data.new_from_string(config.read, filename)
         elsif config.is_a?(Hash)
           Compass::Configuration::Data.new(filename, config)
@@ -88,6 +89,12 @@ module Compass
         end
       end
 
+      def discover_extensions!
+        if File.exists?(configuration.extensions_path)
+          Compass::Frameworks.discover(configuration.extensions_path)
+        end
+      end
+
       # Returns a full path to the relative path to the project directory
       def projectize(path, project_path = nil)
         project_path ||= configuration.project_path
@@ -112,6 +119,15 @@ module Compass
         possible_files.detect{|f| File.exists?(f)}
       end
 
+      def handle_configuration_change!
+        if (compiler = Compass.compiler).new_config?
+          compiler.clean!
+        end
+      end
+
+      def compiler
+        Compass::Compiler.new(*Compass.configuration.to_compiler_arguments)
+      end
     end
   end
 

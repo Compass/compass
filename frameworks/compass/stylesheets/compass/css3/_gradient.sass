@@ -1,46 +1,57 @@
+// This yields a linear gradient spanning from top to bottom
 //
-  Gradient mixin for all types of gradients. Use the other mixins for specific types of gradients.
-
-  Arguments are type, coords, color_start, color_end and color_stop
-
-=gradient(!type, !coords, !color_start, !color_end, !color_stop = false)
-  !gradient= "#{!coords}, from(#{!color_start}), to(#{!color_end})"
-  @if !color_stop
-    !gradient= !gradient + ", " + !color_stop
-  background: -webkit-gradient(#{!type}, #{!gradient})
-  background: -moz-#{!type}-gradient(#{!gradient})
-
+//     +linear-gradient(color_stops(white, black))
 //
-  This will yield a radial gradient with an apparent specular highlight  
-      +radial-gradient("45 45, 10, 52 50, 30", Cyan, DodgerBlue)
-
-=radial-gradient(!coords, !color1, !color2, !color_stop = false)
-  +gradient("radial", !coords, !color1, !color2, !color_stop)
-
+// This yields a linear gradient spanning from bottom to top
 //
-  This yields a linear gradient spanning from !start to !end coordinates  
-      +linear-gradient("left top", "left bottom", #fff, #ddd)
-
-=linear-gradient(!start, !end, !color1, !color2, !color_stop = false)
-  !coords = !start + ", " + !end
-  +gradient("linear", !coords, !color1, !color2, !color_stop)
-
+//     +linear-gradient(color_stops(white, black), "bottom")
 //
-  This yields a gradient starting at the top with #fff, ending in #aaa  
-      +v-gradient(#fff, #aaa)
-
-  Same as above but with a #ccc at the halfway point  
-      +v-gradient(#fff, #aaa, color_stop(50%, #ccc))
-  
-  Same as the first example but with #ccc at the 30% from the top, and #bbb at 70% from the top  
-      +v-gradient(#fff, #aaa, color_stop(30%, #ccc, 70%, #bbb))
-
-=v-gradient(!color1, !color2, !color_stop = false)
-  +linear-gradient("left top", "left bottom", !color1, !color2, !color_stop)
-
+// This yields a linear gradient spanning from left to right
 //
-  This yields a horizontal linear gradient spanning from left to right. It can be used just like v-gradient above  
-      h-gradient(#fff, #ddd)
+//     +linear-gradient(color_stops(white, black), "left")
+//
+// This yields a linear gradient starting at white passing
+// thru blue at 33% down and then to black
+//
+//     +linear-gradient(color_stops(white, blue 33%, black))
+//
+// This yields a linear gradient starting at white passing
+// thru blue at 33% down and then to black at 67% until the end
+//
+//     +linear-gradient(color_stops(white, blue 33%, black 67%))
+//
+// Browsers Supported:
+//
+// - Chrome
+// - Safari
+// - Firefox 3.6
 
-=h-gradient(!color1, !color2, !color_stop = false)
-  +linear-gradient("left top", "right top", !color1, !color2, !color_stop)
+=linear-gradient(!color_stops, !start = "top")
+  // Firefox's gradient api is nice.
+  // Webkit's gradient api sucks -- hence these backflips:
+  !end = grad_opposite_position(!start)
+  background-image: -webkit-gradient(linear, #{grad_point(!start)}, #{grad_point(!end)}, #{grad_color_stops(!color_stops)})
+  background-image: -moz-linear-gradient(#{!start}, #{!color_stops})
+
+// Due to limitation's of webkit, the radial gradient mixin works best if you use
+// pixel-based color stops.
+// 
+// Examples:
+// 
+//     // Defaults to a centered, 100px radius gradient
+//     +radial-gradient(color_stops(#c00, #00c))
+//     // 100px radius gradient in the top left corner
+//     +radial-gradient(color_stops(#c00, #00c), "top left")
+//     // Three colors, ending at 50px and passing thru #fff at 25px
+//     +radial-gradient(color_stops(#c00, #fff, #00c 50px))
+//
+// Browsers Supported:
+//
+// - Chrome
+// - Safari
+// - Firefox 3.6
+
+=radial-gradient(!color_stops, !center_position = "center center")
+  !end_pos = grad_end_position(!color_stops, true)
+  background-image: -webkit-gradient(radial, #{grad_point(!center_position)}, 0, #{grad_point(!center_position)}, #{!end_pos}, #{grad_color_stops(!color_stops)})
+  background-image: -moz-radial-gradient(#{!center_position}, circle, #{!color_stops})
