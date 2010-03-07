@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass}
-  s.version = "0.10.0.pre8"
+  s.version = "0.10.0.pre9"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Eppstein"]
-  s.date = %q{2010-02-23}
+  s.date = %q{2010-03-06}
   s.default_executable = %q{compass}
   s.description = %q{Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS.}
   s.email = %q{chris@eppsteins.net}
@@ -499,7 +499,6 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/test_rails_helper.rb"
   ]
-  s.has_rdoc = false
   s.homepage = %q{http://compass-style.org}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
