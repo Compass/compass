@@ -1,6 +1,20 @@
 COMPASS CHANGELOG
 =================
 
+0.10.0.pre9 (March 6, 2010)
+---------------------------
+
+* Fix a ruby 1.9 bug in the image_size helper functions for jpeg images.
+* Silence a deprecation warning.
+
+
+0.10.0.pre7 & 0.10.0.pre8 (February 23, 2010)
+---------------------------------------------
+
+* Rails 3 compatibility fixes
+* Fix for rgba colors with the new gradient mixins
+* A better error message if a color stop list is not passed in to the gradient mixins.
+
 0.10.0.pre6 (February 22, 2010)
 -------------------------------
 
