@@ -97,7 +97,7 @@ def mixins(item)
   comment = nil
   sass_tree.children.each do |child|
     if child.is_a?(Sass::Tree::MixinDefNode)
-      child.comment = comment
+      child.comment = comment && Sass::Tree::CommentNode.clean(comment)
       comment = nil
       mixins << child
     elsif child.is_a?(Sass::Tree::CommentNode)

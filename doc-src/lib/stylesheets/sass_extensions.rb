@@ -150,6 +150,9 @@ module Sass
       attr_accessor :imported_filename unless method_defined? :imported_filename
     end
     class CommentNode < Node
+      def self.clean(docstring)
+        docstring.gsub(/@doc off(.*?)@doc on/m, '')
+      end
       def docstring
         ([value] + lines).join("\n")
       end
