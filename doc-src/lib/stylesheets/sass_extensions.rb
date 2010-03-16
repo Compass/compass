@@ -154,7 +154,7 @@ module Sass
         docstring.gsub(/@doc off(.*?)@doc on/m, '')
       end
       def docstring
-        ([value] + lines).join("\n")
+        ([value] + lines).join("\n").gsub(/(^\| )|(^\|$)/, '')
       end
       def doc
         if value == "@doc off"
