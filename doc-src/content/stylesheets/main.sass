@@ -68,8 +68,12 @@ body.reference
   a.view-source
     float: right
     margin: 1.25em
-  span.color
-    border-bottom: 1px dotted #333
+  span.color + span.swatch
+    margin: 0 3px 3px
+    border: 1px solid #333
+    width: 1em
+    height: 1em
+    +inline-block
   .color-snippet
     width: 100px
     height: 20px

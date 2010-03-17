@@ -18,12 +18,8 @@
       #footer= @item[:content_for_footer]
     :javascript
       $(function(){
-        $('span.color').tipsy({
-          gravity: $.fn.tipsy.autoNS,
-          html: 'html',
-          opacity: 1,
-          title: function() {
-            return "<div style='background-color:"+$(this).html()+";' class='color-snippet'></div>";
-          }
+        $('span.color').each(function(i,e){
+         e = $(e);
+         e.after('<span class="swatch" style="background-color:'+e.text()+';"></span>');
         });
       });
