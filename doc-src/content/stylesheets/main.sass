@@ -52,19 +52,31 @@ table.datagrid
 // Reference
 
 body.reference
-  h3.mixin
-    background-color: #eee
-    border: 1px solid #aaa
-    padding: 0.75em
-    margin-bottom: 0
-    a.permalink
-      +hover-link
-      +link-colors("inherit", "inherit")
+  h3
+    &.mixin, &.constant
+      font-family: Monaco, courier
+      font-weight: 200
+      +text-shadow
+      background-color: #eee
+      border: 1px solid #aaa
+      padding: 0.75em
+      margin-bottom: 0
+      a.permalink
+        +hover-link
+        +link-colors("inherit", "inherit")
   .source-documentation
     background-color: #eee
     border: 1px solid #aaa
     border-top-width: 0
     padding: 0.75em
+  dl.source-documentation
+    margin-top: 0
+    dt
+      font-weight: bold
+      float: left
+      margin-right: 15px
+    dt:not(:first-child)
+      margin-top: 1em
   a.view-source
     float: right
     margin: 1.25em

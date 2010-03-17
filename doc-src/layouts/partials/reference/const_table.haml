@@ -1,0 +1,10 @@
+- constants.each do |constant_def|
+  - const_id = constant_def.name.gsub(/_/,'-')
+  %h3.constant{:id=>"const-#{const_id}"}
+    %a.permalink{:href => "#const-#{const_id}"}= "!"+constant_def.name
+  %dl.constant-details.source-documentation
+    %dt Value
+    %dd= constant_def.expr.to_sass(:html)
+    - if constant_def.comment
+      %dt Description
+      %dd= format_doc constant_def.comment
