@@ -24,8 +24,8 @@ class SyntaxHighlighterFilter < Nanoc3::Filter
   def run(content, params={})
     doc = Nokogiri::HTML.fragment(content)
     [:html, :css, :sass].each do |format|
-      doc.css("code.#{format}").each do |el|
-        el.parent.replace Nokogiri.make(highlight(el.inner_text, format))
+      doc.css("pre.source-code.#{format}, code.#{format}").each do |el|
+        el.replace Nokogiri.make(highlight(el.inner_text, format))
       end
     end
     doc.to_s
