@@ -21,8 +21,9 @@ body
   background: #F5F5F5
   h2
     font-size: 16px
-    ul
-      padding: 5px
+  ul, ol
+    list-style-position: inside
+    padding-left: 10px
 
 // Typography
 
@@ -135,5 +136,10 @@ ol#breadcrumbs
 body#home #logo
   +replace-text("compass.png", 0px)
   height: 159px
+
+p code
+  border: 1px solid #ccc
+  background-color: #f2f2f2
+  padding: 2px
 
 @import partials/syntax.sass
