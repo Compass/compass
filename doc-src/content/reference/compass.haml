@@ -9,4 +9,16 @@ meta_description: The Compass Core Framework.
 ---
 - render 'reference' do
   %p
-    Lorem ipsum dolor sit amet.
+    The compass core framework is a design-agnostic framework that
+    provides common code that would otherwise be duplicated across
+    other frameworks and extensions.
+
+%h2 Non Imported Modules
+
+%p
+  You can import these yourself if you want to use them.
+%ul
+  = render "partials/reference/import", :import => "compass/_layout.sass"
+  = render "partials/reference/import", :import => "compass/_reset.sass"
+  = render "partials/reference/import", :import => "compass/_misc.sass"
+

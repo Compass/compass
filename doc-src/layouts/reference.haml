@@ -2,6 +2,10 @@
 
 %h1= item[:title]
 
+%p
+  This file can be imported using:
+  %code @import #{departialize(item[:stylesheet])}
+
 = yield
 
 = render "partials/reference/examples"

@@ -41,6 +41,10 @@ def reference_item(options)
   end
 end
 
+def departialize(path)
+  path.gsub(%r{(\b|/)_}){|m| m.size > 1 ? "/" : ""}
+end
+
 def reference_path(options)
   if item = reference_item(options)
     rep = item.reps.find { |r| r.name == :default }
