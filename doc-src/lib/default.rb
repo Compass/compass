@@ -61,7 +61,15 @@ def item_tree(item)
     end
     child_html << "</ol>"
   end
-  %Q{<li><a href="#{default_path(item)}">#{crumb}</a>#{child_html}</li>}
+  css_class = nil
+  prefix = nil
+  suffix = nil
+  if item.identifier == @item.identifier
+    css_class = %Q{class="selected"}
+    prefix = "&raquo;"
+    suffix = "&laquo;"
+  end
+  %Q{<li><a href="#{default_path(item)}"#{css_class}>#{prefix}#{crumb}#{suffix}</a></li>#{child_html}}
 end
 
 
