@@ -12,12 +12,10 @@ compile '/assets/*/' do
   nil
 end
 
-compile '/examples/*/markup/' do
-  nil
-end
-
-compile '/examples/*/stylesheet/' do
-  nil
+['/examples/*/markup/', '/examples/*/stylesheet/', '/examples/*/background/'].each do |ex_file|
+  compile ex_file do
+    nil
+  end
 end
 
 compile '/examples/*/' do
@@ -63,12 +61,10 @@ route '/stylesheets/*/' do
   SITE_ROOT+item.identifier.chop + '.css'
 end
 
-route '/examples/*/markup/' do
-  nil
-end
-
-route '/examples/*/stylesheet/' do
-  nil
+['/examples/*/markup/', '/examples/*/stylesheet/', '/examples/*/background/'].each do |ex_file|
+  route ex_file do
+    nil
+  end
 end
 
 route '*' do
