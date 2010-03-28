@@ -16,6 +16,7 @@ task :watch do
   require 'fssm'
   require 'nanoc3'
   require 'nanoc3/cli'
+  $:<< File.expand_path(File.dirname(__FILE__)+"/../lib")
   Dir['lib/commands/*.rb'].map{|d| d[4..-1]}.sort.each     { |f| require f }
   Dir['lib/data_sources/*.rb'].map{|d| d[4..-1]}.sort.each { |f| require f }
   Nanoc3::NotificationCenter.on(:compilation_started) do |rep|
