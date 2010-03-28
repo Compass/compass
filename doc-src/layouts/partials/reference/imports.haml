@@ -1,10 +1,7 @@
 - if (imported_libs = imports(@item)).any?
   %h2 Imports
-
+  %p
+    The following sass files are automatically imported when you import this file:
   %ol
     - imported_libs.each do |import|
-      %li
-        - if path = reference_path(:stylesheet => import)
-          %a{:href => path}= import
-        - else
-          = import
+      = render "partials/reference/import", :import => import
