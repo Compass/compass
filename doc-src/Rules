@@ -56,6 +56,10 @@ route '/assets/javascripts/*/' do
   SITE_ROOT+item.identifier.chop[7..-1]+"."+item[:extension]
 end
 
+route '/assets/fonts/*/' do
+  SITE_ROOT+item.identifier.chop[7..-1]+"."+item[:extension]
+end
+
 route '/stylesheets/*/' do
   # don't generate a directory like we do for HTML files
   SITE_ROOT+item.identifier.chop + '.css'
