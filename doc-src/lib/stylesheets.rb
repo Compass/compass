@@ -121,7 +121,7 @@ def constants(item)
   comment = nil
   sass_tree.children.each do |child|
     if child.is_a?(Sass::Tree::VariableNode)
-      child.comment = comment
+      child.comment = comment && Sass::Tree::CommentNode.clean(comment)
       comment = nil
       constants << child
     elsif child.is_a?(Sass::Tree::CommentNode)
