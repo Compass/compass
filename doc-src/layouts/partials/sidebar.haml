@@ -1,22 +1,10 @@
 %h2
-  Compass Documentation
+  %a(href="/docs/") Compass Documentation
 
 %h3
-  General
+  Tutorials
 
-%ul
-  %li
-    %a{:href => "/docs/"}
-      Home
-  %li
-    %a{:href => "/docs/best_practices/"}
-      Best practices
-    %ul
-      %li
-        %a{:href => "/docs/tutorials/configurable-variables/"} Configurable Variables
-  %li
-    %a{:href => "/docs/frameworks/"}
-      Working with plugins and frameworks
+= item_tree(find("/tutorials/"), true)
 
 %h3
   Frameworks
@@ -24,3 +12,10 @@
 %ul
   = item_tree(reference_item(:stylesheet => "_compass.sass"))
   = item_tree(reference_item(:stylesheet => "_blueprint.sass"))
+
+%h3
+  Misc
+%ul
+  %li
+    %a{:href => "/docs/frameworks/"}
+      Working with plugins and frameworks

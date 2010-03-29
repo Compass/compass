@@ -51,7 +51,11 @@ def default_path(item)
   item.reps.find{|r| r.name == :default}.path
 end
 
-def item_tree(item)
+def find(identifier)
+  @items.find{|i| i.identifier == identifier}
+end
+
+def item_tree(item, omit_self = false)
   crumb = item[:crumb] || item[:title]
   child_html = ""
   if item.children.any?
@@ -69,7 +73,10 @@ def item_tree(item)
     prefix = "&raquo;"
     suffix = "&laquo;"
   end
-  %Q{<li><a href="#{default_path(item)}"#{css_class}>#{prefix}#{crumb}#{suffix}</a></li>#{child_html}}
+  contents = unless omit_self
+    %Q{<li><a href="#{default_path(item)}"#{css_class}>#{prefix}#{crumb}#{suffix}</a></li>}
+  end
+  %Q{#{contents}#{child_html}}
 end
 
 
