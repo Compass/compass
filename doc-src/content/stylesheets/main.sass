@@ -103,28 +103,6 @@ body.reference
   a.help
     font-size: 75%
 
-  
-  .tipsy
-    padding: 5px
-    font-size: 10px
-    background-repeat: no-repeat
-    background-image= image_url("tipsy.gif")
-    &-north
-      background-position: top center
-    &-south
-      background-position: bottom center
-    &-east
-      background-position: right center
-    &-west
-      background-position: left center
-    &-inner
-      padding: 5px 8px 5px 8px
-      background-color: black
-      color: white
-      max-width: 200px
-      text-align: center
-      +border-radius(3px)
-
 table.constants
   width: 100%
   +alternating-rows-and-columns(#EEE, #bbb, #191919)
@@ -132,7 +110,7 @@ table.constants
   +inner-table-borders(1px)
   td, th
     padding: 0.25em 0.5em
-  
+
 ol#breadcrumbs
   +horizontal-list
   +no-bullets
@@ -142,6 +120,7 @@ ol#breadcrumbs
     content: ""
   li.last
     visibility: hidden
+
 body#home #logo
   +replace-text("compass.png", 0px)
   height: 159px
