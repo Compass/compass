@@ -68,6 +68,12 @@ body.reference
       a.permalink
         +hover-link
         +link-colors("inherit", "inherit")
+    .arg[data-default-value]
+      color: #666
+      &:before
+        content: "["
+      &:after
+        content: "]"
   .source-documentation
     background-color: #eee
     border: 1px solid #aaa

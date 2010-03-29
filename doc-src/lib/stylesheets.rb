@@ -135,8 +135,8 @@ def constants(item)
   constants
 end
 
-def mixin_signature(mixin)
-  mixin.sass_signature(:include)
+def mixin_signature(mixin, format = :html)
+  mixin.sass_signature(:include, format)
 end
 
 def example_items

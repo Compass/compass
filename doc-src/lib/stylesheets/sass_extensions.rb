@@ -118,30 +118,36 @@ module Sass
         "#{sass_signature}\n  #{children_to_sass}\n"
       end
 
-      def sass_signature(mode = :definition)
+      def sass_signature(mode = :definition, format = :text)
         prefix = case mode
         when :definition
           "="
         when :include
           "+"
         end
-        "#{prefix}#{name}#{arglist_to_sass}"
+        "#{prefix}#{name}#{arglist_to_sass(format)}"
       end
 
       private
-      def arglist_to_sass
+      def arglist_to_sass(format = :text)
         if args && args.any?
-          "(#{args.map{|a| arg_to_sass(a)}.join(", ")})"
+          "(#{args.map{|a| arg_to_sass(a, format)}.join(", ")})"
         else
           ""
         end
       end
-      def arg_to_sass(arg)
+      def arg_to_sass(arg, format = :text)
         name, default_value = arg
-        sass_str = "#{name.inspect}"
-        if default_value
-          sass_str << " = "
-          sass_str << default_value.to_sass
+        sass_str = ""
+        if format == :html
+          ddv = %Q{ data-default-value="#{h(default_value.to_sass)}"} if default_value
+          sass_str = %Q{<span class="arg"#{ddv}>#{name.inspect}</span>}
+        else
+          sass_str = "#{name.inspect}"
+          if default_value
+            sass_str << " = "
+            sass_str << default_value.to_sass
+          end
         end
         sass_str
       end
