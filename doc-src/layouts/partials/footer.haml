@@ -1,0 +1,18 @@
+.legalese
+  %p
+    This website is Copyright &copy; 2010 Christopher Eppstein.<br>
+    It is licensed under XXX TODO XXX.
+  - if @item[:content_for_footer]
+    %hr
+    = @item[:content_for_footer]
+.links
+  %ul
+    %li
+      %a(href="http://compass-style.org/" rel="home") Compass Homepage
+    %li
+      Compass is Charityware - 
+      %a(href="http://umdf.org/compass") Donate Now!
+    %li
+      Compass is Open Source -
+      %a(href="http://github.com/chriseppstein/compass") Contribute
+    

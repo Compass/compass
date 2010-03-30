@@ -28,6 +28,23 @@ body
     font-weight: bold
   a
     +hover-link
+
+#footer
+  +column(24)
+  background: #F5F5F5
+  border-top: 2px solid #ddd
+  margin: 1em 0
+  .legalese
+    +column(12)
+  hr
+    +colruler
+  .links
+    +column(12, true)
+    ul
+      +no-bullets
+      a
+        +hover-link
+
 // Typography
 
 blockquote

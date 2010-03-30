@@ -17,7 +17,7 @@
         = yield
       #sidebar
         = render "partials/sidebar"
-      #footer= @item[:content_for_footer]
+      #footer= render "partials/footer"
     :javascript
       $(function(){
         $('span.color').each(function(i,e){
