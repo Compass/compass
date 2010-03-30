@@ -6,6 +6,12 @@
   This file can be imported using:
   %code @import #{departialize(item[:stylesheet])}
 
+%p
+  - gh_url = "http://github.com/chriseppstein/compass/blob/master/frameworks/"
+  - gh_url << "#{item[:framework]}/stylesheets/#{item[:stylesheet]}"
+  View the
+  %a{:href => gh_url} Source for this module on Github.
+
 = yield
 
 = render "partials/reference/examples"
