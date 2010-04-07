@@ -8,7 +8,7 @@ module Compass
   
       def execute
         Compass::Frameworks::ALL.each do |framework|
-          puts framework.name
+          puts framework.name unless framework.name =~ /^_/
         end
       end
     end

@@ -51,7 +51,8 @@ module Compass
     def discover(frameworks_directory)
       frameworks_directory = DEFAULT_FRAMEWORKS_PATH if frameworks_directory == :defaults
       frameworks_directory = Dir.new(frameworks_directory) unless frameworks_directory.is_a?(Dir)
-      frameworks_directory.entries.reject{|e| e[0] == ?.}.each do |framework|
+      dirs = frameworks_directory.entries.reject{|e| e =~ /^\./}.sort_by{|n| n =~ /^_/ ? n[1..-1] : n}
+      dirs.each do |framework|
         register_directory File.join(frameworks_directory.path, framework)
       end
     end

@@ -24,6 +24,7 @@ To get help on a particular command please specify the command.
  
         banner << "\nAvailable Frameworks & Patterns:\n\n"
         Compass::Frameworks::ALL.each do |framework|
+          next if framework.name =~ /^_/
           banner << "  * #{framework.name}\n"
           framework.template_directories.each do |pattern|
             banner << "    - #{framework.name}/#{pattern}"
