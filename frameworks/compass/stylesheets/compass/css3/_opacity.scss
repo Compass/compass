@@ -1,0 +1,19 @@
+// Provides cross-browser CSS opacity. Takes a number between 0 and 1 as the argument, e.g. 0.5 for 50% opacity.
+//
+//     @param !opacity
+//         A number between 0 and 1, where 0 is transparent and 1 is opaque.
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
+  -ms-filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=") + round($opacity * 100) + unquote(")");
+  filter: unquote("alpha(opacity=") + round($opacity * 100) + unquote(")"); }
+
+// Make an element completely transparent.
+@mixin transparent {
+  @include opacity(0); }
+
+// Make an element completely opaque.
+@mixin opaque {
+  @include opacity(1); }

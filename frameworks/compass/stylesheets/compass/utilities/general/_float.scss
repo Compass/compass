@@ -1,0 +1,17 @@
+//**\\
+// Float
+
+@import "clearfix";
+
+// Implementation of float:left with fix for double-margin bug
+@mixin float-left {
+  @include float(left); }
+
+// Implementation of float:right with fix for double-margin bug
+@mixin float-right {
+  @include float(right); }
+
+// Available as alternate syntax with just +float
+@mixin float($side: left) {
+  display: inline;
+  float: $side; }

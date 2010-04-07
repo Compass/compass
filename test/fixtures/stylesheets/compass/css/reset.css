@@ -21,8 +21,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 body {
   line-height: 1;
-  color: #000;
-  background: #fff; }
+  color: black;
+  background: white; }
 
 ol, ul {
   list-style: none; }

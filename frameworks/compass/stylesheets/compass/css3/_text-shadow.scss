@@ -1,0 +1,18 @@
+// Provides CSS text shadows.
+//
+// Arguments are color, horizontal offset, vertical offset, and blur
+
+// These defaults make the arguments optional for this mixin
+//
+// If you like, set different defaults in your project
+
+$default-text-shadow-color: #aaaaaa !default;
+
+$default-text-shadow-h-offset: 1px !default;
+
+$default-text-shadow-v-offset: 1px !default;
+
+$default-text-shadow-blur: 1px !default;
+
+@mixin text-shadow($color: $default-text-shadow-color, $hoff: $default-text-shadow-h-offset, $voff: $default-text-shadow-v-offset, $blur: $default-text-shadow-blur) {
+  text-shadow: $color $hoff $voff $blur; }

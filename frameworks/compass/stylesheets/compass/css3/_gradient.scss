@@ -1,0 +1,57 @@
+// This yields a linear gradient spanning from top to bottom
+//
+//     +linear-gradient(color-stops(white, black))
+//
+// This yields a linear gradient spanning from bottom to top
+//
+//     +linear-gradient(color-stops(white, black), "bottom")
+//
+// This yields a linear gradient spanning from left to right
+//
+//     +linear-gradient(color-stops(white, black), "left")
+//
+// This yields a linear gradient starting at white passing
+// thru blue at 33% down and then to black
+//
+//     +linear-gradient(color-stops(white, blue 33%, black))
+//
+// This yields a linear gradient starting at white passing
+// thru blue at 33% down and then to black at 67% until the end
+//
+//     +linear-gradient(color-stops(white, blue 33%, black 67%))
+//
+// Browsers Supported:
+//
+// - Chrome
+// - Safari
+// - Firefox 3.6
+
+@mixin linear-gradient($color-stops, $start: top) {
+  // Firefox's gradient api is nice.
+  // Webkit's gradient api sucks -- hence these backflips:
+  $end: grad-opposite-position($start);
+  background-image: -webkit-gradient(linear, #{grad-point($start)}, #{grad-point($end)}, #{grad-color-stops($color-stops)});
+  background-image: -moz-linear-gradient(#{$start}, #{$color-stops}); }
+
+// Due to limitation's of webkit, the radial gradient mixin works best if you use
+// pixel-based color stops.
+//
+// Examples:
+//
+//     // Defaults to a centered, 100px radius gradient
+//     +radial-gradient(color-stops(#c00, #00c))
+//     // 100px radius gradient in the top left corner
+//     +radial-gradient(color-stops(#c00, #00c), "top left")
+//     // Three colors, ending at 50px and passing thru #fff at 25px
+//     +radial-gradient(color-stops(#c00, #fff, #00c 50px))
+//
+// Browsers Supported:
+//
+// - Chrome
+// - Safari
+// - Firefox 3.6
+
+@mixin radial-gradient($color-stops, $center-position: unquote("center center")) {
+  $end-pos: grad-end-position($color-stops, true);
+  background-image: -webkit-gradient(radial, #{grad-point($center-position)}, 0, #{grad-point($center-position)}, #{$end-pos}, #{grad-color-stops($color-stops)});
+  background-image: -moz-radial-gradient(#{$center-position}, circle, #{$color-stops}); }

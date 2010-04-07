@@ -76,7 +76,7 @@ a {
 
 blockquote {
   margin: 1.5em;
-  color: #666;
+  color: #666666;
   font-style: italic; }
 
 strong {
@@ -93,14 +93,14 @@ sup, sub {
   line-height: 0; }
 
 abbr, acronym {
-  border-bottom: 1px dotted #666; }
+  border-bottom: 1px dotted #666666; }
 
 address {
   margin: 0 0 1.5em;
   font-style: italic; }
 
 del {
-  color: #666; }
+  color: #666666; }
 
 pre {
   margin: 1.5em 0;
@@ -151,7 +151,7 @@ tfoot {
   font-style: italic; }
 
 caption {
-  background: #eee; }
+  background: #eeeeee; }
 
 .quiet {
   color: #666666; }
