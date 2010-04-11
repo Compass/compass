@@ -1,0 +1,69 @@
+@import "blueprint";
+@import "blueprint/fancy-type";
+@import "blueprint/scaffolding";
+@import "compass/reset";
+
+body.blueprint {
+  @include blueprint-typography(true);
+  @include blueprint-scaffolding-body;
+  .container {
+    @include container; }
+  .showgrid {
+    background: inline_image(unquote("grid.png")); }
+  hr {
+    @include colruler; }
+  hr.space {
+    @include colspacer; }
+  img#w3c {
+    margin-top: 0;
+    padding-top: 0; } }
+
+body#index {
+  #page-header {
+    @include span(6); }
+  #files-header {
+    @include span(8); }
+  #description-header {
+    @include span(10); }
+  #info {
+    @include box;
+    ul {
+      margin-bottom: 0;
+      padding-bottom: 0; } } }
+
+body#sample {
+  @include fancy-paragraphs;
+  h2 {
+    @include alt; }
+  #first-box {
+    @include column(7);
+    @include colborder; }
+  #another-box {
+    @include column(8);
+    @include colborder; }
+  #aligned-box {
+    @include column(7, true); }
+  #main {
+    @include column(15);
+    @include prepend(1);
+    @include colborder;
+    img#test {
+      @include pull(1);
+      margin-top: 0;
+      padding-top: 0; }
+    em.caps {
+      @include reset-font;
+      @include caps; }
+    #nested-1 {
+      @include column(7);
+      @include colborder; }
+    #nested-2 {
+      @include column(7, true); } }
+  #sidebar {
+    @include column(7, true);
+    h3 {
+      em {
+        @include reset-font;
+        @include alt; } } }
+  #parting-thought {
+    @include alt; } }

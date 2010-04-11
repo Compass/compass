@@ -1,0 +1,11 @@
+@import "compass/reset";
+@import "compass/layout";
+
+@include sticky-footer(72px, unquote("#layout"), unquote("#layout_footer"), unquote("#footer"));
+
+#header {
+  background: #999999;
+  height: 72px; }
+
+#footer {
+  background: #cccccc; }

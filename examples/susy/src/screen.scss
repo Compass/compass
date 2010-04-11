@@ -1,0 +1,100 @@
+/* Welcome to Susy. Use this file to define screen styles.
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" /> */
+
+@import "defaults";
+
+/* @group STRUCTURE */
+
+#skip-links {
+  ul {
+    @include no-style-list; }
+  a {
+    @include skip-link;
+    width: 100%; } }
+
+body {
+  @include susy; }
+
+#page {
+  position: relative;
+  @include container;
+  background: rgba(0, 0, 0, 0.1); }
+
+h1, h2 {
+  @include serif-family;
+  text-transform: uppercase;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.15);
+  letter-spacing: 1 / 14 + em; }
+
+h1 + p, h2 + p, p:first-child {
+  margin-top: 0; }
+
+header[role="banner"], #site-nav {
+  @include full;
+  h1 {
+    font-size: 1.5em;
+    line-height: 2em; } }
+
+#site-nav {
+  text-align: center;
+  padding: 1.5em;
+  ul {
+    @include inline-block-list(0.5em); } }
+
+#content {
+  > aside {
+    @include columns(2);
+    &:first-child {
+      @include alpha; }
+    & + aside {
+      @include omega; } }
+  section[role="main"] {
+    @include columns(6);
+    > section {
+      @include full(6); }
+    .major {
+      article {
+        @include columns(3, 6);
+        & + article {
+          @include omega(6); } } }
+    .minor {
+      aside {
+        @include columns(2, 6); }
+      article {
+        @include columns(4, 6);
+        @include omega(6);
+        header, .body {
+          @include columns(2, 4); }
+        .body {
+          @include omega(4); }
+        footer {
+          @include full(4); } } } } }
+
+footer[role="contentinfo"] {
+  @include full;
+  border-top: 1 / 14 + unquote("em dotted");
+  padding-top: 13 / 14 + em; }
+
+/* @end */
+
+/* @group COMPONENTS by type */
+
+/* @end */
+
+/* @group OVERRIDES by content */
+
+/* @end */
+
+/* @group OVERRIDES by page */
+
+/* @end */
+
+/* @group DEBUG */
+
+// Uncomment, adjust and use for debugging
+// #page
+//   +show-grid("your-grid-image.png")
+
+/* @end */

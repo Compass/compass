@@ -1,0 +1,28 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/misc";
+
+#logo-large,
+#logo-medium,
+#logo,
+#logo-small {
+  text-align: center;
+  margin: {
+    bottom: 40px; }; }
+
+#logo-large {
+  @include unobtrusive-logo(3em);
+  margin-top: 20px; }
+
+#logo-medium {
+  @include unobtrusive-logo(2em); }
+
+#logo {
+  @include unobtrusive-logo; }
+
+#logo-small {
+  @include unobtrusive-logo(0.5em); }

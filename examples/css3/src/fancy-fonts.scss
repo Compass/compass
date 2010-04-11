@@ -1,0 +1,7 @@
+@import "compass/css3";
+
+@include font-face(Angelina, font_files(unquote("angelina.ttf"), truetype));
+
+h1 {
+  font-family: "Angelina";
+  font-size: 5em; }

@@ -1,0 +1,13 @@
+@import "yui";
+@import "compass/reset";
+
+@include yui;
+
+.bigger {
+  @include font-size(16px); }
+
+.biggest {
+  @include font-size(18px); }
+
+.bigger .biggest {
+  @include font-size(18px, 16px); }
