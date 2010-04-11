@@ -16,10 +16,9 @@ $default-background-clip: padding-box !default;
 //   * border-box
 
 @mixin background-clip($clip: $default-background-clip) {
-  // webkit and mozilla use the deprecated short [border | padding | content]
+  // webkit and mozilla use the deprecated short [border | padding]
   $deprecated: padding;
-  @if $clip == "border-box" {
-    $deprecated: border; }
+  @if $clip == border-box { $deprecated: border; }
   background-clip: $clip;
   -webkit-background-clip: $deprecated;
   -moz-background-clip: $deprecated; }

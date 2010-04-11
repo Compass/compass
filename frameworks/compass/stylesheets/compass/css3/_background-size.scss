@@ -7,8 +7,9 @@
 $default-background-size: 100% auto !default;
 
 @mixin background-size($size: $default-background-size) {
-  background-size: $size;
+          background-size: $size;
   -webkit-background-size: $size;
-  -o-background-size: $size;
-  -khtml-background-size: $size;
-  -moz-background-size: $size; }
+       -o-background-size: $size;
+   -khtml-background-size: $size;
+     -moz-background-size: $size;
+}
