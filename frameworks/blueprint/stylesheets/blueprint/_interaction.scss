@@ -1,0 +1,57 @@
+@import "colors";
+
+@mixin blueprint-interaction {
+  .error {
+    @include error; }
+  .notice {
+    @include notice; }
+  .success {
+    @include success; }
+  .hide {
+    display: none; }
+  .highlight {
+    @include highlight; }
+  .added {
+    @include added; }
+  .removed {
+    @include removed; } }
+
+@mixin feedback-base {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 2px solid $feedback_border_color; }
+
+@mixin error {
+  @include feedback-base;
+  background: $error_bg_color;
+  color: $error_color;
+  border-color: $error_border_color;
+  a {
+    color: $error_color; } }
+
+@mixin notice {
+  @include feedback-base;
+  background: $notice_bg_color;
+  color: $notice_color;
+  border-color: $notice_border_color;
+  a {
+    color: $notice_color; } }
+
+@mixin success {
+  @include feedback-base;
+  background: $success_bg_color;
+  color: $success_color;
+  border-color: $success_border_color;
+  a {
+    color: $success_color; } }
+
+@mixin highlight {
+  background: $highlight_color; }
+
+@mixin added {
+  background: $added_bg_color;
+  color: $added_color; }
+
+@mixin removed {
+  background: $removed_bg_color;
+  color: $removed_color; }

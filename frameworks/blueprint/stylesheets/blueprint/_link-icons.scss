@@ -1,0 +1,44 @@
+@mixin no-link-icon {
+  background: transparent none !important;
+  padding: 0 !important;
+  margin: 0 !important; }
+
+@mixin link-icon-base {
+  padding: 2px 22px 2px 0;
+  margin: -2px 0;
+  background-repeat: no-repeat;
+  background-position: right center; }
+
+@mixin link-icon($name, $include_base: true) {
+  @if $include_base {
+    @include link-icon-base; }
+  background-image: image_url("link_icons/#{$name}"); }
+
+@mixin link-icons {
+  a[href^="http:"],
+  a[href^="mailto:"],
+  a[href^="http:"]:visited,
+  a[href$=".pdf"],
+  a[href$=".doc"],
+  a[href$=".xls"],
+  a[href$=".rss"],
+  a[href$=".rdf"],
+  a[href^="aim:"] {
+    @include link-icon-base; }
+  a[href^="http:"] {
+    @include link-icon(unquote("external.png"), false); }
+  a[href^="mailto:"] {
+    @include link-icon(unquote("email.png"), false); }
+  a[href^="http:"]:visited {
+    @include link-icon(unquote("visited.png"), false); }
+  a[href$=".pdf"] {
+    @include link-icon(unquote("pdf.png"), false); }
+  a[href$=".doc"] {
+    @include link-icon(unquote("doc.png"), false); }
+  a[href$=".xls"] {
+    @include link-icon(unquote("xls.png"), false); }
+  a[href$=".rss"],
+  a[href$=".rdf"] {
+    @include link-icon(unquote("feed.png"), false); }
+  a[href^="aim:"] {
+    @include link-icon(unquote("im.png"), false); } }
