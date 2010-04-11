@@ -26,7 +26,7 @@
     #{!body_selector}
       +blueprint-typography-body
       @if !body_selector != "body"
-        @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-typography, pass true as the first argument and mix it into #{!body_selector}."
+        @warn "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-typography, pass true as the first argument and mix it into #{!body_selector}."
         +blueprint-typography-defaults
     @if !body_selector == "body"
       +blueprint-typography-defaults

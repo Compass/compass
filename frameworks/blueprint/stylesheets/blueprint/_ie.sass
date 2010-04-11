@@ -33,7 +33,7 @@
     #{!body_selector}
       +blueprint-ie-body
       @if !body_selector != "body"
-        @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-ie, pass true as the first argument and mix it into #{!body_selector}."
+        @warn "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-ie, pass true as the first argument and mix it into #{!body_selector}."
         +blueprint-ie-defaults
     @if !body_selector == "body"
       +blueprint-ie-defaults

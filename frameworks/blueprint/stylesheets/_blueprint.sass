@@ -28,7 +28,7 @@
 =blueprint(!body_selector = "body")
   //@doc off
   @if not (!body_selector == "body" or !body_selector == true)
-    @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint, pass true as the first argument and mix it into #{!body_selector}."
+    @warn "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint, pass true as the first argument and mix it into #{!body_selector}."
   //@doc on
   +blueprint-typography(!body_selector)
   +blueprint-utilities

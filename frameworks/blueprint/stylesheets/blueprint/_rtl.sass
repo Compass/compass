@@ -92,7 +92,7 @@
     html #{!body_selector}
       font-family: Arial, sans-serif
       @if !body_selector != "body"
-        @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +rtl-typography, pass true as the first argument and mix it into #{!body_selector}."
+        @warn "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +rtl-typography, pass true as the first argument and mix it into #{!body_selector}."
         +rtl-typography-defaults
     @if !body_selector == "body"
       body

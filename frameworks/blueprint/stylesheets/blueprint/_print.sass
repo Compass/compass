@@ -23,7 +23,7 @@
     #{!body_selector}
       +blueprint-print-body
       @if !body_selector != "body"
-        @debug "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-print, pass true as the first argument and mix it into #{!body_selector}."
+        @warn "[DEPRECATED] To specify a the selector \"#{!body_selector}\" to +blueprint-print, pass true as the first argument and mix it into #{!body_selector}."
         +blueprint-print-defaults
     @if !body_selector == "body"
       +blueprint-print-defaults
