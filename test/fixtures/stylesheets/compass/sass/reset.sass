@@ -2,9 +2,11 @@
 
 // Turn off the display for both of these classes
 .unregistered-only, .registered-only
-  :display none
+  display: none
+
 // Now turn only one of them back on depending on some other context.
 body.registered
-  +reset-display(".registered-only")
+  +reset-display(unquote(".registered-only"))
+
 body.unregistered
-  +reset-display(".unregistered-only")
+  +reset-display(unquote(".unregistered-only"))
