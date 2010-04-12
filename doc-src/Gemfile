@@ -9,5 +9,5 @@ gem 'fssm'
 gem 'serve'
 gem 'nokogiri', :version => "0.4.1"
 gem 'coderay'
-gem 'haml-edge', :require => 'sass'
+gem 'haml', ">=3.0.0.beta.2", :require => 'sass'
 gem 'rake'

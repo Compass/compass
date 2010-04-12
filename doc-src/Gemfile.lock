@@ -8,6 +8,12 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
+  haml: 
+    group: 
+    - :default
+    version: ">= 3.0.0.beta.2"
+    require: 
+    - sass
   thor: 
     group: 
     - :default
@@ -38,12 +44,6 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
-  haml-edge: 
-    group: 
-    - :default
-    version: ">= 0"
-    require: 
-    - sass
   nokogiri: 
     group: 
     - :default
@@ -55,16 +55,18 @@ specs:
     version: 2.3.5
 - coderay: 
     version: 0.9.2
+- cri: 
+    version: 1.0.1
 - fssm: 
     version: 0.1.4
-- haml-edge: 
-    version: 2.3.177
+- haml: 
+    version: 3.0.0.beta.2
 - mime-types: 
     version: "1.16"
 - nanoc3: 
-    version: 3.0.9
+    version: 3.1.2
 - nokogiri: 
-    version: 1.4.1
+    version: 1.4.1.1
 - rack: 
     version: 1.1.0
 - rdiscount: 
@@ -73,7 +75,7 @@ specs:
     version: 0.10.0
 - thor: 
     version: 0.13.4
-hash: 4cbd2364289d5f0c737704bee95125d9bf8f4a14
+hash: 16187d5f06a4d78ed1b88c12fd0643838d0115ec
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
