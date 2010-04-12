@@ -8,24 +8,24 @@
 
 // This will yield a radial gradient with an apparent specular highlight  
 #radial-gradient
-  +radial-gradient(color_stops(#00FFFF 10px, #1E90FF 30px), 45 45)
+  +radial-gradient(color-stops(#00FFFF 10px, #1E90FF 30px), 45 45)
 
 // This yields a linear gradient spanning from the upper left corner to the lower right corner
 #linear-gradient
-  +linear-gradient(color_stops(#fff, #ddd), "left top")
+  +linear-gradient(color-stops(#fff, #ddd), "left top")
 
 // This yields a gradient starting at the top with #fff, ending in #aaa  
 #v-gradient
-  +linear-gradient(color_stops(#fff, #aaa))
+  +linear-gradient(color-stops(#fff, #aaa))
 
 // Same as above but with a #ccc at the halfway point  
 #v-gradient-2
-  +linear-gradient(color_stops(#fff, #ccc, #aaa))
+  +linear-gradient(color-stops(#fff, #ccc, #aaa))
 
 // Same as the first example but with #ccc at the 30% from the top, and #bbb at 70% from the top  
 #v-gradient-3
-  +linear-gradient(color_stops(#fff, #ccc 30%, #bbb 70%, #aaa))
+  +linear-gradient(color-stops(#fff, #ccc 30%, #bbb 70%, #aaa))
 
 // This yields a horizontal linear gradient spanning from left to right.
 #h-gradient
-  +linear-gradient(color_stops(#fff, #ddd), "left")
+  +linear-gradient(color-stops(#fff, #ddd), "left")

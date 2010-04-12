@@ -8,7 +8,7 @@ crumb: Best practices
 %p
   Create a
   %code
-    _base.sass
+    _base.scss
   %a{ :href => "http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#partials" }
     partial
   to initialize your stylesheets with common variables and (
@@ -16,43 +16,43 @@ crumb: Best practices
     often
   ) the framework utilities you plan to use:
 %h4
-  _base.sass
+  _base.scss
 %pre
   \!blueprint_grid_columns = 24
   \!blueprint_grid_width   = 30px
   \!blueprint_grid_margin  = 10px
   \!font_color              = #333
   \
-  @import compass/reset.sass
-  @import compass/utilities.sass
-  @import blueprint/screen.sass
+  @import compass/reset.scss
+  @import compass/utilities.scss
+  @import blueprint/screen.scss
   \
   \// etc.
 %p
   The
   %code
-    _base.sass
+    _base.scss
   file is also a great place to keep your own custom mixins, so they’re available to any stylesheet that includes it.
 %p
   Then you can include this file in all other stylesheets:
 %h4
-  application.sass
+  application.scss
 %pre
-  @import base.sass
+  @import base.scss
   \
   \#wrapper
   \  +container
   \
   \// etc.
 %p
-  It is important to define any compass/framework constants that you want to override in base.sass first, before @import-ing the framework files.  See
+  It is important to define any compass/framework constants that you want to override in base.scss first, before @import-ing the framework files.  See
   %a{ :href => "http://wiki.github.com/chriseppstein/compass/overriding-constants" }
     Overriding Constants
   , for an example of where the number of grid columns for blueprint is overridden/set to 32.
   %br
   Note that you can refer to
   %code
-    _base.sass
+    _base.scss
   without the leading underscore, since it is a
   %a{ :href => "http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#partials" }
     partial

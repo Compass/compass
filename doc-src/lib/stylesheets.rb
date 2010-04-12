@@ -12,7 +12,8 @@ def tree(item)
   @site.cached(tree_key(item)) do
     file = File.join(stylesheets_dir(item[:framework]), item[:stylesheet])
     contents = File.read(file)
-    Sass::Engine.new(contents).send :to_tree
+    syntax = item[:stylesheet] =~ /\.scss$/ ? :scss : :sass
+    Sass::Engine.new(contents, :syntax => syntax).send :to_tree
   end
 end
 

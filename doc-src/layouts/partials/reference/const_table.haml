@@ -4,7 +4,7 @@
     %a.permalink{:href => "#const-#{const_id}"}= "!"+constant_def.name
   %dl.constant-details.source-documentation
     %dt Value
-    %dd= constant_def.expr.to_sass(:html)
+    %dd= constant_def.expr.to_sass(:format => :html)
     - if constant_def.comment
       %dt Description
       %dd= format_doc constant_def.comment
