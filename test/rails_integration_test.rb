@@ -24,7 +24,7 @@ class RailsIntegrationTest < Test::Unit::TestCase
           responder.respond_to %r{^\s*Emit compiled stylesheets to public/stylesheets/compiled/\? \(Y/n\)\s*$}, :with => "Y", :required => true
         end
         # puts ">>>#{@last_result}<<<"
-        assert_action_performed :create, "./app/stylesheets/screen.sass"
+        assert_action_performed :create, "./app/stylesheets/screen.scss"
         assert_action_performed :create, "./config/initializers/compass.rb"
       end
     ensure
@@ -40,7 +40,7 @@ class RailsIntegrationTest < Test::Unit::TestCase
       generate_rails_app_directories("compass_rails")
       Dir.chdir "compass_rails" do
         compass(*%w(--rails --trace --boring --sass-dir app/stylesheets --css-dir public/stylesheets/compiled .))
-        assert_action_performed :create, "./app/stylesheets/screen.sass"
+        assert_action_performed :create, "./app/stylesheets/screen.scss"
         assert_action_performed :create, "./config/initializers/compass.rb"
       end
     end

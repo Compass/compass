@@ -7,12 +7,12 @@ Feature: Command Line
     When I create a project using: compass create my_project
     Then a directory my_project/ is created
     And a configuration file my_project/config.rb is created
-    And a sass file my_project/src/screen.sass is created
-    And a sass file my_project/src/print.sass is created
-    And a sass file my_project/src/ie.sass is created
-    And a sass file my_project/src/screen.sass is compiled
-    And a sass file my_project/src/print.sass is compiled
-    And a sass file my_project/src/ie.sass is compiled
+    And a sass file my_project/src/screen.scss is created
+    And a sass file my_project/src/print.scss is created
+    And a sass file my_project/src/ie.scss is created
+    And a sass file my_project/src/screen.scss is compiled
+    And a sass file my_project/src/print.scss is compiled
+    And a sass file my_project/src/ie.scss is compiled
     And a css file my_project/stylesheets/screen.css is created
     And a css file my_project/stylesheets/print.css is created
     And a css file my_project/stylesheets/ie.css is created
@@ -24,12 +24,12 @@ Feature: Command Line
     When I create a project using: compass create bp_project --using blueprint
     Then a directory bp_project/ is created
     And a configuration file bp_project/config.rb is created
-    And a sass file bp_project/src/screen.sass is created
-    And a sass file bp_project/src/print.sass is created
-    And a sass file bp_project/src/ie.sass is created
-    And a sass file bp_project/src/screen.sass is compiled
-    And a sass file bp_project/src/print.sass is compiled
-    And a sass file bp_project/src/ie.sass is compiled
+    And a sass file bp_project/src/screen.scss is created
+    And a sass file bp_project/src/print.scss is created
+    And a sass file bp_project/src/ie.scss is created
+    And a sass file bp_project/src/screen.scss is compiled
+    And a sass file bp_project/src/print.scss is compiled
+    And a sass file bp_project/src/ie.scss is compiled
     And a css file bp_project/stylesheets/screen.css is created
     And a css file bp_project/stylesheets/print.css is created
     And a css file bp_project/stylesheets/ie.css is created
@@ -44,7 +44,7 @@ Feature: Command Line
     And a directory custom_project/sass/ is created
     And a directory custom_project/css/ is created
     And a directory custom_project/assets/imgs/ is created
-    And a sass file custom_project/sass/screen.sass is created
+    And a sass file custom_project/sass/screen.scss is created
     And a css file custom_project/css/screen.css is created
     And an image file custom_project/assets/imgs/grid.png is created
 
@@ -52,9 +52,9 @@ Feature: Command Line
     When I create a project using: compass create my_project --dry-run
     Then a directory my_project/ is not created
     But a configuration file my_project/config.rb is reported created
-    And a sass file my_project/src/screen.sass is reported created
-    And a sass file my_project/src/print.sass is reported created
-    And a sass file my_project/src/ie.sass is reported created
+    And a sass file my_project/src/screen.scss is reported created
+    And a sass file my_project/src/print.scss is reported created
+    And a sass file my_project/src/ie.scss is reported created
     And I am told how to link to /stylesheets/screen.css for media "screen, projection"
     And I am told how to link to /stylesheets/print.css for media "print"
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
@@ -80,9 +80,9 @@ Feature: Command Line
     Then a config file config/compass.rb is reported created
     Then a config file config/compass.rb is created
     And a sass file config/initializers/compass.rb is created
-    And a sass file app/stylesheets/screen.sass is created
-    And a sass file app/stylesheets/print.sass is created
-    And a sass file app/stylesheets/ie.sass is created
+    And a sass file app/stylesheets/screen.scss is created
+    And a sass file app/stylesheets/print.scss is created
+    And a sass file app/stylesheets/ie.scss is created
 
   Scenario: Compiling an existing project.
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -143,7 +143,7 @@ Feature: Command Line
   Scenario: Installing a pattern into a project
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass install blueprint/buttons
-    Then a sass file sass/buttons.sass is created
+    Then a sass file sass/buttons.scss is created
     And an image file images/buttons/cross.png is created
     And an image file images/buttons/key.png is created
     And an image file images/buttons/tick.png is created
@@ -234,14 +234,17 @@ Feature: Command Line
     Then my css is validated
     And I am informed that my css is valid.
 
+  @broken
   Scenario: Get stats for my project
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass stats
     Then I am told statistics for each file:
-      | Filename            | Rules | Properties | Mixins Defs | Mixins Used | CSS Rules | CSS Properties |
-      | sass/layout.sass    |     0 |          0 |           0 |           1 |         5 |              9 |
-      | sass/print.sass     |     0 |          0 |           0 |           2 |        61 |             61 |
-      | sass/reset.sass     |     4 |          1 |           0 |           2 |       191 |            665 |
-      | sass/utilities.sass |     2 |          0 |           0 |           2 |         5 |             11 |
-      | Total.*             |     6 |          1 |           0 |           7 |       262 |            746 |
+      | Filename             | Rules | Properties | Mixins Defs | Mixins Used | CSS Rules | CSS Properties |
+      | sass/gradients.sass  |    19 |          0 |           0 |          19 |        19 |             19 |
+      | sass/image_size.sass |     4 |          8 |           0 |           0 |         4 |              8 |
+      | sass/layout.sass     |     0 |          0 |           0 |           1 |         5 |             10 |
+      | sass/print.sass      |     0 |          0 |           0 |           2 |        61 |             61 |
+      | sass/reset.sass      |     4 |          1 |           0 |           2 |       191 |            665 |
+      | sass/utilities.sass  |     2 |          0 |           0 |           2 |         5 |             11 |
+      | Total.*              |    29 |          9 |           0 |          26 |       285 |            774 |
 
