@@ -11,7 +11,7 @@ module Compass
       def visit(node)
         self.prop_count += 1 if node.is_a?(Sass::Tree::PropNode) && !node.children.any?
         if node.is_a?(Sass::Tree::RuleNode)
-          self.rule_count += node.rules.map{|r| r.split(/,/)}.flatten.compact.size
+          self.rule_count += node.rule.map{|r| r.split(/,/)}.flatten.compact.size
         end
         self.mixin_def_count += 1 if node.is_a?(Sass::Tree::MixinDefNode)
         self.mixin_count += 1 if node.is_a?(Sass::Tree::MixinNode)
