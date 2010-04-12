@@ -12,14 +12,14 @@
     @if $style {
       font-style: $style; }
     @if $eot {
-      src: stylesheet-url($eot); }
+      src: font-url($eot); }
     @if $postscript {
       src: local("#{$name}"), local("#{$postscript}"), #{$font-files}; }
     @else {
       src: local("#{$name}"), #{$font-files}; } } }
 
 // EXAMPLE
-// +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "fonts/this.eot", "thisname")
+// +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "this.eot", "thisname")
 //
 // will generate:
 //
