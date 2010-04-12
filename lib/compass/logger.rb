@@ -7,15 +7,16 @@ module Compass
     COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     ACTION_COLORS = {
-      :error => :red,
-      :warning => :yellow,
-      :compile => :green,
+      :error     => :red,
+      :warning   => :yellow,
+      :compile   => :green,
       :overwrite => :yellow,
-      :create => :green,
-      :remove => :yellow,
-      :exists => :green,
+      :create    => :green,
+      :remove    => :yellow,
+      :exists    => :green,
       :directory => :green,
-      :identical => :green
+      :identical => :green,
+      :convert   => :green
     }
 
 

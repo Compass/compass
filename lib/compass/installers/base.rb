@@ -16,7 +16,7 @@ module Compass
         self.logger = options[:logger]
       end
 
-      [:css_dir, :sass_dir, :images_dir, :javascripts_dir, :http_stylesheets_path, :fonts_dir].each do |dir|
+      [:css_dir, :sass_dir, :images_dir, :javascripts_dir, :http_stylesheets_path, :fonts_dir, :preferred_syntax].each do |dir|
         define_method dir do
           Compass.configuration.send(dir)
         end
@@ -77,6 +77,19 @@ module Compass
 
       installer :stylesheet do |to|
         "#{sass_dir}/#{pattern_name_as_dir}#{to}"
+      end
+
+      def install_stylesheet(from, to, options)
+        from = templatize(from)
+        to = targetize(install_location_for_stylesheet(to, options))
+        contents = File.new(from).read
+        if preferred_syntax.to_s != from[-4..-1]
+          logger.record :convert, basename(from)
+          tree = Sass::Engine.new(contents, Compass.sass_engine_options).to_tree
+          contents = tree.send("to_#{preferred_syntax}")
+          to[-4..-1] = preferred_syntax.to_s
+        end
+        write_file to, contents
       end
 
       installer :css do |to|

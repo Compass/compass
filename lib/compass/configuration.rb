@@ -35,7 +35,8 @@ module Compass
       :asset_host,
       :asset_cache_buster,
       :line_comments,
-      :color_output
+      :color_output,
+      :preferred_syntax
     ].flatten
 
   end

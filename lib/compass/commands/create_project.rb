@@ -39,6 +39,10 @@ module Compass
           self.options[:pattern] = framework[1]
         end
 
+        opts.on("-x", "--syntax SYNTAX", [:sass, :scss], "Specify the syntax to use when generating stylesheets.", "One of sass or scss. Defaults to scss.") do |syntax|
+          self.options[:preferred_syntax] = syntax
+        end
+
         super
       end
     end

@@ -125,6 +125,9 @@ module Compass
         true
       end
 
+      def default_preferred_syntax
+        :scss
+      end
       # helper functions
 
       def http_join(*segments)
