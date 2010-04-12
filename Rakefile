@@ -131,6 +131,18 @@ task :examples do
   end
 end
 
+namespace :examples do
+  desc "clean up the example directories"
+  task :clean do
+    puts "Cleaning Examples"
+    Dir.glob('examples/*/clean.rb').each do |cleaner|
+      load cleaner
+    end
+  end
+end
+
+task "gemspec:generate" => "examples:clean"
+
 namespace :git do
   task :clean do
     sh "git", "clean", "-fdx"
