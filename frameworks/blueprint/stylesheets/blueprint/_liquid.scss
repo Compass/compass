@@ -42,11 +42,11 @@ $blueprint_liquid_grid_width: 3.167% !default;
 $blueprint_liquid_grid_margin: 1.042% !default;
 
 // Do not edit below this line unless you really know what you're doing.
-$blueprint_liquid_container_width: 80%;
+$blueprint_liquid_container_width: 80% !default;
 
-$blueprint_liquid_container_min_width: 950px;
+$blueprint_liquid_container_min_width: 950px !default;
 
-$blueprint_liquid_grid_push_pull: -($blueprint_liquid_grid_margin + $blueprint_liquid_grid_width);
+$blueprint_liquid_grid_push_pull: -($blueprint_liquid_grid_margin + $blueprint_liquid_grid_width) !default;
 
 @mixin blueprint-liquid-grid {
   // A container should group all your columns
