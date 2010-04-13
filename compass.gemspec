@@ -114,8 +114,6 @@ Gem::Specification.new do |s|
      "examples/css3/src/fancy-fonts.scss",
      "examples/css3/src/gradients.scss",
      "examples/css3/src/main.scss",
-     "examples/css3/stylesheets/fonts/Vtks Revolt.ttf",
-     "examples/css3/stylesheets/fonts/angelina.ttf",
      "examples/downloader.rb",
      "examples/logo/logo.html.haml",
      "examples/logo/src/ie.scss",
