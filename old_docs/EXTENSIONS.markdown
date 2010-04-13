@@ -161,6 +161,7 @@ Tips for Developing Extensions
 ------------------------------
 
 * If you're developing a simple extension, you may find it convenient to place your extension within an existing compass project in the extension folder.
+* Never specify an extension in your imports as this can cause issue when the syntax of a file changes.
 
 Installing Extensions
 ---------------------
