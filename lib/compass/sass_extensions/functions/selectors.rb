@@ -39,4 +39,25 @@ module Compass::SassExtensions::Functions::Selectors
     Sass::Script::String.new(nested)
   end
 
+  # Return the header selectors for the levels indicated
+  # Defaults to all headers h1 through h6
+  # For example:
+  # headers(all) => h1, h2, h3, h4, h5, h6
+  # headers(4) => h1, h2, h3, h4
+  # headers(2,4) => h2, h3, h4
+  def headers(from = nil, to = nil)
+    if from && !to
+      if from.is_a?(Sass::Script::String) && from.value == "all"
+        from = Sass::Script::Number.new(1)
+        to = Sass::Script::Number.new(6)
+      else
+        to = from
+        from = Sass::Script::Number.new(1)
+      end
+    else
+      from ||= Sass::Script::Number.new(1)
+      to ||= Sass::Script::Number.new(6)
+    end
+    Sass::Script::String.new((from.value..to.value).map{|n| "h#{n}"}.join(", "))
+  end
 end
