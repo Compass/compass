@@ -2,11 +2,11 @@
 @import "compass/utilities/links/link-colors";
 @import "compass/utilities/general/float";
 
-$blueprint_font_family: unquote("Helvetica Neue, Arial, Helvetica, sans-serif") !default;
+$blueprint-font-family: "Helvetica Neue", Arial, Helvetica, sans-serif !default;
 
-$blueprint_fixed_font_family: unquote("'andale mono', 'lucida console', monospace") !default;
+$blueprint-fixed-font-family: "andale mono", "lucida console", monospace !default;
 
-$blueprint_font_size: 12px !default;
+$blueprint-font-size: 12px !default;
 
 // Usage examples:
 // As a top-level mixin, apply to any page that includes the stylesheet:
@@ -20,145 +20,74 @@ $blueprint_font_size: 12px !default;
 // Deprecated:
 //   You can pass the body selector as the first argument when used as a top-level mixin
 //   +blueprint-typography("body#page-1, body#page-2, body.a-special-page-type")
-@mixin blueprint-typography($body_selector: body) {
-  @if $body_selector == true {
+@mixin blueprint-typography($body-selector: body) {
+  @if $body-selector == true {
     @include blueprint-typography-body;
-    @include blueprint-typography-defaults; }
-  @else {
-    #{$body_selector} {
+    @include blueprint-typography-defaults;
+  } @else {
+    #{$body-selector} {
       @include blueprint-typography-body;
-      @if $body_selector != "body" {
-        @warn "[DEPRECATED] To specify a the selector \"#{$body_selector}\" to +blueprint-typography, pass true as the first argument and mix it into #{$body_selector}.";
-        @include blueprint-typography-defaults; } }
-    @if $body_selector == "body" {
-      @include blueprint-typography-defaults; } } }
+      @if $body-selector != body {
+        @warn "[DEPRECATED] To specify the selector \"#{$body-selector}\" to +blueprint-typography, pass true as the first argument and mix it into #{$body-selector}.";
+        @include blueprint-typography-defaults;
+      }
+    }
+    @if $body-selector == body {
+      @include blueprint-typography-defaults;
+    }
+  }
+}
 
-@mixin normal-text {
-  font-family: $blueprint_font_family;
-  color: $font_color; }
+@mixin normal-text      { font-family: $blueprint-font-family; color: $font-color; }
+@mixin fixed-width-text { font: 1em $blueprint-fixed-font-family; line-height: 1.5; }
+@mixin header-text      { font-weight: normal; color: $header-color; }
+@mixin quiet            { color: $quiet-color; }
+@mixin loud             { color: $loud-color; }
 
-@mixin fixed-width-text {
-  font: 1em $blueprint_fixed_font_family;
-  line-height: 1.5; }
-
-@mixin header-text {
-  font-weight: normal;
-  color: $header_color; }
-
-@mixin quiet {
-  color: $quiet_color; }
-
-@mixin loud {
-  color: $loud_color; }
-
-@mixin blueprint-typography-body($font_size: $blueprint_font_size) {
+@mixin blueprint-typography-body($font-size: $blueprint-font-size) {
   line-height: 1.5;
   @include normal-text;
-  font-size: 100% * $font_size / 16px; }
+  font-size: 100% * $font-size / 16px;
+}
 
 @mixin blueprint-typography-defaults {
-  h1 {
-    @include header-text;
-    font-size: 3em;
-    line-height: 1;
-    margin-bottom: 0.5em;
-    img {
-      margin: 0; } }
-  h2 {
-    @include header-text;
-    font-size: 2em;
-    margin-bottom: 0.75em; }
-  h3 {
-    @include header-text;
-    font-size: 1.5em;
-    line-height: 1;
-    margin-bottom: 1em; }
-  h4 {
-    @include header-text;
-    font-size: 1.2em;
-    line-height: 1.25;
-    margin-bottom: 1.25em; }
-  h5 {
-    @include header-text;
-    font-size: 1em;
-    font-weight: bold;
-    margin-bottom: 1.5em; }
-  h6 {
-    @include header-text;
-    font-size: 1em;
-    font-weight: bold; }
-  h2 img,  h3 img,  h4 img,  h5 img,  h6 img {
-    margin: 0; }
-  p {
-    margin: 0 0 1.5em;
-    img.left {
-      @include float-left;
-      margin: 1.5em 1.5em 1.5em 0;
-      padding: 0; }
-    img.right {
-      @include float-right;
-      margin: 1.5em 0 1.5em 1.5em;
-      padding: 0; } }
-  a {
-    text-decoration: underline;
-    @include link-colors($link_color, $link_hover_color, $link_active_color, $link_visited_color, $link_focus_color); }
-  blockquote {
-    margin: 1.5em;
-    color: #666666;
-    font-style: italic; }
-  strong {
-    font-weight: bold; }
-  em {
-    font-style: italic; }
-  dfn {
-    font-style: italic;
-    font-weight: bold; }
-  sup,  sub {
-    line-height: 0; }
-  abbr,  acronym {
-    border-bottom: 1px dotted #666666; }
-  address {
-    margin: 0 0 1.5em;
-    font-style: italic; }
-  del {
-    color: #666666; }
-  pre {
-    margin: 1.5em 0;
-    white-space: pre; }
-  pre, code, tt {
-    @include fixed-width-text; }
-  li {
-    ul, ol {
-      margin: 0; } }
-  ul, ol {
-    margin: 0 1.5em 1.5em 0;
-    padding-left: 3.333em; }
-  ul {
-    list-style-type: disc; }
-  ol {
-    list-style-type: decimal; }
-  dl {
-    margin: 0 0 1.5em 0;
-    dt {
-      font-weight: bold; } }
-  dd {
-    margin-left: 1.5em; }
-  table {
-    margin-bottom: 1.4em;
-    width: 100%; }
-  th {
-    font-weight: bold; }
-  thead th {
-    background: $blueprint_table_header_color; }
-  th, td, caption {
-    padding: 4px 10px 4px 5px; }
-  tr.even td {
-    background: $blueprint_table_stripe_color; }
-  tfoot {
-    font-style: italic; }
-  caption {
-    background: #eeeeee; }
-  .quiet {
-    @include quiet; }
-  .loud {
-    @include loud; } }
+  #{headers(all)} { @include header-text;
+    img           { margin: 0; } }
+  h1              { font-size: 3em;   line-height: 1;    margin-bottom: 0.5em;  }
+  h2              { font-size: 2em;                      margin-bottom: 0.75em; }
+  h3              { font-size: 1.5em; line-height: 1;    margin-bottom: 1em;    }
+  h4              { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; }
+  h5              { font-size: 1em;   font-weight: bold; margin-bottom: 1.5em;  }
+  h6              { font-size: 1em;   font-weight: bold;                        }
+  p               { margin: 0 0 1.5em;
+    img.left      { @include float-left;  margin: 1.5em 1.5em 1.5em 0; padding: 0; }
+    img.right     { @include float-right; margin: 1.5em 0 1.5em 1.5em; padding: 0; } }
+  a               { text-decoration: underline; @include link-colors($link-color, $link-hover-color, $link-active-color, $link-visited-color, $link-focus-color); }
+  blockquote      { margin: 1.5em; color: #666666; font-style: italic; }
+  strong          { font-weight: bold; }
+  em              { font-style: italic; }
+  dfn             { font-style: italic; font-weight: bold; }
+  sup, sub        { line-height: 0; }
+  abbr, acronym   { border-bottom: 1px dotted #666666; }
+  address         { margin: 0 0 1.5em; font-style: italic; }
+  del             { color: #666666; }
+  pre             { margin: 1.5em 0; white-space: pre; }
+  pre, code, tt   { @include fixed-width-text; }
+  li              {
+    ul, ol        { margin: 0; } }
+  ul, ol          { margin: 0 1.5em 1.5em 0; padding-left: 3.333em; }
+  ul              { list-style-type: disc; }
+  ol              { list-style-type: decimal; }
+  dl              { margin: 0 0 1.5em 0;
+    dt            { font-weight: bold; } }
+  dd              { margin-left: 1.5em; }
+  table           { margin-bottom: 1.4em; width: 100%; }
+  th              { font-weight: bold; }
+  thead th        { background: $blueprint-table-header-color; }
+  th, td, caption { padding: 4px 10px 4px 5px; }
+  tr.even td      { background: $blueprint-table-stripe-color; }
+  tfoot           { font-style: italic; }
+  caption         { background: #eeeeee; }
+  .quiet          { @include quiet; }
+  .loud           { @include loud; }
+}
