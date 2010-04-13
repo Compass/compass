@@ -1,5 +1,8 @@
 COMPASS CHANGELOG
 =================
+0.10.0.rc3 (April 13, 2010)
+---------------------------
+* This release addresses several bugs in rc2.
 
 0.10.0.rc2 (April 12, 2010)
 ---------------------------
