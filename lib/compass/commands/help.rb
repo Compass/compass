@@ -58,6 +58,7 @@ To get help on a particular command please specify the command.
       class << self
         def option_parser(arguments)
           parser = Compass::Exec::CommandOptionParser.new(arguments)
+          parser.extend(Compass::Exec::GlobalOptionsParser)
           parser.extend(HelpOptionsParser)
         end
         def usage
