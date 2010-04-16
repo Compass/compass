@@ -206,7 +206,7 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   position: relative; }
 
 @mixin push-margins($n) {
-  margin: 0 -$blueprint_grid_outer_width * $n 1.5em $blueprint_grid_outer_width * $n; }
+  margin: 0 (-$blueprint_grid_outer_width * $n) 1.5em $blueprint_grid_outer_width * $n; }
 
 // mixin to a column to push it n columns to the right
 @mixin push($n) {
