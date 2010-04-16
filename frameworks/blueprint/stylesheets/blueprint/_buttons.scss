@@ -5,65 +5,75 @@
 $blueprint_button_font_family: unquote('"Lucida Grande", Tahoma, Arial, Verdana, sans-serif') !default;
 
 // Default Button Colors
-$blueprint_button_border_color: #dedede !default;
-
+$blueprint_button_border_color:     #dedede !default;
 $blueprint_button_background_color: #f5f5f5 !default;
-
-$blueprint_button_font_color: #565656 !default;
+$blueprint_button_font_color:       #565656 !default;
 
 // Default Button Hover Colors
-$blueprint_button_hover_border_color: #c2e1ef !default;
-
+$blueprint_button_hover_border_color:     #c2e1ef !default;
 $blueprint_button_hover_background_color: #dff4ff !default;
-
-$blueprint_button_hover_font_color: #336699 !default;
+$blueprint_button_hover_font_color:       #336699 !default;
 
 // Default Button Active Colors
-$blueprint_button_active_border_color: #6299c5 !default;
-
+$blueprint_button_active_border_color:     #6299c5 !default;
 $blueprint_button_active_background_color: #6299c5 !default;
-
-$blueprint_button_active_font_color: white !default;
+$blueprint_button_active_font_color:       white !default;
 
 //**
 // Sets the colors for a button
 // @param border_highlight_color
 //   The highlight color defaults to whatever is the value of the border_color but it's one shade lighter.
-@mixin button-colors($font_color: $blueprint_button_font_color, $bg_color: $blueprint_button_background_color, $border_color: $blueprint_button_border_color, $border_highlight_color: $border_color + #101010) {
+@mixin button-colors
+(
+  $font_color: $blueprint_button_font_color,
+  $bg_color: $blueprint_button_background_color,
+  $border_color: $blueprint_button_border_color,
+  $border_highlight_color: $border_color + #101010
+) {
   background-color: $bg_color;
   border-color: $border_highlight_color $border_color $border_color $border_highlight_color;
-  color: $font_color; }
+  color: $font_color;
+}
 
 //**
 // Sets the colors for a button in the active state
 // @param border_highlight_color
 //   The highlight color defaults to whatever is the value of the border_color but it's one shade lighter.
-@mixin button-active-colors($font_color: $blueprint_button_active_font_color, $bg_color: $blueprint_button_active_background_color, $border_color: $blueprint_button_active_border_color, $border_highlight_color: $border_color + #101010) {
+@mixin button-active-colors
+(
+  $font_color: $blueprint_button_active_font_color,
+  $bg_color: $blueprint_button_active_background_color,
+  $border_color: $blueprint_button_active_border_color,
+  $border_highlight_color: $border_color + #101010
+) {
   &:active {
-    @include button-colors($font_color, $bg_color, $border_color, $border_highlight_color); } }
+    @include button-colors($font_color, $bg_color, $border_color, $border_highlight_color);
+  }
+}
 
 //**
 // Sets the colors for a button in the hover state.
 // @param border_highlight_color
 //   The highlight color defaults to whatever is the value of the border_color but it's one shade lighter.
-@mixin button-hover-colors($font_color: $blueprint_button_hover_font_color, $bg_color: $blueprint_button_hover_background_color, $border_color: $blueprint_button_hover_border_color, $border_highlight_color: $border_color + #101010) {
+@mixin button-hover-colors
+(
+  $font_color: $blueprint_button_hover_font_color,
+  $bg_color: $blueprint_button_hover_background_color,
+  $border_color: $blueprint_button_hover_border_color,
+  $border_highlight_color: $border_color + #101010
+) {
   &:hover {
-    @include button-colors($font_color, $bg_color, $border_color, $border_highlight_color); } }
+    @include button-colors($font_color, $bg_color, $border_color, $border_highlight_color);
+  }
+}
 
 @mixin button-base($float: false) {
-  @if $float {
-    display: block;
-    @include float($float); }
-  @else {
-    @include inline-block; }
+  @if $float { @include float($float); display: block; }
+  @else      { @include inline-block; }
   margin: 0.7em 0.5em 0.7em 0;
-  border-width: 1px;
-  border-style: solid;
-  font-family: $blueprint_button_font_family;
-  font-size: 100%;
-  line-height: 130%;
+  border-width: 1px; border-style: solid;
+  font-family: $blueprint_button_font_family; font-size: 100%; line-height: 130%; font-weight: bold;
   text-decoration: none;
-  font-weight: bold;
   cursor: pointer;
   img {
     margin: 0 3px -3px 0 !important;
@@ -71,11 +81,14 @@ $blueprint_button_active_font_color: white !default;
     border: none;
     width: 16px;
     height: 16px;
-    float: none; } }
+    float: none;
+  }
+}
 
 @mixin anchor-button($float: false) {
   @include button-base($float);
-  padding: 5px 10px 5px 7px; }
+  padding: 5px 10px 5px 7px;
+}
 
 @mixin button-button($float: false) {
   @include button-base($float);
@@ -86,4 +99,6 @@ $blueprint_button_active_font_color: white !default;
     padding: 4px 10px 4px 7px;
     line-height: 17px; }
   *:first-child+html &[type] {
-    padding: 4px 10px 3px 7px; } }
+    padding: 4px 10px 3px 7px;
+  }
+}
