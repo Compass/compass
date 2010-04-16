@@ -18,5 +18,5 @@
   margin-left: 0;
   li {
     padding-left: $padding;
-    background: image-url($bullet-icon) no-repeat ($padding - $width) / 2 ($line-height - $height) / 2;
+    background: image-url($bullet-icon) no-repeat 0 + ($padding - $width) / 2 ($line-height - $height) / 2;
     list-style-type: none; } }
