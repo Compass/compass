@@ -1,6 +1,6 @@
 @import "typography";
 
-$alternate_text_font = "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiqua", Georgia, serif !default;
+$alternate_text_font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiqua", Georgia, serif !default;
 // To install the fancy type plugin:
 //   1. import the fancy_type module: @import blueprint/fancy_type
 //   2. mixin +fancy-type to your project's body or at the top level of your stylesheet:
