@@ -13,6 +13,7 @@ test/fixtures/stylesheets/*/saved
 test/fixtures/stylesheets/empty
 test/fixtures/stylesheets/*/sass/.sass-cache
 pkg/*
+compass-*.gem
 coverage*
 docs
 doc-src/tmp
