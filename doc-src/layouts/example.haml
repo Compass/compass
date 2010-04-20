@@ -7,7 +7,7 @@
     - if @item[:meta_description]
       %meta{:name => "description", :content => @item[:meta_description]}
     %link(rel="shortcut icon" type="image/png" href="/docs/images/compass_icon.png")
-    %link{ :href => "/docs/stylesheets/example.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
+    %link{ :href => "/docs/stylesheets/legacy/example.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
     %style{:type => "text/css"}= example_css
   %body{body_attributes(@item)}
     #container

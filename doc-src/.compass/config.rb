@@ -1,5 +1,6 @@
 # Require any additional compass plugins here.
-# require 'susy'
+require 'susy'
+require 'css-slideshow'
 
 # Set this to the root of your project when deployed:
 http_path = "/docs"

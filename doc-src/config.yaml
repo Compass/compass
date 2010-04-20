@@ -6,4 +6,5 @@ data_sources:
 - items_root: /assets
   layouts_root: /assets
   type: filesystem_assets
+text_extensions: [ 'css', 'erb', 'haml', 'htm', 'html', 'js', 'less', 'markdown', 'md', 'php', 'rb', 'sass', 'scss', 'txt' ]
 output_dir: ..

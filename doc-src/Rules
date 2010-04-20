@@ -6,16 +6,21 @@ puts "Compass running from: #{Compass.lib_directory}"
 
 Compass.add_configuration "#{File.dirname(__FILE__)}/.compass/config.rb"
 
-SITE_ROOT = "/docs"
+SITE_ROOT = "/docs" 
 
 compile '/assets/*/' do
   nil
 end
 
-['/examples/*/markup/', '/examples/*/stylesheet/', '/examples/*/background/'].each do |ex_file|
-  compile ex_file do
+['markup', 'stylesheet', 'background'].each do |ex_file|
+  compile "/examples/*/#{ex_file}/" do
     nil
   end
+end
+
+compile '/' do
+  filter :haml, :ugly => true
+  layout 'main'
 end
 
 compile '/examples/*/' do
@@ -24,8 +29,15 @@ compile '/examples/*/' do
   layout 'example'
 end
 
-compile '/stylesheets/*/' do
-  filter :sass, Compass.sass_engine_options
+skip = Proc.new{nil}
+sass_options = Compass.sass_engine_options
+
+(0..5).each do |i|
+  compile("/stylesheets/#{'*/' * i}_*/") {nil}
+end
+
+compile '/stylesheets/*' do
+  filter :sass, sass_options.merge(:syntax => item[:extension].to_sym)
 end
 
 compile '/reference/*/' do
@@ -39,9 +51,8 @@ compile '*' do
   layout 'default'
 end
 
-route '/stylesheets/*/_*/' do
-  # don't output partials, so return nil
-  nil
+(0..5).each do |i|
+  route("/stylesheets/#{'*/' * i}_*/") {nil}
 end
 
 route '/assets/css/*/' do

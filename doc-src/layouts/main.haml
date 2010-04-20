@@ -1,0 +1,51 @@
+!!!5
+%html.no-js{:dir => "ltr", :lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %link(rel="shortcut icon" type="image/png" href="/docs/images/compass_icon.png")
+    %title home | compass docs wireframe
+    <!--[if !IE 6]><!-->
+    %link{:charset => "utf-8", :href => "stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
+    <!--<![endif]-->
+    /[if gte IE 7]
+      %link{:charset => "utf-8", :href => "stylesheets/ie.css", :rel => "stylesheet", :type => "text/css"}
+    /[if IE 6]
+      %link{:charset => "utf-8", :href => "http://universal-ie6-css.googlecode.com/files/ie6.0.3.css", :rel => "stylesheet", :type => "text/css"}
+      %link{ :href => "/docs/stylesheets/main.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
+      %link{ :href => "/docs/stylesheets/ui-lightness/jquery-ui-1.7.2.custom.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
+  %body{body_attributes(@item)}
+    %nav#skip-links
+      %a{:href => "#content"} skip to content
+    %header#banner{:role => "banner"}
+      %div
+        %h1.vcard
+          %a.fn.org.url.uid{:href => "/", :rel => "home"} Compass
+        %nav#compass-nav
+          %ul
+            %li
+              %a{:href => "/", :rel => "home"} compass
+            %li
+              %a{:href => "/docs/"} docs
+            %li
+              %a{:href => "/docs/tutorials/"} tutorials
+    %nav#docs-nav{:role => "navigation"}
+      %ul
+        %li
+          %a{:href => "/docs/"} introduction
+        %li
+          %a{:href => "/docs/compass/"} core
+        %li
+          %a{:href => "/docs/blueprint/"} blueprint
+        %li
+          %a{:href => "/docs/plugins/"} plugins
+      #search-docs
+        %form
+          %p
+            %label{:for => "search"} search
+            %input#search{:name => "search", :type => "text", :value => "", :placeholder => "Search"}
+    %article= yield
+    %script(src="/docs/javascripts/jquery-1.3.2.min.js")
+    %script(src="/docs/javascripts/jquery-ui-1.7.2.custom.min.js")
+    %script(src="/docs/javascripts/fixups.js" deferred)
+    = render "partials/analytics"
