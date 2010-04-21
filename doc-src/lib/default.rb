@@ -7,7 +7,7 @@ include Nanoc3::Helpers::Rendering
 include Nanoc3::Helpers::Breadcrumbs
 
 def body_class(item)
-  (item[:classnames] || []).join(" ")
+  (["docs"] + (item[:classnames] || [])).join(" ")
 end
 
 def body_id(item)

@@ -40,11 +40,11 @@ header[role="banner"]
     +border-bottom-right-radius(0.5em)
 
 =active-compass-nav($id, $url)
-  body[id$="#{$id}"] #compass-nav a[href="#{$url}"]
+  body#{$id} #compass-nav a[href="#{$url}"]
     background: #cccccc
     cursor: default
 
-+active-compass-nav(-docs, unquote("/docs/"))
++active-compass-nav(".docs", "/docs/")
 
 #docs-nav
   +pie-clearfix
@@ -78,8 +78,8 @@ header[role="banner"]
       background-color: #eeeeee
       border-color: #dddddd
 
-=active-docs($class, $url)
-  .#{$class} #docs-nav a[href="#{$url}"]
+=active-docs($type, $url)
+  body#{$type} #docs-nav a[href="#{$url}"]
     &:link, &:visited
       +trailing-border(1px, 0.25)
       cursor: default
@@ -87,12 +87,9 @@ header[role="banner"]
       border-color: #cccccc
       border-bottom-color: white
 
-+active-docs(home, "index.php")
-+active-docs(core, "core.php")
-+active-docs(css3, "core.php")
-+active-docs(utils, "core.php")
-+active-docs(gradient, "core.php")
-+active-docs(demo, "core.php")
++active-docs("#home", "/docs/")
++active-docs(".core", "/docs/reference/compass/")
++active-docs(".blueprint", "/docs/reference/blueprint/")
 
 #search-docs
   position: absolute
