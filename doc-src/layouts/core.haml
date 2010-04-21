@@ -1,3 +1,3 @@
 - render 'main' do
-  %aside(role="sidebar")= render 'partials/sidebar'
+  %aside(role="sidebar")= render 'partials/sidebar', :default_stylesheet => "_compass.scss"
   %article= yield

@@ -16,7 +16,7 @@
       #main
         = yield
       #sidebar
-        = render "partials/sidebar"
+        = render "partials/sidebar", :default_stylesheet => "_compass.scss"
       #footer= render "partials/footer"
     %script(src="/docs/javascripts/fixups.js" deferred)
     = render "partials/analytics"
