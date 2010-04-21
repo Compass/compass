@@ -57,7 +57,7 @@ end
 
 def item_tree(item, options = {})
   crumb = item[:crumb] || item[:title]
-  options[:heading_level] ||= 1
+  options[:heading_level] ||= 1 if options.fetch(:headings, true)
   child_html = ""
   if options.fetch(:depth,1) > 0
     if item.children.any?
@@ -65,7 +65,7 @@ def item_tree(item, options = {})
       item.children.sort_by{|c| c[:crumb] || c[:title]}.each do |child|
         child_opts = options.dup
         child_opts[:depth] -= 1 if child_opts.has_key?(:depth)
-        child_opts[:heading_level] += 1
+        child_opts[:heading_level] += 1 if child_opts[:heading_level]
         child_opts.delete(:omit_self)
         child_html << item_tree(child, child_opts)
       end
@@ -79,8 +79,6 @@ def item_tree(item, options = {})
   suffix = nil
   if item.identifier == @item.identifier
     css_class = %Q{class="selected"}
-    prefix = "&raquo;"
-    suffix = "&laquo;"
   end
   contents = unless options[:omit_self]
     hl = if options[:heading_level]
@@ -88,7 +86,7 @@ def item_tree(item, options = {})
     else
       "span"
     end
-    %Q{<li><#{hl}><a href="#{default_path(item)}"#{css_class}>#{prefix}#{crumb}#{suffix}</a></#{hl}></li>}
+    %Q{<li><#{hl}><a href="#{default_path(item)}"#{css_class}>#{crumb}</a></#{hl}></li>}
   end
   %Q{#{contents}#{child_html}}
 end

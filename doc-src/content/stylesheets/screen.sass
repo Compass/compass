@@ -193,6 +193,18 @@ article
   + #page
     +leader(1.5)
 
+=active-module($type, $url)
+  body#{$type} #module-nav a[href^="#{$url}"]
+    &:link, &:visited
+      text-decoration: underline
+      +text-shadow
+
++active-module(".core.css3", "/docs/reference/compass/css3/")
++active-module(".core.layout", "/docs/reference/compass/layout/")
++active-module(".core.misc", "/docs/reference/compass/misc/")
++active-module(".core.reset", "/docs/reference/compass/reset/")
++active-module(".core.utilities", "/docs/reference/compass/utilities/")
+
 #local-nav
   +leader(1,14px)
   ul
@@ -204,6 +216,12 @@ article
     margin-bottom: ($base_rhythm_unit*.5 - $px2em*1px) * (14/16)
   a:hover
     +text-shadow
+  a.selected
+    font-weight: bold
+  a.selected:before
+    content: "»"
+  a.selected:after
+    content: "«"
 
 #code
   +full(12)
