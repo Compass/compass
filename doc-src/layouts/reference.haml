@@ -2,7 +2,7 @@
 
 %p
   This file can be imported using:
-  %code @import #{departialize(item[:stylesheet])}
+  %code @import "#{departialize(item[:stylesheet][0..-6])}"
 
 %p
   - gh_url = "http://github.com/chriseppstein/compass/blob/master/frameworks/"
