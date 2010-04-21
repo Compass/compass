@@ -29,7 +29,6 @@ compile '/examples/*/' do
   layout 'example'
 end
 
-skip = Proc.new{nil}
 sass_options = Compass.sass_engine_options
 
 (0..5).each do |i|
@@ -43,7 +42,7 @@ end
 compile '/reference/*/' do
   filter :haml, :ugly => true
   filter :highlight if ENV['SYNTAX']
-  layout 'default'
+  layout item[:layout] || 'main'
 end
 
 compile '*' do
@@ -76,8 +75,8 @@ route '/stylesheets/*/' do
   SITE_ROOT+item.identifier.chop + '.css'
 end
 
-['/examples/*/markup/', '/examples/*/stylesheet/', '/examples/*/background/'].each do |ex_file|
-  route ex_file do
+%w(markup stylesheet background).each do |ex_file|
+  route "/examples/*/#{ex_file}/" do
     nil
   end
 end

@@ -1,21 +1,2 @@
-%h2
-  %a(href="/docs/") Compass Documentation
-
-%h3
-  Tutorials
-
-= item_tree(find("/tutorials/"), true)
-
-%h3
-  Frameworks
-
-%ul
-  = item_tree(reference_item(:stylesheet => "_compass.scss"))
-  = item_tree(reference_item(:stylesheet => "_blueprint.scss"))
-
-%h3
-  Misc
-%ul
-  %li
-    %a{:href => "/docs/frameworks/"}
-      Working with plugins and frameworks
+%nav#local-nav
+  %ul= item_tree(reference_item(:stylesheet => (@item[:nav_stylesheet] || "_compass.scss")), :depth => 2, :omit_self => true)

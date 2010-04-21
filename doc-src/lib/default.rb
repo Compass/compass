@@ -55,15 +55,24 @@ def find(identifier)
   @items.find{|i| i.identifier == identifier}
 end
 
-def item_tree(item, omit_self = false)
+def item_tree(item, options = {})
   crumb = item[:crumb] || item[:title]
+  options[:heading_level] ||= 1
   child_html = ""
-  if item.children.any?
-    child_html << "<ol>"
-    item.children.each do |child|
-      child_html << item_tree(child)
+  if options.fetch(:depth,1) > 0
+    if item.children.any?
+      child_html << "<ul>"
+      item.children.sort_by{|c| c[:crumb] || c[:title]}.each do |child|
+        child_opts = options.dup
+        child_opts[:depth] -= 1 if child_opts.has_key?(:depth)
+        child_opts[:heading_level] += 1
+        child_opts.delete(:omit_self)
+        child_html << item_tree(child, child_opts)
+      end
+      child_html << "</ul>"
     end
-    child_html << "</ol>"
+  else
+    options.delete(:heading_level)
   end
   css_class = nil
   prefix = nil
@@ -73,8 +82,13 @@ def item_tree(item, omit_self = false)
     prefix = "&raquo;"
     suffix = "&laquo;"
   end
-  contents = unless omit_self
-    %Q{<li><a href="#{default_path(item)}"#{css_class}>#{prefix}#{crumb}#{suffix}</a></li>}
+  contents = unless options[:omit_self]
+    hl = if options[:heading_level]
+      "h#{options[:heading_level]}"
+    else
+      "span"
+    end
+    %Q{<li><#{hl}><a href="#{default_path(item)}"#{css_class}>#{prefix}#{crumb}#{suffix}</a></#{hl}></li>}
   end
   %Q{#{contents}#{child_html}}
 end

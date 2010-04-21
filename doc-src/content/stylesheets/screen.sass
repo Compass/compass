@@ -144,6 +144,9 @@ footer[role="contentinfo"]
 /* @group COMPONENTS by type
 
 article
+  text-align: left
+
+article
   > nav
     border-top: $px2em*1px solid #ccc
     margin-top: -$px2em*1px
@@ -197,12 +200,13 @@ article
   +leader(1,14px)
   ul
     +no-style-list
-    text-align: right
+    text-align: left
   h2
     +leader(1,14px)
     border-bottom: 1px solid #ccc
     margin-bottom: ($base_rhythm_unit*.5 - $px2em*1px) * (14/16)
-    text-align: left
+  a:hover
+    +text-shadow
 
 #code
   +full(12)
