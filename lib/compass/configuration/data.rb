@@ -62,7 +62,11 @@ module Compass
         if block_given?
           @asset_host = block
         else
-          @asset_host
+          if @asset_host
+            @asset_host
+          elsif inherited_data.respond_to?(:asset_host)
+            inherited_data.asset_host
+          end
         end
       end
 
@@ -77,7 +81,11 @@ module Compass
         if block_given?
           @asset_cache_buster = block
         else
-          @asset_cache_buster
+          if @asset_cache_buster
+            @asset_cache_buster
+          elsif inherited_data.respond_to?(:asset_cache_buster)
+            inherited_data.asset_cache_buster
+          end
         end
       end
 
