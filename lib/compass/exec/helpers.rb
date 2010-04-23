@@ -5,7 +5,9 @@ module Compass::Exec
       if Compass::Commands.command_exists? arguments.first
         SubCommandUI
       else
-        Haml::Util.haml_warn "WARNING: This interface is deprecated. Please use the new subcommand interface.\nSee `compass help` for more information.\n"
+        Compass::Logger.new.red do
+          Haml::Util.haml_warn "WARNING: This interface is deprecated. Please use the new subcommand interface.\nSee `compass help` for more information.\n"
+        end
         SwitchUI
       end
     end
