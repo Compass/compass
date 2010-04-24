@@ -14,6 +14,8 @@
     /[if IE 6]
       %link{:charset => "utf-8", :href => "http://universal-ie6-css.googlecode.com/files/ie6.0.3.css", :rel => "stylesheet", :type => "text/css"}
     %link{ :href => "/docs/stylesheets/ui-lightness/jquery-ui-1.7.2.custom.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
+    - if @item[:content_for_additional_css]
+      %style(type="text/css")= @item[:content_for_additional_css]
   %body{body_attributes(@item)}
     %nav#skip-links
       %a{:href => "#content"} skip to content
