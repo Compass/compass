@@ -5,6 +5,7 @@
 // Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 
 @mixin unobtrusive-logo($size: 1em) {
+  @warn "DEPRECATED: unobtrusive-logo will be removed in a future release."
   font-family: Monaco, Courier, "Lucida Sans Unicode", monospace;
   font-size: $size;
   color: #888;

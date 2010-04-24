@@ -1,5 +1,10 @@
 COMPASS CHANGELOG
 =================
+
+0.10.0.rc4 (Unreleased)
+-----------------------
+* The `unobtrusive-logo` mixin is deprecated and will be removed. If you use this, please move the source to your project.
+
 0.10.0.rc3 (April 13, 2010)
 ---------------------------
 * This release addresses several bugs in rc2.
