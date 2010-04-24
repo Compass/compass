@@ -1,6 +1,7 @@
 ---
 title: Best practices
 crumb: Best practices
+layout: tutorial
 ---
 
 %h3
@@ -18,10 +19,10 @@ crumb: Best practices
 %h4
   _base.scss
 %pre
-  \!blueprint_grid_columns = 24
-  \!blueprint_grid_width   = 30px
-  \!blueprint_grid_margin  = 10px
-  \!font_color              = #333
+  \$blueprint_grid_columns = 24
+  \$blueprint_grid_width   = 30px
+  \$blueprint_grid_margin  = 10px
+  \$font_color              = #333
   \
   @import compass/reset.scss
   @import compass/utilities.scss
@@ -70,35 +71,22 @@ crumb: Best practices
   than the whole list of rules which define that appearance.
 %h4
   Mixin Example
-%pre
-  \// Mixin for the html element, so the footer stays at the bottom of the screen.
-  \// Relies on the following html structure, and a fixed-height #footer element:
-  \//
-  \//  %body
-  \//    #root
-  \//      #root_footer
-  \//    #footer
-  \
-  \=attach_footer( !footer_height )
-  \  :height 100%
-  \
-  body
-  \  :height 100%
-  \
-  \#root
-  \  :min-height 100%
-  \  :margin-bottom  = -!footer_height
-  \
-  \#root_footer
-  \  :clear both
-  \  :height = !footer_height
-  \
-  \#footer
-  \  :clear            both
-  \  :position         relative
-  \  :height         = !footer_height
+
+:markdown
+  Mixin for the html element, so the footer stays at the bottom of the screen.
+  Relies on the following html structure, and a fixed-height `#footer` element:
+  
+      <body>
+        <div id="root">
+          <div id="root_footer"></div>
+        </div>
+        <div id="footer">
+          Footer content goes here.
+        </div>
+      </body>
+
 %p
   A single line is all that’s needed to use the mixin, which moves the implementation details out of the way and replaces them with a clear and concise label:
 %pre
   \html
-  \  +attach_footer( 54px )
+  \  @include attach_footer( 54px )

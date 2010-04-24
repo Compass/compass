@@ -55,6 +55,11 @@ def find(identifier)
   @items.find{|i| i.identifier == identifier}
 end
 
+def get_var(instance_var)
+  instance_variable_defined?("@#{instance_var}") ? instance_variable_get("@#{instance_var}") : yield
+end
+  
+
 def item_tree(item, options = {})
   crumb = item[:crumb] || item[:title]
   options[:heading_level] ||= 1 if options.fetch(:headings, true)
@@ -91,4 +96,10 @@ def item_tree(item, options = {})
   %Q{#{contents}#{child_html}}
 end
 
+def tutorial_item(path)
+  path = "" if path == :root
+  @items.detect do |i|
+    i.identifier == "/tutorials/#{path}"
+  end
+end
 

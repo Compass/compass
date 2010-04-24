@@ -47,7 +47,7 @@ end
 
 compile '*' do
   filter :haml, :ugly => true
-  layout 'default'
+  layout item[:layout] || 'main'
 end
 
 (0..5).each do |i|

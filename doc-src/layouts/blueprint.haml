@@ -1,3 +1,3 @@
 - render 'main' do
-  %aside(role="sidebar")= render 'partials/sidebar', :default_stylesheet => "_blueprint.scss"
+  %aside(role="sidebar")= render 'partials/sidebar', :default_stylesheet => "_blueprint.scss", :omit_self => false, :heading_level => 2
   %article= yield

@@ -40,11 +40,13 @@ header[role="banner"]
     +border-bottom-right-radius(0.5em)
 
 =active-compass-nav($id, $url)
-  body#{$id} #compass-nav a[href="#{$url}"]
-    background: #cccccc
-    cursor: default
+  #{append-selector(body, $id)}
+    #compass-nav a[href="#{$url}"]
+      background: #cccccc
+      cursor: default
 
-+active-compass-nav(".docs", "/docs/")
++active-compass-nav("#home,.reference", "/docs/")
++active-compass-nav(".tutorial", "/docs/tutorials/")
 
 #docs-nav
   +pie-clearfix
@@ -142,6 +144,8 @@ footer[role="contentinfo"]
 
 article
   text-align: left
+
+aside[role="sidebar"] + article
   +prefix(3)
 
 article
@@ -224,13 +228,16 @@ article
   a.selected:after
     content: "«"
 
+=code-text
+  font-family: monospace
+
 #code
   +full(12)
   +pie-clearfix
   +adjust-font-size-to(12px)
   +h-borders(1px,1,12px)
+  +code-text
   border-color: #ccc
-  font-family: monospace
   nav
     background: #eee
     +trailer(1,12px)

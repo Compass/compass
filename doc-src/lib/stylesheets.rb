@@ -36,7 +36,6 @@ def reference_item(options)
       @items.detect do |i|
         i.identifier =~ /^\/reference/ &&
         i[:stylesheet] == path
-        
       end
     end
   end

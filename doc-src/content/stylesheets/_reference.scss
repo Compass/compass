@@ -38,7 +38,15 @@ body.reference {
   span.color + span.swatch { margin: 0 3px 3px; border: 1px solid #333333; width: 1em; height: 1em; @include inline-block; }
   .color-snippet { width: 100px; height: 20px; @include border-radius(3px); }
   a.help { font-size: 75%; }
-  p code { border: 1px solid #ccc; padding: 2px; background-color: #e7e7e7;}
+}
+
+body.docs {
+  p code, pre {
+    @include code-text;
+    border: 1px solid #ccc;
+    padding: 2px;
+    background-color: #e7e7e7;
+  }
 }
 
 table.constants {
