@@ -10,6 +10,27 @@ classnames:
   - layout
 ---
 - render 'reference' do
-  %p
+  :markdown
     This module provides tools needed to lay out your footer such
     that it sticks to the bottom of the page.
+
+    Mix in to the top level of your stylesheet, so the footer stays
+    at the bottom of the screen. This mixin relies on the following
+    HTML structure, and a fixed-height `#footer` element:
+
+        <body>
+          <div id="root">
+            <div id="root_footer"></div>
+          </div>
+          <div id="footer">
+            Footer content goes here.
+          </div>
+        </body>
+
+    If you use the default selectors, this mixin is simple to use:
+    
+        @include sticky-footer(54px)
+
+    You can define the selectors yourself too:
+
+        @include sticky-footer(54px, "#my-root", "#my-root-footer", "#my-footer")
