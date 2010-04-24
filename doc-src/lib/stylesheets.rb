@@ -34,8 +34,9 @@ def reference_item(options)
     path = stylesheet_path(stylesheet)
     if path
       @items.detect do |i|
-        i.identifier =~ /^\/reference/ &&
-        i[:stylesheet] == path
+        if i.identifier =~ /^\/reference/ && i[:stylesheet]
+          i[:stylesheet] == path
+        end
       end
     end
   end
@@ -64,8 +65,9 @@ end
 
 def stylesheet_path(ss)
   @site.cached("stylesheet/path/#{ss}") do
-    possible_filenames_for_stylesheet(ss).each do |filename|
-      import_paths.each do |import_path|
+    possible_names = possible_filenames_for_stylesheet(ss)
+    import_paths.each do |import_path|
+      possible_names.each do |filename|
         full_path = File.join(import_path.first, filename)
         if File.exist?(full_path)
           return "#{import_path.last}#{"/" if import_path.last && import_path.last.length > 0}#{filename}"
