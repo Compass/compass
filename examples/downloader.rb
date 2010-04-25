@@ -31,7 +31,7 @@ def install_from_github(user, project, ext_name, branch = "master", working_dire
   if !File.exists?("#{extdir}/#{ext_name}")
     begin
       puts "Downloading the #{ext_name} plugin into #{extdir}."
-      FileUtils.mkdir_p("#{extdir}/#{ext_name}")
+      FileUtils.mkdir_p("#{extdir}")
       zipfile = File.join(extdir, "#{ext_name}.zip")
       open(zipfile, "wb") do |tgz|
         tgz << fetch(download_link).body
