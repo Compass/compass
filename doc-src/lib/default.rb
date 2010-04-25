@@ -106,3 +106,8 @@ def tutorial_item(path)
   end
 end
 
+def compass_version
+  v = Compass.version
+  "#{v[:major]}.#{v[:minor]}.#{v[:teeny]}.#{v[:build]}"
+end
+

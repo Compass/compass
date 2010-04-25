@@ -66,16 +66,16 @@ header[role="banner"]
       top: -$base-rhythm-unit * 0.5
       margin-bottom: -$base-rhythm-unit * 0.5
       position: relative
-  a
-    &:link, &:visited
-      display: block
-      padding: 0 $side-gutter-width
-      border: 1px solid #eeeeee
-      +leading-border(1px, 0.5)
-      +trailing-border(1px, 0.25)
-      border-bottom: 0
-      +border-top-radius(0.5em)
-      background: #dddddd
+    a
+      &:link, &:visited
+        display: block
+        padding: 0 $side-gutter-width
+        border: 1px solid #eeeeee
+        +leading-border(1px, 0.5)
+        +trailing-border(1px, 0.25)
+        border-bottom: 0
+        +border-top-radius(0.5em)
+        background: #dddddd
     &:hover, &:focus, &:active
       background-color: #eeeeee
       border-color: #dddddd
@@ -92,6 +92,16 @@ header[role="banner"]
 +active-docs("#home", "/docs/")
 +active-docs(".core", "/docs/reference/compass/")
 +active-docs(".blueprint", "/docs/reference/blueprint/")
+
+#version
+  // XXX This is placeholder styling. Susify me.
+  color: #999
+  +adjust-font-size-to(14px)
+  z-index: 3
+  .number
+    color: #666
+  float: right
+  margin-right: 400px
 
 #search-docs
   position: absolute
