@@ -59,7 +59,7 @@ class Generate < Thor
     stylesheet = dereference(stylesheet)
     identifier = "reference/#{stylesheet[:framework]}/#{stylesheet[:stylesheet]}"
     identifier.gsub!(%r{/_},'/')
-    identifier.gsub!(/\.sass/,'')
+    identifier.gsub!(/\.s[ac]ss/,'')
     identifier.gsub!(%r{/#{stylesheet[:framework]}/#{stylesheet[:framework]}/},"/#{stylesheet[:framework]}/")
 
     module_name = File.basename(identifier).gsub(/\.[^.]+$/,'').capitalize
