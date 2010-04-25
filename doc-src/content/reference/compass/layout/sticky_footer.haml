@@ -27,10 +27,11 @@ classnames:
           </div>
         </body>
 
-    If you use the default selectors, this mixin is simple to use:
+    If you use the default selectors, this mixin is simple to use.
+    Just mix it into the top level of your stylesheet:
     
         @include sticky-footer(54px)
 
-    You can define the selectors yourself too:
+    You can also define the selectors yourself:
 
         @include sticky-footer(54px, "#my-root", "#my-root-footer", "#my-footer")
