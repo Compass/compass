@@ -46,7 +46,11 @@ compile '/reference/*/' do
 end
 
 compile '*' do
-  filter :haml, :ugly => true
+  if item[:extension] == "markdown"
+    filter :rdiscount
+  elsif item[:extension] == "haml"
+    filter :haml, :ugly => true
+  end
   layout item[:layout] || 'main'
 end
 

@@ -1,3 +1,9 @@
+---
+title: Compass History
+crumb: CHANGELOG
+body_id: changelog
+layout: article
+---
 COMPASS CHANGELOG
 =================
 
