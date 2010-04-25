@@ -1,50 +1,29 @@
-// Specify the # of columns
+@import "shared";
 
-@mixin column-count($n) {
-  -moz-column-count: $n;
-  -webkit-column-count: $n;
-  column-count: $n; }
+// Specify the number of columns
+@mixin column-count($n) { @include experimental(column-count, $n); }
 
-// Specify the gap between columns e.g. 20px
+// Specify the gap between columns e.g. `20px`
+@mixin column-gap($u) { @include experimental(column-gap, $u); }
 
-@mixin column-gap($u) {
-  -moz-column-gap: $u;
-  -webkit-column-gap: $u;
-  column-gap: $u; }
+// Specify the width of columns e.g. `100px`
+@mixin column-width($u) { @include experimental(column-width, $u); }
 
-// Specify the width of columns e.g. 100px
+// Specify the width of the rule between columns e.g. `1px`
+@mixin column-rule-width($w) { @include experimental(rule-width, $w); }
 
-@mixin column-width($u) {
-  -moz-column-width: $u;
-  -webkit-column-width: $u;
-  column-width: $u; }
+// Specify the style of the rule between columns e.g. `dotted`.
+// This works like border-style.
+@mixin column-rule-style($s) { @include experimental(rule-style, $s); }
 
-// Specify the width of the rule between columns e.g. 1px
+// Specify the style of the rule between columns e.g. `dotted`.
+// This works like border-color.
 
-@mixin column-rule-width($w) {
-  -moz-column-rule-width: $w;
-  -webkit-column-rule-width: $w;
-  column-rule-width: $w; }
-
-// Specify the style of the rule between columns e.g. 'dotted'. This works like border-style.
-
-@mixin column-rule-style($s) {
-  -moz-column-rule-style: $s;
-  -webkit-column-rule-style: $s;
-  column-rule-style: $s; }
-
-// Specify the style of the rule between columns e.g. 'dotted'. This works like border-color.
-
-@mixin column-rule-color($c) {
-  -moz-column-rule-color: $c;
-  -webkit-column-rule-color: $c;
-  column-rule-color: $c; }
+@mixin column-rule-color($c) { @include experimental(rule-color, $s); }
 
 // Mixin encompassing all column rule rules
 // For example:
-//     +column-rule('1px', 'solid', '#000')
-
-@mixin column-rule($w, $s: solid, $c: unquote(" ")) {
-  @include column-rule-width($w);
-  @include column-rule-style($s);
-  @include column-rule-color($c); }
+//     +column-rule(1px, solid, #c00)
+@mixin column-rule($w, $s: solid, $c: black) {
+  @include experimental(column-rule, $w $s $c);
+}

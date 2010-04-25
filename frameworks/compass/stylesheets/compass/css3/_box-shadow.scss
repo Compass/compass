@@ -3,6 +3,8 @@
 // If you like, set different defaults before importing.
 // @doc on
 
+@import "shared";
+
 // The default color for box shadows
 $default-box-shadow-color: #333333 !default;
 
@@ -18,10 +20,11 @@ $default-box-shadow-blur: 5px !default;
 // Provides cross-browser CSS box shadows for Webkit, Gecko, and CSS3.
 // Arguments are color, horizontal offset, vertical offset, and blur length.
 
-@mixin box-shadow($color: $default-box-shadow-color, $hoff: $default-box-shadow-h-offset, $voff: $default-box-shadow-v-offset, $blur: $default-box-shadow-blur) {
-  /* Webkit (Safari, Chrome) */
-  -webkit-box-shadow: $color $hoff $voff $blur;
-  /* Gecko (Firefox, Camino) */
-  -moz-box-shadow: $color $hoff $voff $blur;
-  /* CSS3 */
-  box-shadow: $color $hoff $voff $blur; }
+@mixin box-shadow(
+  $color: $default-box-shadow-color,
+  $hoff: $default-box-shadow-h-offset,
+  $voff: $default-box-shadow-v-offset,
+  $blur: $default-box-shadow-blur
+) {
+  @include experimental(box-shadow, $color $hoff $voff $blur);
+}
