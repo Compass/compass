@@ -13,7 +13,6 @@
       %link{:charset => "utf-8", :href => "/docs/stylesheets/ie.css", :rel => "stylesheet", :type => "text/css"}
     /[if IE 6]
       %link{:charset => "utf-8", :href => "http://universal-ie6-css.googlecode.com/files/ie6.0.3.css", :rel => "stylesheet", :type => "text/css"}
-    %link{ :href => "/docs/stylesheets/ui-lightness/jquery-ui-1.7.2.custom.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
     - if @item[:content_for_additional_css]
       %style(type="text/css")= @item[:content_for_additional_css]
   %body{body_attributes(@item)}
@@ -51,6 +50,5 @@
       %nav#module-nav= @item[:content_for_module_nav]
     = yield
     %script(src="/docs/javascripts/jquery-1.3.2.min.js")
-    %script(src="/docs/javascripts/jquery-ui-1.7.2.custom.min.js")
     %script(src="/docs/javascripts/fixups.js" deferred)
     = render "partials/analytics"
