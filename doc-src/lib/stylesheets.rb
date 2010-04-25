@@ -167,18 +167,6 @@ def examples(item, mixin = nil)
   end
   examples.map{|i| i.reps.find{|r| r.name == :default}}
 end
-  
-
-def mixin_source_dialog(mixin, &block)
-  vars = {
-    :html => {
-      :id => "mixin-source-#{mixin.name}",
-      :class => "mixin",
-      :title => "Source for +#{mixin.name}"
-    }
-  }
-  render 'dialog', vars, &block
-end
 
 def format_doc(docstring)
   if docstring

@@ -32,12 +32,25 @@ body.reference {
       margin-right: 15px; }
     dt:not(:first-child) {
       margin-top: 1em; } }
-  a.view-source {
+  span.view-source {
     float: right;
-    margin: 1.25em; }
+    margin: 1.25em;
+  }
   span.color + span.swatch { margin: 0 3px 3px; border: 1px solid #333333; width: 1em; height: 1em; @include inline-block; }
   .color-snippet { width: 100px; height: 20px; @include border-radius(3px); }
   a.help { font-size: 75%; }
+  .mixin-source {
+    pre {
+      @include transition;
+      @include transparent;
+      display: none;
+    }
+    pre.shown {
+      display: block;
+      @include opaque;
+    }
+  }
+  
 }
 
 body.docs {

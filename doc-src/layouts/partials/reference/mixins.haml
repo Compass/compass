@@ -2,9 +2,16 @@
   %h2 Mixins
 
   - mixin_defs.each do |mixin|
-    %a.view-source{:href=>"#", :onclick => "$('#mixin-source-#{mixin.name}').dialog('open'); return false;"} View Source
+    %span.view-source
+      View Source:
+      %a.view-source{:href=>"#", :onclick => "$('#mixin-#{mixin.name}-source .scss').removeClass('shown');$('#mixin-#{mixin.name}-source .sass').addClass('shown'); return false;"} Sass
+      \|
+      %a.view-source{:href=>"#", :onclick => "$('#mixin-#{mixin.name}-source .sass').removeClass('shown');$('#mixin-#{mixin.name}-source .scss').addClass('shown'); return false;"} SCSS
     %h3.mixin{:id=>"mixin-#{mixin.name}"}
-      %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature mixin
+      %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature(mixin)
+    .mixin-source{:id=>"mixin-#{mixin.name}-source"}
+      %pre.sass= mixin.to_sass
+      %pre.scss= mixin.to_scss
 
     .source-documentation
       = format_doc(mixin.comment)
@@ -14,10 +21,3 @@
             %dt= link_to example.item[:title], example
             - if example.item[:description]
               %dd= example.item[:description]
-    = mixin_source_dialog(mixin) do
-      %pre.source-code.sass= mixin.to_sass
-
-    :javascript
-      $(function(){
-        $('.ui-dialog.mixin').dialog({hide: true, modal: true, autoOpen: false, width: 400});
-      });
