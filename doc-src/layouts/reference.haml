@@ -1,5 +1,7 @@
 %h1= item[:title]
 
+= yield
+
 %p
   This file can be imported using:
   %code @import "#{departialize(item[:stylesheet][0..-6])}"
@@ -9,8 +11,6 @@
   - gh_url << "#{item[:framework]}/stylesheets/#{item[:stylesheet]}"
   View the
   %a{:href => gh_url} Source for this module on Github.
-
-= yield
 
 = render "partials/reference/examples"
 
