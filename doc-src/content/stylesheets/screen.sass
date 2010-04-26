@@ -56,12 +56,14 @@ header[role="banner"]
   height: $base-rhythm-unit
   border-color: #cccccc
   background-color: #eeeeee
+  .container
+    +container
+    +pie-clearfix
+    overflow: visible
   ul
     +horizontal-list
-    +container
-    position: relative
-    z-index: 2
     overflow: visible
+    position: relative
     li
       top: -$base-rhythm-unit * 0.5
       margin-bottom: -$base-rhythm-unit * 0.5
@@ -94,29 +96,19 @@ header[role="banner"]
 +active-docs(".blueprint", "/docs/reference/blueprint/")
 
 #version
-  // XXX This is placeholder styling. Susify me.
-  color: #999
   +adjust-font-size-to(14px)
-  z-index: 3
+  +float(left)
+  margin-left: 1.5em
+  color: #999
   .number
     color: #666
-  float: right
-  margin-right: 400px
-
+    
 #search-docs
-  position: absolute
-  z-index: 1
-  top: 0
-  left: 0
-  width: 100%
   color: #999
-  form
-    +container
   p
     +columns(3)
     +omega
-    +leader(.25)
-    +trailer(0)
+    margin: 0
     label
       +float(left)
       width: columns(1,3) + gutter(3)*.5
