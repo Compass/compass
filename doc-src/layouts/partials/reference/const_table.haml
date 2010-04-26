@@ -6,6 +6,6 @@
     %dt Value
     %dd
       %code= constant_def.expr.to_sass(:format => :html)
-    - if constant_def.comment
+    - if constant_def.comment && constant_def.comment.strip.size > 0
       %dt Description
       %dd= format_doc constant_def.comment
