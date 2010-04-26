@@ -14,4 +14,4 @@
 // Available as alternate syntax with just +float
 @mixin float($side: left) {
   display: inline;
-  float: $side; }
+  float: unquote($side); }
