@@ -1,3 +1,6 @@
+// This mixin causes an element matching the selector
+// to gain the "hasLayout" property in internet explorer.
+// More information on [hasLayout](http://reference.sitepoint.com/css/haslayout).
 @mixin has-layout {
   // This makes ie6 get layout
   display: inline-block;
@@ -5,9 +8,8 @@
   & {
     display: block; } }
 
-//**
 // A hack to supply IE6 (and below) with a different property value.
-// See http://www.cssportal.com/css-hacks/#in_css-important
+// [Read more](http://www.cssportal.com/css-hacks/#in_css-important).
 @mixin bang-hack($property, $value, $ie6-value) {
   #{$property}: #{$value} !important;
   #{$property}: #{$ie6-value}; }
