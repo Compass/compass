@@ -44,6 +44,7 @@ body.reference {
       @include transition;
       @include transparent;
       display: none;
+      overflow-x: auto;
     }
     pre.shown {
       display: block;
