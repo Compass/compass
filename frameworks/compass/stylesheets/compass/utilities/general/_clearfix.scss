@@ -1,24 +1,34 @@
+// @doc off
+// Extends the bottom of the element to enclose any floats it contains.
+// @doc on
+
 @import "hacks";
 
-//**
-// Extends the element to enclose any floats it contains.
-// This basic method is preferred for the usual case, when positioned content will not show outside the bounds of the container.
-// Recommendations include using this in conjunction with a width:
-// http://www.quirksmode.org/blog/archives/2005/03/clearing_floats.html
+// This basic method is preferred for the usual case, when positioned
+// content will not show outside the bounds of the container.
+//
+// Recommendations include using this in conjunction with a width.
+// Credit: [quirksmode.org](http://www.quirksmode.org/blog/archives/2005/03/clearing_floats.html)
 @mixin clearfix {
   overflow: hidden;
-  @include has-layout; }
+  @include has-layout;
+}
 
-//**
-// Extends the element to enclose any floats it contains.
-// This older "Easy Clearing" method has the advantage of allowing positioned elements to hang outside the bounds of the container, at the expense of more tricky CSS.
-// http://www.positioniseverything.net/easyclearing.html
+// This older method from Position Is Everything called
+// [Easy Clearing](http://www.positioniseverything.net/easyclearing.html)
+// has the advantage of allowing positioned elements to hang
+// outside the bounds of the container at the expense of more tricky CSS.
+//
+// This method of clearing might cause a gap at the bottom of the page in
+// some browsers when used on the last element of the page.
 @mixin pie-clearfix {
   &:after {
-    content: " ";
-    display: block;
-    height: 0;
-    clear: both;
-    overflow: hidden;
-    visibility: hidden; }
-  @include has-layout; }
+    content    : " ";
+    display    : block;
+    height     : 0;
+    clear      : both;
+    overflow   : hidden;
+    visibility : hidden;
+  }
+  @include has-layout;
+}
