@@ -25,7 +25,7 @@ def imports(item)
       imports << child.imported_filename
     end
   end
-  imports
+  imports.sort
 end
 
 def reference_item(options)
@@ -114,7 +114,7 @@ def mixins(item)
       comment = nil
     end
   end
-  mixins
+  mixins.reject{|m| m.comment =~ /@private/}.sort_by{|m| m.name}
 end
 
 def constants(item)
