@@ -4,6 +4,7 @@ crumb: Horizontal List
 framework: compass
 stylesheet: compass/utilities/lists/_horizontal-list.scss
 layout: core
+meta_description: Float a list so it appears horizontally.
 nav_stylesheet: compass/_utilities.scss
 classnames:
   - reference
@@ -11,5 +12,18 @@ classnames:
   - utilities
 ---
 - render 'reference' do
-  %p
-    Lorem ipsum dolor sit amet.
+  :markdown
+    Easy mode using simple descendant li selectors:
+    
+        ul.nav
+          +horizontal-list
+    
+    Advanced mode:
+    If you need to target the list items using a different selector then use
+    +horizontal-list-container on your ul/ol and +horizontal-list-item on your li.
+    This may help when working on layouts involving nested lists. For example:
+    
+        ul.nav
+          +horizontal-list-container
+          > li
+            +horizontal-list-item
