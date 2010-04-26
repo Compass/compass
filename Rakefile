@@ -17,7 +17,6 @@ require 'rubygems'
 require 'rake'
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 require 'compass'
-require 'rcov/rcovtask'
 
 # ----- Default: Testing ------
 
@@ -152,6 +151,8 @@ end
 
 require 'cucumber/rake/task'
 
+begin
+require 'rcov/rcovtask'
 namespace :rcov do
   Cucumber::Rake::Task.new(:cucumber) do |t|    
     t.rcov = true
@@ -178,5 +179,8 @@ namespace :rcov do
     Rake::Task["rcov:units"].invoke
     Rake::Task["rcov:cucumber"].invoke
   end
+end
+rescue LoadError
+#pass
 end
 
