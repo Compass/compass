@@ -1,7 +1,7 @@
 source :gemcutter
 
 # We can switch nanoc to a normal gem when 3.1.3 is released.
-gem 'nanoc3', :require => false, :git => "git@github.com:chriseppstein/nanoc.git", :branch => "3.1.x"
+gem 'nanoc3', :require => false, :git => "git://github.com/chriseppstein/nanoc.git", :branch => "3.1.x"
 gem 'rdiscount'
 gem 'thor'
 gem 'rack'

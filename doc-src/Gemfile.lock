@@ -68,8 +68,7 @@ specs:
 - coderay: 
     version: 0.9.3
 - haml: 
-    version: 3.0.0.beta.3
-    source: 0
+    version: 3.0.0.rc.1
 - compass: 
     version: 0.10.0.rc3
     source: 0
@@ -79,7 +78,6 @@ specs:
     version: 1.0.1
 - css-slideshow: 
     version: 0.2.0
-    source: 0
 - fssm: 
     version: 0.1.4
 - mime-types: 
@@ -92,20 +90,20 @@ specs:
 - rack: 
     version: 1.1.0
 - rdiscount: 
-    version: 1.6.3
+    version: 1.6.3.1
 - serve: 
     version: 0.10.0
 - thor: 
     version: 0.13.4
-hash: c67f2ebb37154944e05b728b70c2e3322d370d59
+hash: 09bc9dccbf40f91aa0fa543d0f77ef9bb3951559
 sources: 
 - Path: 
     path: !ruby/object:Pathname 
-      path: /Users/chris/Projects/compass/doc-src/../..
+      path: /Users/ltackett/github/compass/doc-src/../..
 - Git: 
-    uri: git@github.com:chriseppstein/nanoc.git
+    uri: git://github.com/chriseppstein/nanoc.git
     branch: 3.1.x
-    git: git@github.com:chriseppstein/nanoc.git
+    git: git://github.com/chriseppstein/nanoc.git
     require: false
     ref: 398294262623dac9bb15dcbbfc0ba33c04f8125e
 - Rubygems: 

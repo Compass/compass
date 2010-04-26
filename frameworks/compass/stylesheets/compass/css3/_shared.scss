@@ -28,3 +28,20 @@ $experimental-support-for-khtml     : false !default;
   @if $khtml    {  -khtml-#{$property} : $value; }
   @if $official {         #{$property} : $value; }
 }
+
+// Same as experimental(), but for cases when the property is the same and the value is vendorized
+@mixin experimental-value($property, $value,
+  $moz      : $experimental-support-for-mozilla,
+  $webkit   : $experimental-support-for-webkit,
+  $o        : $experimental-support-for-opera,
+  $ms       : $experimental-support-for-microsoft,
+  $khtml    : $experimental-support-for-khtml,
+  $official : true
+) {
+  @if $moz      { #{$property} :    -moz-#{$value}; }
+  @if $webkit   { #{$property} : -webkit-#{$value}; }
+  @if $o        { #{$property} :      -o-#{$value}; }
+  @if $ms       { #{$property} :     -ms-#{$value}; }
+  @if $khtml    { #{$property} :  -khtml-#{$value}; }
+  @if $official { #{$property} :         #{$value}; }
+}

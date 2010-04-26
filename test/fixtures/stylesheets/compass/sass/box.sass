@@ -1,0 +1,50 @@
+@import compass/css3
+
+.hbox
+  +display-box
+  +box-orient
+  +box-align
+  
+  & > *
+    +box-flex
+
+.vbox
+  +display-box
+  +box-orient(vertical)
+  +box-align
+  
+  & > *
+    +box-flex
+
+.spacer
+  +box-flex(1)
+
+.reverse
+  +box-direction(reverse)
+
+.box-flex-0
+  +box-flex(0)
+
+.box-flex-1
+  +box-flex(1)
+
+.box-flex-2
+  +box-flex(2)
+
+.box-flex-group-0
+  +box-flex-group(0)
+
+.box-flex-group-1
+  +box-flex-group(1)
+
+.box-flex-group-2
+  +box-flex-group(2)
+
+.start
+  +box-pack(start)
+
+.end
+  +box-pack(end)
+
+.center
+  +box-pack(center)
