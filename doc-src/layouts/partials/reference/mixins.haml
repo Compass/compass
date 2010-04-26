@@ -4,14 +4,14 @@
   - mixin_defs.each do |mixin|
     %span.view-source
       View Source:
-      %a.view-source{:href=>"#", :onclick => "$('#mixin-#{mixin.name}-source .scss').removeClass('shown');$('#mixin-#{mixin.name}-source .sass').addClass('shown'); return false;"} Sass
+      %a.view-source{:href=>"#mixin-#{mixin.name}-sass"} Sass
       \|
-      %a.view-source{:href=>"#", :onclick => "$('#mixin-#{mixin.name}-source .sass').removeClass('shown');$('#mixin-#{mixin.name}-source .scss').addClass('shown'); return false;"} SCSS
+      %a.view-source{:href=>"#mixin-#{mixin.name}-scss"} SCSS
     %h3.mixin{:id=>"mixin-#{mixin.name}"}
       %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature(mixin)
     .mixin-source{:id=>"mixin-#{mixin.name}-source"}
-      %pre.sass= mixin.to_sass
-      %pre.scss= mixin.to_scss
+      %pre{:id=>"mixin-#{mixin.name}-sass"}= mixin.to_sass
+      %pre{:id=>"mixin-#{mixin.name}-scss"}= mixin.to_scss
 
     .source-documentation
       = format_doc(mixin.comment)
