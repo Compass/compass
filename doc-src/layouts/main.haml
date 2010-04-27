@@ -31,24 +31,25 @@
             %li
               %a{:href => "/docs/tutorials/"} tutorials
     %nav#docs-nav{:role => "navigation"}
-      %ul
-        %li
-          %a{:href => "/docs/"} introduction
-        %li
-          %a{:href => "/docs/reference/compass/"} core
-        %li
-          %a{:href => "/docs/reference/blueprint/"} blueprint
-        /
+      .container
+        %ul
           %li
-            %a{:href => "/docs/plugins/"} plugins
-      #version
-        Current Version:
-        %a.number(href="/CHANGELOG/")= compass_version
-      #search-docs
-        %form
-          %p
-            %label{:for => "search"} search
-            %input#search{:name => "search", :type => "text", :value => "", :placeholder => "Search"}
+            %a{:href => "/docs/"} introduction
+          %li
+            %a{:href => "/docs/reference/compass/"} core
+          %li
+            %a{:href => "/docs/reference/blueprint/"} blueprint
+          /
+            %li
+              %a{:href => "/docs/plugins/"} plugins
+        #version
+          Current Version:
+          %a.number(href="/CHANGELOG/")= compass_version
+        #search-docs
+          %form
+            %p
+              %label{:for => "search"} search
+              %input#search{:name => "search", :type => "text", :value => "", :placeholder => "Search"}
     - if @item[:content_for_module_nav]
       %nav#module-nav= @item[:content_for_module_nav]
     #page= yield

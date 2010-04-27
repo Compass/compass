@@ -34,21 +34,21 @@ body.reference {
       margin-top: 1em; } }
   span.view-source {
     float: right;
-    margin: 1.25em;
+    margin: 1em;
   }
   span.color + span.swatch { margin: 0 3px 3px; border: 1px solid #333333; width: 1em; height: 1em; @include inline-block; }
   .color-snippet { width: 100px; height: 20px; @include border-radius(3px); }
   a.help { font-size: 75%; }
   .mixin-source {
     pre {
-      @include transition;
-      @include transparent;
+      @include box-sizing(border-box);
       display: none;
       overflow-x: auto;
+      width: 100%;
+      padding: $base-rhythm-unit;
     }
-    pre.shown {
+    pre:target {
       display: block;
-      @include opaque;
     }
   }
   

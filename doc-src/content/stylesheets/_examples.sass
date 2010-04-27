@@ -1,6 +1,30 @@
 .demo
   article
     text-align: left
-  h1
-    text-align: center
-  
+    h1
+      text-align: center
+
+  #how
+    +full(12)
+    +pie-clearfix
+    +adjust-font-size-to(12px)
+    +h-borders(1px,1,12px)
+    border-color: #ccc
+    font-family: monospace
+    nav
+      background: #eee
+      +trailer(1,12px)
+      ul
+        +inline-block-list(.4em)
+        text-align: right
+    section
+      position: relative
+      +columns(6,12)
+      +slideshow
+      &#markup
+        +alpha(12)
+      &#styles
+        +omega(12)
+    .code
+      li
+        overflow-x: auto

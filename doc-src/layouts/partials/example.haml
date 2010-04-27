@@ -4,10 +4,33 @@
 = yield
 
 #how
-  #markup
-    %pre#haml= h(example_haml)
-    %pre#html= h(example_html)
-  #styles
-    %pre#scss= h(example_scss)
-    %pre#sass= h(example_sass)
-    %pre#css= h(example_css)
+  %section#markup
+    %nav
+      %ul
+        %li
+          %a{:href => "#haml"} haml
+        %li
+          %a{:href => "#html"} html
+    .code
+      %ul
+        %li#haml
+          %pre= h(example_haml)
+        %li#html
+          %pre= h(example_html)
+  %section#styles
+    %nav
+      %ul
+        %li
+          %a{:href => "#scss"} scss
+        %li
+          %a{:href => "#sass"} sass
+        %li
+          %a{:href => "#css"} css
+    .code
+      %ul
+        %li#scss
+          %pre#scss= h(example_scss)
+        %li#sass
+          %pre#sass= h(example_sass)
+        %li#css
+          %pre#css= h(example_css)
