@@ -7,8 +7,9 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.0.rc4 (Unreleased)
------------------------
+0.10.0.rc4
+----------
+* Lot of new docs can be found at: [http://compass-style.org/docs/](http://compass-style.org/docs/).
 * The `unobtrusive-logo` mixin is deprecated and will be removed.
   If you use this, please move the source to your project.
 * The CSS3 modules were refactored to share a common implementation that
@@ -25,8 +26,10 @@ COMPASS CHANGELOG
   reading the image file if the image dimensions are not provided.
 * The old CLI is now deprecated and a warning message will be printed
   out if you use it. The new CLI is better and can be learned
-  by typing `compass help`.
-* The `background-clip` mixin now accepts the value of `text`.
+  by typing `compass help`. Credit: [Alexander Kahn](http://akahn.net)
+* The `background-clip` mixin now accepts the value of `text`. Credit: [Thomas Reynolds]()
+* The display: box model and associated properties are now part of the
+  css3 module. Credit: [Lorin Tackett](http://blog.lorintackett.com/)
 
 0.10.0.rc3 (April 13, 2010)
 ---------------------------
