@@ -26,6 +26,7 @@ COMPASS CHANGELOG
 * The old CLI is now deprecated and a warning message will be printed
   out if you use it. The new CLI is better and can be learned
   by typing `compass help`.
+* The `background-clip` mixin now accepts the value of `text`.
 
 0.10.0.rc3 (April 13, 2010)
 ---------------------------
