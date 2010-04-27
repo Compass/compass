@@ -30,6 +30,9 @@ COMPASS CHANGELOG
 * The `background-clip` mixin now accepts the value of `text`. Credit: [Thomas Reynolds]()
 * The display: box model and associated properties are now part of the
   css3 module. Credit: [Lorin Tackett](http://blog.lorintackett.com/)
+* The compass gem is now built with a simple `gem build compass.gemspec`.
+  This should make it play nicer with tools like
+  [bundler](http://gembundler.org/).
 
 0.10.0.rc3 (April 13, 2010)
 ---------------------------
