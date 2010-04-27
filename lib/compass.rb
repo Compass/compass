@@ -7,7 +7,12 @@ end
 
 module Compass
   extend Compass::Version
-  VERSION = "#{version[:major]}.#{version[:minor]}.#{version[:patch]}"
+  def self.const_missing(const)
+    # This avoid reading from disk unless the VERSION is requested.
+    if const == :VERSION
+      version[:string]
+    end
+  end
   def base_directory
     File.expand_path(File.join(File.dirname(__FILE__), '..'))
   end
