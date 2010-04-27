@@ -23,6 +23,9 @@ COMPASS CHANGELOG
   import the float module explicitly now.
 * The `pretty-bullets` mixin will now infer the image dimensions by
   reading the image file if the image dimensions are not provided.
+* The old CLI is now deprecated and a warning message will be printed
+  out if you use it. The new CLI is better and can be learned
+  by typing `compass help`.
 
 0.10.0.rc3 (April 13, 2010)
 ---------------------------
