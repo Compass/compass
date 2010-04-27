@@ -45,4 +45,13 @@ module Compass
       end
     end
   end
+  extend Compass::Version
+  def self.const_missing(const)
+    # This avoid reading from disk unless the VERSION is requested.
+    if const == :VERSION
+      version[:string]
+    else
+      super
+    end
+  end
 end

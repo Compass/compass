@@ -1,5 +1,5 @@
 $: << "#{File.dirname(__FILE__)}/lib"
-require 'compass'
+require 'compass/version'
 
 Gem::Specification.new do |gemspec|
   gemspec.name = "compass"
