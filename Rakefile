@@ -23,65 +23,6 @@ To run with an alternate version of Rails, make test/rails a symlink to that ver
 To run with an alternate version of Haml & Sass, make test/haml a symlink to that version.
 END
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gemspec|
-    gemspec.rubyforge_project = "compass"
-    gemspec.name = "compass"
-    gemspec.summary = "A Real Stylesheet Framework"
-    gemspec.email = "chris@eppsteins.net"
-    gemspec.homepage = "http://compass-style.org"
-    gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS."
-    gemspec.authors = ["Chris Eppstein"]
-    gemspec.has_rdoc = false
-    gemspec.add_dependency('haml', '>= 3.0.0.beta.2')
-    gemspec.files = []
-    gemspec.files << "CHANGELOG.markdown"
-    gemspec.files << "README.markdown"
-    gemspec.files << "LICENSE.markdown"
-    gemspec.files << "REVISION"
-    gemspec.files << "VERSION.yml"
-    gemspec.files << "Rakefile"
-    gemspec.files += Dir.glob("bin/*")
-    gemspec.files += Dir.glob("examples/**/*.*")
-    gemspec.files -= Dir.glob("examples/**/*.css")
-    gemspec.files -= Dir.glob("examples/**/*.html")
-    gemspec.files -= Dir.glob("examples/*/extensions/**")
-    gemspec.files -= Dir.glob("examples/*/stylesheets/**/*.*")
-    gemspec.files += Dir.glob("frameworks/**/*")
-    gemspec.files += Dir.glob("lib/**/*")
-    gemspec.files += Dir.glob("test/**/*.*")
-    gemspec.files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
-    gemspec.test_files = Dir.glob("test/**/*.*")
-    gemspec.test_files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
-    gemspec.test_files += Dir.glob("features/**/*.*")
-  end
-rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
-end
-
-desc "Record the current git revision."
-task :REVISION do
-  require 'git'
-  
-  repo = Git.open('.')
-  open("REVISION", "w") do |f|
-    f.write(repo.object("HEAD").sha)
-  end
-end
-
-desc "Commit the revision file."
-task :commit_revision => :REVISION do
-  require 'git'
-  repo = Git.open('.')  
-  repo.add("REVISION")
-  repo.commit("Record current revision for release.")
-end
-
-task :release => :commit_revision
-
-task :gem => :build
-
 desc "Compile Examples into HTML and CSS"
 task :examples do
   linked_haml = "tests/haml"
@@ -132,37 +73,37 @@ namespace :git do
   end
 end
 
-require 'cucumber/rake/task'
 
 begin
-require 'rcov/rcovtask'
-namespace :rcov do
-  Cucumber::Rake::Task.new(:cucumber) do |t|    
-    t.rcov = true
-    t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
-    t.rcov_opts << %[-o "coverage"]
+  require 'cucumber/rake/task'
+  require 'rcov/rcovtask'
+  namespace :rcov do
+    Cucumber::Rake::Task.new(:cucumber) do |t|    
+      t.rcov = true
+      t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
+      t.rcov_opts << %[-o "coverage"]
+    end
+    
+    Rcov::RcovTask.new(:units) do |rcov|
+      rcov.libs << 'lib'
+      test_files = FileList['test/**/*_test.rb']
+      test_files.exclude('test/rails/*', 'test/haml/*')
+      rcov.pattern    = test_files
+      rcov.output_dir = 'coverage'
+      rcov.verbose    = true
+      rcov.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
+      rcov.rcov_opts << %[-o "coverage" --sort coverage]
+    end
+    
+    
+    desc "Run both specs and features to generate aggregated coverage"
+    task :all do |t|
+      rm "coverage.data" if File.exist?("coverage.data")
+      Rake::Task["rcov:units"].invoke
+      Rake::Task["rcov:cucumber"].invoke
+    end
   end
-  
-  Rcov::RcovTask.new(:units) do |rcov|
-    rcov.libs << 'lib'
-    test_files = FileList['test/**/*_test.rb']
-    test_files.exclude('test/rails/*', 'test/haml/*')
-    rcov.pattern    = test_files
-    rcov.output_dir = 'coverage'
-    rcov.verbose    = true
-    rcov.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
-    rcov.rcov_opts << %[-o "coverage" --sort coverage]
-  end
-  
-  
-  desc "Run both specs and features to generate aggregated coverage"
-  task :all do |t|
-    rm "coverage.data" if File.exist?("coverage.data")
-    Rake::Task["rcov:units"].invoke
-    Rake::Task["rcov:cucumber"].invoke
-  end
-end
-rescue LoadError
-#pass
+rescue LoadError => e
+  puts "WARNING: #{e}"
 end
 
