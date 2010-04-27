@@ -26,5 +26,9 @@ $default-box-shadow-blur: 5px !default;
   $voff: $default-box-shadow-v-offset,
   $blur: $default-box-shadow-blur
 ) {
-  @include experimental(box-shadow, $color $hoff $voff $blur);
+  @if $color == none {
+    @include experimental(box-shadow, none);
+  } @else {
+    @include experimental(box-shadow, $color $hoff $voff $blur);
+  }
 }
