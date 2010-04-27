@@ -1,18 +1,3 @@
-if ENV['RUN_CODE_RUN']
-  # We need to checkout edge haml for the run>code>run test environment.
-  if File.directory?("haml")
-    Dir.chdir("haml") do
-      sh "git", "fetch"
-    end
-  else
-    sh "git", "clone", "git://github.com/nex3/haml.git"
-  end
-  Dir.chdir("haml") do
-    sh "git", "reset", "--hard", "origin/stable"
-  end
-  $LOAD_PATH.unshift "haml/lib"
-end
-
 require 'rubygems'
 require 'rake'
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
@@ -28,7 +13,6 @@ require 'fileutils'
 Rake::TestTask.new :run_tests do |t|
   t.libs << 'lib'
   t.libs << 'test'
-  t.libs << 'haml/lib' if ENV["RUN_CODE_RUN"]
   test_files = FileList['test/**/*_test.rb']
   test_files.exclude('test/rails/*', 'test/haml/*')
   t.test_files = test_files
@@ -58,7 +42,6 @@ begin
     gemspec.files << "REVISION"
     gemspec.files << "VERSION.yml"
     gemspec.files << "Rakefile"
-    gemspec.files << "deps.rip"
     gemspec.files += Dir.glob("bin/*")
     gemspec.files += Dir.glob("examples/**/*.*")
     gemspec.files -= Dir.glob("examples/**/*.css")
@@ -162,7 +145,6 @@ namespace :rcov do
   
   Rcov::RcovTask.new(:units) do |rcov|
     rcov.libs << 'lib'
-    rcov.libs << 'haml/lib' if ENV["RUN_CODE_RUN"]
     test_files = FileList['test/**/*_test.rb']
     test_files.exclude('test/rails/*', 'test/haml/*')
     rcov.pattern    = test_files
