@@ -1,8 +1,3 @@
-# I'd like to find a better way to do this, but it works for now.
-Dir.glob("#{File.dirname(__FILE__)}/examples/*/clean.rb").each do |cleaner|
-  Kernel.load cleaner
-end
-
 $: << "#{File.dirname(__FILE__)}/lib"
 require 'compass'
 
@@ -26,7 +21,8 @@ Gem::Specification.new do |gemspec|
   gemspec.files += Dir.glob("examples/**/*.*")
   gemspec.files -= Dir.glob("examples/**/*.css")
   gemspec.files -= Dir.glob("examples/**/*.html")
-  gemspec.files -= Dir.glob("examples/*/extensions/**")
+  gemspec.files -= Dir.glob("examples/*/extensions/**/*")
+  gemspec.files += Dir.glob("examples/css3/extensions/fancy-fonts/**/*")
   gemspec.files -= Dir.glob("examples/*/stylesheets/**/*.*")
   gemspec.files += Dir.glob("frameworks/**/*")
   gemspec.files += Dir.glob("lib/**/*")
