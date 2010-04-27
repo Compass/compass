@@ -7,8 +7,8 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.0.rc4
-----------
+0.10.0.rc4 (April 27, 2010)
+---------------------------
 * Lot of new docs can be found at: [http://compass-style.org/docs/](http://compass-style.org/docs/).
 * The `unobtrusive-logo` mixin is deprecated and will be removed.
   If you use this, please move the source to your project.
