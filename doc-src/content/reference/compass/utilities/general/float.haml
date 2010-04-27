@@ -3,9 +3,16 @@ title: Compass Float
 crumb: Float
 framework: compass
 stylesheet: compass/utilities/general/_float.scss
+layout: core
+nav_stylesheet: compass/_utilities.scss
+meta_description: Mixins for cross-browser floats.
 classnames:
   - reference
+  - core
+  - utilities
 ---
 - render 'reference' do
-  %p
-    Lorem ipsum dolor sit amet.
+  :markdown
+    This module provides mixins that help you work around the
+    [double-margin bug in IE5/6][dmb].
+    [dmb]: http://www.positioniseverything.net/explorer/doubled-margin.html

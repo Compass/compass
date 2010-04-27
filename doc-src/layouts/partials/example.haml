@@ -1,24 +1,36 @@
-%h1= @item[:title]
+%h1 Demo: #{@item[:title]}
+#demo= example_html
 
 = yield
 
-%table#example{:cellspacing=>"0", :cellpadding=>"0", :border=>"0"}
-  %tr.source
-    %th HTML
-    %th Sass
-  %tr.source
-    %td.markup
-      %pre
-        %code.html= h(example_html)
-    %td.stylesheet
-      %pre
-        %code.sass= h(example_sass)
-  %tr.output
-    %th Display
-    %th Generated CSS
-  %tr.output
-    %td.markup
-      = example_html
-    %td.stylesheet
-      %pre
-        %code.css= h(example_css)
+#how
+  %section#markup
+    %nav
+      %ul
+        %li
+          %a{:href => "#haml"} haml
+        %li
+          %a{:href => "#html"} html
+    .code
+      %ul
+        %li#haml
+          %pre= h(example_haml)
+        %li#html
+          %pre= h(example_html)
+  %section#styles
+    %nav
+      %ul
+        %li
+          %a{:href => "#scss"} scss
+        %li
+          %a{:href => "#sass"} sass
+        %li
+          %a{:href => "#css"} css
+    .code
+      %ul
+        %li#scss
+          %pre#scss= h(example_scss)
+        %li#sass
+          %pre#sass= h(example_sass)
+        %li#css
+          %pre#css= h(example_css)

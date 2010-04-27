@@ -1,58 +1,78 @@
+@import "shared";
+
 $default-border-radius: 5px !default;
 
-// Round all borders by a specific amount, defaults to value of $default-border-radius
+// Round all corners by a specific amount, defaults to value of `$default-border-radius`.
 
 @mixin border-radius($radius: $default-border-radius) {
-  border-radius: $radius;
-  -moz-border-radius: $radius;
-  -webkit-border-radius: $radius; }
+  @include experimental(border-radius, $radius);
+}
 
 // Round radius at position by amount.
 //
-// * values for $vert: "top", "bottom"
-// * values for $horz: "left", "right"
+// * legal values for `$vert`: `top`, `bottom`
+// * legal values for `$horz`: `left`, `right`
 
 @mixin border-corner-radius($vert, $horz, $radius: $default-border-radius) {
   border-#{$vert}-#{$horz}-radius: $radius;
   -moz-border-radius-#{$vert}#{$horz}: $radius;
-  -webkit-border-#{$vert}-#{$horz}-radius: $radius; }
+  -webkit-border-#{$vert}-#{$horz}-radius: $radius;
+  // Support for mozilla's syntax for specifying a corner
+  @include experimental("border-radius-#{$vert}#{$horz}", $radius,
+    $experimental-support-for-mozilla,
+    false, // webkit
+    false, // opera
+    false, // microsoft
+    false, // khtml
+    false  // official
+  );
+  @include experimental("border-#{$vert}-#{$horz}-radius", $radius,
+    false, // mozilla
+    $experimental-support-for-webkit,
+    $experimental-support-for-opera,
+    $experimental-support-for-microsoft,
+    $experimental-support-for-khtml,
+    true // official
+  );
+  
+}
 
-// Round top-left radius only
+// Round top-left corner only
 
 @mixin border-top-left-radius($radius: $default-border-radius) {
   @include border-corner-radius(top, left, $radius); }
 
-// Round top-right radius only
+// Round top-right corner only
 
 @mixin border-top-right-radius($radius: $default-border-radius) {
   @include border-corner-radius(top, right, $radius); }
 
-// Round bottom-left radius only
+// Round bottom-left corner only
 
 @mixin border-bottom-left-radius($radius: $default-border-radius) {
   @include border-corner-radius(bottom, left, $radius); }
 
-// Round bottom-right radius only
+// Round bottom-right corner only
 
 @mixin border-bottom-right-radius($radius: $default-border-radius) {
   @include border-corner-radius(bottom, right, $radius); }
 
-// Round top corners by amount
+// Round both top corners by amount
 @mixin border-top-radius($radius: $default-border-radius) {
   @include border-top-left-radius($radius);
   @include border-top-right-radius($radius); }
 
-// Round right corners by amount
+// Round both right corners by amount
 @mixin border-right-radius($radius: $default-border-radius) {
   @include border-top-right-radius($radius);
   @include border-bottom-right-radius($radius); }
 
-// Round bottom corners by amount
+// Round both bottom corners by amount
 @mixin border-bottom-radius($radius: $default-border-radius) {
   @include border-bottom-left-radius($radius);
   @include border-bottom-right-radius($radius); }
 
-// Round left corners by amount
+// Round both left corners by amount
 @mixin border-left-radius($radius: $default-border-radius) {
   @include border-top-left-radius($radius);
   @include border-bottom-left-radius($radius); }

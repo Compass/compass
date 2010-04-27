@@ -2,6 +2,6 @@
   %h2 Examples
   %dl.examples
     - examples.each do |example|
-      %dt= link_to example.item[:title], example, :target => "_blank"
+      %dt= link_to example.item[:title], example
       - if example.item[:description]
         %dd= example.item[:description]

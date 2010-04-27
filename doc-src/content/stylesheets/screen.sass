@@ -1,0 +1,292 @@
+/* Welcome to Susy. Use this file to define screen styles.
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+
+@import defaults
+@import slideshow
+
+/* @group STRUCTURE
+
++susy
+
+header[role="banner"] h1, #compass-nav
+  +columns(6)
+
+header[role="banner"]
+  background: #f9f9f9
+  div
+    +container
+  h1
+    +alpha
+    +adjust-font-size-to(18px)
+    text-transform: uppercase
+    a
+      display: block
+      +padding-leader(2, 18px)
+      +padding-trailer(1.5, 18px)
+
+#compass-nav
+  +omega
+  text-align: right
+  ul
+    +inline-block-list
+    +padding-leader(2)
+    +trailer(1.5)
+  a
+    +inline-block
+    +adjust-font-size-to(14px)
+    padding: 0 1em
+    +border-top-left-radius(0.5em)
+    +border-bottom-right-radius(0.5em)
+
+=active-compass-nav($id, $url)
+  #{append-selector(body, $id)}
+    #compass-nav a[href="#{$url}"]
+      background: #cccccc
+      cursor: default
+
++active-compass-nav("#home,.reference", "/docs/")
++active-compass-nav(".tutorial", "/docs/tutorials/")
+
+#docs-nav
+  +pie-clearfix
+  +leading-border(1px, 0.25)
+  +trailing-border(1px, 0.25)
+  position: relative
+  height: $base-rhythm-unit
+  border-color: #cccccc
+  background-color: #eeeeee
+  .container
+    +container
+    +pie-clearfix
+    overflow: visible
+  ul
+    +horizontal-list
+    overflow: visible
+    position: relative
+    li
+      top: -$base-rhythm-unit * 0.5
+      margin-bottom: -$base-rhythm-unit * 0.5
+      position: relative
+    a
+      &:link, &:visited
+        display: block
+        padding: 0 $side-gutter-width
+        border: 1px solid #eeeeee
+        +leading-border(1px, 0.5)
+        +trailing-border(1px, 0.25)
+        border-bottom: 0
+        +border-top-radius(0.5em)
+        background: #dddddd
+    &:hover, &:focus, &:active
+      background-color: #eeeeee
+      border-color: #dddddd
+
+=active-docs($type, $url)
+  body#{$type} #docs-nav a[href="#{$url}"]
+    &:link, &:visited
+      +trailing-border(1px, 0.25)
+      cursor: default
+      background: white
+      border-color: #cccccc
+      border-bottom-color: white
+
++active-docs("#home", "/docs/")
++active-docs(".core", "/docs/reference/compass/")
++active-docs(".blueprint", "/docs/reference/blueprint/")
+
+#version
+  +adjust-font-size-to(14px)
+  +float(left)
+  margin-left: 1.5em
+  color: #999
+  .number
+    color: #666
+    
+#search-docs
+  color: #999
+  p
+    margin: 0
+    +columns(3)
+    +omega
+    label
+      +float(left)
+      width: columns(1,3) + gutter(3)*.5
+      margin: 0
+      text-align: right
+    input
+      +columns(2,3)
+      +omega
+
+#page
+  +container
+  +leader(3)
+
+aside[role="sidebar"]
+  +columns(3)
+  +alpha
+  +adjust-font-size-to(14px)
+  +leader(2,14px)
+  color: #999999
+  section, p
+    +leader(1,14px)
+    +trailer(1,14px)
+
+footer[role="contentinfo"]
+  +container
+  +leader(3)
+  color: #999999
+  .license
+    +full
+    +adjust-font-size-to(14px)
+
+/* @end
+
+/* @group COMPONENTS by type
+
+article
+  text-align: left
+
+article
+  > nav
+    border-top: $px2em*1px solid #ccc
+    margin-top: -$px2em*1px
+    color: #ccc
+    ul
+      +no-style-list
+    li
+      +columns(6,12)
+      &:last-child
+        +omega(12)
+        text-align: right
+
+/* @end
+
+/* @group OVERRIDES by content
+
+aside[role="sidebar"] + article
+  +columns(9)
+  +omega
+  h1
+    +adjust-font-size-to(36px)
+    +trailer(1,36px)
+  .demo &
+    float: none
+    display: block
+    margin: 0
+    width: auto
+    +full
+    h1
+      text-align: center
+
+#module-nav
+  +leader(.25)
+  +trailing-border(1px,.25)
+  +trailer(.5)
+  border-color: #ccc
+  clear: both
+  ul
+    margin: 0
+    padding: 0
+    +container
+    li
+      +float(left)
+      margin-right: 1.5em
+      &:first-child
+        +alpha
+  + #page
+    +leader(1.5)
+
+=active-module($type, $url)
+  body#{$type} #module-nav a[href^="#{$url}"]
+    &:link, &:visited
+      text-decoration: underline
+      +text-shadow
+
++active-module(".core.css3", "/docs/reference/compass/css3/")
++active-module(".core.layout", "/docs/reference/compass/layout/")
++active-module(".core.misc", "/docs/reference/compass/misc/")
++active-module(".core.reset", "/docs/reference/compass/reset/")
++active-module(".core.utilities", "/docs/reference/compass/utilities/")
+
+#local-nav
+  +leader(1,14px)
+  ul
+    +no-style-list
+    text-align: left
+  h2
+    +leader(1,14px)
+    border-bottom: 1px solid #ccc
+    margin-bottom: ($base_rhythm_unit*.5 - $px2em*1px) * (14/16)
+  a:hover
+    +text-shadow
+  a.selected
+    font-weight: bold
+  a.selected:before
+    content: "»"
+  a.selected:after
+    content: "«"
+
+=code-text
+  font-family: monospace
+
+#code
+  +full(12)
+  +pie-clearfix
+  +adjust-font-size-to(12px)
+  +h-borders(1px,1,12px)
+  +code-text
+  border-color: #ccc
+  nav
+    background: #eee
+    +trailer(1,12px)
+    ul
+      +inline-block-list(.4em)
+      text-align: right
+  section
+    position: relative
+    +columns(6,12)
+    +slideshow
+    &#markup
+      +alpha(12)
+    &#styles
+      +omega(12)
+  .slides
+    li
+      overflow: auto
+  table
+    .lino
+      color: #666
+      background: #ddd
+      padding: 0 .4em
+    .source
+      width: 100%
+      padding: 0 .4em
+
+#demo
+  +full(12)
+  +padding-leader
+  +trailing-border(1px)
+  border-color: #ccc
+  .gradient
+    margin: 1.5em 0
+    height: 6em
+    +linear-gradient(color_stops(#fff, #ddd), "left top")
+    
+/* @end
+
+@import "reference"
+@import "examples"
+
+/* @group OVERRIDES by page
+
+
+/* @end
+
+/* @group DEBUG
+
+// Uncomment, adjust and use for debugging
+// #page
+//   +show-grid("grid.png")
+
+/* @end

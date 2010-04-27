@@ -7,7 +7,6 @@
 //   the x position of the background image.
 // @param y
 //   the y position of the background image.
-
 @mixin replace-text($img, $x: 50%, $y: 50%) {
   @include hide-text;
   background: {
@@ -15,6 +14,7 @@
     repeat: no-repeat;
     position: $x $y; }; }
 
+// Hides text in an element so you can see the background.
 @mixin hide-text {
   text-indent: -9999em;
   overflow: hidden;

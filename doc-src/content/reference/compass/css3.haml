@@ -3,10 +3,19 @@ title: Compass CSS3
 crumb: CSS3
 framework: compass
 stylesheet: compass/_css3.scss
+layout: core
 classnames:
   - reference
+  - core
+  - css3
 meta_description: Provides cross browser CSS3 mixins that take advantage of available pre-spec vendor prefixes. 
+layout: core
 ---
 - render 'reference' do
   %p
-    The CSS3 module provides cross-browser mixins for CSS properties introduced in CSS3, for example <code id="border-radius">border-radius</code> and <code id="text-shadow">text-shadow</code>.
+    The CSS3 module provides cross-browser mixins for CSS properties
+    introduced in CSS3, for example <code id="border-radius">border-radius</code>
+    and <code id="text-shadow">text-shadow</code>.
+  %p
+    What rendering engines you support for the experimental css properties is governed by
+    the configurable variables defined in <a href="/docs/reference/compass/css3/shared/">the css3 shared module</a>.

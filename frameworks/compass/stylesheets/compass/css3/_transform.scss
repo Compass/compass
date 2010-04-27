@@ -1,18 +1,18 @@
+@import "shared";
+
 // CSS Transform and Transform-Origin
 
 // Apply a transform sent as a complete string.
 
-@mixin apply-transform($transform: false) {
-  transform: $transform;
-  -webkit-transform: $transform;
-  -moz-transform: $transform; }
+@mixin apply-transform($transform) {
+  @include experimental(transform, $transform);
+}
 
 // Apply a transform-origin sent as a complete string.
 
-@mixin apply-origin($origin: false) {
-  transform-origin: $origin;
-  -webkit-transform-origin: $origin;
-  -moz-transform-origin: $origin; }
+@mixin apply-origin($origin) {
+  @include experimental(transform-origin, $origin);
+}
 
 // transform-origin requires x and y coordinates
 //
@@ -23,7 +23,10 @@
     @if $originy {
        @include apply-origin($originx or 50% $originy);
      } @else {
-       @include apply-origin($originx); } } } 
+       @include apply-origin($originx);
+     }
+  }
+} 
 
 // A full transform mixin with everything you could want
 //
@@ -31,10 +34,20 @@
 // * scale, rotate and skew require units of degrees(deg)
 // * scale takes a multiplier, rotate and skew take degrees
 
-@mixin transform($scale: 1, $rotate: 0deg, $transx: 0, $transy: 0, $skewx: 0deg, $skewy: 0deg, $originx: false, $originy: false) {
-    $transform : scale($scale) rotate($rotate) translate($transx, $transy) skew($skewx, $skewy);
-    @include apply-transform($transform);
-    @include transform-origin($originx, $originy); }
+@mixin transform(
+  $scale: 1,
+  $rotate: 0deg,
+  $transx: 0,
+  $transy: 0,
+  $skewx: 0deg,
+  $skewy: 0deg,
+  $originx: false,
+  $originy: false
+) {
+  $transform : scale($scale) rotate($rotate) translate($transx, $transy) skew($skewx, $skewy);
+  @include apply-transform($transform);
+  @include transform-origin($originx, $originy);
+}
 
 // Transform Partials
 //
@@ -45,20 +58,24 @@
 
 @mixin scale($scale: 1.25, $originx: false, $originy: false) {
   @include apply-transform(scale($scale));
-  @include transform-origin($originx, $originy); }
+  @include transform-origin($originx, $originy);
+}
 
 // Adjust only the rotation, with optional origin coordinates
 
 @mixin rotate($rotate: 45deg, $originx: false, $originy: false) {
   @include apply-transform(rotate($rotate));
-  @include transform-origin($originx, $originy); }
+  @include transform-origin($originx, $originy);
+}
 
 // Adjust only the translation
 
 @mixin translate($transx: 0, $transy: 0) {
-  @include apply-transform(translate($transx, $transy)); }
+  @include apply-transform(translate($transx, $transy));
+}
 
 // Adjust only the skew, with optional origin coordinates
 @mixin skew($skewx: 0deg, $skewy: 0deg, $originx: false, $originy: false) {
   @include apply-transform(skew($skewx, $skewy));
-  @include transform-origin($originx, $originy); }
+  @include transform-origin($originx, $originy);
+}

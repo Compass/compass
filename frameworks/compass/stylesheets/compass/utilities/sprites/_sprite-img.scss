@@ -1,18 +1,20 @@
-//**
+// @doc off
 // Example 1:
-// a.twitter
-//   +sprite-img("icons-32.png", 1)
-// a.facebook
-//   +sprite-img("icons-32png", 2)
-// ...
+//
+//     a.twitter
+//       +sprite-img("icons-32.png", 1)
+//     a.facebook
+//       +sprite-img("icons-32png", 2)
+//
 // Example 2:
-// a
-//   +sprite-background("icons-32.png")
-//   a.twitter
-//     +sprite-column(1)
-//   a.facebook
-//     +sprite-row(2)
-//   ...
+//
+//     a
+//       +sprite-background("icons-32.png")
+//       a.twitter
+//         +sprite-column(1)
+//       a.facebook
+//         +sprite-row(2)
+// @doc on
 
 $sprite-default-size: 32px !default;
 

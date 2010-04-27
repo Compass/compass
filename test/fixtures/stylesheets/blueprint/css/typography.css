@@ -1,53 +1,42 @@
 body {
   line-height: 1.5;
-  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   color: #333333;
   font-size: 75%; }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
-  color: #222222;
+  color: #222222; }
+  h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
+    margin: 0; }
+
+h1 {
   font-size: 3em;
   line-height: 1;
   margin-bottom: 0.5em; }
-  h1 img {
-    margin: 0; }
 
 h2 {
-  font-weight: normal;
-  color: #222222;
   font-size: 2em;
   margin-bottom: 0.75em; }
 
 h3 {
-  font-weight: normal;
-  color: #222222;
   font-size: 1.5em;
   line-height: 1;
   margin-bottom: 1em; }
 
 h4 {
-  font-weight: normal;
-  color: #222222;
   font-size: 1.2em;
   line-height: 1.25;
   margin-bottom: 1.25em; }
 
 h5 {
-  font-weight: normal;
-  color: #222222;
   font-size: 1em;
   font-weight: bold;
   margin-bottom: 1.5em; }
 
 h6 {
-  font-weight: normal;
-  color: #222222;
   font-size: 1em;
   font-weight: bold; }
-
-h2 img, h3 img, h4 img, h5 img, h6 img {
-  margin: 0; }
 
 p {
   margin: 0 0 1.5em; }
@@ -107,7 +96,7 @@ pre {
   white-space: pre; }
 
 pre, code, tt {
-  font: 1em 'andale mono', 'lucida console', monospace;
+  font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5; }
 
 li ul, li ol {

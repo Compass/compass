@@ -25,7 +25,7 @@ def imports(item)
       imports << child.imported_filename
     end
   end
-  imports
+  imports.sort
 end
 
 def reference_item(options)
@@ -34,9 +34,9 @@ def reference_item(options)
     path = stylesheet_path(stylesheet)
     if path
       @items.detect do |i|
-        i.identifier =~ /^\/reference/ &&
-        i[:stylesheet] == path
-        
+        if i.identifier =~ /^\/reference/ && i[:stylesheet]
+          i[:stylesheet] == path
+        end
       end
     end
   end
@@ -65,8 +65,9 @@ end
 
 def stylesheet_path(ss)
   @site.cached("stylesheet/path/#{ss}") do
-    possible_filenames_for_stylesheet(ss).each do |filename|
-      import_paths.each do |import_path|
+    possible_names = possible_filenames_for_stylesheet(ss)
+    import_paths.each do |import_path|
+      possible_names.each do |filename|
         full_path = File.join(import_path.first, filename)
         if File.exist?(full_path)
           return "#{import_path.last}#{"/" if import_path.last && import_path.last.length > 0}#{filename}"
@@ -113,7 +114,7 @@ def mixins(item)
       comment = nil
     end
   end
-  mixins
+  mixins.reject{|m| m.comment =~ /@private/}.sort_by{|m| m.name}
 end
 
 def constants(item)
@@ -137,7 +138,7 @@ def constants(item)
 end
 
 def mixin_signature(mixin, format = :html)
-  mixin.sass_signature(:include, format)
+  mixin.sass_signature(:none, format)
 end
 
 def example_items
@@ -165,18 +166,6 @@ def examples(item, mixin = nil)
     examples = examples.reject {|i| i[:mixin] }
   end
   examples.map{|i| i.reps.find{|r| r.name == :default}}
-end
-  
-
-def mixin_source_dialog(mixin, &block)
-  vars = {
-    :html => {
-      :id => "mixin-source-#{mixin.name}",
-      :class => "mixin",
-      :title => "Source for +#{mixin.name}"
-    }
-  }
-  render 'dialog', vars, &block
 end
 
 def format_doc(docstring)

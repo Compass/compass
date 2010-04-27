@@ -1,8 +1,10 @@
+@import "shared";
+
 // Cross-browser support for @font-face. Supports IE, Gecko, Webkit, Opera.
 //
 // * $name is required, arbitrary, and what you will use in font stacks.
 // * $font-files is required using font-files('relative/location', 'format').
-//   * for best results use this order: woff, opentype/truetype, svg
+//   for best results use this order: woff, opentype/truetype, svg
 // * $eot is required by IE, and is a relative location of the eot file.
 // * postscript name is required by some browsers to look for local fonts.
 

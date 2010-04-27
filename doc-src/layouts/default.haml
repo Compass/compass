@@ -7,26 +7,14 @@
     - if @item[:meta_description]
       %meta{:name => "description", :content => @item[:meta_description]}
     %link(rel="shortcut icon" type="image/png" href="/docs/images/compass_icon.png")
-    %link{ :href => "/docs/stylesheets/main.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
-    %link{ :href => "/docs/stylesheets/ui-lightness/jquery-ui-1.7.2.custom.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
+    %link{ :href => "/docs/stylesheets/legacy/main.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
     %script{:src => "/docs/javascripts/jquery-1.3.2.min.js", :type => "text/javascript"}
-    %script{:src => "/docs/javascripts/jquery-ui-1.7.2.custom.min.js", :type => "text/javascript"}
   %body{body_attributes(@item)}
     #container
       #main
         = yield
       #sidebar
-        = render "partials/sidebar"
+        = render "partials/sidebar", :default_stylesheet => "_compass.scss"
       #footer= render "partials/footer"
-    :javascript
-      $(function(){
-        $('span.color').each(function(i,e){
-         e = $(e);
-         e.after('<span class="swatch" style="background-color:'+e.text()+';"></span>');
-        });
-        $('span.arg[data-default-value]').each(function(i,e){
-          e = $(e);
-          e.attr("title", "Defaults to: " + e.attr("data-default-value"))
-        })
-      });
+    %script(src="/docs/javascripts/fixups.js" deferred)
     = render "partials/analytics"

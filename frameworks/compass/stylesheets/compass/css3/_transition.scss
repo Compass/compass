@@ -1,3 +1,5 @@
+@import "shared";
+
 // CSS Transitions
 // Currently only works in Webkit.
 //
@@ -27,10 +29,8 @@ $default-transition-delay: false !default;
 // * also accepts "all" or "none"
 
 @mixin transition-property($properties: $default-transition-property) {
-  transition-property: $properties;
-  -webkit-transition-property: $properties;
-  -moz-transition-property: $properties;
-  -o-transition-property: $properties; }
+  @include experimental(transition-property, $properties);
+}
 
 // One or more durations in seconds
 //
@@ -38,10 +38,8 @@ $default-transition-delay: false !default;
 // * these durations will affect the properties in the same list position
 
 @mixin transition-duration($duration: $default-transition-duration) {
-  transition-duration: $duration;
-  -webkit-transition-duration: $duration;
-  -moz-transition-duration: $duration;
-  -o-transition-duration: $duration; }
+  @include experimental(transition-duration, $duration);
+}
 
 // One or more timing functions
 //
@@ -50,10 +48,8 @@ $default-transition-delay: false !default;
 // * These functions will effect the properties in the same list position
 
 @mixin transition-timing-function($function: $default-transition-function) {
-  transition-timing-function: $function;
-  -webkit-transition-timing-function: $function;
-  -moz-transition-timing-function: $function;
-  -o-transition-timing-function: $function; }
+  @include experimental(transition-timing-function, $function);
+}
 
 // One or more transition-delays in seconds
 //
@@ -61,17 +57,19 @@ $default-transition-delay: false !default;
 // * these delays will effect the properties in the same list position
 
 @mixin transition-delay($delay: $default-transition-delay) {
-  transition-delay: $delay;
-  -webkit-transition-delay: $delay;
-  -moz-transition-delay: $delay;
-  -o-transition-delay: $delay; }
+  @include experimental(transition-delay, $delay);
+}
 
 // Transition all-in-one shorthand
 
-@mixin transition($properties: $default-transition-property, $duration: $default-transition-duration, $function: $default-transition-function, $delay: $default-transition-delay) {
+@mixin transition(
+  $properties: $default-transition-property,
+  $duration: $default-transition-duration,
+  $function: $default-transition-function,
+  $delay: $default-transition-delay
+) {
   @include transition-property($properties);
   @include transition-duration($duration);
-  @if $function {
-    @include transition-timing-function($function); }
-  @if $delay {
-    @include transition-delay($delay); } }
+  @if $function { @include transition-timing-function($function); }
+  @if $delay { @include transition-delay($delay); }
+}

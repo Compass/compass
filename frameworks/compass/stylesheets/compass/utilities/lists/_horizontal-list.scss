@@ -1,4 +1,3 @@
-//**\\
 // Horizontal list layout module.
 //
 // Easy mode using simple descendant li selectors:
@@ -20,14 +19,12 @@
 @import "compass/utilities/general/reset";
 @import "compass/utilities/general/float";
 
-//**
 // Can be mixed into any selector that target a ul or ol that is meant
 // to have a horizontal layout. Used to implement +horizontal-list.
 @mixin horizontal-list-container {
   @include reset-box-model;
   @include clearfix; }
 
-//**
 // Can be mixed into any li selector that is meant to participate in a horizontal layout.
 // Used to implement +horizontal-list.
 //
@@ -46,7 +43,6 @@
   &:last-child, &.last {
     padding-right: 0px; } }
 
-//**
 // A list(ol,ul) that is layed out such that the elements are floated left and won't wrap.
 // This is not an inline list.
 @mixin horizontal-list($padding: 4px) {

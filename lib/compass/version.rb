@@ -6,18 +6,12 @@ module Compass
     # The :rev key will have the current revision hash.
     #
     # This method swiped from Haml and then modified, some credit goes to Nathan Weizenbaum
-    attr_writer :version
     def version
-      return @version if defined?(@version)
-
-      read_version_file
-
-      if r = revision
-        @version[:rev] = r
-        @version[:string] << " [#{r[0...7]}]"
+      if defined?(@version)
+        @version
+      else
+        read_version
       end
-
-      @version
     end
 
     protected
@@ -26,22 +20,20 @@ module Compass
       File.join(File.dirname(__FILE__), '..', '..', file)
     end
 
-    def read_version_file
+    def read_version
       require 'yaml'
       @version = YAML::load(File.read(scope('VERSION.yml')))
-      @version[:string] = "#{@version[:major]}.#{@version[:minor]}.#{@version[:patch]}"
       @version[:teeny] = @version[:patch]
+      @version[:string] = "#{@version[:major]}.#{@version[:minor]}.#{@version[:patch]}"
+      @version[:string] << ".#{@version[:build]}" if @version[:build]
+      if !ENV['OFFICIAL'] && r = revision
+        @version[:string] << ".dev.#{r[0..6]}"
+      end
+      @version
     end
 
     def revision
-      revision_from_git || revision_from_file
-    end
-
-    def revision_from_file
-      if File.exists?(scope('REVISION'))
-        rev = File.read(scope('REVISION')).strip
-        rev if rev =~ /[a-f0-9]+/
-      end
+      revision_from_git
     end
 
     def revision_from_git
@@ -52,6 +44,5 @@ module Compass
         end
       end
     end
-
   end
 end
