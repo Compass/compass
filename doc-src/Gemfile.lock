@@ -68,16 +68,18 @@ specs:
 - coderay: 
     version: 0.9.3
 - haml: 
-    version: 3.0.0.rc.1
+    version: 3.0.0.rc.3
 - compass: 
-    version: 0.10.0.rc3
+    version: 0.10.0.rc4.dev.e513d86
     source: 0
 - compass-susy-plugin: 
     version: 0.7.0.pre8
+    source: 0
 - cri: 
     version: 1.0.1
 - css-slideshow: 
     version: 0.2.0
+    source: 0
 - fssm: 
     version: 0.1.4
 - mime-types: 
@@ -86,7 +88,7 @@ specs:
     version: 3.1.2
     source: 1
 - nokogiri: 
-    version: 1.4.1
+    version: 1.4.1.1
 - rack: 
     version: 1.1.0
 - rdiscount: 
@@ -94,17 +96,17 @@ specs:
 - serve: 
     version: 0.10.0
 - thor: 
-    version: 0.13.4
+    version: 0.13.6
 hash: 09bc9dccbf40f91aa0fa543d0f77ef9bb3951559
 sources: 
 - Path: 
     path: !ruby/object:Pathname 
-      path: /Users/ltackett/github/compass/doc-src/../..
+      path: /Users/chris/Projects/compass/doc-src/../..
 - Git: 
     uri: git://github.com/chriseppstein/nanoc.git
     branch: 3.1.x
-    git: git://github.com/chriseppstein/nanoc.git
     require: false
+    git: git://github.com/chriseppstein/nanoc.git
     ref: 398294262623dac9bb15dcbbfc0ba33c04f8125e
 - Rubygems: 
     uri: http://gemcutter.org
