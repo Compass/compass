@@ -70,3 +70,17 @@ table.constants {
   @include inner-table-borders(1px);
   td, th {
     padding: 0.25em 0.5em; } }
+
+dl.examples {
+  display: table;
+  margin-bottom: 2em;
+  dt, dd {
+    display: table-cell;
+  }
+  dd {
+    padding-left: 0.33em;
+    &:before {
+      content: " - ";
+    }
+  }
+}
