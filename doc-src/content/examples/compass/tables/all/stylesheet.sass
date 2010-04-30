@@ -1,0 +1,8 @@
+@import "compass/utilities/tables"
+.example
+  table
+    $table-color : #7a98c6
+    +table-scaffolding
+    +inner-table-borders(1px, darken($table-color, 40%))
+    +outer-table-borders(2px)
+    +alternating-rows-and-columns($table-color, adjust-hue($table-color, -120deg), #222)
