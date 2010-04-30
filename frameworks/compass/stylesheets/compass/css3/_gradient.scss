@@ -32,8 +32,13 @@
   // Firefox's gradient api is nice.
   // Webkit's gradient api sucks -- hence these backflips:
   $end: grad-opposite-position($start);
-  background-image: -webkit-gradient(linear, #{grad-point($start)}, #{grad-point($end)}, #{grad-color-stops($color-stops)});
-  background-image: -moz-linear-gradient(#{$start}, #{$color-stops}); }
+  @if $experimental-support-for-webkit {
+    background-image: -webkit-gradient(linear, #{grad-point($start)}, #{grad-point($end)}, #{grad-color-stops($color-stops)});
+  }
+  @include experimental-value(background-image, linear-gradient(#{$start}, #{$color-stops}),
+    -moz, not -webkit, not -o, not -ms, not -khtml, not official
+  )
+}
 
 // Due to limitation's of webkit, the radial gradient mixin works best if you use
 // pixel-based color stops.
@@ -55,5 +60,10 @@
 
 @mixin radial-gradient($color-stops, $center-position: unquote("center center")) {
   $end-pos: grad-end-position($color-stops, true);
-  background-image: -webkit-gradient(radial, #{grad-point($center-position)}, 0, #{grad-point($center-position)}, #{$end-pos}, #{grad-color-stops($color-stops)});
-  background-image: -moz-radial-gradient(#{$center-position}, circle, #{$color-stops}); }
+  @if $experimental-support-for-webkit {
+    background-image: -webkit-gradient(radial, #{grad-point($center-position)}, 0, #{grad-point($center-position)}, #{$end-pos}, #{grad-color-stops($color-stops)});
+  }
+  @include experimental-value(background-image, radial-gradient(#{$center-position}, circle, #{$color-stops}),
+    -moz, not -webkit, not -o, not -ms, not -khtml, not official
+  )
+}

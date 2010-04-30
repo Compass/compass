@@ -19,20 +19,20 @@ $default-border-radius: 5px !default;
   -webkit-border-#{$vert}-#{$horz}-radius: $radius;
   // Support for mozilla's syntax for specifying a corner
   @include experimental("border-radius-#{$vert}#{$horz}", $radius,
-    $experimental-support-for-mozilla,
-    false, // webkit
-    false, // opera
-    false, // microsoft
-    false, // khtml
-    false  // official
+    -moz,
+    not -webkit,
+    not -o,
+    not -ms,
+    not -khtml,
+    not official
   );
   @include experimental("border-#{$vert}-#{$horz}-radius", $radius,
-    false, // mozilla
-    $experimental-support-for-webkit,
-    $experimental-support-for-opera,
-    $experimental-support-for-microsoft,
-    $experimental-support-for-khtml,
-    true // official
+    not -moz,
+    -webkit,
+    -o,
+    -ms,
+    -khtml,
+    official
   );
   
 }

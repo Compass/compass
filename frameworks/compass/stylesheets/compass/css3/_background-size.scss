@@ -9,5 +9,5 @@ $default-background-size: 100% auto !default;
 // * percentages are relative to the background-origin (default = padding-box)
 // * mixin defaults to: `$default-background-size`
 @mixin background-size($size: $default-background-size) {
-  @include experimental(background-size, $size);
+  @include experimental(background-size, $size, -moz, -webkit, -o, not -ms, not -khtml);
 }

@@ -6,5 +6,7 @@
 //   [ content-box | border-box ]
 
 @mixin box-sizing($bs) {
-  @include experimental(box-sizing, $bs);
+  @include experimental(box-sizing, $bs,
+    -moz, -webkit, not -o, -ms, not -khtml, official
+  );
 }

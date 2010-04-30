@@ -1,29 +1,55 @@
 @import "shared";
 
 // Specify the number of columns
-@mixin column-count($n) { @include experimental(column-count, $n); }
+@mixin column-count($n) {
+  @include experimental(column-count, $n,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
+}
 
 // Specify the gap between columns e.g. `20px`
-@mixin column-gap($u) { @include experimental(column-gap, $u); }
+@mixin column-gap($u) {
+  @include experimental(column-gap, $u,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
+}
 
 // Specify the width of columns e.g. `100px`
-@mixin column-width($u) { @include experimental(column-width, $u); }
+@mixin column-width($u) {
+  @include experimental(column-width, $u,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
+}
 
 // Specify the width of the rule between columns e.g. `1px`
-@mixin column-rule-width($w) { @include experimental(rule-width, $w); }
+@mixin column-rule-width($w) {
+  @include experimental(rule-width, $w,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
+}
 
 // Specify the style of the rule between columns e.g. `dotted`.
 // This works like border-style.
-@mixin column-rule-style($s) { @include experimental(rule-style, $s); }
+@mixin column-rule-style($s) {
+  @include experimental(rule-style, $s,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
+}
 
 // Specify the style of the rule between columns e.g. `dotted`.
 // This works like border-color.
 
-@mixin column-rule-color($c) { @include experimental(rule-color, $s); }
+@mixin column-rule-color($c) {
+  @include experimental(rule-color, $s,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
+}
 
 // Mixin encompassing all column rule rules
 // For example:
 //     +column-rule(1px, solid, #c00)
 @mixin column-rule($w, $s: solid, $c: black) {
-  @include experimental(column-rule, $w $s $c);
+  @include experimental(column-rule, $w $s $c,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
 }

@@ -6,16 +6,26 @@
 //         A number between 0 and 1, where 0 is transparent and 1 is opaque.
 
 @mixin opacity($opacity) {
+  // XXX consider only using the official property. I think -moz, -webkit, and -o support it.
   @include experimental(opacity, $opacity,
-    $experimental-support-for-mozilla,
-    $experimental-support-for-webkit,
-    $experimental-support-for-opera,
-    false, // microsoft uses filters below instead
-    $experimental-support-for-khtml,
-    true // official
+    -moz,
+    -webkit,
+    -o,
+    not -ms, // microsoft uses the filters below instead
+    -khtml,
+    official
   );
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})";
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)});
+  @if $experimental-support-for-microsoft {
+    $value: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+    @include experimental(filter, $value,
+      not -moz,
+      not -webkit,
+      not -o,
+      -ms,
+      not -khtml,
+      official // even though filter is not an official css3 property, IE 6/7 expect it.
+    );
+  }
 }
 
 // Make an element completely transparent.

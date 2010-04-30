@@ -27,8 +27,12 @@ $default-box-shadow-blur: 5px !default;
   $blur: $default-box-shadow-blur
 ) {
   @if $color == none {
-    @include experimental(box-shadow, none);
+    @include experimental(box-shadow, none,
+      -moz, -webkit, -o, not -ms, not -khtml, official
+    );
   } @else {
-    @include experimental(box-shadow, $color $hoff $voff $blur);
+    @include experimental(box-shadow, $color $hoff $voff $blur,
+      -moz, -webkit, -o, not -ms, not -khtml, official
+    );
   }
 }

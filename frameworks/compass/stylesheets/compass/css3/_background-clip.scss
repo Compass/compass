@@ -24,19 +24,19 @@ $default-background-clip: padding-box !default;
   @if $clip == border-box { $deprecated: border; }
   // Support for webkit and mozilla's use of the deprecated short form
   @include experimental(background-clip, $deprecated,
-    $experimental-support-for-mozilla,
-    $experimental-support-for-webkit,
-    false, // opera
-    false, // microsoft
-    false, // khtml
-    false  // official
+    -moz,
+    -webkit,
+    not -o,
+    not -ms,
+    not -khtml,
+    not official
   );
   @include experimental(background-clip, $clip,
-    false, // mozilla
-    false, // webkit
-    $experimental-support-for-opera,
-    $experimental-support-for-microsoft,
-    $experimental-support-for-khtml,
-    true // official
+    not -moz,
+    not -webkit,
+    -o,
+    -ms,
+    -khtml,
+    official
   );
 }

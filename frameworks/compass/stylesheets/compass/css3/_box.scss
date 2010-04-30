@@ -2,7 +2,9 @@
 
 // display:box; must be used for any of the other flexbox mixins to work properly
 @mixin display-box {
-  @include experimental-value(display,box);
+  @include experimental-value(display, box,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }
 
 // Default box orientation, assuming that the user wants something less block-like
@@ -12,7 +14,9 @@ $default-box-orient: horizontal !default;
 @mixin box-orient(
   $orientation: $default-box-orient
 ) {
-  @include experimental(box-orient, $orientation);
+  @include experimental(box-orient, $orientation,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }
 
 // Default box-align
@@ -22,7 +26,9 @@ $default-box-align: stretch !default;
 @mixin box-align(
   $alignment: $default-box-align
 ) {
-  @include experimental(box-align, $alignment);
+  @include experimental(box-align, $alignment,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }
 
 // Default box flex
@@ -34,7 +40,9 @@ $default-box-flex: 0 !default;
 @mixin box-flex(
   $flex: $default-box-flex
 ) {
-  @include experimental(box-flex, $flex);
+  @include experimental(box-flex, $flex,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
   display: block;
 }
 
@@ -45,7 +53,9 @@ $default-box-flex-group: 1 !default;
 @mixin box-flex-group(
   $group: $default-box-flex-group
 ) {
-  @include experimental(box-flex-group, $group);
+  @include experimental(box-flex-group, $group,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }
 
 // default for ordinal group
@@ -55,7 +65,9 @@ $default-box-ordinal-group: 1 !default;
 @mixin box-ordinal-group(
   $group: $default-ordinal-flex-group
 ) {
-  @include experimental(box-ordinal-group, $group);
+  @include experimental(box-ordinal-group, $group,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }
 
 // Box direction default value
@@ -65,7 +77,9 @@ $default-box-direction: normal !default;
 @mixin box-direction(
   $direction: $default-box-direction
 ) {
-  @include experimental(box-direction, $direction);
+  @include experimental(box-direction, $direction,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }
 
 // default for box lines
@@ -75,7 +89,9 @@ $default-box-lines: single !default;
 @mixin box-lines(
   $lines: $default-box-lines
 ) {
-  @include experimental(box-lines, $lines);
+  @include experimental(box-lines, $lines,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }
 
 // default for box pack
@@ -85,5 +101,7 @@ $default-box-pack: start !default;
 @mixin box-pack(
   $pack: $default-box-pack
 ) {
-  @include experimental(box-pack, $pack);
+  @include experimental(box-pack, $pack,
+    -moz, -webkit, not -o, not -ms, not -khtml, official
+  );
 }

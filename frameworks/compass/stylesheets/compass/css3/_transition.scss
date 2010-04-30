@@ -29,7 +29,9 @@ $default-transition-delay: false !default;
 // * also accepts "all" or "none"
 
 @mixin transition-property($properties: $default-transition-property) {
-  @include experimental(transition-property, $properties);
+  @include experimental(transition-property, $properties,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
 }
 
 // One or more durations in seconds
@@ -38,7 +40,9 @@ $default-transition-delay: false !default;
 // * these durations will affect the properties in the same list position
 
 @mixin transition-duration($duration: $default-transition-duration) {
-  @include experimental(transition-duration, $duration);
+  @include experimental(transition-duration, $duration,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
 }
 
 // One or more timing functions
@@ -48,7 +52,9 @@ $default-transition-delay: false !default;
 // * These functions will effect the properties in the same list position
 
 @mixin transition-timing-function($function: $default-transition-function) {
-  @include experimental(transition-timing-function, $function);
+  @include experimental(transition-timing-function, $function,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
 }
 
 // One or more transition-delays in seconds
@@ -57,7 +63,9 @@ $default-transition-delay: false !default;
 // * these delays will effect the properties in the same list position
 
 @mixin transition-delay($delay: $default-transition-delay) {
-  @include experimental(transition-delay, $delay);
+  @include experimental(transition-delay, $delay,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
 }
 
 // Transition all-in-one shorthand

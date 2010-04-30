@@ -5,13 +5,17 @@
 // Apply a transform sent as a complete string.
 
 @mixin apply-transform($transform) {
-  @include experimental(transform, $transform);
+  @include experimental(transform, $transform,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
 }
 
 // Apply a transform-origin sent as a complete string.
 
 @mixin apply-origin($origin) {
-  @include experimental(transform-origin, $origin);
+  @include experimental(transform-origin, $origin,
+    -moz, -webkit, -o, not -ms, not -khtml, official
+  );
 }
 
 // transform-origin requires x and y coordinates
