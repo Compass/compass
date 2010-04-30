@@ -11,4 +11,11 @@ classnames:
 meta_description: Adds a CSS Reset into your stylesheet.
 ---
 - render 'reference' do
-  This module applies the <a href="/docs/reference/compass/utilities/general/reset/#mixin-global-reset">global reset</a> to your stylesheet by simply importing it.
+  :markdown
+    This module applies the [global reset](/docs/reference/compass/reset/utilities/#mixin-global-reset)
+    to your stylesheet by simply importing it.
+    
+    **Note:** This module will place styles into your stylesheet by importing it. This
+    is not the standard behavior of a compass module but it optimizes the common use case.
+    If you want to control the reset, please use the mixins defined in the [reset
+    utilities module](/docs/reference/compass/reset/utilities/)
