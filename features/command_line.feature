@@ -240,11 +240,12 @@ Feature: Command Line
     When I run: compass stats
     Then I am told statistics for each file:
       | Filename             | Rules | Properties | Mixins Defs | Mixins Used | CSS Rules | CSS Properties |
+      | sass/box.sass        |    15 |          0 |           0 |          19 |        15 |             59 |
       | sass/gradients.sass  |    19 |          0 |           0 |          19 |        19 |             19 |
       | sass/image_size.sass |     4 |          8 |           0 |           0 |         4 |              8 |
       | sass/layout.sass     |     0 |          0 |           0 |           1 |         5 |             10 |
       | sass/print.sass      |     0 |          0 |           0 |           2 |        61 |             61 |
       | sass/reset.sass      |     4 |          1 |           0 |           2 |       191 |            665 |
       | sass/utilities.sass  |     2 |          0 |           0 |           2 |         5 |             11 |
-      | Total.*              |    29 |          9 |           0 |          26 |       285 |            774 |
-
+      | Total.*              |    44 |          9 |           0 |          45 |       300 |            833 |
+ 
