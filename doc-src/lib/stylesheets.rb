@@ -114,7 +114,7 @@ def mixins(item)
       comment = nil
     end
   end
-  mixins.reject{|m| m.comment =~ /@private/}.sort_by{|m| m.name}
+  mixins.reject{|m| m.comment =~ /@private/}
 end
 
 def constants(item)
