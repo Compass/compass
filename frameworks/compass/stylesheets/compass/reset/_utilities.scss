@@ -14,8 +14,6 @@
   table, caption, tbody, tfoot, thead, tr, th, td {
     @include reset-box-model;
     @include reset-font; }
-  *:focus {
-    @include reset-focus; }
   body {
     @include reset-body; }
   ol, ul {
