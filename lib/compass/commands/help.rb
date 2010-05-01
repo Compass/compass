@@ -34,7 +34,7 @@ To get help on a particular command please specify the command.
             banner << "\n"
           end
         end
-
+        banner << "\nGlobal Options:\n"
         opts.banner = banner
 
         super
