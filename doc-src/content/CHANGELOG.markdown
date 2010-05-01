@@ -10,7 +10,12 @@ COMPASS CHANGELOG
 0.10.0.rc5 (Unreleased)
 -----------------------
 
-* [Rails] The default location for compass extensions has moved from `vendor/plugins/compass/extensions` to `vendor/plugins/compass_extensions`.
+* [Rails] The default location for compass extensions has moved from
+  `vendor/plugins/compass/extensions` to `vendor/plugins/compass_extensions`.
+* Global reset no longer automatically resets the *:focus. This allows browsers to
+  use their default :focus styles which is considered a best practice. If you wish
+  to reset :focus styles simply include this in your stylesheets:
+  `*:focus { @include reset-focus; }`
 
 0.10.0.rc4 (April 27, 2010)
 ---------------------------
