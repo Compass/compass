@@ -55,12 +55,14 @@ body.reference {
 }
 
 body.docs {
-  p code, pre {
+  .code {
     @include code-text;
     border: 1px solid #ccc;
     padding: 2px;
     background-color: #e7e7e7;
   }
+  pre { @extend .code; }
+  p, ol, ul, dl, table { code { @extend .code; }}
 }
 
 table.constants {
