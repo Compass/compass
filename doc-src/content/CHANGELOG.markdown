@@ -7,6 +7,11 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.0.rc5 (Unreleased)
+-----------------------
+
+* [Rails] The default location for compass extensions has moved from `vendor/plugins/compass/extensions` to `vendor/plugins/compass_extensions`.
+
 0.10.0.rc4 (April 27, 2010)
 ---------------------------
 * Lot of new docs can be found at: [http://compass-style.org/docs/](http://compass-style.org/docs/).

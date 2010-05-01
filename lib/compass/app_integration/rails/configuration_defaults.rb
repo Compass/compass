@@ -36,7 +36,7 @@ module Compass
         end
 
         def default_extensions_dir
-          File.join("vendor", "plugins", "compass", "extensions")
+          File.join("vendor", "plugins", "compass_extensions")
         end
 
         def default_cache_dir
