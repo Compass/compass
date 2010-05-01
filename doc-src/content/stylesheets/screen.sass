@@ -4,6 +4,8 @@
 
 @import defaults
 @import slideshow
+@import compass/layout
+@import compass/utilities
 
 /* @group STRUCTURE
 
@@ -132,13 +134,27 @@ aside[role="sidebar"]
     +leader(1,14px)
     +trailer(1,14px)
 
+$footer-height: 4em + $base-rhythm-unit
++sticky-footer($footer-height, "#wrap", "#wrap-footer", "footer")
+
 footer[role="contentinfo"]
   +container
-  +leader(3)
+  // This height adjustment is because of the leading border
+  height: $footer-height - $base-rhythm-unit
   color: #999999
-  .license
-    +full
+  +leading-border(2px)
+  .legalese
+    +columns(3)
+    +alpha
     +adjust-font-size-to(14px)
+    p
+      margin: 0 0 1em 0
+  .links
+    +columns(9)
+    +omega
+    +adjust-font-size-to(14px)
+    ul
+      +horizontal-list
 
 /* @end
 

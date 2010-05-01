@@ -1,0 +1,19 @@
+!!!5
+- # This template is just the stuff until the body tag.
+%html.no-js{:dir => "ltr", :lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %link(rel="shortcut icon" type="image/png" href="/docs/images/compass_icon.png")
+    %title
+      #{@item[:title]} | Compass Documentation
+    <!--[if !IE 6]><!-->
+    %link{:charset => "utf-8", :href => "/docs/stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
+    <!--<![endif]-->
+    /[if gte IE 7]
+      %link{:charset => "utf-8", :href => "/docs/stylesheets/ie.css", :rel => "stylesheet", :type => "text/css"}
+    /[if IE 6]
+      %link{:charset => "utf-8", :href => "http://universal-ie6-css.googlecode.com/files/ie6.0.3.css", :rel => "stylesheet", :type => "text/css"}
+    - if @item[:content_for_additional_css]
+      %style(type="text/css")= @item[:content_for_additional_css]
+  %body{body_attributes(@item)}= yield
