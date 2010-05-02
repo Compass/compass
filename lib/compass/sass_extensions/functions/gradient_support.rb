@@ -57,12 +57,19 @@ module Compass::SassExtensions::Functions::GradientSupport
       assert_list(color_list)
       normalize_stops!(color_list)
       max = color_list.values.last.stop
+      last_value = nil
       color_stops = color_list.values.map do |pos|
         # have to convert absolute units to percentages for use in color stop functions.
         stop = pos.stop
         stop = stop.div(max).times(Sass::Script::Number.new(100,["%"])) if stop.numerator_units == max.numerator_units
+        # Make sure the color stops are specified in the right order.
+        if last_value && last_value.value > stop.value
+          raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
+        end
+        last_value = stop
         "color-stop(#{stop.inspect}, #{pos.color.inspect})"
       end
+      
       Sass::Script::String.new(color_stops.join(", "))
     end
 
@@ -177,14 +184,6 @@ module Compass::SassExtensions::Functions::GradientSupport
           end
         end
       end
-      # Make sure the color stops are specified in the right order.
-      positions.inject do |last_pos, pos|
-        puts pos.inspect
-        if last_pos.stop.value > pos.stop.value
-          raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
-        end
-        pos
-      end
       # normalize unitless numbers
       positions.each do |pos|
         if pos.stop.unitless? && pos.stop.value <= 1
@@ -193,6 +192,10 @@ module Compass::SassExtensions::Functions::GradientSupport
           pos.stop = pos.stop.times(Sass::Script::Number.new(1, ["px"]))
         end
       end
+      if (positions.last.stop.eq(Sass::Script::Number.new(0, ["px"])).to_bool ||
+         positions.last.stop.eq(Sass::Script::Number.new(0, ["%"])).to_bool)
+         raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
+       end
       nil
     end
     def assert_list(value)
