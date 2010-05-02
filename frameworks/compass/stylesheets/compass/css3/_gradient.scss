@@ -22,22 +22,27 @@
 //
 //     +linear-gradient(color-stops(white, blue 33%, black 67%))
 //
+// This yields a linear gradient on top of a background image
+//
+//     +linear-gradient(color_stops(white,black), "top", image-url('noise.png'))
 // Browsers Supported:
 //
 // - Chrome
 // - Safari
 // - Firefox 3.6
 
-@mixin linear-gradient($color-stops, $start: top) {
+@mixin linear-gradient($color-stops, $start: top, $image: false) {
   // Firefox's gradient api is nice.
   // Webkit's gradient api sucks -- hence these backflips:
+  $background: unquote("");
+  @if $image { $background : $image + unquote(", "); }
   $end: grad-opposite-position($start);
   @if $experimental-support-for-webkit {
-    background-image: -webkit-gradient(linear, #{grad-point($start)}, #{grad-point($end)}, #{grad-color-stops($color-stops)});
+    background-image: #{$background}-webkit-gradient(linear, grad-point($start), grad-point($end), grad-color-stops($color-stops));
   }
-  @include experimental-value(background-image, linear-gradient(#{$start}, #{$color-stops}),
-    -moz, not -webkit, not -o, not -ms, not -khtml, not official
-  )
+  @if $experimental-support-for-mozilla {
+    background-image: #{$background}-moz-linear-gradient($start, $color-stops);
+  }
 }
 
 // Due to limitation's of webkit, the radial gradient mixin works best if you use
@@ -51,19 +56,22 @@
 //     +radial-gradient(color-stops(#c00, #00c), "top left")
 //     // Three colors, ending at 50px and passing thru #fff at 25px
 //     +radial-gradient(color-stops(#c00, #fff, #00c 50px))
-//
+//     // gradient on top of a background image
+//     +radial-gradient(color_stops(#c00, #fff), "top left", image-url("noise.png")))
 // Browsers Supported:
 //
 // - Chrome
 // - Safari
 // - Firefox 3.6
 
-@mixin radial-gradient($color-stops, $center-position: unquote("center center")) {
+@mixin radial-gradient($color-stops, $center-position: center center, $image: false) {
   $end-pos: grad-end-position($color-stops, true);
+  $background: unquote("");
+  @if $image { $background: $image + unquote(", "); }
   @if $experimental-support-for-webkit {
-    background-image: -webkit-gradient(radial, #{grad-point($center-position)}, 0, #{grad-point($center-position)}, #{$end-pos}, #{grad-color-stops($color-stops)});
+    background-image: #{$background}-webkit-gradient(radial, grad-point($center-position), 0, grad-point($center-position), $end-pos, grad-color-stops($color-stops));
   }
-  @include experimental-value(background-image, radial-gradient(#{$center-position}, circle, #{$color-stops}),
-    -moz, not -webkit, not -o, not -ms, not -khtml, not official
-  )
+  @if $experimental-support-for-mozilla {
+    background-image: #{$background}-moz-radial-gradient($center-position, circle, $color-stops);
+  }
 }
