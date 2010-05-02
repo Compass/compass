@@ -177,6 +177,14 @@ module Compass::SassExtensions::Functions::GradientSupport
           end
         end
       end
+      # Make sure the color stops are specified in the right order.
+      positions.inject do |last_pos, pos|
+        puts pos.inspect
+        if last_pos.stop.value > pos.stop.value
+          raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
+        end
+        pos
+      end
       # normalize unitless numbers
       positions.each do |pos|
         if pos.stop.unitless? && pos.stop.value <= 1
