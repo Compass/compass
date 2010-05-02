@@ -1,7 +1,13 @@
 @import "compass/css3";
 
-@include font-face(Angelina, font_files(unquote("angelina.ttf"), truetype));
+@include font-face("Blooming Grove", font-files("bgrove.ttf", truetype, "bgrove.otf", opentype));
+
+@include font-face("Prociono", font-files("Prociono.otf", opentype));
 
 h1 {
-  font-family: "Angelina";
-  font-size: 5em; }
+  font-family: "Blooming Grove";
+  font-size: 3em; }
+
+h2 {
+  font-family: "Prociono";
+  font-size: 2em; }

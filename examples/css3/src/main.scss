@@ -1,5 +1,6 @@
 @import "blueprint/reset";
 @import "base";
+@import "fancy-fonts";
 
 $border_color: #aaaaaa;
 
@@ -28,7 +29,6 @@ h1 {
   @include box-shadow(darken($border_color, 40), 5px, 5px, 2px);
   margin-bottom: 1em;
   h2 {
-    font-family: Angelina;
     margin: 0.5em 0 1em;
     text-align: center; } }
 
