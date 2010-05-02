@@ -12,10 +12,20 @@ COMPASS CHANGELOG
 
 * [Rails] The default location for compass extensions has moved from
   `vendor/plugins/compass/extensions` to `vendor/plugins/compass_extensions`.
-* Global reset no longer automatically resets the *:focus. This allows browsers to
-  use their default :focus styles which is considered a best practice. If you wish
-  to reset :focus styles simply include this in your stylesheets:
+* [Compass Core] Global reset no longer automatically resets the *:focus.
+  This allows browsers to use their default :focus styles which is considered
+  a best practice. If you wish to reset :focus styles simply include this in
+  your stylesheets:
   `*:focus { @include reset-focus; }`
+* [Compass Core] A new mixin `replace-text-with-dimensions` has been added.
+  This is the same as the `replace-text` mixin except that it will read the
+  dimensions from the image and set them for you on the element.
+* [Compass Core] If you want Firefox 2 Support (via -moz-binding) for the
+  `ellipsis` mixin, you must now set `$firefox2-ellipsis` to `true` before
+  importing the module.
+* [Compass Core] The `compass/text/ellipsis` module is now imported
+  automatically by the `compass/text` module.
+  
 
 0.10.0.rc4 (April 27, 2010)
 ---------------------------
