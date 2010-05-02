@@ -86,3 +86,20 @@ dl.examples {
     }
   }
 }
+
+dl.table {
+  display: table;
+  dg { display: table-row; }
+  dt, dd { display: table-cell; }
+  dt { white-space: nowrap; padding-right: 1em;}
+  dt, dg.head > dd {font-weight: bold; text-align: center;}
+}
+
+body.helpers {
+  .helper {
+    dl { @extend dl.table; }
+    dg:not(.head) {
+      dt, dd { @extend code; }
+    }
+  }
+}

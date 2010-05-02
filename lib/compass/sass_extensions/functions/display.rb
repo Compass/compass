@@ -15,7 +15,8 @@ module Compass::SassExtensions::Functions::Display
     :"table-cell" => %w{th td}
   }
 
-  # returns a comma delimited string for all the elements according to their default css3 display value.
+  # returns a comma delimited string for all the
+  # elements according to their default css3 display value.
   def elements_of_type(display)
     Sass::Script::String.new(DEFAULT_DISPLAY.fetch(display.value.to_sym).join(", "))
   end
