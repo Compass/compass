@@ -50,7 +50,7 @@ h1 {
 
 #background-clip {
   pre {
-    background: transparent #{image_url("fresh-peas.jpg")} no-repeat;
+    background: transparent #{image_url("example.png")} no-repeat;
     border: 1em solid rgba(255, 0, 0, 0.25); }
   .padding-box {
     @include background-clip(padding-box);
@@ -61,7 +61,7 @@ h1 {
 
 #background-size {
   pre {
-    background: transparent #{image_url("fresh-peas.jpg")} no-repeat;
+    background: transparent #{image_url("example.png")} no-repeat;
     border: 1em solid #{mix(red, white, 0.5)};
     border: 1em solid rgba(255, 0, 0, 0.25); }
   .top-left {
