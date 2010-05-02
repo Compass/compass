@@ -24,23 +24,28 @@ task :watch do
   end
 
   rebuild_site = lambda do |base, relative|
-    if relative
-      puts ">>> Change Detected to #{relative} <<<"
+    if relative && relative =~ /\.s[ac]ss/
+      puts ">>> Change Detected to #{relative} : updating stylsheets <<<"
+      system "bundle exec compass compile"
     else
-      puts ">>> Compiling <<<"
-    end
-    start = Time.now
-    # Nanoc3::CLI::Base.new.run(["co"])
-    site = Nanoc3::Site.new('.')
-    site.load_data
-    begin
-      site.compiler.run
-      puts ">>> Done in #{((Time.now - start)*10000).round.to_f / 10}ms <<<"
-      `growlnotify -m "Compilation Complete" --image misc/success-icon.png; exit 0`
-    rescue Exception => e
-      puts ">>> ERROR: #{e.message} <<<"
-      puts e.backtrace.join("\n")
-      `growlnotify -m "Compilation Error!" --image misc/error-icon.png; exit 0`
+      if !relative
+        puts ">>> Compiling <<<"
+      else
+        puts ">>> Change Detected to #{relative} <<<"
+      end
+      start = Time.now
+      # Nanoc3::CLI::Base.new.run(["co"])
+      site = Nanoc3::Site.new('.')
+      site.load_data
+      begin
+        site.compiler.run
+        puts ">>> Done in #{((Time.now - start)*10000).round.to_f / 10}ms <<<"
+        `growlnotify -m "Compilation Complete" --image misc/success-icon.png; exit 0`
+      rescue Exception => e
+        puts ">>> ERROR: #{e.message} <<<"
+        puts e.backtrace.join("\n")
+        `growlnotify -m "Compilation Error!" --image misc/error-icon.png; exit 0`
+      end
     end
   end
   rebuild_site.call(nil,nil)
