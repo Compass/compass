@@ -245,7 +245,7 @@ Feature: Command Line
       | sass/image_size.sass |     4 |          8 |           0 |           0 |         4 |              8 |
       | sass/layout.sass     |     0 |          0 |           0 |           1 |         5 |             10 |
       | sass/print.sass      |     0 |          0 |           0 |           2 |        61 |             61 |
-      | sass/reset.sass      |     4 |          1 |           0 |           2 |       191 |            665 |
+      | sass/reset.sass      |     4 |          1 |           0 |           2 |       190 |            664 |
       | sass/utilities.sass  |     2 |          0 |           0 |           2 |         5 |             11 |
-      | Total.*              |    44 |          9 |           0 |          45 |       300 |            833 |
+      | Total.*              |    44 |          9 |           0 |          45 |       299 |            832 |
  
