@@ -43,8 +43,7 @@ puts "==================================================="
 puts
 
 # css framework prompt
-css_framework = ask("What CSS Framework do you want to use with Compass? (default: 'blueprint')")
-css_framework = "blueprint" if css_framework.blank?
+css_framework = ask("What CSS Framework install do you want to use with Compass?")
 
 # sass storage prompt
 sass_dir = ask("Where would you like to keep your sass files within your project? (default: 'app/stylesheets')")
@@ -55,40 +54,25 @@ css_dir = ask("Where would you like Compass to store your compiled css files? (d
 css_dir = "public/stylesheets/compiled" if css_dir.blank?
 
 # use sudo for gem commands?
-use_sudo = sudo_is_an_option?
+use_sudo = nil
 if sudo_is_an_option? # dont give them the option if they are on a system that can't use sudo (aka windows)
   use_sudo = yes?("Use sudo for the gem commands? (the default for your system is #{sudo_is_an_option? ? 'yes' : 'no'})")
 end
+use_sudo = sudo_is_an_option? if use_sudo.blank?
 
 # define dependencies
-gem "haml", :version => ">=2.2.16"
-gem "compass", :version => ">= 0.8.17"
+gem "haml", :version => ">=3.0.0.rc.3"
+gem "compass", :version => ">= 0.10.0.rc4"
 
 # install and unpack
-rake "gems:install GEM=haml", :sudo => use_sudo
-rake "gems:install GEM=compass", :sudo => use_sudo
-rake "gems:unpack GEM=compass"
-
-# load any compass framework plugins
-if css_framework =~ /960/
-  gem "compass-960-plugin", :lib => "ninesixty"
-  rake "gems:install GEM=compass-960-plugin", :sudo => use_sudo
-  css_framework = "960" # rename for command
-  plugin_require = "-r ninesixty"
-end
+rake "gems:install GEM=haml --trace", :sudo => use_sudo
+rake "gems:install GEM=compass --trace", :sudo => use_sudo
+rake "gems:unpack GEM=compass --trace"
 
 # build out compass command
-compass_command = "compass --rails -f #{css_framework} . --css-dir=#{css_dir} --sass-dir=#{sass_dir} "
-compass_command << plugin_require if plugin_require
-
-# Require compass during plugin loading
-file 'vendor/plugins/compass/init.rb', <<-CODE
-# This is here to make sure that the right version of sass gets loaded (haml 2.2) by the compass requires.
-require 'compass'
-CODE
+compass_command = "compass init rails . --css-dir=#{css_dir} --sass-dir=#{sass_dir} "
+compass_command << "--using #{css_framework} " unless css_framework.blank?
 
 # integrate it!
 run "haml --rails ."
 run compass_command
-
-puts "Compass (with #{css_framework}) is all setup, have fun!"
