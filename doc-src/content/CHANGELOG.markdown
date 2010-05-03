@@ -7,11 +7,12 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.0.rc5 (Unreleased)
------------------------
+0.10.0.rc5 (May 2, 2010)
+------------------------
 
 * [Rails] The default location for compass extensions has moved from
   `vendor/plugins/compass/extensions` to `vendor/plugins/compass_extensions`.
+* [Rails] The rails template has been updated to use the latest haml and compass versions.
 * [Compass Core] Global reset no longer automatically resets the *:focus.
   This allows browsers to use their default :focus styles which is considered
   a best practice. If you wish to reset :focus styles simply include this in
