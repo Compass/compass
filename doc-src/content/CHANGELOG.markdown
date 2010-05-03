@@ -25,6 +25,8 @@ COMPASS CHANGELOG
   importing the module.
 * [Compass Core] The `compass/text/ellipsis` module is now imported
   automatically by the `compass/text` module.
+* [Compass Core] The gradient mixins now accept a background image that will
+  be placed over the gradient. Credit: [Will Leinweber](http://bitfission.com/)
   
 
 0.10.0.rc4 (April 27, 2010)

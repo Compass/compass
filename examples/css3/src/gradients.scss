@@ -11,67 +11,76 @@ thead th {
   @include text-shadow(white); }
 
 th.linear {
-  @include linear-gradient(color_stops(white, red 50%, yellow 75%, lime)); }
+  @include linear-gradient(color-stops(white, red 50%, yellow 75%, lime)); }
 
 th.radial {
-  @include radial-gradient(color_stops(white, red 20px, yellow 30px, lime 40px)); }
+  @include radial-gradient(color-stops(white, red 20px, yellow 30px, lime 40px)); }
 
 tr.default {
   td.linear {
-    @include linear-gradient(color_stops(#cc0000, #0000cc)); }
+    @include linear-gradient(color-stops(#cc0000, #0000cc)); }
   td.radial {
-    @include radial-gradient(color_stops(#cc0000, #0000cc)); }
+    @include radial-gradient(color-stops(#cc0000, #0000cc)); }
   td.linear-code:before {
-    content: "+linear-gradient(color_stops(#c00, #00c))"; }
+    content: "+linear-gradient(color-stops(#c00, #00c))"; }
   td.radial-code:before {
-    content: "+radial-gradient(color_stops(#c00, #00c))"; } }
+    content: "+radial-gradient(color-stops(#c00, #00c))"; } }
 
 tr.top-left {
   td.linear {
-    @include linear-gradient(color_stops(#cc0000, #0000cc), unquote("top left")); }
+    @include linear-gradient(color-stops(#cc0000, #0000cc), unquote("top left")); }
   td.radial {
-    @include radial-gradient(color_stops(#cc0000, #0000cc), unquote("top left")); }
+    @include radial-gradient(color-stops(#cc0000, #0000cc), unquote("top left")); }
   td.linear-code:before {
-    content: '+linear-gradient(color_stops(#c00, #00c), "top left")'; }
+    content: '+linear-gradient(color-stops(#c00, #00c), "top left")'; }
   td.radial-code:before {
-    content: '+radial-gradient(color_stops(#c00, #00c), "top left")'; } }
+    content: '+radial-gradient(color-stops(#c00, #00c), "top left")'; } }
 
 tr.bottom-right {
   td.linear {
-    @include linear-gradient(color_stops(#cc0000, #0000cc), unquote("bottom right")); }
+    @include linear-gradient(color-stops(#cc0000, #0000cc), unquote("bottom right")); }
   td.radial {
-    @include radial-gradient(color_stops(#cc0000, #0000cc), unquote("bottom right")); }
+    @include radial-gradient(color-stops(#cc0000, #0000cc), unquote("bottom right")); }
   td.linear-code:before {
-    content: '+linear-gradient(color_stops(#c00, #00c), "bottom right")'; }
+    content: '+linear-gradient(color-stops(#c00, #00c), "bottom right")'; }
   td.radial-code:before {
-    content: '+radial-gradient(color_stops(#c00, #00c), "bottom right")'; } }
+    content: '+radial-gradient(color-stops(#c00, #00c), "bottom right")'; } }
 
 tr.three-color {
   td.linear {
-    @include linear-gradient(color_stops(#cc0000, white, #0000cc)); }
+    @include linear-gradient(color-stops(#cc0000, white, #0000cc)); }
   td.radial {
-    @include radial-gradient(color_stops(#cc0000, white, #0000cc 50px)); }
+    @include radial-gradient(color-stops(#cc0000, white, #0000cc 50px)); }
   td.linear-code:before {
-    content: "+linear-gradient(color_stops(#c00, #fff, #00c))"; }
+    content: "+linear-gradient(color-stops(#c00, #fff, #00c))"; }
   td.radial-code:before {
-    content: "+radial-gradient(color_stops(#c00, #fff, #00c 50px))"; } }
+    content: "+radial-gradient(color-stops(#c00, #fff, #00c 50px))"; } }
 
 tr.four-color {
   td.linear {
-    @include linear-gradient(color_stops(#cc0000, #00cc00 25%, #00cccc 75%, #0000cc)); }
+    @include linear-gradient(color-stops(#cc0000, #00cc00 25%, #00cccc 75%, #0000cc)); }
   td.radial {
-    @include radial-gradient(color_stops(#cc0000, #00cc00 25%, #00cccc 75%, #0000cc 50px)); }
+    @include radial-gradient(color-stops(#cc0000, #00cc00 25%, #00cccc 75%, #0000cc 50px)); }
   td.linear-code:before {
-    content: "+linear-gradient(color_stops(#c00, #0c0 25%, #0cc 75%, #00c))"; }
+    content: "+linear-gradient(color-stops(#c00, #0c0 25%, #0cc 75%, #00c))"; }
   td.radial-code:before {
-    content: "+radial-gradient(color_stops(#c00, #0c0 25%, #0cc 75%, #00c 50px))"; } }
+    content: "+radial-gradient(color-stops(#c00, #0c0 25%, #0cc 75%, #00c 50px))"; } }
 
 tr.filled-in {
   td.linear {
-    @include linear-gradient(color_stops(#cc0000 33%, #0000cc 66%)); }
+    @include linear-gradient(color-stops(#cc0000 33%, #0000cc 66%)); }
   td.radial {
-    @include radial-gradient(color_stops(#cc0000 25px, #0000cc 75px)); }
+    @include radial-gradient(color-stops(#cc0000 25px, #0000cc 75px)); }
   td.linear-code:before {
-    content: "+linear-gradient(color_stops(#c00 33%, #00c 66%))"; }
+    content: "+linear-gradient(color-stops(#c00 33%, #00c 66%))"; }
   td.radial-code:before {
-    content: "+radial-gradient(color_stops(#c00 25px, #00c 75px))"; } }
+    content: "+radial-gradient(color-stops(#c00 25px, #00c 75px))"; } }
+tr.with-bg {
+  td.linear {
+    @include linear-gradient(color-stops(#cc0000 33%, #0000cc 66%), top, image-url("button_bg.png")); }
+  td.radial {
+    @include radial-gradient(color-stops(#cc0000 25px, #0000cc 75px), center center, image-url("button_bg.png")); }
+  td.linear-code:before {
+    content: "+linear-gradient(color-stops(#cc0000 33%, #0000cc 66%), top, image-url(\"button_bg.png\"))"; }
+  td.radial-code:before {
+    content: "+radial-gradient(color-stops(#cc0000 25px, #0000cc 75px), center center, image-url(\"button_bg.png\"))"; } }
