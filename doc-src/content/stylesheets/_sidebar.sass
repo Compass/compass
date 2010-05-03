@@ -46,7 +46,7 @@ aside[role="sidebar"]
         +border-top-radius(3px)
         border-top-color: #eaeaea
         &:hover, &:focus, &.selected
-          border-top-color: #{$c} !important
+          border-top-color: $c !important
       a
         //color: #444
         border: 1px solid
@@ -57,17 +57,17 @@ aside[role="sidebar"]
           font-weight: bold
         &:hover, &:focus, &.selected
           +border-radius
-          +text-shadow(#{lighten($c, 15)}, 0, 1px)
-          background: #{$c}
-          +linear-gradient(color_stops(lighten($c, 1), $c))
+          +text-shadow(lighten($c, 15), 0, 1px)
+          background: $c
+          +linear-gradient(color-stops(lighten($c, 1), $c))
           position: relative
           z-index: 2
           padding: 3px 12px 3px 10px
           margin: 0 -4px 0 -2px
-          color: #{desaturate(darken(#005498, 14), 20)}
-          border-color: #{lighten($c, 5)} #{$c} #{darken($c, 7)} #{$c}
+          color: desaturate(darken(#005498, 14), 20)
+          border-color: lighten($c, 5) $c darken($c, 7) $c
           &:after
-            color: #{darken($c, 22)} !important
+            color: darken($c, 22) !important
             //+text-shadow(darken($c, 22), 0, -1px)
         &:after
           content: "\25B8"
