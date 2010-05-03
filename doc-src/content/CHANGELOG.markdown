@@ -28,6 +28,9 @@ COMPASS CHANGELOG
   automatically by the `compass/text` module.
 * [Compass Core] The gradient mixins now accept a background image that will
   be placed over the gradient. Credit: [Will Leinweber](http://bitfission.com/)
+* [Compass Core] You can now opt out of support for specific browsers in
+  the css3 module. See [the docs](/docs/reference/compass/css3/shared/)
+  for more details.
   
 
 0.10.0.rc4 (April 27, 2010)
