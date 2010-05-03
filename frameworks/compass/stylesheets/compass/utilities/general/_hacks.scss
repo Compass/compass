@@ -11,5 +11,5 @@
 // A hack to supply IE6 (and below) with a different property value.
 // [Read more](http://www.cssportal.com/css-hacks/#in_css-important).
 @mixin bang-hack($property, $value, $ie6-value) {
-  #{$property}: #{$value} !important;
-  #{$property}: #{$ie6-value}; }
+  #{$property}: #{$ie6-value} !important;
+  #{$property}: #{$value}; }
