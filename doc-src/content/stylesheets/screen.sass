@@ -4,6 +4,7 @@
 
 @import defaults
 @import slideshow
+@import shared
 @import compass/layout
 @import compass/utilities
 
@@ -124,15 +125,6 @@ header[role="banner"]
   +container
   +leader(3)
 
-aside[role="sidebar"]
-  +columns(3)
-  +alpha
-  +adjust-font-size-to(14px)
-  +leader(2,14px)
-  color: #999999
-  section, p
-    +leader(1,14px)
-    +trailer(1,14px)
 
 $footer-height: 4em + $base-rhythm-unit
 +sticky-footer($footer-height, "#wrap", "#wrap-footer", "footer")
@@ -226,24 +218,6 @@ aside[role="sidebar"] + article
 +active-module(".core.utilities", "/docs/reference/compass/utilities/")
 +active-module(".core.helpers", "/docs/reference/compass/helpers/")
 
-#local-nav
-  +leader(1,14px)
-  ul
-    +no-style-list
-    text-align: left
-  h2
-    +leader(1,14px)
-    border-bottom: 1px solid #ccc
-    margin-bottom: ($base_rhythm_unit*.5 - $px2em*1px) * (14/16)
-  a:hover
-    +text-shadow
-  a.selected
-    font-weight: bold
-  a.selected:before
-    content: "»"
-  a.selected:after
-    content: "«"
-
 #code
   +full(12)
   +pie-clearfix
@@ -261,8 +235,6 @@ aside[role="sidebar"] + article
     position: relative
     +columns(6,12)
     +slideshow
-    &#markup
-      +alpha(12)
     &#styles
       +omega(12)
   .slides
@@ -289,8 +261,9 @@ aside[role="sidebar"] + article
     
 /* @end
 
-@import "reference"
-@import "examples"
+@import reference
+@import examples
+@import sidebar
 
 /* @group OVERRIDES by page
 

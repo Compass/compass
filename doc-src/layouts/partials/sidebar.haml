@@ -1,2 +1,2 @@
 %nav#local-nav
-  %ul= item_tree(reference_item(:stylesheet => (@item[:nav_stylesheet] || @default_stylesheet)), :depth => 2, :omit_self => get_var(:omit_self){true}, :heading_level => get_var(:heading_level){1})
+  = item_tree(reference_item(:stylesheet => (@item[:nav_stylesheet] || @default_stylesheet)), :depth => 2, :omit_self => get_var(:omit_self){true}, :heading_level => get_var(:heading_level){1})

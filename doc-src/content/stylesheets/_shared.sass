@@ -1,0 +1,3 @@
+=gradient-bg(!color, !up=5, !down=!up)
+  background-color: #{!color}
+  +linear-gradient(color_stops(lighten(!color, !up), darken(!color,!down)))
