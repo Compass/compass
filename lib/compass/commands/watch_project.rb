@@ -36,6 +36,7 @@ module Compass
           exit 0
         end
 
+        check_for_sass_files!(new_compiler_instance)
         recompile
 
         begin
