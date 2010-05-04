@@ -1,0 +1,9 @@
+.example
+  .base-class
+    background-color: #aaa
+    border: 2px solid #777
+    margin: 1em
+  @for $i from 2 through 4
+    .class-#{$i}
+      @extend .base-class
+      margin-left: 1em * ($i - 1)
