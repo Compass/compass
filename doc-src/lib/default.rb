@@ -69,7 +69,6 @@ def item_tree(item, options = {})
   child_html = ""
   if options.fetch(:depth,1) > 0
     if item.children.any?
-      child_html << "<ul>"
       item.children.sort_by{|c| c[:crumb] || c[:title]}.each do |child|
         child_opts = options.dup
         child_opts[:depth] -= 1 if child_opts.has_key?(:depth)
@@ -77,24 +76,25 @@ def item_tree(item, options = {})
         child_opts.delete(:omit_self)
         child_html << item_tree(child, child_opts)
       end
-      child_html << "</ul>"
-    end
+     end
   else
     options.delete(:heading_level)
   end
+  child_html = render("partials/sidebar/container", :contents => child_html) unless child_html.size == 0
   css_class = nil
-  prefix = nil
-  suffix = nil
-  if item.identifier == @item.identifier
-    css_class = %Q{class="selected"}
-  end
   contents = unless options[:omit_self]
-    hl = if options[:heading_level]
-      "h#{options[:heading_level]}"
+    item_opts = {
+      :current_item => item,
+      :selected => item.identifier == @item.identifier,
+      :crumb => item[:crumb] || item[:title]
+    }
+    if options[:heading_level]
+      render("partials/sidebar/heading",
+        item_opts.merge(:heading => "h#{options[:heading_level]}")
+      )
     else
-      "span"
+      render("partials/sidebar/item", item_opts)
     end
-    %Q{<li><#{hl}><a href="#{default_path(item)}"#{css_class}>#{crumb}</a></#{hl}></li>}
   end
   %Q{#{contents}#{child_html}}
 end

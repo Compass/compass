@@ -1,0 +1,3 @@
+%li{:class => ("selected" if @selected)}
+  - haml_tag(@heading) do
+    %a{:href => default_path(@current_item), :class => ("selected" if @selected)}= @crumb
