@@ -14,9 +14,6 @@ $default-border-radius: 5px !default;
 // * legal values for `$horz`: `left`, `right`
 
 @mixin border-corner-radius($vert, $horz, $radius: $default-border-radius) {
-  border-#{$vert}-#{$horz}-radius: $radius;
-  -moz-border-radius-#{$vert}#{$horz}: $radius;
-  -webkit-border-#{$vert}-#{$horz}-radius: $radius;
   // Support for mozilla's syntax for specifying a corner
   @include experimental("border-radius-#{$vert}#{$horz}", $radius,
     -moz,
