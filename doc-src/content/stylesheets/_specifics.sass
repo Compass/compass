@@ -1,0 +1,18 @@
+// This partial is where we put specific styling for certain 
+
+#reference-compass-helpers-color-stops
+  dl
+    width: 100%
+    dt, dd
+      white-space: normal
+      text-align: left
+  dd
+    +text-shadow(white, 1px, 1px, 1px)
+  #ex1 dd
+    +linear-gradient(color-stops(#fff,#f00,#00c), left)
+  #ex2 dd
+    +linear-gradient(color-stops(#FFF, #F00 25%, #0C0, #00C), left)
+  #ex3 dd
+    +radial-gradient(color-stops(#FFF, #F00 5px, #0C0, #00C 25px), center center)
+    
+    

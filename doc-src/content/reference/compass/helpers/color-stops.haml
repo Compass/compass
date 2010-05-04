@@ -1,0 +1,51 @@
+--- 
+title: Compass Color Stops Helper
+crumb: Color Stops
+framework: compass
+meta_description: Helper function for color-stops.
+layout: core
+classnames:
+  - reference
+  - core
+  - helpers
+---
+%h1 Compass Color Stops Helper
+
+#color-stops.helper
+  %h3
+    %a(href="#color-stops")
+      color-stops([<span class="arg">$color-stop</span>]*)
+  .details
+    %p
+      The color-stops helper provides a way to pass an arbitrary number of
+      colors stops to the <a href="/docs/reference/compass/css3/gradient/">gradient mixins</a>.
+    %p
+      Any number of comma-delimited color stops can be passed, each color stop
+      should take the form of a color followed by an optional stopping point (separated by a space).
+      Where stop values are not provided they will be inferred by assuming an equal distribution
+      of colors between any specified locations.
+    %dl
+      %dg.head
+        %dt Example Call
+        %dd Means
+      %dg#ex1
+        %dt
+          color-stops(#FFF,#F00,#00C)
+        %dd
+          \#FFF 0%, #F00 50%, #00C 100%
+      %dg#ex2
+        %dt
+          color-stops(#FFF, #F00 25%, #0C0, #00C)
+        %dd
+          \#FFF 0%, #F00 25%, #0C0 62.5%, #00C 100%
+      %dg#ex3
+        %dt
+          color-stops(#FFF, #F00 5px, #0C0, #00C 25px)
+        %dd
+          \#FFF 0px, #F00 5px, #0C0 15px, #00C 25px
+  .examples
+    %h4 Examples
+    %ul
+      %li
+        %a(href="/docs/examples/compass/css3/gradient/") Example of Gradients
+
