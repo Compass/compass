@@ -7,5 +7,4 @@ module Compass::SassExtensions::Functions::FontFiles
     end
     Sass::Script::String.new(files.join(", "))
   end
-
 end

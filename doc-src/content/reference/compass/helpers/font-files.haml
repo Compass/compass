@@ -1,0 +1,35 @@
+---
+title: Compass Font Files Helper
+crumb: Font Files
+framework: compass
+meta_description: Helper function for listing fonts.
+layout: core
+classnames:
+  - reference
+  - core
+  - helpers
+---
+%h1 Compass Font Files Helper
+
+#font-files.helper
+  %h3
+    %a(href="#font-files")
+      font-files([<span class="arg">$font</span>, <span class="arg">$format</span>]*)
+  .details
+    %p
+      The <code>font-files</code> function takes any even number of arguments.
+      For each pair of arguments, the first is the path to the font file
+      relative to your project's font directory and the second is the format of
+      that font.
+    %p
+      This helper is used with the <a href="/docs/reference/compass/css3/font_face/#mixin-font-face"><code>font-face</code> mixin</a>
+      and is what makes it possible to pass any number of font files.
+    %p
+      <a href="http://www.w3.org/TR/css3-fonts/#font-reference-the-src-descriptor">W3C Reference</a>
+  .examples
+    %h4 Examples
+    %ul
+      %li
+        %a(href="/docs/examples/compass/css3/font-face/") Font-face Example
+
+
