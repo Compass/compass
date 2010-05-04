@@ -29,7 +29,7 @@ $default-transition-delay: false !default;
 // * also accepts "all" or "none"
 
 @mixin transition-property($properties: $default-transition-property) {
-  @include experimental(transition-property, $properties,
+  @include experimental(transition-property, unquote($properties),
     -moz, -webkit, -o, not -ms, not -khtml, official
   );
 }

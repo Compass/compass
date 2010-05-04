@@ -14,6 +14,7 @@ $default-box-orient: horizontal !default;
 @mixin box-orient(
   $orientation: $default-box-orient
 ) {
+  $orientation : unquote($orientation);
   @include experimental(box-orient, $orientation,
     -moz, -webkit, not -o, not -ms, not -khtml, official
   );
@@ -26,6 +27,7 @@ $default-box-align: stretch !default;
 @mixin box-align(
   $alignment: $default-box-align
 ) {
+  $alignment : unquote($alignment);
   @include experimental(box-align, $alignment,
     -moz, -webkit, not -o, not -ms, not -khtml, official
   );
@@ -77,6 +79,7 @@ $default-box-direction: normal !default;
 @mixin box-direction(
   $direction: $default-box-direction
 ) {
+  $direction: unquote($direction);
   @include experimental(box-direction, $direction,
     -moz, -webkit, not -o, not -ms, not -khtml, official
   );
@@ -89,6 +92,7 @@ $default-box-lines: single !default;
 @mixin box-lines(
   $lines: $default-box-lines
 ) {
+  $lines: unquote($lines);
   @include experimental(box-lines, $lines,
     -moz, -webkit, not -o, not -ms, not -khtml, official
   );
@@ -101,6 +105,7 @@ $default-box-pack: start !default;
 @mixin box-pack(
   $pack: $default-box-pack
 ) {
+  $pack: unquote($pack);
   @include experimental(box-pack, $pack,
     -moz, -webkit, not -o, not -ms, not -khtml, official
   );

@@ -31,7 +31,7 @@
 // Specify the style of the rule between columns e.g. `dotted`.
 // This works like border-style.
 @mixin column-rule-style($s) {
-  @include experimental(rule-style, $s,
+  @include experimental(rule-style, unquote($s),
     -moz, -webkit, -o, not -ms, not -khtml, official
   );
 }
@@ -40,7 +40,7 @@
 // This works like border-color.
 
 @mixin column-rule-color($c) {
-  @include experimental(rule-color, $s,
+  @include experimental(rule-color, unquote($s),
     -moz, -webkit, -o, not -ms, not -khtml, official
   );
 }

@@ -6,6 +6,7 @@
 //   [ content-box | border-box ]
 
 @mixin box-sizing($bs) {
+  $bs: unquote($bs);
   @include experimental(box-sizing, $bs,
     -moz, -webkit, not -o, -ms, not -khtml, official
   );
