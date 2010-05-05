@@ -68,15 +68,13 @@ def item_tree(item, options = {})
   options[:heading_level] ||= 1 if options.fetch(:headings, true)
   child_html = ""
   if options.fetch(:depth,1) > 0
-    if item.children.any?
-      item.children.sort_by{|c| c[:crumb] || c[:title]}.each do |child|
-        child_opts = options.dup
-        child_opts[:depth] -= 1 if child_opts.has_key?(:depth)
-        child_opts[:heading_level] += 1 if child_opts[:heading_level]
-        child_opts.delete(:omit_self)
-        child_html << item_tree(child, child_opts)
-      end
-     end
+    child_opts = options.dup
+    child_opts[:depth] -= 1 if child_opts.has_key?(:depth)
+    child_opts[:heading_level] += 1 if child_opts[:heading_level]
+    child_opts.delete(:omit_self)
+    item.children.sort_by{|c| c[:crumb] || c[:title]}.each do |child|
+      child_html << item_tree(child, child_opts)
+    end
   else
     options.delete(:heading_level)
   end
