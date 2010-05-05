@@ -1,9 +1,9 @@
 @import "compass/css3/shared";
 
-// To get firefox2 support, you must install the ellipsis pattern:
+// To get full firefox support, you must install the ellipsis pattern:
 //
 //     compass install compass/ellipsis
-$firefox2-ellipsis: false !default;
+$use-mozilla-ellipsis-binding: false !default;
 
 // This technique, by [Justin Maxwell](http://code404.com/), was originally
 // published [here](http://mattsnider.com/css/css-string-truncation-with-ellipsis/).
@@ -19,7 +19,7 @@ $firefox2-ellipsis: false !default;
     not -khtml,
     official
   );
-  @if $experimental-support-for-mozilla and $firefox2-ellipsis {
+  @if $experimental-support-for-mozilla and $use-mozilla-ellipsis-binding {
     -moz-binding: stylesheet-url(unquote("xml/ellipsis.xml#ellipsis"));    
   }
 }

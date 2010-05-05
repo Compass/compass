@@ -7,6 +7,12 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.0.rc6 (Unreleased)
+-----------------------
+* [Compass Core] The configuration constant `$firefox2-ellipsis` has been
+  renamed to `$use-mozilla-ellipsis-binding` to reflect the fact that
+  it must be used for any version of mozilla less than 3.6.
+
 0.10.0.rc5 (May 2, 2010)
 ------------------------
 
