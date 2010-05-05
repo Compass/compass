@@ -60,4 +60,5 @@ module Compass::SassExtensions::Functions::Selectors
     end
     Sass::Script::String.new((from.value..to.value).map{|n| "h#{n}"}.join(", "))
   end
+  alias headings headers
 end
