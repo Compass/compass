@@ -1,0 +1,44 @@
+--- 
+title: Compass URL Helpers
+crumb: URLs
+framework: compass
+meta_description: Helper functions for working with URLs.
+layout: core
+classnames:
+  - reference
+  - core
+  - helpers
+---
+%h1 Compass URL Helpers
+
+:markdown
+  These url helpers isolate your stylesheets from environmental differences.
+  They allow you to write the same stylesheets and use them locally without
+  a web server, and then change them to be using asset hosts in production.
+  
+  They might also insulate you against some code reorganization changes.
+
+#stylesheet-url.helper
+  %h3
+    %a(href="#stylesheet-url")
+      stylesheet-url($path)
+  .details
+    %p
+      Generates a path to an asset found relative to the project's css directory.
+
+#font-url.helper
+  %h3
+    %a(href="#font-url")
+      font-url($path)
+  .details
+    %p
+      Generates a path to an asset found relative to the project's font directory.
+
+#image-url.helper
+  %h3
+    %a(href="#image-url")
+      image-url($path)
+  .details
+    %p
+      Generates a path to an asset found relative to the project's images directory.
+
