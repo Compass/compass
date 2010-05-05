@@ -11,7 +11,7 @@ module Compass::SassExtensions::Functions::Urls
       Compass.configuration.http_root_relative(Compass.configuration.css_dir)
     end
 
-    url("#{http_stylesheets_path}/#{path}")
+    clean_url("#{http_stylesheets_path}/#{path}")
   end
 
   def font_url(path)
@@ -30,7 +30,7 @@ module Compass::SassExtensions::Functions::Urls
                         Compass.configuration.http_fonts_path
                       end
 
-    url("#{http_fonts_path}/#{path}")
+    clean_url("#{http_fonts_path}/#{path}")
   end
 
   def image_url(path)
@@ -75,17 +75,17 @@ module Compass::SassExtensions::Functions::Urls
     # prepend the asset host if there is one.
     path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
-    url(path)
+    clean_url(path)
   end
 
+  private
+
   # Emits a url, taking off any leading "./"
-  def url(url)
+  def clean_url(url)
     url = url.to_s
     url = url[0..1] == "./" ? url[2..-1] : url
     Sass::Script::String.new("url('#{url}')")
   end
-
-  private
 
   def relative?
     Compass.configuration.relative_assets?
