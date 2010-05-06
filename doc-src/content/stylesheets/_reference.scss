@@ -40,18 +40,20 @@ body.reference {
   .color-snippet { width: 100px; height: 20px; @include border-radius(3px); }
   a.help { font-size: 75%; }
   .mixin-source {
-    pre {
+    table { margin: 0; }
+    tbody { width: 100%;}
+    table td:last-child { width: 100%; }
+    .elided-code {display: none;}
+    .elided-code:target {display: block;}
+    pre.source-code,
+    .highlight pre,
+    .linenos pre {
       @include box-sizing(border-box);
-      display: none;
       overflow-x: auto;
-      width: 100%;
       padding: $base-rhythm-unit;
-    }
-    pre:target {
-      display: block;
+      width: 100%;
     }
   }
-  
 }
 
 body.docs {
@@ -99,8 +101,5 @@ dl.table {
 body.helpers {
   .helper {
     dl { @extend dl.table; }
-    dg:not(.head) {
-      dt, dd { @extend code; }
-    }
   }
 }

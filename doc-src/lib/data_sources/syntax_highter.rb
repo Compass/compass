@@ -10,7 +10,8 @@ class SyntaxHighlighterFilter < Nanoc3::Filter
   end
 
   def pygmentize(code, type)
-    IO.popen("pygmentize -l #{type} -f html -O linenos=table", "r+") do |io|
+    # -O linenos=table
+    IO.popen("pygmentize -l #{type} -f html", "r+") do |io|
       io.write(code)
       io.close_write
       return io.read
@@ -18,14 +19,21 @@ class SyntaxHighlighterFilter < Nanoc3::Filter
   end
   
   def coderay(code, type)
-    CodeRay.scan(code, type).div(:line_numbers => :table, :css => :class)
+    # :line_numbers => :table,
+    type = :css if type == :scss
+    CodeRay.scan(code, type).div(:css => :class)
   end
 
   def run(content, params={})
     doc = Nokogiri::HTML.fragment(content)
     [:html, :css, :sass].each do |format|
       doc.css("pre.source-code.#{format}, code.#{format}").each do |el|
-        el.replace Nokogiri.make(highlight(el.inner_text, format))
+        new_element = Nokogiri.make(highlight(el.inner_text, format))
+        new_element.set_attribute("class", new_element.attribute("class").value+" "+el.attribute("class").value)
+        if id = el.attribute("id")
+          new_element.set_attribute("id", id)
+        end
+        el.replace new_element
       end
     end
     doc.to_s

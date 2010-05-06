@@ -10,8 +10,8 @@
     %h3.mixin{:id=>"mixin-#{mixin.name}"}
       %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature(mixin)
     .mixin-source{:id=>"mixin-#{mixin.name}-source"}
-      %pre{:id=>"mixin-#{mixin.name}-sass"}= mixin.to_sass
-      %pre{:id=>"mixin-#{mixin.name}-scss"}= mixin.to_scss
+      %pre.source-code.sass.elided-code{:id=>"mixin-#{mixin.name}-sass"}= mixin.to_sass
+      %pre.source-code.scss.elided-code{:id=>"mixin-#{mixin.name}-scss"}= mixin.to_scss
 
     .source-documentation
       = format_doc(mixin.comment)
