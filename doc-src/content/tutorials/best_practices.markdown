@@ -10,14 +10,14 @@ variables and ([often][2]) the framework utilities you plan to use:
 
 #### _base.scss
 
-    $blueprint_grid_columns = 24
-    $blueprint_grid_width   = 30px
-    $blueprint_grid_margin  = 10px
-    $font_color              = #333
+    $blueprint-grid-columns : 24;
+    $blueprint-grid-width   : 30px;
+    $blueprint-grid-margin  : 10px;
+    $font-color             : #333;
      
-    @import compass/reset.scss
-    @import compass/utilities.scss
-    @import blueprint/screen.scss
+    @import "compass/reset";
+    @import "compass/utilities";
+    @import "blueprint/screen";
      
     // etc.
 
