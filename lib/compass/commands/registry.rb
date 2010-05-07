@@ -6,11 +6,24 @@ module Compass::Commands
     end
     def get(name)
       @commands ||= Hash.new
-      @commands[name.to_sym]
+      @commands[name.to_sym] || @commands[abbreviation_of(name)]
+    end
+    def abbreviation_of(name)
+      re = /^#{Regexp.escape(name)}/
+      matching = @commands.keys.select{|k| k.to_s =~ re}
+      if matching.size == 1
+        matching.first
+      else
+        raise Compass::Error, "Ambiguous abbreviation '#{name}'. Did you mean one of: #{matching.join(", ")}"
+      end
+    end
+    def abbreviation?(name)
+      re = /^#{Regexp.escape(name)}/
+      @commands.keys.detect{|k| k.to_s =~ re}
     end
     def command_exists?(name)
       @commands ||= Hash.new
-      name && @commands.has_key?(name.to_sym)
+      name && (@commands.has_key?(name.to_sym) || abbreviation?(name))
     end
     def all
       @commands.keys

@@ -12,6 +12,11 @@ COMPASS CHANGELOG
 * [Compass Core] The configuration constant `$firefox2-ellipsis` has been
   renamed to `$use-mozilla-ellipsis-binding` to reflect the fact that
   it must be used for any version of mozilla less than 3.6.
+* [CLI] The the new Sub-command based CLI will now recognize abbreviated
+  commands as long as the abbreviation is unambiguous.
+  For instance, `compass w` is a shortcut for `compass watch` and
+  `compass com` for `compass compile` but `compas co` will not work
+  for compile because it also matches `compass config`.
 
 0.10.0.rc5 (May 2, 2010)
 ------------------------
