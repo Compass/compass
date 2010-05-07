@@ -10,16 +10,27 @@ $blueprint-font-size: 12px !default;
 
 // Usage examples:
 // As a top-level mixin, apply to any page that includes the stylesheet:
-//   +blueprint-typography
+// <pre class="source-code sass">
+// +blueprint-typography
+// </pre>
+//
 // Scoped by a presentational class:
-//   body.blueprint
-//    +blueprint-typography(true)
+// <pre class="source-code sass">
+// body.blueprint
+//  +blueprint-typography(true)
+// </pre>
+//
 // Scoped by semantic selectors:
-//   body#page-1, body#page-2, body.a-special-page-type
-//     +blueprint-typography(true)
-// Deprecated:
-//   You can pass the body selector as the first argument when used as a top-level mixin
-//   +blueprint-typography("body#page-1, body#page-2, body.a-special-page-type")
+// <pre class="source-code sass">
+// body#page-1, body#page-2, body.a-special-page-type
+//   +blueprint-typography(true)
+// </pre>
+//
+// **Deprecated**:
+// You can pass the body selector as the first argument when used as a top-level mixin
+// <pre class="source-code sass">
+// +blueprint-typography("body#page-1, body#page-2, body.a-special-page-type")
+// </pre>
 @mixin blueprint-typography($body-selector: body) {
   @if $body-selector == true {
     @include blueprint-typography-body;

@@ -189,15 +189,19 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
 // For example:
 //
 // HTML:
-//     <div id="one">One</div>
-//     <div id="two">Two</div>
+// <pre class="source-code html">
+// <div id="one">One</div>
+// <div id="two">Two</div>
+// </pre>
 // Sass:
-//     #one
-//       +column(18, true)
-//       +prepend(6)
-//     #two
-//       +column(6)
-//       +pull(18, true)
+// <pre class="source-code sass">
+// #one
+//   +column(18, true)
+//   +prepend(6)
+// #two
+//   +column(6)
+//   +pull(18, true)
+// </pre>
 @mixin pull($n, $last: false) {
   @include pull-base;
   @include pull-margins($n, $last); }

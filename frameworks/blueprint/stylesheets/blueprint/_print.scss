@@ -3,16 +3,24 @@
 
 // Usage examples:
 // As a top-level mixin, apply to any page that includes the stylesheet:
-//   +blueprint-print
+// <pre class="source-code sass">
+// +blueprint-print
+// </pre>
 // Scoped by a presentational class:
-//   body.blueprint
-//    +blueprint-print(true)
+// <pre class="source-code sass">
+// body.blueprint
+//  +blueprint-print(true)
+// </pre>
 // Scoped by semantic selectors:
-//   body#page-1, body#page-2, body.a-special-page-type
-//     +blueprint-print(true)
+// <pre class="source-code sass">
+// body#page-1, body#page-2, body.a-special-page-type
+//   +blueprint-print(true)
+// </pre>
 // Deprecated:
-//   You can pass the body selector as the first argument when used as a top-level mixin
-//   +blueprint-print("body#page-1, body#page-2, body.a-special-page-type")
+// You can pass the body selector as the first argument when used as a top-level mixin
+// <pre class="source-code sass">
+// +blueprint-print("body#page-1, body#page-2, body.a-special-page-type")
+// </pre>
 @mixin blueprint-print($body_selector: body) {
   @if $body_selector == true {
     @include blueprint-print-body;

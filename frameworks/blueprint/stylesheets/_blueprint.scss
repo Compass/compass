@@ -11,19 +11,27 @@
 // ### Usage examples:
 //
 // As a top-level mixin, apply to any page that includes the stylesheet:
-//     +blueprint
+// <pre class="source-code sass">
+// +blueprint
+// </pre>
 //
 // Scoped by a presentational class:
-//     body.blueprint
-//       +blueprint(true)
+// <pre class="source-code sass">
+// body.blueprint
+//   +blueprint(true)
+// </pre>
 //
 // Scoped by semantic selectors:
-//     body#page-1, body#page-2, body.a-special-page-type
-//       +blueprint(true)
+// <pre class="source-code sass">
+// body#page-1, body#page-2, body.a-special-page-type
+//   +blueprint(true)
+// </pre>
 //
 // #### Deprecated:
 // You use to be able to pass the body selector as the first argument when used as a top-level mixin
-//      +blueprint("body#page-1, body#page-2, body.a-special-page-type")
+// <pre class="source-code sass">
+// +blueprint("body#page-1, body#page-2, body.a-special-page-type")
+// </pre>
 
 @mixin blueprint($body_selector: body) {
   //@doc off

@@ -76,16 +76,27 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
 
 // Usage examples:
 // As a top-level mixin, apply to any page that includes the stylesheet:
-//   +rtl-typography
+// <pre class="source-code sass">
+// +rtl-typography
+// </pre>
+//
 // Scoped by a presentational class:
-//   body.blueprint
-//    +rtl-typography(true)
+// <pre class="source-code sass">
+// body.blueprint
+//  +rtl-typography(true)
+// </pre>
+//
 // Scoped by semantic selectors:
-//   body#page-1, body#page-2, body.a-special-page-type
-//     +rtl-typography(true)
-// Deprecated:
-//   You can pass the body selector as the first argument when used as a top-level mixin
-//   +rtl-typography("body#page-1, body#page-2, body.a-special-page-type")
+// <pre class="source-code sass">
+// body#page-1, body#page-2, body.a-special-page-type
+//   +rtl-typography(true)
+// </pre>
+//
+// **Deprecated**:
+// You can pass the body selector as the first argument when used as a top-level mixin
+// <pre class="source-code sass">
+// +rtl-typography("body#page-1, body#page-2, body.a-special-page-type")
+// </pre>
 @mixin rtl-typography($body_selector: body) {
   @if $body_selector == true {
     html & {
