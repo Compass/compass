@@ -9,22 +9,23 @@
 //| --------------
 //|
 //| As a top-level mixin, apply to any page that includes the stylesheet:
-//|
-//|     +blueprint-ie
-//|
+//| <pre class="source-code sass">
+//| +blueprint-ie
+//| </pre>
 //| Scoped by a presentational class:
-//|
-//|     body.blueprint
-//|      +blueprint-ie(true)
-//|
+//| <pre class="source-code sass">
+//| body.blueprint
+//|  +blueprint-ie(true)
+//| </pre>
 //| Scoped by semantic selectors:
-//|
-//|     body#page-1, body#page-2, body.a-special-page-type
-//|       +blueprint-ie(true)
-//|
+//| <pre class="source-code sass">
+//| body#page-1, body#page-2, body.a-special-page-type
+//|   +blueprint-ie(true)
+//| </pre>
 //| **Deprecated:** You can pass the body selector as the first argument when used as a top-level mixin
-//|
-//|     +blueprint-ie("body#page-1, body#page-2, body.a-special-page-type")
+//| <pre class="source-code sass">
+//| +blueprint-ie("body#page-1, body#page-2, body.a-special-page-type")
+//| </pre>
 @mixin blueprint-ie($body_selector: body) {
   @if $body_selector == true {
     @include blueprint-ie-body;
