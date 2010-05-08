@@ -9,8 +9,9 @@ body_id: search
   :javascript
     $(function(){
       if ($.url.param("q")) {
-        $('input#q').attr('value', $.url.param("q"));
-        search($.url.param("q"), displayResults);
+        var query = $.url.param("q").replace("+"," ");
+        $('input#q').attr('value', query);
+        search(query, displayResults);
       }
       $('input#q').keyup(function(){
         search(this.value, displayResults);
