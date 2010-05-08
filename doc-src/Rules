@@ -23,6 +23,10 @@ compile '/' do
   layout 'main'
 end
 
+compile '/search-data/' do
+  filter :erb
+end
+
 compile '/examples/*/' do
   filter :haml, :ugly => true
   filter :highlight if ENV['SYNTAX']
@@ -52,6 +56,10 @@ compile '*' do
     filter :haml, :ugly => true
   end
   layout item[:layout] || 'main'
+end
+
+route '/search-data/' do
+  "#{SITE_ROOT}/javascripts"+item.identifier[0..-2]+".js"
 end
 
 (0..5).each do |i|

@@ -41,4 +41,5 @@
   %footer(role="contentinfo")= render "partials/footer"
   %script(src="/docs/javascripts/jquery-1.3.2.min.js")
   %script(src="/docs/javascripts/fixups.js" deferred)
+  = @item[:content_for_javascripts]
   = render "partials/analytics"

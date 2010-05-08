@@ -1,0 +1,7 @@
+function search(term, callback) {
+  var ids = index.terms[term] || index.approximate[term] || [];
+  var items = $.map(ids, function(id){ return index.items[id]; });
+  callback(items)
+}
+
+var index = <%= search_index.to_json %>;
