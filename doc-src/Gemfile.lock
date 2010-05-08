@@ -51,7 +51,7 @@ dependencies:
   compass-susy-plugin: 
     group: 
     - :default
-    version: = 0.7.0.pre8
+    version: ">= 0.7.0.pre8"
   rdiscount: 
     group: 
     - :default
@@ -72,19 +72,16 @@ specs:
 - coderay: 
     version: 0.9.3
 - haml: 
-    version: 3.0.0.rc.4
-    source: 0
+    version: 3.0.0.rc.5
 - compass: 
-    version: 0.10.0.rc5.dev.6e438b1
+    version: 0.10.0.rc5.dev.b5439e0
     source: 0
 - compass-susy-plugin: 
     version: 0.7.0.pre8
-    source: 0
 - cri: 
     version: 1.0.1
 - css-slideshow: 
     version: 0.2.0
-    source: 0
 - fssm: 
     version: 0.1.4
 - json: 
@@ -104,11 +101,11 @@ specs:
     version: 0.10.0
 - thor: 
     version: 0.13.6
-hash: be8e5d940923c89c76fcbc4f66750a37252702d1
+hash: d1c753a27ce588ccd240fdbae76f3c4f928ff53f
 sources: 
 - Path: 
     path: !ruby/object:Pathname 
-      path: /Users/chris/Projects/compass/doc-src/../..
+      path: ..
 - Git: 
     uri: git://github.com/chriseppstein/nanoc.git
     branch: 3.1.x
