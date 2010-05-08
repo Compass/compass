@@ -53,11 +53,11 @@ $blueprint-font-size: 12px !default;
 @mixin blueprint-typography-defaults {
   #{headers(all)} { @include header-text;
     img             { margin: 0; } }
-  h1              { font-size: 3em;   line-height: 1;    margin-bottom: 0.5em;  }
+  h1              { font-size: 3em;   line-height: 1;    margin-bottom: 0.50em; }
   h2              { font-size: 2em;                      margin-bottom: 0.75em; }
-  h3              { font-size: 1.5em; line-height: 1;    margin-bottom: 1em;    }
+  h3              { font-size: 1.5em; line-height: 1;    margin-bottom: 1.00em; }
   h4              { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; }
-  h5              { font-size: 1em;   font-weight: bold; margin-bottom: 1.5em;  }
+  h5              { font-size: 1em;   font-weight: bold; margin-bottom: 1.50em; }
   h6              { font-size: 1em;   font-weight: bold;                        }
   p               { margin: 0 0 1.5em;
     img.left        { @include float-left;  margin: 1.5em 1.5em 1.5em 0; padding: 0; }
