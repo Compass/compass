@@ -5,9 +5,14 @@ body_id: search
 ---
 - content_for(:javascripts) do
   %script(type="text/javascript" src="/docs/javascripts/search-data.js")
+  %script(type="text/javascript" src="/docs/javascripts/jquery.url.packed.js")
   :javascript
     $(function(){
-      $('input').keypress(function(){
+      if ($.url.param("q")) {
+        $('input#q').attr('value', $.url.param("q"));
+        search($.url.param("q"), displayResults);
+      }
+      $('input#q').keyup(function(){
         search(this.value, displayResults);
       });
     })
@@ -22,7 +27,7 @@ body_id: search
         $('ol#results').html("<li class='none'>Nothing found.</li>");
       }
     }
-%input{:type => "text", :placeholder=>"Search"}
+%input#q{:type => "text", :placeholder=>"Search"}
 
 %ol#results
   %li.none Please enter a search term.

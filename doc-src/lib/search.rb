@@ -38,7 +38,7 @@ def search_terms_for(item)
     content = item.rep_named(:default).compiled_content
     doc = Nokogiri::HTML(content)
     full_text = doc.css("p, h1, h2, h3, h4, h5, h6").map{|el| el.inner_text}.join(" ")
-    "#{item[:title]} #{item[:meta_description]} #{full_text}".gsub(/[\W\s]+/m,' ').downcase.split(/\s+/).uniq - STOP_WORDS
+    "#{item[:title]} #{item[:meta_description]} #{full_text}".gsub(/[\W\s_]+/m,' ').downcase.split(/\s+/).uniq - STOP_WORDS
   else
     []
   end
@@ -53,18 +53,20 @@ def search_index
   }
   @items.each do |item|
     search_terms_for(item).each do |term|
-      idx["terms"][term] = []
+      idx["terms"][term] ||= []
       idx["terms"][term] << id
       (0...term.length).each do |c|
         subterm = term[0...c]
+        # puts "Indexing: #{subterm}"
         idx["approximate"][subterm] ||= []
         unless idx["approximate"][subterm].include?(id)
           idx["approximate"][subterm] << id
         end
       end
+      # puts "Indexed: #{term}"
     end
     idx["items"][id] = {
-      "url" => item.identifier,
+      "url" => "/docs#{item.identifier}",
       "title" => item[:title],
       "crumb" => item[:crumb]
     }
