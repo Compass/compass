@@ -16,11 +16,14 @@
 //   mixins to construct your own semantic style rules.
 
 @mixin blueprint-scaffolding($body_selector: body) {
-  #{$body_selector} {
-    @if $body_selector != "body" {
-      @include blueprint-scaffolding-defaults; } }
-  @if $body_selector == "body" {
-    @include blueprint-scaffolding-defaults; } }
+  @if $body_selector != body {
+    #{$body_selector} {
+      @include blueprint-scaffolding-defaults;
+    }
+  } @else {
+    @include blueprint-scaffolding-defaults;
+  }
+}
 
 // The styles this mixin provides were deprecated in Blueprint 0.9 and is no longer part of the
 // main scaffolding, but the mixin is still available if you want to use it.
