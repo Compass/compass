@@ -120,6 +120,10 @@ END
         self.options[:pattern_name] = name
       end
 
+      opts.on("-x", "--syntax SYNTAX", [:sass, :scss], "Specify the syntax to use when generating stylesheets.", "One of sass or scss. Defaults to scss.") do |syntax|
+        self.options[:preferred_syntax] = syntax
+      end
+
       opts.on('--rails', "Sets the app type to a rails project (same as --app rails).") do
         self.options[:project_type] = :rails
       end
