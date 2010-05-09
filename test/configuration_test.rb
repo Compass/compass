@@ -81,8 +81,8 @@ class ConfigurationTest < Test::Unit::TestCase
 
     assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/home/chris/my_compass_project/../foo")
     assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/path/to/my/framework"), Compass.configuration.to_sass_engine_options[:load_paths].inspect
-    assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location]["/path/to/my/framework"]
-    assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location]["/home/chris/my_compass_project/../foo"]
+    assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
+    assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
 
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
@@ -111,8 +111,8 @@ EXPECTED
 
     assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/home/chris/my_compass_project/../foo")
     assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/path/to/my/framework"), Compass.configuration.to_sass_engine_options[:load_paths].inspect
-    assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location]["/path/to/my/framework"]
-    assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location]["/home/chris/my_compass_project/../foo"]
+    assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
+    assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
 
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
