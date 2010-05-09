@@ -7,8 +7,8 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.0.rc6 (Unreleased)
------------------------
+0.10.0.rc6 (May 8, 2010)
+------------------------
 * [Compass Core] The configuration constant `$firefox2-ellipsis` has been
   renamed to `$use-mozilla-ellipsis-binding` to reflect the fact that
   it must be used for any version of mozilla less than 3.6.
@@ -17,6 +17,10 @@ COMPASS CHANGELOG
   For instance, `compass w` is a shortcut for `compass watch` and
   `compass com` for `compass compile` but `compas co` will not work
   for compile because it also matches `compass config`.
+* [Rails] When configuring Sass during initialization,
+  Compass now passes the template locations as an array of tuples
+  instead of as a hash. This preserves ordering in all versions
+  of ruby and ensures that the deprecated imports do not take precedence.
 
 0.10.0.rc5 (May 2, 2010)
 ------------------------
