@@ -8,13 +8,13 @@ module Compass
       end
 
       def to_sass_plugin_options
-        locations = {}
-        locations[sass_path] = css_path if sass_path && css_path
+        locations = []
+        locations << [sass_path, css_path] if sass_path && css_path
         Compass::Frameworks::ALL.each do |framework|
-          locations[framework.stylesheets_directory] = css_path || css_dir || "."
+          locations << [framework.stylesheets_directory, css_path || css_dir || "."]
         end
         resolve_additional_import_paths.each do |additional_path|
-          locations[additional_path] = File.join(css_path || css_dir || ".", File.basename(additional_path))
+          locations << [additional_path, File.join(css_path || css_dir || ".", File.basename(additional_path))]
         end
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
