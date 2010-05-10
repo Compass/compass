@@ -6,24 +6,57 @@ body_id: home
 %article
   %h1#logo Compass
 
-  %p
+  :markdown
     Compass is a stylesheet authoring tool that uses the Sass stylesheet
     language to make your stylesheets smaller and your web site easier to
     maintain. Compass provides ports of the best of breed css frameworks
     that you can use without forcing you to use their presentational class
     names. It’s a new way of thinking about stylesheets that must be seen
     in action!
-
-  %h2 Screencast Tutorial
-
-  %p
-    This screencast will walk you through getting set up,
-    learning Sass, and then how to use Compass to style a webpage.
-
-  <object width="660" height="371"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=4335944&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=4335944&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="660" height="371" /></object>
-
-  %h2 Bugs Reports, Discussions, Support
-
-  :markdown
+    
+    ## Installing
+    
+    Compass is a tool that runs on the command line.
+    
+    On any system with ruby installed, open your terminal and type:
+    
+        gem install compass
+    
+    This will install Compass and Sass too. Verify that compass is installed:
+    
+        compass version
+    
+    ## Creating a stand-alone project
+    
+        compass create myproject
+        mate myproject
+        compass watch myproject
+    
+    If you don't have TextMate, substitute the `mate myproject` part with the text
+    editor of your choice. Edit the `*.scss` files in the `src` directory.
+    These files are yours and you can change them as you see fit, delete them,
+    make new ones, etc. Compass will automatically compile them into css in the
+    `stylesheets` directory whenever they change.
+    
+    ## Rails Support
+    
+        compass init rails /path/to/myrailsproject
+    
+    ## Installing a framework
+    
+    When creating a new project:
+    
+        compass create myproject --using blueprint/basic
+    
+    When installing into an existing project:
+    
+        compass install myproject --using blueprint/semantic
+    
+    With Rails:
+    
+        compass init rails /path/to/myrailsproject --using blueprint/semantic
+    
+    ## Bugs Reports, Discussions, Support
+    
     Send a note to the [mailing list](http://groups.google.com/group/compass-users)
     and/or [File a bug](http://github.com/chriseppstein/compass/issues).
