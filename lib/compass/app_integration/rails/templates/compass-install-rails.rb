@@ -61,8 +61,8 @@ end
 use_sudo = sudo_is_an_option? if use_sudo.blank?
 
 # define dependencies
-gem "haml", :version => ">=3.0.0.rc.3"
-gem "compass", :version => ">= 0.10.0.rc4"
+gem "haml", :version => ">=3.0.0"
+gem "compass", :version => ">= 0.10.0"
 
 # install and unpack
 rake "gems:install GEM=haml --trace", :sudo => use_sudo
