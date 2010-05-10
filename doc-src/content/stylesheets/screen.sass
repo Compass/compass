@@ -28,6 +28,14 @@ header[role="banner"]
       +padding-leader(2, 18px)
       +padding-trailer(1.5, 18px)
 
+header[role="banner"],
+#page,
+#docs-nav,
+footer[role="contentinfo"]
+  +pad(0.5,0.5)
+  +box-sizing(border-box)
+  +min-width(784px / $base-font-size * 1em)
+
 #compass-nav
   +omega
   text-align: right
@@ -56,7 +64,9 @@ header[role="banner"]
   +leading-border(1px, 0.25)
   +trailing-border(1px, 0.25)
   position: relative
-  height: $base-rhythm-unit
+  // CE: the 1.5 here is because the padding is included
+  // in the height due to having box-sizing applied.
+  height: $base-rhythm-unit * 1.5
   border-color: #cccccc
   background-color: #eeeeee
   .container
@@ -126,7 +136,7 @@ header[role="banner"]
   +leader(3)
 
 
-$footer-height: 4em + $base-rhythm-unit
+$footer-height: 5em + $base-rhythm-unit
 +sticky-footer($footer-height, "#wrap", "#wrap-footer", "footer")
 
 footer[role="contentinfo"]
