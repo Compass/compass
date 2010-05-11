@@ -1,31 +1,31 @@
-$font_color:     #333333 !default;
-$quiet_color:    $font_color + #333333 !default;
-$loud_color:     $font_color - #222222 !default;
-$header_color:   $font_color - #111111 !default;
-$alt_text_color: #666666 !default;
+$font-color:     #333333 !default;
+$quiet-color:    $font-color + #333333 !default;
+$loud-color:     $font-color - #222222 !default;
+$header-color:   $font-color - #111111 !default;
+$alt-text-color: #666666 !default;
 
-$link_color:         #000099               !default;
-$link_hover_color:   black                 !default;
-$link_focus_color:   $link_hover_color     !default;
-$link_active_color:  $link_color + #cc0000 !default;
-$link_visited_color: $link_color - #333333 !default;
+$link-color:         #000099               !default;
+$link-hover-color:   black                 !default;
+$link-focus-color:   $link-hover-color     !default;
+$link-active-color:  $link-color + #cc0000 !default;
+$link-visited-color: $link-color - #333333 !default;
 
-$feedback_border_color: #dddddd !default;
-$success_color:         #264409 !default;
-$success_bg_color:      #e6efc2 !default;
-$success_border_color:  #c6d880 !default;
-$notice_color:          #514721 !default;
-$notice_bg_color:       #fff6bf !default;
-$notice_border_color:   #ffd324 !default;
-$error_color:           #8a1f11 !default;
-$error_bg_color:        #fbe3e4 !default;
-$error_border_color:    #fbc2c4 !default;
+$feedback-border-color: #dddddd !default;
+$success-color:         #264409 !default;
+$success-bg-color:      #e6efc2 !default;
+$success-border-color:  #c6d880 !default;
+$notice-color:          #514721 !default;
+$notice-bg-color:       #fff6bf !default;
+$notice-border-color:   #ffd324 !default;
+$error-color:           #8a1f11 !default;
+$error-bg-color:        #fbe3e4 !default;
+$error-border-color:    #fbc2c4 !default;
 
-$highlight_color:        yellow !default;
-$added_color:             white !default;
-$added_bg_color:        #006600 !default;
-$removed_color:           white !default;
-$removed_bg_color:      #990000 !default;
+$highlight-color:        yellow !default;
+$added-color:             white !default;
+$added-bg-color:        #006600 !default;
+$removed-color:           white !default;
+$removed-bg-color:      #990000 !default;
 
-$blueprint_table_header_color: #c3d9ff !default;
-$blueprint_table_stripe_color: #e5ecf9 !default;
+$blueprint-table-header-color: #c3d9ff !default;
+$blueprint-table-stripe-color: #e5ecf9 !default;
