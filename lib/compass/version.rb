@@ -25,9 +25,10 @@ module Compass
       @version = YAML::load(File.read(scope('VERSION.yml')))
       @version[:teeny] = @version[:patch]
       @version[:string] = "#{@version[:major]}.#{@version[:minor]}.#{@version[:patch]}"
+      @version[:string] << ".#{@version[:state]}" if @version[:state]
       @version[:string] << ".#{@version[:build]}" if @version[:build]
       if !ENV['OFFICIAL'] && r = revision
-        @version[:string] << ".dev.#{r[0..6]}"
+        @version[:string] << ".#{r[0..6]}"
       end
       @version
     end
