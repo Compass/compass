@@ -26,9 +26,6 @@ module Compass
       @version[:teeny] = @version[:patch]
       @version[:string] = "#{@version[:major]}.#{@version[:minor]}.#{@version[:patch]}"
       @version[:string] << ".#{@version[:build]}" if @version[:build]
-      if !ENV['OFFICIAL'] && r = revision
-        @version[:string] << ".dev.#{r[0..6]}"
-      end
       @version
     end
 
