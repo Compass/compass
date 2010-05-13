@@ -7,6 +7,11 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.1 (May 13, 2010)
+---------------------
+
+* Added a subcommand for emitting sass imports for the sass CLI.
+
 0.10.0 (May 10, 2010)
 ---------------------
 
