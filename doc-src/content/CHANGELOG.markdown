@@ -12,6 +12,12 @@ COMPASS CHANGELOG
 
 * Deprecated imports and APIs from v0.10 have been removed.
 
+0.10.1 (May 13, 2010)
+---------------------
+
+* Added a subcommand for emitting sass imports for the sass CLI.
+* Added a subcommand for listing the available frameworks.
+
 0.10.0 (May 10, 2010)
 ---------------------
 
