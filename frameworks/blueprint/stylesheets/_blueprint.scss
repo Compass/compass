@@ -26,19 +26,9 @@
 // body#page-1, body#page-2, body.a-special-page-type
 //   +blueprint(true)
 // </pre>
-//
-// #### Deprecated:
-// You use to be able to pass the body selector as the first argument when used as a top-level mixin
-// <pre class="source-code sass">
-// +blueprint("body#page-1, body#page-2, body.a-special-page-type")
-// </pre>
 
-@mixin blueprint($body_selector: body) {
-  //@doc off
-  @if not ($body_selector == "body" or $body_selector == true) {
-    @warn "[DEPRECATED] To specify a the selector \"#{$body_selector}\" to +blueprint, pass true as the first argument and mix it into #{$body_selector}."; }
-  //@doc on
-  @include blueprint-typography($body_selector);
+@mixin blueprint($nested: false) {
+  @include blueprint-typography($nested);
   @include blueprint-utilities;
   @include blueprint-grid;
   @include blueprint-debug;

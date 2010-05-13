@@ -26,19 +26,15 @@
 //| <pre class="source-code sass">
 //| +blueprint-ie("body#page-1, body#page-2, body.a-special-page-type")
 //| </pre>
-@mixin blueprint-ie($body_selector: body) {
-  @if $body_selector == true {
+@mixin blueprint-ie($nested: false) {
+  @if $nested {
     @include blueprint-ie-body;
-    @include blueprint-ie-defaults; }
-  @else {
-    #{$body_selector} {
-      @include blueprint-ie-body;
-      @if $body_selector != "body" {
-        @warn "[DEPRECATED] To specify a the selector \"#{$body_selector}\" to +blueprint-ie, pass true as the first argument and mix it into #{$body_selector}.";
-        @include blueprint-ie-defaults; } }
-    @if $body_selector == "body" {
-      @include blueprint-ie-defaults; } } }
-
+    @include blueprint-ie-defaults;
+  } @else {
+    body { @include blueprint-ie-body; }
+    @include blueprint-ie-defaults;
+  }
+}
 @mixin blueprint-ie-body {
   text-align: center;
   @include blueprint-ie-hacks; }

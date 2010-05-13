@@ -25,27 +25,13 @@ $blueprint-font-size: 12px !default;
 // body#page-1, body#page-2, body.a-special-page-type
 //   +blueprint-typography(true)
 // </pre>
-//
-// **Deprecated**:
-// You can pass the body selector as the first argument when used as a top-level mixin
-// <pre class="source-code sass">
-// +blueprint-typography("body#page-1, body#page-2, body.a-special-page-type")
-// </pre>
-@mixin blueprint-typography($body-selector: body) {
-  @if $body-selector == true {
+@mixin blueprint-typography($nested: false) {
+  @if $nested {
     @include blueprint-typography-body;
     @include blueprint-typography-defaults;
   } @else {
-    #{$body-selector} {
-      @include blueprint-typography-body;
-      @if $body-selector != body {
-        @warn "[DEPRECATED] To specify the selector \"#{$body-selector}\" to +blueprint-typography, pass true as the first argument and mix it into #{$body-selector}.";
-        @include blueprint-typography-defaults;
-      }
-    }
-    @if $body-selector == body {
-      @include blueprint-typography-defaults;
-    }
+    body { @include blueprint-typography-body; }
+    @include blueprint-typography-defaults;
   }
 }
 

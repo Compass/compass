@@ -15,18 +15,17 @@
 //   Alternatively, you can use the +blueprint-scaffolding-body and +blueprint-scaffolding-defaults
 //   mixins to construct your own semantic style rules.
 
-@mixin blueprint-scaffolding($body_selector: body) {
-  @if $body_selector != body {
-    #{$body_selector} {
-      @include blueprint-scaffolding-defaults;
-    }
-  } @else {
+@mixin blueprint-scaffolding($nested: false) {
+  @if $nested {
     @include blueprint-scaffolding-defaults;
+  } @else {
+    body { @include blueprint-scaffolding-defaults; }
   }
 }
 
-// The styles this mixin provides were deprecated in Blueprint 0.9 and is no longer part of the
-// main scaffolding, but the mixin is still available if you want to use it.
+// The styles this mixin provides were deprecated in Blueprint 0.9 and is no
+// longer part of the main scaffolding, but the mixin is still available if
+// you want to use it.
 @mixin blueprint-scaffolding-body {
   margin: 1.5em 0; }
 

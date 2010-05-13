@@ -16,25 +16,18 @@
 // body#page-1, body#page-2, body.a-special-page-type
 //   +blueprint-print(true)
 // </pre>
-// Deprecated:
-// You can pass the body selector as the first argument when used as a top-level mixin
-// <pre class="source-code sass">
-// +blueprint-print("body#page-1, body#page-2, body.a-special-page-type")
-// </pre>
-@mixin blueprint-print($body_selector: body) {
-  @if $body_selector == true {
+@mixin blueprint-print($nested: false) {
+  @if $nested {
     @include blueprint-print-body;
-    @include blueprint-print-defaults; }
-  @else {
-    #{$body_selector} {
-      @include blueprint-print-body;
-      @if $body_selector != "body" {
-        @warn "[DEPRECATED] To specify a the selector \"#{$body_selector}\" to +blueprint-print, pass true as the first argument and mix it into #{$body_selector}.";
-        @include blueprint-print-defaults; } }
-    @if $body_selector == "body" {
-      @include blueprint-print-defaults; } } }
+    @include blueprint-print-defaults;
+  } @else {
+    body { @include blueprint-print-body; }
+    @include blueprint-print-defaults;
+  }
+}
 
-// This style is in blueprint, but I think it's annoying and it doesn't work in all browsers.
+// This style is in blueprint, but it can be annoying and
+// it doesn't work in all browsers.
 // Feel free to mix it into anchors where you want it.
 @mixin blueprint-show-link-urls {
   &:after {

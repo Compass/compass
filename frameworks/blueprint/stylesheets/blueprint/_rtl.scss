@@ -91,26 +91,15 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
 // body#page-1, body#page-2, body.a-special-page-type
 //   +rtl-typography(true)
 // </pre>
-//
-// **Deprecated**:
-// You can pass the body selector as the first argument when used as a top-level mixin
-// <pre class="source-code sass">
-// +rtl-typography("body#page-1, body#page-2, body.a-special-page-type")
-// </pre>
-@mixin rtl-typography($body_selector: body) {
-  @if $body_selector == true {
-    html & {
-      font-family: Arial, sans-serif; }
+@mixin rtl-typography($nested: false) {
+  @if $nested {
+    html & { font-family: Arial, sans-serif; }
     @include rtl-typography-defaults; }
   @else {
-    html #{$body_selector} {
-      font-family: Arial, sans-serif;
-      @if $body_selector != "body" {
-        @warn "[DEPRECATED] To specify a the selector \"#{$body_selector}\" to +rtl-typography, pass true as the first argument and mix it into #{$body_selector}.";
-        @include rtl-typography-defaults; } }
-    @if $body_selector == "body" {
-      body {
-        @include rtl-typography-defaults; } } } }
+    html body { font-family: Arial, sans-serif; }
+    body { @include rtl-typography-defaults; }
+  }
+}
 
 @mixin rtl-typography-defaults {
   h1, h2, h3, h4, h5, h6 {
