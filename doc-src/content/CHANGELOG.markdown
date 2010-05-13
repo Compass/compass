@@ -11,6 +11,7 @@ COMPASS CHANGELOG
 ---------------------
 
 * Added a subcommand for emitting sass imports for the sass CLI.
+* Added a subcommand for listing the available frameworks.
 
 0.10.0 (May 10, 2010)
 ---------------------
