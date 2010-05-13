@@ -7,6 +7,11 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.11.0.alpha.1
+--------------
+
+* Deprecated imports and APIs from v0.10 have been removed.
+
 0.10.0 (May 10, 2010)
 ---------------------
 
