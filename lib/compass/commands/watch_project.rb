@@ -97,6 +97,10 @@ module Compass
       end
 
       class << self
+        def description(command)
+          "Compile Sass stylesheets to CSS when they change"
+        end
+
         def option_parser(arguments)
           parser = Compass::Exec::CommandOptionParser.new(arguments)
           parser.extend(Compass::Exec::GlobalOptionsParser)
