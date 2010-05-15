@@ -2,7 +2,7 @@
 title: Blueprint Reset
 crumb: Reset
 framework: blueprint
-stylesheet: blueprint/_reset.scss
+stylesheet: blueprint/reset/_utilities.scss
 layout: blueprint
 classnames:
   - reference
@@ -10,5 +10,4 @@ classnames:
 ---
 - render 'reference' do
   %p
-    A reset and base styling automatically applied to your webpage
-    by importing this module.
+    Utility mixins for applying a reset and base styling.

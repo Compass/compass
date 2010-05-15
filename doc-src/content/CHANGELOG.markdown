@@ -10,6 +10,11 @@ COMPASS CHANGELOG
 0.10.1 (May 13, 2010)
 ---------------------
 
+* Fixed a regression in the Blueprint module, the blueprint reset
+  was no longer automatically applying the reset styles. This behavior
+  is restored in this release. If you `@import blueprint/reset` and
+  then apply the reset mixin yourself, you should remove the mixin
+  call or change your import to `blueprint/reset/utilities`.
 * Added a subcommand for emitting sass imports for the sass CLI.
 * Added a subcommand for listing the available frameworks.
 
