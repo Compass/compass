@@ -7,7 +7,7 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.1 (May 13, 2010)
+0.10.1 (May 15, 2010)
 ---------------------
 
 * Fixed a regression in the Blueprint module, the blueprint reset
@@ -17,6 +17,8 @@ COMPASS CHANGELOG
   call or change your import to `blueprint/reset/utilities`.
 * Added a subcommand for emitting sass imports for the sass CLI.
 * Added a subcommand for listing the available frameworks.
+* Fixed a number of bugs related to Sass & Rails integration
+* Fixed some documentation issues in the command line and on the website.
 
 0.10.0 (May 10, 2010)
 ---------------------
