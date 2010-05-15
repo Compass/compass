@@ -38,11 +38,22 @@ module Compass
           if options[:create]
             puts <<-NEXTSTEPS
 
-  Congratulations! Your rails project has been configured to use Compass.
-  Sass will automatically compile your stylesheets during the next
-  page request and keep them up to date when they change.
-  Make sure you restart your server!
-  NEXTSTEPS
+Congratulations! Your rails project has been configured to use Compass.
+Just one more thing left to do: Register the compass gem.
+
+In Rails 2.2 & 2.3, add the following to your evironment.rb:
+
+  config.gem "compass", :version => ">= #{Compass::VERSION}"
+
+In Rails 3, add the following to your Gemfile:
+
+  gem "compass", ">= #{Compass::VERSION}"
+
+Then, make sure you restart your server.
+
+Sass will automatically compile your stylesheets during the next
+page request and keep them up to date when they change.
+NEXTSTEPS
           end
           if manifest.has_stylesheet?
             puts "\nNext add these lines to the head of your layouts:\n\n"
