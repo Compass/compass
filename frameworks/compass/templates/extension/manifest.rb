@@ -12,7 +12,7 @@ help %Q{
 welcome_message %Q{
 For a full tutorial on how to build your own extension see:
 
-http://github.com/chriseppstein/compass/blob/edge/docs/EXTENSIONS.markdown
+http://compass-style.org/docs/tutorials/extensions/
 
 }, :replace => true
 
