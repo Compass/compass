@@ -16,7 +16,14 @@ COMPASS CHANGELOG
 0.10.0 (May 10, 2010)
 ---------------------
 
-This changelog entry is condensed from a very long beta release. You can read [the 0.10.0 beta release notes here](/docs/CHANGELOG-v0-10-0-beta/). 
+This changelog entry is condensed from a very long beta release. You can read [the 0.10.0 beta release notes here](/docs/CHANGELOG-v0-10-0-beta/).
+
+### Gem Location
+
+The compass gem is now (and has been for some time) hosted on [rubygems.org](http://rubygems.org). If you have an old version
+installed from github, please remove it:
+
+    sudo gem uninstall chriseppstein-compass
 
 ### Sass 3:
 
