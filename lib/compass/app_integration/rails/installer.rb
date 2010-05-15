@@ -26,7 +26,7 @@ module Compass
         end
 
         def config_files_exist?
-          File.exists?(targetize('config/compass.config')) &&
+          File.exists?(targetize('config/compass.rb')) &&
           File.exists?(targetize('config/initializers/compass.rb'))
         end
 
