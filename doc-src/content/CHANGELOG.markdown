@@ -7,7 +7,6 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-<<<<<<< HEAD:doc-src/content/CHANGELOG.markdown
 0.11.alpha.1
 ------------
 
