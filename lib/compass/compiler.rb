@@ -42,7 +42,7 @@ module Compass
     def out_of_date?
       Compass.configure_sass_plugin! unless Compass.sass_plugin_configured?
       sass_files.zip(css_files).each do |sass_filename, css_filename|
-        return sass_filename if Sass::Plugin.send(:exact_stylesheet_needs_update?, css_filename, sass_filename)
+        return sass_filename if Sass::Plugin.send(:stylesheet_needs_update?, css_filename, sass_filename)
       end
       false
     end
@@ -106,7 +106,7 @@ module Compass
     end
 
     def should_compile?(sass_filename, css_filename)
-      options[:force] || Sass::Plugin.send(:exact_stylesheet_needs_update?, css_filename, sass_filename)
+      options[:force] || Sass::Plugin.send(:stylesheet_needs_update?, css_filename, sass_filename)
     end
 
     # A sass engine for compiling a single file.
