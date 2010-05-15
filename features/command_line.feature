@@ -158,8 +158,10 @@ Feature: Command Line
       | watch   |
     And I should see the following "other" commands:
       | config      |
+      | frameworks  |
       | grid-img    |
       | help        |
+      | imports     |
       | install     |
       | interactive |
       | stats       |

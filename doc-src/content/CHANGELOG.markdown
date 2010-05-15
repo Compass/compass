@@ -7,21 +7,35 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.11.0.alpha.1
---------------
+<<<<<<< HEAD:doc-src/content/CHANGELOG.markdown
+0.11.alpha.1
+------------
 
 * Deprecated imports and APIs from v0.10 have been removed.
 
-0.10.1 (May 13, 2010)
----------------------
+0.10.1 (May 15, 2010)
 
+* Fixed a regression in the Blueprint module, the blueprint reset
+  was no longer automatically applying the reset styles. This behavior
+  is restored in this release. If you `@import blueprint/reset` and
+  then apply the reset mixin yourself, you should remove the mixin
+  call or change your import to `blueprint/reset/utilities`.
 * Added a subcommand for emitting sass imports for the sass CLI.
 * Added a subcommand for listing the available frameworks.
+* Fixed a number of bugs related to Sass & Rails integration
+* Fixed some documentation issues in the command line and on the website.
 
 0.10.0 (May 10, 2010)
 ---------------------
 
-This changelog entry is condensed from a very long beta release. You can read [the 0.10.0 beta release notes here](/docs/CHANGELOG-v0-10-0-beta/). 
+This changelog entry is condensed from a very long beta release. You can read [the 0.10.0 beta release notes here](/docs/CHANGELOG-v0-10-0-beta/).
+
+### Gem Location
+
+The compass gem is now (and has been for some time) hosted on [rubygems.org](http://rubygems.org). If you have an old version
+installed from github, please remove it:
+
+    sudo gem uninstall chriseppstein-compass
 
 ### Sass 3:
 

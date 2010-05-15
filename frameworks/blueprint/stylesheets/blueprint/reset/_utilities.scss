@@ -1,0 +1,58 @@
+// Global reset rules.
+// For more specific resets, use the reset mixins provided below
+@mixin blueprint-global-reset {
+  html, body {
+    @include blueprint-reset; }
+  html {
+    font-size: 100.01%; }
+  @include blueprint-nested-reset; }
+
+// Reset all elements within some selector scope.To reset the selector itself,
+// mixin the appropriate reset mixin for that element type as well. This could be
+// useful if you want to style a part of your page in a dramatically different way.
+@mixin blueprint-nested-reset {
+  div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
+  pre, a, abbr, acronym, address, code, del, dfn, em, img,
+  dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
+    @include blueprint-reset; }
+  blockquote, q {
+    @include blueprint-reset-quotation; }
+  th, td, caption {
+    @include blueprint-reset-table-cell; }
+  table {
+    @include blueprint-reset-table; }
+  a img {
+    border: none; } }
+
+@mixin blueprint-reset-box-model {
+  margin: 0;
+  padding: 0;
+  border: 0; }
+
+@mixin blueprint-reset {
+  @include blueprint-reset-box-model;
+  font: {
+    weight: inherit;
+    style: inherit;
+    size: 100%;
+    family: inherit; };
+  vertical-align: baseline; }
+
+@mixin blueprint-reset-quotation {
+  @include blueprint-reset;
+  quotes: "" "";
+  &:before,
+  &:after {
+    content: ""; } }
+
+@mixin blueprint-reset-table-cell {
+  @include blueprint-reset;
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+@mixin blueprint-reset-table {
+  @include blueprint-reset;
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle; }

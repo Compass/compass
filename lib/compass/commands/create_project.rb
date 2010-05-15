@@ -68,7 +68,7 @@ module Compass
           if command.to_sym == :create
             "Create a new compass project"
           else
-            "Initialize an existing project"
+            "Add compass to an existing project"
           end
         end
 
