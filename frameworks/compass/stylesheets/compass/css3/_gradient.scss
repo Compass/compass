@@ -56,7 +56,8 @@
 //     +radial-gradient(color-stops(#c00, #00c), "top left")
 //     // Three colors, ending at 50px and passing thru #fff at 25px
 //     +radial-gradient(color-stops(#c00, #fff, #00c 50px))
-//     // gradient on top of a background image
+//     // a background image on top of the gradient
+//     // Requires an image with an alpha-layer.
 //     +radial-gradient(color_stops(#c00, #fff), "top left", image-url("noise.png")))
 // Browsers Supported:
 //
