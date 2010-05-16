@@ -38,11 +38,11 @@ private
 
   private
     def get_size_for_png
-      IO.read(@file)[0x10..0x18].unpack('NN')
+      File.open(@file, "rb") {|io| io.read}[0x10..0x18].unpack('NN')
     end
 
     def get_size_for_gif
-      size = IO.read(@file)[6..10].unpack('SS')
+      File.open(@file, "rb") {|io| io.read}[6..10].unpack('SS')
     end
 
     def get_size_for_jpg
