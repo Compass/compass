@@ -6,11 +6,11 @@
 //
 // This yields a linear gradient spanning from bottom to top
 //
-//     +linear-gradient(color-stops(white, black), "bottom")
+//     +linear-gradient(color-stops(white, black), bottom)
 //
 // This yields a linear gradient spanning from left to right
 //
-//     +linear-gradient(color-stops(white, black), "left")
+//     +linear-gradient(color-stops(white, black), left)
 //
 // This yields a linear gradient starting at white passing
 // thru blue at 33% down and then to black
@@ -24,7 +24,7 @@
 //
 // This yields a linear gradient on top of a background image
 //
-//     +linear-gradient(color_stops(white,black), "top", image-url('noise.png'))
+//     +linear-gradient(color_stops(white,black), top, image-url('noise.png'))
 // Browsers Supported:
 //
 // - Chrome
@@ -36,6 +36,7 @@
   // Webkit's gradient api sucks -- hence these backflips:
   $background: unquote("");
   @if $image { $background : $image + unquote(", "); }
+  $start: unquote($start);
   $end: grad-opposite-position($start);
   @if $experimental-support-for-webkit {
     background-image: #{$background}-webkit-gradient(linear, grad-point($start), grad-point($end), grad-color-stops($color-stops));
@@ -53,11 +54,12 @@
 //     // Defaults to a centered, 100px radius gradient
 //     +radial-gradient(color-stops(#c00, #00c))
 //     // 100px radius gradient in the top left corner
-//     +radial-gradient(color-stops(#c00, #00c), "top left")
+//     +radial-gradient(color-stops(#c00, #00c), top left)
 //     // Three colors, ending at 50px and passing thru #fff at 25px
 //     +radial-gradient(color-stops(#c00, #fff, #00c 50px))
-//     // gradient on top of a background image
-//     +radial-gradient(color_stops(#c00, #fff), "top left", image-url("noise.png")))
+//     // a background image on top of the gradient
+//     // Requires an image with an alpha-layer.
+//     +radial-gradient(color_stops(#c00, #fff), top left, image-url("noise.png")))
 // Browsers Supported:
 //
 // - Chrome
@@ -65,6 +67,7 @@
 // - Firefox 3.6
 
 @mixin radial-gradient($color-stops, $center-position: center center, $image: false) {
+  $center-position: unquote($center-position);
   $end-pos: grad-end-position($color-stops, true);
   $background: unquote("");
   @if $image { $background: $image + unquote(", "); }
