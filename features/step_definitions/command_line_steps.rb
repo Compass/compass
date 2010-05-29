@@ -232,3 +232,6 @@ Then /^the image ([^ ]+) has a size of (\d+)x(\d+)$/ do |file, width, height|
   IO.read(file)[0x10..0x18].unpack('NN').should == [width.to_i, height.to_i]
 end
 
+Then /^I should see the following lines of output:$/ do |table|
+  table.diff!([['blueprint'],['compass']])
+end

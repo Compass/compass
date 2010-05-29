@@ -236,7 +236,6 @@ Feature: Command Line
     Then my css is validated
     And I am informed that my css is valid.
 
-  @broken
   Scenario: Get stats for my project
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass stats
@@ -251,3 +250,9 @@ Feature: Command Line
       | sass/utilities.sass  |     2 |          0 |           0 |           2 |         5 |             11 |
       | Total.*              |    44 |          9 |           0 |          45 |       299 |            832 |
  
+  Scenario: List frameworks registered with compass
+    When I run: compass frameworks
+    Then I should see the following lines of output:
+      | blueprint  |
+      | compass    |
+
