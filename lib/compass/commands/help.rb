@@ -23,17 +23,7 @@ To get help on a particular command please specify the command.
         banner << command_list("Other Commands:", other_commands)
  
         banner << "\nAvailable Frameworks & Patterns:\n\n"
-        Compass::Frameworks::ALL.each do |framework|
-          next if framework.name =~ /^_/
-          banner << "  * #{framework.name}\n"
-          framework.template_directories.each do |pattern|
-            banner << "    - #{framework.name}/#{pattern}"
-            if description = framework.manifest(pattern).description
-              banner << "\t- #{description}"
-            end
-            banner << "\n"
-          end
-        end
+        banner << Compass::Frameworks.pretty_print
         banner << "\nGlobal Options:\n"
         opts.banner = banner
 

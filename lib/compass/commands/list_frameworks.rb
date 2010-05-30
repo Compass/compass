@@ -8,8 +8,13 @@ module Compass
       end
   
       def execute
-        Compass::Frameworks::ALL.each do |framework|
-          puts framework.name unless framework.name =~ /^_/
+        if options[:quiet]
+          Compass::Frameworks::ALL.each do |framework|
+            puts framework.name unless framework.name =~ /^_/
+          end
+        else
+          puts "Available Frameworks & Patterns:\n\n"
+          puts Compass::Frameworks.pretty_print
         end
       end
       class << self

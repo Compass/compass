@@ -97,6 +97,27 @@ module Compass
       end
     end
 
+    def pretty_print
+      result = ""
+      max = Compass::Frameworks::ALL.inject(0) do |gm, framework|
+        fm = framework.template_directories.inject(0) do |lm,pattern|
+          [lm, 7 + framework.name.size + pattern.size].max
+        end
+        [gm, fm].max
+      end
+      Compass::Frameworks::ALL.each do |framework|
+        next if framework.name =~ /^_/
+        result << "  * #{framework.name}\n"
+        framework.template_directories.each do |pattern|
+          result << "    - #{framework.name}/#{pattern}".ljust(max)
+          if description = framework.manifest(pattern).description
+            result << " - #{description}"
+          end
+          result << "\n"
+        end
+      end
+      result
+    end
   end
 end
 
