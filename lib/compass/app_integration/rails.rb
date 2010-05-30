@@ -26,6 +26,14 @@ module Compass
         end
       end
 
+      def root
+        if defined?(::Rails)
+          ::Rails.root
+        elsif defined?(RAILS_ROOT)
+          RAILS_ROOT
+        end
+      end
+
     end
   end
 end
