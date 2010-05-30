@@ -23,7 +23,7 @@ module Compass
 
       def configure!
         add_project_configuration
-        Compass.add_configuration(options, "cli")
+        Compass.add_configuration(options, "command_line")
         Compass.discover_extensions!
       end
 

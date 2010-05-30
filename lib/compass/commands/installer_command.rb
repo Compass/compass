@@ -6,11 +6,7 @@ module Compass
       include Compass::Installers
 
       def configure!
-        if respond_to?(:is_project_creation?) && is_project_creation?
-          Compass.add_configuration(options.delete(:project_type) || :stand_alone)
-        else
-          Compass.add_project_configuration(:project_type => options.delete(:project_type))
-        end
+        add_project_configuration
         Compass.add_configuration(options, 'command_line')
         Compass.discover_extensions!
         Compass.add_configuration(installer.completed_configuration, 'installer')
