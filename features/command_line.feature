@@ -268,6 +268,7 @@ Feature: Command Line
       | sass/utilities.scss  |     2 |          0 |           0 |           2 |         5 |             11 |
       | Total.*              |    44 |          9 |           0 |          45 |       299 |            832 |
  
+  @listframeworks
   Scenario: List frameworks registered with compass
     When I run: compass frameworks
     Then I should see the following lines of output:
