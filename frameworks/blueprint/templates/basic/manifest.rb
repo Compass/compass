@@ -1,4 +1,4 @@
-description "The blueprint framework."
+description "A basic blueprint install that mimics the actual blueprint css."
 
 stylesheet 'screen.sass', :media => 'screen, projection'
 stylesheet 'partials/_base.sass'

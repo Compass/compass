@@ -1,4 +1,4 @@
-description "The blueprint framework."
+description "The blueprint framework for use with semantic markup."
 
 stylesheet 'screen.sass', :media => 'screen, projection'
 stylesheet 'partials/_base.sass'
