@@ -46,12 +46,16 @@ module Compass
       end
 
       def new_compiler_instance(additional_options = {})
+        compiler_opts = Compass.sass_engine_options
+        compiler_opts.merge!(:quiet => options[:quiet],
+                             :force => options[:force],
+                             :sass_files => explicit_sass_files,
+                             :dry_run => options[:dry_run])
+        compiler_opts.merge!(additional_options)
         Compass::Compiler.new(working_path,
           projectize(Compass.configuration.sass_dir),
           projectize(Compass.configuration.css_dir),
-          Compass.sass_engine_options.merge(:quiet => options[:quiet],
-                                            :force => options[:force],
-                                            :sass_files => explicit_sass_files).merge(additional_options))
+          compiler_opts)
       end
 
       def explicit_sass_files

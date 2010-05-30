@@ -111,6 +111,23 @@ Feature: Command Line
     And a css file tmp_compass/tmp/reset.css is created
     And a css file tmp_compass/tmp/utilities.css is created
 
+  Scenario: Dry Run of Compiling an existing project.
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass compile --dry-run
+    Then a directory tmp/ is not created
+    And a sass file sass/layout.sass is reported compiled
+    And a sass file sass/print.sass is reported compiled
+    And a sass file sass/reset.sass is reported compiled
+    And a sass file sass/utilities.sass is reported compiled
+    And a css file tmp/layout.css is not created
+    And a css file tmp/print.css is not created
+    And a css file tmp/reset.css is not created
+    And a css file tmp/utilities.css is not created
+    And a css file tmp/layout.css is reported created
+    And a css file tmp/print.css is reported created
+    And a css file tmp/reset.css is reported created
+    And a css file tmp/utilities.css is reported created
+
   Scenario: Recompiling a project with no changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
