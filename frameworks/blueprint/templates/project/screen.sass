@@ -7,10 +7,13 @@
 // Import the non-default scaffolding module.
 @import blueprint/scaffolding
 
-// To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
-// +blueprint
+// To generate css equivalent to the blueprint css but with your
+// configuration applied, uncomment:
+// @include blueprint
 
-//Recommended Blueprint configuration with scoping and semantic layout:
+// But Compass recommends that you scope your blueprint styles
+// So that you can better control what pages use blueprint
+// when stylesheets are concatenated together.
 +blueprint-scaffolding("body.bp")
 body.bp
   +blueprint-typography(true)
