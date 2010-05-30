@@ -91,7 +91,7 @@ Feature: Command Line
     And a sass file sass/layout.sass is reported compiled
     And a sass file sass/print.sass is reported compiled
     And a sass file sass/reset.sass is reported compiled
-    And a sass file sass/utilities.sass is reported compiled
+    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/layout.css is created
     And a css file tmp/print.css is created
     And a css file tmp/reset.css is created
@@ -105,7 +105,7 @@ Feature: Command Line
     And a sass file tmp_compass/sass/layout.sass is reported compiled
     And a sass file tmp_compass/sass/print.sass is reported compiled
     And a sass file tmp_compass/sass/reset.sass is reported compiled
-    And a sass file tmp_compass/sass/utilities.sass is reported compiled
+    And a sass file tmp_compass/sass/utilities.scss is reported compiled
     And a css file tmp_compass/tmp/layout.css is created
     And a css file tmp_compass/tmp/print.css is created
     And a css file tmp_compass/tmp/reset.css is created
@@ -118,7 +118,7 @@ Feature: Command Line
     And a sass file sass/layout.sass is reported compiled
     And a sass file sass/print.sass is reported compiled
     And a sass file sass/reset.sass is reported compiled
-    And a sass file sass/utilities.sass is reported compiled
+    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/layout.css is not created
     And a css file tmp/print.css is not created
     And a css file tmp/reset.css is not created
@@ -135,26 +135,26 @@ Feature: Command Line
     Then a sass file sass/layout.sass is reported unchanged
     And a sass file sass/print.sass is reported unchanged
     And a sass file sass/reset.sass is reported unchanged
-    And a sass file sass/utilities.sass is reported unchanged
+    And a sass file sass/utilities.scss is reported unchanged
 
   Scenario: compiling a specific file in a project
     Given I am using the existing project in test/fixtures/stylesheets/compass
-    And I run: compass compile sass/utilities.sass
+    And I run: compass compile sass/utilities.scss
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
-    And a sass file sass/utilities.sass is reported compiled
+    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/utilities.css is reported created
     And a css file tmp/utilities.css is created
 
   Scenario: Re-compiling a specific file in a project with no changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
-    And I run: compass compile sass/utilities.sass
+    And I run: compass compile sass/utilities.scss
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
-    And a sass file sass/utilities.sass is reported compiled
+    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/utilities.css is reported identical
 
   Scenario: Installing a pattern into a project
@@ -195,7 +195,7 @@ Feature: Command Line
     Then a css file tmp/layout.css is reported identical
     And a sass file sass/print.sass is reported unchanged
     And a sass file sass/reset.sass is reported unchanged
-    And a sass file sass/utilities.sass is reported unchanged
+    And a sass file sass/utilities.scss is reported unchanged
 
   Scenario: Recompiling a project with changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -207,7 +207,7 @@ Feature: Command Line
     And a css file tmp/layout.css is reported overwritten
     And a sass file sass/print.sass is reported unchanged
     And a sass file sass/reset.sass is reported unchanged
-    And a sass file sass/utilities.sass is reported unchanged
+    And a sass file sass/utilities.scss is reported unchanged
 
   Scenario: Watching a project for changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -253,6 +253,7 @@ Feature: Command Line
     Then my css is validated
     And I am informed that my css is valid.
 
+  @stats
   Scenario: Get stats for my project
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass stats
@@ -264,7 +265,7 @@ Feature: Command Line
       | sass/layout.sass     |     0 |          0 |           0 |           1 |         5 |             10 |
       | sass/print.sass      |     0 |          0 |           0 |           2 |        61 |             61 |
       | sass/reset.sass      |     4 |          1 |           0 |           2 |       190 |            664 |
-      | sass/utilities.sass  |     2 |          0 |           0 |           2 |         5 |             11 |
+      | sass/utilities.scss  |     2 |          0 |           0 |           2 |         5 |             11 |
       | Total.*              |    44 |          9 |           0 |          45 |       299 |            832 |
  
   Scenario: List frameworks registered with compass
