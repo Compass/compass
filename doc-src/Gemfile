@@ -7,10 +7,10 @@ gem 'thor'
 gem 'rack'
 gem 'mime-types'
 gem 'fssm'
-gem 'serve'
+gem 'serve', "0.10.2"
 gem 'nokogiri'
 gem 'coderay'
-gem 'haml', ">=3.0.0.beta.3", :require => 'sass'
+gem 'haml', ">=3.0.6", :require => 'sass'
 gem 'rake'
 gem 'compass', :path => ".."
 gem 'compass-susy-plugin', ">=0.7.0.pre8"
