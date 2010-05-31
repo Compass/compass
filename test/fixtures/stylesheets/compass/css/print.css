@@ -1,5 +1,4 @@
-.noprint,
-.no-print {
+.noprint, .no-print {
   display: none; }
 
 address.print-only, blockquote.print-only, center.print-only, dir.print-only, div.print-only, dd.print-only, dl.print-only, dt.print-only, fieldset.print-only, form.print-only, frameset.print-only, h1.print-only, h2.print-only, h3.print-only, h4.print-only, h5.print-only, h6.print-only, hr.print-only, isindex.print-only, menu.print-only, noframes.print-only, noscript.print-only, ol.print-only, p.print-only, pre.print-only, ul.print-only {
