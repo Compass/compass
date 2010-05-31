@@ -18,11 +18,6 @@ class CommandLineTest < Test::Unit::TestCase
     assert_match /\d+\.\d+\.\d+( [0-9a-f]+)?/, @last_result
   end
 
-  def test_list_frameworks
-    compass "--list-frameworks"
-    assert_equal(%w(blueprint compass), @last_result.split.sort)
-  end
-
   def test_basic_install
     within_tmp_directory do
       compass "--boring", "basic"
