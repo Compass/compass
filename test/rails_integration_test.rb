@@ -15,7 +15,7 @@ class RailsIntegrationTest < Test::Unit::TestCase
   end
 
   def test_rails_install
-    # within_tmp_directory do
+    within_tmp_directory do
     begin
       generate_rails_app_directories("compass_rails")
       Dir.chdir "compass_rails" do
@@ -30,7 +30,7 @@ class RailsIntegrationTest < Test::Unit::TestCase
     ensure
       FileUtils.rm_rf "compass_rails"
     end
-    #end
+    end
   rescue LoadError
     puts "Skipping rails test. Couldn't Load rails"
   end

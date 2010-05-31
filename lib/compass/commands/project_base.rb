@@ -28,7 +28,9 @@ module Compass
       end
 
       def add_project_configuration
-        Compass.add_project_configuration(options[:configuration_file])
+        Compass.add_project_configuration(options[:configuration_file]) do
+          options[:project_type]
+        end
       end
 
       def projectize(path)
