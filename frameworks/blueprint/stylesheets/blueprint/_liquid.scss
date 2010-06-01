@@ -31,6 +31,7 @@
 //  @import blueprint/liquid
 //  -------------------------------------------------------------------
 
+@import "compass/utilities/general/clearfix";
 @import "compass/utilities/general/float";
 
 // Main layout grid, override these constants to build your grid and container sizes.
