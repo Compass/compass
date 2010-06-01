@@ -1,0 +1,60 @@
+body {
+  text-align: center; }
+  * html body legend {
+    margin: 0px -8px 16px 0;
+    padding: 0; }
+  html > body p code {
+    *white-space: normal; }
+
+.container {
+  text-align: left; }
+
+sup {
+  vertical-align: text-top; }
+
+sub {
+  vertical-align: text-bottom; }
+
+hr {
+  margin: -8px auto 11px; }
+
+img {
+  -ms-interpolation-mode: bicubic; }
+
+fieldset {
+  padding-top: 0; }
+
+textarea {
+  overflow: auto; }
+
+input.text {
+  margin: 0.5em 0;
+  background-color: white;
+  border: 1px solid #bbbbbb; }
+  input.text:focus {
+    border: 1px solid #666666; }
+input.title {
+  margin: 0.5em 0;
+  background-color: white;
+  border: 1px solid #bbbbbb; }
+  input.title:focus {
+    border: 1px solid #666666; }
+input.checkbox {
+  position: relative;
+  top: 0.25em; }
+input.radio {
+  position: relative;
+  top: 0.25em; }
+input.button {
+  position: relative;
+  top: 0.25em; }
+
+textarea {
+  margin: 0.5em 0; }
+
+select {
+  margin: 0.5em 0; }
+
+button {
+  position: relative;
+  top: 0.25em; }

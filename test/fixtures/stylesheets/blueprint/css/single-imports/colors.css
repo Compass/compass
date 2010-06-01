@@ -1,0 +1,80 @@
+.font-color {
+  color: #333333; }
+
+.quiet-color {
+  color: #666666; }
+
+.loud-color {
+  color: #111111; }
+
+.header-color {
+  color: #222222; }
+
+.alt-text-color {
+  color: #666666; }
+
+.link-color {
+  color: #000099; }
+
+.link-hover-color {
+  color: black; }
+
+.link-focus-color {
+  color: black; }
+
+.link-active-color {
+  color: #cc0099; }
+
+.link-visited-color {
+  color: #000066; }
+
+.feedback-border-color {
+  color: #dddddd; }
+
+.success-color {
+  color: #264409; }
+
+.success-bg-color {
+  color: #e6efc2; }
+
+.success-border-color {
+  color: #c6d880; }
+
+.notice-color {
+  color: #514721; }
+
+.notice-bg-color {
+  color: #fff6bf; }
+
+.notice-border-color {
+  color: #ffd324; }
+
+.error-color {
+  color: #8a1f11; }
+
+.error-bg-color {
+  color: #fbe3e4; }
+
+.error-border-color {
+  color: #fbc2c4; }
+
+.highlight-color {
+  color: yellow; }
+
+.added-color {
+  color: white; }
+
+.added-bg-color {
+  color: #006600; }
+
+.removed-color {
+  color: white; }
+
+.removed-bg-color {
+  color: #990000; }
+
+.blueprint-table-header-color {
+  color: #c3d9ff; }
+
+.blueprint-table-stripe-color {
+  color: #e5ecf9; }
