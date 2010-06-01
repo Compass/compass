@@ -15,7 +15,7 @@ dependencies:
   haml: 
     group: 
     - :default
-    version: ">= 3.0.0.beta.3"
+    version: ">= 3.0.6"
     require: 
     - sass
   thor: 
@@ -25,7 +25,7 @@ dependencies:
   serve: 
     group: 
     - :default
-    version: ">= 0"
+    version: = 0.10.2
   mime-types: 
     group: 
     - :default
@@ -68,16 +68,16 @@ specs:
 - rake: 
     version: 0.8.7
 - activesupport: 
-    version: 2.3.5
+    version: 2.3.8
 - coderay: 
     version: 0.9.3
 - haml: 
-    version: 3.0.0.rc.5
+    version: 3.0.6
 - compass: 
-    version: 0.10.0.rc5.dev.b5439e0
+    version: 0.10.2
     source: 0
 - compass-susy-plugin: 
-    version: 0.7.0.pre8
+    version: 0.7.0.rc2
 - cri: 
     version: 1.0.1
 - css-slideshow: 
@@ -92,16 +92,16 @@ specs:
     version: 3.1.2
     source: 1
 - nokogiri: 
-    version: 1.4.1.1
+    version: 1.4.2
 - rack: 
     version: 1.1.0
 - rdiscount: 
-    version: 1.6.3.1
+    version: 1.6.3.2
 - serve: 
-    version: 0.10.0
+    version: 0.10.2
 - thor: 
     version: 0.13.6
-hash: d1c753a27ce588ccd240fdbae76f3c4f928ff53f
+hash: 178d5e4f426c2d1a39af604e5edcd8bae16a395e
 sources: 
 - Path: 
     path: !ruby/object:Pathname 

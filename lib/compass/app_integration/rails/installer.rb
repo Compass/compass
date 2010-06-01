@@ -94,7 +94,7 @@ NEXTSTEPS
           "# This configuration file works with both the Compass command line tool and within Rails.\n" +
           Compass.configuration.serialize do |prop, value|
             if prop == :project_path
-              "project_path = RAILS_ROOT if defined?(RAILS_ROOT)\n"
+              "project_path = Compass::AppIntegration::Rails.root\n"
             elsif prop == :environment
               "environment = Compass::AppIntegration::Rails.env\n"
             elsif prop == :output_style

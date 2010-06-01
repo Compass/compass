@@ -33,7 +33,9 @@ class CompassTest < Test::Unit::TestCase
       each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, :blueprint
       end
-      assert_renders_correctly :typography
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file
+      end
     end
   end
 
@@ -42,7 +44,9 @@ class CompassTest < Test::Unit::TestCase
       each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, 'compass'
       end
-      assert_renders_correctly :reset, :layout, :utilities, :gradients, :image_size, :box
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file
+      end
     end
   end
 
@@ -51,16 +55,20 @@ class CompassTest < Test::Unit::TestCase
       each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, 'image_urls'
       end
-      assert_renders_correctly :screen
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file
+      end
     end
   end
 
-  def test_image_urls
+  def test_relative
     within_project('relative') do |proj|
       each_css_file(proj.css_path) do |css_file|
         assert_no_errors css_file, 'relative'
       end
-      assert_renders_correctly :screen
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file
+      end
     end
   end
 
@@ -104,9 +112,14 @@ private
     raise
   end
   
-  def each_css_file(dir)
-    Dir.glob("#{dir}/**/*.css").each do |css_file|
-      yield css_file
+  def each_css_file(dir, &block)
+    Dir.glob("#{dir}/**/*.css").each(&block)
+  end
+
+  def each_sass_file(sass_dir = nil)
+    sass_dir ||= template_path(@current_project)
+    Dir.glob("#{sass_dir}/**/*.s[ac]ss").each do |sass_file|
+      yield sass_file[(sass_dir.length+1)..-6]
     end
   end
 

@@ -62,7 +62,9 @@ module Compass
         @contents ||= File.read(path)
       end
       def tree
-        @tree = Sass::Engine.new(contents, Compass.configuration.to_sass_engine_options).to_tree
+        opts = Compass.configuration.to_sass_engine_options
+        opts[:syntax] = path[-4..-1].to_sym
+        @tree = Sass::Engine.new(contents, opts).to_tree
       end
       def visit_tree!
         @visitor = StatsVisitor.new

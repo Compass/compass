@@ -12,6 +12,11 @@ COMPASS CHANGELOG
 
 * Deprecated imports and APIs from v0.10 have been removed.
 
+0.10.2 (May 31, 2010)
+---------------------
+
+This is a bug fix release. [Details on Github.](http://github.com/chriseppstein/compass/compare/v0.10.1...v0.10.2)
+
 0.10.1 (May 15, 2010)
 
 * Fixed a regression in the Blueprint module, the blueprint reset

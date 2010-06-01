@@ -78,7 +78,7 @@ module Compass
         options = args.last.is_a?(Hash) ? args.pop : {}
         configuration_file_path = args.shift || detect_configuration_file
         raise ArgumentError, "Too many arguments" if args.any?
-        if configuration_file_path
+        if configuration_file_path && File.exists?(configuration_file_path)
 
           data = configuration_for(configuration_file_path)
 
@@ -92,7 +92,7 @@ module Compass
 
           add_configuration(data)
         else
-          add_configuration(options[:project_type] || configuration.project_type || :stand_alone)
+          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)
         end
       end
 
