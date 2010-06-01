@@ -7,6 +7,11 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.2 (May 31, 2010)
+---------------------
+
+This is a bug fix release. [Details on Github.](http://github.com/chriseppstein/compass/compare/v0.10.1...v0.10.2)
+
 0.10.1 (May 15, 2010)
 ---------------------
 
