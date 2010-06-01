@@ -15,13 +15,12 @@
 //   +blueprint-scaffolding("body#page-1, body#page-2, body.a-special-page-type")
 //   Alternatively, you can use the +blueprint-scaffolding-body and +blueprint-scaffolding-defaults
 //   mixins to construct your own semantic style rules.
-
-@mixin blueprint-scaffolding($nested: false) {
-  @if $nested {
-    @include blueprint-scaffolding-defaults;
-  } @else {
-    body { @include blueprint-scaffolding-defaults; }
+// @deprecated It is no longer necessary to pass any argument.
+@mixin blueprint-scaffolding($nested: deprecated) {
+  @if $nested != deprecated {
+    @warn "It is no longer necessary to pass any argument to the blueprint-scaffolding mixin."
   }
+  @include blueprint-scaffolding-defaults;
 }
 
 // The styles this mixin provides were deprecated in Blueprint 0.9 and is no
