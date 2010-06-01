@@ -8,3 +8,7 @@ line_comments = false
 # To enable relative image paths using the images_url() function:
 # http_images_path = :relative
 http_images_path = "/images"
+
+asset_cache_buster do |path, file|
+  "busted=true"
+end

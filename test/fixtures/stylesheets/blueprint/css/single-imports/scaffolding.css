@@ -40,3 +40,6 @@ form.inline {
   line-height: 3; }
   form.inline p {
     margin-bottom: 0; }
+
+body {
+  margin: 1.5em 0; }

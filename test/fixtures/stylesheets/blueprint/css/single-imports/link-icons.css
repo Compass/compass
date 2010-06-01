@@ -12,22 +12,22 @@ body a[href^="aim:"] {
   background-repeat: no-repeat;
   background-position: right center; }
 body a[href^="http:"] {
-  background-image: url('/images/link_icons/external.png?1275377962'); }
+  background-image: url('/images/link_icons/external.png?busted=true'); }
 body a[href^="mailto:"] {
-  background-image: url('/images/link_icons/email.png?1275377962'); }
+  background-image: url('/images/link_icons/email.png?busted=true'); }
 body a[href^="http:"]:visited {
-  background-image: url('/images/link_icons/visited.png?1275377962'); }
+  background-image: url('/images/link_icons/visited.png?busted=true'); }
 body a[href$=".pdf"] {
-  background-image: url('/images/link_icons/pdf.png?1275377962'); }
+  background-image: url('/images/link_icons/pdf.png?busted=true'); }
 body a[href$=".doc"] {
-  background-image: url('/images/link_icons/doc.png?1275377962'); }
+  background-image: url('/images/link_icons/doc.png?busted=true'); }
 body a[href$=".xls"] {
-  background-image: url('/images/link_icons/xls.png?1275377962'); }
+  background-image: url('/images/link_icons/xls.png?busted=true'); }
 body a[href$=".rss"],
 body a[href$=".rdf"] {
-  background-image: url('/images/link_icons/feed.png?1275377962'); }
+  background-image: url('/images/link_icons/feed.png?busted=true'); }
 body a[href^="aim:"] {
-  background-image: url('/images/link_icons/im.png?1275377962'); }
+  background-image: url('/images/link_icons/im.png?busted=true'); }
 body a.noicon {
   background: transparent none !important;
   padding: 0 !important;
@@ -37,4 +37,4 @@ body a#this-is-a-pdf-link {
   margin: -2px 0;
   background-repeat: no-repeat;
   background-position: right center;
-  background-image: url('/images/link_icons/pdf.png?1275377962'); }
+  background-image: url('/images/link_icons/pdf.png?busted=true'); }

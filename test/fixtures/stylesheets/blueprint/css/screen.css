@@ -669,7 +669,7 @@ input.span-24, textarea.span-24, select.span-24 {
   margin-bottom: 1.5em; }
 
 .showgrid {
-  background: url('/images/grid.png?1275242906'); }
+  background: url('/images/grid.png?busted=true'); }
 
 .error {
   padding: 0.8em;
