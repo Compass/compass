@@ -1,14 +1,14 @@
 $font-color:     #333333 !default;
-$quiet-color:    $font-color + #333333 !default;
-$loud-color:     $font-color - #222222 !default;
-$header-color:   $font-color - #111111 !default;
+$quiet-color:    lighten($font-color, 20%) !default;
+$loud-color:     darken($font-color, 13.33%) !default;
+$header-color:   darken($font-color, 6.67%) !default;
 $alt-text-color: #666666 !default;
 
 $link-color:         #000099               !default;
 $link-hover-color:   black                 !default;
 $link-focus-color:   $link-hover-color     !default;
-$link-active-color:  $link-color + #cc0000 !default;
-$link-visited-color: $link-color - #333333 !default;
+$link-active-color:  lighten(adjust-hue($link-color, 75deg), 10%) !default;
+$link-visited-color: darken($link-color, 10%) !default;
 
 $feedback-border-color: #dddddd !default;
 $success-color:         #264409 !default;
