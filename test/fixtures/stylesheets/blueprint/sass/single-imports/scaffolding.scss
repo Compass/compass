@@ -1,3 +1,5 @@
 @import "blueprint/scaffolding";
 
 @include blueprint-scaffolding;
+
+body { @include blueprint-scaffolding-body; }
