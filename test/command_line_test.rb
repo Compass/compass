@@ -15,7 +15,7 @@ class CommandLineTest < Test::Unit::TestCase
 
   def test_print_version
     compass "-vq"
-    assert_match /\d+\.\d+\.\d+( [0-9a-f]+)?/, @last_result
+    assert_match /\d+\.\d+\.(\d+|((alpha|beta|rc)\.\d+\.[0-9a-f]+))?/, @last_result
   end
 
   def test_basic_install
