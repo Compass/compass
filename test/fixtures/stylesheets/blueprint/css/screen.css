@@ -726,7 +726,7 @@ legend {
   font-weight: bold;
   font-size: 1.2em; }
 
-input.text, input.title, input[type=text], input[type=password] {
+input.text, input.title, input[type=email], input[type=text], input[type=password] {
   margin: 0.5em 0;
   background-color: white;
   padding: 5px; }
@@ -746,14 +746,14 @@ select {
 fieldset {
   border: 1px solid #cccccc; }
 
-input.text, input.title, input[type=text], input[type=password],
+input.text, input.title, input[type=email], input[type=text], input[type=password],
 textarea, select {
   border: 1px solid #bbbbbb; }
-  input.text:focus, input.title:focus, input[type=text]:focus, input[type=password]:focus,
+  input.text:focus, input.title:focus, input[type=email]:focus, input[type=text]:focus, input[type=password]:focus,
   textarea:focus, select:focus {
     border: 1px solid #666666; }
 
-input.text, input.title, input[type=text], input[type=password] {
+input.text, input.title, input[type=email], input[type=text], input[type=password] {
   width: 300px; }
 
 textarea {
