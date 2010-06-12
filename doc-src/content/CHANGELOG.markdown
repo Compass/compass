@@ -12,6 +12,15 @@ COMPASS CHANGELOG
 
 * Deprecated imports and APIs from v0.10 have been removed.
 
+### Blueprint
+
+* Deprecations:
+  - Passing an argument to the blueprint-scaffolding mixin is not necessary
+    and has been deprecated.
+* Some color defaults now use color functions instead of color arithmetic.
+  This may result in different output for those who have color customizations.
+
+
 0.10.2 (May 31, 2010)
 ---------------------
 
