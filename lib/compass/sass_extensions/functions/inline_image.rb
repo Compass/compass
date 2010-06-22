@@ -10,7 +10,6 @@ module Compass::SassExtensions::Functions::InlineImage
 
   def inline_font_files(*args)
     raise Sass::SyntaxError, "An even number of arguments must be passed to font_files()" unless args.size % 2 == 0
-    path = path.value
     files = []
     while args.size > 0
       path = args.shift.value
