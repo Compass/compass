@@ -30,9 +30,9 @@ end
 
 def reference_item(options)
   stylesheet = options[:stylesheet]
-  @site.cached("reference/item/#{stylesheet}") do
-    path = stylesheet_path(stylesheet)
-    if path
+  path = stylesheet_path(stylesheet)
+  if path
+    @site.cached("reference/item/#{path}") do
       @items.detect do |i|
         if i.identifier =~ /^\/reference/ && i[:stylesheet]
           i[:stylesheet] == path
@@ -54,27 +54,28 @@ def reference_path(options)
 end
 
 def import_paths
-  paths = Compass::Frameworks::ALL.inject([]) {|m, f| m << f.stylesheets_directory}
-  paths.map!{|p|[p, '']}
+  paths = []
   if @item[:stylesheet]
     paths << [File.join(Compass::Frameworks[@item[:framework]].stylesheets_directory,
-                       File.dirname(@item[:stylesheet])), File.dirname(@item[:stylesheet])]
+                        File.dirname(@item[:stylesheet])),
+              @item[:stylesheet]["/"] ? File.dirname(@item[:stylesheet]) : ""]
   end
+  
+  paths += Compass::Frameworks::ALL.inject([]) {|m, f| m << f.stylesheets_directory}.map!{|p|[p, '']}
   paths
 end
 
 def stylesheet_path(ss)
-  @site.cached("stylesheet/path/#{ss}") do
-    possible_names = possible_filenames_for_stylesheet(ss)
-    import_paths.each do |import_path|
-      possible_names.each do |filename|
-        full_path = File.join(import_path.first, filename)
-        if File.exist?(full_path)
-          return "#{import_path.last}#{"/" if import_path.last && import_path.last.length > 0}#{filename}"
-        end
+  possible_names = possible_filenames_for_stylesheet(ss)
+  import_paths.each do |import_path|
+    possible_names.each do |filename|
+      full_path = File.join(import_path.first, filename)
+      if File.exist?(full_path)
+        return "#{import_path.last}#{"/" if import_path.last && import_path.last.length > 0}#{filename}"
       end
     end
   end
+  nil
 end
 
 def possible_filenames_for_stylesheet(ss)
@@ -85,9 +86,9 @@ def possible_filenames_for_stylesheet(ss)
   extensions = if ext.size > 0
     [ext]
   else
-    [".sass", ".scss"]
+    [".scss", ".sass"]
   end
-  basenames = [base, "_#{base}"]
+  basenames = ["_#{base}", base]
   filenames = []
   basenames.each do |basename|
     extensions.each do |extension|
