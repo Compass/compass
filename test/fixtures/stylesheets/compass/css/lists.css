@@ -45,21 +45,15 @@ ul.wide-horizontal {
       padding-right: 0px; }
 
 ul.inline {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0px;
-  display: inline; }
-  ul.inline li {
+  list-style-type: none; }
+  ul.inline, ul.inline li {
     margin: 0px;
     padding: 0px;
     display: inline; }
 
 ul.comma {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0px;
-  display: inline; }
-  ul.comma li {
+  list-style-type: none; }
+  ul.comma, ul.comma li {
     margin: 0px;
     padding: 0px;
     display: inline; }

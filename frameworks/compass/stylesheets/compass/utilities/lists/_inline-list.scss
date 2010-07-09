@@ -2,18 +2,17 @@
 
 @mixin inline-list {
   list-style-type: none;
-  margin: 0px;
-  padding: 0px;
-  display: inline;
-  li {
+  &, & li {
     margin: 0px;
     padding: 0px;
-    display: inline; } }
+    display: inline;
+  }
+}
 
 // makes an inline list that is comma delimited.
 // Please make note of the browser support issues before using this mixin.
 //
-// use of `:content` and `:after` is not fully supported in all browsers.
+// use of `content` and `:after` is not fully supported in all browsers.
 // See quirksmode for the [support matrix](http://www.quirksmode.org/css/contents.html#t15)
 //
 // `:last-child` is not fully supported.
@@ -22,8 +21,9 @@
 @mixin comma-delimited-list {
   @include inline-list;
   li {
-    &:after {
-      content: ", "; }
+    &:after { content: ", "; }
     &:last-child, &.last {
-      &:after {
-        content: ""; } } } }
+      &:after { content: ""; }
+    }
+  }
+}
