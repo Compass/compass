@@ -13,19 +13,19 @@ module Compass::Exec::ProjectOptionsParser
     end
 
     opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
-      self.options[:sass_dir] = sass_dir
+      self.options[:sass_dir] = sass_dir.tr('\\','/')
     end
 
     opts.on('--css-dir CSS_DIR', "The target directory where you keep your css stylesheets.") do |css_dir|
-      self.options[:css_dir] = css_dir
+      self.options[:css_dir] = css_dir.tr('\\','/')
     end
 
     opts.on('--images-dir IMAGES_DIR', "The directory where you keep your images.") do |images_dir|
-      self.options[:images_dir] = images_dir
+      self.options[:images_dir] = images_dir.tr('\\','/')
     end
 
     opts.on('--javascripts-dir JS_DIR', "The directory where you keep your javascripts.") do |javascripts_dir|
-      self.options[:javascripts_dir] = javascripts_dir
+      self.options[:javascripts_dir] = javascripts_dir.tr('\\','/')
     end
 
     opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment.',
