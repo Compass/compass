@@ -126,6 +126,7 @@ def constants(item)
     if child.is_a?(Sass::Tree::VariableNode)
       child.comment = comment && Sass::Tree::CommentNode.clean(comment)
       comment = nil
+      child.name.tr!("_",'-')
       constants << child
     elsif child.is_a?(Sass::Tree::CommentNode)
       comment ||= ""
