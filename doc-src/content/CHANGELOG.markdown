@@ -7,6 +7,16 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.3 (Unreleased)
+-------------------
+* [Compass Core] Add missing clearfix import to horizontal-list.
+* [Compass Core] Emit less css for inline lists with the same result.
+* [Compass Core] New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/docs/reference/compass/helpers/constants/)
+* [Compass Core] Allow horizontal lists to be floated to the right.
+
+*Contributors:*
+* [Milo Winningham](http://github.com/quadule)
+
 0.10.2 (May 31, 2010)
 ---------------------
 
