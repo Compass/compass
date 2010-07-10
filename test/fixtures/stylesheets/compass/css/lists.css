@@ -44,6 +44,29 @@ ul.wide-horizontal {
     ul.wide-horizontal li:last-child, ul.wide-horizontal li.last {
       padding-right: 0px; }
 
+ul.right-horizontal {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  display: inline-block; }
+  ul.right-horizontal {
+    display: block; }
+  ul.right-horizontal li {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0px;
+    white-space: nowrap;
+    display: inline;
+    float: right;
+    padding-left: 4px;
+    padding-right: 4px; }
+    ul.right-horizontal li:first-child, ul.right-horizontal li.first {
+      padding-right: 0px; }
+    ul.right-horizontal li:last-child, ul.right-horizontal li.last {
+      padding-left: 0px; }
+
 ul.inline {
   list-style-type: none; }
   ul.inline, ul.inline li {
