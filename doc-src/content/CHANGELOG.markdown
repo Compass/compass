@@ -13,9 +13,12 @@ COMPASS CHANGELOG
 * [Compass Core] Emit less css for inline lists with the same result.
 * [Compass Core] New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/docs/reference/compass/helpers/constants/)
 * [Compass Core] Allow horizontal lists to be floated to the right.
+* [Compass Core] Bugfix for inline-font-files helper.
+* [Blueprint] Two colors used in typography can now be customized.
 
 *Contributors:*
 * [Milo Winningham](http://github.com/quadule)
+* [jonathanpberger](http://github.com/jonathanpberger)
 
 0.10.2 (May 31, 2010)
 ---------------------
