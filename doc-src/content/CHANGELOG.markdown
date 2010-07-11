@@ -15,10 +15,12 @@ COMPASS CHANGELOG
 * [Compass Core] Allow horizontal lists to be floated to the right.
 * [Compass Core] Bugfix for inline-font-files helper.
 * [Blueprint] Two colors used in typography can now be customized.
+* [Blueprint] Support for inputs of type email.
 
 *Contributors:*
 * [Milo Winningham](http://github.com/quadule)
 * [jonathanpberger](http://github.com/jonathanpberger)
+* [Stephan Kaag](http://github.com/stephankaag)
 
 0.10.2 (May 31, 2010)
 ---------------------
