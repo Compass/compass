@@ -8,3 +8,7 @@ output_style = :nested
 # http_images_path = :relative
 http_images_path = "/images"
 line_comments = false
+
+asset_cache_buster do |path, file|
+  "busted=true"
+end
