@@ -78,4 +78,5 @@
   @if $experimental-support-for-mozilla {
     background-image: #{$background}-moz-radial-gradient($center-position, circle, $color-stops);
   }
+  background-image: radial-gradient($center-position, circle, $color-stops);
 }
