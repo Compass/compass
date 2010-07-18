@@ -6,14 +6,7 @@
 //         A number between 0 and 1, where 0 is transparent and 1 is opaque.
 
 @mixin opacity($opacity) {
-  @include experimental(opacity, $opacity,
-    not -moz,
-    not -webkit,
-    not -o,
-    not -ms, // microsoft uses the filters below instead
-    not -khtml,
-    official
-  );
+  opacity: $opacity;
   @if $experimental-support-for-microsoft {
     $value: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
     @include experimental(filter, $value,
