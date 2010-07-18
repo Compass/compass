@@ -33,13 +33,14 @@ module Compass
         require 'compass/stats'
         compiler = new_compiler_instance
         sass_files = sorted_sass_files(compiler)
+        total_label = "Total (#{sass_files.size} files):"
         rows       = [[           :-,           :-,           :-,            :-,            :-,            :-,               :- ],
                       [   'Filename',      'Rules', 'Properties', 'Mixins Defs', 'Mixins Used',   'CSS Rules', 'CSS Properties' ],
                       [           :-,           :-,           :-,            :-,            :-,            :-,               :- ]]
-        maximums   =  [            8,            5,           10,            14,            11,             9,               14 ]
+        maximums   =  [ total_label.length,      5,           10,            14,            11,             9,               14 ]
         alignments =  [        :left,       :right,       :right,        :right,        :right,        :right,           :right ]
         delimiters =  [ ['| ', ' |'],  [' ', ' |'],  [' ', ' |'],   [' ', ' |'],   [' ', ' |'],   [' ', ' |'],      [' ', ' |'] ]
-        totals     =  [ "Total (#{sass_files.size} files):", 0, 0,            0,             0,             0,                0 ]
+        totals     =  [ total_label,             0,            0,             0,             0,             0,                0 ]
 
         sass_files.each do |sass_file|
           css_file = compiler.corresponding_css_file(sass_file) unless sass_file[0..0] == '_'
