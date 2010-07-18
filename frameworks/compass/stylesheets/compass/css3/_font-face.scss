@@ -6,29 +6,25 @@
 // * $font-files is required using font-files('relative/location', 'format').
 //   for best results use this order: woff, opentype/truetype, svg
 // * $eot is required by IE, and is a relative location of the eot file.
-// * postscript name is required by some browsers to look for local fonts.
 
-@mixin font-face($name, $font-files, $eot: false, $postscript: false, $style: false) {
+@mixin font-face($name, $font-files, $eot: false) {
   @font-face {
     font-family: "#{$name}";
-    @if $style {
-      font-style: $style; }
     @if $eot {
       src: font-url($eot); }
-    @if $postscript {
-      src: local("#{$name}"), local("#{$postscript}"), #{$font-files}; }
-    @else {
-      src: local("#{$name}"), #{$font-files}; } } }
+    src: local("☺"), #{$font-files}; 
+  } 
+}
 
 // EXAMPLE
-// +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "this.eot", "thisname")
+// +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "this.eot")
 //
 // will generate:
 //
 //   @font-face { 
 //     font-family: 'this name'; 
 //     src: url('fonts/this.eot'); 
-//     src: local('this name'), local('thisname'), 
-//       url('this.otf') format('woff'), 
-//       url('this.woff') format('opentype'); 
+//     src: local("☺"),
+//       url('fonts/this.otf') format('woff'), 
+//       url('fonts/this.woff') format('opentype'); 
 //   }
