@@ -6,13 +6,12 @@
 //         A number between 0 and 1, where 0 is transparent and 1 is opaque.
 
 @mixin opacity($opacity) {
-  // XXX consider only using the official property. I think -moz, -webkit, and -o support it.
   @include experimental(opacity, $opacity,
-    -moz,
-    -webkit,
-    -o,
+    not -moz,
+    not -webkit,
+    not -o,
     not -ms, // microsoft uses the filters below instead
-    -khtml,
+    not -khtml,
     official
   );
   @if $experimental-support-for-microsoft {
