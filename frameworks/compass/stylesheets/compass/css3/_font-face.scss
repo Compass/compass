@@ -16,9 +16,9 @@
     @if $eot {
       src: font-url($eot); }
     @if $postscript {
-      src: local("#{$name}"), local("#{$postscript}"), #{$font-files}; }
+      src: local("☺"), local("#{$postscript}"), #{$font-files}; }
     @else {
-      src: local("#{$name}"), #{$font-files}; } } }
+      src: local("☺"), #{$font-files}; } } }
 
 // EXAMPLE
 // +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "this.eot", "thisname")
