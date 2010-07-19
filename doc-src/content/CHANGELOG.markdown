@@ -16,6 +16,19 @@ COMPASS CHANGELOG
 * [Compass Core] Bugfix for inline-font-files helper.
 * [Blueprint] Two colors used in typography can now be customized.
 * [Blueprint] Support for inputs of type email.
+* [Compass Core] `+font-face` mixin no longer uses `$postscript` name or
+  `$stle` type variables, in favor of the Paul Irish [smiley bulletproof
+  technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/).
+  Older declarations will still work, but will not apply the variables and
+  will display a deprecation warning. 
+* [Compass Core] `+box-shadow` now supports `$spread` length and `$inset` declarations.
+* [Compass Core] The gradient mixins output official w3c declarations along with the
+  `-webkit` and `-moz` prefixed versions. The official code is based on the
+  w3c spec and is nearly ideantical to the mozilla version, although it is
+  currently not supported by any browser.
+* [Compass Core] `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
+  all other modern browsers support the official spec or nothing at all.
+
 
 *Contributors:*
 * [Milo Winningham](http://github.com/quadule)
