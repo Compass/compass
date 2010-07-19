@@ -7,7 +7,10 @@
 //   for best results use this order: woff, opentype/truetype, svg
 // * $eot is required by IE, and is a relative location of the eot file.
 
-@mixin font-face($name, $font-files, $eot: false) {
+@mixin font-face($name, $font-files, $eot: false, $postscript: false, $style: false) {
+  @if $postscript or $style {
+    @warn "The $postscript and $style variables have been deprecated in favor of the Paul Irish smiley bulletproof technique.";
+  }
   @font-face {
     font-family: "#{$name}";
     @if $eot {
