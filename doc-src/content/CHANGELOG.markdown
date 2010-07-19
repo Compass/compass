@@ -20,6 +20,25 @@ COMPASS CHANGELOG
 * Some color defaults now use color functions instead of color arithmetic.
   This may result in different output for those who have color customizations.
 
+0.10.3
+------
+
+### CSS3 Module
+
+* Deprecations: 
+  - `+font-face` mixin no longer uses `$postscript` name or
+  `$stle` type variables, in favor of the Paul Irish [smiley bulletproof
+  technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/).
+  Older declarations will still work, but will not apply the varaibles and
+  will throw a deprecation warning. 
+* `+box-shadow` now supports `$spread` length and `$inset` declarations.
+* The gradient mixins output official w3c declarations along with the
+  `-webkit` and `-moz` prefixed versions. The official code is based on the
+  w3c spec and is nearly ideantical to the mozilla version, although it is
+  currently not supported by any browser.
+* `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
+  all other modern browsers support the official spec or nothing at all.
+
 
 0.10.2 (May 31, 2010)
 ---------------------
