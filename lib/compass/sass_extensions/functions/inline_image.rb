@@ -14,14 +14,14 @@ module Compass::SassExtensions::Functions::InlineImage
     while args.size > 0
       path = args.shift.value
       real_path = File.join(Compass.configuration.fonts_path, path)
-      url = "url('data:#{compute_mime_type(path,mime_type)};base64,#{data(real_path)}')"
+      url = "url('data:#{compute_mime_type(path)};base64,#{data(real_path)}')"
       files << "#{url} format('#{args.shift}')"
     end
     Sass::Script::String.new(files.join(", "))
   end
 
 private
-  def compute_mime_type(path, mime_type)
+  def compute_mime_type(path, mime_type = nil)
     return mime_type if mime_type
     case path
     when /\.png$/i
