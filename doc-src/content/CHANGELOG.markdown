@@ -9,25 +9,42 @@ COMPASS CHANGELOG
 
 0.10.3 (Unreleased)
 -------------------
-* [Compass Core] Add missing clearfix import to horizontal-list.
-* [Compass Core] Emit less css for inline lists with the same result.
-* [Compass Core] New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/docs/reference/compass/helpers/constants/)
-* [Compass Core] Allow horizontal lists to be floated to the right.
-* [Compass Core] Bugfix for inline-font-files helper.
-* [Blueprint] Two colors used in typography can now be customized.
-* [Blueprint] Support for inputs of type email.
-* [Compass Core] `+font-face` mixin no longer uses `$postscript` name or
-  `$stle` type variables, in favor of the Paul Irish [smiley bulletproof
-  technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/).
-  Older declarations will still work, but will not apply the variables and
-  will display a deprecation warning. 
-* [Compass Core] `+box-shadow` now supports `$spread` length and `$inset` declarations.
-* [Compass Core] The gradient mixins output official w3c declarations along with the
-  `-webkit` and `-moz` prefixed versions. The official code is based on the
-  w3c spec and is nearly ideantical to the mozilla version, although it is
-  currently not supported by any browser.
-* [Compass Core] `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
+
+### !important
+
+All rails users should run the following command:
+
+    compass init rails --prepare
+
+This will update your compass initializer file.
+
+### Compass Core
+
+* Add missing clearfix import to horizontal-list.
+* Emit less css for inline lists with the same result.
+* New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/docs/reference/compass/helpers/constants/)
+* Allow horizontal lists to be floated to the right.
+* Bugfix for inline-font-files helper.
+* `+font-face` mixin no longer uses `$postscript` name or `$style` type variables, in favor of the Paul Irish [smiley bulletproof technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/). Older declarations will still work, but will not apply the variables and will display a deprecation warning. 
+* `+box-shadow` now supports `$spread` length and `$inset` declarations.
+* The gradient mixins output official w3c declarations along with the `-webkit` and `-moz` prefixed versions. The official code is based on the w3c spec and is nearly ideantical to the mozilla version, although it is currently not supported by any browser.
+* `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
   all other modern browsers support the official spec or nothing at all.
+
+### Blueprint
+* Two colors used in typography can now be customized.
+* Support for inputs of type email.
+
+### Extensions
+* Extensions can now create empty directories with the `directory` directive. [Docs](http://compass-style.org/docs/tutorials/extensions/).
+
+### Rails
+
+As stated above, all rails users should run the following command:
+
+    compass init rails . --prepare
+
+This will fix a bug in the rails initializer that caused compass extensions to not be recognized when placed into the `vendor/plugins/compass_extensions` directory. It will also make sure that future bugs in the boot process won't require an end-user action to fix.
 
 
 *Contributors:*
