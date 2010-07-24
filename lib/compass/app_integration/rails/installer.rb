@@ -19,19 +19,16 @@ module Compass
 
         def write_configuration_files(config_file = nil)
           config_file ||= targetize('config/compass.rb')
-          directory File.dirname(config_file)
-          write_file config_file, config_contents
+          unless File.exists?(config_file)
+            directory File.dirname(config_file)
+            write_file config_file, config_contents
+          end
           directory File.dirname(targetize('config/initializers/compass.rb'))
           write_file targetize('config/initializers/compass.rb'), initializer_contents
         end
 
-        def config_files_exist?
-          File.exists?(targetize('config/compass.rb')) &&
-          File.exists?(targetize('config/initializers/compass.rb'))
-        end
-
         def prepare
-          write_configuration_files unless config_files_exist?
+          write_configuration_files
         end
 
         def finalize(options = {})
@@ -55,10 +52,12 @@ Sass will automatically compile your stylesheets during the next
 page request and keep them up to date when they change.
 NEXTSTEPS
           end
-          if manifest.has_stylesheet?
-            puts "\nNext add these lines to the head of your layouts:\n\n"
-            puts stylesheet_links
-            puts "\n(You are using haml, aren't you?)"
+          unless options[:prepare]
+            if manifest.has_stylesheet?
+              puts "\nNext add these lines to the head of your layouts:\n\n"
+              puts stylesheet_links
+              puts "\n(You are using haml, aren't you?)"
+            end
           end
         end
 

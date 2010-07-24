@@ -74,7 +74,7 @@ Options:
         installer.init
         installer.run(:skip_finalization => true)
         UpdateProject.new(working_path, options).perform if installer.compilation_required?
-        installer.finalize(:create => is_project_creation?)
+        installer.finalize(options.merge(:create => is_project_creation?))
       end
 
       def is_project_creation?
