@@ -36,8 +36,12 @@ module Compass::SassExtensions::Functions::Urls
   def image_url(path)
     path = path.value # get to the string value of the literal.
 
-    # Short curcuit if they have provided an absolute url.
-    if absolute_path?(path)
+    if path =~ %r{^#{Regexp.escape(Compass.configuration.http_images_path)}/(.*)}
+      # Treat root relative urls (without a protocol) like normal if they start with
+      # the images path.
+      path = $1
+    elsif absolute_path?(path)
+      # Short curcuit if they have provided an absolute url.
       return Sass::Script::String.new("url(#{path})")
     end
 

@@ -1,0 +1,8 @@
+.relative {
+  background-image: url('/images/4x6.png?busted=true'); }
+
+.root-relative {
+  background-image: url('/images/4x6.png?busted=true'); }
+
+.absolute {
+  background-image: url(http://example.com/images/4x6.png); }
