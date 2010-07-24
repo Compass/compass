@@ -30,6 +30,7 @@ This will update your compass initializer file.
 * The gradient mixins output official w3c declarations along with the `-webkit` and `-moz` prefixed versions. The official code is based on the w3c spec and is nearly ideantical to the mozilla version, although it is currently not supported by any browser.
 * `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
   all other modern browsers support the official spec or nothing at all.
+* Support for specifying horizontal and vertical radii for the shorthand border-radius property.
 
 ### Blueprint
 * Two colors used in typography can now be customized.
