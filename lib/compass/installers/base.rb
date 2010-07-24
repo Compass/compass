@@ -116,6 +116,19 @@ module Compass
         "#{pattern_name_as_dir}#{to}"
       end
 
+      def install_directory(from, to, options)
+        d = if within = options[:within]
+          if respond_to?(within)
+            targetize("#{send(within)}/#{to}")
+          else
+            raise Compass::Error, "Unrecognized location: #{within}"
+          end
+        else
+          targetize(to)
+        end
+        directory d
+      end
+
       alias install_html_without_haml install_html
       def install_html(from, to, options)
         if to =~ /\.haml$/

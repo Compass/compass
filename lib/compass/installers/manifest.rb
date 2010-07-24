@@ -40,6 +40,7 @@ module Compass
       type :font
       type :file
       type :html
+      type :directory
 
       def help(value = nil)
         if value

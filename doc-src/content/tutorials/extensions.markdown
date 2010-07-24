@@ -165,13 +165,14 @@ You may also see some real manifest files here:
 
 ### Manifest Declarations
 
-There are five kinds of manifest declarations:
+There are six kinds of manifest declarations:
 
 1. `stylesheet` - Declares a sass file.
 2. `image` - Declares an image.
 3. `javascript` - Declares a javascript file.
 4. `html` - Declares an html file.
 5. `file` - Declares a random file.
+6. `directory` - Declares a directory should be created.
 
 All declarations take the path to the file as their first argument. Note that the
 normal slash `/` can and should be used in a manifest. Compass will take care of
@@ -195,6 +196,15 @@ Stylesheet options:
   stylesheet link tag.
 * `:condition` - this is used to hint the user that a conditional comment should be
   used to import the stylesheet with the given condition.
+
+Directory options:
+
+* `:within` - where the directory should be created. If omitted, the directory
+  will be relative to the project directory. Can be one of: the following
+  * `sass_dir`
+  * `javascripts_dir`
+  * `fonts_dir`
+  * `images_dir`
 
 HTML files:
 
