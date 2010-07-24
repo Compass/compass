@@ -7,7 +7,7 @@
 .pie-clearfix {
   display: inline-block; }
   .pie-clearfix:after {
-    content: " ";
+    content: "\0020";
     display: block;
     height: 0;
     clear: both;

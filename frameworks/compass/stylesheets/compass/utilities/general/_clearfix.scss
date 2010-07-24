@@ -18,12 +18,9 @@
 // [Easy Clearing](http://www.positioniseverything.net/easyclearing.html)
 // has the advantage of allowing positioned elements to hang
 // outside the bounds of the container at the expense of more tricky CSS.
-//
-// This method of clearing might cause a gap at the bottom of the page in
-// some browsers when used on the last element of the page.
 @mixin pie-clearfix {
   &:after {
-    content    : " ";
+    content    : "\0020";
     display    : block;
     height     : 0;
     clear      : both;
