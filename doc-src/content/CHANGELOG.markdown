@@ -7,8 +7,10 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.3 (Unreleased)
+0.10.3.pre.1 (7/24/2010)
 -------------------
+
+This release is mostly addressing issues and requests in the compass bug tracker.
 
 ### !important
 
@@ -48,7 +50,8 @@ As stated above, all rails users should run the following command:
 This will fix a bug in the rails initializer that caused compass extensions to not be recognized when placed into the `vendor/plugins/compass_extensions` directory. It will also make sure that future bugs in the boot process won't require an end-user action to fix.
 
 
-*Contributors:*
+### Contributors:
+
 * [Milo Winningham](http://github.com/quadule)
 * [jonathanpberger](http://github.com/jonathanpberger)
 * [Stephan Kaag](http://github.com/stephankaag)
