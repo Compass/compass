@@ -1,9 +1,11 @@
 .clearfix {
   overflow: hidden;
-  *zoom: 1; }
+  display: inline-block; }
+  .clearfix {
+    display: block; }
 
 .pie-clearfix {
-  *zoom: 1; }
+  display: inline-block; }
   .pie-clearfix:after {
     content: "\0020";
     display: block;
@@ -11,3 +13,5 @@
     clear: both;
     overflow: hidden;
     visibility: hidden; }
+  .pie-clearfix {
+    display: block; }

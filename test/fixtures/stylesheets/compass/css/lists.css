@@ -4,9 +4,7 @@ ul.horizontal {
   border: 0;
   outline: 0;
   overflow: hidden;
-  display: inline-block; }
-  ul.horizontal {
-    display: block; }
+  *zoom: 1; }
   ul.horizontal li {
     list-style-image: none;
     list-style-type: none;
@@ -27,9 +25,7 @@ ul.wide-horizontal {
   border: 0;
   outline: 0;
   overflow: hidden;
-  display: inline-block; }
-  ul.wide-horizontal {
-    display: block; }
+  *zoom: 1; }
   ul.wide-horizontal li {
     list-style-image: none;
     list-style-type: none;
@@ -50,9 +46,7 @@ ul.right-horizontal {
   border: 0;
   outline: 0;
   overflow: hidden;
-  display: inline-block; }
-  ul.right-horizontal {
-    display: block; }
+  *zoom: 1; }
   ul.right-horizontal li {
     list-style-image: none;
     list-style-type: none;
