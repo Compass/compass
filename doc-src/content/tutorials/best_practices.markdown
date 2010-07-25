@@ -17,7 +17,7 @@ variables and ([often][2]) the framework utilities you plan to use:
      
     @import "compass/reset";
     @import "compass/utilities";
-    @import "blueprint/screen";
+    @import "blueprint";
      
     // etc.
 
