@@ -23,8 +23,7 @@ $blueprint_button_active_font_color:       white !default;
 // Sets the colors for a button
 // @param border_highlight_color
 //   The highlight color defaults to whatever is the value of the border_color but it's one shade lighter.
-@mixin button-colors
-(
+@mixin button-colors(
   $font_color: $blueprint_button_font_color,
   $bg_color: $blueprint_button_background_color,
   $border_color: $blueprint_button_border_color,
@@ -39,8 +38,7 @@ $blueprint_button_active_font_color:       white !default;
 // Sets the colors for a button in the active state
 // @param border_highlight_color
 //   The highlight color defaults to whatever is the value of the border_color but it's one shade lighter.
-@mixin button-active-colors
-(
+@mixin button-active-colors(
   $font_color: $blueprint_button_active_font_color,
   $bg_color: $blueprint_button_active_background_color,
   $border_color: $blueprint_button_active_border_color,
@@ -55,8 +53,7 @@ $blueprint_button_active_font_color:       white !default;
 // Sets the colors for a button in the hover state.
 // @param border_highlight_color
 //   The highlight color defaults to whatever is the value of the border_color but it's one shade lighter.
-@mixin button-hover-colors
-(
+@mixin button-hover-colors(
   $font_color: $blueprint_button_hover_font_color,
   $bg_color: $blueprint_button_hover_background_color,
   $border_color: $blueprint_button_hover_border_color,
