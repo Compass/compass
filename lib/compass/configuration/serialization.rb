@@ -56,6 +56,12 @@ module Compass
           (required_libraries || []).each do |lib|
             contents << %Q{require '#{lib}'\n}
           end
+          (loaded_frameworks || []).each do |lib|
+            contents << %Q{load '#{lib}'\n}
+          end
+          (framework_path || []).each do |lib|
+            contents << %Q{discover '#{lib}'\n}
+          end
           contents << "# Require any additional compass plugins here.\n"
           contents << "\n" if (required_libraries || []).any?
           ATTRIBUTES.each do |prop|
