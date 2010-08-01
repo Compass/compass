@@ -139,6 +139,32 @@ def constants(item)
   constants
 end
 
+def all_constants
+  variables = []
+  @items.each do |item|
+    next unless item.identifier =~ %r{/reference}
+    next unless item[:stylesheet]
+    vars = constants(item)
+    if vars.any?
+      variables << [item, vars]
+    end
+  end
+  variables
+end
+
+def all_mixins
+  all_mixins = []
+  @items.each do |item|
+    next unless item.identifier =~ %r{/reference}
+    next unless item[:stylesheet]
+    ms = mixins(item)
+    if ms.any?
+      all_mixins << [item, ms]
+    end
+  end
+  all_mixins
+end
+
 def mixin_signature(mixin, format = :html)
   mixin.sass_signature(:none, format)
 end
