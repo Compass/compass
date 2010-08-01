@@ -7,10 +7,8 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.3.pre.1 (7/24/2010)
+0.10.3.0 (8/1/2010)
 -------------------
-
-This release is mostly addressing issues and requests in the compass bug tracker.
 
 ### !important
 
@@ -40,6 +38,7 @@ This will update your compass initializer file.
 
 ### Extensions
 * Extensions can now create empty directories with the `directory` directive. [Docs](http://compass-style.org/docs/tutorials/extensions/).
+* It's now easier to load extensions from a configuration file using the `load` and `discover` directives.
 
 ### Rails
 
