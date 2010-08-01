@@ -3,9 +3,7 @@
   width: 80%;
   margin: 0 auto;
   overflow: hidden;
-  display: inline-block; }
-  .container {
-    display: block; }
+  *zoom: 1; }
 
 .span-1 {
   width: 3.167%; }
