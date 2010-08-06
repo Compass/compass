@@ -7,8 +7,10 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.4.pre.1 (8/5/2010)
+
+0.10.4.pre.2 (8/5/2010)
 -----------------------
+*Note:* 0.10.4.pre.1 had a bug and was yanked.
 
 * [Extensions] Make it easier to create manifest files.
 * [Rails] Don't install configuration files when installing extensions.

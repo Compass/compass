@@ -51,7 +51,7 @@ module Compass
       type :javascript, :plural => :javascripts, :extensions => %w(js)
       type :font,       :plural => :fonts,       :extensions => %w(otf woff ttf)
       type :html,       :plural => :html,        :extensions => %w(html haml)
-      type :file        :plural => :files
+      type :file,       :plural => :files
       type :directory,  :plural => :directories
 
       def discover(type)
