@@ -29,7 +29,7 @@ module Compass
       # Every installer must conform to the installation strategy of prepare, install, and then finalize.
       # A default implementation is provided for each step.
       def run(run_options = {})
-        prepare
+        prepare unless run_options[:skip_preparation]
         install unless options[:prepare]
         finalize(options.merge(run_options)) unless options[:prepare] || run_options[:skip_finalization]
       end
