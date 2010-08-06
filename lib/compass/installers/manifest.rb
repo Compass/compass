@@ -20,7 +20,19 @@ module Compass
         parse(manifest_file) if manifest_file
       end
 
-      def self.type(t)
+      def self.known_extensions
+        @known_extensions ||= {}
+      end
+
+      def self.plural_types
+        @plural_types ||= {}
+      end
+
+      def self.type(t, options = {})
+        Array(options[:extensions]).each do |ext|
+          self.known_extensions[ext] = t
+        end
+        self.plural_types[options[:plural]] = t if options[:plural]
         eval <<-END
           def #{t}(from, options = {})
              @entries << Entry.new(:#{t}, from, options)
@@ -34,13 +46,35 @@ module Compass
         END
       end
 
-      type :stylesheet
-      type :image
-      type :javascript
-      type :font
-      type :file
-      type :html
-      type :directory
+      type :stylesheet, :plural => :stylesheets, :extensions => %w(scss sass)
+      type :image,      :plural => :images,      :extensions => %w(png gif jpg jpeg tiff gif)
+      type :javascript, :plural => :javascripts, :extensions => %w(js)
+      type :font,       :plural => :fonts,       :extensions => %w(otf woff ttf)
+      type :html,       :plural => :html,        :extensions => %w(html haml)
+      type :file        :plural => :files
+      type :directory,  :plural => :directories
+
+      def discover(type)
+        type = self.class.plural_types[type] || type
+        dir = File.dirname(@manifest_file)
+        Dir.glob("#{dir}/**/*").each do |file|
+          next if /manifest\.rb/ =~ file
+          short_name = file[(dir.length+1)..-1]
+          options = {}
+          ext = if File.extname(short_name) == ".erb"
+            options[:erb] = true
+            File.extname(short_name[0..-5])
+          else
+            File.extname(short_name)
+          end[1..-1]
+          file_type = self.class.known_extensions[ext]
+          file_type = :file if file_type.nil?
+          file_type = :directory if File.directory?(file)
+          if type == :all || type == file_type
+            send(file_type, short_name, options)
+          end
+        end
+      end
 
       def help(value = nil)
         if value
@@ -96,13 +130,23 @@ module Compass
         @compile_after_generation = false
       end
 
+      def with_manifest(manifest_file)
+        @manifest_file = manifest_file
+        yield
+      ensure
+        @manifest_file = nil
+      end
+
       # parses a manifest file which is a ruby script
       # evaluated in a Manifest instance context
       def parse(manifest_file)
-        open(manifest_file) do |f|
-          eval(f.read, instance_binding, manifest_file)
+        with_manifest(manifest_file) do
+          open(manifest_file) do |f|
+            eval(f.read, instance_binding, manifest_file)
+          end
         end
       end
+
       def instance_binding
         binding
       end

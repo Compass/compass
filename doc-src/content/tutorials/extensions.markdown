@@ -165,14 +165,26 @@ You may also see some real manifest files here:
 
 ### Manifest Declarations
 
-There are six kinds of manifest declarations:
+**Easy Mode:** If you just have some basic files and nothing fancy going on, simply place this line in your manifest:
+
+    discover :all
+
+This will cause compass to find all the files in your template and use the files' extension to determine where they should go. Alternatively, you can request that compass only discover files of a certain type. For example, the following will only discover javascript and image assets, you could then declare other file types on your own.
+
+    discover :javascripts
+    discover :images
+
+The following types may be discovered: `:stylesheets`, `:images`, `:javascripts`, `:fonts`, `:html`, `:files`, and `:directories`
+
+**Normal Mode:** There are seven kinds of manifest declarations:
 
 1. `stylesheet` - Declares a sass file.
 2. `image` - Declares an image.
 3. `javascript` - Declares a javascript file.
-4. `html` - Declares an html file.
-5. `file` - Declares a random file.
-6. `directory` - Declares a directory should be created.
+4. `font` - Declares a font file.
+5. `html` - Declares an html file.
+6. `file` - Declares a random file.
+7. `directory` - Declares a directory should be created.
 
 All declarations take the path to the file as their first argument. Note that the
 normal slash `/` can and should be used in a manifest. Compass will take care of
