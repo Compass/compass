@@ -31,6 +31,7 @@ This will update your compass initializer file.
 * `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
   all other modern browsers support the official spec or nothing at all.
 * Support for specifying horizontal and vertical radii for the shorthand border-radius property.
+* The `has-layout` mixin now uses pixels instead of ems to work around an opera bug.
 
 ### Blueprint
 * Two colors used in typography can now be customized.
