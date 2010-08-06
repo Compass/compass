@@ -35,8 +35,8 @@ module Compass
       end
 
       def initialize!
-        rails_root = (defined?(Rails) ? Rails.root : RAILS_ROOT).to_s
-        Compass.add_project_configuration(File.join(root, "config", "compass.rb"))
+        config_file = Compass.detect_configuration_file(root)
+        Compass.add_project_configuration(config_file)
         Compass.discover_extensions!
         Compass.configure_sass_plugin!
         Compass.handle_configuration_change!
