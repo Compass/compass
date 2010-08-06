@@ -7,7 +7,12 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.4.pre.3 (8/5/2010)
+0.10.4.pre.4 (8/6/2010)
+-----------------------
+
+* [Rails] Fixed a bug introduced in 0.10.4.pre.2 that caused rails projects to fail when passing the second argument to image_url.
+
+0.10.4.pre.3 (8/6/2010)
 -----------------------
 
 * [Rails] Fixed a bug introduced in 0.10.3 that caused rails applications using the old configuration file (config/compass.config) to break.
