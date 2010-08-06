@@ -7,6 +7,10 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.4.pre.3 (8/5/2010)
+-----------------------
+
+* [Rails] Fixed a bug introduced in 0.10.3 that caused rails applications using the old configuration file (config/compass.config) to break.
 
 0.10.4.pre.2 (8/5/2010)
 -----------------------
