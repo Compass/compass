@@ -7,8 +7,15 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.3.0 (8/1/2010)
--------------------
+0.10.4.pre.1 (8/5/2010)
+-----------------------
+
+* [Extensions] Make it easier to create manifest files.
+* [Rails] Don't install configuration files when installing extensions.
+* [Compass Core] All url helpers now accept a second argument that when true will cause only the path to be emitted. This allows the url helpers to be used with IE filters.
+
+0.10.3 (8/1/2010)
+-----------------
 
 ### !important
 
