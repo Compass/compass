@@ -21,24 +21,33 @@ classnames:
 #stylesheet-url.helper
   %h3
     %a(href="#stylesheet-url")
-      stylesheet-url($path)
+      stylesheet-url($path, $only-path: false)
   .details
     %p
       Generates a path to an asset found relative to the project's css directory.
+      %br
+      Passing a true value as the second argument will cause the only the path to be returned
+      instead of a `url()` function
 
 #font-url.helper
   %h3
     %a(href="#font-url")
-      font-url($path)
+      font-url($path, $only-path: false)
   .details
     %p
       Generates a path to an asset found relative to the project's font directory.
+      %br
+      Passing a true value as the second argument will cause the only the path to be returned
+      instead of a `url()` function
 
 #image-url.helper
   %h3
     %a(href="#image-url")
-      image-url($path)
+      image-url($path, $only-path: false)
   .details
     %p
       Generates a path to an asset found relative to the project's images directory.
+      %br
+      Passing a true value as the second argument will cause the only the path to be returned
+      instead of a `url()` function
 

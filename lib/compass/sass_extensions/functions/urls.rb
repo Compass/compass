@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::Urls
 
-  def stylesheet_url(path)
+  def stylesheet_url(path, only_path = Sass::Script::Bool.new(false))
     # Compute the path to the stylesheet, either root relative or stylesheet relative
     # or nil if the http_images_path is not set in the configuration.
     http_stylesheets_path = if relative?
@@ -11,10 +11,15 @@ module Compass::SassExtensions::Functions::Urls
       Compass.configuration.http_root_relative(Compass.configuration.css_dir)
     end
 
-    clean_url("#{http_stylesheets_path}/#{path}")
+    path = "#{http_stylesheets_path}/#{path}"
+    if only_path.to_bool
+      Sass::Script::String.new(clean_path(path))
+    else
+      clean_url(path)
+    end
   end
 
-  def font_url(path)
+  def font_url(path, only_path = Sass::Script::Bool.new(false))
     path = path.value # get to the string value of the literal.
 
     # Short curcuit if they have provided an absolute url.
@@ -30,10 +35,16 @@ module Compass::SassExtensions::Functions::Urls
                         Compass.configuration.http_fonts_path
                       end
 
-    clean_url("#{http_fonts_path}/#{path}")
+    path = "#{http_fonts_path}/#{path}"
+
+    if only_path.to_bool
+      Sass::Script::String.new(clean_path(path))
+    else
+      clean_url(path)
+    end
   end
 
-  def image_url(path)
+  def image_url(path, only_path = Sass::Script::Bool.new(false))
     path = path.value # get to the string value of the literal.
 
     if path =~ %r{^#{Regexp.escape(Compass.configuration.http_images_path)}/(.*)}
@@ -79,16 +90,24 @@ module Compass::SassExtensions::Functions::Urls
     # prepend the asset host if there is one.
     path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
-    clean_url(path)
+    if only_path.to_bool
+      Sass::Script::String.new(clean_path(path))
+    else
+      clean_url(path)
+    end
   end
 
   private
 
-  # Emits a url, taking off any leading "./"
-  def clean_url(url)
+  # Emits a path, taking off any leading "./"
+  def clean_path(url)
     url = url.to_s
     url = url[0..1] == "./" ? url[2..-1] : url
-    Sass::Script::String.new("url('#{url}')")
+  end
+
+  # Emits a url, taking off any leading "./"
+  def clean_url(url)
+    Sass::Script::String.new("url('#{clean_path(url)}')")
   end
 
   def relative?
