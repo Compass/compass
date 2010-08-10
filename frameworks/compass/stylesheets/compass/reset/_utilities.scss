@@ -104,7 +104,7 @@
 // This reset provides a basic reset for html5 elements
 // so they are rendered correctly in browsers that don't recognize them.
 @mixin reset-html5 {
-  section, article, aside, header, footer, nav, dialog, figure {
+  article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
     display: block; } }
 
 // Resets the display of inline and block elements to their default display
