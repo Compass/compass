@@ -61,6 +61,46 @@ ul.right-horizontal {
     ul.right-horizontal li:last-child, ul.right-horizontal li.last {
       padding-left: 0px; }
 
+ul.inline-block {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  *zoom: 1; }
+  ul.inline-block li {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0px;
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *display: inline;
+    *vertical-align: auto;
+    white-space: nowrap; }
+
+ul.wide-inline-block {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  *zoom: 1; }
+  ul.wide-inline-block li {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0px;
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *display: inline;
+    *vertical-align: auto;
+    white-space: nowrap;
+    padding-left: 10px;
+    padding-right: 10px; }
+
 ul.inline {
   list-style-type: none; }
   ul.inline, ul.inline li {
