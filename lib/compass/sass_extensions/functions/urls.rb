@@ -4,7 +4,7 @@ module Compass::SassExtensions::Functions::Urls
     # Compute the path to the stylesheet, either root relative or stylesheet relative
     # or nil if the http_images_path is not set in the configuration.
     http_stylesheets_path = if relative?
-      compute_relative_path(Compass.configuration.css_dir)
+      compute_relative_path(Compass.configuration.css_path)
     elsif Compass.configuration.http_stylesheets_path
       Compass.configuration.http_stylesheets_path
     else
@@ -30,7 +30,7 @@ module Compass::SassExtensions::Functions::Urls
     # Compute the path to the font file, either root relative or stylesheet relative
     # or nil if the http_fonts_path cannot be determined from the configuration.
     http_fonts_path = if relative?
-                        compute_relative_path(Compass.configuration.fonts_dir)
+                        compute_relative_path(Compass.configuration.fonts_path)
                       else
                         Compass.configuration.http_fonts_path
                       end
@@ -59,7 +59,7 @@ module Compass::SassExtensions::Functions::Urls
     # Compute the path to the image, either root relative or stylesheet relative
     # or nil if the http_images_path is not set in the configuration.
     http_images_path = if relative?
-      compute_relative_path(Compass.configuration.images_dir)
+      compute_relative_path(Compass.configuration.images_path)
     elsif Compass.configuration.http_images_path
       Compass.configuration.http_images_path
     else
@@ -118,9 +118,8 @@ module Compass::SassExtensions::Functions::Urls
     path[0..0] == "/" || path[0..3] == "http"
   end
 
-  def compute_relative_path(dir)
+  def compute_relative_path(path)
     if (target_css_file = options[:css_filename])
-      path = File.join(Compass.configuration.project_path, dir)
       Pathname.new(path).relative_path_from(Pathname.new(File.dirname(target_css_file))).to_s
     end
   end

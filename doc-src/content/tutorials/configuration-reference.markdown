@@ -109,10 +109,29 @@ command line will override the corresponding settings in your configuration file
 		</td> 
 	</tr> 
 	<tr> 
+		<td style="vertical-align:top;"><code>css_path</code> </td> 
+		<td style="vertical-align:top;">String </td> 
+		<td style="vertical-align:top;">The full path to where css stylesheets are kept.
+		  Defaults to <code>&lt;project_path&gt;/&lt;css_dir&gt;</code>.
+		</td> 
+	</tr> 
+	<tr> 
+		<td style="vertical-align:top;"><code>http_stylesheets_path</code> </td> 
+		<td style="vertical-align:top;">String </td> 
+		<td style="vertical-align:top;">The full http path to stylesheets on the web server. Defaults to <code>http_path + "/" + css_dir</code>. </td> 
+	</tr> 
+	<tr> 
 		<td style="vertical-align:top;"><code>sass_dir</code> </td> 
 		<td style="vertical-align:top;">String </td> 
 		<td style="vertical-align:top;">The directory where the sass stylesheets are kept.
 		  It is relative to the <code>project_path</code>. Defaults to <code>"src"</code>.
+		</td> 
+	</tr> 
+	<tr> 
+		<td style="vertical-align:top;"><code>sass_path</code> </td> 
+		<td style="vertical-align:top;">String </td> 
+		<td style="vertical-align:top;">The full path to where sass stylesheets are kept.
+		  Defaults to <code>&lt;project_path&gt;/&lt;sass_dir&gt;</code>.
 		</td> 
 	</tr> 
 	<tr> 
@@ -124,11 +143,39 @@ command line will override the corresponding settings in your configuration file
 		</td> 
 	</tr> 
 	<tr> 
+		<td style="vertical-align:top;"><code>images_path</code> </td> 
+		<td style="vertical-align:top;">String </td> 
+		<td style="vertical-align:top;">The full path to where images are kept.
+		  Defaults to <code>&lt;project_path&gt;/&lt;images_dir&gt;</code>.
+		</td> 
+	</tr> 
+	<tr> 
+		<td style="vertical-align:top;"><code>http_images_path</code> </td> 
+		<td style="vertical-align:top;">String </td> 
+		<td style="vertical-align:top;">The full http path to images on the web server.
+		  Defaults to <code>http_path + "/" + images_dir</code>.
+		</td> 
+	</tr> 
+	<tr> 
 		<td style="vertical-align:top;"><code>javascripts_dir</code> </td> 
 		<td style="vertical-align:top;">String </td> 
 		<td style="vertical-align:top;">The directory where the javascripts are kept.
 		  It is relative to the <code>project_path</code>. Defaults to
 		  <code>"javascripts"</code>.
+		</td> 
+	</tr> 
+	<tr> 
+		<td style="vertical-align:top;"><code>javascripts_path</code> </td> 
+		<td style="vertical-align:top;">String </td> 
+		<td style="vertical-align:top;">The full path to where javascripts are kept.
+		  Defaults to <code>&lt;project_path&gt;/&lt;javascripts_dir&gt;</code>.
+		</td> 
+	</tr> 
+	<tr> 
+		<td style="vertical-align:top;"><code>http_javascripts_path</code> </td> 
+		<td style="vertical-align:top;">String </td> 
+		<td style="vertical-align:top;">The full http path to javascripts on the web server.
+		  Defaults to <code>http_path + "/" + javascripts_dir</code>.
 		</td> 
 	</tr> 
 	<tr> 
@@ -145,25 +192,6 @@ command line will override the corresponding settings in your configuration file
 		<td style="vertical-align:top;">Indicates whether the compass helper functions
 		  should generate relative urls from the generated css to assets, or absolute urls
 		  using the http path for that asset type.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>http_images_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full http path to images on the web server.
-		  Defaults to <code>http_path + "/" + images_dir</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>http_stylesheets_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full http path to stylesheets on the web server. Defaults to <code>http_path + "/" + css_dir</code>. </td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>http_javascripts_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full http path to javascripts on the web server.
-		  Defaults to <code>http_path + "/" + javascripts_dir</code>.
 		</td> 
 	</tr> 
 	<tr> 

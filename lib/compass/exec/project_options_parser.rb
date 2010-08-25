@@ -3,6 +3,14 @@ module Compass::Exec::ProjectOptionsParser
     super
     set_project_options(opts)
   end
+  def set_dir_or_path(type, dir)
+    if Pathname.new(dir).absolute?
+      self.options[:"#{type}_path"] = dir.tr('\\','/')
+    else
+      self.options[:"#{type}_dir"] = dir.tr('\\','/')
+    end
+  end
+
   def set_project_options(opts)
     opts.on('-c', '--config CONFIG_FILE', 'Specify the location of the configuration file explicitly.') do |configuration_file|
       self.options[:configuration_file] = configuration_file
@@ -13,19 +21,19 @@ module Compass::Exec::ProjectOptionsParser
     end
 
     opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
-      self.options[:sass_dir] = sass_dir.tr('\\','/')
+      set_dir_or_path(:sass, sass_dir)
     end
 
     opts.on('--css-dir CSS_DIR', "The target directory where you keep your css stylesheets.") do |css_dir|
-      self.options[:css_dir] = css_dir.tr('\\','/')
+      set_dir_or_path(:css, css_dir)
     end
 
     opts.on('--images-dir IMAGES_DIR', "The directory where you keep your images.") do |images_dir|
-      self.options[:images_dir] = images_dir.tr('\\','/')
+      set_dir_or_path(:images, images_dir)
     end
 
     opts.on('--javascripts-dir JS_DIR', "The directory where you keep your javascripts.") do |javascripts_dir|
-      self.options[:javascripts_dir] = javascripts_dir.tr('\\','/')
+      set_dir_or_path(:javascripts, javascripts_dir)
     end
 
     opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment.',
