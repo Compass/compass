@@ -46,7 +46,7 @@ private
 
   def data(real_path)
     if File.readable?(real_path)
-      [File.read(real_path)].pack('m').gsub("\n","")
+      [File.open(real_path, "rb") {|io| io.read}].pack('m').gsub("\n","")
     else
       raise Compass::Error, "File not found or cannot be read: #{real_path}"
     end
