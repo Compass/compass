@@ -1,116 +1,55 @@
---- 
-dependencies: 
-  fssm: 
-    group: 
-    - :default
-    version: ">= 0"
-  compass: 
-    group: 
-    - :default
-    version: ">= 0"
-  rake: 
-    group: 
-    - :default
-    version: ">= 0"
-  haml: 
-    group: 
-    - :default
-    version: ">= 3.0.6"
-    require: 
-    - sass
-  thor: 
-    group: 
-    - :default
-    version: ">= 0"
-  serve: 
-    group: 
-    - :default
-    version: = 0.10.2
-  mime-types: 
-    group: 
-    - :default
-    version: ">= 0"
-  rack: 
-    group: 
-    - :default
-    version: ">= 0"
-  json: 
-    group: 
-    - :default
-    version: ">= 0"
-  nanoc3: 
-    group: 
-    - :default
-    version: ">= 0"
-    require: []
+GIT
+  remote: git://github.com/chriseppstein/nanoc.git
+  revision: 3982942
+  branch: 3.1.x
+  specs:
+    nanoc3 (3.1.2)
+      cri (>= 1.0.0)
 
-  css-slideshow: 
-    group: 
-    - :default
-    version: = 0.2.0
-  compass-susy-plugin: 
-    group: 
-    - :default
-    version: ">= 0.7.0.pre8"
-  rdiscount: 
-    group: 
-    - :default
-    version: ">= 0"
-  coderay: 
-    group: 
-    - :default
-    version: ">= 0"
-  nokogiri: 
-    group: 
-    - :default
-    version: ">= 0"
-specs: 
-- rake: 
-    version: 0.8.7
-- activesupport: 
-    version: 2.3.8
-- coderay: 
-    version: 0.9.3
-- haml: 
-    version: 3.0.6
-- compass: 
-    version: 0.10.2
-    source: 0
-- compass-susy-plugin: 
-    version: 0.7.0.rc2
-- cri: 
-    version: 1.0.1
-- css-slideshow: 
-    version: 0.2.0
-- fssm: 
-    version: 0.1.4
-- json: 
-    version: 1.4.3
-- mime-types: 
-    version: "1.16"
-- nanoc3: 
-    version: 3.1.2
-    source: 1
-- nokogiri: 
-    version: 1.4.2
-- rack: 
-    version: 1.1.0
-- rdiscount: 
-    version: 1.6.3.2
-- serve: 
-    version: 0.10.2
-- thor: 
-    version: 0.13.6
-hash: 178d5e4f426c2d1a39af604e5edcd8bae16a395e
-sources: 
-- Path: 
-    path: !ruby/object:Pathname 
-      path: ..
-- Git: 
-    uri: git://github.com/chriseppstein/nanoc.git
-    branch: 3.1.x
-    require: false
-    git: git://github.com/chriseppstein/nanoc.git
-    ref: 398294262623dac9bb15dcbbfc0ba33c04f8125e
-- Rubygems: 
-    uri: http://gemcutter.org
+PATH
+  remote: /Users/chris/Projects/compass
+  specs:
+    compass (0.10.5.pre.0)
+      haml (>= 3.0.4)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activesupport (2.3.8)
+    coderay (0.9.3)
+    compass-susy-plugin (0.7.0)
+      compass (>= 0.10.0)
+    cri (1.0.1)
+    css-slideshow (0.2.0)
+      compass (>= 0.10.0.rc3)
+    fssm (0.1.4)
+    haml (3.0.16)
+    json (1.4.5)
+    mime-types (1.16)
+    nokogiri (1.4.3.1)
+    rack (1.2.1)
+    rake (0.8.7)
+    rdiscount (1.6.5)
+    serve (0.10.2)
+      activesupport (>= 2.0.2)
+    thor (0.14.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  coderay
+  compass!
+  compass-susy-plugin (>= 0.7.0.pre8)
+  css-slideshow (= 0.2.0)
+  fssm
+  haml (>= 3.0.6)
+  json
+  mime-types
+  nanoc3!
+  nokogiri
+  rack
+  rake
+  rdiscount
+  serve (= 0.10.2)
+  thor
