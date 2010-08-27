@@ -7,8 +7,23 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.5 (UNRELEASED)
+-------------------
+
+* The [HTML5 Reset mixin][html5-reset] now resets the following new elements:
+  `canvas`, `details`, `figcaption`, `hgroup`, `menu`, `summary`
+* A new Utility mixin has been added: [inline-block-list][inline-block-list].
+* Compass projects can now (as was always intended) use paths outside of the project directory
+  for css, images, fonts, etc by configuring those locations using `xxx_path` instead of
+  `xxx_dir`. For instance: `css_path = "/var/www/docroot/css"`. It is recommended
+  to set the corresponding `http_xxx_path` when you do this, for instance:
+  `http_stylesheets_path = "/css"`. On the command line, all absolute urls are
+  treated as paths instead of relative directories so
+  `--css-dir /var/www/docroot/css` will set `css_path`. Should both a directory
+  and a path be specified, the path will override the corresponding directory.
+
 0.10.4 (8/08/2010)
------------------------
+------------------
 
 * [Rails] Fixed a bug introduced in 0.10.3 that caused rails applications using the old configuration file (config/compass.config) to break.
 * [Extensions] Make it easier to create manifest files by allowing template files to be discovered. See the Manifest Declarations section of [extensions tutorial](http://compass-style.org/docs/tutorials/extensions/) for details.
@@ -817,3 +832,5 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [der-rich]: http://github.com/der-rich
 [adamstac]: http://github.com/adamstac
 [ttilley]: http://github.com/ttilley
+[inline-block-list]: http://compass-style.org/docs/reference/compass/utilities/lists/inline-block-list/
+[html5-reset]: http://compass-style.org/docs/reference/compass/reset/utilities/#mixin-reset-html5
