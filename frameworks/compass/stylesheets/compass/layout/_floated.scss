@@ -24,9 +24,11 @@ $compass-right-gutter-width: floor($compass-gutter-width / 2);
 // Remove the gutter for a particular side of a floated element
 // pass `both` to disable the gutter on both sides.
 @mixin gutterless($side) {
-  margin-#{$side}: 0;
   @if $side == both {
-    margin-#{opposite-position($side)}: 0;
+    margin-left: 0;
+    margin-right: 0;
+  } @else {
+    margin-#{$side}: 0;
   }
 }
 
