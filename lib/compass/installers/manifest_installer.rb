@@ -17,9 +17,11 @@ module Compass
       # Initializes the project to work with compass
       def init
         dirs = manifest.map do |entry|
-          loc = send("install_location_for_#{entry.type}", entry.to, entry.options)
-          File.dirname(loc)
-        end
+          unless entry.type == :directory
+            loc = send("install_location_for_#{entry.type}", entry.to, entry.options)
+            File.dirname(loc)
+          end
+        end.compact
 
         if manifest.has_stylesheet?
           dirs << sass_dir

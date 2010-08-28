@@ -37,7 +37,7 @@
   $background: unquote("");
   @if $image { $background : $image + unquote(", "); }
   $start: unquote($start);
-  $end: grad-opposite-position($start);
+  $end: opposite-position($start);
   @if $experimental-support-for-webkit {
     background-image: #{$background}-webkit-gradient(linear, grad-point($start), grad-point($end), grad-color-stops($color-stops));
   }

@@ -6,9 +6,7 @@
 
 .clearfix {
   overflow: hidden;
-  display: inline-block; }
-  .clearfix {
-    display: block; }
+  *zoom: 1; }
 
 .small {
   font-size: 0.8em;

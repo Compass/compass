@@ -25,7 +25,7 @@ module Compass
       extend  Compass::Configuration::Paths
 
       inherited_accessor *ATTRIBUTES
-      inherited_accessor :required_libraries #XXX we should make this array add up cumulatively.
+      inherited_accessor :required_libraries, :loaded_frameworks, :framework_path #XXX we should make these arrays add up cumulatively.
 
       strip_trailing_separator *ATTRIBUTES.select{|a| a.to_s =~ /dir|path/}
 
@@ -93,6 +93,16 @@ module Compass
       def require(lib)
         (self.required_libraries ||= []) << lib
         super
+      end
+
+      def load(framework_dir)
+        (self.loaded_frameworks ||= []) << framework_dir
+        Compass::Frameworks.register_directory framework_dir
+      end
+
+      def discover(frameworks_dir)
+        (self.framework_path ||= []) << frameworks_dir
+        Compass::Frameworks.discover frameworks_dir
       end
 
       def relative_assets?

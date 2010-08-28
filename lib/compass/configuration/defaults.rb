@@ -44,43 +44,43 @@ module Compass
 
       def default_sass_path
         if (pp = top_level.project_path) && (dir = top_level.sass_dir)
-          File.join(pp, dir)
+          Compass.projectize(dir, pp)
         end
       end
 
       def default_css_path
         if (pp = top_level.project_path) && (dir = top_level.css_dir)
-          File.join(pp, dir)
+          Compass.projectize(dir, pp)
         end
       end
 
       def default_images_path
         if (pp = top_level.project_path) && (dir = top_level.images_dir)
-          File.join(pp, dir)
+          Compass.projectize(dir, pp)
         end
       end
 
       def default_javascripts_path
         if (pp = top_level.project_path) && (dir = top_level.javascripts_dir)
-          File.join(pp, dir)
+          Compass.projectize(dir, pp)
         end
       end
 
       def default_extensions_path
         if (pp = top_level.project_path) && (dir = top_level.extensions_dir)
-          File.join(pp, dir)
+          Compass.projectize(dir, pp)
         end
       end
 
       def default_fonts_path
         if (pp = top_level.project_path) && (dir = top_level.fonts_dir)
-          File.join(pp, dir)
+          Compass.projectize(dir, pp)
         end
       end
 
       def default_cache_path
         if (pp = top_level.project_path) && (dir = top_level.cache_dir)
-          File.join(pp, dir)
+          Compass.projectize(dir, pp)
         end
       end
 

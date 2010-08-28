@@ -36,22 +36,6 @@ module Compass::SassExtensions::Functions::GradientSupport
   end
 
   module Functions
-    # returns the opposite position of a side or corner.
-    def grad_opposite_position(position)
-      opposite = position.value.split(/ +/).map do |pos|
-        case pos
-        when "top" then "bottom"
-        when "bottom" then "top"
-        when "left" then "right"
-        when "right" then "left"
-        when "center" then "center"
-        else
-          raise Sass::SyntaxError, "Cannot determine the opposite of #{pos}"
-        end
-      end
-      Sass::Script::String.new(opposite.join(" "))
-    end
-
     # returns color-stop() calls for use in webkit.
     def grad_color_stops(color_list)
       assert_list(color_list)

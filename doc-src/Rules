@@ -2,8 +2,6 @@
 
 require 'compass'
 
-puts "Compass running from: #{Compass.lib_directory}"
-
 Compass.add_configuration "#{File.dirname(__FILE__)}/.compass/config.rb"
 
 SITE_ROOT = "/docs" 

@@ -28,10 +28,10 @@ module Compass
       # Runs the installer.
       # Every installer must conform to the installation strategy of prepare, install, and then finalize.
       # A default implementation is provided for each step.
-      def run(options = {})
-        prepare
-        install
-        finalize(options) unless options[:skip_finalization]
+      def run(run_options = {})
+        prepare unless run_options[:skip_preparation]
+        install unless options[:prepare]
+        finalize(options.merge(run_options)) unless options[:prepare] || run_options[:skip_finalization]
       end
 
       # The default prepare method -- it is a no-op.
@@ -114,6 +114,19 @@ module Compass
 
       installer :html do |to|
         "#{pattern_name_as_dir}#{to}"
+      end
+
+      def install_directory(from, to, options)
+        d = if within = options[:within]
+          if respond_to?(within)
+            targetize("#{send(within)}/#{to}")
+          else
+            raise Compass::Error, "Unrecognized location: #{within}"
+          end
+        else
+          targetize(to)
+        end
+        directory d
       end
 
       alias install_html_without_haml install_html

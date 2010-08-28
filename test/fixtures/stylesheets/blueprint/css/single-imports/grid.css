@@ -2,9 +2,7 @@
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
-  display: inline-block; }
-  .container {
-    display: block; }
+  *zoom: 1; }
 
 .column, div.span-1, div.span-2, div.span-3, div.span-4, div.span-5, div.span-6, div.span-7, div.span-8, div.span-9, div.span-10, div.span-11, div.span-12, div.span-13, div.span-14, div.span-15, div.span-16, div.span-17, div.span-18, div.span-19, div.span-20, div.span-21, div.span-22, div.span-23, div.span-24 {
   display: inline;

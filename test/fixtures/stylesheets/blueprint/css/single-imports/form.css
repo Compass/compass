@@ -11,7 +11,7 @@ form.bp fieldset {
 form.bp legend {
   font-weight: bold;
   font-size: 1.2em; }
-form.bp input.text, form.bp input.title, form.bp input[type=text], form.bp input[type=password] {
+form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password] {
   margin: 0.5em 0;
   background-color: white;
   padding: 5px; }
@@ -27,13 +27,13 @@ form.bp select {
   margin: 0.5em 0; }
 form.bp fieldset {
   border: 1px solid #cccccc; }
-form.bp input.text, form.bp input.title, form.bp input[type=text], form.bp input[type=password],
+form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password],
 form.bp textarea, form.bp select {
   border: 1px solid #bbbbbb; }
-  form.bp input.text:focus, form.bp input.title:focus, form.bp input[type=text]:focus, form.bp input[type=password]:focus,
+  form.bp input.text:focus, form.bp input.title:focus, form.bp input[type=email]:focus, form.bp input[type=text]:focus, form.bp input[type=password]:focus,
   form.bp textarea:focus, form.bp select:focus {
     border: 1px solid #666666; }
-form.bp input.text, form.bp input.title, form.bp input[type=text], form.bp input[type=password] {
+form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password] {
   width: 300px; }
 form.bp textarea {
   width: 390px;

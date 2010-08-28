@@ -34,6 +34,13 @@ module Compass
         end
       end
 
+      def initialize!
+        config_file = Compass.detect_configuration_file(root)
+        Compass.add_project_configuration(config_file)
+        Compass.discover_extensions!
+        Compass.configure_sass_plugin!
+        Compass.handle_configuration_change!
+      end
     end
   end
 end

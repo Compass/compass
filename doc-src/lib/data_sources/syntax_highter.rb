@@ -11,7 +11,7 @@ class SyntaxHighlighterFilter < Nanoc3::Filter
 
   def pygmentize(code, type)
     # -O linenos=table
-    IO.popen("pygmentize -l #{type} -f html", "r+") do |io|
+    IO.popen("pygmentize -l #{type} -f html -O encoding=utf-8", "r+") do |io|
       io.write(code)
       io.close_write
       return io.read

@@ -43,7 +43,12 @@ module Compass
           self.options[:preferred_syntax] = syntax
         end
 
+        opts.on("--prepare", "Prepare the project by only creating configuration files.") do
+          self.options[:prepare] = true
+        end
+
         super
+
       end
     end
 

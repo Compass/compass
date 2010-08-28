@@ -13,7 +13,7 @@ Gem::Specification.new do |gemspec|
   gemspec.executables = %w(compass)
   gemspec.has_rdoc = false
   gemspec.require_paths = %w(lib)
-  gemspec.rubygems_version = "1.3.6"
+  gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}
   gemspec.add_dependency('haml', '>= 3.0.4')
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)

@@ -7,6 +7,7 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+<<<<<<< HEAD:doc-src/content/CHANGELOG.markdown
 0.11.alpha.1
 ------------
 
@@ -39,6 +40,79 @@ COMPASS CHANGELOG
 * `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
   all other modern browsers support the official spec or nothing at all.
 
+=======
+0.10.5 (UNRELEASED)
+-------------------
+
+* The [HTML5 Reset mixin][html5-reset] now resets the following new elements:
+  `canvas`, `details`, `figcaption`, `hgroup`, `menu`, `summary`
+* A new Utility mixin has been added: [inline-block-list][inline-block-list].
+* Compass projects can now (as was always intended) use paths outside of the project directory
+  for css, images, fonts, etc by configuring those locations using `xxx_path` instead of
+  `xxx_dir`. For instance: `css_path = "/var/www/docroot/css"`. It is recommended
+  to set the corresponding `http_xxx_path` when you do this, for instance:
+  `http_stylesheets_path = "/css"`. On the command line, all absolute urls are
+  treated as paths instead of relative directories so
+  `--css-dir /var/www/docroot/css` will set `css_path`. Should both a directory
+  and a path be specified, the path will override the corresponding directory.
+
+0.10.4 (8/08/2010)
+------------------
+
+* [Rails] Fixed a bug introduced in 0.10.3 that caused rails applications using the old configuration file (config/compass.config) to break.
+* [Extensions] Make it easier to create manifest files by allowing template files to be discovered. See the Manifest Declarations section of [extensions tutorial](http://compass-style.org/docs/tutorials/extensions/) for details.
+* [Rails] Don't install configuration files when installing extensions.
+* [Compass Core] All url helpers now accept a second argument that when true will cause only the path to be emitted. This allows the url helpers to be used with IE filters.
+
+0.10.3 (8/1/2010)
+-----------------
+
+### !important
+
+All rails users should run the following command:
+
+    compass init rails --prepare
+
+This will update your compass initializer file.
+
+### Compass Core
+
+* Add missing clearfix import to horizontal-list.
+* Emit less css for inline lists with the same result.
+* New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/docs/reference/compass/helpers/constants/)
+* Allow horizontal lists to be floated to the right.
+* Bugfix for inline-font-files helper.
+* `+font-face` mixin no longer uses `$postscript` name or `$style` type variables, in favor of the Paul Irish [smiley bulletproof technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/). Older declarations will still work, but will not apply the variables and will display a deprecation warning. 
+* `+box-shadow` now supports `$spread` length and `$inset` declarations.
+* The gradient mixins output official w3c declarations along with the `-webkit` and `-moz` prefixed versions. The official code is based on the w3c spec and is nearly ideantical to the mozilla version, although it is currently not supported by any browser.
+* `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
+  all other modern browsers support the official spec or nothing at all.
+* Support for specifying horizontal and vertical radii for the shorthand border-radius property.
+* The `has-layout` mixin now uses pixels instead of ems to work around an opera bug.
+
+### Blueprint
+* Two colors used in typography can now be customized.
+* Support for inputs of type email.
+
+### Extensions
+* Extensions can now create empty directories with the `directory` directive. [Docs](http://compass-style.org/docs/tutorials/extensions/).
+* It's now easier to load extensions from a configuration file using the `load` and `discover` directives.
+
+### Rails
+
+As stated above, all rails users should run the following command:
+
+    compass init rails . --prepare
+
+This will fix a bug in the rails initializer that caused compass extensions to not be recognized when placed into the `vendor/plugins/compass_extensions` directory. It will also make sure that future bugs in the boot process won't require an end-user action to fix.
+
+
+### Contributors:
+
+* [Milo Winningham](http://github.com/quadule)
+* [jonathanpberger](http://github.com/jonathanpberger)
+* [Stephan Kaag](http://github.com/stephankaag)
+>>>>>>> stable:doc-src/content/CHANGELOG.markdown
 
 0.10.2 (May 31, 2010)
 ---------------------
@@ -792,3 +866,5 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [der-rich]: http://github.com/der-rich
 [adamstac]: http://github.com/adamstac
 [ttilley]: http://github.com/ttilley
+[inline-block-list]: http://compass-style.org/docs/reference/compass/utilities/lists/inline-block-list/
+[html5-reset]: http://compass-style.org/docs/reference/compass/reset/utilities/#mixin-reset-html5

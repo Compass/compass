@@ -1,0 +1,18 @@
+@import "compass/layout/floated";
+
+// It's easy to build a grid with a floated layout
+$gutter: $compass-gutter-width;
+$col-width: 30px;
+$number-of-columns: 24;
+$total-width: $number-of-columns * ($col-width + $gutter) - $gutter ;
+
+@mixin span($n) {
+  width: $n * ($col-width + $gutter) - $gutter;
+}
+
+// Provides a number of base classes.
+@include act-like-blueprint;
+
+#page    { @extend .container; @include span($number-of-columns); }
+#sidebar { @extend .column;    @include span(8);                  }
+#content { @extend .column;    @include span(16); @extend .last;  }

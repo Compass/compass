@@ -1,0 +1,15 @@
+---
+title: Compass Documentation | All Variables
+crumb: Docs
+body_id: home
+---
+%article
+  %h1#logo Compass Variables
+  
+  - all_constants.sort_by{|i| i.first.identifier}.each do |item, constants|
+    %h3= link_to item[:title], item
+    %ul
+      - constants.sort_by{|c| c.name}.each do |c|
+        %li $#{c.name}
+
+  

@@ -3,9 +3,69 @@
 $default-border-radius: 5px !default;
 
 // Round all corners by a specific amount, defaults to value of `$default-border-radius`.
+//
+// When two values are passed, the first is the horizontal radius
+// and the second is the vertical radius.
+//
+// Note: webkit does not support shorthand syntax for several corners at once.
+// So in the case where you pass several values only the first will be passed to webkit.
+//
+// Examples:
+//
+//     .simple   { @include border-radius(4px, 4px); }
+//     .compound { @include border-radius(2px 5px, 3px 6px); }
+//     .crazy    { @include border-radius(1px 3px 5px 7px, 2px 4px 6px 8px)}
+//
+// Which generates:
+//    .simple {
+//      -webkit-border-radius: 4px 4px;
+//      -moz-border-radius: 4px / 4px;
+//      -o-border-radius: 4px / 4px;
+//      -ms-border-radius: 4px / 4px;
+//      -khtml-border-radius: 4px / 4px;
+//      border-radius: 4px / 4px; }
+//    
+//    .compound {
+//      -webkit-border-radius: 2px 3px;
+//      -moz-border-radius: 2px 5px / 3px 6px;
+//      -o-border-radius: 2px 5px / 3px 6px;
+//      -ms-border-radius: 2px 5px / 3px 6px;
+//      -khtml-border-radius: 2px 5px / 3px 6px;
+//      border-radius: 2px 5px / 3px 6px; }
+//    
+//    .crazy {
+//      -webkit-border-radius: 1px 2px;
+//      -moz-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
+//      -o-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
+//      -ms-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
+//      -khtml-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
+//      border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px; }
 
-@mixin border-radius($radius: $default-border-radius) {
-  @include experimental(border-radius, $radius);
+@mixin border-radius($radius: $default-border-radius, $vertical-radius: false) {
+
+  @if $vertical-radius {
+    // Webkit doesn't understand the official shorthand syntax for specifying
+    // a vertical radius unless so in case there's several we only take the first.
+    @include experimental(border-radius, first-value-of($radius) first-value-of($vertical-radius),
+      not -moz,
+      -webkit,
+      not -o,
+      not -ms,
+      not -khtml,
+      not official
+    );
+    @include experimental("border-radius", $radius unquote("/") $vertical-radius,
+      -moz,
+      not -webkit,
+      -o,
+      -ms,
+      -khtml,
+      official
+    );
+  }
+  @else {
+    @include experimental(border-radius, $radius);
+  }
 }
 
 // Round radius at position by amount.

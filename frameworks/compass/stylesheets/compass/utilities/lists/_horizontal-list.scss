@@ -16,6 +16,7 @@
 //       +horizontal-list-item
 
 @import "bullets";
+@import "compass/utilities/general/clearfix";
 @import "compass/utilities/general/reset";
 @import "compass/utilities/general/float";
 
@@ -31,21 +32,21 @@
 // :last-child is not fully supported
 // see http://www.quirksmode.org/css/contents.html#t29 for the support matrix
 
-@mixin horizontal-list-item($padding: 4px) {
+@mixin horizontal-list-item($padding: 4px, $direction: left) {
   @include no-bullet;
   white-space: nowrap;
-  @include float-left;
+  @include float($direction);
   padding: {
     left: $padding;
-    right: $padding; };
-  &:first-child, &.first {
-    padding-left: 0px; }
-  &:last-child, &.last {
-    padding-right: 0px; } }
+    right: $padding;
+  };
+  &:first-child, &.first { padding-#{$direction}: 0px; }
+  &:last-child, &.last   { padding-#{opposite-position($direction)}: 0px; }
+}
 
 // A list(ol,ul) that is layed out such that the elements are floated left and won't wrap.
 // This is not an inline list.
-@mixin horizontal-list($padding: 4px) {
+@mixin horizontal-list($padding: 4px, $direction: left) {
   @include horizontal-list-container;
   li {
-    @include horizontal-list-item($padding); } }
+    @include horizontal-list-item($padding, $direction); } }

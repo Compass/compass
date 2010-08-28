@@ -1,20 +1,25 @@
 module Compass::SassExtensions::Functions::Urls
 
-  def stylesheet_url(path)
+  def stylesheet_url(path, only_path = Sass::Script::Bool.new(false))
     # Compute the path to the stylesheet, either root relative or stylesheet relative
     # or nil if the http_images_path is not set in the configuration.
     http_stylesheets_path = if relative?
-      compute_relative_path(Compass.configuration.css_dir)
+      compute_relative_path(Compass.configuration.css_path)
     elsif Compass.configuration.http_stylesheets_path
       Compass.configuration.http_stylesheets_path
     else
       Compass.configuration.http_root_relative(Compass.configuration.css_dir)
     end
 
-    clean_url("#{http_stylesheets_path}/#{path}")
+    path = "#{http_stylesheets_path}/#{path}"
+    if only_path.to_bool
+      Sass::Script::String.new(clean_path(path))
+    else
+      clean_url(path)
+    end
   end
 
-  def font_url(path)
+  def font_url(path, only_path = Sass::Script::Bool.new(false))
     path = path.value # get to the string value of the literal.
 
     # Short curcuit if they have provided an absolute url.
@@ -25,26 +30,36 @@ module Compass::SassExtensions::Functions::Urls
     # Compute the path to the font file, either root relative or stylesheet relative
     # or nil if the http_fonts_path cannot be determined from the configuration.
     http_fonts_path = if relative?
-                        compute_relative_path(Compass.configuration.fonts_dir)
+                        compute_relative_path(Compass.configuration.fonts_path)
                       else
                         Compass.configuration.http_fonts_path
                       end
 
-    clean_url("#{http_fonts_path}/#{path}")
+    path = "#{http_fonts_path}/#{path}"
+
+    if only_path.to_bool
+      Sass::Script::String.new(clean_path(path))
+    else
+      clean_url(path)
+    end
   end
 
-  def image_url(path)
+  def image_url(path, only_path = Sass::Script::Bool.new(false))
     path = path.value # get to the string value of the literal.
 
-    # Short curcuit if they have provided an absolute url.
-    if absolute_path?(path)
+    if path =~ %r{^#{Regexp.escape(Compass.configuration.http_images_path)}/(.*)}
+      # Treat root relative urls (without a protocol) like normal if they start with
+      # the images path.
+      path = $1
+    elsif absolute_path?(path)
+      # Short curcuit if they have provided an absolute url.
       return Sass::Script::String.new("url(#{path})")
     end
 
     # Compute the path to the image, either root relative or stylesheet relative
     # or nil if the http_images_path is not set in the configuration.
     http_images_path = if relative?
-      compute_relative_path(Compass.configuration.images_dir)
+      compute_relative_path(Compass.configuration.images_path)
     elsif Compass.configuration.http_images_path
       Compass.configuration.http_images_path
     else
@@ -75,16 +90,24 @@ module Compass::SassExtensions::Functions::Urls
     # prepend the asset host if there is one.
     path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
-    clean_url(path)
+    if only_path.to_bool
+      Sass::Script::String.new(clean_path(path))
+    else
+      clean_url(path)
+    end
   end
 
   private
 
-  # Emits a url, taking off any leading "./"
-  def clean_url(url)
+  # Emits a path, taking off any leading "./"
+  def clean_path(url)
     url = url.to_s
     url = url[0..1] == "./" ? url[2..-1] : url
-    Sass::Script::String.new("url('#{url}')")
+  end
+
+  # Emits a url, taking off any leading "./"
+  def clean_url(url)
+    Sass::Script::String.new("url('#{clean_path(url)}')")
   end
 
   def relative?
@@ -95,9 +118,8 @@ module Compass::SassExtensions::Functions::Urls
     path[0..0] == "/" || path[0..3] == "http"
   end
 
-  def compute_relative_path(dir)
+  def compute_relative_path(path)
     if (target_css_file = options[:css_filename])
-      path = File.join(Compass.configuration.project_path, dir)
       Pathname.new(path).relative_path_from(Pathname.new(File.dirname(target_css_file))).to_s
     end
   end

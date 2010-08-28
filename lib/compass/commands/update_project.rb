@@ -53,8 +53,8 @@ module Compass
                              :dry_run => options[:dry_run])
         compiler_opts.merge!(additional_options)
         Compass::Compiler.new(working_path,
-          projectize(Compass.configuration.sass_dir),
-          projectize(Compass.configuration.css_dir),
+          Compass.configuration.sass_path,
+          Compass.configuration.css_path,
           compiler_opts)
       end
 

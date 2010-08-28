@@ -258,16 +258,22 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass stats
     Then I am told statistics for each file:
-      | Filename             | Rules | Properties | Mixins Defs | Mixins Used | CSS Rules | CSS Properties |
-      | sass/box.sass        |    15 |          0 |           0 |          19 |        15 |             59 |
-      | sass/gradients.sass  |    19 |          0 |           0 |          19 |        19 |             19 |
-      | sass/image_size.sass |     4 |          8 |           0 |           0 |         4 |              8 |
-      | sass/layout.sass     |     0 |          0 |           0 |           1 |         5 |             10 |
-      | sass/print.sass      |     0 |          0 |           0 |           2 |        61 |             61 |
-      | sass/reset.sass      |     4 |          1 |           0 |           2 |       190 |            664 |
-      | sass/utilities.scss  |     2 |          0 |           0 |           2 |         5 |             11 |
-      | Total.*              |    44 |          9 |           0 |          45 |       299 |            832 |
- 
+      | Filename                  | Rules | Properties |    Mixins Defs | Mixins Used | CSS Rules | CSS Properties |
+      | sass/border_radius.scss   |     3 |          0 |              0 |           3 |         3 |             18 |
+      | sass/box.sass             |    15 |          0 |              0 |          19 |        15 |             59 |
+      | sass/fonts.sass           |     0 |          0 |              0 |           1 |         1 |              2 |
+      | sass/gradients.sass       |    19 |          0 |              0 |          19 |        19 |             19 |
+      | sass/image_size.sass      |     4 |          8 |              0 |           0 |         4 |              8 |
+      | sass/images.scss          |     3 |          3 |              0 |           0 |         3 |              3 |
+      | sass/layout.sass          |     0 |          0 |              0 |           1 |         5 |             10 |
+      | sass/legacy_clearfix.scss |     2 |          0 |              0 |           2 |         5 |             11 |
+      | sass/lists.scss           |     9 |          0 |              0 |           9 |        35 |            111 |
+      | sass/print.sass           |     0 |          0 |              0 |           2 |        61 |             61 |
+      | sass/reset.sass           |     4 |          1 |              0 |           2 |       190 |            664 |
+      | sass/utilities.scss       |     2 |          0 |              0 |           2 |         3 |              9 |
+      | ------------------------- | ----- | ---------- | -------------- | ----------- | --------- | -------------- |
+      | Total.*                   |    61 |         12 |              0 |          60 |       344 |            975 |
+
   @listframeworks
   Scenario: List frameworks registered with compass
     When I run: compass frameworks

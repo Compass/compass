@@ -12,11 +12,10 @@
     @warn "The $postscript and $style variables have been deprecated in favor of the Paul Irish smiley bulletproof technique.";
   }
   @font-face {
-    font-family: "#{$name}";
-    @if $eot {
-      src: font-url($eot); }
-    src: local("☺"), #{$font-files}; 
-  } 
+    font-family: quote($name);
+    @if $eot { src: font-url($eot); }
+    src: local("☺"), $font-files; 
+  }
 }
 
 // EXAMPLE
