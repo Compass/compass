@@ -34,7 +34,7 @@ Given %r{^I am in the parent directory$} do
   Dir.chdir ".."
 end
 
-Given /^I'm in a newly created rails project: (.+)$/ do |project_name|
+Given %r{^I'm in a newly created rails project: (.+)$} do |project_name|
   @cleanup_directories << project_name
   begin
     generate_rails_app project_name
