@@ -19,13 +19,18 @@ module Compass
         end
       else
         begin
-          require 'rails/version'
-          require 'rails_generator'
-          require 'rails_generator/scripts/generate'
-          Rails::Generator::Base.use_application_sources!
-          capture_output do
-            Rails::Generator::Base.logger = Rails::Generator::SimpleLogger.new $stdout
-            Rails::Generator::Scripts::Generate.new.run([name], :generator => 'app')
+          require 'action_pack/version'
+          if ActionPack::VERSION::MAJOR >= 3
+            `rails new #{name}`
+          else
+            require 'rails/version'
+            require 'rails_generator'
+            require 'rails_generator/scripts/generate'
+            Rails::Generator::Base.use_application_sources!
+            capture_output do
+              Rails::Generator::Base.logger = Rails::Generator::SimpleLogger.new $stdout
+              Rails::Generator::Scripts::Generate.new.run([name], :generator => 'app')
+            end
           end
         rescue LoadError
           Kernel.exit!(2)

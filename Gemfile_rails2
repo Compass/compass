@@ -1,0 +1,8 @@
+source :rubygems
+
+gem "compass", :path => "."
+gem "cucumber"
+gem "rspec"
+gem "rails", "~>2.3"
+gem "compass-validator"
+gem "css_parser"

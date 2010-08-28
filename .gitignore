@@ -1,5 +1,6 @@
 *.DS_Store
 *.tmproj
+*.lock
 sync
 tmp/*
 examples/*/stylesheets/*
