@@ -34,6 +34,9 @@ module Compass
 
       def perform
         framework = Compass::Frameworks[options[:framework]]
+        unless framework
+          raise Compass::Error, "No extension named \"#{options[:framework]}\" was found."
+        end
         files = Dir["#{framework.path}/**/*"]
         extension_dir = File.join(Compass.configuration.extensions_path, framework.name)
         FileUtils.rm_rf extension_dir
