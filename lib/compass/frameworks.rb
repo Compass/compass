@@ -7,10 +7,11 @@ module Compass
 
     class Framework
       attr_accessor :name
+      attr_accessor :path
       attr_accessor :templates_directory, :stylesheets_directory
       def initialize(name, *arguments)
         options = arguments.last.is_a?(Hash) ? arguments.pop : {}
-        path = options[:path] || arguments.shift
+        self.path = path = options[:path] || arguments.shift
         @name = name
         @templates_directory = options[:templates_directory] || File.join(path, 'templates')
         @stylesheets_directory = options[:stylesheets_directory] || File.join(path, 'stylesheets')
@@ -97,7 +98,7 @@ module Compass
       end
     end
 
-    def pretty_print
+    def pretty_print(skip_patterns = false)
       result = ""
       max = Compass::Frameworks::ALL.inject(0) do |gm, framework|
         fm = framework.template_directories.inject(0) do |lm,pattern|
@@ -108,12 +109,14 @@ module Compass
       Compass::Frameworks::ALL.each do |framework|
         next if framework.name =~ /^_/
         result << "  * #{framework.name}\n"
-        framework.template_directories.each do |pattern|
-          result << "    - #{framework.name}/#{pattern}".ljust(max)
-          if description = framework.manifest(pattern).description
-            result << " - #{description}"
+        unless skip_patterns
+          framework.template_directories.each do |pattern|
+            result << "    - #{framework.name}/#{pattern}".ljust(max)
+            if description = framework.manifest(pattern).description
+              result << " - #{description}"
+            end
+            result << "\n"
           end
-          result << "\n"
         end
       end
       result
