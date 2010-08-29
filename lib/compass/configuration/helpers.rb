@@ -61,7 +61,9 @@ module Compass
         locations = config.delete(:template_location)
         Sass::Plugin.options.merge!(config)
         locations.each do |sass_dir, css_dir|
-          Sass::Plugin.add_template_location sass_dir, css_dir
+          unless Sass::Plugin.engine_options[:load_paths].include?(sass_dir)
+            Sass::Plugin.add_template_location sass_dir, css_dir
+          end
         end
       end
 
