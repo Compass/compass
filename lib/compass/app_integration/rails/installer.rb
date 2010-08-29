@@ -81,8 +81,8 @@ NEXTSTEPS
             recommended_location = separate('app/stylesheets')
             default_location = separate('public/stylesheets/sass')
             print %Q{Compass recommends that you keep your stylesheets in #{recommended_location}
-    instead of the Sass default location of #{default_location}.
-    Is this OK? (Y/n) }
+  instead of the Sass default location of #{default_location}.
+  Is this OK? (Y/n) }
             answer = $stdin.gets.downcase[0]
             answer == ?n ? default_location : recommended_location
           end
@@ -96,9 +96,9 @@ NEXTSTEPS
             default_location = separate("public/stylesheets")
             puts
             print %Q{Compass recommends that you keep your compiled css in #{recommended_location}/
-    instead the Sass default of #{default_location}/.
-    However, if you're exclusively using Sass, then #{default_location}/ is recommended.
-    Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
+  instead the Sass default of #{default_location}/.
+  However, if you're exclusively using Sass, then #{default_location}/ is recommended.
+  Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
             answer = $stdin.gets
             answer = answer.downcase[0]
             answer == ?n ? default_location : recommended_location
@@ -106,16 +106,11 @@ NEXTSTEPS
         end
 
         def config_contents
-          "# This configuration file works with both the Compass command line tool and within Rails.\n" +
-          Compass.configuration.serialize do |prop, value|
-            if prop == :project_path
-              "project_path = Compass::AppIntegration::Rails.root\n"
-            elsif prop == :environment
-              "environment = Compass::AppIntegration::Rails.env\n"
-            elsif prop == :output_style
-              ""
-            end
-          end
+          project_path, Compass.configuration.project_path = Compass.configuration.project_path, nil
+          ("# This configuration file works with both the Compass command line tool and within Rails.\n" +
+           Compass.configuration.serialize)
+        ensure
+          Compass.configuration.project_path = project_path
         end
 
         def initializer_contents

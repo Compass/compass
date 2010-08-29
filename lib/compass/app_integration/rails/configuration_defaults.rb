@@ -8,6 +8,8 @@ module Compass
         end
 
         def default_sass_dir
+          # XXX Maybe this should be: app/views/stylesheets
+          # or maybe layouts should be moved up a level.
           File.join("app", "stylesheets")
         end
 
@@ -49,6 +51,18 @@ module Compass
 
         def default_cache_dir
           File.join("tmp", "sass-cache")
+        end
+
+        def default_project_path
+          project_path = Compass::AppIntegration::Rails.root
+        end
+
+        def default_http_path
+          "/" # XXX Where is/was this stored in the Rails config?
+        end
+
+        def default_environment
+          Compass::AppIntegration::Rails.env
         end
 
       end
