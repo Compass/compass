@@ -9,9 +9,10 @@ module Compass
       Compass::AppIntegration::Rails.initialize!
     end
 
-    # Might need to do this...
-    # initializer "compass/railtie.configure_rails_initialization" do |app|
-    #   puts "Initializing compass"
-    # end
+    initializer "compass/railtie.configure_rails_initialization" do |app|
+      # XXX How do I only do this if it's not done yet?
+      require 'sass/plugin/rack'
+      app.middleware.use Sass::Plugin::Rack
+    end
   end
 end
