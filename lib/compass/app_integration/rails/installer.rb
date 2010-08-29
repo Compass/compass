@@ -27,8 +27,20 @@ module Compass
           write_file targetize('config/initializers/compass.rb'), initializer_contents
         end
 
+        def rails3?
+          File.exists?(targetize('config/application.rb'))
+        end
+
         def prepare
           write_configuration_files
+        end
+
+        def gem_config_instructions
+          if rails3?
+            %Q{Add the following to your Gemfile:\n\n    gem "compass", ">= #{Compass::VERSION}"}
+          else
+            %Q{Add the following to your evironment.rb:\n\n    config.gem "compass", :version => ">= #{Compass::VERSION}"}
+          end
         end
 
         def finalize(options = {})
@@ -36,15 +48,9 @@ module Compass
             puts <<-NEXTSTEPS
 
 Congratulations! Your rails project has been configured to use Compass.
-Just one more thing left to do: Register the compass gem.
+Just one more thing left to do if you haven't yet: Register the compass gem.
 
-In Rails 2.2 & 2.3, add the following to your evironment.rb:
-
-  config.gem "compass", :version => ">= #{Compass::VERSION}"
-
-In Rails 3, add the following to your Gemfile:
-
-  gem "compass", ">= #{Compass::VERSION}"
+#{gem_config_instructions}
 
 Then, make sure you restart your server.
 
