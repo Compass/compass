@@ -88,6 +88,10 @@ Misc commands
 
     compass version
 
+### Unpack a framework or extension into your project
+
+    compass unpack <extension>
+
 Get Help on the Command Line
 ----------------------------
 
