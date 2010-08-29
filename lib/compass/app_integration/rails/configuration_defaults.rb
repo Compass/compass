@@ -7,6 +7,14 @@ module Compass
           :rails
         end
 
+        def default_sass_dir
+          File.join("app", "stylesheets")
+        end
+
+        def default_css_dir
+          File.join("public", "stylesheets")
+        end
+
         def default_images_dir
           File.join("public", "images")
         end
