@@ -21,6 +21,8 @@ COMPASS CHANGELOG
   treated as paths instead of relative directories so
   `--css-dir /var/www/docroot/css` will set `css_path`. Should both a directory
   and a path be specified, the path will override the corresponding directory.
+* A new command is available that will unpack an extension from the system location into
+  your extensions folder. Run `compass help unpack` for more information.
 
 0.10.4 (8/08/2010)
 ------------------
