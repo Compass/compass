@@ -7,7 +7,7 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.10.5 (UNRELEASED)
+0.10.5 (08/29/2010)
 -------------------
 
 * The [HTML5 Reset mixin][html5-reset] now resets the following new elements:
