@@ -54,9 +54,7 @@ module Compass
       end
 
       def configure_sass_plugin!
-        return if sass_plugin_configured?
         require 'sass/plugin'
-        @sass_plugin_configured = true
         config = sass_plugin_configuration
         locations = config.delete(:template_location)
         Sass::Plugin.options.merge!(config)
@@ -65,10 +63,6 @@ module Compass
             Sass::Plugin.add_template_location sass_dir, css_dir
           end
         end
-      end
-
-      def sass_plugin_configured?
-        @sass_plugin_configured
       end
 
       def sass_engine_options
