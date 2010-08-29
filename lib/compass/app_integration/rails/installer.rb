@@ -23,8 +23,10 @@ module Compass
             directory File.dirname(config_file)
             write_file config_file, config_contents
           end
-          directory File.dirname(targetize('config/initializers/compass.rb'))
-          write_file targetize('config/initializers/compass.rb'), initializer_contents
+          unless rails3?
+            directory File.dirname(targetize('config/initializers/compass.rb'))
+            write_file targetize('config/initializers/compass.rb'), initializer_contents
+          end
         end
 
         def rails3?
@@ -73,26 +75,34 @@ NEXTSTEPS
         end
 
         def prompt_sass_dir
-          recommended_location = separate('app/stylesheets')
-          default_location = separate('public/stylesheets/sass')
-          print %Q{Compass recommends that you keep your stylesheets in #{recommended_location}
-  instead of the Sass default location of #{default_location}.
-  Is this OK? (Y/n) }
-          answer = $stdin.gets.downcase[0]
-          answer == ?n ? default_location : recommended_location
+          if rails3?
+            nil
+          else
+            recommended_location = separate('app/stylesheets')
+            default_location = separate('public/stylesheets/sass')
+            print %Q{Compass recommends that you keep your stylesheets in #{recommended_location}
+    instead of the Sass default location of #{default_location}.
+    Is this OK? (Y/n) }
+            answer = $stdin.gets.downcase[0]
+            answer == ?n ? default_location : recommended_location
+          end
         end
 
         def prompt_css_dir
-          recommended_location = separate("public/stylesheets/compiled")
-          default_location = separate("public/stylesheets")
-          puts
-          print %Q{Compass recommends that you keep your compiled css in #{recommended_location}/
-  instead the Sass default of #{default_location}/.
-  However, if you're exclusively using Sass, then #{default_location}/ is recommended.
-  Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
-          answer = $stdin.gets
-          answer = answer.downcase[0]
-          answer == ?n ? default_location : recommended_location
+          if rails3?
+            nil
+          else
+            recommended_location = separate("public/stylesheets/compiled")
+            default_location = separate("public/stylesheets")
+            puts
+            print %Q{Compass recommends that you keep your compiled css in #{recommended_location}/
+    instead the Sass default of #{default_location}/.
+    However, if you're exclusively using Sass, then #{default_location}/ is recommended.
+    Emit compiled stylesheets to #{recommended_location}/? (Y/n) }
+            answer = $stdin.gets
+            answer = answer.downcase[0]
+            answer == ?n ? default_location : recommended_location
+          end
         end
 
         def config_contents

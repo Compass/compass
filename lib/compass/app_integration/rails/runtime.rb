@@ -4,6 +4,9 @@ unless defined?(Compass::RAILS_LOADED)
     require 'action_pack/version'
     if ActionPack::VERSION::MAJOR >= 3
       # TODO figure something out so image_path works with rails integration
+      %w(railtie).each do |lib|
+        require "compass/app_integration/rails/actionpack3/#{lib}"
+      end
     else
       %w(action_controller sass_plugin urls).each do |lib|
         require "compass/app_integration/rails/actionpack2/#{lib}"
