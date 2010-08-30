@@ -44,7 +44,7 @@
   @if $experimental-support-for-mozilla {
     background-image: #{$background}-moz-linear-gradient($start, $color-stops);
   }
-  background-image: linear-gradient($start, $color-stops);
+  background-image: #{$background}linear-gradient($start, $color-stops);
 }
 
 // Due to limitation's of webkit, the radial gradient mixin works best if you use
@@ -78,5 +78,5 @@
   @if $experimental-support-for-mozilla {
     background-image: #{$background}-moz-radial-gradient($center-position, circle, $color-stops);
   }
-  background-image: radial-gradient($center-position, circle, $color-stops);
+  background-image: #{$background}radial-gradient($center-position, circle, $color-stops);
 }
