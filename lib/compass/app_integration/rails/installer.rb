@@ -50,7 +50,7 @@ module Compass
             puts <<-NEXTSTEPS
 
 Congratulations! Your rails project has been configured to use Compass.
-Just one more thing left to do if you haven't yet: Register the compass gem.
+Just a couple more things left to do.
 
 #{gem_config_instructions}
 
@@ -62,13 +62,19 @@ NEXTSTEPS
           end
           unless options[:prepare]
             if manifest.has_stylesheet?
-              puts "\nNext add these lines to the head of your layouts:\n\n"
+              puts "\nNow add these lines to the head of your layout(s):\n\n"
               puts stylesheet_links
-              puts "\n(You are using haml, aren't you?)"
             end
           end
         end
 
+        def hamlize?
+          # XXX Is there a better way to detect haml in a particular rails project?
+          require 'haml'
+          true
+        rescue LoadError
+          false
+        end
 
         def install_location_for_html(to, options)
           separate("public/#{pattern_name_as_dir}#{to}")
@@ -129,6 +135,14 @@ NEXTSTEPS
         end
 
         def stylesheet_links
+          if hamlize?
+            haml_stylesheet_links
+          else
+            html_stylesheet_links
+          end
+        end
+
+        def haml_stylesheet_links
           html = "%head\n"
           manifest.each_stylesheet do |stylesheet|
             # Skip partials.
@@ -142,6 +156,24 @@ NEXTSTEPS
             end
             html << ss_line + "\n"
           end
+          html
+        end
+        def html_stylesheet_links
+          html = "<head>\n"
+          manifest.each_stylesheet do |stylesheet|
+            # Skip partials.
+            next if File.basename(stylesheet.from)[0..0] == "_"
+            ss_line = "<%= stylesheet_link_tag '#{stylesheet_prefix}#{stylesheet.to.sub(/\.sass$/,'.css')}'"
+            if stylesheet.options[:media]
+              ss_line += ", :media => '#{stylesheet.options[:media]}'"
+            end
+            ss_line += " %>"
+            if stylesheet.options[:condition]
+              ss_line = "<!--[if #{stylesheet.options[:condition]}]>" + ss_line + "<![endif]-->"
+            end
+            html << "  #{ss_line}\n"
+          end
+          html << "</head>"
           html
         end
       end
