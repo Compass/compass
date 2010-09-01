@@ -89,6 +89,11 @@ END
         self.options[:pattern] = pattern
       end
 
+      opts.on('-h', '--help') do
+        self.options[:command] = :help
+        self.options[:help_command] = :help
+      end
+
       opts.on('--write-configuration', "Write the current configuration to the configuration file.") do
         self.options[:command] = :write_configuration
       end
