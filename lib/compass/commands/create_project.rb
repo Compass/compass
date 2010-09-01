@@ -33,7 +33,7 @@ module Compass
           }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n").strip
         end
 
-        opts.on("--using FRAMEWORK", "Framework to use when creating the project.") do |framework|
+        opts.on("--using PATTERN", "A framework's pattern to use when creating the project.") do |framework|
           framework = framework.split('/', 2)
           self.options[:framework] = framework[0]
           self.options[:pattern] = framework[1]
