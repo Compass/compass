@@ -80,7 +80,7 @@ The extension library file referenced above as `my_extension/lib/my_extension.rb
 can actually be stored at any of the following three locations:
 
 1. `my_extension/compass_init.rb`
-2. `my_extension/lib/my_extension.rb`
+2. `my_extension/lib/my_extension.rb` (NOTE: You must use this one if you're distributing as a rubygem.)
 3. `my_extension/my_extension.rb`
 
 The first of those locations found (in the above order) will be loaded.

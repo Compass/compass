@@ -7,9 +7,8 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-<<<<<<< HEAD:doc-src/content/CHANGELOG.markdown
-0.11.alpha.1
-------------
+0.11.alpha.1 (UNRELEASED)
+-------------------------
 
 * Deprecated imports and APIs from v0.10 have been removed.
 
@@ -21,27 +20,8 @@ COMPASS CHANGELOG
 * Some color defaults now use color functions instead of color arithmetic.
   This may result in different output for those who have color customizations.
 
-0.10.3
-------
 
-### CSS3 Module
-
-* Deprecations: 
-  - `+font-face` mixin no longer uses `$postscript` name or
-  `$stle` type variables, in favor of the Paul Irish [smiley bulletproof
-  technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/).
-  Older declarations will still work, but will not apply the varaibles and
-  will throw a deprecation warning. 
-* `+box-shadow` now supports `$spread` length and `$inset` declarations.
-* The gradient mixins output official w3c declarations along with the
-  `-webkit` and `-moz` prefixed versions. The official code is based on the
-  w3c spec and is nearly ideantical to the mozilla version, although it is
-  currently not supported by any browser.
-* `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
-  all other modern browsers support the official spec or nothing at all.
-
-=======
-0.10.5 (UNRELEASED)
+0.10.5 (08/29/2010)
 -------------------
 
 * The [HTML5 Reset mixin][html5-reset] now resets the following new elements:
@@ -55,6 +35,8 @@ COMPASS CHANGELOG
   treated as paths instead of relative directories so
   `--css-dir /var/www/docroot/css` will set `css_path`. Should both a directory
   and a path be specified, the path will override the corresponding directory.
+* A new command is available that will unpack an extension from the system location into
+  your extensions folder. Run `compass help unpack` for more information.
 
 0.10.4 (8/08/2010)
 ------------------
@@ -112,7 +94,6 @@ This will fix a bug in the rails initializer that caused compass extensions to n
 * [Milo Winningham](http://github.com/quadule)
 * [jonathanpberger](http://github.com/jonathanpberger)
 * [Stephan Kaag](http://github.com/stephankaag)
->>>>>>> stable:doc-src/content/CHANGELOG.markdown
 
 0.10.2 (May 31, 2010)
 ---------------------
@@ -120,6 +101,7 @@ This will fix a bug in the rails initializer that caused compass extensions to n
 This is a bug fix release. [Details on Github.](http://github.com/chriseppstein/compass/compare/v0.10.1...v0.10.2)
 
 0.10.1 (May 15, 2010)
+---------------------
 
 * Fixed a regression in the Blueprint module, the blueprint reset
   was no longer automatically applying the reset styles. This behavior

@@ -24,7 +24,7 @@ module Compass
       def configure!
         add_project_configuration
         Compass.add_configuration(options, "command_line")
-        Compass.discover_extensions!
+        Compass.discover_extensions! unless skip_extension_discovery?
       end
 
       def add_project_configuration
@@ -86,6 +86,10 @@ module Compass
       def absolute_path?(path)
         # This is only going to work on unix, gonna need a better implementation.
         path.index(File::SEPARATOR) == 0
+      end
+
+      def skip_extension_discovery?
+        false
       end
 
     end

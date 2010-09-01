@@ -1,12 +1,12 @@
 @import "typography";
 
 $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiqua", Georgia, serif !default;
-// To install the fancy type plugin:
-//   1. import the fancy_type module: @import blueprint/fancy_type
-//   2. mixin +fancy-type to your project's body or at the top level of your stylesheet:
-//     body
-//       +fancy-type
 
+// To install the fancy type plugin:
+//
+// 1. Import the fancy_type module: `@import "blueprint/fancy_type"`
+// 2. Mix in `fancy-type` to your project's body or at the top level of your stylesheet:<br>
+//    `body { @include fancy-type; }`
 @mixin fancy-type {
   @include fancy-paragraphs;
   .caps { @include caps; }
@@ -14,16 +14,8 @@ $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiq
   .alt  { @include alt;  }
 }
 
-// Indentation instead of line shifts for sibling paragraphs. Mixin to a style like p + p
-@mixin sibling-indentation {
-  text-indent: 2em;
-  margin-top: -1.5em;
-  /* Don't want this in forms. */
-  form & { text-indent: 0; }
-}
-
 // For great looking type, use this code instead of asdf: 
-// <span class="alt">asdf</span>  
+// `<span class="alt">asdf</span>`
 // Best used on prepositions and ampersands.
 
 @mixin alt {
@@ -34,16 +26,15 @@ $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiq
 }
 
 // For great looking quote marks in titles, replace "asdf" with:
-// <span class="dquo">&#8220;</span>asdf&#8221;
+// `<span class="dquo">&#8220;</span>asdf&#8221;`
 // (That is, when the title starts with a quote mark). 
-// (You may have to change this value depending on your font size).
+// Note: you may have to change this value depending on your font size.
 
 @mixin dquo($offset: 0.5em) {
   margin-left: -$offset;
 }
 
-// Reduced size type with incremental leading
-// (http://www.markboulton.co.uk/journal/comments/incremental_leading/)
+// Reduced size type with [incremental leading](http://www.markboulton.co.uk/journal/comments/incremental_leading/)
 //
 // This could be used for side notes. For smaller type, you don't necessarily want to 
 // follow the 1.5x vertical rhythm -- the line-height is too much. 
@@ -52,9 +43,9 @@ $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiq
 // every four lines of normal sized type, there is five lines of the sidenote. eg:
 //
 // Arguments:
-//   `$font-size` - The desired font size in pixels. This will be converted to ems for you. Defaults to 10px.
-//   `$base-font-size` - The base font size in pixels. Defaults to 12px
-//   `$old-line-height` - The old line height. Defaults to 1.5 times the base-font-size
+// * `$font-size` - The desired font size in pixels. This will be converted to ems for you. Defaults to 10px.
+// * `$base-font-size` - The base font size in pixels. Defaults to 12px
+// * `$old-line-height` - The old line height. Defaults to 1.5 times the base-font-size
 
 @mixin incr(
   $font-size: 10px,
@@ -67,7 +58,7 @@ $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiq
 }
 
 // Surround uppercase words and abbreviations with this class.
-// Based on work by Jørgen Arnor Gårdsø Lom [http://twistedintellect.com/]
+// Based on work by [Jørgen Arnor Gårdsø Lom](http://twistedintellect.com/)
 
 @mixin caps {
   font-variant: small-caps;
@@ -79,8 +70,18 @@ $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiq
   padding: 0 2px;
 }
 
+// This mixin is automatically included when you include `fancy-type`
 @mixin fancy-paragraphs {
   p + p   { @include sibling-indentation; }
   p.incr,
   .incr p { @include incr; }
 }
+
+// Indentation instead of line shifts for sibling paragraphs. Mixin to a selector like `p + p`
+@mixin sibling-indentation {
+  text-indent: 2em;
+  margin-top: -1.5em;
+  /* Don't want this in forms. */
+  form & { text-indent: 0; }
+}
+
