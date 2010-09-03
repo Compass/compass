@@ -79,7 +79,6 @@ Feature: Command Line
     When I initialize a project using: compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets/compiled
     Then a config file config/compass.rb is reported created
     Then a config file config/compass.rb is created
-    And a sass file config/initializers/compass.rb is created
     And a sass file app/stylesheets/screen.scss is created
     And a sass file app/stylesheets/print.scss is created
     And a sass file app/stylesheets/ie.scss is created
@@ -182,6 +181,7 @@ Feature: Command Line
       | install     |
       | interactive |
       | stats       |
+      | unpack      |
       | validate    |
       | version     |
 

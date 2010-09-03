@@ -11,6 +11,7 @@ module Compass
       self.logger = options.delete(:logger)
       self.options = options
       self.options[:cache_location] ||= determine_cache_location
+      Compass.configure_sass_plugin!
     end
 
     def determine_cache_location
@@ -40,7 +41,6 @@ module Compass
 
     # Returns the sass file that needs to be compiled, if any.
     def out_of_date?
-      Compass.configure_sass_plugin! unless Compass.sass_plugin_configured?
       sass_files.zip(css_files).each do |sass_filename, css_filename|
         return sass_filename if Sass::Plugin.send(:stylesheet_needs_update?, css_filename, sass_filename)
       end
@@ -71,9 +71,6 @@ module Compass
         FileUtils.rm_rf options[:cache_location]
         options[:force] = true
       end
-
-      # We use the Sass::Plugin to check dependencies so we have configure it.
-      Compass.configure_sass_plugin! unless Compass.sass_plugin_configured?
 
       # Make sure the target directories exist
       target_directories.each {|dir| directory dir}
