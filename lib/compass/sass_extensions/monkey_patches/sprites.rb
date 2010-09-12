@@ -7,7 +7,7 @@ module Sass
       alias_method :render_without_sprites, :render
       def render
         if result = render_without_sprites
-          Compass::Sprites.generate_sprites
+          Compass::Sprites.generate_sprites(options)
           result = ERB.new(result).result(binding)
           Compass::Sprites.reset
           return result
