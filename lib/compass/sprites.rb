@@ -1,7 +1,7 @@
 require 'chunky_png'
-require 'lemonade/sprite_info.rb'
+require 'compass/sprites/sprite_info'
 
-module Lemonade
+module Compass::Sprites
   @@sprites = {}
   @@sprites_path = nil
   @@images_path = nil
@@ -45,8 +45,8 @@ module Lemonade
     def extend_sass!
       require 'sass'
       require 'sass/plugin'
-      require File.expand_path('../lemonade/sass_functions', __FILE__)
-      require File.expand_path('../lemonade/sass_extension', __FILE__)
+      require 'compass/sprites/sass_functions'
+      require 'compass/sprites/sass_extension'
     end
     
     def sprite_changed?(sprite_name, sprite)
@@ -68,7 +68,7 @@ module Lemonade
   private
 
     def sprite_info_file(sprite_name)
-      File.join(Lemonade.images_path, "#{sprite_name}.sprite_info.yml")
+      File.join(Compass::Sprites.images_path, "#{sprite_name}.sprite_info.yml")
     end
 
     def timestamps(sprite)
@@ -108,7 +108,7 @@ module Lemonade
         y = sprite_item[:y].value
         sprite_image.replace sprite_item_image, x, y
       end
-      sprite_image.save File.join(Lemonade.images_path, sprite[:file])
+      sprite_image.save File.join(Compass::Sprites.images_path, sprite[:file])
     end
 
   end
@@ -119,9 +119,9 @@ end
 if defined?(ActiveSupport) and Sass::Util.has?(:public_method, ActiveSupport, :on_load)
   # Rails 3.0
   ActiveSupport.on_load :before_initialize do
-    Lemonade.extend_sass!
+    Compass::Sprites.extend_sass!
   end
 else
-  Lemonade.extend_sass!
+  Compass::Sprites.extend_sass!
 end
 

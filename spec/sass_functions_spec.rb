@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe Sass::Script::Functions do
 
   before :each do
-    Lemonade.reset
+    Compass::Sprites.reset
     FileUtils.cp_r File.dirname(__FILE__) + '/images', IMAGES_TMP_PATH
   end
 

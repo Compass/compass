@@ -44,20 +44,20 @@ module Sass::Script::Functions
 private
 
   def sprite_file_list_from_folder(folder)
-    dir = File.join(Lemonade.sprites_path, folder.value)
+    dir = File.join(Compass::Sprites.sprites_path, folder.value)
     Dir.glob(File.join(dir, '*.png')).sort
   end
 
   def sprite_url_and_position(file, position_x = nil, position_y_shift = nil, margin_top_or_both = nil, margin_bottom = nil)
     dir, name, basename = extract_names(file, :check_file => true)
-    filestr = File.join(Lemonade.sprites_path, file.value)
+    filestr = File.join(Compass::Sprites.sprites_path, file.value)
 
     sprite_file = "#{dir}#{name}.png"
     sprite = sprite_for(sprite_file)
     sprite_item = image_for(sprite, filestr, position_x, position_y_shift, margin_top_or_both, margin_bottom)
 
     # Create a temporary destination file so compass doesn't complain about a missing image
-    FileUtils.touch File.join(Lemonade.images_path, sprite_file) unless File.exists?(File.join(Lemonade.images_path, sprite_file))
+    FileUtils.touch File.join(Compass::Sprites.images_path, sprite_file) unless File.exists?(File.join(Compass::Sprites.images_path, sprite_file))
 
     [sprite, sprite_item]
   end
@@ -76,7 +76,7 @@ private
 
   def sprite_for(file)
     file = "#{file}.png" unless file =~ /\.png$/
-    Lemonade.sprites[file] ||= {
+    Compass::Sprites.sprites[file] ||= {
         :file => "#{file}",
         :height => 0,
         :width => 0,
@@ -111,7 +111,7 @@ private
     end
     image
   rescue Errno::ENOENT
-    raise Sass::SyntaxError, "#{file} does not exist in sprites_dir #{Lemonade.sprites_path}"
+    raise Sass::SyntaxError, "#{file} does not exist in sprites_dir #{Compass::Sprites.sprites_path}"
   rescue ChunkyPNG::SignatureMismatch
     raise Sass::SyntaxError, "#{file} is not a recognized png file, can't use for sprite creation"
   end

@@ -4,12 +4,12 @@ module Sass
 
     class RootNode < Node
 
-      alias_method :render_without_lemonade, :render
+      alias_method :render_without_sprites, :render
       def render
-        if result = render_without_lemonade
-          Lemonade.generate_sprites
+        if result = render_without_sprites
+          Compass::Sprites.generate_sprites
           result = ERB.new(result).result(binding)
-          Lemonade.reset
+          Compass::Sprites.reset
           return result
         end
       end
