@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'rake'
-$:.unshift File.join(File.dirname(__FILE__), 'lib')
+require 'bundler'
+Bundler.setup
 require 'compass'
 
 # ----- Default: Testing ------
@@ -10,7 +10,7 @@ task :default => :run_tests
 require 'rake/testtask'
 require 'fileutils'
 
-Rake::TestTask.new :run_tests do |t|
+Rake::TestTask.new :test do |t|
   t.libs << 'lib'
   t.libs << 'test'
   test_files = FileList['test/**/*_test.rb']

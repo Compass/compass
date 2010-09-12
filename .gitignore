@@ -3,6 +3,7 @@
 *.lock
 sync
 tmp/*
+devbin
 examples/*/stylesheets/*
 examples/*/*.html
 examples/*/*/*.html
