@@ -57,7 +57,7 @@ private
     sprite_item = image_for(sprite, filestr, position_x, position_y_shift, margin_top_or_both, margin_bottom)
 
     # Create a temporary destination file so compass doesn't complain about a missing image
-    FileUtils.touch File.join(Lemonade.images_path, sprite_file)
+    FileUtils.touch File.join(Lemonade.images_path, sprite_file) unless File.exists?(File.join(Lemonade.images_path, sprite_file))
 
     [sprite, sprite_item]
   end
