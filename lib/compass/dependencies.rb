@@ -2,5 +2,12 @@ begin
   require 'sass'
 rescue LoadError
   require 'rubygems'
-  require 'sass'
+  begin
+    require 'sass'
+  rescue LoadError
+    puts "Unable to load Sass. Please install it with one of the following commands:"
+    puts "  gem install sass --pre"
+    puts "  gem install haml"
+    raise
+  end
 end
