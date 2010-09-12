@@ -20,45 +20,54 @@ describe Compass::Sprites do
   ###
 
   describe '#remember_sprite_info' do
+
     subject { Compass::Sprites }
 
-    it 'should save sprite info into a file' do
-      File.should_receive(:open).with(File.join('image_path', 'the_sprite.sprite_info.yml'), 'w').and_yield(@file)
-      @file.should_receive(:<<)
-      subject.remember_sprite_info!('the_sprite', @sprite)
+    before :each do
+      @options = {
+        :cache_store => Sass::InMemoryCacheStore.new
+      }
+    end
+
+    it 'should save sprite info to the sass cache' do
+      subject.remember_sprite_info!('the_sprite', @sprite, @options)
+      @options[:cache_store].retrieve('_the_sprite_data', "")[:sprite].should == @sprite
     end
   end
 
   ###
 
   describe '#sprite_changed?' do
+
     subject { Compass::Sprites }
 
+    before :each do
+      @options = {
+        :cache_store => Sass::InMemoryCacheStore.new
+      }
+    end
+
     it 'should be false if nothing changed' do
-      File.should_receive(:open).and_yield(@file)
-      subject.remember_sprite_info!('the sprite', @sprite)
-      subject.sprite_changed?('the sprite', @sprite).should be_false
+      subject.remember_sprite_info!('the sprite', @sprite, @options)
+      subject.sprite_changed?('the sprite', @sprite, @options).should be_false
     end
 
     it 'should be true if the sprite info has changed' do
-      File.should_receive(:open).and_yield(@file)
-      subject.remember_sprite_info!('the sprite', @sprite)
+      subject.remember_sprite_info!('the sprite', @sprite, @options)
       @sprite[:info] = 'changed info'
-      subject.sprite_changed?('the sprite', @sprite).should be_true
+      subject.sprite_changed?('the sprite', @sprite, @options).should be_true
     end
 
     it 'should be true if the images changed' do
-      File.should_receive(:open).and_yield(@file)
-      subject.remember_sprite_info!('the sprite', @sprite)
+      subject.remember_sprite_info!('the sprite', @sprite, @options)
       @sprite[:images] = []
-      subject.sprite_changed?('the sprite', @sprite).should be_true
+      subject.sprite_changed?('the sprite', @sprite, @options).should be_true
     end
 
     it 'should be true if a images timestamp changed' do
-      File.should_receive(:open).and_yield(@file)
-      subject.remember_sprite_info!('the sprite', @sprite)
+      subject.remember_sprite_info!('the sprite', @sprite, @options)
       File.stub!(:ctime => Time.now)
-      subject.sprite_changed?('the sprite', @sprite).should be_true
+      subject.sprite_changed?('the sprite', @sprite, @options).should be_true
     end
 
   end

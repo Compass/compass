@@ -31,30 +31,29 @@ module Compass::Sprites
       @@sprites = {}
     end
 
-    def generate_sprites
+    def generate_sprites(options)
       sprites.each do |sprite_name, sprite|
         calculate_sprite sprite
-        if sprite_changed?(sprite_name, sprite)
+        if sprite_changed?(sprite_name, sprite, options)
           generate_sprite_image sprite
-          remember_sprite_info! sprite_name, sprite
+          remember_sprite_info! sprite_name, sprite, options
         end
       end
     end
 
-    def sprite_changed?(sprite_name, sprite)
-      existing_sprite_info = YAML.load(File.read(sprite_info_file(sprite_name)))
+    def sprite_changed?(sprite_name, sprite, options)
+      existing_sprite_info = options[:cache_store].retrieve("_#{sprite_name}_data", "") || {}
       existing_sprite_info[:sprite] != sprite or existing_sprite_info[:timestamps] != timestamps(sprite)
     rescue
       true
     end
 
-    def remember_sprite_info!(sprite_name, sprite)
-      File.open(sprite_info_file(sprite_name), 'w') do |file|
-        file << {
-          :sprite => sprite,
-          :timestamps => timestamps(sprite),
-        }.to_yaml
-      end
+    def remember_sprite_info!(sprite_name, sprite, options)
+      data = {
+        :sprite => sprite,
+        :timestamps => timestamps(sprite),
+      }
+      options[:cache_store].store("_#{sprite_name}_data", "", data)
     end
   
   private
