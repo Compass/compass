@@ -29,6 +29,24 @@ To run with an alternate version of Rails, make test/rails a symlink to that ver
 To run with an alternate version of Haml & Sass, make test/haml a symlink to that version.
 END
 
+begin
+  require 'spec/rake/spectask'
+  Spec::Rake::SpecTask.new(:spec) do |spec|
+    spec.libs << 'lib' << 'spec'
+    spec.spec_files = FileList['spec/**/*_spec.rb']
+  end
+
+  Spec::Rake::SpecTask.new(:rcov) do |spec|
+    spec.libs << 'lib' << 'spec'
+    spec.pattern = 'spec/**/*_spec.rb'
+    spec.rcov = true
+  end
+
+  task :default => :spec
+rescue LoadError
+  puts "Rspec (or a dependency) is not available. Try running bundler install"
+end
+
 desc "Compile Examples into HTML and CSS"
 task :examples do
   linked_haml = "tests/haml"
