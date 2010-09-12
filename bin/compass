@@ -21,6 +21,21 @@ fallback_load_path(File.join(File.dirname(__FILE__), '..', 'lib')) do
   require 'compass/exec'
 end
 
+runner = Proc.new do
+  command_line_class = Compass::Exec::Helpers.select_appropriate_command_line_ui(ARGV)
+  command_line_class.new(ARGV).run!
+end
 
-command_line_class = Compass::Exec::Helpers.select_appropriate_command_line_ui(ARGV)
-exit command_line_class.new(ARGV).run!
+if ARGV.delete("--profile")
+  require 'ruby-prof'
+  RubyProf.start
+  exit_code = runner.call
+  result = RubyProf.stop
+
+  # Print a flat profile to text
+  printer = RubyProf::FlatPrinter.new(result)
+  printer.print(STDERR, 0)
+  exit exit_code
+else
+  exit runner.call
+end
