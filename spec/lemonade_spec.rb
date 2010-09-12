@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe Lemonade do
+describe Compass::Sprites do
 
   before :each do
     @sprite = {
@@ -13,14 +13,14 @@ describe Lemonade do
 
     @file = ""
     File.stub!(:read => @file)
-    Lemonade.stub(:images_path).and_return('image_path')
+    Compass::Sprites.stub(:images_path).and_return('image_path')
     File.stub!(:ctime => Time.parse('2010-01-01 12:00'))
   end
 
   ###
 
   describe '#remember_sprite_info' do
-    subject { Lemonade }
+    subject { Compass::Sprites }
 
     it 'should save sprite info into a file' do
       File.should_receive(:open).with(File.join('image_path', 'the_sprite.sprite_info.yml'), 'w').and_yield(@file)
@@ -32,7 +32,7 @@ describe Lemonade do
   ###
 
   describe '#sprite_changed?' do
-    subject { Lemonade }
+    subject { Compass::Sprites }
 
     it 'should be false if nothing changed' do
       File.should_receive(:open).and_yield(@file)

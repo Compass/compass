@@ -43,7 +43,7 @@ module Sass::Script
       if @sprite_item[:index] == 0 and (@position_y_shift.nil? or @position_y_shift.value == 0)
         "#{x.inspect} 0"
       else
-        expression  = "Lemonade.sprites['#{@sprite[:file]}'][:images][#{@sprite_item[:index]}][:y].unary_minus"
+        expression  = "Compass::Sprites.sprites['#{@sprite[:file]}'][:images][#{@sprite_item[:index]}][:y].unary_minus"
         expression << ".plus(Sass::Script::Number.new(#{@position_y_shift.value}, ['px']))" if @position_y_shift
         "#{x.inspect} <%= #{expression} %>"
       end

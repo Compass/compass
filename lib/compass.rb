@@ -15,8 +15,6 @@ module Compass
   module_function :base_directory, :lib_directory
 end
 
-%w(configuration frameworks app_integration actions compiler).each do |lib|
+%w(configuration frameworks app_integration actions compiler sprites).each do |lib|
   require "compass/#{lib}"
 end
-
-require "lemonade"

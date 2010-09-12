@@ -7,7 +7,7 @@ require 'spec'
 require 'spec/autorun'
 
 IMAGES_TMP_PATH = File.join(File.dirname(__FILE__), 'images-tmp')
-Lemonade.images_path = IMAGES_TMP_PATH
+Compass::Sprites.images_path = IMAGES_TMP_PATH
 
 Spec::Runner.configure do |config|
   
