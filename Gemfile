@@ -1,4 +1,4 @@
-source :rubygems
+bf9d3d5..34bbb29source :rubygems
 
 gem "compass", :path => "."
 gem "cucumber"

@@ -7,7 +7,7 @@ Gem::Specification.new do |gemspec|
   gemspec.date = "#{Time.now.year}-#{Time.now.month}-#{Time.now.day}" # Automatically update for each build
   gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS."
   gemspec.homepage = "http://compass-style.org"
-  gemspec.authors = ["Chris Eppstein", "Eric A. Meyer", "Brandon Mathis"]
+  gemspec.authors = ["Chris Eppstein", "Eric A. Meyer", "Brandon Mathis", "Nico Hagenburger"]
   gemspec.email = "chris@eppsteins.net"
   gemspec.default_executable = "compass"
   gemspec.executables = %w(compass)
@@ -15,7 +15,9 @@ Gem::Specification.new do |gemspec|
   gemspec.require_paths = %w(lib)
   gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}
+
   gemspec.add_dependency('sass', '~> 3.1')
+
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")
   gemspec.files += Dir.glob("examples/**/*.*")
