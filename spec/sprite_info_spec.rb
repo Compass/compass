@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe Sass::Script::SpriteInfo do
+describe Compass::SassExtensions::Functions::Sprites::SpriteInfo do
 
   def sprite_info(*args)
-    Sass::Script::SpriteInfo.new(*args).to_s
+    Compass::SassExtensions::Functions::Sprites::SpriteInfo.new(*args).to_s
   end
 
   ##
