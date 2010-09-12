@@ -1,5 +1,4 @@
 require 'chunky_png'
-require 'compass/sprites/sprite_info'
 
 module Compass::Sprites
   @@sprites = {}
@@ -42,13 +41,6 @@ module Compass::Sprites
       end
     end
 
-    def extend_sass!
-      require 'sass'
-      require 'sass/plugin'
-      require 'compass/sprites/sass_functions'
-      require 'compass/sprites/sass_extension'
-    end
-    
     def sprite_changed?(sprite_name, sprite)
       existing_sprite_info = YAML.load(File.read(sprite_info_file(sprite_name)))
       existing_sprite_info[:sprite] != sprite or existing_sprite_info[:timestamps] != timestamps(sprite)
@@ -114,14 +106,3 @@ module Compass::Sprites
   end
 
 end
-
-
-if defined?(ActiveSupport) and Sass::Util.has?(:public_method, ActiveSupport, :on_load)
-  # Rails 3.0
-  ActiveSupport.on_load :before_initialize do
-    Compass::Sprites.extend_sass!
-  end
-else
-  Compass::Sprites.extend_sass!
-end
-

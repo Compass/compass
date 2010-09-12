@@ -1,19 +1,78 @@
-module Sass::Script::Functions
+module Compass::SassExtensions::Functions::Sprites
+
+  class SpriteInfo < Sass::Script::Literal
+    attr_reader :sprite
+    attr_reader :sprite_item
+    attr_reader :type
+
+    def initialize(type, sprite, sprite_item = nil, position_x = nil, position_y_shift = nil)
+      super(nil)
+      @type = type
+      @sprite = sprite
+      @sprite_item = sprite_item
+      @position_x = position_x
+      @position_y_shift = position_y_shift
+    end
+
+    def to_s(opts = {})
+      case @type
+      when :position
+        position
+      when :url
+        url
+      when :both
+        pos = position
+        if pos == '0 0'
+          url
+        else
+          "#{url} #{pos}"
+        end
+      end
+    end
+
+    def to_sass
+      to_s
+    end
+
+  private
+
+    def position
+      x = @position_x || 0
+      if @sprite_item[:index] == 0 and (@position_y_shift.nil? or @position_y_shift.value == 0)
+        "#{x.inspect} 0"
+      else
+        expression  = "Compass::Sprites.sprites['#{@sprite[:file]}'][:images][#{@sprite_item[:index]}][:y].unary_minus"
+        expression << ".plus(Sass::Script::Number.new(#{@position_y_shift.value}, ['px']))" if @position_y_shift
+        "#{x.inspect} <%= #{expression} %>"
+      end
+    end
+
+    def url
+      if defined?(Compass)
+        compass = Class.new.extend(Compass::SassExtensions::Functions::Urls)
+        compass.image_url(Sass::Script::String.new(@sprite[:file])).to_s
+      else
+        "url('/#{@sprite[:file]}')"
+      end
+    end
+
+  end
+
 
   def sprite_url(file)
     dir, name, basename = extract_names(file)
     sprite = sprite_for("#{dir}#{name}")
-    Sass::Script::SpriteInfo.new(:url, sprite)
+    SpriteInfo.new(:url, sprite)
   end
 
   def sprite_position(file, position_x = nil, position_y_shift = nil, margin_top_or_both = nil, margin_bottom = nil)
     sprite, sprite_item = sprite_url_and_position(file, position_x, position_y_shift, margin_top_or_both, margin_bottom)
-    Sass::Script::SpriteInfo.new(:position, sprite, sprite_item, position_x, position_y_shift)
+    SpriteInfo.new(:position, sprite, sprite_item, position_x, position_y_shift)
   end
 
   def sprite_image(file, position_x = nil, position_y_shift = nil, margin_top_or_both = nil, margin_bottom = nil)
     sprite, sprite_item = sprite_url_and_position(file, position_x, position_y_shift, margin_top_or_both, margin_bottom)
-    Sass::Script::SpriteInfo.new(:both, sprite, sprite_item, position_x, position_y_shift)
+    SpriteInfo.new(:both, sprite, sprite_item, position_x, position_y_shift)
   end
   alias_method :sprite_img, :sprite_image
 
@@ -94,7 +153,7 @@ private
       image[:margin_top] = margin_top if margin_top > image[:margin_top]
       image[:margin_bottom] = margin_bottom if margin_bottom > image[:margin_bottom]
     else
-      width, height = ImageProperties.new(file).size
+      width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
       x = (position_x and position_x.numerator_units == %w(%)) ? position_x : Sass::Script::Number.new(0)
       y = sprite[:height] + margin_top
       y = Sass::Script::Number.new(y, y == 0 ? [] : ['px'])
