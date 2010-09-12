@@ -1,5 +1,5 @@
 module Compass::SassExtensions::Functions::Sprites
-
+  include Compass::SassExtensions::Functions::ImageSize
   class SpriteInfo < Sass::Script::Literal
     attr_reader :sprite
     attr_reader :sprite_item
@@ -153,7 +153,7 @@ private
       image[:margin_top] = margin_top if margin_top > image[:margin_top]
       image[:margin_bottom] = margin_bottom if margin_bottom > image[:margin_bottom]
     else
-      width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
+      width, height = ImageProperties.new(file).size
       x = (position_x and position_x.numerator_units == %w(%)) ? position_x : Sass::Script::Number.new(0)
       y = sprite[:height] + margin_top
       y = Sass::Script::Number.new(y, y == 0 ? [] : ['px'])
