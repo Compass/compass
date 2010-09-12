@@ -7,7 +7,6 @@ rescue LoadError
   rescue LoadError
     puts "Unable to load Sass. Please install it with one of the following commands:"
     puts "  gem install sass --pre"
-    puts "  gem install haml"
     raise
   end
 end
