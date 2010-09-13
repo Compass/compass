@@ -1,40 +1,16 @@
 module Compass::SassExtensions::Functions::Sprites
   include Compass::SassExtensions::Functions::ImageSize
-  class SpriteInfo < Sass::Script::Literal
+  class SpriteInfo
     attr_reader :sprite
     attr_reader :sprite_item
     attr_reader :type
 
-    def initialize(type, sprite, sprite_item = nil, position_x = nil, position_y_shift = nil)
-      super(nil)
-      @type = type
+    def initialize(sprite, sprite_item = nil, position_x = nil, position_y_shift = nil)
       @sprite = sprite
       @sprite_item = sprite_item
       @position_x = position_x
       @position_y_shift = position_y_shift
     end
-
-    def to_s(opts = {})
-      case @type
-      when :position
-        position
-      when :url
-        url
-      when :both
-        pos = position
-        if pos == '0 0'
-          url
-        else
-          "#{url} #{pos}"
-        end
-      end
-    end
-
-    def to_sass
-      to_s
-    end
-
-  private
 
     def position
       x = @position_x || 0
@@ -47,32 +23,28 @@ module Compass::SassExtensions::Functions::Sprites
       end
     end
 
-    def url
-      if defined?(Compass)
-        compass = Class.new.extend(Compass::SassExtensions::Functions::Urls)
-        compass.image_url(Sass::Script::String.new(@sprite[:file])).to_s
-      else
-        "url('/#{@sprite[:file]}')"
-      end
-    end
-
   end
-
 
   def sprite_url(file)
     dir, name, basename = extract_names(file)
     sprite = sprite_for("#{dir}#{name}")
-    SpriteInfo.new(:url, sprite)
+    image_url(Sass::Script::String.new(sprite[:file]))
   end
 
   def sprite_position(file, position_x = nil, position_y_shift = nil, margin_top_or_both = nil, margin_bottom = nil)
     sprite, sprite_item = sprite_url_and_position(file, position_x, position_y_shift, margin_top_or_both, margin_bottom)
-    SpriteInfo.new(:position, sprite, sprite_item, position_x, position_y_shift)
+    info = SpriteInfo.new(sprite, sprite_item, position_x, position_y_shift)
+    Sass::Script::String.new(info.position)
   end
 
-  def sprite_image(file, position_x = nil, position_y_shift = nil, margin_top_or_both = nil, margin_bottom = nil)
-    sprite, sprite_item = sprite_url_and_position(file, position_x, position_y_shift, margin_top_or_both, margin_bottom)
-    SpriteInfo.new(:both, sprite, sprite_item, position_x, position_y_shift)
+  def sprite_image(file, *args)
+    pos = sprite_position(file, *args)
+    url = sprite_url(file)
+    if pos.value == "0 0"
+      url
+    else
+      url.plus(" ").plus(pos)
+    end
   end
   alias_method :sprite_img, :sprite_image
 
