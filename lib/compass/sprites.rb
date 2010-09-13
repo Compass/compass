@@ -35,7 +35,8 @@ module Compass::Sprites
       sprites.each do |sprite_name, sprite|
         calculate_sprite sprite
         if sprite_changed?(sprite_name, sprite, options)
-          generate_sprite_image sprite
+          sprite_image = generate_sprite_image sprite
+          save_sprite_image! sprite_image, sprite
           remember_sprite_info! sprite_name, sprite, options
         end
       end
@@ -99,6 +100,10 @@ module Compass::Sprites
         y = sprite_item[:y].value
         sprite_image.replace sprite_item_image, x, y
       end
+      sprite_image
+    end
+
+    def save_sprite_image!(sprite_image, sprite)
       sprite_image.save File.join(Compass::Sprites.images_path, sprite[:file])
     end
 
