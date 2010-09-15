@@ -36,12 +36,14 @@
   @include no-bullet;
   white-space: nowrap;
   @include float($direction);
-  padding: {
-    left: $padding;
-    right: $padding;
-  };
-  &:first-child, &.first { padding-#{$direction}: 0px; }
-  &:last-child, &.last   { padding-#{opposite-position($direction)}: 0px; }
+  @if $padding != false {
+    padding: {
+      left: $padding;
+      right: $padding;
+    }
+    &:first-child, &.first { padding-#{$direction}: 0; }
+    &:last-child, &.last   { padding-#{opposite-position($direction)}: 0; }
+  }
 }
 
 // A list(ol,ul) that is layed out such that the elements are floated left and won't wrap.
