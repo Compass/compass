@@ -13,6 +13,8 @@ COMPASS CHANGELOG
 * HTML5 reset includes box-model reset for newer browsers.
 * Fix encoding issue for ruby 1.9 users of the font-face mixin.
 * Make it easier to disable the asset cache buster: `asset_cache_buster :none`
+* Can now set `$padding` to `false` to make the `horizontal-list` mixin skip the
+  padding properties.
 
 0.10.5 (08/29/2010)
 -------------------
