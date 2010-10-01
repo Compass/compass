@@ -38,7 +38,7 @@ module Compass
 Congratulations! Your rails project has been configured to use Compass.
 Just one more thing left to do: Register the compass gem.
 
-In Rails 2.2 & 2.3, add the following to your evironment.rb:
+In Rails 2.2 & 2.3, add the following to your environment.rb:
 
   config.gem "compass", :version => ">= #{Compass::VERSION}"
 
