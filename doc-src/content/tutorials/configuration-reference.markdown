@@ -260,3 +260,7 @@ that points to the asset on disk — which may or may not exist.
         "v=#{deploy_version}"
       end
     end
+
+To disable the asset cache buster:
+
+    asset_cache_buster :none
