@@ -182,6 +182,7 @@ Feature: Command Line
       | install     |
       | interactive |
       | stats       |
+      | unpack      |
       | validate    |
       | version     |
 
