@@ -61,6 +61,21 @@ ul.right-horizontal {
     ul.right-horizontal li:last-child, ul.right-horizontal li.last {
       padding-left: 0px; }
 
+ul.right-horizontal {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  *zoom: 1; }
+  ul.right-horizontal li {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0px;
+    white-space: nowrap;
+    display: inline;
+    float: right; }
+
 ul.inline-block {
   margin: 0;
   padding: 0;
