@@ -77,9 +77,19 @@ module Compass
       # If the block accepts two arguments, it will also be passed a File object
       # that points to the asset on disk -- which may or may not exist.
       # When called without a block, returns the block that was previously set.
-      def asset_cache_buster(&block)
+      #
+      # To disable the asset cache buster:
+      #
+      #     asset_cache_buster :none
+      def asset_cache_buster(simple = nil, &block)
         if block_given?
           @asset_cache_buster = block
+        elsif !simple.nil?
+          if simple == :none
+            @asset_cache_buster = Proc.new {|_,_| nil}
+          else
+            raise ArgumentError, "Unexpected argument: #{simple.inspect}"
+          end
         else
           if @asset_cache_buster
             @asset_cache_buster

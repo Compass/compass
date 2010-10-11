@@ -41,7 +41,7 @@ module Compass
           if rails3?
             %Q{Add the following to your Gemfile:\n\n    gem "compass", ">= #{Compass::VERSION}"}
           else
-            %Q{Add the following to your evironment.rb:\n\n    config.gem "compass", :version => ">= #{Compass::VERSION}"}
+            %Q{Add the following to your environment.rb:\n\n    config.gem "compass", :version => ">= #{Compass::VERSION}"}
           end
         end
 
