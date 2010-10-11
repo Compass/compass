@@ -15,9 +15,9 @@ ul.horizontal {
     padding-left: 4px;
     padding-right: 4px; }
     ul.horizontal li:first-child, ul.horizontal li.first {
-      padding-left: 0px; }
+      padding-left: 0; }
     ul.horizontal li:last-child, ul.horizontal li.last {
-      padding-right: 0px; }
+      padding-right: 0; }
 
 ul.wide-horizontal {
   margin: 0;
@@ -36,9 +36,9 @@ ul.wide-horizontal {
     padding-left: 10px;
     padding-right: 10px; }
     ul.wide-horizontal li:first-child, ul.wide-horizontal li.first {
-      padding-left: 0px; }
+      padding-left: 0; }
     ul.wide-horizontal li:last-child, ul.wide-horizontal li.last {
-      padding-right: 0px; }
+      padding-right: 0; }
 
 ul.right-horizontal {
   margin: 0;
@@ -57,24 +57,24 @@ ul.right-horizontal {
     padding-left: 4px;
     padding-right: 4px; }
     ul.right-horizontal li:first-child, ul.right-horizontal li.first {
-      padding-right: 0px; }
+      padding-right: 0; }
     ul.right-horizontal li:last-child, ul.right-horizontal li.last {
-      padding-left: 0px; }
+      padding-left: 0; }
 
-ul.right-horizontal {
+ul.no-padding {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
   overflow: hidden;
   *zoom: 1; }
-  ul.right-horizontal li {
+  ul.no-padding li {
     list-style-image: none;
     list-style-type: none;
     margin-left: 0px;
     white-space: nowrap;
     display: inline;
-    float: right; }
+    float: left; }
 
 ul.inline-block {
   margin: 0;
