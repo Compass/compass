@@ -1,7 +1,7 @@
 /* Welcome to Susy. Use this file to define screen styles.
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
-
+@charset "UTF-8"
 @import defaults
 @import slideshow
 @import shared
@@ -213,6 +213,8 @@ aside[role="sidebar"] + article
       margin-right: 1.5em
       &:first-child
         +alpha
+  a.selected:before
+    content: "▸"
   + #page
     +leader(1.5)
 

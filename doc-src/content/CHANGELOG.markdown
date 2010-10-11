@@ -15,6 +15,8 @@ COMPASS CHANGELOG
 * Make it easier to disable the asset cache buster: `asset_cache_buster :none`
 * Can now set `$padding` to `false` to make the `horizontal-list` mixin skip the
   padding properties.
+* It is now possible to disable support for legacy IE browsers.
+  See [the docs](/docs/reference/compass/support/) for more information.
 
 0.10.5 (08/29/2010)
 -------------------

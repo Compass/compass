@@ -7,12 +7,11 @@ $legacy-support-for-ie6: $legacy-support-for-ie !default;
 // Setting this to false will result in smaller output, but no support for ie7
 $legacy-support-for-ie7: $legacy-support-for-ie !default;
 
-// @doc off
+// @private
 // The user can simply set $legacy-support-for-ie and 6 & 7 will be set accordingly,
 // But in case the user set either of those explicitly, we need to sync the value of
 // this combined variable.
 $legacy-support-for-ie: $legacy-support-for-ie6 or $legacy-support-for-ie7;
-// @doc on
 
 // Support for mozilla in experimental css3 properties.
 $experimental-support-for-mozilla   : true !default;
