@@ -3,12 +3,8 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'rubygems'
 require 'compass'
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
+require 'rspec/autorun'
 
 IMAGES_TMP_PATH = File.join(File.dirname(__FILE__), 'images-tmp')
 Compass::Sprites.images_path = IMAGES_TMP_PATH
-
-Spec::Runner.configure do |config|
-  
-end
