@@ -2,7 +2,7 @@ source :rubygems
 
 gem "compass", :path => "."
 gem "cucumber"
-gem "rspec"
+gem "rspec", "~>2.0.0"
 gem "rails", "~>3.0.0.rc"
 gem "compass-validator", "3.0.0"
 gem "css_parser"
