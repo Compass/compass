@@ -12,6 +12,8 @@ describe Compass::Sprites do
   def render(scss)
     scss = %Q(@import "compass"; #{scss})
     options = Compass.sass_engine_options
+    options[:line_comments] = false
+    options[:style] = :expanded
     options[:syntax] = :scss
     options[:load_paths] << Compass::Sprites.new
     css = Sass::Engine.new(scss, options).render
@@ -57,4 +59,34 @@ describe Compass::Sprites do
         width: 20px; }
     CSS
   end
+  
+  it "should provide sprite mixin" do
+    css = render <<-SCSS
+      @import "squares/*.png";
+      
+      .cubicle {
+        @include squares-sprite("10x10");
+      }
+      
+      .large-cube {
+        @include squares-sprite("20x20", true);
+      }
+    SCSS
+    css.should == <<-CSS
+      .squares-sprite, .cubicle, .large-cube {
+        background: url('/squares.png') no-repeat; }
+      
+      .cubicle {
+        background-position: 0 0;
+      }
+      
+      .large-cube {
+        background-position: 0 -10px;
+        height: 20px;
+        width: 20px;
+      }
+    CSS
+    
+  end
+  
 end
