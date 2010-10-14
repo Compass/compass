@@ -86,7 +86,17 @@ describe Compass::Sprites do
         width: 20px;
       }
     CSS
-    
+  end
+  
+  it "should be possible to change the base class" do
+    css = render <<-SCSS
+      $squares-sprite-base-class: ".circles";
+      @import "squares/*.png";
+    SCSS
+    css.should == <<-CSS
+      .circles {
+        background: url('/squares.png') no-repeat; }
+    CSS
   end
   
 end
