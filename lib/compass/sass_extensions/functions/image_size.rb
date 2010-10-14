@@ -13,17 +13,6 @@ module Compass::SassExtensions::Functions::ImageSize
     Sass::Script::Number.new(height, ["px"])
   end
 
-private
-  def real_path(image_file)
-    path = image_file.value
-    # Compute the real path to the image on the file stystem if the images_dir is set.
-    if Compass.configuration.images_path
-      File.join(Compass.configuration.images_path, path)
-    else
-      File.join(Compass.configuration.project_path, path)
-    end
-  end
-
   class ImageProperties
     def initialize(file)
       @file = file
@@ -52,6 +41,17 @@ private
     def get_size_for_jpeg
       jpeg = JPEG.new(@file)
       [jpeg.width, jpeg.height]
+    end
+  end
+
+private
+  def real_path(image_file)
+    path = image_file.value
+    # Compute the real path to the image on the file stystem if the images_dir is set.
+    if Compass.configuration.images_path
+      File.join(Compass.configuration.images_path, path)
+    else
+      File.join(Compass.configuration.project_path, path)
     end
   end
 
