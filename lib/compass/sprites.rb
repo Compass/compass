@@ -25,10 +25,10 @@ module Compass
       Compass::Sprites.sprites(self.name)
     end
 
-    def find(url, context = nil)
-      if url =~ /\.png$/
-        path, self.name = Compass::Sprites.path_and_name(url)
-        glob = File.join(Compass.configuration.images_path, url)
+    def find(uri, options)
+      if uri =~ /\.png$/
+        path, self.name = Compass::Sprites.path_and_name(uri)
+        glob = File.join(Compass.configuration.images_path, uri)
         generated_image = "#{path}.png"
         y = 0
         Dir.glob(glob).sort.each do |file|
@@ -74,17 +74,14 @@ module Compass
               end.join}
           }
         SCSS
-        Sass::Engine.new(contents, :filename => name, :syntax => :scss, :importer => self)
+        options.merge! :filename => name, :syntax => :scss, :importer => self
+        Sass::Engine.new(contents, options)
       end
     end
 
-    def key(name, options)
-      [self.class.name + ":" + File.dirname(File.expand_path(name)),
-        File.basename(name)]
-    end
-  
-    def to_s
-      "fdsfd"
+    def key(uri, options)
+      [self.class.name + ":" + File.dirname(File.expand_path(uri)),
+        File.basename(uri)]
     end
 
   end
