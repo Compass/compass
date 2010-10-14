@@ -28,13 +28,16 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-10x10, .squares-20x20 {
-        background: url('/squares.png') no-repeat; }
+        background: url('/squares.png') no-repeat;
+      }
       
       .squares-10x10 {
-        background-position: 0 0; }
+        background-position: 0 0;
+      }
       
       .squares-20x20 {
-        background-position: 0 -10px; }
+        background-position: 0 -10px;
+      }
     CSS
   end
 
@@ -46,17 +49,20 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-10x10, .squares-20x20 {
-        background: url('/squares.png') no-repeat; }
+        background: url('/squares.png') no-repeat;
+      }
       
       .squares-10x10 {
         background-position: 0 0;
         height: 10px;
-        width: 10px; }
+        width: 10px;
+      }
       
       .squares-20x20 {
         background-position: 0 -10px;
         height: 20px;
-        width: 20px; }
+        width: 20px;
+      }
     CSS
   end
   
@@ -74,7 +80,8 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .cubicle, .large-cube {
-        background: url('/squares.png') no-repeat; }
+        background: url('/squares.png') no-repeat;
+      }
       
       .cubicle {
         background-position: 0 0;
@@ -95,7 +102,8 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .circles {
-        background: url('/squares.png') no-repeat; }
+        background: url('/squares.png') no-repeat;
+      }
     CSS
   end
   
