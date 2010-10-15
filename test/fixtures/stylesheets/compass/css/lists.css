@@ -91,9 +91,10 @@ ul.inline-block {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *display: inline;
     *vertical-align: auto;
     white-space: nowrap; }
+    ul.inline-block li {
+      *display: inline; }
 
 ul.wide-inline-block {
   margin: 0;
@@ -110,11 +111,12 @@ ul.wide-inline-block {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *display: inline;
     *vertical-align: auto;
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 10px; }
+    ul.wide-inline-block li {
+      *display: inline; }
 
 ul.inline {
   list-style-type: none; }
