@@ -13,6 +13,8 @@ if you do not wish to abide by this rool.
 **Step 2**: Fork Compass to your account. Go to the [main repo](http://github.com/chriseppstein/compass)
 and click the fork button.
 
+![Fork Me](http://img.skitch.com/20101015-n4ssnfyj16e555cnn7wp2pg717.png)
+
 Now we're at a decision point. What kind of change do you intend to make?
 
 * [Fix a typo (or some other trivial change)](#trivial-changes)
@@ -40,8 +42,15 @@ Here's some general information about the project you might find useful along th
 <h2 id="trivial-changes">Making Trivial Changes</h2>
 
 Thanks to Github, making small changes is super easy. After forking the project navigate
-to the file you want to change and click the edit link. Change the file, write a commit
-message, and click the `Commit` button. Now you need to get your change [accepted](#patches).
+to the file you want to change and click the edit link.
+
+![Edit Me](http://img.skitch.com/20101015-n2x2iaric7wkey2x7u4fa2m1hj.png)
+
+Change the file, write a commit message, and click the `Commit` button.
+
+![Commit Me](http://img.skitch.com/20101015-br74tfwtd1ur428mq4ejt12kfc.png)
+Now you need to get your change [accepted](#patches).
+
 
 <h2 id="documentation-changes">Making Documentation Changes</h2>
 
@@ -100,7 +109,10 @@ You're done. Please [submit your changes](#patches)
 
 <h2 id="ruby-changes">Making Ruby Changes</h2>
 
-TODO
+At this time, if you're a rubyist who's planning on working on the ruby-side of
+things, it's assumed you know how to read code and use standard ruby tools like
+rake, gem, bundler, test/unit, cucumber, rspec, etc. If you have any questions,
+please ask. No changes will be accepted without accompanying tests.
 
 <h2 id="patches">Submitting Patches</h2>
 
@@ -127,6 +139,8 @@ changes should be in the commit messages -- so no need to write a whole lot in t
 pull request message. However, the pull request message is a good place to provide a
 rationale or use case for the change if you think one is needed. More info on [pull
 requests][pulls].
+
+![Pull Request Example](http://img.skitch.com/20101015-rgfh43yhk7e61fchj9wccne9cq.png)
 
 Pull requests are then managed like an issue from the [compass issues page][issues].
 A code review will be performed by a compass core team member, and one of three outcomes
@@ -170,22 +184,6 @@ will result:
             functions/      - Sass functions exposed by compass
             monkey_patches/ - Changes to sass itself
       test/                 - unit tests
-
-<h2 id="project-architecture">Project Architecture</h2>
-
-TODO
-
-<h3 id="cli-architecture">Command Line</h3>
-
-TODO
-
-<h3 id="extensions-architecture">Extensions</h3>
-
-TODO
-
-<h3 id="configuration-architecture">Configuration</h3>
-
-TODO
 
 <h2 id="project-philosophy">General Philosophy</h2>
 
@@ -284,6 +282,29 @@ Getting recent changes from the main repo:
 3. Running behavior tests
    
        ./devbin/cucumber
+
+If stylesheet tests fail, the output of the test project is captured in 
+`test/fixtures/stylesheets/<project>/saved/` and the error message will report where
+the error was. Here's an example:
+
+![Stylesheet Test Failure](http://img.skitch.com/20101015-k4t11k8n7xs2r53ftjhrji629d.png)
+
+<h3 id="writing-tests">Writing Stylesheet Tests</h3>
+
+Compass has stylesheet tests to ensure that each stylesheet compiles, can be imported directly
+without any other dependencies and that refactorings that should not affect the output, don't.
+
+At some point, it would be great to have a test system that verifies that the stylesheets
+*work correctly* in various browsers. If you have ideas for how to accomplish this in a sane
+way, please let us know.
+
+In the `test/fixtures/stylesheets` directory, there are a number of compass projects.
+The tests work by adding or updating the sass files, running the tests to make sure they fail,
+and then changing the expected css output to make the test pass. It is rudimentary, but as
+a safety net, it has caught a number of problems that might have been missed otherwise.
+If you add a new stylesheet to compass, please make sure to add a new test stylesheet
+that only imports the newly added stylesheet and add rules that use the new features in that
+stylesheet.
 
 <h3 id="recovering-from-rebased-or-cherry-picked-changesets">You cherry-picked/rebased
 my changes. What should I do?</h3>
