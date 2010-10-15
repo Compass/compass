@@ -5,9 +5,12 @@ Thank you for your interest in contributing to Compass. Our goal is to make it a
 as we can for you to contribute changes to compass -- So if there's something here that
 seems harder than it aught to be, please let us know.
 
-Step 1: If you do not have a github account, create one.
+If you find a bug **in this document**, you are bound to contribute a fix. Stop reading now
+if you do not wish to abide by this rool.
 
-Step 2: Fork Compass to your account. Go to the [main repo](http://github.com/chriseppstein/compass)
+**Step 1**: If you do not have a github account, create one.
+
+**Step 2**: Fork Compass to your account. Go to the [main repo](http://github.com/chriseppstein/compass)
 and click the fork button.
 
 Now we're at a decision point. What kind of change do you intend to make?
@@ -27,7 +30,7 @@ Here's some general information about the project you might find useful along th
   * [Extensions](#extensions-architecture)
   * [Configuration](#configuration-architecture)
 * [General Philosophy](#project-philosophy)
-* [Stylesheet Conventions](#api-conventions)
+* [Stylesheet Conventions](#stylesheet-conventions)
 * [Miscellaneous Stuff](#faq)
   * [Setting up Git](#setting-up-git)
   * [Using Compass while Under Development](#running-local-code)
@@ -50,17 +53,22 @@ documentation][documentation]. Once your changes are pushed, please
 
 <h2 id="stylesheet-bugs">Fixing Stylesheet Bugs</h2>
 
-Step 3: If this is a bug you discovered. Please [report it][issues] before working on a fix.
+**Step 3**: If this is a bug you discovered. Please [report it][issues] before working on a fix.
 This helps us better understand the patch.
 
-Step 4: Get [the code](#setting-up-git) if you haven't yet done so.
+**Step 4**: Get [the code](#setting-up-git) if you haven't yet done so.
 
-Step 5: Fix the bug.
+**Step 5**: Fix the bug and commit the changes. Please make sure to mention the bug
+id in your commit message like so:
 
-Step 6: Verify the fix in as many browsers as you can as well as against your own
+    Fixed the display of the fizzlebuzz in IE6.
+    
+    Closes GH-123.
+
+**Step 6**: Verify the fix in as many browsers as you can as well as against your own
 project. How to [use compass while changing it](#running-local-code).
 
-Step 7: Make sure the tests pass. More info on [running tests](#running-tests)
+**Step 7**: Make sure the tests pass. More info on [running tests](#running-tests)
 If the tests fail, fix the tests or the stylesheets accordingly. If the tests, don't
 fail, that means this aspect was not well enough tested. Please [add or augment
 a test](#writing-tests).
@@ -69,13 +77,23 @@ You're done. Please [submit your changes](#patches)
 
 <h2 id="stylesheet-changes">Making Stylesheet Changes</h2>
 
-Step 3: Get [the code](#setting-up-git) if you haven't yet done so.
+It is a good idea to discuss new features ideas with the compass users and developers
+before building something. Please don't by shy; send an email to the [compass mailing
+list](http://groups.google.com/group/compass-users).
 
-Step 4: Add the feature -- contact the mailing list if you have any questions.
+Many feature ideas are good but not obviously a good fit for the compass core library.
+In these cases, you can and should create a [compass extension][extensions]. Sometimes
+this is because the concept does not align with the [compass philosophy](#project-philosophy).
+But sometimes it's just because we think the idea needs time to bake. [Documentation on
+making extensions.][extensions]
 
-Step 5: Add a test case. More info on [writing tests for compass](#writing-tests).
+**Step 3**: Get [the code](#setting-up-git) if you haven't yet done so.
 
-Step 6: Documentation - Add or update the reference documentation. Add
+**Step 4**: Add the feature -- contact the mailing list if you have any questions.
+
+**Step 5**: Add a test case. More info on [writing tests for compass](#writing-tests).
+
+**Step 6**: Documentation - Add or update the reference documentation. Add
 an example of using the feature. See the [doc readme for details][documentation].
 
 You're done. Please [submit your changes](#patches)
@@ -85,10 +103,6 @@ You're done. Please [submit your changes](#patches)
 TODO
 
 <h2 id="patches">Submitting Patches</h2>
-
-It is a good idea to discuss new features ideas with the compass users and developers
-before building something. Please don't by shy; send an email to the [compass mailing
-list](http://groups.google.com/group/compass-users).
 
 If you are submitting features that have more than one changeset, please create a
 topic branch to hold the changes while they are pending merge and also to track
@@ -121,7 +135,7 @@ will result:
 1. The change is rejected -- Not all changes are right for [compass's
    philosophy](#project-philosophy). If your change is rejected it might be better
    suited for a plugin, at least until it matures and/or proves itself with the users.
-2. The change is rejected, unless -- Sometimes, there are missing pieces, or
+2. The change is rejected, *unless* -- Sometimes, there are missing pieces, or
    other changes that need to be made before the change can be accepted. Comments
    will be left on the commits indicating what issues need to be addressed.
 3. The change is accepted -- The change is merged into compass, sometimes minor
@@ -177,18 +191,39 @@ TODO
 
 1. Users specify their own selectors. Compass never forces a user
    to use a presentational class name.
-2. Compass frameworks are not special. If compass can do it, so should an extension
+2. Compass does not require javascript. It is a CSS framework.
+3. Compass core is "design agnostic". This is why compass core has no
+   grid framework -- grids are not design agnostic.
+4. Compass frameworks are not special. If compass can do it, so should an extension
    be able.
-3. Sass is awesome -- Compass should make sass more accessible and
+5. Sass is awesome -- Compass should make sass more accessible and
    demonstrate how to use Sass to it's fullest potential.
-4. Developing across browsers is hard and will always be hard. It takes
+6. Developing across browsers is hard and will always be hard. It takes
    a community to get it right.
+7. By default, Compass supports as many browsers as it can. Where it can't
+   it progressively enhances. Where it degrades, the documentation should
+   make a note. Deviation from this requires an excellent reason.
+8. Compass is a proving ground for Sass features. The watcher and color
+   functions are examples of features that started in Compass and got
+   moved to Sass.
 
-<h2 id="api-conventions">Stylesheet Conventions</h2>
+<h2 id="stylesheet-conventions">Stylesheet Conventions</h2>
 
-TODO
+1. All framework stylesheets are partials. Their filename begin with an underscore.
+   Otherwise, Sass will create stylesheets directly into the user's CSS directory.
+2. Compass imports do not emit styles. There are a few limited exceptions to this like
+   the resets and base classes for inheritance.
+3. Mixins with two-level defaults. Mixins often provide two levels of default
+   values. The first is a global default that can be overridden once. The second
+   is a default that can be overridden when the mixin is included.
+4. Mixin argument names are part of the public API, make sure they are understandable and not
+   needlessly truncated or terse.
+5. If adding a new folder of stylesheets, add a single stylesheet with the same name that
+   imports all of the stylesheets in the folder.
+6. Try to avoid passing selectors as arguments. This is what mixins are for.
 
-<h2 id="faq">Common Problems/Misc</h2>
+
+<h2 id="faq">Common Problems &amp; Miscellaneous Info</h2>
 
 <h3 id="setting-up-git">Setting up Git</h3>
 
@@ -210,19 +245,17 @@ Getting recent changes from the main repo:
 
 <h3 id="running-local-code">Using Compass while Under Development</h3>
 
-1. Use the bin script. `$PROJECT_ROOT/bin/compass` is a version of the compass
-   command line that uses the local changes you have made. You can add `$PROJECT_ROOT/bin`
+1. Use the bin script. `/path/to/compass/bin/compass` is a version of the compass
+   command line that uses the local changes you have made. You can add `/path/to/compass/bin`
    to your `$PATH`, or refer to it directly.
 2. Build and install a gem:
    1. Edit VERSION.yml and add a build indicator like so (**Do not commit this change**):
       
-          --- 
+          ---
           :major: 0
           :minor: 10
           :patch: 6
           :build: something-uniq-to-me.1
-      
-     
    2. `gem build compass.gemspec`
    3. `gem install compass-0.10.6.something-uniq-to-me.1.gem` -- If installing to your
       system gems, you'll probably need to add `sudo` to the front. If you don't know
@@ -272,3 +305,4 @@ a couple of ways you can react:
 [issues]: http://github.com/chriseppstein/compass/issues
 [documentation]: http://github.com/chriseppstein/compass/blob/stable/doc-src/README.markdown
 [bundler]: http://gembundler.com/
+[extensions]: /docs/tutorials/extensions/
