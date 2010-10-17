@@ -396,4 +396,38 @@ describe Compass::Sprites do
     CSS
   end
   
+  it "should raise deprication errors for lemonade's spacing syntax" do
+    proc do
+      render <<-SCSS
+        @import "squares/*.png";
+        
+        .squares {
+          background: sprite-image("squares/20x20.png", 0, 0, 11px) no-repeat;
+        }
+      SCSS
+    end.should raise_error Compass::Error,
+      %q(Spacing parameter is deprecated. Please add `$squares-20x20-spacing: 11px;` before the `@import "squares/*.png";` statement.)
+    proc do
+      render <<-SCSS
+        @import "squares/*.png";
+        
+        .squares {
+          background: sprite-position("squares/20x20.png", 0, 0, 11px) no-repeat;
+        }
+      SCSS
+    end.should raise_error Compass::Error,
+      %q(Spacing parameter is deprecated. Please add `$squares-20x20-spacing: 11px;` before the `@import "squares/*.png";` statement.)
+  end
+  
+  it "should raise an error if @import is missing" do
+    proc do
+      render <<-SCSS
+        .squares {
+          background: sprite-image("squares/20x20.png") no-repeat;
+        }
+      SCSS
+    end.should raise_error Compass::Error,
+      %q(`@import` statement missing. Please add `@import "squares/*.png";`.)
+  end
+  
 end

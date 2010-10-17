@@ -8,7 +8,7 @@ module Compass::SassExtensions::Functions::Sprites
     last_spacing = 0
     width = 0
     height = 0
-    images = Compass::Sprites.sprites(name)
+    images = Compass::Sprites.sprites(path, name)
     
     # Calculation
     images.each do |image|
@@ -50,7 +50,8 @@ module Compass::SassExtensions::Functions::Sprites
     sprite_url(uri)
   end
   
-  def sprite_image(uri, x_shift = SASS_NULL, y_shift = SASS_NULL)
+  def sprite_image(uri, x_shift = SASS_NULL, y_shift = SASS_NULL, depricated_1 = nil, depricated_2 = nil)
+    check_spacing_deprecation uri, depricated_1, depricated_2
     url = sprite_url(uri)
     position = sprite_position(uri, x_shift, y_shift)
     Sass::Script::String.new("#{url} #{position}")
@@ -61,10 +62,11 @@ module Compass::SassExtensions::Functions::Sprites
     image_url(Sass::Script::String.new("#{path}.png"))
   end
 
-  def sprite_position(uri, x_shift = SASS_NULL, y_shift = SASS_NULL)
-    name = File.dirname(uri.value)
+  def sprite_position(uri, x_shift = SASS_NULL, y_shift = SASS_NULL, depricated_1 = nil, depricated_2 = nil)
+    check_spacing_deprecation uri, depricated_1, depricated_2
+    path, name = Compass::Sprites.path_and_name(uri.value)
     image_name = File.basename(uri.value, '.png')
-    image = Compass::Sprites.sprites(name).detect{ |image| image[:name] == image_name }
+    image = Compass::Sprites.sprites(path, name).detect{ |image| image[:name] == image_name }
     if x_shift.unit_str == "%"
       x = x_shift.to_s
     else
@@ -83,6 +85,16 @@ private
       var.value
     else
       0
+    end
+  end
+  
+  def check_spacing_deprecation(uri, spacing_before, spacing_after)
+    if spacing_before or spacing_after
+      path, name, image_name = Compass::Sprites.path_and_name(uri.value)
+      message = %Q(Spacing parameter is deprecated. ) +
+        %Q(Please add `$#{name}-#{image_name}-spacing: #{spacing_before};` ) +
+        %Q(before the `@import "#{path}/*.png";` statement.)
+      raise Compass::Error, message
     end
   end
 end
