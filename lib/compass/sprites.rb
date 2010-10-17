@@ -8,7 +8,7 @@ module Compass
       end
       
       def path_and_name(uri)
-        if uri =~ %r{((.+/)?(.+))/(\*)\.png}
+        if uri =~ %r{((.+/)?(.+))/(.+?)\.png}
           [$1, $3, $4]
         end
       end
@@ -53,7 +53,7 @@ module Compass
           end.join}
         
           \#{$#{name}-sprite-base-class} {
-            background: sprite-image("#{uri}") no-repeat;
+            background: generate-sprite-image("#{uri}") no-repeat;
           }
         
           @mixin #{name}-sprite-dimensions($sprite) {
