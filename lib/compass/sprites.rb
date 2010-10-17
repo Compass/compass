@@ -9,8 +9,8 @@ module Compass
         @@sprites = {}
       end
       
-      def path_and_name(file)
-        if file =~ %r{((.+/)?(.+))/(\*)\.png}
+      def path_and_name(uri)
+        if uri =~ %r{((.+/)?(.+))/(\*)\.png}
           [$1, $3, $4]
         end
       end
@@ -29,26 +29,22 @@ module Compass
       if uri =~ /\.png$/
         path, self.name = Compass::Sprites.path_and_name(uri)
         glob = File.join(Compass.configuration.images_path, uri)
-        generated_image = "#{path}.png"
-        y = 0
         Dir.glob(glob).sort.each do |file|
           width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
           images << {
             :name => File.basename(file, '.png'),
             :filename => File.basename(file),
             :height => height,
-            :width => width,
-            :y => y
+            :width => width
           }
-          y += height
         end
-      
+
         contents = <<-SCSS
           $#{name}-sprite-base-class: ".#{name}-sprite" !default;
           $#{name}-sprite-dimensions: false !default;
         
           \#{$#{name}-sprite-base-class} {
-            background: image-url("#{generated_image}") no-repeat;
+            background: sprite-image("#{uri}") no-repeat;
           }
         
           @mixin #{name}-sprite-dimensions($sprite) {
@@ -82,6 +78,10 @@ module Compass
     def key(uri, options)
       [self.class.name + ":" + File.dirname(File.expand_path(uri)),
         File.basename(uri)]
+    end
+    
+    def to_s
+      ""
     end
 
   end
