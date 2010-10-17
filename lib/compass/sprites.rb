@@ -33,7 +33,7 @@ module Compass
           width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
           images << {
             :name => File.basename(file, '.png'),
-            :filename => File.basename(file),
+            :file => file,
             :height => height,
             :width => width
           }
