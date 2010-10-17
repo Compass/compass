@@ -60,7 +60,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares.png').should == [20, 30]
-    image_md5('squares.png').should == 'ac68084abb8f43794a75c5fb28bd62fe'
+    image_md5('squares.png').should == 'e8cd71d546aae6951ea44cb01af35820'
   end
 
   it "should generate sprite classes with dimensions" do
@@ -281,7 +281,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares.png').should == [20, 30]
-    image_md5('squares.png').should == 'e274a620ff44c14774fa470d0a9020a1'
+    image_md5('squares.png').should == 'b61700e6d402d9df5f3820b73479f371'
   end
   
   it "should use position adjustments in mixins" do
@@ -319,7 +319,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares.png').should == [20, 30]
-    image_md5('squares.png').should == 'e274a620ff44c14774fa470d0a9020a1'
+    image_md5('squares.png').should == 'b61700e6d402d9df5f3820b73479f371'
   end
   
 end
