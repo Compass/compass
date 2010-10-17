@@ -1,5 +1,3 @@
-require 'chunky_png'
-
 module Compass
   class Sprites < Sass::Importers::Base
     attr_accessor :name

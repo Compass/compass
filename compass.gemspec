@@ -17,7 +17,7 @@ Gem::Specification.new do |gemspec|
   gemspec.summary = %q{A Real Stylesheet Framework}
 
   gemspec.add_dependency 'sass', '~> 3.1'
-  gemspec.add_dependency 'chunky_png', '~> 0.9.0'
+  gemspec.add_dependency 'chunky_png', '~> 0.10.3'
 
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")
