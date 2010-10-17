@@ -1,6 +1,7 @@
 module Compass
   class Sprites < Sass::Importers::Base
     attr_accessor :name
+    attr_accessor :path
     
     class << self
       def reset
@@ -13,19 +14,27 @@ module Compass
         end
       end
     
-      def sprites(name)
+      def sprites(path, name, create = false)
         @@sprites = {} if @@sprites.nil?
-        @@sprites[name] ||= []
+        index = "#{path}/#{name}"
+        images = @@sprites[index]
+        if images
+          images
+        elsif create
+          images = @@sprites[index] = []
+        else
+          raise Compass::Error, %Q(`@import` statement missing. Please add `@import "#{path}/*.png";`.)
+        end
       end
     end
 
     def images
-      Compass::Sprites.sprites(self.name)
+      Compass::Sprites.sprites(self.path, self.name, true)
     end
 
     def find(uri, options)
       if uri =~ /\.png$/
-        path, self.name = Compass::Sprites.path_and_name(uri)
+        self.path, self.name = Compass::Sprites.path_and_name(uri)
         glob = File.join(Compass.configuration.images_path, uri)
         Dir.glob(glob).sort.each do |file|
           width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
