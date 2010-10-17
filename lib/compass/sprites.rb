@@ -42,11 +42,13 @@ module Compass
           $#{name}-sprite-dimensions: false !default;
           $#{name}-position: 0% !default;
           $#{name}-spacing: 0 !default;
+          $#{name}-repeat: no-repeat !default;
 
           #{images.map do |sprite| 
             <<-SCSS
               $#{name}-#{sprite[:name]}-position: $#{name}-position !default;
               $#{name}-#{sprite[:name]}-spacing: $#{name}-spacing !default;
+              $#{name}-#{sprite[:name]}-repeat: $#{name}-repeat !default;
             SCSS
           end.join}
         

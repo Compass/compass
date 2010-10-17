@@ -322,4 +322,27 @@ describe Compass::Sprites do
     image_md5('squares.png').should == 'b61700e6d402d9df5f3820b73479f371'
   end
   
+  it "should repeat the image" do
+    css = render <<-SCSS
+      $squares-repeat: repeat;
+      @import "squares/*.png";
+      @include all-squares-sprites;
+    SCSS
+    css.should == <<-CSS
+      .squares-sprite, .squares-10x10, .squares-20x20 {
+        background: url('/squares.png') no-repeat;
+      }
+      
+      .squares-10x10 {
+        background-position: 0 0;
+      }
+      
+      .squares-20x20 {
+        background-position: 0 -10px;
+      }
+    CSS
+    image_size('squares.png').should == [20, 30]
+    image_md5('squares.png').should == '0187306f3858136feee87d3017e7f307'
+  end
+  
 end
