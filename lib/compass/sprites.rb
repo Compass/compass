@@ -42,6 +42,15 @@ module Compass
         contents = <<-SCSS
           $#{name}-sprite-base-class: ".#{name}-sprite" !default;
           $#{name}-sprite-dimensions: false !default;
+          $#{name}-position: 0% !default;
+          $#{name}-spacing: 0 !default;
+
+          #{images.map do |sprite| 
+            <<-SCSS
+              $#{name}-#{sprite[:name]}-position: $#{name}-position !default;
+              $#{name}-#{sprite[:name]}-spacing: $#{name}-spacing !default;
+            SCSS
+          end.join}
         
           \#{$#{name}-sprite-base-class} {
             background: sprite-image("#{uri}") no-repeat;
@@ -52,13 +61,13 @@ module Compass
             width: image-width("#{name}/\#{$sprite}.png");
           }
           
-          @mixin #{name}-sprite-position($sprite) {
-            background-position: sprite-position("#{path}/\#{$sprite}.png");  
+          @mixin #{name}-sprite-position($sprite, $x: 0, $y: 0) {
+            background-position: sprite-position("#{path}/\#{$sprite}.png", $x, $y);  
           }
         
-          @mixin #{name}-sprite($sprite, $dimensions: $#{name}-sprite-dimensions) {
+          @mixin #{name}-sprite($sprite, $dimensions: $#{name}-sprite-dimensions, $x: 0, $y: 0) {
             @extend \#{$#{name}-sprite-base-class};
-            @include #{name}-sprite-position($sprite);
+            @include #{name}-sprite-position($sprite, $x, $y);
             @if $dimensions {
               @include #{name}-sprite-dimensions($sprite);
             }
@@ -66,8 +75,12 @@ module Compass
         
           @mixin all-#{name}-sprites {
             #{images.map do |sprite| 
-                %Q(.#{name}-#{sprite[:name]} { @include #{name}-sprite("#{sprite[:name]}"); })
-              end.join}
+              <<-SCSS
+                .#{name}-#{sprite[:name]} {
+                  @include #{name}-sprite("#{sprite[:name]}");
+                }
+              SCSS
+            end.join}
           }
         SCSS
         options.merge! :filename => name, :syntax => :scss, :importer => self
