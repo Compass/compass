@@ -345,4 +345,55 @@ describe Compass::Sprites do
     image_md5('squares.png').should == '0187306f3858136feee87d3017e7f307'
   end
   
+  it "should use the sprite-image and sprite-url function as in lemonade" do
+    css = render <<-SCSS
+      @import "squares/*.png";
+      
+      .squares-1 {
+        background: sprite-image("squares/20x20.png") no-repeat;
+      }
+      
+      .squares-2 {
+        background: sprite-image("squares/20x20.png", 100%) no-repeat;
+      }
+      
+      .squares-3 {
+        background: sprite-image("squares/20x20.png", -4px, 3px) no-repeat;
+      }
+      
+      .squares-4 {
+        background-image: sprite-url("squares/20x20.png");
+      }
+      
+      .squares-5 {
+        background-image: sprite-url("squares/*.png");
+      }
+    SCSS
+    css.should == <<-CSS
+      .squares-sprite {
+        background: url('/squares.png') no-repeat;
+      }
+      
+      .squares-1 {
+        background: url('/squares.png') 0 -10px no-repeat;
+      }
+      
+      .squares-2 {
+        background: url('/squares.png') 100% -10px no-repeat;
+      }
+      
+      .squares-3 {
+        background: url('/squares.png') -4px -7px no-repeat;
+      }
+      
+      .squares-4 {
+        background-image: url('/squares.png');
+      }
+      
+      .squares-5 {
+        background-image: url('/squares.png');
+      }
+    CSS
+  end
+  
 end

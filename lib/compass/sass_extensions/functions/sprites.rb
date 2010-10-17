@@ -3,9 +3,8 @@ require 'chunky_png'
 module Compass::SassExtensions::Functions::Sprites
   SASS_NULL = Sass::Script::Number::new(0)
   
-  def sprite_image(uri)
-    uri = uri.value
-    path, name = Compass::Sprites.path_and_name(uri)
+  def generate_sprite_image(uri)
+    path, name = Compass::Sprites.path_and_name(uri.value)
     last_spacing = 0
     width = 0
     height = 0
@@ -48,12 +47,23 @@ module Compass::SassExtensions::Functions::Sprites
     end
     output_png.save File.join(File.join(Compass.configuration.images_path, "#{path}.png"))
     
+    sprite_url(uri)
+  end
+  
+  def sprite_image(uri, x_shift = SASS_NULL, y_shift = SASS_NULL)
+    url = sprite_url(uri)
+    position = sprite_position(uri, x_shift, y_shift)
+    Sass::Script::String.new("#{url} #{position}")
+  end
+    
+  def sprite_url(uri)
+    path, name = Compass::Sprites.path_and_name(uri.value)
     image_url(Sass::Script::String.new("#{path}.png"))
   end
 
-  def sprite_position(file, x_shift = SASS_NULL, y_shift = SASS_NULL)
-    name = File.dirname(file.value)
-    image_name = File.basename(file.value, '.png')
+  def sprite_position(uri, x_shift = SASS_NULL, y_shift = SASS_NULL)
+    name = File.dirname(uri.value)
+    image_name = File.basename(uri.value, '.png')
     image = Compass::Sprites.sprites(name).detect{ |image| image[:name] == image_name }
     if x_shift.unit_str == "%"
       x = x_shift.to_s
