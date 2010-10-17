@@ -27,13 +27,24 @@ module Compass::SassExtensions::Functions::Sprites
     output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
     images.each do |image|
       input_png  = ChunkyPNG::Image.from_file(image[:file])
+      
       position = environment.var("#{name}-#{image[:name]}-position")
       if position.unit_str == "%"
         image[:x] = (width - image[:width]) * (position.value / 100)
       else
         image[:x] = position.value
       end
-      output_png.replace input_png, image[:x], image[:y]
+      
+      repeat = environment.var("#{name}-#{image[:name]}-repeat").to_s
+      if repeat == "no-repeat"
+        output_png.replace input_png, image[:x], image[:y]
+      else
+        x = image[:x] - (image[:x] / image[:width]).ceil * image[:width]
+        while x < width do
+          output_png.replace input_png, x, image[:y]
+          x += image[:width]
+        end
+      end
     end
     output_png.save File.join(File.join(Compass.configuration.images_path, "#{path}.png"))
     
