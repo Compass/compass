@@ -4,11 +4,12 @@ module Compass::SassExtensions::Functions::Sprites
     path, name = Compass::Sprites.path_and_name(uri)
     y = 0
     last_spacing = 0
+    default_spacing = number_from_var("#{name}-spacing")
     images = Compass::Sprites.sprites(name)
     images.each do |image|
       current_spacing = number_from_var("#{name}-#{image[:name]}-spacing")
       if y > 0
-        y += current_spacing > last_spacing ? current_spacing : last_spacing
+        y += [current_spacing, last_spacing, default_spacing].max
       end
       image[:y] = y
       y += image[:height]

@@ -196,5 +196,26 @@ describe Compass::Sprites do
       }
     CSS
   end
+
+  it "should calculate the default spacing between images" do
+    css = render <<-SCSS
+      $squares-spacing: 22px;
+      @import "squares/*.png";
+      @include all-squares-sprites;
+    SCSS
+    css.should == <<-CSS
+      .squares-sprite, .squares-10x10, .squares-20x20 {
+        background: url('/squares.png') no-repeat;
+      }
+      
+      .squares-10x10 {
+        background-position: 0 0;
+      }
+      
+      .squares-20x20 {
+        background-position: 0 -32px;
+      }
+    CSS
+  end
   
 end
