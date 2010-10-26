@@ -20,7 +20,9 @@ module Compass
         opts.on("--debug [PROPERTY]", "Debug your configuration by printing out details.") do |prop|
           self.options[:debug] = prop.nil? ? true : prop.to_sym
         end
-
+        opts.on("-p PROPERTY", "--property PROPERTY", "Print out the value of the given property") do |prop|
+          self.options[:display] = prop.to_sym
+        end
         super
       end
     end
@@ -40,7 +42,13 @@ module Compass
       end
 
       def perform
-        if options[:debug]
+        if options[:display]
+          if Compass.configuration.respond_to?(options[:display])
+            puts Compass.configuration.send(options[:display])
+          else
+            raise Compass::Error, %Q{ERROR: configuration property '#{options[:display]}' does not exist}
+          end
+        elsif options[:debug]
           puts "Configuration sources:"
           c = Compass.configuration
           while c

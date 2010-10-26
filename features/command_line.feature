@@ -247,6 +247,23 @@ Feature: Command Line
       | sass_dir | sass       |
       | css_dir  | assets/css |
 
+  @now
+  Scenario Outline: Print out a configuration value
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass config -p <property>
+    Then I should see the following output: <value>
+    And the command exits <exit>
+  
+    Examples:
+      | property        | value                    | exit     |
+      | extensions_dir  | extensions               | normally |
+      | extensions_path | $PROJECT_PATH/extensions | normally |
+      | css_dir         | tmp                      | normally |
+      | css_path        | $PROJECT_PATH/tmp        | normally |
+      | sass_dir        | sass                     | normally |
+      | sass_path       | $PROJECT_PATH/sass       | normally |
+      | foobar          | ERROR: configuration property 'foobar' does not exist | with a non-zero error code |
+
   Scenario: Validate the generated CSS
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass validate
