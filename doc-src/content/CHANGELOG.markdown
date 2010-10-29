@@ -16,6 +16,7 @@ COMPASS CHANGELOG
 * You can now pass --no-line-comments to the Compass command line to disable line comments.
 * Make the compass configuration file more self documenting by adding comments for
   `preferred_syntax`, `output_style`, and `line_comments`.
+* Work around IE compatibility issues with the :last-child selector. [Commit](http://github.com/jdsiegel/compass/commit/c1fb764dba9c54cc5d02f2f7de213fb21ac6ca09).
 
 0.10.6 (10/11/2010)
 -------------------

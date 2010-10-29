@@ -20,8 +20,14 @@
     &:last-child,
     &.last {
       border-right-width: 0px; } }
+
+// IE8 ignores rules that are included on the same line as :last-child
+// see http://www.richardscarrott.co.uk/posts/view/ie8-last-child-bug for details
+
   tbody, tfoot {
-    tr:last-child,
+    tr:last-child {
+      th, td {
+        border-bottom-width: 0px; } }
     tr.last {
       th, td {
         border-bottom-width: 0px; } } } }
