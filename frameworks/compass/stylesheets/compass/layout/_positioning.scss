@@ -1,0 +1,25 @@
+
+// stretch element height to specified top and bottom position
+
+@mixin stretch-y($top-pos:0, $bottom-pos:0) {
+  position: absolute;
+  bottom: $bottom-pos;
+  top: $top-pos;
+}
+
+
+// stretch element width to specified left and right position
+
+@mixin stretch-x($left-pos:0, $right-pos:0) {
+  position: absolute;
+  left: $left-pos;
+  right: $right-pos;
+}
+
+
+// shorthand to stretch element height and width
+
+@mixin stretch($top-pos:0, $left-pos:0, $bottom-pos:0, $right-pos:0) {
+  @include stretch-y($top-pos, $bottom-pos);
+  @include stretch-x($left-pos, $right-pos);
+}
