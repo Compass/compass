@@ -7,6 +7,11 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.7 (UNRELEASED)
+-------------------
+* compass config -p <property> -- will now print out the configuration value
+  for that property for the current project
+
 0.10.6 (10/11/2010)
 -------------------
 

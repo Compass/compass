@@ -154,6 +154,9 @@ Then /^the command exits with a non\-zero error code$/ do
   @last_exit_code.should_not == 0
 end
 
+Then /^the command exits normally$/ do
+  @last_exit_code.should_not =~ 0
+end
 
 Then /^I am congratulated$/ do
   @last_result.should =~ /Congratulations!/
@@ -233,4 +236,8 @@ end
 
 Then /^I should see the following lines of output:$/ do |table|
   table.diff!([['blueprint'],['compass']])
+end
+
+Then /^I should see the following output: (.*)$/ do |output|
+  (@last_result + @last_error).strip.should == output.gsub(/\$PROJECT_PATH/,Dir.pwd).strip
 end
