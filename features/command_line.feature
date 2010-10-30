@@ -79,7 +79,6 @@ Feature: Command Line
     When I initialize a project using: compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets/compiled
     Then a config file config/compass.rb is reported created
     Then a config file config/compass.rb is created
-    And a sass file config/initializers/compass.rb is created
     And a sass file app/stylesheets/screen.scss is created
     And a sass file app/stylesheets/print.scss is created
     And a sass file app/stylesheets/ie.scss is created
@@ -268,12 +267,12 @@ Feature: Command Line
       | sass/images.scss          |     3 |          3 |              0 |           0 |         3 |              3 |
       | sass/layout.sass          |     0 |          0 |              0 |           1 |         5 |             10 |
       | sass/legacy_clearfix.scss |     2 |          0 |              0 |           2 |         5 |             11 |
-      | sass/lists.scss           |     9 |          0 |              0 |           9 |        35 |            111 |
+      | sass/lists.scss           |    10 |          0 |              0 |          10 |        39 |            123 |
       | sass/print.sass           |     0 |          0 |              0 |           2 |        61 |             61 |
       | sass/reset.sass           |     4 |          1 |              0 |           2 |       190 |            664 |
       | sass/utilities.scss       |     2 |          0 |              0 |           2 |         3 |              9 |
       | ------------------------- | ----- | ---------- | -------------- | ----------- | --------- | -------------- |
-      | Total.*                   |    61 |         12 |              0 |          60 |       344 |            975 |
+      | Total.*                   |    62 |         12 |              0 |          61 |       348 |            987 |
 
   @listframeworks
   Scenario: List frameworks registered with compass
