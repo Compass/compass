@@ -7,7 +7,7 @@ module Compass
         end
 
         def sass_dir_without_default
-          "src"
+          "sass"
         end
 
         def javascripts_dir_without_default
