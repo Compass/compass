@@ -11,6 +11,8 @@ COMPASS CHANGELOG
 -------------------
 * compass config -p <property> -- will now print out the configuration value
   for that property for the current project
+* Bug fix: In webkit, when the last gradient color stop was a percent less than 100%, the
+  intermediate values were being scaled to that value.
 
 0.10.6 (10/11/2010)
 -------------------

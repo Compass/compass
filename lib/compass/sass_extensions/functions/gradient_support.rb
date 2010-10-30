@@ -45,7 +45,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       color_stops = color_list.values.map do |pos|
         # have to convert absolute units to percentages for use in color stop functions.
         stop = pos.stop
-        stop = stop.div(max).times(Sass::Script::Number.new(100,["%"])) if stop.numerator_units == max.numerator_units
+        stop = stop.div(max).times(Sass::Script::Number.new(100,["%"])) if stop.numerator_units == max.numerator_units && max.numerator_units != ["%"]
         # Make sure the color stops are specified in the right order.
         if last_value && last_value.value > stop.value
           raise Sass::SyntaxError.new("Color stops must be specified in increasing order")

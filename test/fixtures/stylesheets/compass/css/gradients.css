@@ -40,19 +40,24 @@
   background-image: linear-gradient(top, #dddddd 80%, #aaaaaa 100%); }
 
 .linear-9 {
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(20%, #aaaaaa));
   background-image: -moz-linear-gradient(top, #dddddd 0%, #aaaaaa 20%);
   background-image: linear-gradient(top, #dddddd 0%, #aaaaaa 20%); }
 
 .linear-10 {
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(80%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(40%, #dddddd), color-stop(50%, #aaaaaa));
   background-image: -moz-linear-gradient(top, #dddddd 40%, #aaaaaa 50%);
   background-image: linear-gradient(top, #dddddd 40%, #aaaaaa 50%); }
 
 .linear-11 {
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(80%, #dddddd), color-stop(90%, #000000), color-stop(100%, #aaaaaa));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(40%, #dddddd), color-stop(45%, #000000), color-stop(50%, #aaaaaa));
   background-image: -moz-linear-gradient(top, #dddddd 40%, #000000 45%, #aaaaaa 50%);
   background-image: linear-gradient(top, #dddddd 40%, #000000 45%, #aaaaaa 50%); }
+
+.linear-12 {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(33%, #0000ff), color-stop(67%, #000000));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #0000ff 33%, #000000 67%);
+  background-image: linear-gradient(top, #ffffff 0%, #0000ff 33%, #000000 67%); }
 
 .radial-1 {
   background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
@@ -90,6 +95,6 @@
   background-image: radial-gradient(center center, circle, #dddddd 20%, #aaaaaa 50px); }
 
 .alpha-linear {
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(80%, rgba(255, 255, 255, 0)), color-stop(90%, rgba(255, 127, 127, 0.5)), color-stop(100%, #ffffff));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(40%, rgba(255, 255, 255, 0)), color-stop(45%, rgba(255, 127, 127, 0.5)), color-stop(50%, #ffffff));
   background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 40%, rgba(255, 127, 127, 0.5) 45%, #ffffff 50%);
   background-image: linear-gradient(top, rgba(255, 255, 255, 0) 40%, rgba(255, 127, 127, 0.5) 45%, #ffffff 50%); }
