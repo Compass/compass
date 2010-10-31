@@ -16,7 +16,8 @@ module Compass
       :exists    => :green,
       :directory => :green,
       :identical => :green,
-      :convert   => :green
+      :convert   => :green,
+      :unchanged => :yellow
     }
 
 
@@ -32,8 +33,9 @@ module Compass
     def record(action, *arguments)
       msg = ""
       msg << color(ACTION_COLORS[action]) if Compass.configuration.color_output
-      msg << "#{action_padding(action)}#{action} #{arguments.join(' ')}"
+      msg << "#{action_padding(action)}#{action}"
       msg << color(:clear) if Compass.configuration.color_output
+      msg << " #{arguments.join(' ')}"
       log msg
     end
 
