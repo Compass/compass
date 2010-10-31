@@ -45,7 +45,6 @@ $default-box-flex: 0 !default;
   @include experimental(box-flex, $flex,
     -moz, -webkit, not -o, not -ms, not -khtml, official
   );
-  display: block;
 }
 
 // Default flex group
