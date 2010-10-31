@@ -14,6 +14,8 @@ COMPASS CHANGELOG
 * Bug fix: In webkit, when the last gradient color stop was a percent less than 100%, the
   intermediate values were being scaled to that value.
 * You can now pass --no-line-comments to the Compass command line to disable line comments.
+* Make the compass configuration file more self documenting by adding comments for
+  `preferred_syntax`, `output_style`, and `line_comments`.
 
 0.10.6 (10/11/2010)
 -------------------
