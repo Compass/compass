@@ -17,6 +17,9 @@ COMPASS CHANGELOG
 * Make the compass configuration file more self documenting by adding comments for
   `preferred_syntax`, `output_style`, and `line_comments`.
 * Work around IE compatibility issues with the :last-child selector. [Commit](http://github.com/jdsiegel/compass/commit/c1fb764dba9c54cc5d02f2f7de213fb21ac6ca09).
+* Compass Validator has been upgraded and fine-tuned. It is now using the "css3" profile
+  to validate and provides a more consistent UI with other compass commands. To upgrade:
+  `gem install compass-validator`
 
 0.10.6 (10/11/2010)
 -------------------
