@@ -76,6 +76,21 @@ Misc commands
 
     compass grid-img W+GxH [path/to/grid.png]
 
+Where:
+<dl class="table">
+  <dg><dt><code>W</code> = </dt><dd>Width of 1 column in pixels.</dd></dg>
+  <dg><dt><code>G</code> = </dt><dd>Width of 1 gutter in pixels.</dd></dg>
+  <dg><dt><code>H</code> = </dt><dd>Height of the typographic baseline in pixels.</dd></dg>
+</dl>
+Examples:
+
+    # 40px column, 10px gutter, 20px height at <images_dir>/grid.png
+    compass grid-img 40+10
+    # 40px column, 20px gutter, 28px height at <images_dir>/grid.png
+    compass grid-img 40+20x28
+    # 60px column, 20px gutter, 28px height at images/wide_grid.png
+    compass grid-img 60+20x28 images/wide_grid.png
+
 ### Enter into a console for testing SassScript in a compass environment.
 
     compass interactive
