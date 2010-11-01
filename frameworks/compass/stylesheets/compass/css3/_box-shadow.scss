@@ -18,7 +18,7 @@ $default-box-shadow-v-offset: 1px !default;
 $default-box-shadow-blur: 5px !default;
 
 // The default spread length.
-$default-box-shadow-spread : 0 !default;
+$default-box-shadow-spread : false !default;
 
 // The default shadow instet: inset or false (for standard shadow).
 $default-box-shadow-inset : false !default;

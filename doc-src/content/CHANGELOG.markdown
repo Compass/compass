@@ -21,6 +21,9 @@ COMPASS CHANGELOG
 * Compass Validator has been upgraded and fine-tuned. It is now using the "css3" profile
   to validate and provides a more consistent UI with other compass commands. To upgrade:
   `gem install compass-validator`
+* [CSS3] The box-shadow `$spread` value now defaults to using the browser default instead of 0.
+  Set $default-box-shadow-spread to 0 if you prefer the older behavior. Since the browser is supposed
+  to default to 0, you should see no change except less CSS output.
 
 0.10.6 (10/11/2010)
 -------------------
