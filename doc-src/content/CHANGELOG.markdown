@@ -9,21 +9,25 @@ COMPASS CHANGELOG
 
 0.10.7 (UNRELEASED)
 -------------------
-* compass config -p <property> -- will now print out the configuration value
+* [Command Line] compass config -p <property> -- will now print out the configuration value
   for that property for the current project
-* Bug fix: In webkit, when the last gradient color stop was a percent less than 100%, the
-  intermediate values were being scaled to that value.
-* You can now pass --no-line-comments to the Compass command line to disable line comments.
-* Make the compass configuration file more self documenting by adding comments for
-  `preferred_syntax`, `output_style`, and `line_comments`.
-* Work around IE compatibility issues with the :last-child selector. [Commit](http://github.com/jdsiegel/compass/commit/c1fb764dba9c54cc5d02f2f7de213fb21ac6ca09).
-* Only the action is colorized in command line output now.
-* Compass Validator has been upgraded and fine-tuned. It is now using the "css3" profile
-  to validate and provides a more consistent UI with other compass commands. To upgrade:
-  `gem install compass-validator`
+* [CSS3] Bug fix: In webkit, when the last gradient color stop was a percent less than 100%,
+  the intermediate values were being scaled to that value.
+* [Command Line] You can now pass --no-line-comments to the Compass command line to disable
+  line comments.
+* [Configuration] Make the compass configuration file more self documenting by adding comments
+  for `preferred_syntax`, `output_style`, and `line_comments`.
+* Work around IE compatibility issues with the :last-child selector.
+  [Commit](http://github.com/jdsiegel/compass/commit/c1fb764dba9c54cc5d02f2f7de213fb21ac6ca09).
+* [Command Line] Only the action is colorized in command line output now.
+* [Command Line] Compass Validator has been upgraded and fine-tuned. It is now using the
+  "css3" profile to validate and provides a more consistent UI with other compass commands.
+  To upgrade: `gem install compass-validator`
 * [CSS3] The box-shadow `$spread` value now defaults to using the browser default instead of 0.
   Set $default-box-shadow-spread to 0 if you prefer the older behavior. Since the browser is supposed
   to default to 0, you should see no change except less CSS output.
+* [CSS3] The output order of the `box-shadow` mixin now matches the W3C specification.
+  The color and inset values used to be swapped.
 
 0.10.6 (10/11/2010)
 -------------------
