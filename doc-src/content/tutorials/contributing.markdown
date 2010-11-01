@@ -1,5 +1,12 @@
-Contributing to Compass
-=======================
+---
+title: Contributing Stylesheets
+crumb: Contributing
+layout: tutorial
+classnames:
+  - tutorial
+---
+Contributing Stylesheets to Compass
+===================================
 
 Thank you for your interest in contributing to Compass. Our goal is to make it as easy
 as we can for you to contribute changes to compass -- So if there's something here that
