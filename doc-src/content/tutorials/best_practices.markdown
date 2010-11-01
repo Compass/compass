@@ -2,6 +2,8 @@
 title: Best practices
 crumb: Best practices
 layout: tutorial
+classnames:
+  - tutorial
 ---
 ### Use a Base stylesheet file
 
