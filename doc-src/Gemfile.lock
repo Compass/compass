@@ -9,7 +9,7 @@ GIT
 PATH
   remote: /Users/chris/Projects/compass
   specs:
-    compass (0.10.5)
+    compass (0.10.6)
       haml (>= 3.0.4)
 
 GEM
