@@ -30,6 +30,7 @@
 // - Chrome
 // - Safari
 // - Firefox 3.6
+// - Opera
 
 @mixin linear-gradient($color-stops, $start: top, $image: false) {
   // Firefox's gradient api is nice.
@@ -38,6 +39,10 @@
   @if $image { $background : $image + unquote(", "); }
   $start: unquote($start);
   $end: opposite-position($start);
+
+  @if $experimental-support-for-svg {
+    background-image: #{$background}linear-svg-gradient($color-stops, $start);
+  }
   @if $experimental-support-for-webkit {
     background-image: #{$background}-webkit-gradient(linear, grad-point($start), grad-point($end), grad-color-stops($color-stops));
   }
@@ -66,12 +71,17 @@
 // - Chrome
 // - Safari
 // - Firefox 3.6
+// - Opera
 
 @mixin radial-gradient($color-stops, $center-position: center center, $image: false) {
   $center-position: unquote($center-position);
   $end-pos: grad-end-position($color-stops, true);
   $background: unquote("");
   @if $image { $background: $image + unquote(", "); }
+
+  @if $experimental-support-for-svg {
+    background-image: #{$background}radial-svg-gradient($color-stops, $center-position);
+  }
   @if $experimental-support-for-webkit {
     background-image: #{$background}-webkit-gradient(radial, grad-point($center-position), 0, grad-point($center-position), $end-pos, grad-color-stops($color-stops));
   }

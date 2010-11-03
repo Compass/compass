@@ -3,8 +3,7 @@ module Compass::SassExtensions::Functions::InlineImage
   def inline_image(path, mime_type = nil)
     path = path.value
     real_path = File.join(Compass.configuration.images_path, path)
-    url = "url('data:#{compute_mime_type(path,mime_type)};base64,#{data(real_path)}')"
-    Sass::Script::String.new(url)
+    inline_image_string(data(real_path), compute_mime_type(path, mime_type))
   end
 
   def inline_font_files(*args)
@@ -17,6 +16,13 @@ module Compass::SassExtensions::Functions::InlineImage
       files << "#{url} format('#{args.shift}')"
     end
     Sass::Script::String.new(files.join(", "))
+  end
+
+protected
+  def inline_image_string(data, mime_type)
+    data = [data].flatten.pack('m').gsub("\n","")
+    url = "url('data:#{mime_type};base64,#{data}')"
+    Sass::Script::String.new(url)
   end
 
 private
@@ -46,7 +52,7 @@ private
 
   def data(real_path)
     if File.readable?(real_path)
-      [File.open(real_path, "rb") {|io| io.read}].pack('m').gsub("\n","")
+      File.open(real_path, "rb") {|io| io.read}
     else
       raise Compass::Error, "File not found or cannot be read: #{real_path}"
     end

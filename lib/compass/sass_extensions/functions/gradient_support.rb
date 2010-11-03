@@ -38,6 +38,13 @@ module Compass::SassExtensions::Functions::GradientSupport
   module Functions
     # returns color-stop() calls for use in webkit.
     def grad_color_stops(color_list)
+      stops = color_stops_in_percentages(color_list).map do |stop, color|
+        "color-stop(#{stop.inspect}, #{color.inspect})"
+      end
+      Sass::Script::String.new(stops.join(", "))
+    end
+
+    def color_stops_in_percentages(color_list)
       assert_list(color_list)
       normalize_stops!(color_list)
       max = color_list.values.last.stop
@@ -51,10 +58,8 @@ module Compass::SassExtensions::Functions::GradientSupport
           raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
         end
         last_value = stop
-        "color-stop(#{stop.inspect}, #{pos.color.inspect})"
+        [stop, pos.color]
       end
-      
-      Sass::Script::String.new(color_stops.join(", "))
     end
 
     # returns the end position of the gradient from the color stop
@@ -148,6 +153,25 @@ module Compass::SassExtensions::Functions::GradientSupport
         end
       end)
     end
+
+    def linear_svg_gradient(color_stops, start)
+      x1, y1 = grad_point(start).to_s.split
+      x2, y2 = grad_point(opposite_position(start)).to_s.split
+      stops = color_stops_in_percentages(color_stops)
+
+      svg = linear_svg(stops, x1, y1, x2, y2)
+      inline_image_string(svg.gsub(/\s+/, ' '), 'image/svg+xml')
+    end
+
+    def radial_svg_gradient(color_stops, center)
+      cx, cy = grad_point(center).to_s.split
+      r = grad_end_position(color_stops,  Sass::Script::Bool.new(true))
+      stops = color_stops_in_percentages(color_stops)
+
+      svg = radial_svg(stops, cx, cy, r)
+      inline_image_string(svg.gsub(/\s+/, ' '), 'image/svg+xml')
+    end
+
     private
     def normalize_stops!(color_list)
       positions = color_list.values
@@ -185,6 +209,41 @@ module Compass::SassExtensions::Functions::GradientSupport
     def assert_list(value)
       return if value.is_a?(List)
       raise ArgumentError.new("#{value.inspect} is not a list of color stops. Expected: color_stops(<color> <number>?, ...)")
+    end
+
+    def linear_svg(color_stops, x1, y1, x2, y2)
+      gradient = <<-EOG
+        <linearGradient id="grad" x1="#{x1}" y1="#{y1}" x2="#{x2}" y2="#{y2}">
+          #{color_stops_svg(color_stops)}
+        </linearGradient>
+      EOG
+      svg(gradient)
+    end
+
+    def radial_svg(color_stops, cx, cy, r)
+      gradient = <<-EOG
+        <radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="#{cx}" cy="#{cy}" r="#{r}">
+          #{color_stops_svg(color_stops)}
+        </radialGradient>
+      EOG
+      svg(gradient)
+    end
+
+    # color_stops = array of: [stop, color]
+    def color_stops_svg(color_stops)
+      color_stops.each.map{ |stop, color|
+          %{<stop offset="#{stop.to_s}" stop-color="#{color.inspect}" />}
+      }.join
+    end
+
+    def svg(gradient)
+      svg = <<-EOS
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>#{gradient}</defs>
+  <rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" />
+</svg>
+      EOS
     end
   end
 end
