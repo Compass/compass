@@ -23,3 +23,5 @@ $experimental-support-for-opera     : true !default;
 $experimental-support-for-microsoft : true !default;
 // Support for khtml in experimental css3 properties.
 $experimental-support-for-khtml     : true !default;
+// Support for svg in experimental css3 properties.
+$experimental-support-for-svg     : false !default;
