@@ -107,9 +107,11 @@ module Compass::SassExtensions::Functions::GradientSupport
       else
         case position
         when /top|bottom/
-          "left #{position}"
+          "center #{position}"
         when /left|right/
-          "#{position} top"
+          "#{position} center"
+        when /center/
+          "center center"
         else
           position
         end
