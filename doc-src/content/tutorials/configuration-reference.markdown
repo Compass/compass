@@ -66,158 +66,165 @@ command line will override the corresponding settings in your configuration file
 
 ## Configuration Properties
 
-<table> 
-	<tr> 
-		<th>Property Name</th> 
-		<th>Type </th> 
-		<th>Description </th> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>project_type</code> </td> 
-		<td style="vertical-align:top;">Symbol </td> 
-		<td style="vertical-align:top;">Can be <code>:stand_alone</code> or
-		  <code>:rails</code>. Defaults to <code>:stand_alone</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>environment</code> </td> 
-		<td style="vertical-align:top;">Symbol </td> 
-		<td style="vertical-align:top;">The environment mode.
-		  Defaults to <code>:production</code>, can also be <code>:development</code>
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>project_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">Not needed in <code>:stand_alone</code> mode
-		  where it can be inferred by context. Sets the path to the root of the project.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>http_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The path to the project when running within the
-		  web server. Defaults to <code>"/"</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>css_dir</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The directory where the css stylesheets are kept.
-		  It is relative to the <code>project_path</code>.
-		  Defaults to <code>"stylesheets"</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>css_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full path to where css stylesheets are kept.
-		  Defaults to <code>&lt;project_path&gt;/&lt;css_dir&gt;</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>http_stylesheets_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full http path to stylesheets on the web server. Defaults to <code>http_path + "/" + css_dir</code>. </td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>sass_dir</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The directory where the sass stylesheets are kept.
-		  It is relative to the <code>project_path</code>. Defaults to <code>"src"</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>sass_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full path to where sass stylesheets are kept.
-		  Defaults to <code>&lt;project_path&gt;/&lt;sass_dir&gt;</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>images_dir</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The directory where the images are kept.
-		  It is relative to the <code>project_path</code>.
-		  Defaults to <code>"images"</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>images_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full path to where images are kept.
-		  Defaults to <code>&lt;project_path&gt;/&lt;images_dir&gt;</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>http_images_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full http path to images on the web server.
-		  Defaults to <code>http_path + "/" + images_dir</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>javascripts_dir</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The directory where the javascripts are kept.
-		  It is relative to the <code>project_path</code>. Defaults to
-		  <code>"javascripts"</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>javascripts_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full path to where javascripts are kept.
-		  Defaults to <code>&lt;project_path&gt;/&lt;javascripts_dir&gt;</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>http_javascripts_path</code> </td> 
-		<td style="vertical-align:top;">String </td> 
-		<td style="vertical-align:top;">The full http path to javascripts on the web server.
-		  Defaults to <code>http_path + "/" + javascripts_dir</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>output_style</code> </td> 
-		<td style="vertical-align:top;">Symbol </td> 
-		<td style="vertical-align:top;">The output style for the compiled css.
-		  One of: <code>:nested</code>, <code>:expanded</code>, <code>:compact</code>,
-		  or <code>:compressed</code>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>relative_assets</code> </td> 
-		<td style="vertical-align:top;">Boolean </td> 
-		<td style="vertical-align:top;">Indicates whether the compass helper functions
-		  should generate relative urls from the generated css to assets, or absolute urls
-		  using the http path for that asset type.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>additional_import_paths</code> </td> 
-		<td style="vertical-align:top;">Array of Strings </td> 
-		<td style="vertical-align:top;">Other paths on your system from which to import
-		  sass files. See the <code>add_import_path</code> function for a simpler
-		  approach.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>sass_options</code> </td> 
-		<td style="vertical-align:top;">Hash </td> 
-		<td style="vertical-align:top;">These options are passed directly to the
-		  Sass compiler. For more details on the format of sass options, please read the
-		  <a href="http://sass-lang.com/docs/yardoc/SASS_REFERENCE.md.html#options">sass options documentation</a>.
-		</td> 
-	</tr> 
-	<tr> 
-		<td style="vertical-align:top;"><code>line_comments</code> </td> 
-		<td style="vertical-align:top;">Boolean </td> 
-		<td style="vertical-align:top;">Indicates whether line comments should be added
-		  to compiled css that says where the selectors were defined. Defaults to false
-		  in production mode, true in development mode.
-		</td> 
-	</tr> 
+<table>
+  <tr>
+    <th>Property Name</th>
+    <th>Type </th>
+    <th>Description </th>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>project_type</code> </td>
+    <td style="vertical-align:top;">Symbol </td>
+    <td style="vertical-align:top;">Can be <code>:stand_alone</code> or
+      <code>:rails</code>. Defaults to <code>:stand_alone</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>environment</code> </td>
+    <td style="vertical-align:top;">Symbol </td>
+    <td style="vertical-align:top;">The environment mode.
+      Defaults to <code>:production</code>, can also be <code>:development</code>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>project_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">Not needed in <code>:stand_alone</code> mode
+      where it can be inferred by context. Sets the path to the root of the project.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The path to the project when running within the
+      web server. Defaults to <code>"/"</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>css_dir</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The directory where the css stylesheets are kept.
+      It is relative to the <code>project_path</code>.
+      Defaults to <code>"stylesheets"</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>css_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full path to where css stylesheets are kept.
+      Defaults to <code>&lt;project_path&gt;/&lt;css_dir&gt;</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_stylesheets_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full http path to stylesheets on the web server. Defaults to <code>http_path + "/" + css_dir</code>. </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sass_dir</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The directory where the sass stylesheets are kept.
+      It is relative to the <code>project_path</code>. Defaults to <code>"src"</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sass_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full path to where sass stylesheets are kept.
+      Defaults to <code>&lt;project_path&gt;/&lt;sass_dir&gt;</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>images_dir</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The directory where the images are kept.
+      It is relative to the <code>project_path</code>.
+      Defaults to <code>"images"</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>images_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full path to where images are kept.
+      Defaults to <code>&lt;project_path&gt;/&lt;images_dir&gt;</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_images_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full http path to images on the web server.
+      Defaults to <code>http_path + "/" + images_dir</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>javascripts_dir</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The directory where the javascripts are kept.
+      It is relative to the <code>project_path</code>. Defaults to
+      <code>"javascripts"</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>javascripts_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full path to where javascripts are kept.
+      Defaults to <code>&lt;project_path&gt;/&lt;javascripts_dir&gt;</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_javascripts_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full http path to javascripts on the web server.
+      Defaults to <code>http_path + "/" + javascripts_dir</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>output_style</code> </td>
+    <td style="vertical-align:top;">Symbol </td>
+    <td style="vertical-align:top;">The output style for the compiled css.
+      One of: <code>:nested</code>, <code>:expanded</code>, <code>:compact</code>,
+      or <code>:compressed</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>relative_assets</code> </td>
+    <td style="vertical-align:top;">Boolean </td>
+    <td style="vertical-align:top;">Indicates whether the compass helper functions
+      should generate relative urls from the generated css to assets, or absolute urls
+      using the http path for that asset type.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>additional_import_paths</code> </td>
+    <td style="vertical-align:top;">Array of Strings </td>
+    <td style="vertical-align:top;">Other paths on your system from which to import
+      sass files. See the <code>add_import_path</code> function for a simpler
+      approach.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sass_options</code> </td>
+    <td style="vertical-align:top;">Hash </td>
+    <td style="vertical-align:top;">These options are passed directly to the
+      Sass compiler. For more details on the format of sass options, please read the
+      <a href="http://sass-lang.com/docs/yardoc/SASS_REFERENCE.md.html#options">sass options documentation</a>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>line_comments</code> </td>
+    <td style="vertical-align:top;">Boolean </td>
+    <td style="vertical-align:top;">Indicates whether line comments should be added
+      to compiled css that says where the selectors were defined. Defaults to false
+      in production mode, true in development mode.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>preferred_syntax</code> </td>
+    <td style="vertical-align:top;">Symbol </td>
+    <td style="vertical-align:top;">Can be <code>:scss</code> or <code>:sass</code>.
+      Defaults to <code>:scss</code>.
+    </td>
+  </tr>
 </table>
 
 ## Configuration Functions
@@ -255,7 +262,7 @@ that points to the asset on disk — which may or may not exist.
     deploy_version = 1
     asset_cache_buster do |http_path, real_path|
       if File.exists?(real_path)
-        File.mtime(real_path).strftime("%s") 
+        File.mtime(real_path).strftime("%s")
       else
         "v=#{deploy_version}"
       end
