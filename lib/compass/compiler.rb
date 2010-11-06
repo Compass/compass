@@ -98,7 +98,6 @@ module Compass
 
     # Compile one Sass file
     def compile(sass_filename, css_filename)
-      logger.record :compile, basename(sass_filename) unless options[:quiet]
       css_content = logger.red do
         engine(sass_filename, css_filename).render
       end

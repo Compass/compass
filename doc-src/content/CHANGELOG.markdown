@@ -7,6 +7,21 @@ layout: article
 COMPASS CHANGELOG
 =================
 
+0.10.7 (UNRELEASED)
+-------------------
+* compass config -p <property> -- will now print out the configuration value
+  for that property for the current project
+* Bug fix: In webkit, when the last gradient color stop was a percent less than 100%, the
+  intermediate values were being scaled to that value.
+* You can now pass --no-line-comments to the Compass command line to disable line comments.
+* Make the compass configuration file more self documenting by adding comments for
+  `preferred_syntax`, `output_style`, and `line_comments`.
+* Work around IE compatibility issues with the :last-child selector. [Commit](http://github.com/jdsiegel/compass/commit/c1fb764dba9c54cc5d02f2f7de213fb21ac6ca09).
+* Only the action is colorized in command line output now.
+* Compass Validator has been upgraded and fine-tuned. It is now using the "css3" profile
+  to validate and provides a more consistent UI with other compass commands. To upgrade:
+  `gem install compass-validator`
+
 0.10.6 (10/11/2010)
 -------------------
 

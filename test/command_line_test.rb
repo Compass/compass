@@ -21,11 +21,10 @@ class CommandLineTest < Test::Unit::TestCase
   def test_basic_install
     within_tmp_directory do
       compass "--boring", "basic"
-      assert File.exists?("basic/src/screen.scss")
+      assert File.exists?("basic/sass/screen.scss")
       assert File.exists?("basic/stylesheets/screen.css")
       assert_action_performed :directory, "basic/"
-      assert_action_performed    :create, "basic/src/screen.scss"
-      assert_action_performed   :compile, "basic/src/screen.scss"
+      assert_action_performed    :create, "basic/sass/screen.scss"
       assert_action_performed    :create, "basic/stylesheets/screen.css"
     end
   end
@@ -35,11 +34,10 @@ class CommandLineTest < Test::Unit::TestCase
     define_method "test_#{framework.name}_installation" do
       within_tmp_directory do
         compass *%W(--boring --framework #{framework.name} #{framework.name}_project)
-        assert File.exists?("#{framework.name}_project/src/screen.scss"), "src/screen.scss is missing. Found: #{Dir.glob("#{framework.name}_project/**/*").join(", ")}"
+        assert File.exists?("#{framework.name}_project/sass/screen.scss"), "sass/screen.scss is missing. Found: #{Dir.glob("#{framework.name}_project/**/*").join(", ")}"
         assert File.exists?("#{framework.name}_project/stylesheets/screen.css")
         assert_action_performed :directory, "#{framework.name}_project/"
-        assert_action_performed    :create, "#{framework.name}_project/src/screen.scss"
-        assert_action_performed   :compile, "#{framework.name}_project/src/screen.scss"
+        assert_action_performed    :create, "#{framework.name}_project/sass/screen.scss"
         assert_action_performed    :create, "#{framework.name}_project/stylesheets/screen.css"
       end
     end
@@ -51,10 +49,9 @@ class CommandLineTest < Test::Unit::TestCase
       Dir.chdir "basic" do
         # basic update with timestamp caching
         compass "--boring"
-        assert_action_performed :unchanged, "src/screen.scss"
+        assert_action_performed :unchanged, "sass/screen.scss"
         # basic update with force option set
         compass "--force", "--boring"
-        assert_action_performed :compile, "src/screen.scss"
         assert_action_performed :identical, "stylesheets/screen.css"
       end
     end
