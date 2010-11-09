@@ -5,6 +5,7 @@
 
 @import "shared";
 
+
 // The default color for box shadows
 $default-box-shadow-color: #333333 !default;
 
@@ -51,7 +52,7 @@ $default-box-shadow-inset : false !default;
 
 // Provides cross-browser box shadows when one or more box shadows are needed.
 @mixin multiple-box-shadows(
-  $shadow-1,
+  $shadow-1 : default,
   $shadow-2 : false,
   $shadow-3 : false,
   $shadow-4 : false,
@@ -62,7 +63,19 @@ $default-box-shadow-inset : false !default;
   $shadow-9 : false,
   $shadow-10: false
 ) {
-  // Ugh. Sass needs variable argument support.
+  
+  @if not ($default-box-shadow-inset == true or $default-box-shadow-inset == false or $default-box-shadow-inset == inset) {
+    @warn "$default-box-shadow-inset expected to be true or the inset keyword. Got #{$default-box-shadow-inset} instead. Using: inset";
+  }
+  
+  @if $shadow-1 == default {
+    $shadow-1 : $default-box-shadow-h-offset $default-box-shadow-v-offset;
+    @if $default-box-shadow-blur    { $shadow-1: $shadow-1 $default-box-shadow-blur;   }
+    @if $default-box-shadow-spread  { $shadow-1: $shadow-1 $default-box-shadow-spread; }
+    @if $default-box-shadow-color   { $shadow-1: $shadow-1 $default-box-shadow-color;  }
+    @if $default-box-shadow-inset   { $shadow-1: inset $shadow-1;   }
+  }
+  
   $shadow : $shadow-1;
   @if $shadow-2  { $shadow: $shadow, $shadow-2;  }
   @if $shadow-3  { $shadow: $shadow, $shadow-3;  }
@@ -79,7 +92,7 @@ $default-box-shadow-inset : false !default;
 }
 
 @mixin box-shadow(
-  $shadow-1,
+  $shadow-1 : default,
   $shadow-2 : false,
   $shadow-3 : false,
   $shadow-4 : false,
