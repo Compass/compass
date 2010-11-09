@@ -57,6 +57,14 @@ To upgrade, you have two choices:
    
        @include box-shadow(inset 5px 5px 2px 3px darken($border_color, 40))
 
+<a name="text-shadow"></a>
+## Text-Shadow
+
+The `text-shadow` mixin API has been changed in the exact same ways as the `box-shadow` mixin.
+The available mixins are now `single-text-shadow` which functions as before, with `text-shadow`
+and `multiple-text-shadows` accepting up to 10 space-delimited shadow arguments. Upgrade by following
+the process listed above. 
+
 <a name="transform"></a>
 ## Transform
 

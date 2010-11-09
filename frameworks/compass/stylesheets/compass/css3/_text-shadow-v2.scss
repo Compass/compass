@@ -1,0 +1,72 @@
+@import "shared";
+
+// These defaults make the arguments optional for this mixin
+// If you like, set different defaults in your project
+
+$default-text-shadow-color:    #aaa !default;
+$default-text-shadow-h-offset: 1px  !default;
+$default-text-shadow-v-offset: 1px  !default;
+$default-text-shadow-blur:     1px  !default;
+
+// Provides CSS text shadows.
+// Arguments are color, horizontal offset, vertical offset, and blur
+@mixin single-text-shadow(
+  $color: $default-text-shadow-color,
+  $hoff: $default-text-shadow-h-offset,
+  $voff: $default-text-shadow-v-offset,
+  $blur: $default-text-shadow-blur
+) {
+  // XXX I'm surprised we don't need experimental support for this property.
+  @if $color == none {
+    text-shadow: none;
+  } @else {
+    text-shadow: $color $hoff $voff $blur;    
+  }
+}
+
+// Provides cross-browser text shadows when one or more shadows are needed.
+@mixin multiple-text-shadows(
+  $shadow-1 : $default-text-shadow-color $default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur,
+  $shadow-2 : false,
+  $shadow-3 : false,
+  $shadow-4 : false,
+  $shadow-5 : false,
+  $shadow-6 : false,
+  $shadow-7 : false,
+  $shadow-8 : false,
+  $shadow-9 : false,
+  $shadow-10: false
+) {
+  // Ugh. Sass needs variable argument support.
+  $shadow : $shadow-1;
+  @if $shadow-2  { $shadow: $shadow, $shadow-2;  }
+  @if $shadow-3  { $shadow: $shadow, $shadow-3;  }
+  @if $shadow-4  { $shadow: $shadow, $shadow-4;  }
+  @if $shadow-5  { $shadow: $shadow, $shadow-5;  }
+  @if $shadow-6  { $shadow: $shadow, $shadow-6;  }
+  @if $shadow-7  { $shadow: $shadow, $shadow-7;  }
+  @if $shadow-8  { $shadow: $shadow, $shadow-8;  }
+  @if $shadow-9  { $shadow: $shadow, $shadow-9;  }
+  @if $shadow-10 { $shadow: $shadow, $shadow-10; }
+  // Anticlimactic, we know.
+  text-shadow: $shadow
+}
+
+@mixin text-shadow(
+  $shadow-1 : $default-text-shadow-color $default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur,
+  $shadow-2 : false,
+  $shadow-3 : false,
+  $shadow-4 : false,
+  $shadow-5 : false,
+  $shadow-6 : false,
+  $shadow-7 : false,
+  $shadow-8 : false,
+  $shadow-9 : false,
+  $shadow-10: false
+) {
+  @include multiple-text-shadows(
+    $shadow-1, $shadow-2, $shadow-3,
+    $shadow-4, $shadow-5, $shadow-6,
+    $shadow-7, $shadow-8, $shadow-9, $shadow-10
+  );
+}
