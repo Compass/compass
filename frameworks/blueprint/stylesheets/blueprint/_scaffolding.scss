@@ -39,10 +39,10 @@
   .box {
     @include box; }
   // Border on right hand side of a column. You can comment this out if you don't plan to use it.
-  div.border {
+  .border {
     @include border; }
   // Border with more whitespace, spans one column.
-  div.colborder {
+  .colborder {
     @include colborder; }
   hr {
     @include colruler; }
