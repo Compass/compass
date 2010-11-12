@@ -731,9 +731,6 @@ input.text, input.title, input[type=email], input[type=text], input[type=passwor
   padding: 5px; }
 input.title {
   font-size: 1.5em; }
-input[type=checkbox], input.checkbox, input[type=radio], input.radio {
-  position: relative;
-  top: 0.25em; }
 
 textarea {
   margin: 0.5em 0;

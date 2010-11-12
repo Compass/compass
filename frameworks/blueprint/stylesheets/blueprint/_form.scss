@@ -25,10 +25,6 @@
     &[type=text],
     &[type=password]   { margin: 0.5em 0; background-color: white; padding: 5px; }
     &.title            { font-size: 1.5em; }
-    &[type=checkbox],
-    &.checkbox,
-    &[type=radio],
-    &.radio            { position: relative; top: 0.25em; }
   }
   textarea           { margin: 0.5em 0; padding: 5px; }
   select             { margin: 0.5em 0; }

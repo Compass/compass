@@ -17,9 +17,6 @@ form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp inpu
   padding: 5px; }
 form.bp input.title {
   font-size: 1.5em; }
-form.bp input[type=checkbox], form.bp input.checkbox, form.bp input[type=radio], form.bp input.radio {
-  position: relative;
-  top: 0.25em; }
 form.bp textarea {
   margin: 0.5em 0;
   padding: 5px; }
