@@ -49,7 +49,7 @@ $blueprint-font-size: 12px !default;
 
 @mixin blueprint-typography-defaults {
   #{headers(all)} { @include header-text;
-    img             { margin: 0; } }
+    img           { margin: 0; } }
   h1              { font-size: 3em;   line-height: 1;    margin-bottom: 0.50em; }
   h2              { font-size: 2em;                      margin-bottom: 0.75em; }
   h3              { font-size: 1.5em; line-height: 1;    margin-bottom: 1.00em; }
@@ -57,8 +57,8 @@ $blueprint-font-size: 12px !default;
   h5              { font-size: 1em;   font-weight: bold; margin-bottom: 1.50em; }
   h6              { font-size: 1em;   font-weight: bold;                        }
   p               { margin: 0 0 1.5em;
-    img.left        { @include float-left;  margin: 1.5em 1.5em 1.5em 0; padding: 0; }
-    img.right       { @include float-right; margin: 1.5em 0 1.5em 1.5em; padding: 0; }
+    img.left      { @include float-left;  margin: 1.5em 1.5em 1.5em 0; padding: 0; }
+    img.right     { @include float-right; margin: 1.5em 0 1.5em 1.5em; padding: 0; }
                   }
   a               { text-decoration: underline; @include link-colors($link-color, $link-hover-color, $link-active-color, $link-visited-color, $link-focus-color); }
   blockquote      { margin: 1.5em; color: $alt-text-color; font-style: italic; }
@@ -76,7 +76,7 @@ $blueprint-font-size: 12px !default;
   ul              { list-style-type: disc; }
   ol              { list-style-type: decimal; }
   dl              { margin: 0 0 1.5em 0;
-    dt              { font-weight: bold; } }
+    dt            { font-weight: bold; } }
   dd              { margin-left: 1.5em; }
   table           { margin-bottom: 1.4em; width: 100%; }
   th              { font-weight: bold; }
