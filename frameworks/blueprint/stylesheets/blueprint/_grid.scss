@@ -45,16 +45,18 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   // A container should group all your columns
   .container {
     @include container; }
-  .column, #{enumerate("div.span", 1, $blueprint_grid_columns)} {
+  .column {
     @include column-base; }
   // The last column in a row needs this class (or mixin) or it will end up on the next row.
-  .last, div.last {
+  .last {
     @include last; }
   // Use these classes (or mixins) to set the width of a column.
   @for $n from 1 to $blueprint_grid_columns {
     .span-#{$n} {
+      @extend .column;
       @include span($n); } }
-  .span-#{$blueprint_grid_columns}, div.span-#{$blueprint_grid_columns} {
+  .span-#{$blueprint_grid_columns} {
+    @extend .column;
     @include span($blueprint_grid_columns);
     margin: 0; }
   input, textarea, select {
