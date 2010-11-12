@@ -26,6 +26,9 @@ COMPASS CHANGELOG
   * Fixed specificity problems in typography.css and grid.css [CMM]
   * See Lighthouse for more bug fixes
   * Full [changelog][blueprint_10_change]
+  * If for some reason you'd like to stay on the older version of blueprint you can run
+    the following command in your project before you upgrade (or after temporarily downgrading):
+    `compass unpack blueprint`
 
 
 ### Helpers
