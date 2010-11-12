@@ -53,15 +53,15 @@ p {
 
 a {
   text-decoration: underline;
-  color: #000099; }
+  color: #0066cc; }
   a:visited {
-    color: #000066; }
+    color: #004c99; }
   a:focus {
-    color: #0088dd; }
+    color: #0099ff; }
   a:hover {
-    color: #0088dd; }
+    color: #0099ff; }
   a:active {
-    color: #cc0099; }
+    color: #bf00ff; }
 
 blockquote {
   margin: 1.5em;

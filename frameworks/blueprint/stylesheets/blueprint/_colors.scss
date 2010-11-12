@@ -6,8 +6,8 @@ $alt-text-color: #666666 !default;
 $blueprint-background-color: #eeeeee !default;
 $blueprint-border-color: #ddd !default;
 
-$link-color:         #000099               !default;
-$link-hover-color:   #08d                  !default;
+$link-color:         #06c                  !default;
+$link-hover-color:   #09f                  !default;
 $link-focus-color:   $link-hover-color     !default;
 $link-active-color:  lighten(adjust-hue($link-color, 75deg), 10%) !default;
 $link-visited-color: darken($link-color, 10%) !default;
