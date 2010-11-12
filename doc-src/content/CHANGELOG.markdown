@@ -19,6 +19,13 @@ COMPASS CHANGELOG
     and has been deprecated.
 * Some color defaults now use color functions instead of color arithmetic.
   This may result in different output for those who have color customizations.
+* Updated from blueprint 0.9 to blueprint 1.0
+  * Added detailed explanations to core uncompressed CSS files [CMM]
+  * Added .info and .alert classes to forms.css [CMM]
+  * Fixed numerous bugs in forms, including the fieldset padding bug in IE6-8 [CMM]
+  * Fixed specificity problems in typography.css and grid.css [CMM]
+  * See Lighthouse for more bug fixes 
+
 
 ### Helpers
 
