@@ -32,6 +32,10 @@ h1 {
     margin: 0.5em 0 1em;
     text-align: center; } }
 
+.inset {
+  @include box-shadow(darken($border_color, 40), 5px, 5px, 2px, 3px, inset);
+}
+
 .gutter {
   display: block;
   float: left;

@@ -49,6 +49,10 @@ module Compass::Exec::ProjectOptionsParser
     opts.on('--relative-assets', :NONE, 'Make compass asset helpers generate relative urls to assets.') do
       self.options[:relative_assets] = true
     end
+
+    opts.on('--no-line-comments', :NONE, 'Disable line comments.') do
+      self.options[:line_comments] = false
+    end
   end
 
 end

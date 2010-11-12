@@ -18,7 +18,7 @@ $default-box-shadow-v-offset: 1px !default;
 $default-box-shadow-blur: 5px !default;
 
 // The default spread length.
-$default-box-shadow-spread : 0 !default;
+$default-box-shadow-spread : false !default;
 
 // The default shadow instet: inset or false (for standard shadow).
 $default-box-shadow-inset : false !default;
@@ -36,7 +36,10 @@ $default-box-shadow-inset : false !default;
 ) {
   $full   : $color $hoff $voff $blur $spread;
   @if $inset {
-    $full: $full $inset;
+    @if not ($inset == true or $inset == inset) {
+      @warn "$inset expected to be true or the inset keyword. Got #{$inset} instead. The box shadow will be inset."
+    }
+    $full: $full inset;
   }
   @if $color == none {
     @include experimental(box-shadow, none,

@@ -16,6 +16,12 @@ module Compass
         def description(command)
           "Emit an imports suitable for passing to the sass command-line."
         end
+        def usage
+          "Usage: compass imports\n\n" +
+          "Prints out the imports known to compass.\n"+
+          "Useful for passing imports to the sass command line:\n" +
+          "  sass -r compass `compass imports` a_file_using_compass.sass"
+        end
         def parse!(arguments)
           if arguments.join("").strip.size > 0
             raise OptionParser::ParseError, "This command takes no options or arguments."

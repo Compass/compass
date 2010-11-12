@@ -84,7 +84,7 @@ module Compass
         to = targetize(install_location_for_stylesheet(to, options))
         contents = File.new(from).read
         if preferred_syntax.to_s != from[-4..-1]
-          logger.record :convert, basename(from)
+          # logger.record :convert, basename(from)
           tree = Sass::Engine.new(contents, Compass.sass_engine_options.merge(:syntax => from[-4..-1].intern)).to_tree
           contents = tree.send("to_#{preferred_syntax}")
           to[-4..-1] = preferred_syntax.to_s

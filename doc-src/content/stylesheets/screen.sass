@@ -1,7 +1,7 @@
 /* Welcome to Susy. Use this file to define screen styles.
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
-
+@charset "UTF-8"
 @import defaults
 @import slideshow
 @import shared
@@ -57,9 +57,6 @@ footer[role="contentinfo"]
       background: #cccccc
       cursor: default
 
-+active-compass-nav("#home,.reference", "/docs/")
-+active-compass-nav(".tutorial", "/docs/tutorials/")
-
 #docs-nav
   +pie-clearfix
   +leading-border(1px, 0.25)
@@ -108,6 +105,8 @@ footer[role="contentinfo"]
 +active-docs("#home", "/docs/")
 +active-docs(".core", "/docs/reference/compass/")
 +active-docs(".blueprint", "/docs/reference/blueprint/")
++active-docs(".tutorial", "/docs/tutorials/")
+
 
 #version
   +adjust-font-size-to(14px)
@@ -213,6 +212,8 @@ aside[role="sidebar"] + article
       margin-right: 1.5em
       &:first-child
         +alpha
+  a.selected:before
+    content: "▸"
   + #page
     +leader(1.5)
 

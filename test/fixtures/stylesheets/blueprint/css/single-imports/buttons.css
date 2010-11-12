@@ -3,7 +3,6 @@ a {
   -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: middle;
-  *display: inline;
   *vertical-align: auto;
   margin: 0.7em 0.5em 0.7em 0;
   border-width: 1px;
@@ -15,6 +14,8 @@ a {
   text-decoration: none;
   cursor: pointer;
   padding: 5px 10px 5px 7px; }
+  a {
+    *display: inline; }
   a img {
     margin: 0 3px -3px 0 !important;
     padding: 0;
@@ -28,7 +29,6 @@ button {
   -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: middle;
-  *display: inline;
   *vertical-align: auto;
   margin: 0.7em 0.5em 0.7em 0;
   border-width: 1px;
@@ -42,6 +42,8 @@ button {
   width: auto;
   overflow: visible;
   padding: 4px 10px 3px 7px; }
+  button {
+    *display: inline; }
   button img {
     margin: 0 3px -3px 0 !important;
     padding: 0;

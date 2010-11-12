@@ -1,4 +1,3 @@
-require 'spec/expectations'
 $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), '../../test')))
 
 require 'test_helper'
@@ -242,4 +241,3 @@ end
 Then /^I should see the following output: (.+)$/ do |expected|
   (@last_result.strip + @last_error.strip).should == expected.gsub(/\$PROJECT_PATH/,Dir.pwd).strip
 end
-

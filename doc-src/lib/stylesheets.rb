@@ -136,7 +136,7 @@ def constants(item)
       comment = nil
     end
   end
-  constants
+  constants.reject{|c| c.comment =~ /@private/}
 end
 
 def all_constants

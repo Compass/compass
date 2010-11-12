@@ -1,0 +1,7 @@
+- render 'main' do
+  - content_for :module_nav do
+    %ul= item_tree(reference_item(:stylesheet => "compass.scss"), :depth => 1, :omit_self => true, :headings => false)
+  %aside(role="sidebar")
+    %nav#local-nav
+      = item_tree(reference_item(:stylesheet => (@item[:nav_stylesheet] || @default_stylesheet)), :depth => 2, :omit_self => get_var(:omit_self){false}, :heading_level => get_var(:heading_level){1})
+  %article= yield

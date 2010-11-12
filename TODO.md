@@ -4,6 +4,15 @@ FYI: I'm abandoning the even/odd release numbering scheme in favor of using prev
 * 0.11.0.beta.N (tagged, new features expected)
 * 0.11.0.rc.N (tagged, no new features expected)
 
+MUST:
+* A proper welcome page for blueprint projects (or delete it)
+* Rails Integration
+
+NICE:
+* some extension commands
+* Better help for commands and patterns
+* Color Palette extraction and management commands
+
 v0.11
 =====
 Planned Release Date: Aug 2, 2010

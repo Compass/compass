@@ -16,7 +16,9 @@ ul.horizontal {
     padding-right: 4px; }
     ul.horizontal li:first-child, ul.horizontal li.first {
       padding-left: 0; }
-    ul.horizontal li:last-child, ul.horizontal li.last {
+    ul.horizontal li:last-child {
+      padding-right: 0; }
+    ul.horizontal li.last {
       padding-right: 0; }
 
 ul.wide-horizontal {
@@ -37,7 +39,9 @@ ul.wide-horizontal {
     padding-right: 10px; }
     ul.wide-horizontal li:first-child, ul.wide-horizontal li.first {
       padding-left: 0; }
-    ul.wide-horizontal li:last-child, ul.wide-horizontal li.last {
+    ul.wide-horizontal li:last-child {
+      padding-right: 0; }
+    ul.wide-horizontal li.last {
       padding-right: 0; }
 
 ul.right-horizontal {
@@ -58,7 +62,9 @@ ul.right-horizontal {
     padding-right: 4px; }
     ul.right-horizontal li:first-child, ul.right-horizontal li.first {
       padding-right: 0; }
-    ul.right-horizontal li:last-child, ul.right-horizontal li.last {
+    ul.right-horizontal li:last-child {
+      padding-left: 0; }
+    ul.right-horizontal li.last {
       padding-left: 0; }
 
 ul.no-padding {
@@ -91,9 +97,10 @@ ul.inline-block {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *display: inline;
     *vertical-align: auto;
     white-space: nowrap; }
+    ul.inline-block li {
+      *display: inline; }
 
 ul.wide-inline-block {
   margin: 0;
@@ -110,11 +117,12 @@ ul.wide-inline-block {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *display: inline;
     *vertical-align: auto;
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 10px; }
+    ul.wide-inline-block li {
+      *display: inline; }
 
 ul.inline {
   list-style-type: none; }
@@ -131,7 +139,9 @@ ul.comma {
     display: inline; }
   ul.comma li:after {
     content: ", "; }
-  ul.comma li:last-child:after, ul.comma li.last:after {
+  ul.comma li:last-child:after {
+    content: ""; }
+  ul.comma li.last:after {
     content: ""; }
 
 ul.no-bullets {

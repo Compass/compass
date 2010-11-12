@@ -147,7 +147,7 @@ NEXTSTEPS
           manifest.each_stylesheet do |stylesheet|
             # Skip partials.
             next if File.basename(stylesheet.from)[0..0] == "_"
-            ss_line = "  = stylesheet_link_tag '#{stylesheet_prefix}#{stylesheet.to.sub(/\.sass$/,'.css')}'"
+            ss_line = "  = stylesheet_link_tag '#{stylesheet_prefix}#{stylesheet.to.sub(/\.s[ac]ss$/,'.css')}'"
             if stylesheet.options[:media]
               ss_line += ", :media => '#{stylesheet.options[:media]}'"
             end

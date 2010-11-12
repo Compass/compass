@@ -18,7 +18,7 @@ module Compass
     def directory(dir, options = nil)
       options ||= self.options if self.respond_to?(:options)
       if File.exists?(dir) && File.directory?(dir)
-          logger.record :exists, basename(dir) unless options[:quiet]
+          # logger.record :exists, basename(dir) unless options[:quiet]
       elsif File.exists?(dir)
         msg = "#{basename(dir)} already exists and is not a directory."
         raise Compass::FilesystemConflict.new(msg)
