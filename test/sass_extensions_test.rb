@@ -59,6 +59,23 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25%", evaluate("saturation(adjust-saturation(hsl(50deg, 50%, 50%), -25%))")
   end
 
+  def test_trig_functions
+    assert_equal "0.841px", evaluate("sin(1px)")
+    assert_equal "0.0", evaluate("sin(pi())")
+    assert_equal "1",   evaluate("sin(pi() / 2)")
+    assert_equal "1",   evaluate("sin(180deg)")
+    assert_equal "-1",  evaluate("sin(3* pi() / 2)")
+    assert_equal "-1", evaluate("cos(pi())")
+    assert_equal "-1", evaluate("cos(360deg)")
+    assert_equal "1", evaluate("cos(2*pi())")
+    assert_equal "0.0",   evaluate("cos(pi() / 2)")
+    assert_equal "0.0",  evaluate("cos(3* pi() / 2)")
+    assert_equal "0.0",  evaluate("tan(pi())")
+    assert_equal "0.0", evaluate("tan(360deg)")
+    assert evaluate("tan(pi()/2 - 0.0001)").to_f > 1000, evaluate("tan(pi()/2 - 0.0001)")
+    assert evaluate("tan(pi()/2 + 0.0001)").to_f < -1000, evaluate("tan(pi()/2 - 0.0001)")
+  end
+
 protected
   def evaluate(value)
     Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s

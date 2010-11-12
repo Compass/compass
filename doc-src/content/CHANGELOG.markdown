@@ -37,6 +37,13 @@ COMPASS CHANGELOG
   make it easier to construct apis that manipulate these color attributes.
 * The `elements-of-type()` helper now returns html5 elements when the display is `block`
   and also will return only html5 elements for `elements-of-type(html5)`
+* Compass now provides several helper functions related to trigonometry.
+  There's no practical use, but it's hoped that users will find fun things to
+  do with these for technology demonstrations:
+  * `sin($number)` - Takes the sine of the number.
+  * `cos($number)` - Takes the cosine of the number.
+  * `tan($number)` - Takes the tangent of the number.
+  * `pi()` - Returns the value of π.
 
 ### Rails
 
