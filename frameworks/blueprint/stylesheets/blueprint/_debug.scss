@@ -2,7 +2,7 @@
   background: image-url($image);
 }
 
-@mixin blueprint-debug($grid-image: unquote("grid.png")) {
+@mixin blueprint-debug($grid-image: "grid.png") {
   // Use this class on any column or container to see the grid.
   // TODO: prefix this with the project path.
   .showgrid {
