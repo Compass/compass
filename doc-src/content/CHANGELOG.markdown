@@ -25,6 +25,10 @@ COMPASS CHANGELOG
 * New color helpers: `adjust-lightness`, `adjust-saturation`, `scale-lightness`, and `scale-saturation`
   make it easier to construct apis that manipulate these color attributes.
 
+### Rails
+
+* Better integration with rails 3 (XXX Details)
+
 0.10.7 (UNRELEASED)
 -------------------
 * [Command Line] compass config -p <property> -- will now print out the configuration value
