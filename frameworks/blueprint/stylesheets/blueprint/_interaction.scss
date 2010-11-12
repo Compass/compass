@@ -3,6 +3,7 @@
 @mixin blueprint-interaction {
   .feedback  { @include feedback-base;     }
   .error     { @include error(feedback);   }
+  .alert     { @extend .error;             }
   .notice    { @include notice(feedback);  }
   .success   { @include success(feedback); }
   .info      { @include info(feedback);    }

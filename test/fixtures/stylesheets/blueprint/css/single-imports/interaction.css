@@ -1,13 +1,13 @@
-.feedback, .error, .notice, .success, .info {
+.feedback, .error, .alert, .notice, .success, .info {
   padding: 0.8em;
   margin-bottom: 1em;
   border: 2px solid #dddddd; }
 
-.error {
+.error, .alert {
   background: #fbe3e4;
   color: #8a1f11;
   border-color: #fbc2c4; }
-  .error a {
+  .error a, .alert a {
     color: #8a1f11; }
 
 .notice {
