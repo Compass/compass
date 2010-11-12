@@ -1,10 +1,15 @@
 module Compass::SassExtensions::Functions::Colors
+  if defined?(Sass::Util)
+    include Sass::Util
+  else
+    include Haml::Util
+  end
 
   # a genericized version of lighten/darken so that negative values can be used.
   def adjust_lightness(color, amount)
     assert_type color, :Color
     assert_type amount, :Number
-    color.with(:lightness => Sass::Util.restrict(color.lightness + amount.value, 0..100))
+    color.with(:lightness => restrict(color.lightness + amount.value, 0..100))
   end
 
   # Scales a color's lightness by some percentage.
@@ -20,7 +25,7 @@ module Compass::SassExtensions::Functions::Colors
   def adjust_saturation(color, amount)
     assert_type color, :Color
     assert_type amount, :Number
-    color.with(:saturation => Sass::Util.restrict(color.saturation + amount.value, 0..100))
+    color.with(:saturation => restrict(color.saturation + amount.value, 0..100))
   end
 
   # Scales a color's saturation by some percentage.
