@@ -209,7 +209,7 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
   @include pull-margins($n, $last); }
 
 @mixin push-base {
-  @include float-right;
+  @include float-left;
   position: relative; }
 
 @mixin push-margins($n) {
