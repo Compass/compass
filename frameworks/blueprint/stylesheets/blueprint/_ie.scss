@@ -52,9 +52,6 @@
 @mixin blueprint-inline-form-ie {
   div, p {
     vertical-align: middle; }
-  label {
-    position: relative;
-    top: -0.25em; }
   input {
     &.checkbox, &.radio, &.button, button {
       margin: 0.5em 0; } } }
@@ -80,6 +77,9 @@
   legend, #IE8#HACK {margin-top:0;margin-bottom:0;}
   textarea {
     overflow: auto; }
+  label {
+    position: relative;
+    top: -0.25em; }
   input {
     &.text {
       margin: 0.5em 0;

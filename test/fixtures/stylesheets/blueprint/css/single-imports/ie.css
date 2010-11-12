@@ -39,6 +39,10 @@ legend, #IE8#HACK {
 textarea {
   overflow: auto; }
 
+label {
+  position: relative;
+  top: -0.25em; }
+
 input.text {
   margin: 0.5em 0;
   background-color: white;
