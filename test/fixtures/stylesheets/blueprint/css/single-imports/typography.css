@@ -40,12 +40,12 @@ h6 {
 
 p {
   margin: 0 0 1.5em; }
-  p img.left {
+  p .left {
     display: inline;
     float: left;
     margin: 1.5em 1.5em 1.5em 0;
     padding: 0; }
-  p img.right {
+  p .right {
     display: inline;
     float: right;
     margin: 1.5em 0 1.5em 1.5em;
@@ -68,15 +68,11 @@ blockquote {
   color: #666666;
   font-style: italic; }
 
-strong {
+strong, dfn {
   font-weight: bold; }
 
-em {
+em, dfn {
   font-style: italic; }
-
-dfn {
-  font-style: italic;
-  font-weight: bold; }
 
 sup, sub {
   line-height: 0; }
@@ -133,7 +129,8 @@ thead th {
 th, td, caption {
   padding: 4px 10px 4px 5px; }
 
-tr.even td {
+table.striped tr:nth-child(even) td,
+table tr.even td {
   background: #e5ecf9; }
 
 tfoot {

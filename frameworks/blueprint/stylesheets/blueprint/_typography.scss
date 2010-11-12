@@ -56,15 +56,13 @@ $blueprint-font-size: 12px !default;
   h4              { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; }
   h5              { font-size: 1em;   font-weight: bold; margin-bottom: 1.50em; }
   h6              { font-size: 1em;   font-weight: bold;                        }
-  p               { margin: 0 0 1.5em;
-    img.left      { @include float-left;  margin: 1.5em 1.5em 1.5em 0; padding: 0; }
-    img.right     { @include float-right; margin: 1.5em 0 1.5em 1.5em; padding: 0; }
-                  }
+  p               { margin: 0 0 1.5em; 
+    .left         { @include float-left;  margin: 1.5em 1.5em 1.5em 0; padding: 0; }
+    .right        { @include float-right; margin: 1.5em 0 1.5em 1.5em; padding: 0; } }
   a               { text-decoration: underline; @include link-colors($link-color, $link-hover-color, $link-active-color, $link-visited-color, $link-focus-color); }
   blockquote      { margin: 1.5em; color: $alt-text-color; font-style: italic; }
-  strong          { font-weight: bold; }
-  em              { font-style: italic; }
-  dfn             { font-style: italic; font-weight: bold; }
+  strong, dfn     { font-weight: bold; }
+  em, dfn         { font-style: italic; }
   sup, sub        { line-height: 0; }
   abbr, acronym   { border-bottom: 1px dotted #666666; }
   address         { margin: 0 0 1.5em; font-style: italic; }
@@ -82,7 +80,9 @@ $blueprint-font-size: 12px !default;
   th              { font-weight: bold; }
   thead th        { background: $blueprint-table-header-color; }
   th, td, caption { padding: 4px 10px 4px 5px; }
-  tr.even td      { background: $blueprint-table-stripe-color; }
+  table.striped tr:nth-child(even) td,
+  table         tr.even            td
+                  { background: $blueprint-table-stripe-color; }
   tfoot           { font-style: italic; }
   caption         { background: $blueprint-background-color; }
   .quiet          { @include quiet; }
