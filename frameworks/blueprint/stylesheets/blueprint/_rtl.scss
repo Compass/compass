@@ -2,21 +2,21 @@
 @import "compass/utilities/general/float";
 
 // Main layout grid, override these constants to build your grid and container sizes.
-$blueprint_grid_columns: 24 !default;
+$blueprint-grid-columns: 24 !default;
 
-$blueprint_grid_width: 30px !default;
+$blueprint-grid-width: 30px !default;
 
-$blueprint_grid_margin: 10px !default;
+$blueprint-grid-margin: 10px !default;
 
-$blueprint_grid_outer_width: $blueprint_grid_width + $blueprint_grid_margin;
+$blueprint-grid-outer-width: $blueprint-grid-width + $blueprint-grid-margin;
 
-$blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns - $blueprint_grid_margin;
+$blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns - $blueprint-grid-margin;
 
 // Columns
 // Note: If you use this mixin without the class and want to support ie6
 //       you must set text-align left on your container element in an IE stylesheet.
 @mixin container {
-  width: $blueprint_container_size;
+  width: $blueprint-container-size;
   margin: 0 auto;
   direction: rtl;
   @include clearfix; }
@@ -31,26 +31,26 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   @if $last {
     @include last; }
   @else {
-    margin-left: $blueprint_grid_margin; }
+    margin-left: $blueprint-grid-margin; }
   text-align: right;
   * html & {
     overflow-x: hidden; } }
 
 // Mixin to a column to append n empty cols.
 @mixin append($n) {
-  padding-left: $blueprint_grid_outer_width * $n; }
+  padding-left: $blueprint-grid-outer-width * $n; }
 
 // Mixin to a column to prepend n empty cols.
 @mixin prepend($n) {
-  padding-right: $blueprint_grid_outer_width * $n; }
+  padding-right: $blueprint-grid-outer-width * $n; }
 
 // mixin to a column to move it n columns to the left
 @mixin pull($n, $last: false) {
   position: relative;
   @if $last {
-    margin-right: -$blueprint_grid_outer_width * $n + $blueprint_grid_margin; }
+    margin-right: -$blueprint-grid-outer-width * $n + $blueprint-grid-margin; }
   @else {
-    margin-right: -$blueprint_grid_outer_width * $n; } }
+    margin-right: -$blueprint-grid-outer-width * $n; } }
 
 // mixin to a column to push it n columns to the right
 @mixin push($n) {
@@ -58,20 +58,20 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   position: relative;
   margin: {
     top: 0;
-    left: -$blueprint_grid_outer_width * $n;
+    left: -$blueprint-grid-outer-width * $n;
     bottom: 1.5em;
-    right: $blueprint_grid_outer_width * $n; }; }
+    right: $blueprint-grid-outer-width * $n; }; }
 
 // Border on left hand side of a column.
 @mixin border {
-  padding-left: $blueprint_grid_margin / 2 - 1;
-  margin-left: $blueprint_grid_margin / 2;
+  padding-left: $blueprint-grid-margin / 2 - 1;
+  margin-left: $blueprint-grid-margin / 2;
   border-left: 1px solid #eeeeee; }
 
 // Border with more whitespace, spans one column.
 @mixin colborder {
-  padding-left: ($blueprint_grid_width - 2 * $blueprint_grid_margin - 1) / 2;
-  margin-left: ($blueprint_grid_width - 2 * $blueprint_grid_margin) / 2;
+  padding-left: ($blueprint-grid-width - 2 * $blueprint-grid-margin - 1) / 2;
+  margin-left: ($blueprint-grid-width - 2 * $blueprint-grid-margin) / 2;
   border-left: 1px solid #eeeeee; }
 
 // Usage examples:

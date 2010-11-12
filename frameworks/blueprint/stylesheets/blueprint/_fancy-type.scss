@@ -4,7 +4,7 @@ $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiq
 
 // To install the fancy type plugin:
 //
-// 1. Import the fancy_type module: `@import "blueprint/fancy_type"`
+// 1. Import the fancy-type module: `@import "blueprint/fancy-type"`
 // 2. Mix in `fancy-type` to your project's body or at the top level of your stylesheet:<br>
 //    `body { @include fancy-type; }`
 @mixin fancy-type {
@@ -34,7 +34,7 @@ $alternate-text-font : "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiq
   margin-left: -$offset;
 }
 
-// Reduced size type with [incremental leading](http://www.markboulton.co.uk/journal/comments/incremental_leading/)
+// Reduced size type with [incremental leading](http://www.markboulton.co.uk/journal/comments/incremental-leading/)
 //
 // This could be used for side notes. For smaller type, you don't necessarily want to 
 // follow the 1.5x vertical rhythm -- the line-height is too much. 

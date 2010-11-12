@@ -36,7 +36,7 @@
 
 @mixin blueprint-print-body {
   line-height: 1.5;
-  font-family: $blueprint_font_family;
+  font-family: $blueprint-font-family;
   color: black;
   background: none;
   font-size: 10pt; }
@@ -56,11 +56,11 @@
       background: white;
       color: white; } }
   h1, h2, h3, h4, h5, h6 {
-    font-family: $blueprint_font_family; }
+    font-family: $blueprint-font-family; }
   code {
     font: {
       size: 0.9em;
-      family: $blueprint_fixed_font_family; }; }
+      family: $blueprint-fixed-font-family; }; }
   a {
     img {
       border: none; }

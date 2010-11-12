@@ -36,33 +36,33 @@
 
 @mixin blueprint-form-sizes
 (
-  $input_width: 300px,
-  $textarea_width: 390px,
-  $textarea_height: 250px
+  $input-width: 300px,
+  $textarea-width: 390px,
+  $textarea-height: 250px
 ) {
   input {
     &.text,
     &.title,
     &[type=email],
     &[type=text],
-    &[type=password] { width: $input_width; }
+    &[type=password] { width: $input-width; }
   }
-  textarea { width: $textarea_width; height: $textarea_height; }
+  textarea { width: $textarea-width; height: $textarea-height; }
 }
 
 @mixin blueprint-form-borders
 (
-  $unfocused_border_color: #bbbbbb,
-  $focus_border_color: #666666,
-  $fieldset_border_color: #cccccc
+  $unfocused-border-color: #bbbbbb,
+  $focus-border-color: #666666,
+  $fieldset-border-color: #cccccc
 ) {
   fieldset {
-    border: 1px solid $fieldset_border_color; }
+    border: 1px solid $fieldset-border-color; }
   input.text, input.title, input[type=email], input[type=text], input[type=password],
   textarea, select {
-    border: 1px solid $unfocused_border_color;
+    border: 1px solid $unfocused-border-color;
     &:focus {
-      border: 1px solid $focus_border_color;
+      border: 1px solid $focus-border-color;
     }
   }
 }

@@ -18,7 +18,7 @@
 //  * Andrei Michael Herasimchuk
 //  Involution Studios, http://www.involutionstudios.com
 //  Read more about using a grid here:
-//  * subtraction.com/archives/2007/0318_oh_yeeaahh.php
+//  * subtraction.com/archives/2007/0318-oh-yeeaahh.php
 //  -----
 //  By default, the grid is 80% of window width, with 24 columns.
 //
@@ -36,58 +36,58 @@
 
 // Main layout grid, override these constants to build your grid and container sizes.
 // The width shown gives the right floored percentage values.
-$blueprint_liquid_grid_columns: 24 !default;
+$blueprint-liquid-grid-columns: 24 !default;
 
-$blueprint_liquid_grid_width: 3.167% !default;
+$blueprint-liquid-grid-width: 3.167% !default;
 
-$blueprint_liquid_grid_margin: 1.042% !default;
+$blueprint-liquid-grid-margin: 1.042% !default;
 
 // Do not edit below this line unless you really know what you're doing.
-$blueprint_liquid_container_width: 80% !default;
+$blueprint-liquid-container-width: 80% !default;
 
-$blueprint_liquid_container_min_width: 950px !default;
+$blueprint-liquid-container-min-width: 950px !default;
 
-$blueprint_liquid_grid_push_pull: -($blueprint_liquid_grid_margin + $blueprint_liquid_grid_width) !default;
+$blueprint-liquid-grid-push-pull: -($blueprint-liquid-grid-margin + $blueprint-liquid-grid-width) !default;
 
 @mixin blueprint-liquid-grid {
   // A container should group all your columns
   .container {
     @include container; }
   // Use these classes (or mixins) to set the width of a column.
-  @for $n from 1 to $blueprint_liquid_grid_columns + 1 {
+  @for $n from 1 to $blueprint-liquid-grid-columns + 1 {
     .span-#{$n} {
       @include span($n); }
     div {
       &.span-#{$n} {
-        @include column($n, $n == $blueprint_liquid_grid_columns); } } }
+        @include column($n, $n == $blueprint-liquid-grid-columns); } } }
   // The last column in a row needs this class (or mixin) or it will end up on the next row.
   div.last {
     @include last; }
   // Add these to a column to append empty cols.
-  @for $n from 1 to $blueprint_liquid_grid_columns {
+  @for $n from 1 to $blueprint-liquid-grid-columns {
     .append-#{$n} {
       @include append($n); } }
   // Add these to a column to prepend empty cols.
-  @for $n from 1 to $blueprint_liquid_grid_columns {
+  @for $n from 1 to $blueprint-liquid-grid-columns {
     .prepend-#{$n} {
       @include prepend($n); } }
   // Use these classes on an element to push it into the
   // next column, or to pull it into the previous column.
-  @for $n from 1 to $blueprint_liquid_grid_columns + 1 {
+  @for $n from 1 to $blueprint-liquid-grid-columns + 1 {
     .pull-#{$n} {
       @include pull($n); } }
-  @for $n from 1 to $blueprint_liquid_grid_columns + 1 {
+  @for $n from 1 to $blueprint-liquid-grid-columns + 1 {
     .push-#{$n} {
       @include push($n); } } }
 
 @mixin container {
-  min-width: $blueprint_liquid_container_min_width;
-  width: $blueprint_liquid_container_width;
+  min-width: $blueprint-liquid-container-min-width;
+  width: $blueprint-liquid-container-width;
   margin: 0 auto;
   @include clearfix; }
 
 @mixin span($n, $override: false) {
-  $width: $blueprint_liquid_grid_width * $n + $blueprint_liquid_grid_margin * ($n - 1);
+  $width: $blueprint-liquid-grid-width * $n + $blueprint-liquid-grid-margin * ($n - 1);
   @if $override {
     width: $width !important; }
   @else {
@@ -103,31 +103,31 @@ $blueprint_liquid_grid_push_pull: -($blueprint_liquid_grid_margin + $blueprint_l
   @if $last {
     @include last; }
   @else {
-    margin-right: $blueprint_liquid_grid_margin; } }
+    margin-right: $blueprint-liquid-grid-margin; } }
 
 @mixin append($n) {
-  padding-right: ($blueprint_liquid_grid_width + $blueprint_liquid_grid_margin) * $n; }
+  padding-right: ($blueprint-liquid-grid-width + $blueprint-liquid-grid-margin) * $n; }
 
 @mixin prepend($n) {
-  padding-left: ($blueprint_liquid_grid_width + $blueprint_liquid_grid_margin) * $n; }
+  padding-left: ($blueprint-liquid-grid-width + $blueprint-liquid-grid-margin) * $n; }
 
 @mixin pull($n, $last: false) {
-  margin-left: $blueprint_liquid_grid_push_pull * $n; }
+  margin-left: $blueprint-liquid-grid-push-pull * $n; }
 
 @mixin push($n) {
   @include float-right;
   margin: {
     top: 0;
-    left: $blueprint_liquid_grid_margin;
-    right: $blueprint_liquid_grid_push_pull * $n;
+    left: $blueprint-liquid-grid-margin;
+    right: $blueprint-liquid-grid-push-pull * $n;
     bottom: 0; }; }
 
 @mixin border {
   border-right: 1px solid #eeeeee; }
 
 @mixin colborder {
-  padding-right: $blueprint_liquid_grid_margin * 2;
-  margin-right: $blueprint_liquid_grid_margin * 2;
+  padding-right: $blueprint-liquid-grid-margin * 2;
+  margin-right: $blueprint-liquid-grid-margin * 2;
   @include border; }
 
 @mixin colruler {
@@ -137,8 +137,8 @@ $blueprint_liquid_grid_push_pull: -($blueprint_liquid_grid_margin + $blueprint_l
   width: 100%;
   height: 0.083em;
   margin: 0;
-  margin-left: $blueprint_liquid_grid_margin * 2;
-  margin-right: $blueprint_liquid_grid_margin * 2;
+  margin-left: $blueprint-liquid-grid-margin * 2;
+  margin-right: $blueprint-liquid-grid-margin * 2;
   border: none; }
 
 @mixin colspacer {

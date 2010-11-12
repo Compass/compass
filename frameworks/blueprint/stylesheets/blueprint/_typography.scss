@@ -61,14 +61,14 @@ $blueprint-font-size: 12px !default;
     img.right       { @include float-right; margin: 1.5em 0 1.5em 1.5em; padding: 0; }
                   }
   a               { text-decoration: underline; @include link-colors($link-color, $link-hover-color, $link-active-color, $link-visited-color, $link-focus-color); }
-  blockquote      { margin: 1.5em; color: $alt_text_color; font-style: italic; }
+  blockquote      { margin: 1.5em; color: $alt-text-color; font-style: italic; }
   strong          { font-weight: bold; }
   em              { font-style: italic; }
   dfn             { font-style: italic; font-weight: bold; }
   sup, sub        { line-height: 0; }
   abbr, acronym   { border-bottom: 1px dotted #666666; }
   address         { margin: 0 0 1.5em; font-style: italic; }
-  del             { color: $alt_text_color; }
+  del             { color: $alt-text-color; }
   pre             { margin: 1.5em 0; white-space: pre; }
   pre, code, tt   { @include fixed-width-text; }
   li ul, li ol    { margin: 0; }
@@ -84,7 +84,7 @@ $blueprint-font-size: 12px !default;
   th, td, caption { padding: 4px 10px 4px 5px; }
   tr.even td      { background: $blueprint-table-stripe-color; }
   tfoot           { font-style: italic; }
-  caption         { background: $blueprint_background_color; }
+  caption         { background: $blueprint-background-color; }
   .quiet          { @include quiet; }
   .loud           { @include loud; }
 }

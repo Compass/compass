@@ -1,11 +1,11 @@
 @mixin showgrid($image: "grid.png") {
-  background: image_url($image);
+  background: image-url($image);
 }
 
-@mixin blueprint-debug($grid_image: unquote("grid.png")) {
+@mixin blueprint-debug($grid-image: unquote("grid.png")) {
   // Use this class on any column or container to see the grid.
   // TODO: prefix this with the project path.
   .showgrid {
-    @include showgrid($grid_image);
+    @include showgrid($grid-image);
   }
 }
