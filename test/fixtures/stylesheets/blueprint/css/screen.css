@@ -740,11 +740,17 @@ fieldset {
   border: 1px solid #cccccc; }
 
 input.text, input.title, input[type=email], input[type=text], input[type=password],
-textarea, select {
+textarea {
+  background-color: #fff;
   border: 1px solid #bbbbbb; }
   input.text:focus, input.title:focus, input[type=email]:focus, input[type=text]:focus, input[type=password]:focus,
-  textarea:focus, select:focus {
+  textarea:focus {
     border: 1px solid #666666; }
+
+select {
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid; }
 
 input.text, input.title, input[type=email], input[type=text], input[type=password] {
   width: 300px; }

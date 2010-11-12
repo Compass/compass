@@ -25,11 +25,16 @@ form.bp select {
 form.bp fieldset {
   border: 1px solid #cccccc; }
 form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password],
-form.bp textarea, form.bp select {
+form.bp textarea {
+  background-color: #fff;
   border: 1px solid #bbbbbb; }
   form.bp input.text:focus, form.bp input.title:focus, form.bp input[type=email]:focus, form.bp input[type=text]:focus, form.bp input[type=password]:focus,
-  form.bp textarea:focus, form.bp select:focus {
+  form.bp textarea:focus {
     border: 1px solid #666666; }
+form.bp select {
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid; }
 form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password] {
   width: 300px; }
 form.bp textarea {

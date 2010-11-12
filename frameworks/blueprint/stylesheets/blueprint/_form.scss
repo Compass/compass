@@ -55,10 +55,12 @@
   fieldset {
     border: 1px solid $fieldset-border-color; }
   input.text, input.title, input[type=email], input[type=text], input[type=password],
-  textarea, select {
+  textarea {
+    background-color:#fff;
     border: 1px solid $unfocused-border-color;
     &:focus {
       border: 1px solid $focus-border-color;
     }
   }
+  select { background-color:#fff; border-width:1px; border-style:solid; }
 }
