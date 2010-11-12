@@ -44,6 +44,9 @@ COMPASS CHANGELOG
   * `cos($number)` - Takes the cosine of the number.
   * `tan($number)` - Takes the tangent of the number.
   * `pi()` - Returns the value of π.
+  If you provide a number with units of `deg` then it will return a unitless number
+  after converting to radians. Otherwise, it assumes the number is a radian length measure
+  and passes the units along to the result.
 
 ### Rails
 
