@@ -72,6 +72,12 @@
     -ms-interpolation-mode: bicubic; }
   fieldset {
     padding-top: 0; }
+  legend {
+    margin-top: -0.2em;
+    margin-bottom: 1em;
+    margin-left: -0.5em; }
+  fieldset, #IE8#HACK {padding-top:1.4em;}
+  legend, #IE8#HACK {margin-top:0;margin-bottom:0;}
   textarea {
     overflow: auto; }
   input {
