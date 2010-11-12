@@ -24,7 +24,8 @@ COMPASS CHANGELOG
   * Added .info and .alert classes to forms.css [CMM]
   * Fixed numerous bugs in forms, including the fieldset padding bug in IE6-8 [CMM]
   * Fixed specificity problems in typography.css and grid.css [CMM]
-  * See Lighthouse for more bug fixes 
+  * See Lighthouse for more bug fixes
+  * Full [changelog][blueprint_10_change]
 
 
 ### Helpers
@@ -900,3 +901,4 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [ttilley]: http://github.com/ttilley
 [inline-block-list]: http://compass-style.org/docs/reference/compass/utilities/lists/inline-block-list/
 [html5-reset]: http://compass-style.org/docs/reference/compass/reset/utilities/#mixin-reset-html5
+[blueprint_10_change]: https://github.com/chriseppstein/compass/compare/a05e1ee7c0a1e4c0f0595a8bb812daa47872e476...864780969d872a93b1fd3b4f39f29dd9f0c3fe75
