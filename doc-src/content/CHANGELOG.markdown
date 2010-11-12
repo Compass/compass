@@ -24,6 +24,8 @@ COMPASS CHANGELOG
 
 * New color helpers: `adjust-lightness`, `adjust-saturation`, `scale-lightness`, and `scale-saturation`
   make it easier to construct apis that manipulate these color attributes.
+* The `elements-of-type()` helper now returns html5 elements when the display is `block`
+  and also will return only html5 elements for `elements-of-type(html5)`
 
 ### Rails
 
