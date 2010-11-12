@@ -1,0 +1,53 @@
+--- 
+title: Compass Color Helpers
+crumb: Colors
+framework: compass
+meta_description: Helper function for colors.
+layout: core
+classnames:
+  - reference
+  - core
+  - helpers
+---
+%h1 Compass Color Helpers
+%p
+  These color functions are useful for creating generic libraries that have to accept a
+  range of inputs. For more color functions see
+  <a href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">the sass reference
+  documentation</a>
+
+#adjust-lightness.helper
+  %h3
+    %a(href="#adjust-lightness")
+      adjust-lightness(<span class="arg">$color</span>, <span class="arg">$amount</span>)
+  .details
+    %p
+      Adds <code>$amount</code> to <code>$color</code>'s lightness value. <code>$amount</code>
+      can be negative.
+
+#adjust-saturation.helper
+  %h3
+    %a(href="#adjust-saturation")
+      adjust-saturation(<span class="arg">$color</span>, <span class="arg">$amount</span>)
+  .details
+    %p
+      Adds <code>$amount</code> to <code>$color</code>'s saturation value. <code>$amount</code>
+      can be negative.
+
+#scale-lightness.helper
+  %h3
+    %a(href="#scale-lightness")
+      scale-lightness(<span class="arg">$color</span>, <span class="arg">$amount</span>)
+  .details
+    %p
+      Scales <code>$color</code>'s lightness value by <code>$amount</code>.
+      <code>$amount</code> can be negative.
+
+#scale-saturation.helper
+  %h3
+    %a(href="#scale-saturation")
+      scale-saturation(<span class="arg">$color</span>, <span class="arg">$amount</span>)
+  .details
+    %p
+      Scales <code>$color</code>'s saturation value by <code>$amount</code>.
+      <code>$amount</code> can be negative.

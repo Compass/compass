@@ -37,6 +37,28 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "h4, h5, h6", evaluate("headers(4,6)")
   end
 
+  def test_scale_lightness
+    assert_equal "75%", evaluate("lightness(scale-lightness(hsl(50deg, 50%, 50%), 50%))")
+    assert_equal "25%", evaluate("lightness(scale-lightness(hsl(50deg, 50%, 50%), -50%))")
+  end
+
+  def test_adjust_lightness
+    assert_equal "75%", evaluate("lightness(adjust-lightness(hsl(50deg, 50%, 50%), 25%))")
+    assert_equal "25%", evaluate("lightness(adjust-lightness(hsl(50deg, 50%, 50%), -25%))")
+    assert_equal "100%", evaluate("lightness(adjust-lightness(hsl(50deg, 50%, 50%), 500%))")
+    assert_equal "0%", evaluate("lightness(adjust-lightness(hsl(50deg, 50%, 50%), -500%))")
+  end
+
+  def test_scale_saturation
+    assert_equal "75%", evaluate("saturation(scale-saturation(hsl(50deg, 50%, 50%), 50%))")
+    assert_equal "25%", evaluate("saturation(scale-saturation(hsl(50deg, 50%, 50%), -50%))")
+  end
+
+  def test_adjust_saturation
+    assert_equal "75%", evaluate("saturation(adjust-saturation(hsl(50deg, 50%, 50%), 25%))")
+    assert_equal "25%", evaluate("saturation(adjust-saturation(hsl(50deg, 50%, 50%), -25%))")
+  end
+
 protected
   def evaluate(value)
     Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s
