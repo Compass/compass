@@ -33,8 +33,8 @@ task :examples do
   require 'haml'
   require 'sass'
   require 'pathname'
-  require 'lib/compass'
-  require 'lib/compass/exec'
+  require 'compass'
+  require 'compass/exec'
   FileList['examples/*'].each do |example|
     next unless File.directory?(example)
     puts "\nCompiling #{example}"
