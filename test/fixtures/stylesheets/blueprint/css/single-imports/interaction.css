@@ -1,7 +1,9 @@
-.error {
+.feedback, .error, .notice, .success, .info {
   padding: 0.8em;
   margin-bottom: 1em;
-  border: 2px solid #dddddd;
+  border: 2px solid #dddddd; }
+
+.error {
   background: #fbe3e4;
   color: #8a1f11;
   border-color: #fbc2c4; }
@@ -9,9 +11,6 @@
     color: #8a1f11; }
 
 .notice {
-  padding: 0.8em;
-  margin-bottom: 1em;
-  border: 2px solid #dddddd;
   background: #fff6bf;
   color: #514721;
   border-color: #ffd324; }
@@ -19,14 +18,18 @@
     color: #514721; }
 
 .success {
-  padding: 0.8em;
-  margin-bottom: 1em;
-  border: 2px solid #dddddd;
   background: #e6efc2;
   color: #264409;
   border-color: #c6d880; }
   .success a {
     color: #264409; }
+
+.info {
+  background: #d5edf8;
+  color: #205791;
+  border-color: #92cae4; }
+  .info a {
+    color: #205791; }
 
 .hide {
   display: none; }

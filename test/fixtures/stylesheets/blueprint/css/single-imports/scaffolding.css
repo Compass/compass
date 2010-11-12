@@ -3,12 +3,12 @@
   margin-bottom: 1.5em;
   background: #e5ecf9; }
 
-div.border {
+.border {
   padding-right: 4px;
   margin-right: 5px;
   border-right: 1px solid #eeeeee; }
 
-div.colborder {
+.colborder {
   padding-right: 24px;
   margin-right: 25px;
   border-right: 1px solid #eeeeee; }

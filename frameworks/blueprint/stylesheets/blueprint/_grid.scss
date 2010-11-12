@@ -19,19 +19,19 @@
 @import "compass/utilities/general/clearfix";
 
 // The number of columns in the grid.
-$blueprint_grid_columns: 24 !default;
+$blueprint-grid-columns: 24 !default;
 
 // The width of a column
-$blueprint_grid_width: 30px !default;
+$blueprint-grid-width: 30px !default;
 
 // The amount of margin between columns
-$blueprint_grid_margin: 10px !default;
+$blueprint-grid-margin: 10px !default;
 
 // The width of a column including the margin. With default settings this is `40px`.
-$blueprint_grid_outer_width: $blueprint_grid_width + $blueprint_grid_margin;
+$blueprint-grid-outer-width: $blueprint-grid-width + $blueprint-grid-margin;
 
 // The width of the container. With default settings this is `950px`.
-$blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns - $blueprint_grid_margin;
+$blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns - $blueprint-grid-margin;
 
 // Generates presentational class names that you can use
 // in your html to layout your pages.
@@ -51,36 +51,36 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   .last {
     @include last; }
   // Use these classes (or mixins) to set the width of a column.
-  @for $n from 1 to $blueprint_grid_columns {
+  @for $n from 1 to $blueprint-grid-columns {
     .span-#{$n} {
       @extend .column;
       @include span($n); } }
-  .span-#{$blueprint_grid_columns} {
+  .span-#{$blueprint-grid-columns} {
     @extend .column;
-    @include span($blueprint_grid_columns);
+    @include span($blueprint-grid-columns);
     margin: 0; }
   input, textarea, select {
-    @for $n from 1 through $blueprint_grid_columns {
+    @for $n from 1 through $blueprint-grid-columns {
       &.span-#{$n} {
         @include span($n, true); } } }
   // Add these to a column to append empty cols.
-  @for $n from 1 to $blueprint_grid_columns {
+  @for $n from 1 to $blueprint-grid-columns {
     .append-#{$n} {
       @include append($n); } }
   // Add these to a column to prepend empty cols.
-  @for $n from 1 to $blueprint_grid_columns {
+  @for $n from 1 to $blueprint-grid-columns {
     .prepend-#{$n} {
       @include prepend($n); } }
   // Use these classes on an element to push it into the
   // next column, or to pull it into the previous column.
-  #{enumerate(".pull", 1, $blueprint_grid_columns)} {
+  #{enumerate(".pull", 1, $blueprint-grid-columns)} {
     @include pull-base; }
-  @for $n from 1 through $blueprint_grid_columns {
+  @for $n from 1 through $blueprint-grid-columns {
     .pull-#{$n} {
       @include pull-margins($n); } }
-  #{enumerate(".push", 1, $blueprint_grid_columns)} {
+  #{enumerate(".push", 1, $blueprint-grid-columns)} {
     @include push-base; }
-  @for $n from 1 through $blueprint_grid_columns {
+  @for $n from 1 through $blueprint-grid-columns {
     .push-#{$n} {
       @include push-margins($n); } }
   .prepend-top {
@@ -94,7 +94,7 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
 // If you use this mixin without the class and want to support ie6
 // you must set text-align left on your container element in an IE stylesheet.
 @mixin container {
-  width: $blueprint_container_size;
+  width: $blueprint-container-size;
   margin: 0 auto;
   @include clearfix; }
 
@@ -113,7 +113,7 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
 //
 // This mixin is especially useful for aligning tables to the grid.
 @mixin span($n, $override: false) {
-  $width: $blueprint_grid_width * $n + $blueprint_grid_margin * ($n - 1);
+  $width: $blueprint-grid-width * $n + $blueprint-grid-margin * ($n - 1);
   @if $override {
     width: $width !important; }
   @else {
@@ -136,19 +136,19 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   @if $last {
     @include last; }
   @else {
-    margin-right: $blueprint_grid_margin; }
+    margin-right: $blueprint-grid-margin; }
   * html & {
     overflow-x: hidden; } }
 
 // Mixin to a column to append n empty columns to the right
 // by adding right padding to the column.
 @mixin append($n) {
-  padding-right: $blueprint_grid_outer_width * $n; }
+  padding-right: $blueprint-grid-outer-width * $n; }
 
 // Mixin to a column to append n empty columns to the left
 // by adding left padding to the column.
 @mixin prepend($n) {
-  padding-left: $blueprint_grid_outer_width * $n; }
+  padding-left: $blueprint-grid-outer-width * $n; }
 
 // Adds trailing margin.
 @mixin append-bottom($amount: 1.5em) {
@@ -176,9 +176,9 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
 // to reduce the amount of generated CSS.
 @mixin pull-margins($n, $last: false) {
   @if $last {
-    margin-left: -$blueprint_grid_outer_width * $n + $blueprint_grid_margin; }
+    margin-left: -$blueprint-grid-outer-width * $n + $blueprint-grid-margin; }
   @else {
-    margin-left: -$blueprint_grid_outer_width * $n; } }
+    margin-left: -$blueprint-grid-outer-width * $n; } }
 
 // Moves a column `n` columns to the left.
 //
@@ -213,7 +213,7 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   position: relative; }
 
 @mixin push-margins($n) {
-  margin: 0 (-$blueprint_grid_outer_width * $n) 1.5em $blueprint_grid_outer_width * $n; }
+  margin: 0 (-$blueprint-grid-outer-width * $n) 1.5em $blueprint-grid-outer-width * $n; }
 
 // mixin to a column to push it n columns to the right
 @mixin push($n) {
@@ -221,21 +221,21 @@ $blueprint_container_size: $blueprint_grid_outer_width * $blueprint_grid_columns
   @include push-margins($n); }
 
 // Border on right hand side of a column.
-@mixin border($border_color: #eeeeee, $border_width: 1px) {
-  padding-right: $blueprint_grid_margin / 2 - $border_width;
-  margin-right: $blueprint_grid_margin / 2;
-  border-right: #{$border_width} solid #{$border_color}; }
+@mixin border($border-color: $blueprint-border-color, $border-width: 1px) {
+  padding-right: $blueprint-grid-margin / 2 - $border-width;
+  margin-right: $blueprint-grid-margin / 2;
+  border-right: #{$border-width} solid #{$border-color}; }
 
 // Border with more whitespace, spans one column.
-@mixin colborder($border_color: #eeeeee, $border_width: 1px) {
-  padding-right: floor(($blueprint_grid_width + 2 * $blueprint_grid_margin - $border_width) / 2);
-  margin-right: ceil(($blueprint_grid_width + 2 * $blueprint_grid_margin - $border_width) / 2);
-  border-right: #{$border_width} solid #{$border_color}; }
+@mixin colborder($border-color: $blueprint-border-color, $border-width: 1px) {
+  padding-right: floor(($blueprint-grid-width + 2 * $blueprint-grid-margin - $border-width) / 2);
+  margin-right: ceil(($blueprint-grid-width + 2 * $blueprint-grid-margin - $border-width) / 2);
+  border-right: #{$border-width} solid #{$border-color}; }
 
 // Mixin this to an hr to make a horizontal ruler across a column.
-@mixin colruler($border_color: #dddddd) {
-  background: $border_color;
-  color: $border_color;
+@mixin colruler($border-color: #dddddd) {
+  background: $border-color;
+  color: $border-color;
   clear: both;
   float: none;
   width: 100%;
