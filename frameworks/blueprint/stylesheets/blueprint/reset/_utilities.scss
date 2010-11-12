@@ -70,6 +70,7 @@
 @mixin blueprint-reset-table-cell($reset-base-class: false) {
   @if $reset-base-class { @extend .#{$reset-base-class}; }
   @else { @include blueprint-reset; }
+  float: none !important;
   text-align: left;
   font-weight: normal;
   vertical-align: middle; }

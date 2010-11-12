@@ -28,6 +28,7 @@ blockquote, q {
     content: ""; }
 
 th, td, caption {
+  float: none !important;
   text-align: left;
   font-weight: normal;
   vertical-align: middle; }
