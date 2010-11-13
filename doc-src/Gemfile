@@ -1,7 +1,6 @@
 source :gemcutter
 
-# We can switch nanoc to a normal gem when 3.1.3 is released.
-gem 'nanoc3', :require => false, :git => "git://github.com/chriseppstein/nanoc.git", :branch => "3.1.x"
+gem 'nanoc3', :git => "git://github.com/chriseppstein/nanoc.git"
 gem 'rdiscount'
 gem 'thor'
 gem 'rack'
@@ -11,7 +10,7 @@ gem 'serve', "1.0.0"
 gem 'mongrel'
 gem 'nokogiri'
 gem 'coderay'
-gem 'haml', ">=3.0.6", :require => 'sass'
+gem 'haml', ">=3.0.23", :require => 'sass'
 gem 'rake'
 gem 'compass', :path => ".."
 gem 'compass-susy-plugin', ">=0.7.0.pre8"

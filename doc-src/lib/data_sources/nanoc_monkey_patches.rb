@@ -1,12 +1,12 @@
 class Nanoc3::Site
   def cached(key)
-    if cache.has_key?(key)
-      cache[key]
+    if cached_stuff.has_key?(key)
+      cached_stuff[key]
     else
-      cache[key]= yield
+      cached_stuff[key]= yield
     end
   end
-  def cache
-    @cache ||= {}
+  def cached_stuff
+    @cached_stuff ||= {}
   end
 end

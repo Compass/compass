@@ -61,8 +61,12 @@ module Sass
       attr_accessor :imported_filename unless method_defined? :imported_filename
     end
     class CommentNode < Node
-      PRE_COMMENT = %r{(^ */*\**(\s*\|)?( |$))}
-      POST_COMMENT = %r{ *\*/$}
+      unless defined?(PRE_COMMENT)
+        PRE_COMMENT = %r{(^ */*\**(\s*\|)?( |$))}
+      end
+      unless defined?(POST_COMMENT)
+        POST_COMMENT = %r{ *\*/$}
+      end
       def self.clean(docstring)
         docstring.gsub(/@doc off(.*?)@doc on/m, '')
       end
