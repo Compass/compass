@@ -103,3 +103,10 @@ body.helpers {
     dl { @extend dl.table; }
   }
 }
+
+.warning {
+  $warning-color: #900;
+  color: $warning-color;
+  a { color: $warning-color; text-decoration: underline; }
+  a.better { color: adjust-hue($warning-color, 120deg); @include hover-link; }
+}
