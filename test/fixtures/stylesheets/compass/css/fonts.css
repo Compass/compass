@@ -1,4 +1,4 @@
 @charset "UTF-8";
 @font-face {
   font-family: "font1";
-  src: local("☺"), url('/css/fonts/font1.woff') format('woff'); }
+  src: local("☺"), url('/tmp/fonts/font1.woff') format('woff'); }
