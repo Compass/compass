@@ -7,7 +7,6 @@ gem 'rack'
 gem 'mime-types'
 gem 'fssm'
 gem 'serve', "1.0.0"
-gem 'mongrel'
 gem 'nokogiri'
 gem 'coderay'
 gem 'haml', ">=3.0.23", :require => 'sass'
