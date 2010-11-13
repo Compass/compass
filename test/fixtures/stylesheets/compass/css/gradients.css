@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .linear-1 {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
   background-image: -moz-linear-gradient(top, #dddddd 0%, #aaaaaa 100%);
