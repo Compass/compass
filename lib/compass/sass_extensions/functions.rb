@@ -2,7 +2,7 @@ module Compass::SassExtensions::Functions
 end
 
 %w(
-  selectors enumerate urls display
+  selectors enumerate urls display if
   inline_image image_size gradient_support
   font_files constants lists colors trig
 ).each do |func|
@@ -22,6 +22,7 @@ module Sass::Script::Functions
   include Compass::SassExtensions::Functions::Lists
   include Compass::SassExtensions::Functions::Colors
   include Compass::SassExtensions::Functions::Trig
+  include Compass::SassExtensions::Functions::If
 end
 
 # Wierd that this has to be re-included to pick up sub-modules. Ruby bug?

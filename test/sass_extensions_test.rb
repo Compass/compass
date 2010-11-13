@@ -59,6 +59,11 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25%", evaluate("saturation(adjust-saturation(hsl(50deg, 50%, 50%), -25%))")
   end
 
+  def test_if_function
+    assert_equal "no", evaluate("if(false, yes, no)")
+    assert_equal "yes", evaluate("if(true, yes, no)")
+  end
+
   def test_trig_functions
     assert_equal "0.841px", evaluate("sin(1px)")
     assert_equal "0.0", evaluate("sin(pi())")

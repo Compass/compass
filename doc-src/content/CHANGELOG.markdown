@@ -47,6 +47,8 @@ COMPASS CHANGELOG
   If you provide a number with units of `deg` then it will return a unitless number
   after converting to radians. Otherwise, it assumes the number is a radian length measure
   and passes the units along to the result.
+* A new function `if()` that allows you to switch on a value without using `@if`.
+  Usage: `if($truth-value, $value-if-true, $value-if-false)`.
 
 ### Rails
 
