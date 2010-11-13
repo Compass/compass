@@ -225,6 +225,30 @@ command line will override the corresponding settings in your configuration file
       Defaults to <code>:scss</code>.
     </td>
   </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>fonts_dir</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The directory where the font files are kept.
+      Standalone projects will default to <code>&lt;css_dir&gt;/fonts</code>.
+      Rails projects will default to <code>"public/fonts"</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>fonts_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full path to where font files are kept.
+      Defaults to <code>&lt;project_path&gt;/&lt;fonts_dir&gt;</code>.</td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_fonts_path</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The full http path to font files on the web server.</td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_fonts_dir</code> </td>
+    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">The relative http path to font files on the web server.</td>
+  </tr>
 </table>
 
 ## Configuration Functions
