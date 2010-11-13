@@ -18,9 +18,11 @@ test/fixtures/stylesheets/*/sass/.sass-cache
 pkg/*
 compass-*.gem
 coverage*
+bin/*
 docs
 doc-src/tmp
 doc-src/.bundle
 .bundle
 attic
+.rvmrc
 devbin
