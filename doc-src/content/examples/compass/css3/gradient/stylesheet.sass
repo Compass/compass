@@ -9,8 +9,6 @@
   width: 80px
   height: 80px
   background: red
-  margin: 20px
-  border: 1px solid #111
   float: left
   margin: 1em 1em 0 0
 
@@ -37,3 +35,9 @@
 // This yields a horizontal linear gradient spanning from left to right.
 #h-gradient
   +linear-gradient(color-stops(#fff, #ddd), left)
+
+#svg-gradient
+  $experimental-support-for-svg: true
+  +linear-gradient(color-stops(#2AC363, #CD8C14, #9C4CC2), left)
+  width: 80px
+  height: 80px
