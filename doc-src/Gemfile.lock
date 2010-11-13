@@ -1,9 +1,8 @@
 GIT
   remote: git://github.com/chriseppstein/nanoc.git
-  revision: 3982942
-  branch: 3.1.x
+  revision: 4ecb400489c83fd2068659de0c651733b8dad28f
   specs:
-    nanoc3 (3.1.2)
+    nanoc3 (3.2.0a3)
       cri (>= 1.0.0)
 
 PATH
@@ -24,7 +23,7 @@ GEM
       compass (>= 0.10.0.rc3)
     fssm (0.1.4)
     gem_plugin (0.2.3)
-    haml (3.0.16)
+    haml (3.0.23)
     i18n (0.4.2)
     json (1.4.5)
     mime-types (1.16)
@@ -51,7 +50,7 @@ DEPENDENCIES
   compass-susy-plugin (>= 0.7.0.pre8)
   css-slideshow (= 0.2.0)
   fssm
-  haml (>= 3.0.6)
+  haml (>= 3.0.23)
   json
   mime-types
   mongrel
