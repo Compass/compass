@@ -1,4 +1,5 @@
 @import "shared";
+@import "compass/utilities/general/hacks";
 
 // The linear gradient mixin works best across browsers if you use percentage-based color stops.
 //
@@ -50,6 +51,17 @@
     background-image: #{$background}-moz-linear-gradient($start, $color-stops);
   }
   background-image: #{$background}linear-gradient($start, $color-stops);
+}
+
+// Emit a IE-Specific filters that renders a simple linear gradient.
+// For use in IE 6 - 8. Best practice would have you apply this via a
+// conditional IE stylesheet, but if you must, you should place this before
+// any background-image properties that you have specified.
+@mixin filter-gradient($start-color, $end-color, $orientation: vertical) {
+  @include has-layout;
+  $gradient-type: if($orientation == vertical, 0, 1);
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=#{$gradient-type}, startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(gradientType=#{$gradient-type}, startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}')";
 }
 
 // Because of webkit's limitations, the radial gradient mixin works best if you use

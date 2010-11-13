@@ -37,6 +37,15 @@ module Compass::SassExtensions::Functions::Colors
     color.with(:saturation => scale_color_value(color.saturation, amount.value))
   end
 
+  # returns an IE hex string for a color with an alpha channel
+  # suitable for passing to IE filters.
+  def ie_hex_str(color)
+    assert_type color, :Color
+    alpha = (color.alpha * 255).round
+    alphastr = alpha.to_s(16).rjust(2, '0')
+    Sass::Script::String.new("##{alphastr}#{color.send(:hex_str)[1..-1]}".upcase)
+  end
+
   private
   def scale_color_value(value, amount)
     if amount > 0
