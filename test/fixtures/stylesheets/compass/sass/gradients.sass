@@ -140,3 +140,12 @@ $experimental-support-for-svg: true
 
 .alpha-linear-svg
   +linear-gradient(color_stops(rgba(255, 255, 255, 0) 40%, rgba(255, 127, 127, 0.5), rgba(255, 255, 255, 1) 50%))
+
+.ie-horizontal-filter
+  +filter-gradient(white, black, horizontal)
+
+.ie-vertical-filter
+  +filter-gradient(white, black, vertical)
+
+.ie-alpha-filter
+  +filter-gradient(rgba(#fff, 1), rgba(#fff, 0))
