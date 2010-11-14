@@ -24,3 +24,4 @@ doc-src/.bundle
 .bundle
 attic
 devbin
+.rvmrc
