@@ -1,5 +1,18 @@
 @import compass/css3
 
+$experimental-support-for-svg: true
+.bg-simple-image
+  +background-image(url('foo.png'))
+
+.bg-linear-gradient
+  +background-image(linear-gradient(top left, #ddd, #aaa))
+
+.bg-radial-gradient
+  +background-image(radial-gradient(center center, #ddd, #aaa 100px))
+
+.bg-all-gradient-types
+  +background-image(image-url("4x6.png"), linear-gradient(top left, #ddd, #aaa), radial-gradient(center center, #ddd, #aaa 100px))
+$experimental-support-for-svg: false
 .linear-1
   +linear-gradient(color-stops(#dddddd, #aaaaaa))
 

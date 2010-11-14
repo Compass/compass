@@ -3,8 +3,8 @@ end
 
 %w(
   selectors enumerate urls display if
-  inline_image image_size gradient_support
-  font_files constants lists colors trig
+  inline_image image_size constants gradient_support
+  font_files lists colors trig
 ).each do |func|
   require "compass/sass_extensions/functions/#{func}"
 end

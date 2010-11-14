@@ -1,6 +1,24 @@
 @import "shared";
 @import "compass/utilities/general/hacks";
 
+@mixin background-image(
+  $image-1, $image-2: false, $image-3: false,
+  $image-4: false, $image-5: false, $image-6: false,
+  $image-7: false, $image-8: false, $image-9: false, $image-10: false
+) {
+  $images: compact($image-1, $image-2, $image-3, $image-4 ,$image-5, $image-6, $image-7, $image-8, $image-9, $image-10);
+  @if $experimental-support-for-webkit and prefixed(-webkit, $images) {
+    background-image: -webkit($images);
+  }
+  @if $experimental-support-for-mozilla and prefixed(-moz, $images) {
+    background-image: -moz($images);
+  }
+  @if $experimental-support-for-svg and prefixed(-svg, $images) {
+    background-image: -svg($images);
+  }
+  background-image: $images;
+}
+
 // The linear gradient mixin works best across browsers if you use percentage-based color stops.
 //
 // Examples:
@@ -50,7 +68,7 @@
   @if $experimental-support-for-mozilla {
     background-image: #{$background}-moz-linear-gradient($start, $color-stops);
   }
-  background-image: #{$background}linear-gradient($start, $color-stops);
+  background-image: #{$background}#{linear}-gradient($start, $color-stops);
 }
 
 // Emit a IE-Specific filters that renders a simple linear gradient.
@@ -104,5 +122,5 @@
   @if $experimental-support-for-mozilla {
     background-image: #{$background}-moz-radial-gradient($center-position, circle, $color-stops);
   }
-  background-image: #{$background}radial-gradient($center-position, circle, $color-stops);
+  background-image: #{$background}#{radial}-gradient($center-position, circle, $color-stops);
 }
