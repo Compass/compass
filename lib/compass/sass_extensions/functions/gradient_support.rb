@@ -9,13 +9,16 @@ module Compass::SassExtensions::Functions::GradientSupport
       values.map{|v| v.inspect}.join(", ")
     end
     def to_s
-      inspect
+      values.map{|v| v.to_s}.join(", ")
     end
   end
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
     def initialize(color, stop = nil)
+      unless Sass::Script::Color === color || Sass::Script::Funcall === color
+        raise Sass::SyntaxError, "Expected a color. Got: #{color}"
+      end
       self.color, self.stop = color, stop
     end
     def inspect
@@ -35,7 +38,103 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
   end
 
+  class RadialGradient < Sass::Script::Literal
+    attr_accessor :position_or_angle, :shape_or_size, :color_stops
+    def initialize(position_or_angle, shape_or_size, color_stops)
+      unless color_stops.values.size >= 2
+        raise Sass::SyntaxError, "At least two color stops are required for a radial-gradient"
+      end
+      self.position_or_angle = position_or_angle
+      self.shape_or_size = shape_or_size
+      self.color_stops = color_stops
+    end
+    def inspect
+      to_s
+    end
+    def to_s
+      s = "radial-gradient("
+      s << position_or_angle.to_s << ", " if position_or_angle
+      s << shape_or_size.to_s << ", " if shape_or_size
+      s << color_stops.to_s
+      s << ")"
+    end
+    def to_webkit
+      args = [
+        grad_point(position_or_angle),
+        "0",
+        grad_point(position_or_angle),
+        grad_end_position(color_stops, Sass::Script::Bool.new(true)),
+        grad_color_stops(color_stops)
+      ]
+      Sass::Script::String.new("-webkit-gradient(radial, #{args.join(', ')})")
+
+    end
+    def to_moz
+      Sass::Script::String.new("-moz-#{to_s}")
+    end
+    def to_svg
+      # XXX Add shape support if possible
+      radial_svg_gradient(color_stops, position_or_angle)
+    end
+  end
+
+  class LinearGradient < Sass::Script::Literal
+    attr_accessor :color_stops, :position_or_angle
+    def initialize(position_or_angle, color_stops)
+      unless color_stops.values.size >= 2
+        raise Sass::SyntaxError, "At least two color stops are required for a linear-gradient"
+      end
+      self.position_or_angle = position_or_angle
+      self.color_stops = color_stops
+    end
+    def inspect
+      to_s
+    end
+    def to_s
+      s = "linear-gradient("
+      s << position_or_angle.to_s << ", " if position_or_angle
+      s << color_stops.to_s
+      s << ")"
+    end
+    def to_webkit
+      args = [
+        grad_point(position_or_angle),
+        grad_point(opposite_position(position_or_angle)),
+        grad_color_stops(color_stops)
+      ]
+      Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
+    end
+    def to_moz
+      Sass::Script::String.new("-moz-#{to_s}")
+    end
+    def to_svg
+      linear_svg_gradient(color_stops, position_or_angle)
+    end
+  end
+
+
   module Functions
+
+    def radial_gradient(position_or_angle, shape_or_size, *color_stops)
+      if color_stop?(shape_or_size)
+        color_stops.unshift(shape_or_size)
+        shape_or_size = nil
+      end
+      if color_stop?(position_or_angle)
+        color_stops.unshift(position_or_angle)
+        position_or_angle = nil
+      end
+      RadialGradient.new(position_or_angle, shape_or_size, send(:color_stops, *color_stops))
+    end
+
+    def linear_gradient(position_or_angle, *color_stops)
+      if color_stop?(position_or_angle)
+        color_stops.unshift(position_or_angle)
+        position_or_angle = nil
+      end
+      LinearGradient.new(position_or_angle, send(:color_stops, *color_stops))
+    end
+
     # returns color-stop() calls for use in webkit.
     def grad_color_stops(color_list)
       stops = color_stops_in_percentages(color_list).map do |stop, color|
@@ -132,24 +231,7 @@ module Compass::SassExtensions::Functions::GradientSupport
         when Sass::Script::String
           # We get a string as the result of concatenation
           # So we have to reparse the expression
-          color = stop = nil
-          expr = Sass::Script::Parser.parse(arg.value, 0, 0)
-          case expr
-          when Sass::Script::Color
-            color = expr
-          when Sass::Script::Funcall
-            color = expr
-          when Sass::Script::Operation
-            unless expr.instance_variable_get("@operator") == :concat
-              # This should never happen.
-              raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
-            end
-            color = expr.instance_variable_get("@operand1")
-            stop = expr.instance_variable_get("@operand2")
-          else
-            raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
-          end
-          ColorStop.new(color, stop)
+          parse_color_stop(arg)
         else
           raise Sass::SyntaxError, "Not a valid color stop: #{arg}"
         end
@@ -172,6 +254,26 @@ module Compass::SassExtensions::Functions::GradientSupport
 
       svg = radial_svg(stops, cx, cy, r)
       inline_image_string(svg.gsub(/\s+/, ' '), 'image/svg+xml')
+    end
+
+    # Returns a comma-delimited list after removing any non-true values
+    def compact(*args)
+      List.new(*args.reject{|a| !a.to_bool})
+    end
+
+    %w(webkit moz o ms svg).each do |prefix|
+      class_eval <<-RUBY
+        def _#{prefix}(*args)
+          args.map!{|a| a.is_a?(List) ? a.values : a}.flatten!
+          List.new(*args.map!{|a| a.respond_to?(:to_#{prefix}) ? a.to_#{prefix} : a})
+      end
+      RUBY
+    end
+
+    def prefixed(prefix, *args)
+      method = prefix.value.sub(/^-/,"to_").to_sym
+      args.map!{|a| a.is_a?(List) ? a.values : a}.flatten!
+      Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
     end
 
     private
@@ -208,9 +310,39 @@ module Compass::SassExtensions::Functions::GradientSupport
        end
       nil
     end
+
     def assert_list(value)
       return if value.is_a?(List)
       raise ArgumentError.new("#{value.inspect} is not a list of color stops. Expected: color_stops(<color> <number>?, ...)")
+    end
+
+    def parse_color_stop(arg)
+      return ColorStop.new(arg) if arg.is_a?(Sass::Script::Color)
+      return nil unless arg.is_a?(Sass::Script::String)
+      color = stop = nil
+      expr = Sass::Script::Parser.parse(arg.value, 0, 0)
+      case expr
+      when Sass::Script::Color
+        color = expr
+      when Sass::Script::Funcall
+        color = expr
+      when Sass::Script::Operation
+        unless [:concat, :space].include?(expr.instance_variable_get("@operator"))
+          # This should never happen.
+          raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
+        end
+        color = expr.instance_variable_get("@operand1")
+        stop = expr.instance_variable_get("@operand2")
+      else
+        raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
+      end
+      ColorStop.new(color, stop)
+    end
+
+    def color_stop?(arg)
+      parse_color_stop(arg)
+    rescue
+      nil
     end
 
     def linear_svg(color_stops, x1, y1, x2, y2)
@@ -247,5 +379,15 @@ module Compass::SassExtensions::Functions::GradientSupport
 </svg>
       EOS
     end
+  end
+  class LinearGradient < Sass::Script::Literal
+    include Functions
+    include Compass::SassExtensions::Functions::Constants
+    include Compass::SassExtensions::Functions::InlineImage
+  end
+  class RadialGradient < Sass::Script::Literal
+    include Functions
+    include Compass::SassExtensions::Functions::Constants
+    include Compass::SassExtensions::Functions::InlineImage
   end
 end

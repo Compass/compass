@@ -1,6 +1,8 @@
 require 'test_helper'
 require 'fileutils'
 require 'compass'
+require 'compass/logger'
+require 'sass/plugin'
 
 class CompassTest < Test::Unit::TestCase
   include Compass::TestCaseHelper
