@@ -19,6 +19,16 @@
   background-image: url('/images/4x6.png?busted=true'), url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDxkZWZzPiA8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPiA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2FhYWFhYSIgLz4gPC9saW5lYXJHcmFkaWVudD4gPC9kZWZzPiA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPiA8L3N2Zz4g'), url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDxkZWZzPiA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjeD0iNTAlIiBjeT0iNTAlIiByPSIxMDAiPiA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2FhYWFhYSIgLz4gPC9yYWRpYWxHcmFkaWVudD4gPC9kZWZzPiA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPiA8L3N2Zz4g');
   background-image: url('/images/4x6.png?busted=true'), linear-gradient(top left, #dddddd 0%, #aaaaaa 100%), radial-gradient(center center, #dddddd 0%, #aaaaaa 100px); }
 
+.bg-linear-gradient-no-position {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(#dddddd 0%, #aaaaaa 100%);
+  background-image: linear-gradient(#dddddd 0%, #aaaaaa 100%); }
+
+.bg-radial-gradient-no-position {
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
+  background-image: -moz-radial-gradient(#dddddd 0%, #aaaaaa 100px);
+  background-image: radial-gradient(#dddddd 0%, #aaaaaa 100px); }
+
 .linear-1 {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dddddd), color-stop(100%, #aaaaaa));
   background-image: -moz-linear-gradient(top, #dddddd 0%, #aaaaaa 100%);

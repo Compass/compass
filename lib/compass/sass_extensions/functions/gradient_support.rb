@@ -60,9 +60,9 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_webkit
       args = [
-        grad_point(position_or_angle),
+        grad_point(position_or_angle || Sass::Script::String.new("center center")),
         "0",
-        grad_point(position_or_angle),
+        grad_point(position_or_angle || Sass::Script::String.new("center center")),
         grad_end_position(color_stops, Sass::Script::Bool.new(true)),
         grad_color_stops(color_stops)
       ]
@@ -74,7 +74,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_svg
       # XXX Add shape support if possible
-      radial_svg_gradient(color_stops, position_or_angle)
+      radial_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("center center"))
     end
   end
 
@@ -97,18 +97,17 @@ module Compass::SassExtensions::Functions::GradientSupport
       s << ")"
     end
     def to_webkit
-      args = [
-        grad_point(position_or_angle),
-        grad_point(opposite_position(position_or_angle)),
-        grad_color_stops(color_stops)
-      ]
+      args = []
+      args << grad_point(position_or_angle || Sass::Script::String.new("top"))
+      args << grad_point(opposite_position(position_or_angle || Sass::Script::String.new("top")))
+      args << grad_color_stops(color_stops)
       Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
     end
     def to_moz
       Sass::Script::String.new("-moz-#{to_s}")
     end
     def to_svg
-      linear_svg_gradient(color_stops, position_or_angle)
+      linear_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("top"))
     end
   end
 
@@ -262,7 +261,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
     %w(webkit moz o ms svg).each do |prefix|
-      class_eval <<-RUBY
+      class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
           args.map!{|a| a.is_a?(List) ? a.values : a}.flatten!
           List.new(*args.map!{|a| a.respond_to?(:to_#{prefix}) ? a.to_#{prefix} : a})
