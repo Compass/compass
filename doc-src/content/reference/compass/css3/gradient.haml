@@ -13,7 +13,11 @@ classnames:
 - render 'reference' do
   %p
     Provides mixins to create cross-browser CSS3 gradients.
+  %p
     To enable SVG gradient support in Opera and IE9, set
     <code>$experimental-support-for-svg: true</code> in your stylesheet.
-    NOTE: At this time, opera won't render an SVG background on a element
-    with a border.
+  %p
+    NOTE: At this time, Opera renders incorrectly an SVG background on a element
+    with a border, repeating the gradient towards the end. You can set
+    <code>background-repeat: no-repeat</code> to avoid this, but the gradient
+    will not fill the area completely.
