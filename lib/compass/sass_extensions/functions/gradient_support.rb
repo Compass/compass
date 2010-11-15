@@ -48,13 +48,13 @@ module Compass::SassExtensions::Functions::GradientSupport
   end
 
   class RadialGradient < Sass::Script::Literal
-    attr_accessor :position_or_angle, :shape_or_size, :color_stops
-    def initialize(position_or_angle, shape_or_size, color_stops)
+    attr_accessor :position_and_angle, :shape_and_size, :color_stops
+    def initialize(position_and_angle, shape_and_size, color_stops)
       unless color_stops.values.size >= 2
         raise Sass::SyntaxError, "At least two color stops are required for a radial-gradient"
       end
-      self.position_or_angle = position_or_angle
-      self.shape_or_size = shape_or_size
+      self.position_and_angle = position_and_angle
+      self.shape_and_size = shape_and_size
       self.color_stops = color_stops
     end
     def inspect
@@ -62,16 +62,16 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_s
       s = "radial-gradient("
-      s << position_or_angle.to_s << ", " if position_or_angle
-      s << shape_or_size.to_s << ", " if shape_or_size
+      s << position_and_angle.to_s << ", " if position_and_angle
+      s << shape_and_size.to_s << ", " if shape_and_size
       s << color_stops.to_s
       s << ")"
     end
     def to_webkit
       args = [
-        grad_point(position_or_angle || Sass::Script::String.new("center center")),
+        grad_point(position_and_angle || Sass::Script::String.new("center center")),
         "0",
-        grad_point(position_or_angle || Sass::Script::String.new("center center")),
+        grad_point(position_and_angle || Sass::Script::String.new("center center")),
         grad_end_position(color_stops, Sass::Script::Bool.new(true)),
         grad_color_stops(color_stops)
       ]
@@ -83,17 +83,17 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_svg
       # XXX Add shape support if possible
-      radial_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("center center"))
+      radial_svg_gradient(color_stops, position_and_angle || Sass::Script::String.new("center center"))
     end
   end
 
   class LinearGradient < Sass::Script::Literal
-    attr_accessor :color_stops, :position_or_angle
-    def initialize(position_or_angle, color_stops)
+    attr_accessor :color_stops, :position_and_angle
+    def initialize(position_and_angle, color_stops)
       unless color_stops.values.size >= 2
         raise Sass::SyntaxError, "At least two color stops are required for a linear-gradient"
       end
-      self.position_or_angle = position_or_angle
+      self.position_and_angle = position_and_angle
       self.color_stops = color_stops
     end
     def inspect
@@ -101,14 +101,14 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_s
       s = "linear-gradient("
-      s << position_or_angle.to_s << ", " if position_or_angle
+      s << position_and_angle.to_s << ", " if position_and_angle
       s << color_stops.to_s
       s << ")"
     end
     def to_webkit
       args = []
-      args << grad_point(position_or_angle || Sass::Script::String.new("top"))
-      args << grad_point(opposite_position(position_or_angle || Sass::Script::String.new("top")))
+      args << grad_point(position_and_angle || Sass::Script::String.new("top"))
+      args << grad_point(opposite_position(position_and_angle || Sass::Script::String.new("top")))
       args << grad_color_stops(color_stops)
       Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
     end
@@ -116,55 +116,55 @@ module Compass::SassExtensions::Functions::GradientSupport
       Sass::Script::String.new("-moz-#{to_s}")
     end
     def to_svg
-      linear_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("top"))
+      linear_svg_gradient(color_stops, position_and_angle || Sass::Script::String.new("top"))
     end
   end
 
   module Functions
 
-    def radial_gradient(position_or_angle, shape_or_size, *color_stops)
+    def radial_gradient(position_and_angle, shape_and_size, *color_stops)
       # Have to deal with variable length/meaning arguments.
-      if color_stop?(shape_or_size)
-        color_stops.unshift(shape_or_size)
-        shape_or_size = nil
-      elsif list_of_color_stops?(shape_or_size)
+      if color_stop?(shape_and_size)
+        color_stops.unshift(shape_and_size)
+        shape_and_size = nil
+      elsif list_of_color_stops?(shape_and_size)
         # Support legacy use of the color-stops() function
-        color_stops = shape_or_size.values + color_stops
-        shape_or_size = nil
+        color_stops = shape_and_size.values + color_stops
+        shape_and_size = nil
       end
-      shape_or_size = nil if shape_or_size && !shape_or_size.to_bool # nil out explictly passed falses
-      # ditto for position_or_angle
-      if color_stop?(position_or_angle)
-        color_stops.unshift(position_or_angle)
-        position_or_angle = nil
-      elsif list_of_color_stops?(position_or_angle)
-        color_stops = position_or_angle.values + color_stops
-        position_or_angle = nil
+      shape_and_size = nil if shape_and_size && !shape_and_size.to_bool # nil out explictly passed falses
+      # ditto for position_and_angle
+      if color_stop?(position_and_angle)
+        color_stops.unshift(position_and_angle)
+        position_and_angle = nil
+      elsif list_of_color_stops?(position_and_angle)
+        color_stops = position_and_angle.values + color_stops
+        position_and_angle = nil
       end
-      position_or_angle = nil if position_or_angle && !position_or_angle.to_bool
+      position_and_angle = nil if position_and_angle && !position_and_angle.to_bool
 
       # Support legacy use of the color-stops() function
       if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
         color_stops = color_stops.first.values
       end
-      RadialGradient.new(position_or_angle, shape_or_size, send(:color_stops, *color_stops))
+      RadialGradient.new(position_and_angle, shape_and_size, send(:color_stops, *color_stops))
     end
 
-    def linear_gradient(position_or_angle, *color_stops)
-      if color_stop?(position_or_angle)
-        color_stops.unshift(position_or_angle)
-        position_or_angle = nil
-      elsif list_of_color_stops?(position_or_angle)
-        color_stops = position_or_angle.values + color_stops
-        position_or_angle = nil
+    def linear_gradient(position_and_angle, *color_stops)
+      if color_stop?(position_and_angle)
+        color_stops.unshift(position_and_angle)
+        position_and_angle = nil
+      elsif list_of_color_stops?(position_and_angle)
+        color_stops = position_and_angle.values + color_stops
+        position_and_angle = nil
       end
-      position_or_angle = nil if position_or_angle && !position_or_angle.to_bool
+      position_and_angle = nil if position_and_angle && !position_and_angle.to_bool
 
       # Support legacy use of the color-stops() function
       if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
         color_stops = color_stops.first.values
       end
-      LinearGradient.new(position_or_angle, send(:color_stops, *color_stops))
+      LinearGradient.new(position_and_angle, send(:color_stops, *color_stops))
     end
 
     # returns color-stop() calls for use in webkit.
