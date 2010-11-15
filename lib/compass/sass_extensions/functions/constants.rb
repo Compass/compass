@@ -9,7 +9,7 @@ module Compass::SassExtensions::Functions::Constants
       when "right" then "left"
       when "center" then "center"
       else
-        raise Sass::SyntaxError, "Cannot determine the opposite of #{pos}"
+        pos
       end
     end
     Sass::Script::String.new(opposite.join(" "), position.type)
