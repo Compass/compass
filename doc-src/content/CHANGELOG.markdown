@@ -48,6 +48,12 @@ COMPASS CHANGELOG
 
 ### Helpers
 
+* `linear-gradient()` & `radial-gradient()` helpers now intercept standard css
+  functions and parse them into Sass Literals. These work with new vendor helpers
+  (`-moz()`, `-webkit`, `-o`, `-ie`, and `-svg` (yes I know svg is not a vendor))
+  to return specific representations of the linear & radial gradients. The
+  `prefixed()` function will check a value to see if it has a certain
+  vendor-specific representation.
 * New color helpers: `adjust-lightness`, `adjust-saturation`, `scale-lightness`, and `scale-saturation`
   make it easier to construct apis that manipulate these color attributes.
 * The `elements-of-type()` helper now returns html5 elements when the display is `block`
@@ -64,6 +70,10 @@ COMPASS CHANGELOG
   and passes the units along to the result.
 * A new function `if()` that allows you to switch on a value without using `@if`.
   Usage: `if($truth-value, $value-if-true, $value-if-false)`.
+* Compass has added a number of new helper functions for lists that begin with
+  `-compass`, helpers that begin with `-compass` should be considered "private" and
+  are not to be used by compass users. Sass 3.1 will have proper list support,
+  these are a work around until that time.
 
 ### Rails
 
