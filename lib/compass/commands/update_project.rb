@@ -47,10 +47,10 @@ module Compass
 
       def new_compiler_instance(additional_options = {})
         compiler_opts = Compass.sass_engine_options
-        compiler_opts.merge!(:quiet => options[:quiet],
-                             :force => options[:force],
+        compiler_opts.merge!(:force => options[:force],
                              :sass_files => explicit_sass_files,
                              :dry_run => options[:dry_run])
+        compiler_opts[:quiet] = options[:quiet] if options[:quiet]
         compiler_opts.merge!(additional_options)
         Compass::Compiler.new(working_path,
           Compass.configuration.sass_path,

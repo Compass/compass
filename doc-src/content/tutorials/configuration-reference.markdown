@@ -203,6 +203,13 @@ command line will override the corresponding settings in your configuration file
 		</td> 
 	</tr> 
 	<tr> 
+		<td style="vertical-align:top;"><code>disable_warnings</code> </td> 
+		<td style="vertical-align:top;">Boolean </td> 
+		<td style="vertical-align:top;">
+		  Set this to true to silence deprecation warnings.
+		</td> 
+	</tr> 
+	<tr> 
 		<td style="vertical-align:top;"><code>sass_options</code> </td> 
 		<td style="vertical-align:top;">Hash </td> 
 		<td style="vertical-align:top;">These options are passed directly to the
