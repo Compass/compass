@@ -314,9 +314,14 @@ module Compass::SassExtensions::Functions::GradientSupport
     %w(webkit moz o ms svg).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
-          args.map!{|a| a.is_a?(List) ? a.values : a}.flatten!
-          List.new(*args.map!{|a| a.respond_to?(:to_#{prefix}) ? a.to_#{prefix} : a})
-      end
+          List.new(*args.map! do |a|
+                      if a.is_a?(List)
+                        a.class.new(*a.values.map{|v| v.respond_to?(:to_#{prefix}) ? v.to_#{prefix} : v})
+                      else
+                        a.respond_to?(:to_#{prefix}) ? a.to_#{prefix} : a
+                      end
+                    end)
+        end
       RUBY
     end
 
