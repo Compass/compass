@@ -46,6 +46,7 @@ module Compass
         engine_opts[:line_comments] = line_comments
         engine_opts[:cache] = cache
         engine_opts[:cache_location] = cache_path
+        engine_opts[:quiet] = disable_warnings if disable_warnings
         engine_opts.merge!(sass_options || {})
       end
 
