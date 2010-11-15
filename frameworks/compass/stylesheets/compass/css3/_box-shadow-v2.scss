@@ -69,23 +69,10 @@ $default-box-shadow-inset : false !default;
   }
   
   @if $shadow-1 == default {
-    $shadow-1 : $default-box-shadow-h-offset $default-box-shadow-v-offset;
-    @if $default-box-shadow-blur    { $shadow-1: $shadow-1 $default-box-shadow-blur;   }
-    @if $default-box-shadow-spread  { $shadow-1: $shadow-1 $default-box-shadow-spread; }
-    @if $default-box-shadow-color   { $shadow-1: $shadow-1 $default-box-shadow-color;  }
-    @if $default-box-shadow-inset   { $shadow-1: inset $shadow-1;   }
+    $shadow-1 : -compass-space-list(compact(if($default-box-shadow-inset, inset), $default-box-shadow-h-offset, $default-box-shadow-v-offset, $default-box-shadow-blur, $default-box-shadow-spread, $default-box-shadow-color));
   }
   
-  $shadow : $shadow-1;
-  @if $shadow-2  { $shadow: $shadow, $shadow-2;  }
-  @if $shadow-3  { $shadow: $shadow, $shadow-3;  }
-  @if $shadow-4  { $shadow: $shadow, $shadow-4;  }
-  @if $shadow-5  { $shadow: $shadow, $shadow-5;  }
-  @if $shadow-6  { $shadow: $shadow, $shadow-6;  }
-  @if $shadow-7  { $shadow: $shadow, $shadow-7;  }
-  @if $shadow-8  { $shadow: $shadow, $shadow-8;  }
-  @if $shadow-9  { $shadow: $shadow, $shadow-9;  }
-  @if $shadow-10 { $shadow: $shadow, $shadow-10; }
+  $shadow : compact($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10);
   @include experimental(box-shadow, $shadow,
     -moz, -webkit, -o, not -ms, not -khtml, official
   );
