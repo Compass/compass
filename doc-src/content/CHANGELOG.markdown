@@ -7,8 +7,17 @@ layout: article
 COMPASS CHANGELOG
 =================
 
-0.11.alpha.1 (UNRELEASED)
--------------------------
+Upgrading compass is really easy.
+Don't let all these details [scare you...](/docs/tutorials/im-scared-to-upgrade/)
+
+The Documentation for the [latest stable release](http://compass-style.org/docs/):
+
+The Documentation for the [latest preview release](http://beta.compass-style.org/docs/)
+
+0.11.alpha.1   (11/16/2010)
+---------------------------
+
+Note: Compass does not currently support Sass 3.1 alphas.
 
 ### Deprecations
 
@@ -26,25 +35,44 @@ COMPASS CHANGELOG
   However, you will only get deprecation warnings if you actually use
   one of the deprecated mixins. The imports will be restored by 1.0
   with the new, betterer APIs.
+* Passing an argument to the `blueprint-scaffolding` mixin is not necessary
+  and has been deprecated.
+* Some blueprint color defaults now use color functions instead of color arithmetic.
+  This may result in different output for those who have color customizations.
 
 ### Blueprint
 
-* Deprecations:
-  - Passing an argument to the blueprint-scaffolding mixin is not necessary
-    and has been deprecated.
-* Some color defaults now use color functions instead of color arithmetic.
-  This may result in different output for those who have color customizations.
 * Updated from blueprint 0.9 to blueprint 1.0
-  * Added detailed explanations to core uncompressed CSS files [CMM]
   * Added .info and .alert classes to forms.css [CMM]
   * Fixed numerous bugs in forms, including the fieldset padding bug in IE6-8 [CMM]
   * Fixed specificity problems in typography.css and grid.css [CMM]
   * See Lighthouse for more bug fixes
-  * Full [changelog][blueprint_10_change]
+  * Full [blueprint changelog][blueprint_10_change]
   * If for some reason you'd like to stay on the older version of blueprint you can run
     the following command in your project before you upgrade (or after temporarily downgrading):
     `compass unpack blueprint`
 
+### CSS3 v2.0
+
+Our CSS3 module makes writing CSS3 today almost as easy as it will be when all
+the browsers officially support the new features. The second version of the
+compass CSS module brings the API up to date with developments over the past
+6 to 9 months of browser changes and more closely matching the most recent CSS
+specifications. Summary of changes:
+
+* Support for multiple box shadows and text shadows
+* Support for 2d and 3d transforms
+* Opt-in SVG support for gradients in opera and IE9.
+  Set `$experimental-support-for-svg : true` in your
+  stylesheet to enable it.
+* Fixed a radial gradient position bug.
+* To generate a simple linear gradient in IE6 & 7, you can now use
+  the `filter-gradient` mixin.
+* New `background-image` mixin with gradient support and allowing
+  up to 10 images.
+* Gradient support for the border-image property.
+* Gradient support for list-style-image property.
+* Gradient support for the content property.
 
 ### Helpers
 
@@ -68,6 +96,8 @@ COMPASS CHANGELOG
   If you provide a number with units of `deg` then it will return a unitless number
   after converting to radians. Otherwise, it assumes the number is a radian length measure
   and passes the units along to the result.
+* `ie-hex-str($color)` returns a #AARRGGBB formatted color suitable for
+  passing to IE filters.
 * A new function `if()` that allows you to switch on a value without using `@if`.
   Usage: `if($truth-value, $value-if-true, $value-if-false)`.
 * Compass has added a number of new helper functions for lists that begin with
@@ -75,9 +105,25 @@ COMPASS CHANGELOG
   are not to be used by compass users. Sass 3.1 will have proper list support,
   these are a work around until that time.
 
+### Configuration
+
+* Added a new configuration property to disable sass warnings: `disable_warnings`
+
+### Core Framework
+
+* New layout mixins for absolute positioning: stretch, stretch-x, stretch-y
+
 ### Rails
 
-* Better integration with rails 3 (XXX Details)
+* In rails 3, there's no need for an initializer. Instead we use a
+  Railstie.
+* We now default to app/stylesheets for sass files and public/stylesheets for
+  css files -- though they can still be changed after installation or on the
+  command line during project initialization.
+* Compass is now a gem plugin in a rails environment.
+* In a rails3 environment the compass configuration can now be
+  changed without restarting the rails server process.
+
 
 0.10.7 (UNRELEASED)
 -------------------
