@@ -419,38 +419,27 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
     def linear_svg(color_stops, x1, y1, x2, y2)
-      gradient = <<-EOG
-        <linearGradient id="grad" x1="#{x1}" y1="#{y1}" x2="#{x2}" y2="#{y2}">
-          #{color_stops_svg(color_stops)}
-        </linearGradient>
-      EOG
+      gradient = %Q{<linearGradient id="grad" x1="#{x1}" y1="#{y1}" x2="#{x2}" y2="#{y2}">#{color_stops_svg(color_stops)}</linearGradient>}
       svg(gradient)
     end
 
     def radial_svg(color_stops, cx, cy, r)
-      gradient = <<-EOG
-        <radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="#{cx}" cy="#{cy}" r="#{r}">
-          #{color_stops_svg(color_stops)}
-        </radialGradient>
-      EOG
+      gradient = %Q{<radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="#{cx}" cy="#{cy}" r="#{r}">#{color_stops_svg(color_stops)}</radialGradient>}
       svg(gradient)
     end
 
     # color_stops = array of: [stop, color]
     def color_stops_svg(color_stops)
       color_stops.each.map{ |stop, color|
-          %{<stop offset="#{stop.to_s}" stop-color="#{color.inspect}" />}
+          %{<stop offset="#{stop.to_s}" stop-color="#{color.inspect}"/>}
       }.join
     end
 
     def svg(gradient)
       svg = <<-EOS
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <defs>#{gradient}</defs>
-  <rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" />
-</svg>
-      EOS
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs>#{gradient}</defs><rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" /></svg>
+EOS
     end
   end
   class LinearGradient < Sass::Script::Literal
