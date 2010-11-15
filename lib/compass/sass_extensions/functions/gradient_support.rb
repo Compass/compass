@@ -123,13 +123,29 @@ module Compass::SassExtensions::Functions::GradientSupport
   module Functions
 
     def radial_gradient(position_or_angle, shape_or_size, *color_stops)
+      # Have to deal with variable length/meaning arguments.
       if color_stop?(shape_or_size)
         color_stops.unshift(shape_or_size)
         shape_or_size = nil
+      elsif list_of_color_stops?(shape_or_size)
+        # Support legacy use of the color-stops() function
+        color_stops = shape_or_size.values + color_stops
+        shape_or_size = nil
       end
+      shape_or_size = nil if shape_or_size && !shape_or_size.to_bool # nil out explictly passed falses
+      # ditto for position_or_angle
       if color_stop?(position_or_angle)
         color_stops.unshift(position_or_angle)
         position_or_angle = nil
+      elsif list_of_color_stops?(position_or_angle)
+        color_stops = position_or_angle.values + color_stops
+        position_or_angle = nil
+      end
+      position_or_angle = nil if position_or_angle && !position_or_angle.to_bool
+
+      # Support legacy use of the color-stops() function
+      if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
+        color_stops = color_stops.first.values
       end
       RadialGradient.new(position_or_angle, shape_or_size, send(:color_stops, *color_stops))
     end
@@ -138,6 +154,15 @@ module Compass::SassExtensions::Functions::GradientSupport
       if color_stop?(position_or_angle)
         color_stops.unshift(position_or_angle)
         position_or_angle = nil
+      elsif list_of_color_stops?(position_or_angle)
+        color_stops = position_or_angle.values + color_stops
+        position_or_angle = nil
+      end
+      position_or_angle = nil if position_or_angle && !position_or_angle.to_bool
+
+      # Support legacy use of the color-stops() function
+      if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
+        color_stops = color_stops.first.values
       end
       LinearGradient.new(position_or_angle, send(:color_stops, *color_stops))
     end
@@ -233,6 +258,8 @@ module Compass::SassExtensions::Functions::GradientSupport
     def color_stops(*args)
       List.new(*args.map do |arg|
         case arg
+        when ColorStop
+          arg
         when Sass::Script::Color
           ColorStop.new(arg)
         when Sass::Script::String
@@ -240,7 +267,7 @@ module Compass::SassExtensions::Functions::GradientSupport
           # So we have to reparse the expression
           parse_color_stop(arg)
         else
-          raise Sass::SyntaxError, "Not a valid color stop: #{arg}"
+          raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
         end
       end)
     end
@@ -421,6 +448,10 @@ module Compass::SassExtensions::Functions::GradientSupport
       parse_color_stop(arg)
     rescue
       nil
+    end
+
+    def list_of_color_stops?(arg)
+      arg.is_a?(List) && arg.values.first.is_a?(ColorStop)
     end
 
     def linear_svg(color_stops, x1, y1, x2, y2)
