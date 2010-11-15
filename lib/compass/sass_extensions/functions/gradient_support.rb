@@ -328,6 +328,16 @@ module Compass::SassExtensions::Functions::GradientSupport
       end
     end
 
+    def _compass_space_list(list)
+      if list.is_a?(List) && !list.is_a?(SpaceList)
+        SpaceList.new(*list.values)
+      elsif list.is_a?(SpaceList)
+        list
+      else
+        SpaceList.new(list)
+      end
+    end
+
     # slice a sublist from a list
     def _compass_slice(list, start_index, end_index = nil)
       end_index ||= Sass::Script::Number.new(-1)
