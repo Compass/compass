@@ -5,7 +5,7 @@ require 'compass'
 
 # ----- Default: Testing ------
 
-task :default => :run_tests
+task :default => :test
 
 require 'rake/testtask'
 require 'fileutils'
