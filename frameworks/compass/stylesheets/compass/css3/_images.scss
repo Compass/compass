@@ -22,15 +22,10 @@
 }
 
 @mixin border-image($value) {
-  // This is just until we have Official Sass list support in 3.1
-  $values: -compass-list($value);
-  $image:  -compass-nth($values, first);
-  $rest:   -compass-slice($values, 2);
-
-  @if $experimental-support-for-mozilla {    -moz-border-image:    -moz($image) $rest; }
-  @if $experimental-support-for-webkit  { -webkit-border-image: -webkit($image) $rest; }
-  @if $experimental-support-for-svg     {         border-image:    -svg($image) $rest; }
-                                                  border-image:         $image  $rest;
+  @if $experimental-support-for-mozilla {    -moz-border-image:    -moz(-compass-list($value)); }
+  @if $experimental-support-for-webkit  { -webkit-border-image: -webkit(-compass-list($value)); }
+  @if $experimental-support-for-svg     {         border-image:    -svg(-compass-list($value)); }
+                                                  border-image:                       $value;
 }
 
 @mixin list-style-image($image) {
