@@ -10,8 +10,22 @@ COMPASS CHANGELOG
 0.11.alpha.1 (UNRELEASED)
 -------------------------
 
+### Deprecations
+
 * Deprecated imports and APIs from v0.10 have been removed.
-* Changed defaults for the box-shadow and text-shadow mixin. Previously the horizontal and vertical offset were both 1, which expected a top left light source. They are now set to 0 which assumes a direct light source, a more generic default.
+* Changed defaults for the box-shadow and text-shadow mixins.
+  Previously the horizontal and vertical offset were both 1, which
+  expected a top left light source. They are now set to 0 which assumes
+  a direct light source, a more generic default.
+* The linear-gradient and radial-gradient mixins have been deprecated.
+  Instead use the background-image mixin and pass it a gradient function.
+  The deprecation warning will print out the correct call for you to use.
+* The `css3` import is deprecated as well as the following css3 modules:
+  `box-shadow`, `text-shadow`, and `transform`. Instead import `css3/version-2`,
+  `box-shadow-v2`, `text-shadow-v2`, and `transform-v2` respectively.
+  However, you will only get deprecation warnings if you actually use
+  one of the deprecated mixins. The imports will be restored by 1.0
+  with the new, betterer APIs.
 
 ### Blueprint
 
