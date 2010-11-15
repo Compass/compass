@@ -12,6 +12,10 @@ $experimental-support-for-svg: true
 
 .bg-all-gradient-types
   +background-image(image-url("4x6.png"), linear-gradient(top left, #ddd, #aaa), radial-gradient(center center, #ddd, #aaa 100px))
+
+.border-image-gradient
+  +border-image(radial-gradient(#0f0,#f00 100px) 100 stretch)
+
 $experimental-support-for-svg: false
 
 .bg-linear-gradient-no-position

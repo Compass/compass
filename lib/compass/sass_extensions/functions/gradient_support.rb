@@ -5,11 +5,20 @@ module Compass::SassExtensions::Functions::GradientSupport
     def initialize(*values)
       self.values = values
     end
+    def join_with
+      ", "
+    end
     def inspect
-      values.map{|v| v.inspect}.join(", ")
+      to_s
     end
     def to_s
-      values.map{|v| v.to_s}.join(", ")
+      values.map {|v| v.to_s }.join(join_with)
+    end
+  end
+
+  class SpaceList < List
+    def join_with
+      " "
     end
   end
 
@@ -110,7 +119,6 @@ module Compass::SassExtensions::Functions::GradientSupport
       linear_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("top"))
     end
   end
-
 
   module Functions
 
@@ -260,6 +268,49 @@ module Compass::SassExtensions::Functions::GradientSupport
       List.new(*args.reject{|a| !a.to_bool})
     end
 
+    # Returns a list object from a value that was passed.
+    # This can be used to unpack a space separated list that got turned
+    # into a string by sass before it was passed to a mixin.
+    def _compass_list(arg)
+      return arg if arg.is_a?(List)
+      values = case arg
+        when Sass::Script::String
+          expr = Sass::Script::Parser.parse(arg.value, 0, 0)
+          if expr.is_a?(Sass::Script::Operation)
+            extract_list_values(expr)
+          elsif expr.is_a?(Sass::Script::Funcall)
+            expr.perform(Sass::Environment.new) #we already evaluated the args in context so no harm in using a fake env
+          else
+            [arg]
+          end
+        else
+          [arg]
+        end
+
+      SpaceList.new(*values)
+    end
+
+    # Get the nth value from a list
+    def _compass_nth(list, place)
+      if place.value == "last"
+        list.values.last
+      elsif place.value == "first"
+        list.values.first
+      else
+        list.values[place.value - 1]
+      end
+    end
+
+    # slice a sublist from a list
+    def _compass_slice(list, start_index, end_index = nil)
+      end_index ||= Sass::Script::Number.new(-1)
+      start_index = start_index.value
+      end_index = end_index.value
+      start_index -= 1 unless start_index < 0
+      end_index -= 1 unless end_index < 0
+      list.class.new *list.values[start_index..end_index]
+    end
+
     %w(webkit moz o ms svg).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
@@ -269,6 +320,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       RUBY
     end
 
+    # Check if any of the arguments passed have a tendency towards vendor prefixing.
     def prefixed(prefix, *args)
       method = prefix.value.sub(/^-/,"to_").to_sym
       args.map!{|a| a.is_a?(List) ? a.values : a}.flatten!
@@ -276,6 +328,28 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
     private
+    # After using the sass script parser to parse a string, this reconstructs
+    # a list from operands to the space/concat operation
+    def extract_list_values(operation)
+      left = operation.instance_variable_get("@operand1")
+      right = operation.instance_variable_get("@operand2")
+      left = extract_list_values(left) if left.is_a?(Sass::Script::Operation)
+      right = extract_list_values(right) if right.is_a?(Sass::Script::Operation)
+      left = literalize(left) unless left.is_a?(Array)
+      right = literalize(right) unless right.is_a?(Array)
+      Array(left) + Array(right)
+    end
+    # Makes a literal from other various script nodes.
+    def literalize(node)
+      case node
+      when Sass::Script::Literal
+        node
+      when Sass::Script::Funcall
+        node.perform(Sass::Environment.new)
+      else
+        Sass::Script::String.new(node.to_s)
+      end
+    end
     def normalize_stops!(color_list)
       positions = color_list.values
       # fill in the start and end positions, if unspecified
