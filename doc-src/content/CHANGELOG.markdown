@@ -11,6 +11,7 @@ COMPASS CHANGELOG
 -------------------------
 
 * Deprecated imports and APIs from v0.10 have been removed.
+* Changed defaults for the box-shadow and text-shadow mixin. Previously the horizontal and vertical offset were both 1, which expected a top left light source. They are now set to 0 which assumes a direct light source, a more generic default.
 
 ### Blueprint
 
