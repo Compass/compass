@@ -40,5 +40,13 @@
   @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { list-style-image:    -moz($value); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $value) { list-style-image: -webkit($value); }
   @if $experimental-support-for-svg     and prefixed(-svg,    $value) { list-style-image:    -svg($value); }
-                                                                        list-style-image:         $value  ;
+                                                                        list-style-image:         $value ;
+}
+
+@mixin content($value) {
+  $value: -compass-list($value);
+  @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { content:    -moz($value); }
+  @if $experimental-support-for-webkit  and prefixed(-webkit, $value) { content: -webkit($value); }
+  @if $experimental-support-for-svg     and prefixed(-svg,    $value) { content:    -svg($value); }
+                                                                        content:         $value ;
 }
