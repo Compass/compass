@@ -33,7 +33,21 @@
 // - Firefox 3.6
 // - Opera
 
-@mixin linear-gradient($color-stops, $start: top, $image: false) {
+@mixin linear-gradient($color-stops, $start: false, $image: false) {
+  @if $image {
+    @if $start {
+      @warn "The linear-gradient mixin is deprecated. Instead use: @include background-image(#{$image}, linear-gradient(#{$start}, #{$color-stops}))";
+    } @else {
+      @warn "The linear-gradient mixin is deprecated. Instead use: @include background-image(#{$image}, linear-gradient(#{$color-stops}))";
+    }
+  } @else {
+    @if $start {
+      @warn "The linear-gradient mixin is deprecated. Instead use: @include background-image(linear-gradient(#{$start}, #{$color-stops}))";
+    } @else {
+      @warn "The linear-gradient mixin is deprecated. Instead use: @include background-image(linear-gradient(#{$color-stops}))";
+    }
+  }
+  @if not $start { $start: top; }
   @include background-image($image, linear-gradient($start, $color-stops));
 }
 
@@ -73,6 +87,20 @@
 // - Firefox 3.6
 // - Opera
 
-@mixin radial-gradient($color-stops, $center-position: center center, $image: false) {
+@mixin radial-gradient($color-stops, $center-position: false, $image: false) {
+  @if $image {
+    @if $center-position {
+      @warn "The radial-gradient mixin is deprecated. Instead use: @include background-image(#{$image}, radial-gradient(#{$center-position}, #{$color-stops}))";
+    } @else {
+      @warn "The radial-gradient mixin is deprecated. Instead use: @include background-image(#{$image}, radial-gradient(#{$color-stops}))";
+    }
+  } @else {
+    @if $center-position {
+      @warn "The radial-gradient mixin is deprecated. Instead use: @include background-image(radial-gradient(#{$center-position}, #{$color-stops}))";
+    } @else {
+      @warn "The radial-gradient mixin is deprecated. Instead use: @include background-image(radial-gradient(#{$color-stops}))";
+    }
+  }
+  @if not $center-position { $center-position: center center; }
   @include background-image($image, radial-gradient($center-position, $color-stops));
 }

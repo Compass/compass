@@ -12,3 +12,5 @@ line_comments = false
 asset_cache_buster do |path, file|
   "busted=true"
 end
+
+disable_warnings = true
