@@ -27,7 +27,7 @@ end
 
 compile '/examples/*/' do
   filter :haml, :ugly => true
-  filter :highlight if ENV['SYNTAX']
+  filter :highlight
   layout 'example'
 end
 
@@ -43,7 +43,7 @@ end
 
 compile '/reference/*/' do
   filter :haml, :ugly => true
-  filter :highlight if ENV['SYNTAX']
+  filter :highlight
   layout item[:layout] || 'main'
 end
 

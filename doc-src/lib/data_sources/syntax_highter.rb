@@ -26,14 +26,9 @@ class SyntaxHighlighterFilter < Nanoc3::Filter
 
   def run(content, params={})
     doc = Nokogiri::HTML.fragment(content)
-    [:html, :css, :sass, :scss].each do |format|
+    [:css, :sass, :scss].each do |format|
       doc.css("pre.source-code.#{format}, code.#{format}").each do |el|
-        new_element = Nokogiri.make(highlight(el.inner_text, format))
-        new_element.set_attribute("class", new_element.attribute("class").value+" "+el.attribute("class").value)
-        if id = el.attribute("id")
-          new_element.set_attribute("id", id)
-        end
-        el.replace new_element
+        el.set_attribute("class", "brush: #{format} "+el.attribute("class").value)
       end
     end
     doc.to_s
