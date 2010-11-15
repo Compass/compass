@@ -73,6 +73,7 @@ def item_tree(item, options = {})
     child_opts[:heading_level] += 1 if child_opts[:heading_level]
     child_opts.delete(:omit_self)
     item.children.sort_by{|c| c[:crumb] || c[:title]}.each do |child|
+      next if child[:navigable] == false
       child_html << item_tree(child, child_opts)
     end
   else
