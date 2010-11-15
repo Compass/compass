@@ -10,6 +10,12 @@ $experimental-support-for-svg: true
 .bg-radial-gradient
   +background-image(radial-gradient(center center, #ddd, #aaa 100px))
 
+.bg-linear-gradient-with-angle
+  +background-image(linear-gradient(top left -45deg, #ddd, #aaa))
+
+.bg-radial-gradient-with-angle-and-shape
+  +background-image(radial-gradient(center center 45deg, ellipse cover, #ddd, #aaa 100px))
+
 .bg-all-gradient-types
   +background-image(image-url("4x6.png"), linear-gradient(top left, #ddd, #aaa), radial-gradient(center center, #ddd, #aaa 100px))
 
