@@ -16,6 +16,12 @@ $experimental-support-for-svg: true
 .border-image-gradient
   +border-image(radial-gradient(#0f0,#f00 100px) 100 stretch)
 
+.direct-list-image-plain
+  +list-style-image(image-url("4x6.png"))
+
+.shorthand-list-image-plain
+  +list-style(outside image-url("4x6.png"))
+
 .direct-list-image-with-gradient
   +list-style-image(radial-gradient(lime, red 10px))
 
