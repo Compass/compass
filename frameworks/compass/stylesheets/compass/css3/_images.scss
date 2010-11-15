@@ -32,3 +32,17 @@
   @if $experimental-support-for-svg     {         border-image:    -svg($image) $rest; }
                                                   border-image:         $image  $rest;
 }
+
+@mixin list-style-image($image) {
+  @if $experimental-support-for-mozilla { list-style-image:    -moz($image); }
+  @if $experimental-support-for-webkit  { list-style-image: -webkit($image); }
+  @if $experimental-support-for-svg     { list-style-image:    -svg($image); }
+                                          list-style-image:         $image ;
+}
+
+@mixin list-style($value) {
+  @if $experimental-support-for-mozilla { list-style-image:    -moz(-compass-list($value)); }
+  @if $experimental-support-for-webkit  { list-style-image: -webkit(-compass-list($value)); }
+  @if $experimental-support-for-svg     { list-style-image:    -svg(-compass-list($value)); }
+                                          list-style-image:                       $value  ;
+}
