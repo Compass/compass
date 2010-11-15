@@ -29,6 +29,12 @@ $experimental-support-for-svg: true
   // Note: I haven't seen a browser render this correctly, but they should eventually.
   +list-style(outside radial-gradient(lime, red 10px))
 
+.content-plain
+  +content("asdf")
+
+.content-with-gradient
+  +content(radial-gradient(lime, red 10px))
+
 $experimental-support-for-svg: false
 
 .bg-linear-gradient-no-position
