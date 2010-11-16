@@ -107,6 +107,6 @@ end
 
 def compass_version
   v = Compass.version
-  "#{v[:major]}.#{v[:minor]}.#{v[:teeny]}.#{v[:build]}"
+  "#{v[:major]}.#{v[:minor]}#{"."+v[:state] if v[:state]}.#{v[:build]}"
 end
 
