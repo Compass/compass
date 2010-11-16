@@ -2,10 +2,10 @@
 
 // Note ----------------------------------------------------------------------
 // Safari is the only browser that currently supports 3D transforms.
-// Because of that it can be important to control whether a given 2D transform 
+// Because of that it can be important to control whether a given 2D transform
 // uses the full range of experimental browser prefixes, or only the 3D list.
 // To make that easy, all 2D transforms include an browser-targeting toggle ($only3d)
-// to switch between the two support lists. The toggle defaults to 'false' (2D), 
+// to switch between the two support lists. The toggle defaults to 'false' (2D),
 // and also accepts 'true' (3D). Currently the lists are as follows:
 // 2D: Mozilla, Webkit, Opera, Official
 // 3D: Webkit, Official **(Only Safari Supports 3D perspective)**
@@ -46,49 +46,54 @@
 // Defaults ------------------------------------------------------------------
 
 // Transform Origin
-$default-originx    : 50%               !default; 
-$default-originy    : 50%               !default;
-$default-originz    : 50%               !default;
+$default-origin-x    : 50%                   !default;
+$default-origin-y    : 50%                   !default;
+$default-origin-z    : 50%                   !default;
 
 // Scale
-$default-scalex     : 1.25              !default;
-$default-scaley     : $default-scalex   !default;
-$default-scalez     : $default-scalex   !default;
+$default-scale-x     : 1.25                  !default;
+$default-scale-y     : $default-scale-x      !default;
+$default-scale-z     : $default-scale-x      !default;
 
 // Rotate
-$default-rotate     : 45deg             !default;
+$default-rotate      : 45deg                 !default;
 
 // Rotate3d
-$default-vectorx    : 1                 !default;
-$default-vectory    : 1                 !default;
-$default-vectorz    : 1                 !default;
+$default-vector-x    : 1                     !default;
+$default-vector-y    : 1                     !default;
+$default-vector-z    : 1                     !default;
 
 // Translate
-$default-transx     : 1em               !default;
-$default-transy     : $default-transx   !default;
-$default-transz     : $default-transx   !default;
+$default-translate-x : 1em                   !default;
+$default-translate-y : $default-translate-x  !default;
+$default-translate-z : $default-translate-x  !default;
 
 // Skew
-$default-skewx      : 5deg              !default;
-$default-skewy      : 5deg              !default;
+$default-skew-x      : 5deg                  !default;
+$default-skew-y      : 5deg                  !default;
 
 
-// Transform-origin ----------------------------------------------------------
-
+// **Transform-origin**
 // Transform-origin sent as a complete string
-// @include apply-origin( origin [, 3D-only ] )
+//
+//     @include apply-origin( origin [, 3D-only ] )
+//
 // where 'origin' is a string containing 1-3 (x/y/z) coordinates
-// in percentages, absolute (px, cm, in, em etc..) or relative (left, top, right, bottom, center) units
+// in percentages, absolute (px, cm, in, em etc..) or relative
+// (left, top, right, bottom, center) units
+//
+// @param only3d Set this to true to only apply this
+// mixin where browsers have 3D support.
 @mixin apply-origin(
-  $origin, 
+  $origin,
   $only3d: false
 ) {
-  @if $only3d { 
-    @include experimental(transform-origin, $origin, 
+  @if $only3d {
+    @include experimental(transform-origin, $origin,
       not -moz, -webkit, not -o, not -ms, not -khtml, official
     );
   } @else {
-    @include experimental(transform-origin, $origin, 
+    @include experimental(transform-origin, $origin,
       -moz, -webkit, -o, not -ms, not -khtml, official
     );
   }
@@ -99,16 +104,16 @@ $default-skewy      : 5deg              !default;
 // where the 3 'origin-' arguments represent x/y/z coordinates
 // ** setting z coordinates triggers 3D support list, leave false for 2D support
 @mixin transform-origin(
-  $originx: $default-originx, 
-  $originy: $default-originy,
-  $originz: false,
-  $only3d: $originz
+  $origin-x: $default-origin-x,
+  $origin-y: $default-origin-y,
+  $origin-z: false,
+  $only3d:   $origin-z
 ) {
   $origin: unquote('');
-  @if $originx or $originy or $originz {
-    @if $originx { $origin: $originx; } @else { $origin: 50%; }
-    @if $originy { $origin: $origin $originy; } @else { @if $originz { $origin: $origin 50%; }}
-    @if $originz { $origin: $origin $originz; $only3d: true; }
+  @if $origin-x or $origin-y or $origin-z {
+    @if $origin-x { $origin: $origin-x; } @else { $origin: 50%; }
+    @if $origin-y { $origin: $origin $origin-y; } @else { @if $origin-z { $origin: $origin 50%; }}
+    @if $origin-z { $origin: $origin $origin-z; $only3d: true; }
     @include apply-origin($origin, $only3d);
   }
 }
@@ -116,20 +121,20 @@ $default-skewy      : 5deg              !default;
 // Shortcut to target all browsers with 2D transform support
 // @include transform-origin( [ origin-x, origin-y ] )
 @mixin transform-origin2d(
-  $originx: $default-originx, 
-  $originy: $default-originy
+  $origin-x: $default-origin-x,
+  $origin-y: $default-origin-y
 ) {
-  @include transform-origin($originx, $originy);
+  @include transform-origin($origin-x, $origin-y);
 }
 
 // Shortcut to target all browsers with 3D transform support
 // @include transform-origin( [ origin-x, origin-y, origin-z ] )
 @mixin transform-origin3d(
-  $originx: $default-originx, 
-  $originy: $default-originy,
-  $originz: $default-originz
+  $origin-x: $default-origin-x,
+  $origin-y: $default-origin-y,
+  $origin-z: $default-origin-z
 ) {
-  @include transform-origin($originx, $originy, $originz, true);
+  @include transform-origin($origin-x, $origin-y, $origin-z, true);
 }
 
 
@@ -139,15 +144,15 @@ $default-skewy      : 5deg              !default;
 // @include transform( transforms [, 3D-only ] )
 // where 'transforms' is a string of all the transforms to be applied
 @mixin transform(
-  $transform, 
+  $transform,
   $only3d: false
 ) {
-  @if $only3d { 
-    @include experimental(transform, $transform, 
+  @if $only3d {
+    @include experimental(transform, $transform,
       not -moz, -webkit, not -o, not -ms, not -khtml, official
     );
   } @else {
-    @include experimental(transform, $transform, 
+    @include experimental(transform, $transform,
       -moz, -webkit, -o, not -ms, not -khtml, official
     );
   }
@@ -169,10 +174,10 @@ $default-skewy      : 5deg              !default;
 // Set the perspective of 3D transforms on the children of an element
 // @include perspective( perspective )
 // where 'perspective' is a uniless number representing the depth of the z-axis
-// the higher the perspective, the more exagerated the foreshortening. 
+// the higher the perspective, the more exagerated the foreshortening.
 // values from 500 to 1000 are more-or-less "normal" - a good starting-point.
 @mixin perspective($p) {
-  @include experimental(perspective, $p, 
+  @include experimental(perspective, $p,
     not -moz, -webkit, not -o, not -ms, not -khtml, official
   );
 }
@@ -181,12 +186,12 @@ $default-skewy      : 5deg              !default;
 // @include perspective-origin( [ origin-x, origin-y ] )
 // where the two arguments represent x/y coordinates
 @mixin perspective-origin(
-  $originx: 50%, 
-  $originy: false
+  $origin-x: 50%,
+  $origin-y: false
 ) {
-  $po: $originx;
-  @if $originy { $po: $po $originy; }
-  @include experimental(perspective-origin, $po, 
+  $po: $origin-x;
+  @if $origin-y { $po: $po $origin-y; }
+  @include experimental(perspective-origin, $po,
     not -moz, -webkit, not -o, not -ms, not -khtml, official
   );
 }
@@ -196,7 +201,7 @@ $default-skewy      : 5deg              !default;
 // where 'style' can be either 'flat' or 'preserves-3d'
 // browsers default to flat, mixin defaults to preserves-3d
 @mixin transform-style($ts: unquote("preserves-3d")) {
-  @include experimental(perspective-origin, $ts, 
+  @include experimental(perspective-origin, $ts,
     not -moz, -webkit, not -o, not -ms, not -khtml, official
   );
 }
@@ -206,9 +211,9 @@ $default-skewy      : 5deg              !default;
 // where 'visibility can be either 'visible' or 'hidden'
 // browsers default to visible, mixin defaults to hidden
 @mixin backface-visibility($bv: unquote("hidden")) {
-  @include experimental(backface-visibility, $bv, 
+  @include experimental(backface-visibility, $bv,
     not -moz, -webkit, not -o, not -ms, not -khtml, official
-  );  
+  );
 }
 
 
@@ -223,15 +228,15 @@ $default-skewy      : 5deg              !default;
 // Scale an object along the x and y axis
 // @include scale( [ scale-x, scale-y, perspective, 3D-only ] )
 // where the 'scale-' arguments are unitless multipliers of the x and y dimensions
-// and perspective, which works the same as the stand-alone perspective property/mixin 
+// and perspective, which works the same as the stand-alone perspective property/mixin
 // but applies to the individual element (multiplied with any parent perspective)
 @mixin scale(
-  $scalex: $default-scalex, 
-  $scaley: $scalex, 
+  $scale-x:     $default-scale-x,
+  $scale-y:     $scale-x,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
-  $trans: scale($scalex, $scaley);
+  $trans: scale($scale-x, $scale-y);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform($trans, $only3d);
 }
@@ -239,9 +244,9 @@ $default-skewy      : 5deg              !default;
 // Scale an object along the x axis
 // @include scaleX( [ scale-x, perspective, 3D-only ] )
 @mixin scaleX(
-  $scale: $default-scalex, 
+  $scale:       $default-scale-x,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
   $trans: scaleX($scale);
   @if $perspective { $trans: perspective($perspective) $trans; }
@@ -251,9 +256,9 @@ $default-skewy      : 5deg              !default;
 // Scale an object along the y axis
 // @include scaleY( [ scale-y, perspective, 3D-only ] )
 @mixin scaleY(
-  $scale: $default-scaley, 
+  $scale:       $default-scale-y,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
   $trans: scaleY($scale);
   @if $perspective { $trans: perspective($perspective) $trans; }
@@ -263,7 +268,7 @@ $default-skewy      : 5deg              !default;
 // Scale an object along the z axis
 // @include scaleZ( [ scale-z, perspective ] )
 @mixin scaleZ(
-  $scale: $default-scalez, 
+  $scale: $default-scale-z,
   $perspective: false
 ) {
   $trans: scaleZ($scale);
@@ -274,12 +279,12 @@ $default-skewy      : 5deg              !default;
 // Scale and object along all three axis
 // @include scale3d( [ scale-x, scale-y, scale-z, perspective ] )
 @mixin scale3d(
-  $scalex: $default-scalex, 
-  $scaley: $default-scaley, 
-  $scalez: $default-scalez, 
+  $scale-x:     $default-scale-x,
+  $scale-y:     $default-scale-y,
+  $scale-z:     $default-scale-z,
   $perspective: false
 ) {
-  $trans: scale3d($scalex, $scaley, $scalez);
+  $trans: scale3d($scale-x, $scale-y, $scale-z);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform3d($trans);
 }
@@ -291,9 +296,9 @@ $default-skewy      : 5deg              !default;
 // @include rotate( [ rotation, perspective, 3D-only ] )
 // where 'rotation' is an angle set in degrees (deg) or radian (rad) units
 @mixin rotate(
-  $rotate: $default-rotate, 
+  $rotate:      $default-rotate,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
   $trans: rotate($rotate);
   @if $perspective { $trans: perspective($perspective) $trans; }
@@ -302,9 +307,9 @@ $default-skewy      : 5deg              !default;
 
 // A longcut for 'rotate' in case you forget that 'z' is implied
 @mixin rotateZ(
-  $rotate: $default-rotate, 
+  $rotate:      $default-rotate,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
   @include rotate($rotate, $perspective, $only3d);
 }
@@ -312,7 +317,7 @@ $default-skewy      : 5deg              !default;
 // Rotate an object around the x axis (3D)
 // @include rotateX( [ rotation, perspective ] )
 @mixin rotateX(
-  $rotate: $default-rotate, 
+  $rotate: $default-rotate,
   $perspective: false
 ) {
   $trans: rotateX($rotate);
@@ -323,7 +328,7 @@ $default-skewy      : 5deg              !default;
 // Rotate an object around the y axis (3D)
 // @include rotate( [ rotation, perspective ] )
 @mixin rotateY(
-  $rotate: $default-rotate, 
+  $rotate: $default-rotate,
   $perspective: false
 ) {
   $trans: rotateY($rotate);
@@ -337,13 +342,13 @@ $default-skewy      : 5deg              !default;
 // these numbers are not important on their own, but in relation to one another
 // creating an axis from your transform-origin, along the axis of Xx = Yy = Zz
 @mixin rotate3d(
-  $vectorx: $default-vectorx, 
-  $vectory: $default-vectory, 
-  $vectorz: $default-vectorz, 
-  $rotate: $default-rotate, 
+  $vector-x: $default-vector-x,
+  $vector-y: $default-vector-y,
+  $vector-z: $default-vector-z,
+  $rotate: $default-rotate,
   $perspective: false
 ) {
-  $trans: rotate3d($vectorx, $vectory, $vectorz, $rotate);
+  $trans: rotate3d($vector-x, $vector-y, $vector-z, $rotate);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform3d($trans);
 }
@@ -355,12 +360,12 @@ $default-skewy      : 5deg              !default;
 // @include translate( [ translate-x, translate-y, perspective, 3D-only ] )
 // where the 'translate-' arguments accept any distance in percentages or absolute (px, cm, in, em etc..) units
 @mixin translate(
-  $transx: $default-transx, 
-  $transy: $default-transy,
+  $translate-x: $default-translate-x,
+  $translate-y: $default-translate-y,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
-  $trans: translate($transx, $transy);
+  $trans: translate($translate-x, $translate-y);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform($trans, $only3d);
 }
@@ -368,11 +373,11 @@ $default-skewy      : 5deg              !default;
 // Move an object along the x axis (2D)
 // @include translate( [ translate-x, perspective, 3D-only ] )
 @mixin translateX(
-  $transx: $default-transx,
+  $trans-x:     $default-translate-x,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
-  $trans: translateX($transx);
+  $trans: translateX($trans-x);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform($trans, $only3d);
 }
@@ -380,11 +385,11 @@ $default-skewy      : 5deg              !default;
 // Move an object along the y axis (2D)
 // @include translate( [ translate-y, perspective, 3D-only ] )
 @mixin translateY(
-  $transy: $default-transy,
+  $trans-y:     $default-translate-y,
   $perspective: false,
-  $only3d: false
+  $only3d:      false
 ) {
-  $trans: translateY($transy);
+  $trans: translateY($trans-y);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform($trans, $only3d);
 }
@@ -392,10 +397,10 @@ $default-skewy      : 5deg              !default;
 // Move an object along the z axis (3D)
 // @include translate( [ translate-z, perspective ] )
 @mixin translateZ(
-  $transz: $default-transz,
+  $trans-z:     $default-translate-z,
   $perspective: false
 ) {
-  $trans: translateZ($transz);
+  $trans: translateZ($trans-z);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform3d($trans);
 }
@@ -403,12 +408,12 @@ $default-skewy      : 5deg              !default;
 // Move an object along the x, y and z axis (3D)
 // @include translate( [ translate-x, translate-y, translate-z, perspective ] )
 @mixin translate3d(
-  $transx: $default-transx, 
-  $transy: $default-transy, 
-  $transz: $default-transz,
+  $translate-x: $default-translate-x,
+  $translate-y: $default-translate-y,
+  $translate-z: $default-translate-z,
   $perspective: false
 ) {
-  $trans: translate3d($transx, $transy, $transz);
+  $trans: translate3d($translate-x, $translate-y, $translate-z);
   @if $perspective { $trans: perspective($perspective) $trans; }
   @include transform3d($trans);
 }
@@ -420,31 +425,31 @@ $default-skewy      : 5deg              !default;
 // @include skew( [ skew-x, skew-y, 3D-only ] )
 // where the 'skew-' arguments accept css angles in degrees (deg) or radian (rad) units
 @mixin skew(
-  $skewx: $default-skewx, 
-  $skewy: $default-skewy, 
+  $skew-x: $default-skew-x,
+  $skew-y: $default-skew-y,
   $only3d: false
 ) {
-  $trans: skew($skewx, $skewy);
+  $trans: skew($skew-x, $skew-y);
   @include transform($trans, $only3d);
 }
 
 // Skew an element along the x axiz
 // @include skew( [ skew-x, 3D-only ] )
 @mixin skewX(
-  $skewx: $default-skewx, 
+  $skew-x: $default-skew-x,
   $only3d: false
 ) {
-  $trans: skewX($skewx);
+  $trans: skewX($skew-x);
   @include transform($trans, $only3d);
 }
 
 // Skew an element along the y axis
 // @include skew( [ skew-y, 3D-only ] )
 @mixin skewY(
-  $skewy: $default-skewy, 
+  $skew-y: $default-skew-y,
   $only3d: false
 ) {
-  $trans: skewY($skewy);
+  $trans: skewY($skew-y);
   @include transform($trans, $only3d);
 }
 
@@ -461,86 +466,86 @@ $default-skewy      : 5deg              !default;
 // The full list of options
 @mixin create-transform(
   $perspective: false,
-  $scalex: false,
-  $scaley: false,
-  $scalez: false,
-  $rotatex: false,
-  $rotatey: false,
-  $rotatez: false,
-  $rotate3d: false,
-  $transx: false,
-  $transy: false,
-  $transz: false,
-  $skewx: false,
-  $skewy: false,
-  $originx: false,
-  $originy: false,
-  $originz: false,
-  $only3d: false
+  $scale-x:     false,
+  $scale-y:     false,
+  $scale-z:     false,
+  $rotate-x:    false,
+  $rotate-y:    false,
+  $rotate-z:    false,
+  $rotate3d:    false,
+  $trans-x:     false,
+  $trans-y:     false,
+  $trans-z:     false,
+  $skew-x:      false,
+  $skew-y:      false,
+  $origin-x:    false,
+  $origin-y:    false,
+  $origin-z:    false,
+  $only3d:      false
 ) {
   $trans: unquote("");
-  
+
   // perspective
   @if $perspective { $trans: perspective($perspective) ; }
-  
+
   // scale
-  @if $scalex and $scaley {
-    @if $scalez { $trans: $trans scale3d($scalex, $scaley, $scalez); }
-    @else { $trans: $trans scale($scalex, $scaley); }
+  @if $scale-x and $scale-y {
+    @if $scale-z { $trans: $trans scale3d($scale-x, $scale-y, $scale-z); }
+    @else { $trans: $trans scale($scale-x, $scale-y); }
   } @else {
-    @if $scalex { $trans: $trans scaleX($scalex); }
-    @if $scaley { $trans: $trans scaleY($scaley); }
-    @if $scalez { $trans: $trans scaleZ($scalez); }
+    @if $scale-x { $trans: $trans scaleX($scale-x); }
+    @if $scale-y { $trans: $trans scaleY($scale-y); }
+    @if $scale-z { $trans: $trans scaleZ($scale-z); }
   }
-  
+
   // rotate
-  @if $rotatex { $trans: $trans rotateX($rotatex); }
-  @if $rotatey { $trans: $trans rotateY($rotatey); }
-  @if $rotatez { $trans: $trans rotate($rotatez); }      
-  @if $rotate3d { $trans: $trans rotate3d($rotate3d); }    
+  @if $rotate-x { $trans: $trans rotateX($rotate-x); }
+  @if $rotate-y { $trans: $trans rotateY($rotate-y); }
+  @if $rotate-z { $trans: $trans rotateZ($rotate-z); }
+  @if $rotate3d { $trans: $trans rotate3d($rotate3d); }
 
   // translate
-  @if $transx and $transy {
-    @if $transz { $trans: $trans translate3d($transx, $transy, $transz); }
-    @else { $trans: $trans translate($transx, $transy); }
+  @if $trans-x and $trans-y {
+    @if $trans-z { $trans: $trans translate3d($trans-x, $trans-y, $trans-z); }
+    @else { $trans: $trans translate($trans-x, $trans-y); }
   } @else {
-    @if $transx { $trans: $trans translateX($transx); }
-    @if $transy { $trans: $trans translateY($transy); }
-    @if $transz { $trans: $trans translateZ($transz); }
+    @if $trans-x { $trans: $trans translateX($trans-x); }
+    @if $trans-y { $trans: $trans translateY($trans-y); }
+    @if $trans-z { $trans: $trans translateZ($trans-z); }
   }
 
   // skew
-  @if $skewx and $skewy { $trans: $trans skew($skewx, $skewy); } 
+  @if $skew-x and $skew-y { $trans: $trans skew($skew-x, $skew-y); }
   @else {
-    @if $skewx { $trans: $trans skewX($skewx); }
-    @if $skewy { $trans: $trans skewY($skewy); }
+    @if $skew-x { $trans: $trans skewX($skew-x); }
+    @if $skew-y { $trans: $trans skewY($skew-y); }
   }
 
   // apply it!
   @include transform($trans, $only3d);
-  @include transform-origin($originx, $originy, $originz, $only3d);
+  @include transform-origin($origin-x, $origin-y, $origin-z, $only3d);
 }
 
 
 // A simplified set of options
 // backwards-compatible with the previous version of the 'transform' mixin
 @mixin simple-transform(
-  $scale: false,
-  $rotate: false,
-  $transx: false,
-  $transy: false,
-  $skewx: false,
-  $skewy: false,
-  $originx: false,
-  $originy: false
+  $scale:    false,
+  $rotate:   false,
+  $trans-x:  false,
+  $trans-y:  false,
+  $skew-x:   false,
+  $skew-y:   false,
+  $origin-x: false,
+  $origin-y: false
 ) {
   @include compact-transform(
-    false, 
-    $scale, $scale, false, 
+    false,
+    $scale, $scale, false,
     false, false, $rotate, false,
-    $transx, $transy, false, 
-    $skewx, $skewy,
-    $originx, $originy, false,
+    $trans-x, $trans-y, false,
+    $skew-x, $skew-y,
+    $origin-x, $origin-y, false,
     false
   );
 }
