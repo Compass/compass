@@ -14,6 +14,9 @@ module Compass::SassExtensions::Functions::GradientSupport
     def to_s
       values.map {|v| v.to_s }.join(join_with)
     end
+    def size
+      values.size
+    end
   end
 
   class SpaceList < List
@@ -315,6 +318,10 @@ module Compass::SassExtensions::Functions::GradientSupport
         end
 
       SpaceList.new(*values)
+    end
+
+    def _compass_list_size(list)
+      Sass::Script::Number.new(list.size)
     end
 
     # Get the nth value from a list
