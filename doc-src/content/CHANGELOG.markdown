@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/docs/)
 
-0.11.alpha.1   (11/16/2010)
+0.11.alpha.1   (11/15/2010)
 ---------------------------
 
 Note: Compass does not currently support Sass 3.1 alphas.
@@ -58,7 +58,7 @@ Our CSS3 module makes writing CSS3 today almost as easy as it will be when all
 the browsers officially support the new features. The second version of the
 compass CSS module brings the API up to date with developments over the past
 6 to 9 months of browser changes and more closely matching the most recent CSS
-specifications. Summary of changes:
+specifications. [Upgrade guide](/docs/tutorials/upgrading/css3-v2/). Summary of changes.
 
 * Support for multiple box shadows and text shadows
 * Support for 2d and 3d transforms
