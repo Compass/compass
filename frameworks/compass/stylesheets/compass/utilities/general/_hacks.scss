@@ -10,7 +10,7 @@ $default-has-layout-approach: zoom !default;
 // More information on [hasLayout](http://reference.sitepoint.com/css/haslayout).
 @mixin has-layout($approach: $default-has-layout-approach) {
   @if $legacy-support-for-ie {
-    @if $using == zoom {
+    @if $approach == zoom {
       @include has-layout-zoom;
     } @else if $approach == block {
       @include has-layout-block;
