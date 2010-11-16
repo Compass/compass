@@ -35,23 +35,23 @@ what changed to your stylesheets:
 10. Scroll or use your arrow keys to review the differences between the files.
 11. If you're satisfied: $ git commit -a -m "Upgraded compass"
 12. If you're scared again:
-    A. Don't panic.
-    B. Read the [CHANGELOG](http://compass-style.org/docs/CHANGELOG/) and
+    1. Don't panic.
+    2. Read the [CHANGELOG](http://compass-style.org/docs/CHANGELOG/) and
        see if the changes are explained there.
-    B. Send an email to the [mailing list](http://groups.google.com/group/compass-users)
+    3. Send an email to the [mailing list](http://groups.google.com/group/compass-users)
        explaining the problem and providing enough context like snippets from your diff
        and the relevant snippets of your sass/scss files. In rare cases we might request
        that you construct a simple compass project that exhibits the issue and make an
        archive of it and send us an email with it attached.
-    C. If it's pretty obviously a bug. Please file an issue
+    4. If it's pretty obviously a bug. Please file an issue
        on [github](http://github.com/chriseppstein/compass/issues). If you're experiencing
        a crash, please run the command with the --trace option and record the output for
        diagnostic purposes.
-    D. $ sudo gem uninstall compass
+    5. $ sudo gem uninstall compass
        Select the newest version of compass. You have now downgraded to the old
        version of compass.
-    E. $ compass compile --force
-    F. Diff the folders as in steps 7 through 9.
+    6. $ compass compile --force
+    7. Diff the folders as in steps 7 through 9.
 13. Breathe a sigh of relief.
        
        

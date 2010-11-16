@@ -152,8 +152,9 @@ $default-skew-y      : 5deg                  !default;
   @include transform($trans, true);
 }
 
-
+// @doc off
 // 3D Parameters -------------------------------------------------------------
+// @doc on
 
 // Set the perspective of 3D transforms on the children of an element:
 //
@@ -193,7 +194,7 @@ $default-skew-y      : 5deg                  !default;
 
 // Determine the visibility of an element when it's back is turned
 //
-// @include backface-visibility( [ visibility ] )
+//     @include backface-visibility( [ visibility ] )
 //
 // where `visibility` can be either `visible` or `hidden`
 // browsers default to visible, mixin defaults to hidden
@@ -440,11 +441,14 @@ $default-skew-y      : 5deg                  !default;
   @include transform3d($trans);
 }
 
-
+// @doc off
 // Skew ----------------------------------------------------------------------
+// @doc on
 
-// Skew an element
-// @include skew( [ skew-x, skew-y, 3D-only ] )
+// Skew an element:
+//
+//     @include skew( [ skew-x, skew-y, 3D-only ] )
+//
 // where the 'skew-' arguments accept css angles in degrees (deg) or radian (rad) units
 //
 // **Note** This mixin cannot be combined with other transform mixins.
@@ -458,7 +462,8 @@ $default-skew-y      : 5deg                  !default;
 }
 
 // Skew an element along the x axiz
-// @include skew( [ skew-x, 3D-only ] )
+//
+//     @include skew( [ skew-x, 3D-only ] )
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin skewX(
@@ -470,7 +475,8 @@ $default-skew-y      : 5deg                  !default;
 }
 
 // Skew an element along the y axis
-// @include skew( [ skew-y, 3D-only ] )
+//
+//     @include skew( [ skew-y, 3D-only ] )
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin skewY(
