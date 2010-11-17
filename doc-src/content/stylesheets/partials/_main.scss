@@ -1,0 +1,10 @@
+#page {
+  position: relative;
+  padding-top: 25px;
+  & > article { padding-top: 14px; font-size: 15px;
+    h1, h2 { padding-bottom: 6px; margin-bottom: 9px; }}}
+
+#version { @include round-bottom-corners;
+  font-size: .7em;
+  position: absolute; top: 0; right: 0;
+  padding: 2px 8px 4px; }

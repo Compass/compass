@@ -1,0 +1,15 @@
+$min-width: 530px;
+$side-nav-width: 150px;
+$main-min-width: $min-width - $side-nav-width;
+
+body { 
+  max-width: 1500px;
+  min-width: $min-width;
+  margin: 0 auto;
+  @extend .sans-font;
+  line-height: 1.45em;
+}
+#wrap { @extend .group; padding: 0 20px;}
+header { padding: 22px 0 0; position: relative; }
+#page > article { padding-left: $side-nav-width + 40px; }
+aside { float: left; width: $side-nav-width; }

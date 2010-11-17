@@ -1,0 +1,60 @@
+$page-bg: #343434;
+$link-color: #dadbb1;
+$text-color: #b6b6b6;
+$light-text: #dbdbdb;
+$nav-link-color: #bfbfbf;
+$current-main-nav: #fb292d;
+
+.dark-inset-panel {
+  @include background-image(linear-gradient(rgba(#000, .5), rgba(#000, 0)));
+  @include single-box-shadow(rgba(#fff, .1), 0, 1px, 0);
+  background-color: rgba(#000, .2); }
+  
+.dark-horizontal-rule {  
+  @include single-box-shadow(rgba(#fff, .07), 0, 1px, 0);
+  border-bottom: 1px solid #121212; }
+  
+.dark-vertical-rule {
+  @include single-box-shadow(rgba(#fff, .07), 1px, 0, 0);
+  border-right: 1px solid #121212; }
+  
+.dark-code-block { @extend .round-corners-4; @extend .inset-panel;
+  display: inline-block;
+  padding-left: 2px;
+  padding-right: 2px; }
+
+
+// Dark Theme
+
+body { background: $page-bg; color: $text-color;
+  a { color: $link-color; }}
+
+header{ @extend .dark-horizontal-rule; }
+  
+#main-nav { 
+  a { color: $light-text; }
+  a[rel=documentation] { color: $current-main-nav; }}
+
+#search-docs {
+  input::-webkit-input-placeholder { color: #6e6e6e; }
+  input { @extend .dark-inset-panel; background-color: rgba(#000, .2); color: #6e6e6e;}}
+
+nav a { color: $nav-link-color; }
+#subnav { @extend .dark-horizontal-rule; }
+#version {
+  background: rgba(#fff, .03);
+  color: rgba(#fff, .4);
+  a { @include hover-link; color: rgba(#fff, .7);}
+  border: 1px solid rgba(#000, .3); border-top: 0; }
+
+aside { @extend .dark-vertical-rule;
+  h2 { @extend .dark-horizontal-rule;
+    a { color: $light-text; }}}
+#page > article {
+  h1, h2 { @extend .dark-horizontal-rule; }
+  #{headings()}{ color: #fff; }}
+
+#docs-nav { @extend .dark-vertical-rule;
+  a:last-child { @extend .dark-inset-panel; color: $light-text; }}
+
+#module-nav .selected a { color: $link-color; }

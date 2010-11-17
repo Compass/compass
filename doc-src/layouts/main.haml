@@ -1,37 +1,31 @@
 - render "basic" do
   #wrap
     %header#banner{:role => "banner"}
-      %div
-        %h1.vcard
-          %a.fn.org.url.uid{:href => "/", :rel => "home"} Compass
-    %nav#docs-nav{:role => "navigation"}
-      .container
+      %nav#main-nav{:role => "navigation"}
         %ul
+          %li.vcard
+            %a.fn.org.url.uid{:href => "/", :rel => "home"} Compass
           %li
-            %a{:href => "/docs/"} introduction
+            %a.here{:href => "/docs/reference/compass/", :rel => "documentation"} Docs
           %li
-            %a{:href => "/docs/reference/compass/"} core
+            %a{:href => "/help", :rel=> "help"} Get Help
           %li
-            %a{:href => "/docs/reference/blueprint/"} blueprint
-          %li
-            %a{:href => "/docs/tutorials/"} tutorials
-          /
-            %li
-              %a{:href => "/docs/plugins/"} plugins
-        #version
-          Current Version:
-          %a.number(href="/docs/CHANGELOG/")= compass_version
-        #search-docs
-          %form{:action => "/docs/search/", :method => "GET"}
-            %p
-              %label{:for => "search"} search
-              %input#search{:name => "q", :type => "text", :value => ""}
-    - if @item[:content_for_module_nav]
-      %nav#module-nav= @item[:content_for_module_nav]
+            %a{:href => "/get-involved", :rel=> "contribute"} Get Involved
+              
+      %form#search-docs{:action => "/docs/search/", :method => "GET"}
+        %input#search{:name => "q", :type => "text", :value => "", :placeholder => "Search the docs"}
+    #subnav
+      %nav#docs-nav{:role => "navigation"}
+        %a{:href => "/docs/reference/blueprint/"} Blueprint
+        %a{:href => "/docs/reference/compass/"} Core
+      - if @item[:content_for_module_nav]
+        %nav#module-nav= @item[:content_for_module_nav]
     #page
+      #version
+        Version:
+        %a.number(href="/docs/CHANGELOG/")= compass_version
       = yield
-      #comments= render "partials/disqus_comments"
-    #wrap-footer
+      -#comments= render "partials/disqus_comments"
   %footer(role="contentinfo")= render "partials/footer"
   %script(src="/docs/javascripts/jquery-1.3.2.min.js")
   %script(src="/docs/javascripts/fixups.js" deferred)

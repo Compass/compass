@@ -8,8 +8,8 @@ GIT
 PATH
   remote: /Users/bmathis/Documents/Workspace/compass-projects/compass
   specs:
-    compass (0.11.alpha.0.c9a684c)
-      haml (>= 3.0.4)
+    compass (0.11.alpha.0.dabd4f6)
+      haml (~> 3.0.23)
 
 GEM
   remote: http://rubygems.org/
