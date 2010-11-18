@@ -6,9 +6,9 @@ stylesheet 'ellipsis.sass'
 help %Q{
 First, install the plugin to get the xml file that makes this work in firfox:
 
-  compass init --using blueprint/link_icons
+  compass init --using compass/ellipsis
 
-Then mix +ellipsis into your selectors to enable ellipsis
+Then @include "ellipsis" into your selectors to enable ellipsis
 there when text gets too long.
 
 The ellipsis.sass file is just an example for how to use this plugin,
