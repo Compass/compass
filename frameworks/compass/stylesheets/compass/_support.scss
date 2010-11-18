@@ -27,3 +27,5 @@ $experimental-support-for-khtml     : true !default;
 // Setting this to true might add significant size to your
 // generated stylesheets.
 $experimental-support-for-svg     : false !default;
+// Support for CSS PIE in experimental css3 properties.
+$experimental-support-for-pie     : false !default;

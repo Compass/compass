@@ -1,0 +1,24 @@
+.pie-element, .bordered, .gradient {
+  behavior: url('/tmp/PIE.htc');
+  position: relative; }
+
+.bordered {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px; }
+
+.gradient {
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0000), color-stop(100%, #0000ff));
+  background: -moz-linear-gradient(#ff0000 0%, #0000ff 100%);
+  -pie-background: linear-gradient(#ff0000 0%, #0000ff 100%);
+  background: linear-gradient(#ff0000 0%, #0000ff 100%); }
+
+.pie-container, .widget {
+  z-index: 0; }
+
+.z-pie-element, .widget h3 {
+  behavior: url('/tmp/PIE.htc');
+  z-index: 0; }
