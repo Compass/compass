@@ -1,0 +1,53 @@
+$experimental-support-for-pie: true;
+
+$pie-base-class: false !default;
+// The default approach to using PIE.
+// Can be one of:
+//
+// * relative
+// * z-index
+$pie-default-approach: relative !default;
+
+// The location of your PIE behavior file
+// This should be root-relative to your web server
+// relative assets don't work.
+$pie-behavior: stylesheet-url("PIE.htc") !default;
+
+// When using the z-index approach, the
+// first ancestor of the PIE element at
+// or before the container's opaque background
+// should have a z-index set as well to ensure
+// propert z-index stacking.
+@mixin pie-container($z-index: 0) {
+  z-index: $z-index;
+}
+
+// PIE elements must have this behavior attached to them.
+// IE is broken -- it doesn't think of behavior urls as
+// relative to the stylesheet. It considers them relative
+// to the webpage. As a result, you cannot reliably use
+// compass's relative_assets with PIE.
+@mixin pie-element(
+  $approach: $pie-default-approach,
+  $z-index: if($approach == z-index, 0),
+  $behavior : $pie-behavior 
+) {
+  behavior: $behavior;
+  @if $approach == relative {
+    position: relative;
+  }
+  @else if $approach == z-index {
+    z-index: $z-index;
+  }
+}
+
+// a smart mixin that knows to extend or include pie-element according
+// to your stylesheet's configuration variables.
+@mixin pie($base-class: $pie-base-class) {
+  @if $base-class {
+    @extend .#{$base-class};
+  }
+  @else {
+    @include pie-element;
+  }
+}

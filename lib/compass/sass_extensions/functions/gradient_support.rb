@@ -88,6 +88,10 @@ module Compass::SassExtensions::Functions::GradientSupport
       # XXX Add shape support if possible
       radial_svg_gradient(color_stops, position_and_angle || Sass::Script::String.new("center center"))
     end
+    def to_pie
+      Compass::Logger.new.record(:warning, "PIE does not support radial-gradient.")
+      Sass::Script::String.new("-pie-radial-gradient(unsupported)")
+    end
   end
 
   class LinearGradient < Sass::Script::Literal
@@ -120,6 +124,11 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_svg
       linear_svg_gradient(color_stops, position_and_angle || Sass::Script::String.new("top"))
+    end
+    def to_pie
+      # PIE just uses the standard rep, but the property is prefixed so
+      # the presence of this attribute helps flag when to render a special rule.
+      to_s 
     end
   end
 
@@ -355,7 +364,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       list.class.new *list.values[start_index..end_index]
     end
 
-    %w(webkit moz o ms svg).each do |prefix|
+    %w(webkit moz o ms svg pie).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
           List.new(*args.map! do |a|

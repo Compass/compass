@@ -18,7 +18,8 @@
   @if $experimental-support-for-svg     and prefixed(-svg,    $images) { background-image:    -svg($images); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $images) { background-image: -webkit($images); }
   @if $experimental-support-for-mozilla and prefixed(-moz,    $images) { background-image:    -moz($images); }
-                                                                         background-image:         $images;
+  @if $experimental-support-for-pie     and (prefixed(-pie,    $images) or -compass-list-size($images) > 1) { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
+                                                                         background-image:         $images ;
 }
 
 @mixin background(
@@ -39,6 +40,7 @@
   @if $experimental-support-for-svg     and prefixed(-svg,    $backgrounds) {       background:    -svg($backgrounds); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $backgrounds) {       background: -webkit($backgrounds); }
   @if $experimental-support-for-mozilla and prefixed(-moz,    $backgrounds) {       background:    -moz($backgrounds); }
+  @if $experimental-support-for-pie     and (prefixed(-pie,   $backgrounds) or -compass-list-size($backgrounds) > 1) {  -pie-background:    -pie($backgrounds); }
                                                                                     background:         $backgrounds;
 }
 
