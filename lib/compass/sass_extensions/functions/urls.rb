@@ -11,7 +11,7 @@ module Compass::SassExtensions::Functions::Urls
       Compass.configuration.http_root_relative(Compass.configuration.css_dir)
     end
 
-    path = "#{http_stylesheets_path}/#{path}"
+    path = "#{http_stylesheets_path}/#{path.value}"
     if only_path.to_bool
       Sass::Script::String.new(clean_path(path))
     else
