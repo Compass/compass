@@ -71,7 +71,17 @@ module Compass
         define_method "install_#{type}" do |from, to, options|
           from = templatize(from)
           to = targetize(send(loc_method, to, options))
-          copy from, to, nil, (installer_opts[:binary] || options[:binary])
+          is_binary = installer_opts[:binary] || options[:binary]
+          if is_binary
+            copy from, to, nil, is_binary
+          else
+            contents = File.new(from).read
+            if options.delete(:erb)
+              ctx = TemplateContext.ctx(:to => to, :options => options)
+              contents = process_erb(contents, ctx)
+            end
+            write_file to, contents
+          end
         end
       end
 
@@ -83,6 +93,10 @@ module Compass
         from = templatize(from)
         to = targetize(install_location_for_stylesheet(to, options))
         contents = File.new(from).read
+        if options.delete(:erb)
+          ctx = TemplateContext.ctx(:to => to, :options => options)
+          contents = process_erb(contents, ctx)
+        end
         if preferred_syntax.to_s != from[-4..-1]
           # logger.record :convert, basename(from)
           tree = Sass::Engine.new(contents, Compass.sass_engine_options.merge(:syntax => from[-4..-1].intern)).to_tree
