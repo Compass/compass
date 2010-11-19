@@ -4,9 +4,9 @@ file 'xml/ellipsis.xml', :like => :css
 stylesheet 'ellipsis.sass'
 
 help %Q{
-First, install the plugin to get the xml file that makes this work in firfox:
+First, install the plugin to get the xml file that makes this work in firefox:
 
-  compass init --using compass/ellipsis
+  compass install compass/ellipsis
 
 Then @include "ellipsis" into your selectors to enable ellipsis
 there when text gets too long.
