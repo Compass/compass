@@ -28,6 +28,7 @@ to `compass/css3/box-shadow-v2` once you do one of the following choices:
    `box-shadow` takes up to 10 comma-delimited shadows. Each shadow is
    how the values should appear in the CSS (space separated).
 
+<a name="text-shadow"></a>
 ## Text Shadow
 
 Similarly to how the box shadow changed. The new [text-shadow][new_text_shadow]
@@ -41,13 +42,45 @@ the following choices:
    `text-shadow` takes up to 10 comma-delimited shadows. Each shadow is
    how the values should appear in the CSS (space separated).
 
+<a name="transform"></a>
 ## CSS Transforms
 The transform module was largely re-written to support 3D transforms. If you
 are using it, it is suggested that you read the [new module's documentation][new_transform]
 and adjust your code appropriately. Many mixin names and constants have changed.
+
+<a name="gradients"></a>
+## Gradients
+
+The Compass gradient support now more closely emulates the CSS3 specification of how gradients
+are represented and passed around. The `linear-gradient` and `radial-gradient` mixins
+have been deprecated and instead, you should use the `linear-gradient()` and `radial-gradient()`
+functions in conjunction with mixins for the [properties that support gradients][image_stylesheet] like
+`background` / `background-image`, `border-image`, `list-style` / `list-style-image`,
+and `content`.
+
+After upgrading, you'll receive deprecation warnings for your usage of the old gradient
+mixins and a suggested replacement value for each. If you'd rather keep the old mixins in
+your project for convenience, just copy the following to your project after changing your imports:
+
+    @mixin radial-gradient($color-stops, $center-position: center center, $image: false) {
+      @include background-image($image, radial-gradient($center-position, $color-stops));
+    }
+    @mixin linear-gradient($color-stops, $start: top, $image: false) {
+      @include background-image($image, linear-gradient($start, $color-stops));
+    }
+
+Or for sass files:
+
+    =radial-gradient($color-stops, $center-position: center center, $image: false)
+      +background-image($image, radial-gradient($center-position, $color-stops))
+    
+    =linear-gradient($color-stops, $start: top, $image: false)
+      +background-image($image, linear-gradient($start, $color-stops))
+
 
 [old_box_shadow]: /docs/reference/compass/css3/box_shadow/#mixin-box-shadow
 [new_box_shadow]: /docs/reference/compass/css3/box_shadow_v2/#mixin-box-shadow
 [old_text_shadow]: /docs/reference/compass/css3/text_shadow/#mixin-text-shadow
 [new_text_shadow]: /docs/reference/compass/css3/text-shadow-v2/#mixin-text-shadow
 [new_transform]: /docs/reference/compass/css3/transform-v2/
+[image_stylesheet]: /docs/reference/compass/css3/images/
