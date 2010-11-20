@@ -15,4 +15,7 @@ aside {
   .deprecated {
     text-decoration: line-through;
   }
+  .beta span:after {
+    content: " (\3B2)";
+  }
 }

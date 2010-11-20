@@ -1,5 +1,9 @@
 %h1= item[:title]
 
+- if item[:beta]
+  %p.beta
+    This module is fairly new and is currently in BETA (&beta;).
+
 = yield
 
 %p
