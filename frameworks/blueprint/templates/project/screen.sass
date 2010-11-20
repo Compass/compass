@@ -11,10 +11,9 @@
 // configuration applied, uncomment:
 // @include blueprint
 
-// But Compass recommends that you scope your blueprint styles
-// So that you can better control what pages use blueprint
-// when stylesheets are concatenated together.
-+blueprint-scaffolding("body.bp")
+// If you are doing a lot of stylesheet concatenation, it is suggested
+// that you scope your blueprint styles, so that you can better control
+// what pages use blueprint when stylesheets are concatenated together.
 body.bp
   +blueprint-typography(true)
   +blueprint-utilities
@@ -24,6 +23,8 @@ body.bp
   // Or leave it in if you're happy with how blueprint looks out-of-the-box
 form.bp
   +blueprint-form
+  // You'll probably want to remove the scaffolding once you start styling your site.
+  +blueprint-scaffolding
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 body.two-col
