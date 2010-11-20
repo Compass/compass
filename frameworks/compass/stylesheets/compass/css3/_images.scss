@@ -1,27 +1,6 @@
 @import "shared";
 
-
-@mixin background-image(
-  $image-1,
-  $image-2: false,
-  $image-3: false,
-  $image-4: false,
-  $image-5: false,
-  $image-6: false,
-  $image-7: false,
-  $image-8: false,
-  $image-9: false,
-  $image-10: false
-) {
-  $images: compact($image-1, $image-2, $image-3, $image-4, $image-5, $image-6, $image-7, $image-8, $image-9, $image-10);
-
-  @if $experimental-support-for-svg     and prefixed(-svg,    $images) { background-image:    -svg($images); }
-  @if $experimental-support-for-webkit  and prefixed(-webkit, $images) { background-image: -webkit($images); }
-  @if $experimental-support-for-mozilla and prefixed(-moz,    $images) { background-image:    -moz($images); }
-  @if $experimental-support-for-pie     and (prefixed(-pie,    $images) or -compass-list-size($images) > 1) { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
-                                                                         background-image:         $images ;
-}
-
+// Background property support for vendor prefixing within values.
 @mixin background(
   $background-1,
   $background-2: false,
@@ -44,6 +23,41 @@
                                                                                     background:         $backgrounds;
 }
 
+// Background image property support for vendor prefixing within values.
+@mixin background-image(
+  $image-1,
+  $image-2: false,
+  $image-3: false,
+  $image-4: false,
+  $image-5: false,
+  $image-6: false,
+  $image-7: false,
+  $image-8: false,
+  $image-9: false,
+  $image-10: false
+) {
+  $images: compact($image-1, $image-2, $image-3, $image-4, $image-5, $image-6, $image-7, $image-8, $image-9, $image-10);
+
+  @if $experimental-support-for-svg     and prefixed(-svg,    $images) { background-image:    -svg($images); }
+  @if $experimental-support-for-webkit  and prefixed(-webkit, $images) { background-image: -webkit($images); }
+  @if $experimental-support-for-mozilla and prefixed(-moz,    $images) { background-image:    -moz($images); }
+  @if $experimental-support-for-pie     and (prefixed(-pie,    $images) or -compass-list-size($images) > 1) { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
+                                                                         background-image:         $images ;
+}
+
+// Emit a IE-Specific filters that renders a simple linear gradient.
+// For use in IE 6 - 8. Best practice would have you apply this via a
+// conditional IE stylesheet, but if you must, you should place this before
+// any background-image properties that you have specified.
+@mixin filter-gradient($start-color, $end-color, $orientation: vertical) {
+  @include has-layout;
+  $gradient-type: if($orientation == vertical, 0, 1);
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=#{$gradient-type}, startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(gradientType=#{$gradient-type}, startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}')";
+}
+
+
+// Border image property support for vendor prefixing properties and values.
 @mixin border-image($value) {
   @if $experimental-support-for-mozilla {    -moz-border-image:    -moz(-compass-list($value)); }
   @if $experimental-support-for-webkit  { -webkit-border-image: -webkit(-compass-list($value)); }
@@ -51,6 +65,7 @@
                                                   border-image:                       $value;
 }
 
+// List style image property support for vendor prefixing within values.
 @mixin list-style-image($image) {
   @if $experimental-support-for-mozilla and prefixed(-moz,    $image) { list-style-image:    -moz($image); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $image) { list-style-image: -webkit($image); }
@@ -58,6 +73,7 @@
                                                                         list-style-image:         $image ;
 }
 
+// List style property support for vendor prefixing within values.
 @mixin list-style($value) {
   $value: -compass-list($value);
   @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { list-style-image:    -moz($value); }
@@ -66,6 +82,7 @@
                                                                         list-style-image:         $value ;
 }
 
+// content property support for vendor prefixing within values.
 @mixin content($value) {
   $value: -compass-list($value);
   @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { content:    -moz($value); }
