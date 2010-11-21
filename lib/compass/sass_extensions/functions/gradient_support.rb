@@ -189,7 +189,7 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     def color_stops_in_percentages(color_list)
       assert_list(color_list)
-      normalize_stops!(color_list)
+      color_list = normalize_stops(color_list)
       max = color_list.values.last.stop
       last_value = nil
       color_stops = color_list.values.map do |pos|
@@ -408,8 +408,8 @@ module Compass::SassExtensions::Functions::GradientSupport
         Sass::Script::String.new(node.to_s)
       end
     end
-    def normalize_stops!(color_list)
-      positions = color_list.values
+    def normalize_stops(color_list)
+      positions = color_list.value.map{|obj| obj.dup}
       # fill in the start and end positions, if unspecified
       positions.first.stop = Sass::Script::Number.new(0) unless positions.first.stop
       positions.last.stop = Sass::Script::Number.new(100, ["%"]) unless positions.last.stop

@@ -12,9 +12,9 @@
 
 .gradient {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0000), color-stop(100%, #0000ff));
-  background: -moz-linear-gradient(#ff0000 0%, #0000ff 100%);
-  -pie-background: linear-gradient(#ff0000 0%, #0000ff 100%);
-  background: linear-gradient(#ff0000 0%, #0000ff 100%); }
+  background: -moz-linear-gradient(#ff0000, #0000ff);
+  -pie-background: linear-gradient(#ff0000, #0000ff);
+  background: linear-gradient(#ff0000, #0000ff); }
 
 .pie-container, .widget {
   z-index: 0;
