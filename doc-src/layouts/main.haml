@@ -14,12 +14,12 @@
               
       %form#search-docs{:action => "/docs/search/", :method => "GET"}
         %input#search{:name => "q", :type => "text", :value => "", :placeholder => "Search the docs"}
-    #subnav
+    #sub-nav
       %nav#docs-nav{:role => "navigation"}
-        %a{:href => "/docs/reference/blueprint/"} Blueprint
-        %a{:href => "/docs/reference/compass/"} Core
+        %a{:href => "/docs/reference/blueprint/", :rel => "blueprint"} Blueprint
+        %a{:href => "/docs/reference/compass/", :rel => "core"} Core
       - if @item[:content_for_module_nav]
-        %nav#module-nav= @item[:content_for_module_nav]
+      %nav#module-nav= @item[:content_for_module_nav]
     #page
       #version
         Version:

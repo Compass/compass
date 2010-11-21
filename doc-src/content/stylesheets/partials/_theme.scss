@@ -1,60 +1,78 @@
-$page-bg: #343434;
-$link-color: #dadbb1;
-$text-color: #b6b6b6;
-$light-text: #dbdbdb;
-$nav-link-color: #bfbfbf;
-$current-main-nav: #fb292d;
+@mixin site-theme($theme, $page-bg, $text, $strong-text, $heading, $link, $search, $search-bg, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border){
+  body { background: $page-bg; color: $text;
+    a { color: $link; } }
+  #wrap { @extend .horizontal-rule-#{$theme}; }
+  header { @extend .horizontal-rule-#{$theme}; border-width: 4px; }
+  nav a { color: $nav-link; }
+  
+  #main-nav a { color: $main-nav;}
+  body.home a[rel=home],
+  body.help a[rel=help],
+  body.docs a[rel=docs],
+  body.get-involved a[rel=get-involved]{ color: $main-nav-selected; }
+  
+  #sub-nav { @extend .horizontal-rule-#{$theme}; }
+  #docs-nav { @extend .vertical-rule-#{$theme}; }
+  body.core a[rel=core], body.blueprint a[rel=blueprint]{ @extend .inset-panel-#{$theme}; color: $docs-nav-selected; }
+  #module-nav .selected { color: $module-nav-selected; }
+  
+  #search-docs {
+    input::-webkit-input-placeholder { color: $search; }
+    input { @extend .inset-panel-#{$theme}; background-color: rgba($search-bg, .2); color: $search;}}
+  
+  aside { @extend .vertical-rule-#{$theme};
+    h2 { @extend .horizontal-rule-#{$theme};
+      a { color: $text; } } }
+  
+  #version { background: rgba($version-text, .03); color: rgba($version-text, .4); border: 1px solid rgba($version-border, .3); border-top: 0;
+    a { @include hover-link; color: rgba($version-text, .7); } }
+  
+  #page > article {
+    #{headings()}{ color: $heading; } }
+    h1, h2 { @extend .horizontal-rule-#{$theme}; }
+}
 
-.dark-inset-panel {
+// Dark theme
+.inset-panel-dark {
   @include background-image(linear-gradient(rgba(#000, .5), rgba(#000, 0)));
   @include single-box-shadow(rgba(#fff, .1), 0, 1px, 0);
   background-color: rgba(#000, .2); }
   
-.dark-horizontal-rule {  
+.horizontal-rule-dark {  
   @include single-box-shadow(rgba(#fff, .07), 0, 1px, 0);
   border-bottom: 1px solid #121212; }
   
-.dark-vertical-rule {
+.vertical-rule-dark {
   @include single-box-shadow(rgba(#fff, .07), 1px, 0, 0);
   border-right: 1px solid #121212; }
   
-.dark-code-block { @extend .round-corners-4; @extend .inset-panel;
+.code-block-dark { @extend .round-corners-4; @extend .inset-panel-dark;
   display: inline-block;
   padding-left: 2px;
   padding-right: 2px; }
 
+@mixin dark-theme {
+  $page-bg: #343434;
 
-// Dark Theme
+  $text: #b6b6b6;
+  $heading: white;
+  $strong-text: #dbdbdb;
 
-body { background: $page-bg; color: $text-color;
-  a { color: $link-color; }}
+  $search: #6e6e6e;
+  $search-bg: black;
 
-header{ @extend .dark-horizontal-rule; }
-  
-#main-nav { 
-  a { color: $light-text; }
-  a[rel=documentation] { color: $current-main-nav; }}
+  $link: #dadbb1;
+  $nav-link: #bfbfbf;
 
-#search-docs {
-  input::-webkit-input-placeholder { color: #6e6e6e; }
-  input { @extend .dark-inset-panel; background-color: rgba(#000, .2); color: #6e6e6e;}}
+  $main-nav: $strong-text;
+  $main-nav-selected: #fb292d;
+  $docs-nav-selected: $text;
+  $module-nav-selected: $link;
 
-nav a { color: $nav-link-color; }
-#subnav { @extend .dark-horizontal-rule; }
-#version {
-  background: rgba(#fff, .03);
-  color: rgba(#fff, .4);
-  a { @include hover-link; color: rgba(#fff, .7);}
-  border: 1px solid rgba(#000, .3); border-top: 0; }
+  $version-text: white;
+  $version-border: black;
 
-aside { @extend .dark-vertical-rule;
-  h2 { @extend .dark-horizontal-rule;
-    a { color: $light-text; }}}
-#page > article {
-  h1, h2 { @extend .dark-horizontal-rule; }
-  #{headings()}{ color: #fff; }}
+  @include site-theme(dark, $page-bg, $text, $strong-text, $heading, $link, $search, $search-bg, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border);
+}
 
-#docs-nav { @extend .dark-vertical-rule;
-  a:last-child { @extend .dark-inset-panel; color: $light-text; }}
-
-#module-nav .selected a { color: $link-color; }
+html.dark { @include dark-theme; }

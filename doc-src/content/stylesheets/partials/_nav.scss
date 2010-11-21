@@ -13,7 +13,7 @@ header { @extend .group;
     @include replace-text-with-dimensions("compass-logo-small.png");
     display: inline-block; }}
 
-#subnav {
+#sub-nav {
   @extend .group;
   padding: 8px 0; }
   
@@ -36,18 +36,9 @@ header { @extend .group;
     @include horizontal-list(10px);}}
     
 #search-docs {
-  display: inline-block;
-  width: 23%;
-  vertical-align: top;
-  float: right;
-  position: relative;
-  input {
-    @extend .sans-font;
-    @extend .round-corners-4;
-    position: relative; top: 6px;
-    margin: 0; padding: 5px 8px;
-    font-size: .8em;
-    float: right;
-    width: 100%; max-width: 200px; min-width: 80px;
+  width: 20%; position: absolute; top: 29px; right: 0;
+  input { @extend .sans-font; @extend .round-corners-4;
     @include box-sizing(border-box);
-    border: 0; }}
+    width: 100%; max-width: 200px; min-width: 60px; border: 0; margin: 0; padding: 5px 8px;
+    font-size: .8em;
+    float: right; } }
