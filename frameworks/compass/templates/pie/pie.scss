@@ -58,8 +58,9 @@ $pie-base-class: pie-element;
   @include pie-element(z-index);
 }
 
+// This is just a simple example of how to use the z-index approach.
 .widget {
-  @extend .pie-container; // This will
+  @extend .pie-container;
   h3 {
     @include pie(z-pie-element); // This will extend .z-pie-element instead of .pie-element
   }
