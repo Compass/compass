@@ -17,7 +17,8 @@
   background: linear-gradient(#ff0000 0%, #0000ff 100%); }
 
 .pie-container, .widget {
-  z-index: 0; }
+  z-index: 0;
+  position: relative; }
 
 .z-pie-element, .widget h3 {
   behavior: url('/tmp/PIE.htc');
