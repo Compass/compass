@@ -10,9 +10,21 @@ COMPASS CHANGELOG
 Upgrading compass is really easy.
 Don't let all these details [scare you...](/help/tutorials/upgrading/im-scared/)
 
-The Documentation for the [latest stable release](http://compass-style.org/):
+The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
+
+0.11.alpha.2 (11/22/2010)
+---------------------------
+
+* Support for Sass 3.1 alpha version
+* CSS3 PIE module. [Docs](/reference/compass/css3/pie/).
+* The versioned modules in the last release have been removed. There is now
+  just a single module for each and the overloaded mixins will discern
+  deprecated usage and warn accordingly.
+* Allow erb processing of non all non-binary filetypes during extension installs.
+* Added a `background` mixin for css3 gradient support in the shorthand style.
+* Fix for gradients in opera with bordered elements.
 
 0.11.alpha.1   (11/15/2010)
 ---------------------------
@@ -29,12 +41,6 @@ Note: Compass does not currently support Sass 3.1 alphas.
 * The linear-gradient and radial-gradient mixins have been deprecated.
   Instead use the background-image mixin and pass it a gradient function.
   The deprecation warning will print out the correct call for you to use.
-* The `css3` import is deprecated as well as the following css3 modules:
-  `box-shadow`, `text-shadow`, and `transform`. Instead import `css3/version-2`,
-  `box-shadow-v2`, `text-shadow-v2`, and `transform-v2` respectively.
-  However, you will only get deprecation warnings if you actually use
-  one of the deprecated mixins. The imports will be restored by 1.0
-  with the new, betterer APIs.
 * Passing an argument to the `blueprint-scaffolding` mixin is not necessary
   and has been deprecated.
 * Some blueprint color defaults now use color functions instead of color arithmetic.
