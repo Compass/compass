@@ -64,7 +64,7 @@ Our CSS3 module makes writing CSS3 today almost as easy as it will be when all
 the browsers officially support the new features. The second version of the
 compass CSS module brings the API up to date with developments over the past
 6 to 9 months of browser changes and more closely matching the most recent CSS
-specifications. [Upgrade guide](/help/tutorials/upgrading/css3-v2/). Summary of changes.
+specifications. [Upgrade guide](/help/tutorials/upgrading/antares/). Summary of changes.
 
 * Support for multiple box shadows and text shadows
 * Support for 2d and 3d transforms

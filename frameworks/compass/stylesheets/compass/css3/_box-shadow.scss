@@ -91,7 +91,7 @@ $default-box-shadow-inset : false !default;
   @if $legacy {
     @warn "Passing separate arguments for a single shadow to box-shadow is deprecated. " +
           "Pass the values as a single space-separated list, or use the single-box-shadow mixin. " +
-          "See http://beta.compass-style.org/help/tutorials/upgrading/css3-v2/ for more info.";
+          "See http://beta.compass-style.org/help/tutorials/upgrading/antares/ for more info.";
     @include single-box-shadow(
       if($shadow-1, $shadow-1, $default-box-shadow-color),
       if($shadow-2, $shadow-2, $default-box-shadow-h-offset),

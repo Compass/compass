@@ -62,7 +62,7 @@ $default-text-shadow-blur:     1px  !default;
   @if $legacy {
     @warn "Passing separate arguments for a single shadow to text-shadow is deprecated. " +
           "Pass the values as a single space-separated list, or use the single-text-shadow mixin. " +
-          "See http://beta.compass-style.org/help/tutorials/upgrading/css3-v2/ for more info.";
+          "See http://beta.compass-style.org/help/tutorials/upgrading/antares/ for more info.";
     @include single-text-shadow(
       $shadow-1,
       if($shadow-2, $shadow-2, $default-text-shadow-h-offset),

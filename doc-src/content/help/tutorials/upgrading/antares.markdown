@@ -1,11 +1,12 @@
 ---
-title: CSS3 v2 Upgrade
+title: Compass v0.11 Upgrade
 layout: tutorial
-crumb: CSS3 v2 Upgrade
+crumb: Upgrading to v0.11
 classnames:
   - tutorial
 ---
-# Upgrading to Compass CSS3 v2
+# Upgrading to the Compass Antares Release (v0.11)
+
 Many mixins and certain uses of mixins have been deprecated, but your
 existing stylesheets should still work out of the box with one exception:
 users who are using the `css3/transform` module should update their imports
