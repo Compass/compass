@@ -1,9 +1,5 @@
 module Compass::SassExtensions::Functions::Colors
-  if defined?(Sass::Util)
-    include Sass::Util
-  else
-    include Haml::Util
-  end
+  include Compass::Util
 
   # a genericized version of lighten/darken so that negative values can be used.
   def adjust_lightness(color, amount)

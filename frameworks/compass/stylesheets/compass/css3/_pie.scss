@@ -46,7 +46,7 @@ $pie-behavior: stylesheet-url("PIE.htc") !default;
   $approach: $pie-default-approach,
   $z-index: 0
 ) {
-  behavior: $behavior;
+  behavior: $pie-behavior;
   @if $approach == relative {
     position: relative;
   }

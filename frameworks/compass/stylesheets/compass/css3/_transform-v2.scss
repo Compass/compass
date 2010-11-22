@@ -110,7 +110,7 @@ $default-skew-y      : 5deg                  !default;
   $origin-x: $default-origin-x,
   $origin-y: $default-origin-y,
   $origin-z: false,
-  $only3d:   false
+  $only3d:   if($origin-z)
 ) {
   $origin: unquote('');
   @if $origin-x or $origin-y or $origin-z {

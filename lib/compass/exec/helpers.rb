@@ -7,7 +7,7 @@ module Compass::Exec
       else
         unless arguments.include?("-h") || arguments.include?("--help")
           Compass::Logger.new.red do
-            Haml::Util.haml_warn "WARNING: This interface is deprecated. Please use the new subcommand interface.\nSee `compass help` for more information.\n"
+            Compass::Util.compass_warn "WARNING: This interface is deprecated. Please use the new subcommand interface.\nSee `compass help` for more information.\n"
           end
         end
         SwitchUI

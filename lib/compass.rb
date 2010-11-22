@@ -1,7 +1,7 @@
 module Compass
 end
 
-%w(dependencies sass_extensions core_ext version errors).each do |lib|
+%w(dependencies util sass_extensions core_ext version errors).each do |lib|
   require "compass/#{lib}"
 end
 
