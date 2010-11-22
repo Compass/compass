@@ -36,7 +36,7 @@ what changed to your stylesheets:
 11. If you're satisfied: $ git commit -a -m "Upgraded compass"
 12. If you're scared again:
     1. Don't panic.
-    2. Read the [CHANGELOG](http://compass-style.org/docs/CHANGELOG/) and
+    2. Read the [CHANGELOG](http://compass-style.org/CHANGELOG/) and
        see if the changes are explained there.
     3. Send an email to the [mailing list](http://groups.google.com/group/compass-users)
        explaining the problem and providing enough context like snippets from your diff

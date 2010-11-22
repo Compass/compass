@@ -3,9 +3,9 @@ require 'susy'
 require 'css-slideshow'
 
 # Set this to the root of your project when deployed:
-http_path = "/docs"
+http_path = "/"
 project_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-css_dir = "../docs/stylesheets"
+css_dir = "output/stylesheets"
 sass_dir = "content/stylesheets"
 images_dir = "assets/images"
 javascripts_dir = "assets/javascripts"

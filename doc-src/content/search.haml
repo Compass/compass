@@ -4,8 +4,8 @@ crumb: Search
 body_id: search
 ---
 - content_for(:javascripts) do
-  %script(type="text/javascript" src="/docs/javascripts/search-data.js")
-  %script(type="text/javascript" src="/docs/javascripts/jquery.url.packed.js")
+  %script(type="text/javascript" src="/javascripts/search-data.js")
+  %script(type="text/javascript" src="/javascripts/jquery.url.packed.js")
   :javascript
     $(function(){
       if ($.url.param("q")) {

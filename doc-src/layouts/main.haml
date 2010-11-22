@@ -6,32 +6,32 @@
           %li.vcard
             %a.fn.org.url.uid{:href => "/", :rel => "home"} Compass
           %li
-            %a{:href => "/docs/reference/compass/", :rel => "documentation"} Docs
+            %a{:href => "/reference/compass/", :rel => "documentation"} Docs
           %li
             %a{:href => "/help", :rel=> "help"} Get Help
           %li
             %a{:href => "/get-involved", :rel=> "get-involved"} Get Involved
               
-      %form#search-docs{:action => "/docs/search/", :method => "GET"}
+      %form#search-docs{:action => "/search/", :method => "GET"}
         %input#search{:name => "q", :type => "text", :value => "", :placeholder => "Search the docs"}
     #sub-nav
       %nav#docs-nav{:role => "navigation"}
-        %a{:href => "/docs/reference/blueprint/", :rel => "blueprint"} Blueprint
-        %a{:href => "/docs/reference/compass/", :rel => "core"} Core
+        %a{:href => "/reference/blueprint/", :rel => "blueprint"} Blueprint
+        %a{:href => "/reference/compass/", :rel => "core"} Core
       - if @item[:content_for_module_nav]
       %nav#module-nav= @item[:content_for_module_nav]
     #page
       #version
         Version:
-        %a.number(href="/docs/CHANGELOG/")= compass_version
+        %a.number(href="/CHANGELOG/")= compass_version
       = yield
       -#comments= render "partials/disqus_comments"
   %footer(role="contentinfo")= render "partials/footer"
-  %script(src="/docs/javascripts/jquery-1.3.2.min.js")
-  %script(src="/docs/javascripts/fixups.js" deferred)
-  %script{:src => "/docs/javascripts/shCore.js", :type => "text/javascript"}
-  %script{:src => "/docs/javascripts/shBrushCss.js", :type => "text/javascript"}
-  %script{:src => "/docs/javascripts/shBrushSass.js", :type => "text/javascript"}
-  %script{:src => "/docs/javascripts/shBrushScss.js", :type => "text/javascript"}
+  %script(src="/javascripts/jquery-1.3.2.min.js")
+  %script(src="/javascripts/fixups.js" deferred)
+  %script{:src => "/javascripts/shCore.js", :type => "text/javascript"}
+  %script{:src => "/javascripts/shBrushCss.js", :type => "text/javascript"}
+  %script{:src => "/javascripts/shBrushSass.js", :type => "text/javascript"}
+  %script{:src => "/javascripts/shBrushScss.js", :type => "text/javascript"}
   = @item[:content_for_javascripts]
   = render "partials/analytics"

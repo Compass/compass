@@ -102,7 +102,7 @@ For instance, don't use `table thead tr th` when a simple `th` selector will
 suffice. This might mean that you have to separate your styles into several
 selectors and let the document cascade work to your advantage.
 
-[1]: http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#partials
+[1]: http://sass-lang.com/yardoc/file.SASS_REFERENCE.html#partials
 [2]: http://groups.google.com/group/compass-users/browse_frm/thread/0ed216d409476f88
 [3]: http://wiki.github.com/chriseppstein/compass/overriding-constants
 [4]: http://c2.com/cgi/wiki?DontRepeatYourself

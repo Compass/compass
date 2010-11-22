@@ -11,7 +11,7 @@ This page lists the compass commands you can use to set up and manage your proje
 
 You may also find one of these walk throughs useful:
 
-* HOWTO: [Compile your stylesheets for production](/docs/tutorials/production-css/)
+* HOWTO: [Compile your stylesheets for production](/tutorials/production-css/)
 
 <!--
 Extensions Commands

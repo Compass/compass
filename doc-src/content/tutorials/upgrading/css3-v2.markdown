@@ -78,9 +78,9 @@ Or for sass files:
       +background-image($image, linear-gradient($start, $color-stops))
 
 
-[old_box_shadow]: /docs/reference/compass/css3/box_shadow/#mixin-box-shadow
-[new_box_shadow]: /docs/reference/compass/css3/box_shadow_v2/#mixin-box-shadow
-[old_text_shadow]: /docs/reference/compass/css3/text_shadow/#mixin-text-shadow
-[new_text_shadow]: /docs/reference/compass/css3/text-shadow-v2/#mixin-text-shadow
-[new_transform]: /docs/reference/compass/css3/transform-v2/
-[image_stylesheet]: /docs/reference/compass/css3/images/
+[old_box_shadow]: /reference/compass/css3/box_shadow/#mixin-box-shadow
+[new_box_shadow]: /reference/compass/css3/box_shadow_v2/#mixin-box-shadow
+[old_text_shadow]: /reference/compass/css3/text_shadow/#mixin-text-shadow
+[new_text_shadow]: /reference/compass/css3/text-shadow-v2/#mixin-text-shadow
+[new_transform]: /reference/compass/css3/transform-v2/
+[image_stylesheet]: /reference/compass/css3/images/

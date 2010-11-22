@@ -8,11 +8,11 @@ COMPASS CHANGELOG
 =================
 
 Upgrading compass is really easy.
-Don't let all these details [scare you...](/docs/tutorials/upgrading/im-scared/)
+Don't let all these details [scare you...](/tutorials/upgrading/im-scared/)
 
-The Documentation for the [latest stable release](http://compass-style.org/docs/):
+The Documentation for the [latest stable release](http://compass-style.org/):
 
-The Documentation for the [latest preview release](http://beta.compass-style.org/docs/)
+The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
 0.11.alpha.1   (11/15/2010)
 ---------------------------
@@ -58,7 +58,7 @@ Our CSS3 module makes writing CSS3 today almost as easy as it will be when all
 the browsers officially support the new features. The second version of the
 compass CSS module brings the API up to date with developments over the past
 6 to 9 months of browser changes and more closely matching the most recent CSS
-specifications. [Upgrade guide](/docs/tutorials/upgrading/css3-v2/). Summary of changes.
+specifications. [Upgrade guide](/tutorials/upgrading/css3-v2/). Summary of changes.
 
 * Support for multiple box shadows and text shadows
 * Support for 2d and 3d transforms
@@ -156,7 +156,7 @@ specifications. [Upgrade guide](/docs/tutorials/upgrading/css3-v2/). Summary of 
 * Can now set `$padding` to `false` to make the `horizontal-list` mixin skip the
   padding properties.
 * It is now possible to disable support for legacy IE browsers.
-  See [the docs](/docs/reference/compass/support/) for more information.
+  See [the docs](/reference/compass/support/) for more information.
 
 0.10.5 (08/29/2010)
 -------------------
@@ -179,7 +179,7 @@ specifications. [Upgrade guide](/docs/tutorials/upgrading/css3-v2/). Summary of 
 ------------------
 
 * [Rails] Fixed a bug introduced in 0.10.3 that caused rails applications using the old configuration file (config/compass.config) to break.
-* [Extensions] Make it easier to create manifest files by allowing template files to be discovered. See the Manifest Declarations section of [extensions tutorial](http://compass-style.org/docs/tutorials/extensions/) for details.
+* [Extensions] Make it easier to create manifest files by allowing template files to be discovered. See the Manifest Declarations section of [extensions tutorial](http://compass-style.org/tutorials/extensions/) for details.
 * [Rails] Don't install configuration files when installing extensions.
 * [Compass Core] All url helpers now accept a second argument that when true will cause only the path to be emitted. This allows the url helpers to be used with IE filters.
 
@@ -198,7 +198,7 @@ This will update your compass initializer file.
 
 * Add missing clearfix import to horizontal-list.
 * Emit less css for inline lists with the same result.
-* New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/docs/reference/compass/helpers/constants/)
+* New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/reference/compass/helpers/constants/)
 * Allow horizontal lists to be floated to the right.
 * Bugfix for inline-font-files helper.
 * `+font-face` mixin no longer uses `$postscript` name or `$style` type variables, in favor of the Paul Irish [smiley bulletproof technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/). Older declarations will still work, but will not apply the variables and will display a deprecation warning. 
@@ -214,7 +214,7 @@ This will update your compass initializer file.
 * Support for inputs of type email.
 
 ### Extensions
-* Extensions can now create empty directories with the `directory` directive. [Docs](http://compass-style.org/docs/tutorials/extensions/).
+* Extensions can now create empty directories with the `directory` directive. [Docs](http://compass-style.org/tutorials/extensions/).
 * It's now easier to load extensions from a configuration file using the `load` and `discover` directives.
 
 ### Rails
@@ -253,7 +253,7 @@ This is a bug fix release. [Details on Github.](http://github.com/chriseppstein/
 0.10.0 (May 10, 2010)
 ---------------------
 
-This changelog entry is condensed from a very long beta release. You can read [the 0.10.0 beta release notes here](/docs/CHANGELOG-v0-10-0-beta/).
+This changelog entry is condensed from a very long beta release. You can read [the 0.10.0 beta release notes here](/CHANGELOG-v0-10-0-beta/).
 
 ### Gem Location
 
@@ -267,7 +267,7 @@ installed from github, please remove it:
 * Compass now depends on Sass 3 -- Please be prepared to upgrade.
   Things won't break but you'll have a lot of deprecation warnings.
   Upgrading is pretty easy thanks to the `sass-convert` tool. See the
-  [Sass Changelog](http://sass-lang.com/docs/yardoc/file.SASS_CHANGELOG.html)
+  [Sass Changelog](http://sass-lang.com/yardoc/file.SASS_CHANGELOG.html)
   for more information.
 * All compass stylesheets are now written in the SCSS syntax,
   if you import compass framework stylesheets with an explicit
@@ -351,7 +351,7 @@ installed from github, please remove it:
   for both arguments instead of just the first
 * There is no longer any outline on unstyled links in the :active and :focused states.
 * New CSS3 Compatibility Mixins. You can import them all with `@import compass/css3.sass`
-  Read the [documentation][http://compass-style.org/docs/reference/compass/css3/].
+  Read the [documentation][http://compass-style.org/reference/compass/css3/].
 * The import for `+inline-block` has moved from "compass/utilities/general/inline_block"
   to "compass/css3/inline-block".
 * The import for `+opacity` has moved from "compass/utilities/general/opacity"
@@ -412,7 +412,7 @@ installed from github, please remove it:
 
 ### Miscellaneous:
 
-* Lot of new docs can be found at: [http://compass-style.org/docs/](http://compass-style.org/docs/).
+* Lot of new docs can be found at: [http://compass-style.org/](http://compass-style.org/).
 * The compass configuration object is no longer a singleton, this makes it
   possible for other ruby software to manage multiple compass projects at a
   time.
@@ -985,6 +985,6 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [der-rich]: http://github.com/der-rich
 [adamstac]: http://github.com/adamstac
 [ttilley]: http://github.com/ttilley
-[inline-block-list]: http://compass-style.org/docs/reference/compass/utilities/lists/inline-block-list/
-[html5-reset]: http://compass-style.org/docs/reference/compass/reset/utilities/#mixin-reset-html5
+[inline-block-list]: http://compass-style.org/reference/compass/utilities/lists/inline-block-list/
+[html5-reset]: http://compass-style.org/reference/compass/reset/utilities/#mixin-reset-html5
 [blueprint_10_change]: https://github.com/chriseppstein/compass/compare/a05e1ee7c0a1e4c0f0595a8bb812daa47872e476...864780969d872a93b1fd3b4f39f29dd9f0c3fe75

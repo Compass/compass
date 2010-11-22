@@ -4,7 +4,7 @@ require 'compass'
 
 Compass.add_configuration "#{File.dirname(__FILE__)}/.compass/config.rb"
 
-SITE_ROOT = "/docs" 
+SITE_ROOT = ""
 
 compile '/assets/*/' do
   nil

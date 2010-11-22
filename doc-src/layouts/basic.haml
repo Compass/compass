@@ -4,16 +4,16 @@
   %head
     %meta{:charset => "utf-8"}/
     %meta{:content => "chrome=1", "http-equiv" => "X-UA-Compatible"}
-    %link(rel="shortcut icon" type="image/png" href="/docs/images/compass_icon.png")
+    %link(rel="shortcut icon" type="image/png" href="/images/compass_icon.png")
     %title
       #{@item[:title]} | Compass Documentation
     <!--[if !IE 6]><!-->
-    %link{:charset => "utf-8", :href => "/docs/stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
-    %link{:href => "/docs/stylesheets/syntax/shCore.css", :rel => "stylesheet", :type => "text/css"}
-    %link{:href => "/docs/stylesheets/syntax/shThemeDefault.css", :rel => "stylesheet", :type => "text/css"}
+    %link{:charset => "utf-8", :href => "/stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "/stylesheets/syntax/shCore.css", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "/stylesheets/syntax/shThemeDefault.css", :rel => "stylesheet", :type => "text/css"}
     <!--<![endif]-->
     /[if gte IE 7]
-      %link{:charset => "utf-8", :href => "/docs/stylesheets/ie.css", :rel => "stylesheet", :type => "text/css"}
+      %link{:charset => "utf-8", :href => "/stylesheets/ie.css", :rel => "stylesheet", :type => "text/css"}
     /[if IE 6]
       %link{:charset => "utf-8", :href => "http://universal-ie6-css.googlecode.com/files/ie6.0.3.css", :rel => "stylesheet", :type => "text/css"}
     - if @item[:content_for_additional_css]

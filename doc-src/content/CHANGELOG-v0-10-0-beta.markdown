@@ -42,13 +42,13 @@ layout: article
 * [Compass Core] The gradient mixins now accept a background image that will
   be placed over the gradient. Credit: [Will Leinweber](http://bitfission.com/)
 * [Compass Core] You can now opt out of support for specific browsers in
-  the css3 module. See [the docs](/docs/reference/compass/css3/shared/)
+  the css3 module. See [the docs](/reference/compass/css3/shared/)
   for more details.
   
 
 0.10.0.rc4 (April 27, 2010)
 ---------------------------
-* Lot of new docs can be found at: [http://compass-style.org/docs/](http://compass-style.org/docs/).
+* Lot of new docs can be found at: [http://compass-style.org/](http://compass-style.org/).
 * The `unobtrusive-logo` mixin is deprecated and will be removed.
   If you use this, please move the source to your project.
 * The CSS3 modules were refactored to share a common implementation that
@@ -84,7 +84,7 @@ layout: article
 * Compass now depends on Sass 3 -- Please be prepared to upgrade.
   Things won't break but you'll have a lot of deprecation warnings.
   Upgrading is pretty easy thanks to the `sass-convert` tool. See the
-  [Sass Changelog](http://beta.sass-lang.com/docs/yardoc/file.SASS_CHANGELOG.html)
+  [Sass Changelog](http://beta.sass-lang.com/yardoc/file.SASS_CHANGELOG.html)
   for more information.
 * All compass stylesheets are now written in the SCSS syntax,
   if you import compass framework stylesheets with an explicit

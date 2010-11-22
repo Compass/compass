@@ -24,6 +24,6 @@ There's a few things you should know.
    <br>
    ![rubygem versions](http://img.skitch.com/20101116-d3j5hf8ishb9x5249et8b6i23i.png)
 4. Compass keeps a very detailed list of changes in every release. You can read
-   the [changelog](/docs/CHANGELOG/) to get up to speed on what has changed.
+   the [changelog](/CHANGELOG/) to get up to speed on what has changed.
 
 If you're scared to upgrade, that's silly. Read [this](./im-scared/).
