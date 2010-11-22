@@ -84,7 +84,7 @@ def item_tree(item, options = {})
   contents = unless options[:omit_self]
     item_opts = {
       :current_item => item,
-      :selected => item.identifier == @item.identifier,
+      :selected => !!@item.identifier[item.identifier],
       :crumb => item[:crumb] || item[:title]
     }
     if options[:heading_level]
