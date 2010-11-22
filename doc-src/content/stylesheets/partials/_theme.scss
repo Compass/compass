@@ -6,14 +6,14 @@
   nav a { color: $nav-link; }
   
   #main-nav a { color: $main-nav;}
-  body.home a[rel=home],
-  body.help a[rel=help],
-  body.docs a[rel=docs],
-  body.get-involved a[rel=get-involved]{ color: $main-nav-selected; }
+  body.home #main-nav a[rel=home],
+  body.help #main-nav a[rel=help],
+  body.docs #main-nav a[rel=documentation],
+  body.get-involved #main-nav a[rel=get-involved]{ color: $main-nav-selected; }
   
   #sub-nav { @extend .horizontal-rule-#{$theme}; }
   #docs-nav { @extend .vertical-rule-#{$theme}; }
-  body.core a[rel=core], body.blueprint a[rel=blueprint]{ @extend .inset-panel-#{$theme}; color: $docs-nav-selected; }
+  body.core a[rel=core], body.blueprint a[rel=blueprint]{ @extend .inset-panel-#{$theme}; color: $docs-nav-selected; @extend .round-corners-4;}
   #module-nav .selected { color: $module-nav-selected; }
   
   #search-docs {
@@ -66,7 +66,7 @@
 
   $main-nav: $strong-text;
   $main-nav-selected: #fb292d;
-  $docs-nav-selected: $text;
+  $docs-nav-selected: $strong-text;
   $module-nav-selected: $link;
 
   $version-text: white;

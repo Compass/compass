@@ -24,10 +24,7 @@ header { @extend .group;
     padding: 2px 10px;
     display: inline-block; }}
     
-#docs-nav {
-  padding-right: 15px;
-  a:last-child {
-    @extend .round-corners-4; }}
+#docs-nav { padding-right: 15px; }
     
 #module-nav {
   display: inline-block;
