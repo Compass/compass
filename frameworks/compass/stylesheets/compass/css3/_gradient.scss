@@ -1,8 +1,6 @@
 @import "compass/utilities/general/hacks";
 @import "images";
 
-@warn "The css3 gradient module is deprecated. For more information see: http://beta.compass-style.org/help/tutorials/upgrading/css3-v2/#gradients";
-
 // The linear gradient mixin works best across browsers if you use percentage-based color stops.
 //
 // Examples:
@@ -34,7 +32,9 @@
 // - Safari
 // - Firefox 3.6
 // - Opera
-
+//
+// @deprecated Use the linear-gradient() function in conjunction with a
+//             property mixin like `background-image`.
 @mixin linear-gradient($color-stops, $start: false, $image: false) {
   @if $image {
     @if $start {
@@ -77,7 +77,9 @@
 // - Safari
 // - Firefox 3.6
 // - Opera
-
+//
+// @deprecated Use the radial-gradient() function in conjunction with a
+//             property mixin like `background-image`.
 @mixin radial-gradient($color-stops, $center-position: false, $image: false) {
   @if $image {
     @if $center-position {

@@ -1,4 +1,4 @@
-@import "compass/css3/transform-v2";
+@import "compass/css3/transform";
 
 .apply-origin-2d                  { @include apply-origin(2px 5%, false); }
 .apply-origin-3d                  { @include apply-origin(2px 5% 2in, true); }

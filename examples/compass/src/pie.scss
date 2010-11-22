@@ -3,8 +3,8 @@
 // you to style in CSS things that you'd have to do using image chops otherwise.
 //
 // Note: Each element that has PIE enabled on it will add about 10ms to your page load.
+@import "compass/css3";
 @import "compass/css3/pie";
-@import "compass/css3/version-2";
 
 $pie-behavior: url("/stylesheets/PIE.htc");
 

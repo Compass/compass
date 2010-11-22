@@ -1,0 +1,14 @@
+.legacy-text-shadow {
+  text-shadow: #777777 5px 5px 10px; }
+
+.single-text-shadow {
+  text-shadow: #aaaaaa 0px 0px 1px; }
+
+.default-text-shadow {
+  text-shadow: #aaaaaa 0px 0px 1px; }
+
+.multiple-text-shadows-with-default {
+  text-shadow: #aaaaaa 0px 0px 1px, 2px 2px 5px #222222; }
+
+.multiple-text-shadows {
+  text-shadow: 4px 4px 10px #444444, 2px 2px 5px #222222; }

@@ -270,7 +270,6 @@ module Compass::SassExtensions::Functions::GradientSupport
             a.options = options
             if a.is_a?(Sass::Script::List)
               Sass::Script::List.new(a.value.map do |v|
-                v.options = options
                 v.respond_to?(:to_#{prefix}) ? v.to_#{prefix} : v
               end, a.separator)
             else

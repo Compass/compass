@@ -46,7 +46,7 @@
   list-style-image: url('/images/4x6.png?busted=true'); }
 
 .shorthand-list-image-plain {
-  list-style-image: outside url('/images/4x6.png?busted=true'); }
+  list-style-image: outside url("/images/4x6.png?busted=true"); }
 
 .direct-list-image-with-gradient {
   list-style-image: -moz-radial-gradient(#00ff00, #ff0000 10px);
