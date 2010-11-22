@@ -12,7 +12,7 @@ help %Q{
 welcome_message %Q{
 For a full tutorial on how to build your own extension see:
 
-http://compass-style.org/docs/tutorials/extensions/
+http://compass-style.org/help/tutorials/extensions/
 
 }, :replace => true
 

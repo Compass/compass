@@ -7,7 +7,7 @@ classnames:
 Production Stylesheets
 ======================
 
-See the [Configuration Reference](/tutorials/configuration-reference/) for a
+See the [Configuration Reference](/help/tutorials/configuration-reference/) for a
 complete list of available configuration options.
 
 Strategies for Compiling Stylesheets for Production

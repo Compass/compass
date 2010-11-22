@@ -11,7 +11,7 @@
   $spread : $default-box-shadow-spread, 
   $inset  : $default-box-shadow-inset
 ) {
-  @warn "This version of the box-shadow mixin has been deprecated. Please read: http://compass-style.org/docs/upgrading/css3-v2/#box-shadow for details.";
+  @warn "This version of the box-shadow mixin has been deprecated. Please read: http://beta.compass-style.org/upgrading/css3-v2/#box-shadow for details.";
   @include single-box-shadow($color, $hoff, $voff, $blur, $spread, $inset);
 }
 

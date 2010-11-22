@@ -333,4 +333,4 @@ a couple of ways you can react:
 [issues]: http://github.com/chriseppstein/compass/issues
 [documentation]: http://github.com/chriseppstein/compass/blob/stable/doc-src/README.markdown
 [bundler]: http://gembundler.com/
-[extensions]: /tutorials/extensions/
+[extensions]: /help/tutorials/extensions/

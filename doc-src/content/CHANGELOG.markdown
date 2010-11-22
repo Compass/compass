@@ -8,7 +8,7 @@ COMPASS CHANGELOG
 =================
 
 Upgrading compass is really easy.
-Don't let all these details [scare you...](/tutorials/upgrading/im-scared/)
+Don't let all these details [scare you...](/help/tutorials/upgrading/im-scared/)
 
 The Documentation for the [latest stable release](http://compass-style.org/):
 
@@ -58,7 +58,7 @@ Our CSS3 module makes writing CSS3 today almost as easy as it will be when all
 the browsers officially support the new features. The second version of the
 compass CSS module brings the API up to date with developments over the past
 6 to 9 months of browser changes and more closely matching the most recent CSS
-specifications. [Upgrade guide](/tutorials/upgrading/css3-v2/). Summary of changes.
+specifications. [Upgrade guide](/help/tutorials/upgrading/css3-v2/). Summary of changes.
 
 * Support for multiple box shadows and text shadows
 * Support for 2d and 3d transforms
@@ -179,7 +179,7 @@ specifications. [Upgrade guide](/tutorials/upgrading/css3-v2/). Summary of chang
 ------------------
 
 * [Rails] Fixed a bug introduced in 0.10.3 that caused rails applications using the old configuration file (config/compass.config) to break.
-* [Extensions] Make it easier to create manifest files by allowing template files to be discovered. See the Manifest Declarations section of [extensions tutorial](http://compass-style.org/tutorials/extensions/) for details.
+* [Extensions] Make it easier to create manifest files by allowing template files to be discovered. See the Manifest Declarations section of [extensions tutorial](http://compass-style.org/help/tutorials/extensions/) for details.
 * [Rails] Don't install configuration files when installing extensions.
 * [Compass Core] All url helpers now accept a second argument that when true will cause only the path to be emitted. This allows the url helpers to be used with IE filters.
 
@@ -214,7 +214,7 @@ This will update your compass initializer file.
 * Support for inputs of type email.
 
 ### Extensions
-* Extensions can now create empty directories with the `directory` directive. [Docs](http://compass-style.org/tutorials/extensions/).
+* Extensions can now create empty directories with the `directory` directive. [Docs](http://compass-style.org/help/tutorials/extensions/).
 * It's now easier to load extensions from a configuration file using the `load` and `discover` directives.
 
 ### Rails

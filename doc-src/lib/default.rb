@@ -101,7 +101,7 @@ end
 def tutorial_item(path)
   path = "" if path == :root
   @items.detect do |i|
-    i.identifier == "/tutorials/#{path}"
+    i.identifier == "/help/tutorials/#{path}"
   end
 end
 
