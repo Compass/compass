@@ -1,7 +1,7 @@
-@mixin site-theme($theme, $page-bg, $text, $strong-text, $heading, $link, $search, $search-bg, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border){
-  body { background: $page-bg; color: $text;
+@mixin site-theme($theme, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border){
+  body {background: $page-bg; color: $text;
     a { color: $link; } }
-  #wrap { @extend .horizontal-rule-#{$theme}; }
+  #page { @extend .horizontal-rule-#{$theme}; }
   header { @extend .horizontal-rule-#{$theme}; border-width: 4px; }
   nav a { color: $nav-link; }
   
@@ -18,51 +18,63 @@
   
   #search-docs {
     input::-webkit-input-placeholder { color: $search; }
-    input { @extend .inset-panel-#{$theme}; background-color: rgba($search-bg, .2); color: $search;}}
+    input { @extend .inset-panel-#{$theme}; color: $search;}}
   
   aside { @extend .vertical-rule-#{$theme};
     h2 { @extend .horizontal-rule-#{$theme};
-      a { color: $text; } } }
+      a { color: $strong-text; } } }
   
-  #version { background: rgba($version-text, .03); color: rgba($version-text, .4); border: 1px solid rgba($version-border, .3); border-top: 0;
-    a { @include hover-link; color: rgba($version-text, .7); } }
+  #docs_panel > div { background: rgba($version-text, .03); color: rgba($version-text, .4); border: 1px solid rgba($version-border, .3); border-top: 0; @include round-bottom-corners;
+    a { text-decoration: none; color: rgba($version-text, .7); }
+    a[rel=theme] { color: rgba($version-border, .8); text-shadow: rgba($version-text, .08) 0 1px 0; &:hover { text-decoration: none; color: $strong-text; text-shadow: $version-border 0 1px 0; } } 
+    a[rel=sass], a[rel=scss] { color: rgba($version-border, .6); text-shadow: rgba($version-text, .08) 0 1px 0;} }
+  body.sass #docs_panel a[rel=sass], body.scss #docs_panel a[rel=scss] { color: rgba($version-text, .5); @include border-radius(1em); @extend .inset-panel-#{$theme};}
   
   #page > article {
     #{headings()}{ color: $heading; } }
     h1, h2 { @extend .horizontal-rule-#{$theme}; }
+    h3 {
+      background: rgba(#000, .2);
+      @include box-shadow(rgba(#000, .2) 0 0 0 1px inset);
+      a:hover { color: $heading;
+        .arg { color: rgba($heading, .6);}
+      }
+    }
+  footer .links li { @extend .vertical-rule-#{$theme}; }
+  
+  code { @extend .code-block-#{$theme}; color: $code;}
+  .arg { color: $code;}
+  .arg[data-default-value] { color: rgba($code, .7);}
+  a[rel="view source"]{ color: rgba($heading, .5); &:hover{ color: rgba($heading, .8);};}
 }
 
 // Dark theme
 .inset-panel-dark {
-  @include background-image(linear-gradient(rgba(#000, .5), rgba(#000, 0)));
-  @include single-box-shadow(rgba(#fff, .1), 0, 1px, 0);
-  background-color: rgba(#000, .2); }
+  @include box-shadow(rgba(#fff, .1) 0 1px 0, rgba(#000, .8) 0 1px 7px 0px inset);
+  background-color: rgba(#000, .3); }
   
 .horizontal-rule-dark {  
-  @include single-box-shadow(rgba(#fff, .07), 0, 1px, 0);
+  @include box-shadow(rgba(#fff, .07) 0 1px 0);
   border-bottom: 1px solid #121212; }
   
 .vertical-rule-dark {
-  @include single-box-shadow(rgba(#fff, .07), 1px, 0, 0);
+  @include box-shadow(rgba(#fff, .07) 1px 0 0);
   border-right: 1px solid #121212; }
   
-.code-block-dark { @extend .round-corners-4; @extend .inset-panel-dark;
-  display: inline-block;
-  padding-left: 2px;
-  padding-right: 2px; }
+.code-block-dark { @extend .code-block; @extend .inset-panel-dark; }
 
 @mixin dark-theme {
   $page-bg: #343434;
 
-  $text: #b6b6b6;
+  $text: #c6c6c6;
   $heading: white;
   $strong-text: #dbdbdb;
 
   $search: #6e6e6e;
-  $search-bg: black;
-
+  
   $link: #dadbb1;
   $nav-link: #bfbfbf;
+  $code: #85AFC9;
 
   $main-nav: $strong-text;
   $main-nav-selected: #fb292d;
@@ -72,7 +84,52 @@
   $version-text: white;
   $version-border: black;
 
-  @include site-theme(dark, $page-bg, $text, $strong-text, $heading, $link, $search, $search-bg, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border);
+  @include site-theme(dark, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border);
+}
+
+// Light Theme
+.inset-panel-light {
+  @include background-image(linear-gradient(rgba(#000, .15), rgba(#000, 0)));
+  @include box-shadow(rgba(#fff, 1) 0 1px 0, rgba(#000, .25) 0 -1px 0);
+  background-color: rgba(#fff, .2); }
+  
+.horizontal-rule-light {  
+  @include single-box-shadow(rgba(#fff, 1), 0, 1px, 0);
+  border-bottom: 1px solid #bbb; }
+  
+.vertical-rule-light {
+  @include single-box-shadow(rgba(#fff, 1), 1px, 0, 0);
+  border-right: 1px solid #bbb; }
+  
+.code-block-light { @extend .code-block;
+  //@include background-image(linear-gradient(rgba(#000, .1), rgba(#000, 0)));
+  @include box-shadow(rgba(#000, .2) 0 0 1px 1px inset);
+  background-color: rgba(#fff, 1);}
+
+@mixin light-theme {
+  $page-bg: #eaeaea;
+
+  $text: #222 ;
+  $heading: black;
+  $strong-text: #000;
+
+  $search: #666;
+  $search-bg: white;
+
+  $link: darken(adjust-hue(#dadbb1, 160), 40);
+  $nav-link: #444;
+
+  $main-nav: $strong-text;
+  $main-nav-selected: darken(#fb292d, 10);
+  $docs-nav-selected: $strong-text;
+  $module-nav-selected: $link;
+
+  $version-text: black;
+  $version-border: white;
+  $code: #222;
+
+  @include site-theme(light, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border);
 }
 
 html.dark { @include dark-theme; }
+html.light { @include light-theme; }

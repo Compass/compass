@@ -1,6 +1,6 @@
 !!!5
 - # This template is just the stuff until the body tag.
-%html.dark.no-js{:dir => "ltr", :lang => "en"}
+%html.no-js{:dir => "ltr", :lang => "en"}
   %head
     %meta{:charset => "utf-8"}/
     %meta{:content => "chrome=1", "http-equiv" => "X-UA-Compatible"}
@@ -8,6 +8,10 @@
     %title
       #{@item[:title]} | Compass Documentation
     <!--[if !IE 6]><!-->
+    %script(src="/javascripts/jquery-1.3.2.min.js")
+    %script(src="/javascripts/jquery.cookie.js")
+    %script(src="/javascripts/site.js")
+    %script(src="/javascripts/fixups.js" deferred)
     %link{:charset => "utf-8", :href => "/stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
     %link{:href => "/stylesheets/syntax/shCore.css", :rel => "stylesheet", :type => "text/css"}
     %link{:href => "/stylesheets/syntax/shThemeDefault.css", :rel => "stylesheet", :type => "text/css"}

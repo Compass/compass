@@ -2,18 +2,12 @@
   %h2 Mixins
 
   - mixin_defs.each do |mixin|
-    %span.view-source
-      View Source:
-      %a.view-source{:href=>"#mixin-#{mixin.name}-sass"} Sass
-      \|
-      %a.view-source{:href=>"#mixin-#{mixin.name}-scss"} SCSS
+    %a{:href=>"#mixin-#{mixin.name}-source", :rel => "view source"} view source
     %h3.mixin{:id=>"mixin-#{mixin.name}"}
       %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature(mixin)
     .mixin-source{:id=>"mixin-#{mixin.name}-source"}
-      .elided-code{:id=>"mixin-#{mixin.name}-sass"}
-        %pre.source-code.sass= mixin.to_sass
-      .elided-code{:id=>"mixin-#{mixin.name}-scss"}
-        %pre.source-code.scss= mixin.to_scss
+      %pre.source-code.sass= mixin.to_sass
+      %pre.source-code.scss= mixin.to_scss
 
     .source-documentation
       = format_doc(mixin.comment)

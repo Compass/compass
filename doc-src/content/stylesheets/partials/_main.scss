@@ -1,10 +1,42 @@
 #page {
   position: relative;
-  padding-top: 25px;
-  & > article { padding-top: 14px; font-size: 15px;
-    h1, h2 { padding-bottom: 6px; margin-bottom: 9px; }}}
+  padding-top: 40px;
+  & > article { padding-top: 10px; font-size: 15px; } }
 
-#version { @include round-bottom-corners;
-  font-size: .7em;
+#docs_panel {
   position: absolute; top: 0; right: 0;
-  padding: 2px 8px 4px; }
+  width: 100%;
+  & > div { float: right; margin-left: 10px; }
+  #theme_pref { padding: 3px 12px 6px; }
+  #version { font-size: .75em; padding: 4px 0 5px; background: none; border: none; position: absolute; left: 0;}
+  #syntax_pref { padding: 4px 8px 5px; a { font-size: .9em; padding: 0px 6px 1px; display: inline-block; line-height: 1.45em;} }
+}
+
+#theme_pref {
+  a { display: block; text-indent: -9999px; font-size: 18px; width: .9em; position: relative; text-decoration: none; }
+  a:before { text-indent: 0; position: absolute; left: 0; top: 2px; content: 'Q'; @extend .pictos; } }
+
+footer {
+  .legalese { font-size: .75em; float: left;
+    span { display: block; } }
+  .links { float: left; font-size: .9em;
+    ul { @include horizontal-list(10px); 
+    li:last-child {border: 0; } } }
+}
+h2 a.help {
+  text-indent: -9999px;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  &:before {
+    @extend .pictos;
+    content: "?";
+    text-indent: 0;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    color: #202020;
+    font-size: .9em;
+    text-shadow: #444 0 1px 0;
+  }
+}

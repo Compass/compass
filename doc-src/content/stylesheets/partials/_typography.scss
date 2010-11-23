@@ -1,14 +1,21 @@
-@font-face { font-family: 'pictos-web';	src: url('http://s3.imathis.com/shared-assets/pictos-font/pictos-web.eot');	src: local('☺'), url('http://s3.imathis.com/shared-assets/pictos-font/http://pictos-web.woff') format('woff'), url('http://s3.imathis.com/shared-assets/pictos-font/pictos-web.ttf') format('truetype'), url('http://s3.imathis.com/shared-assets/pictos-font/pictos-web.svg#webfontIyfZbseF') format('svg'); font-weight: normal; font-style: normal;}
+//@font-face { font-family: 'pictos-web';	src: url('http://s3.imathis.com/shared-assets/pictos-font/pictos-web.eot');	src: local('☺'), url('http://s3.imathis.com/shared-assets/pictos-font/pictos-web.woff') format('woff'), url('http://s3.imathis.com/shared-assets/pictos-font/pictos-web.ttf') format('truetype'), url('http://s3.imathis.com/shared-assets/pictos-font/pictos-web.svg#webfontIyfZbseF') format('svg'); font-weight: normal; font-style: normal;}
+@include font-face("pictos-web", font-files("pictos-web.woff", woff, "pictos-web.ttf", truetype, "pictos-web.svg#webfontIyfZbseF", svg), 'pictos-web.eot');
 
 .sans-font { font-family: 'Lucida Grande', Arial, sans-serif; }
 .heading-font { font-family: 'Museo Sans', 'serif'; }
-.pictos { font-family: pictos-web; }
+.pictos { font-family: pictos-web; font-weight: normal; font-style: normal;}
+.fixed-font { font-family: menlo, monaco, "andale mono", "courier new", fixed;}
 
 #page > article {
+  line-height: 1.45em;
   ol { list-style: outside decimal; padding-left: 2.5em;}
-  ul, ol { margin-bottom: 1.5em;}
+  ul, ol, dl { margin-bottom: 1.5em;}
   p { margin-bottom: 1.2em;}
   #{headings()}{ @extend .heading-font; line-height: 1.2em; }
   h1 { font-size: 30px; }
-  h2 { font-size: 20px; }
+  h2 { font-size: 22px; margin: 15px 0 8px; padding-bottom: 6px;}
+  h3 { font-size: 18px; }
+  h1 { padding-bottom: 6px; margin-bottom: 9px; }
+  ul { list-style: inside disc; }
+  dt { font-weight: bold; }
 }

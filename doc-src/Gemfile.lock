@@ -8,7 +8,7 @@ GIT
 PATH
   remote: /Users/bmathis/Documents/Workspace/compass-projects/compass
   specs:
-    compass (0.11.alpha.0.df908d3)
+    compass (0.11.alpha.0.78bcd44)
       haml (~> 3.0.23)
 
 GEM

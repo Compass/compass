@@ -1,0 +1,45 @@
+body.sass .mixin-source .scss, body.scss .mixin-source .sass { @extend .hide;}
+.mixin-source { display: none; }
+
+.syntaxhighlighter { padding: 5px 0; @include border-radius;
+  .toolbar { position: absolute; right: 0; }
+  .code-block { background: none; @include box-shadow(none)}
+  }
+
+pre {
+  margin: 1.5em 0;
+  .code-block { padding: .6em; }
+}
+
+.code-block { @extend .round-corners-4; @extend .fixed-font;
+  display: inline-block;
+  font-size: .95em;
+  padding: 0 .4em;
+  line-height: 1.5em;
+}
+
+.source-documentation {
+  @extend .round-corners-4; 
+  padding: 10px 15px;
+  background: rgba(#000, .1);
+  @include box-shadow(rgba(#000, .2) 0 0 0 1px inset);
+  @include round-bottom-corners
+}
+h3 { @include round-corners; 
+  padding: 10px 15px;
+  margin: 20px 0 2px;
+  position: relative;
+  a { text-decoration: none;}
+}
+h3.mixin { @include round-top-corners;}
+.arg {
+  display: inline-block;
+  padding: 0 2px;
+  &[data-default-value] {
+    font-style: italic;
+    &:before{ content: "[" ; }
+    &:after{ content: "]" ; } }
+  }
+
+a[rel="view source"]{ float: right; padding: 9px 15px; margin-top: 20px; position: relative; z-index: 2; font-size: .8em; @include hover-link;}
+h2 + a[rel="view source"]{ margin-top: 12px;}
