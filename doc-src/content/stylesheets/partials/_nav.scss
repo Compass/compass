@@ -1,4 +1,12 @@
+.triangle-marker {
+  border-color: transparent transparent;
+  content: "\00a0";
+  height: 0; width: 0;
+  position: absolute;
+  border-style: solid; }
+
 nav a { @include hover-link; }
+nav .selected a:hover { text-decoration: none;}
 
 header { @extend .group;
   font-size: 1.25em; font-family: "Museo Sans"; border-width: 4px;}
@@ -8,10 +16,7 @@ header { @extend .group;
   padding-bottom: 10px;
   ul {
     @include horizontal-list(10px);
-    line-height: 2em; }
-  a[rel=home] {
-    @include replace-text-with-dimensions("compass-logo-small.png");
-    display: inline-block; }}
+    line-height: 2em; }}
 
 #sub-nav {
   @extend .group;
@@ -29,7 +34,34 @@ header { @extend .group;
 #module-nav {
   display: inline-block;
   padding-left: 10px;
-  ul { @include horizontal-list(10px); } }
+  ul { @include horizontal-list(false); }}
+
+#module-nav li.selected { position: relative;
+  a:before{ @extend .triangle-marker;
+    border-width: 0 8px 8px;
+    z-index: 2;
+    bottom: -9px;
+    left: 50%;
+    margin-left: -8px;
+    border-bottom-color: #121212;
+  }
+  &:before { @extend .triangle-marker;
+    border-bottom-color: #414141;
+    border-width: 0 6px 6px;
+    z-index: 3;
+    bottom: -9px;
+    left: 50%;
+    margin-left: -6px;
+  }
+  &:after { @extend .triangle-marker;
+    border-bottom-color: #343434;
+    border-width: 0 5px 5px;
+    z-index: 3;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -5px;
+  }
+}
     
 #search-docs {
   width: 20%; position: absolute; top: 29px; right: 0;

@@ -1,8 +1,9 @@
-@mixin site-theme($theme, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border){
+@mixin site-theme($theme, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $option-panel-text, $option-panel-border, $option-panel-bg){
   body {background: $page-bg; color: $text;
     a { color: $link; } }
   #page { @extend .horizontal-rule-#{$theme}; }
   header { @extend .horizontal-rule-#{$theme}; border-width: 4px; }
+  #main-nav a[rel=home] { @include replace-text-with-dimensions("compass-logo-small-#{$theme}.png"); display: inline-block; }
   nav a { color: $nav-link; }
   
   #main-nav a { color: $main-nav;}
@@ -14,7 +15,10 @@
   #sub-nav { @extend .horizontal-rule-#{$theme}; }
   #docs-nav { @extend .vertical-rule-#{$theme}; }
   body.core a[rel=core], body.blueprint a[rel=blueprint]{ @extend .inset-panel-#{$theme}; color: $docs-nav-selected; @extend .round-corners-4;}
-  #module-nav .selected { color: $module-nav-selected; }
+  #module-nav {
+    ul { overflow: visible; }
+    li.selected { @extend .selected-marker-#{$theme};
+      a { color: $module-nav-selected; } } }
   
   #search-docs {
     input::-webkit-input-placeholder { color: $search; }
@@ -24,28 +28,33 @@
     h2 { @extend .horizontal-rule-#{$theme};
       a { color: $strong-text; } } }
   
-  #docs_panel > div { background: rgba($version-text, .03); color: rgba($version-text, .4); border: 1px solid rgba($version-border, .3); border-top: 0; @include round-bottom-corners;
-    a { text-decoration: none; color: rgba($version-text, .7); }
-    a[rel=theme] { color: rgba($version-border, .8); text-shadow: rgba($version-text, .08) 0 1px 0; &:hover { text-decoration: none; color: $strong-text; text-shadow: $version-border 0 1px 0; } } 
-    a[rel=sass], a[rel=scss] { color: rgba($version-border, .6); text-shadow: rgba($version-text, .08) 0 1px 0;} }
-  body.sass #docs_panel a[rel=sass], body.scss #docs_panel a[rel=scss] { color: rgba($version-text, .5); @include border-radius(1em); @extend .inset-panel-#{$theme};}
+  #docs_panel > div {
+    @include round-bottom-corners;
+    background: $option-panel-bg; border: 1px solid $option-panel-border; border-top: 0;
+    
+    a[rel=theme] { @extend .theme-switch-#{$theme}; } }
+  
+  a[rel=sass], a[rel=scss] { @extend .syntax-switch-#{$theme} }
+  
+  #version { color: $option-panel-text; a { color: rgba($nav-link, .7); } }
+  
+  body.sass a[rel=sass], body.scss a[rel=scss] { color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
+  
   
   #page > article {
-    #{headings()}{ color: $heading; } }
+    #{headings()}{ color: $heading; }
     h1, h2 { @extend .horizontal-rule-#{$theme}; }
-    h3 {
-      background: rgba(#000, .2);
-      @include box-shadow(rgba(#000, .2) 0 0 0 1px inset);
-      a:hover { color: $heading;
-        .arg { color: rgba($heading, .6);}
-      }
-    }
+    h3 { @extend .heading-panel-#{$theme}; }
+    h2 a.help { color: $heading;}
+    .source-documentation { @extend .doc-panel-#{$theme}; }
+  }
+  
   footer .links li { @extend .vertical-rule-#{$theme}; }
   
-  code { @extend .code-block-#{$theme}; color: $code;}
-  .arg { color: $code;}
-  .arg[data-default-value] { color: rgba($code, .7);}
-  a[rel="view source"]{ color: rgba($heading, .5); &:hover{ color: rgba($heading, .8);};}
+  code { @extend .code-block-#{$theme}; color: $code; }
+  .arg { color: $code; }
+  .arg[data-default-value] { color: rgba($code, .7); }
+  a[rel="view source"]{ color: rgba($heading, .5); &:hover{ color: rgba($heading, .8);} }
 }
 
 // Dark theme
@@ -62,6 +71,32 @@
   border-right: 1px solid #121212; }
   
 .code-block-dark { @extend .code-block; @extend .inset-panel-dark; }
+
+.heading-panel-dark {
+  background: rgba(#000, .2);
+  @include box-shadow(rgba(#000, .2) 0 0 0 1px inset);
+  a:hover { color: #fff;
+    .arg { color: rgba(#fff, .6);}
+  }
+}
+.doc-panel-dark {
+  background: rgba(#000, .1);
+  @include box-shadow(rgba(#000, .2) 0 0 0 1px inset);
+}
+
+.syntax-switch-dark {
+  color: #000; text-shadow: rgba(#fff, .08) 0 1px 0;
+  &:hover { color: #fff; text-shadow: #000 0 1px 0; } }
+
+.theme-switch-dark {
+  color: rgba(#000, .8); text-shadow: rgba(#fff, .08) 0 1px 0;
+  &:hover { color: #eee; text-shadow: #000 0 1px 0; } }
+
+.selected-marker-dark {
+  a:before{ border-bottom-color: #121212; }
+  &:before { border-bottom-color: #414141; }
+  &:after { border-bottom-color: #323232; }
+}
 
 @mixin dark-theme {
   $page-bg: #343434;
@@ -81,17 +116,18 @@
   $docs-nav-selected: $strong-text;
   $module-nav-selected: $link;
 
-  $version-text: white;
-  $version-border: black;
+  $option-panel-text: rgba(#fff, .2);
+  $option-panel-border: rgba(#000, .3);
+  $option-panel-bg: rgba(#fff, .03);
 
-  @include site-theme(dark, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border);
+  @include site-theme(dark, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $option-panel-text, $option-panel-border, $option-panel-bg);
 }
 
 // Light Theme
 .inset-panel-light {
-  @include background-image(linear-gradient(rgba(#000, .15), rgba(#000, 0)));
-  @include box-shadow(rgba(#fff, 1) 0 1px 0, rgba(#000, .25) 0 -1px 0);
-  background-color: rgba(#fff, .2); }
+  @include box-shadow(rgba(#fff, 1) 0 1px 0, rgba(#000, .5) 0 1px 3px 0px inset);
+  text-shadow: 0 1px 1px #fff;
+  background-color: rgba(#000, .04); }
   
 .horizontal-rule-light {  
   @include single-box-shadow(rgba(#fff, 1), 0, 1px, 0);
@@ -101,34 +137,57 @@
   @include single-box-shadow(rgba(#fff, 1), 1px, 0, 0);
   border-right: 1px solid #bbb; }
   
-.code-block-light { @extend .code-block;
-  //@include background-image(linear-gradient(rgba(#000, .1), rgba(#000, 0)));
-  @include box-shadow(rgba(#000, .2) 0 0 1px 1px inset);
-  background-color: rgba(#fff, 1);}
+.code-block-light { @extend .code-block; @extend .inset-panel-light;}
+
+.syntax-switch-light {
+  color: rgba(#000, .3); text-shadow: rgba(#fff, .08) 0 1px 0;
+  &:hover { color: #000; text-shadow: #fff 0 1px 0; }}
+
+.theme-switch-light {
+  color: rgba(#000, .2); text-shadow: rgba(#fff, 1) 0 1px 0;
+  &:hover { color: #000; } }
+
+.heading-panel-light {
+  background: #fff;
+  @include box-shadow(rgba(#000, .2) 0 0 0 1px inset);
+  a:hover { color: #000;
+    .arg { color: rgba(#000, .6); } }
+}
+
+.selected-marker-light {
+  a:before{ border-bottom-color: #bbbbbb; }
+  &:before { border-bottom-color: #fff; }
+  &:after { border-bottom-color: #e5e5e5; }
+}
+
+.doc-panel-light {
+  background: rgba(#fff, .5);
+  @include box-shadow(rgba(#000, .15) 0 0 0 1px inset);
+}
 
 @mixin light-theme {
-  $page-bg: #eaeaea;
+  $page-bg: #ececec; // image-url('bg-light.jpg');
 
   $text: #222 ;
   $heading: black;
   $strong-text: #000;
 
   $search: #666;
-  $search-bg: white;
 
-  $link: darken(adjust-hue(#dadbb1, 160), 40);
-  $nav-link: #444;
+  $link: #307eb6;
+  $nav-link: #555;
+  $code: #222;
 
-  $main-nav: $strong-text;
-  $main-nav-selected: darken(#fb292d, 10);
+  $main-nav: #555;
+  $main-nav-selected: darken(#fb292d, 15);
   $docs-nav-selected: $strong-text;
   $module-nav-selected: $link;
 
-  $version-text: black;
-  $version-border: white;
-  $code: #222;
+  $option-panel-text: rgba(#000, .3);
+  $option-panel-border: rgba(#000, .2);
+  $option-panel-bg: #fff;
 
-  @include site-theme(light, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $version-text, $version-border);
+  @include site-theme(light, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $option-panel-text, $option-panel-border, $option-panel-bg);
 }
 
 html.dark { @include dark-theme; }

@@ -11,6 +11,9 @@ $default-rounded-corner: 4
 
 .round-corners-4
   +border-radius(4px)
+
+.round-corners-em
+  +border-radius(1em)
   
 =round-corners($num: $default-rounded-corner)
   @extend .round-corners-#{$num}

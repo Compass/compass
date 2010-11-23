@@ -8,8 +8,9 @@
   width: 100%;
   & > div { float: right; margin-left: 10px; }
   #theme_pref { padding: 3px 12px 6px; }
-  #version { font-size: .75em; padding: 4px 0 5px; background: none; border: none; position: absolute; left: 0;}
+  #version { font-size: .75em; padding: 4px 0 5px; background: none; border: none; position: absolute; left: 0; a { @include hover-link; } }
   #syntax_pref { padding: 4px 8px 5px; a { font-size: .9em; padding: 0px 6px 1px; display: inline-block; line-height: 1.45em;} }
+  a { text-decoration: none; }
 }
 
 #theme_pref {
@@ -28,6 +29,8 @@ h2 a.help {
   display: inline-block;
   position: relative;
   text-decoration: none;
+  @include opacity(.3);
+  &:hover{ @include opacity(.7); }
   &:before {
     @extend .pictos;
     content: "?";
@@ -35,8 +38,6 @@ h2 a.help {
     position: absolute;
     top: 2px;
     left: 0;
-    color: #202020;
-    font-size: .9em;
-    text-shadow: #444 0 1px 0;
+    font-size: .85em;
   }
 }

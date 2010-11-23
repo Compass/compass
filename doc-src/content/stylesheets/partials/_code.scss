@@ -21,15 +21,15 @@ pre {
 .source-documentation {
   @extend .round-corners-4; 
   padding: 10px 15px;
-  background: rgba(#000, .1);
-  @include box-shadow(rgba(#000, .2) 0 0 0 1px inset);
   @include round-bottom-corners
 }
 h3 { @include round-corners; 
   padding: 10px 15px;
   margin: 20px 0 2px;
+  font-weight: bold;
   position: relative;
   a { text-decoration: none;}
+  code, .arg { font-weight: normal; }
 }
 h3.mixin { @include round-top-corners;}
 .arg {
