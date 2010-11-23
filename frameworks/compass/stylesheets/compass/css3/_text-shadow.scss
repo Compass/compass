@@ -8,43 +8,7 @@ $default-text-shadow-h-offset: 0px  !default;
 $default-text-shadow-v-offset: 0px  !default;
 $default-text-shadow-blur:     1px  !default;
 
-// Provides CSS text shadows.
-// Arguments are color, horizontal offset, vertical offset, and blur
-@mixin single-text-shadow(
-  $color: $default-text-shadow-color,
-  $hoff: $default-text-shadow-h-offset,
-  $voff: $default-text-shadow-v-offset,
-  $blur: $default-text-shadow-blur
-) {
-  // XXX I'm surprised we don't need experimental support for this property.
-  @if $color == none {
-    text-shadow: none;
-  } @else {
-    text-shadow: $color $hoff $voff $blur;    
-  }
-}
-
 // Provides cross-browser text shadows when one or more shadows are needed.
-@mixin multiple-text-shadows(
-  $shadow-1 : default,
-  $shadow-2 : false,
-  $shadow-3 : false,
-  $shadow-4 : false,
-  $shadow-5 : false,
-  $shadow-6 : false,
-  $shadow-7 : false,
-  $shadow-8 : false,
-  $shadow-9 : false,
-  $shadow-10: false
-) {
-  @if $shadow-1 == default {
-    $shadow-1: $default-text-shadow-color $default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur;
-  }
-  text-shadow: compact($shadow-1, $shadow-2, $shadow-3,
-                       $shadow-4, $shadow-5, $shadow-6,
-                       $shadow-7, $shadow-8, $shadow-9, $shadow-10);
-}
-
 @mixin text-shadow(
   $shadow-1 : default,
   $shadow-2 : false,
@@ -70,10 +34,27 @@ $default-text-shadow-blur:     1px  !default;
       if($shadow-4, $shadow-4, $default-text-shadow-blur)
     );
   } @else {
-    @include multiple-text-shadows(
-      $shadow-1, $shadow-2, $shadow-3,
-      $shadow-4, $shadow-5, $shadow-6,
-      $shadow-7, $shadow-8, $shadow-9, $shadow-10
-    );
+    @if $shadow-1 == default {
+      $shadow-1: $default-text-shadow-color $default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur;
+    }
+    text-shadow: compact($shadow-1, $shadow-2, $shadow-3,
+                         $shadow-4, $shadow-5, $shadow-6,
+                         $shadow-7, $shadow-8, $shadow-9, $shadow-10);
+  }
+}
+
+// Provides a single cross-browser CSS text shadow.
+// Includes default arguments for color, horizontal offset, vertical offset, and blur
+@mixin single-text-shadow(
+  $color: $default-text-shadow-color,
+  $hoff: $default-text-shadow-h-offset,
+  $voff: $default-text-shadow-v-offset,
+  $blur: $default-text-shadow-blur
+) {
+  // XXX I'm surprised we don't need experimental support for this property.
+  @if $color == none {
+    text-shadow: none;
+  } @else {
+    text-shadow: $color $hoff $voff $blur;    
   }
 }
