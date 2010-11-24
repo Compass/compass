@@ -15,7 +15,7 @@ Gem::Specification.new do |gemspec|
   gemspec.require_paths = %w(lib)
   gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}
-  gemspec.add_dependency('haml', '~> 3.0.23')
+  gemspec.add_dependency('haml', '~> 3.0')
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")
   gemspec.files += Dir.glob("examples/**/*.*")
