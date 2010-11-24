@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.alpha.2 (11/22/2010)
+0.11.alpha.1 (11/22/2010)
 ---------------------------
 
 * Support for Sass 3.1 alpha version
@@ -25,8 +25,12 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Allow erb processing of non all non-binary filetypes during extension installs.
 * Added a `background` mixin for css3 gradient support in the shorthand style.
 * Fix for gradients in opera with bordered elements.
+* The `multiple-text-shadows` and `multiple-box-shadows` mixins that were present in
+  v0.11.alpha.0 were removed because they were unnecessary. Just use the `text-shadow`
+  and `box-shadow` mixins.
+* The docs are [getting a make-over](http://beta.compass-style.org/) by Brandon :) 
 
-0.11.alpha.1   (11/15/2010)
+0.11.alpha.0   (11/15/2010)
 ---------------------------
 
 Note: Compass does not currently support Sass 3.1 alphas.
