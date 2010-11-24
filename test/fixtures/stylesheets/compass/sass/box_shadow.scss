@@ -2,4 +2,4 @@
 
 .box-shadow { @include box-shadow(default, 2px 2px 5px #222);}
 .single-box-shadow { @include single-box-shadow;}
-.multiple-box-shadows { @include multiple-box-shadows(default, 2px 2px 5px #222);}
+.multiple-box-shadows { @include box-shadow(default, 2px 2px 5px #222);}
