@@ -7,12 +7,9 @@ Feature: Command Line
     When I create a project using: compass create my_project
     Then a directory my_project/ is created
     And a configuration file my_project/config.rb is created
-    And a sass file my_project/src/screen.scss is created
-    And a sass file my_project/src/print.scss is created
-    And a sass file my_project/src/ie.scss is created
-    And a sass file my_project/src/screen.scss is compiled
-    And a sass file my_project/src/print.scss is compiled
-    And a sass file my_project/src/ie.scss is compiled
+    And a sass file my_project/sass/screen.scss is created
+    And a sass file my_project/sass/print.scss is created
+    And a sass file my_project/sass/ie.scss is created
     And a css file my_project/stylesheets/screen.css is created
     And a css file my_project/stylesheets/print.css is created
     And a css file my_project/stylesheets/ie.css is created
@@ -24,12 +21,9 @@ Feature: Command Line
     When I create a project using: compass create bp_project --using blueprint
     Then a directory bp_project/ is created
     And a configuration file bp_project/config.rb is created
-    And a sass file bp_project/src/screen.scss is created
-    And a sass file bp_project/src/print.scss is created
-    And a sass file bp_project/src/ie.scss is created
-    And a sass file bp_project/src/screen.scss is compiled
-    And a sass file bp_project/src/print.scss is compiled
-    And a sass file bp_project/src/ie.scss is compiled
+    And a sass file bp_project/sass/screen.scss is created
+    And a sass file bp_project/sass/print.scss is created
+    And a sass file bp_project/sass/ie.scss is created
     And a css file bp_project/stylesheets/screen.css is created
     And a css file bp_project/stylesheets/print.css is created
     And a css file bp_project/stylesheets/ie.css is created
@@ -52,9 +46,9 @@ Feature: Command Line
     When I create a project using: compass create my_project --dry-run
     Then a directory my_project/ is not created
     But a configuration file my_project/config.rb is reported created
-    And a sass file my_project/src/screen.scss is reported created
-    And a sass file my_project/src/print.scss is reported created
-    And a sass file my_project/src/ie.scss is reported created
+    And a sass file my_project/sass/screen.scss is reported created
+    And a sass file my_project/sass/print.scss is reported created
+    And a sass file my_project/sass/ie.scss is reported created
     And I am told how to link to /stylesheets/screen.css for media "screen, projection"
     And I am told how to link to /stylesheets/print.css for media "print"
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
@@ -63,10 +57,10 @@ Feature: Command Line
     When I create a project using: compass create bare_project --bare
     Then a directory bare_project/ is created
     And a configuration file bare_project/config.rb is created
-    And a directory bare_project/src/ is created
+    And a directory bare_project/sass/ is created
     And a directory bare_project/stylesheets/ is not created
     And I am congratulated
-    And I am told that I can place stylesheets in the src subdirectory
+    And I am told that I can place stylesheets in the sass subdirectory
     And I am told how to compile my sass stylesheets
 
   Scenario: Creating a bare project with a framework
@@ -87,10 +81,6 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
     Then a directory tmp/ is created
-    And a sass file sass/layout.sass is reported compiled
-    And a sass file sass/print.sass is reported compiled
-    And a sass file sass/reset.sass is reported compiled
-    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/layout.css is created
     And a css file tmp/print.css is created
     And a css file tmp/reset.css is created
@@ -101,10 +91,6 @@ Feature: Command Line
     And I am in the parent directory
     When I run: compass compile tmp_compass
     Then a directory tmp_compass/tmp/ is created
-    And a sass file tmp_compass/sass/layout.sass is reported compiled
-    And a sass file tmp_compass/sass/print.sass is reported compiled
-    And a sass file tmp_compass/sass/reset.sass is reported compiled
-    And a sass file tmp_compass/sass/utilities.scss is reported compiled
     And a css file tmp_compass/tmp/layout.css is created
     And a css file tmp_compass/tmp/print.css is created
     And a css file tmp_compass/tmp/reset.css is created
@@ -114,10 +100,6 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile --dry-run
     Then a directory tmp/ is not created
-    And a sass file sass/layout.sass is reported compiled
-    And a sass file sass/print.sass is reported compiled
-    And a sass file sass/reset.sass is reported compiled
-    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/layout.css is not created
     And a css file tmp/print.css is not created
     And a css file tmp/reset.css is not created
@@ -142,7 +124,6 @@ Feature: Command Line
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
-    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/utilities.css is reported created
     And a css file tmp/utilities.css is created
 
@@ -153,7 +134,6 @@ Feature: Command Line
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
-    And a sass file sass/utilities.scss is reported compiled
     And a css file tmp/utilities.css is reported identical
 
   Scenario: Installing a pattern into a project
@@ -191,7 +171,6 @@ Feature: Command Line
     And I wait 1 second
     And I touch sass/layout.sass
     And I run: compass compile
-    Then a sass file sass/layout.sass is reported compiled
     Then a css file tmp/layout.css is reported identical
     And a sass file sass/print.sass is reported unchanged
     And a sass file sass/reset.sass is reported unchanged
@@ -203,7 +182,6 @@ Feature: Command Line
     And I wait 1 second
     And I add some sass to sass/layout.sass
     And I run: compass compile
-    Then a sass file sass/layout.sass is reported compiled
     And a css file tmp/layout.css is reported overwritten
     And a sass file sass/print.sass is reported unchanged
     And a sass file sass/reset.sass is reported unchanged
