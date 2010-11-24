@@ -3,5 +3,5 @@
 .legacy-text-shadow { @include text-shadow(#777, 5px, 5px, 10px); }
 .single-text-shadow { @include single-text-shadow;}
 .default-text-shadow { @include text-shadow;}
-.multiple-text-shadows-with-default { @include multiple-text-shadows(default, 2px 2px 5px #222);}
-.multiple-text-shadows { @include multiple-text-shadows(4px 4px 10px #444, 2px 2px 5px #222);}
+.multiple-text-shadows-with-default { @include text-shadow(default, 2px 2px 5px #222);}
+.multiple-text-shadows { @include text-shadow(4px 4px 10px #444, 2px 2px 5px #222);}

@@ -115,23 +115,23 @@ Then /an? \w+ file ([^ ]+) is (not )?created/ do |filename, negated|
 end
 
 Then /an? \w+ file ([^ ]+) is reported created/ do |filename|
-  @last_result.should =~ /create #{Regexp.escape(filename)}/
+  @last_result.should =~ /create.*#{Regexp.escape(filename)}/
 end
 
 Then /a \w+ file ([^ ]+) is (?:reported )?compiled/ do |filename|
-  @last_result.should =~ /compile #{Regexp.escape(filename)}/
+  @last_result.should =~ /compile.*#{Regexp.escape(filename)}/
 end
 
 Then /a \w+ file ([^ ]+) is reported unchanged/ do |filename|
-  @last_result.should =~ /unchanged #{Regexp.escape(filename)}/
+  @last_result.should =~ /unchanged.*#{Regexp.escape(filename)}/
 end
 
 Then /a \w+ file ([^ ]+) is reported identical/ do |filename|
-  @last_result.should =~ /identical #{Regexp.escape(filename)}/
+  @last_result.should =~ /identical.*#{Regexp.escape(filename)}/
 end
 
 Then /a \w+ file ([^ ]+) is reported overwritten/ do |filename|
-  @last_result.should =~ /overwrite #{Regexp.escape(filename)}/
+  @last_result.should =~ /overwrite.*#{Regexp.escape(filename)}/
 end
 
 Then /a \w+ file ([^ ]+) is not mentioned/ do |filename|
