@@ -6,9 +6,9 @@ GIT
       cri (>= 1.0.0)
 
 PATH
-  remote: ..
+  remote: /Users/bmathis/Documents/Workspace/compass-projects/compass
   specs:
-    compass (0.11.alpha.0.d34e05c)
+    compass (0.11.alpha.0.8413909)
       haml (~> 3.0.23)
 
 GEM

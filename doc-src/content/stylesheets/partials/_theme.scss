@@ -38,7 +38,7 @@
   
   #version { color: $option-panel-text; a { color: rgba($nav-link, .7); } }
   
-  body.sass a[rel=sass], body.scss a[rel=scss] { color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
+  &.sass a[rel=sass], &.scss a[rel=scss] { color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
   
   
   #page > article {

@@ -1,4 +1,4 @@
-body.sass .mixin-source .scss, body.scss .mixin-source .sass { @extend .hide;}
+html.sass .mixin-source .scss, html.scss .mixin-source .sass { @extend .hide;}
 .mixin-source { display: none; }
 
 .syntaxhighlighter { padding: 5px 0; @include border-radius;
