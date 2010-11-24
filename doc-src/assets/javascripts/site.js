@@ -11,7 +11,7 @@ function changeTheme(theme) {
 }
 
 function changeSyntax(syntax) {
-  el = $('body');
+  el = $('html');
 
   if (!syntax) {
     syntax = el.hasClass('scss') ? 'sass': 'scss';
@@ -56,6 +56,9 @@ function getSyntaxPreference(defaultSyntax) {
 }
 
 
+getThemePreference('dark');
+getSyntaxPreference('scss');
+
 $('document').ready(function(){
   $('#page').click(function(event){
     var target = $(event.target);
@@ -70,6 +73,4 @@ $('document').ready(function(){
       event.preventDefault();
     }
   });
-  getThemePreference('dark');
-  getSyntaxPreference('scss');
 })
