@@ -1,10 +1,17 @@
 html.sass .mixin-source .scss, html.scss .mixin-source .sass { @extend .hide;}
-.mixin-source { display: none; }
+.mixin-source { display: none; position: relative; @extend .fixed-font; }
 
-.syntaxhighlighter { padding: 5px 0; @include border-radius;
-  .toolbar { position: absolute; right: 0; }
-  .code-block { background: none; @include box-shadow(none)}
+html .syntaxhighlighter {
+  margin: 0 0 2px;
+  //font-size: 1.1em;
+  text-shadow: none;
+  .code-block { background: none; @extend .clear-box-shadow; }
+  &, table td.code .container { position: static !important; }
+  table td.gutter { .line { &:first-child { padding-top: 10px !important; } &:last-child { padding-bottom: 10px !important; } } } 
+  .toolbar { display: none; }
+  //a.help { font-size: 1.5em; @extend .pictos; color: #aaa; position: relative; right: 6px; top: 2px; }
   }
+
 
 pre {
   margin: 1.5em 0;
@@ -25,13 +32,13 @@ pre {
 }
 h3 { @include round-corners; 
   padding: 10px 15px;
-  margin: 20px 0 2px;
+  margin: 20px 0 20px;
   font-weight: bold;
   position: relative;
   a { text-decoration: none;}
   code, .arg { font-weight: normal; }
 }
-h3.mixin { @include round-top-corners;}
+h3.mixin { @include round-top-corners; margin-bottom: 2px;}
 .arg {
   display: inline-block;
   padding: 0 2px;
@@ -43,3 +50,49 @@ h3.mixin { @include round-top-corners;}
 
 a[rel="view source"]{ float: right; padding: 9px 15px; margin-top: 20px; position: relative; z-index: 2; font-size: .8em; @include hover-link;}
 h2 + a[rel="view source"]{ margin-top: 12px;}
+
+.syntaxhighlighter {
+  a, div, code, table, table td, table tr, table tbody, table thead, table caption, textarea {
+    background: none; border: 0; bottom: auto; float: none; height: auto; left: auto; line-height: 1.2em !important;
+    padding: 0; margin: 0; outline: 0;
+    overflow: visible; position: static; right: auto;
+    text-align: left; top: auto; vertical-align: baseline;
+    width: auto;
+    font: { weight: normal; style: normal;
+      size: 1em;
+    }
+    min: { height: inherit; }
+  }
+}
+
+.syntaxhighlighter { width: 100%; margin: 1em 0 1em 0; position: relative; overflow: auto; font-size: 1em;
+  
+  // set up bold and italic
+  .bold { font-weight: bold; }
+  .italic { font-style: italic; }
+  .line { white-space: pre; }
+  
+  // main table and columns
+  table { width: 100%;
+    td.code { width: 100%;
+      .line { padding: 0 .6em; } }    
+    td.gutter .line { text-align: right; padding: 0 0.8em 0 1em; } } // middle spacing between line numbers and lines
+    
+  // Styles for the toolbar
+  .toolbar { position: absolute; right: 1px; top: 1px; width: 11px; height: 11px; font-size: 10px; z-index: 10;
+    span.title { display: inline; }
+    a { display: block; text-align: center; text-decoration: none; padding-top: 1px; } }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px; }
+
+::-webkit-scrollbar-button {
+  &:start:decrement, &:end:increment {
+    display: block;
+    width: 0;
+    height: 0; } }
+
+::-webkit-scrollbar-thumb:horizontal {
+    -webkit-border-radius: 5px; -webkit-background-clip: padding-box; }

@@ -30,7 +30,7 @@ h2 a.help {
   position: relative;
   text-decoration: none;
   @include opacity(.3);
-  &:hover{ @include opacity(.7); }
+  &:hover { @include opacity(.7); }
   &:before {
     @extend .pictos;
     content: "?";

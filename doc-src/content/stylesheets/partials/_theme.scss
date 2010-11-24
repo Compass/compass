@@ -39,7 +39,7 @@
   #version { color: $option-panel-text; a { color: rgba($nav-link, .7); } }
   
   &.sass a[rel=sass], &.scss a[rel=scss] { color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
-  
+  .mixin-source { @extend .mixin-panel-#{$theme}; }
   
   #page > article {
     #{headings()}{ color: $heading; }
@@ -96,6 +96,10 @@
   a:before{ border-bottom-color: #121212; }
   &:before { border-bottom-color: #414141; }
   &:after { border-bottom-color: #323232; }
+}
+.mixin-panel-dark {
+  @extend .inset-panel-dark;
+  td.gutter { background: rgba(#fff, .05); .line { border-right: 2px solid rgba(#fff, .15); color: rgba(#fff, .5); }}
 }
 
 @mixin dark-theme {
@@ -165,6 +169,11 @@
   @include box-shadow(rgba(#000, .15) 0 0 0 1px inset);
 }
 
+.mixin-panel-light {
+  @extend .inset-panel-light;
+  td.gutter { background: rgba(#000, .08); .line { border-right: 2px solid rgba(#000, .2); color: rgba(#000, .4); } }
+}
+
 @mixin light-theme {
   $page-bg: #ececec; // image-url('bg-light.jpg');
 
@@ -190,5 +199,17 @@
   @include site-theme(light, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $docs-nav-selected, $module-nav-selected, $option-panel-text, $option-panel-border, $option-panel-bg);
 }
 
-html.dark { @include dark-theme; }
-html.light { @include light-theme; }
+html.dark {
+  @include dark-theme;
+  ::-webkit-scrollbar-track-piece { -webkit-box-shadow: rgba(#000, .5) 0 0 3px 1px inset; background: rgba(#000, .2); }
+  ::-webkit-scrollbar-thumb:horizontal { background: -webkit(linear-gradient(rgba(#fff, .3), rgba(#fff, 0))) #000; -webkit-box-shadow: rgba(black, 0.8) 0px 0 0 1px inset; }
+}
+html.light {
+  @include light-theme;
+  ::-webkit-scrollbar-track-piece {
+    -webkit-box-shadow: rgba(#000, .3) 0 0 3px 1px inset;
+    background: rgba(#ddd, .8); }
+  ::-webkit-scrollbar-thumb:horizontal {
+    background: -webkit(linear-gradient(rgba(#000, 0) 40%, rgba(#000, .2))) #fff;
+    -webkit-box-shadow: rgba(black, 0.2) 0px 0 0 1px inset; }
+}
