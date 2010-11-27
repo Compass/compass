@@ -138,10 +138,10 @@ module Compass::SassExtensions::Functions::GradientSupport
       Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
     end
 
-    %w(webkit moz o ms svg pie).each do |prefix|
+    %w(webkit moz o ms svg pie css2).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
-          List.new(*args.map! {|a| add_prefix(:to_#{prefix}, a)}, :comma)
+          List.new(*args.map! {|a| add_prefix(:to_#{prefix}, a)})
         end
       RUBY
     end
@@ -278,7 +278,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
     end
 
-    %w(webkit moz o ms svg pie).each do |prefix|
+    %w(webkit moz o ms svg pie css2).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
           Sass::Script::List.new(args.map! {|a| add_prefix(:to_#{prefix}, a)}, :comma)
@@ -395,6 +395,9 @@ module Compass::SassExtensions::Functions::GradientSupport
       Compass::Logger.new.record(:warning, "PIE does not support radial-gradient.")
       Sass::Script::String.new("-pie-radial-gradient(unsupported)")
     end
+    def to_css2(options = self.options)
+      Sass::Script::String.new("")
+    end
   end
 
   class LinearGradient < Sass::Script::Literal
@@ -436,6 +439,9 @@ module Compass::SassExtensions::Functions::GradientSupport
       # PIE just uses the standard rep, but the property is prefixed so
       # the presence of this attribute helps flag when to render a special rule.
       Sass::Script::String.new to_s(options)
+    end
+    def to_css2(options = self.options)
+      Sass::Script::String.new("")
     end
   end
 
@@ -579,6 +585,19 @@ module Compass::SassExtensions::Functions::GradientSupport
         list.value.last
       else
         list.value[place.value - 1]
+      end
+    end
+
+    def blank(obj)
+      case obj
+      when Sass::Script::Bool
+        Sass::Script::Bool.new !obj.to_bool
+      when Sass::Script::String
+        Sass::Script::Bool.new obj.value.strip.size == 0
+      when Sass::Script::List
+        Sass::Script::Bool.new obj.value.size == 0 || obj.value.all?{|el| blank(el).to_bool}
+      else
+        Sass::Script::Bool.new false
       end
     end
 

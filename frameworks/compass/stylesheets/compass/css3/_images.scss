@@ -15,12 +15,14 @@
 ) {
   $backgrounds: compact($background-1, $background-2, $background-3, $background-4, $background-5,
                         $background-6, $background-7, $background-8, $background-9, $background-10);
-
-  @if $experimental-support-for-svg     and prefixed(-svg,    $backgrounds) {       background:    -svg($backgrounds); }
-  @if $experimental-support-for-webkit  and prefixed(-webkit, $backgrounds) {       background: -webkit($backgrounds); }
-  @if $experimental-support-for-mozilla and prefixed(-moz,    $backgrounds) {       background:    -moz($backgrounds); }
-  @if $experimental-support-for-pie     and (prefixed(-pie,   $backgrounds) or -compass-list-size($backgrounds) > 1) {  -pie-background:    -pie($backgrounds); }
-                                                                                    background:         $backgrounds;
+  $mult-bgs: -compass-list-size($backgrounds) > 1;
+  $simple-background: if($mult-bgs or prefixed(-css2, $backgrounds), -css2(-compass-nth($backgrounds, last)), false);
+  @if not blank($simple-background)                                                       {       background:    $simple-background; }
+  @if $experimental-support-for-svg     and prefixed(-svg,    $backgrounds)               {       background:    -svg($backgrounds); }
+  @if $experimental-support-for-webkit  and prefixed(-webkit, $backgrounds)               {       background: -webkit($backgrounds); }
+  @if $experimental-support-for-mozilla and prefixed(-moz,    $backgrounds)               {       background:    -moz($backgrounds); }
+  @if $experimental-support-for-pie     and (prefixed(-pie,   $backgrounds) or $mult-bgs) {  -pie-background:    -pie($backgrounds); }
+                                                                                                  background:         $backgrounds;
 }
 
 // Background image property support for vendor prefixing within values.

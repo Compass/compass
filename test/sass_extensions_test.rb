@@ -81,6 +81,14 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert evaluate("tan(pi()/2 + 0.0001)").to_f < -1000, evaluate("tan(pi()/2 - 0.0001)")
   end
 
+  def test_blank
+    assert_equal "false", evaluate("blank(true)")
+    assert_equal "true", evaluate("blank(false)")
+    assert_equal "true", evaluate("blank('')")
+    assert_equal "true", evaluate("blank(' ')")
+    assert_equal "true", evaluate("blank(-compass-space-list(' '))")
+  end
+
 protected
   def evaluate(value)
     Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s
