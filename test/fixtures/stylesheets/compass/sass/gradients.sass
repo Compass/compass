@@ -1,6 +1,15 @@
 @import compass/css3/images, compass/css3/gradient
 
 $experimental-support-for-svg: true
+.bg-shortcut-simple-image
+  +background(#fff url('foo.png'))
+
+.bg-shortcut-linear-gradient
+  +background(#fff linear-gradient(top left, #ddd, #aaa))
+
+.bg-shortcut-radial-gradient
+  +background(#fff radial-gradient(center center, #ddd, #aaa 100px))
+
 .bg-simple-image
   +background-image(url('foo.png'))
 

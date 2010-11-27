@@ -141,18 +141,26 @@ module Compass::SassExtensions::Functions::GradientSupport
     %w(webkit moz o ms svg pie).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
-          List.new(*args.map! do |a|
-                      if a.is_a?(List)
-                        a.class.new(*a.values.map{|v| v.respond_to?(:to_#{prefix}) ? v.to_#{prefix} : v})
-                      else
-                        a.respond_to?(:to_#{prefix}) ? a.to_#{prefix} : a
-                      end
-                    end)
+          List.new(*args.map! {|a| add_prefix(:to_#{prefix}, a)}, :comma)
         end
       RUBY
     end
 
     protected
+
+    def add_prefix(prefix_method, object)
+      if object.is_a?(List)
+        object.class.new(object.value.map{|e|
+          add_prefix(prefix_method, e)
+        })
+      elsif object.respond_to?(prefix_method)
+        object.options = options
+        object.send(prefix_method)
+      else
+        object
+      end
+    end
+
     def color_stop?(arg)
       parse_color_stop(arg)
     rescue
@@ -219,7 +227,12 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     # Returns a comma-delimited list after removing any non-true values
     def compact(*args)
-      Sass::Script::List.new(args.reject{|a| !a.to_bool}, :comma)
+      sep = :comma
+      if args.size == 1 && args.first.is_a?(Sass::Script::List)
+        args = args.first.value
+        sep = args.first.separator
+      end
+      Sass::Script::List.new(args.reject{|a| !a.to_bool}, sep)
     end
 
     # Returns a list object from a value that was passed.
@@ -259,28 +272,35 @@ module Compass::SassExtensions::Functions::GradientSupport
     # Check if any of the arguments passed have a tendency towards vendor prefixing.
     def prefixed(prefix, *args)
       method = prefix.value.sub(/^-/,"to_").to_sym
-      args.map!{|a| a.is_a?(Sass::Script::List) ? a.value : a}.flatten!
+      2.times do
+        args.map!{|a| a.is_a?(Sass::Script::List) ? a.value : a}.flatten!
+      end
       Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
     end
 
     %w(webkit moz o ms svg pie).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
-          Sass::Script::List.new(args.map! do |a|
-            a.options = options
-            if a.is_a?(Sass::Script::List)
-              Sass::Script::List.new(a.value.map do |v|
-                v.respond_to?(:to_#{prefix}) ? v.to_#{prefix} : v
-              end, a.separator)
-            else
-              a.respond_to?(:to_#{prefix}) ? a.to_#{prefix} : a
-            end
-          end, :comma)
+          Sass::Script::List.new(args.map! {|a| add_prefix(:to_#{prefix}, a)}, :comma)
         end
       RUBY
     end
 
     protected
+
+    def add_prefix(prefix_method, object)
+      if object.is_a?(Sass::Script::List)
+        Sass::Script::List.new(object.value.map{|e|
+          add_prefix(prefix_method, e)
+        }, object.separator)
+      elsif object.respond_to?(prefix_method)
+        object.options = options
+        object.send(prefix_method)
+      else
+        object
+      end
+    end
+
     def color_stop?(arg)
       arg.is_a?(ColorStop) ||
       (arg.is_a?(Sass::Script::List) && ColorStop.new(*arg.value)) ||
