@@ -3,26 +3,27 @@
   padding-top: 40px;
   & > article { padding-top: 10px; font-size: 15px; } }
 
+#theme_pref {
+  a { display: block; font-size: 18px; width: .9em; position: relative; text-decoration: none; @extend .pictos; } }
+
 #docs_panel {
   position: absolute; top: 0; right: 0;
   width: 100%;
   & > div { float: right; margin-left: 10px; }
-  #theme_pref { padding: 3px 12px 6px; }
+  #theme_pref { padding: 3px 12px 6px; a { position: relative; top: 2px;} }
   #version { font-size: .75em; padding: 4px 0 5px; background: none; border: none; position: absolute; left: 0; a { @include hover-link; } }
   #syntax_pref { padding: 4px 8px 5px; a { font-size: .9em; padding: 0px 6px 1px; display: inline-block; line-height: 1.45em;} }
   a { text-decoration: none; }
+  & > div { @include round-bottom-corners; }
 }
 
-#theme_pref {
-  a { display: block; text-indent: -9999px; font-size: 18px; width: .9em; position: relative; text-decoration: none; }
-  a:before { text-indent: 0; position: absolute; left: 0; top: 2px; content: 'Q'; @extend .pictos; } }
-
 footer {
-  .legalese { font-size: .75em; float: left;
-    span { display: block; } }
   .links { float: left; font-size: .9em;
-    ul { @include horizontal-list(10px); 
-    li:last-child {border: 0; } } }
+    img { vertical-align: middle; padding-right: 5px; position: relative; top: -2px;}
+    span { position: relative; top: -1px; } 
+    ul { @include horizontal-list(15px); overflow: visible; 
+    li {padding-top: 3px;}
+    li:last-child {border: 0; @include box-shadow(none); } } }
 }
 h2 a.help {
   text-indent: -9999px;

@@ -4,7 +4,7 @@
   height: 0; width: 0;
   position: absolute;
   border-style: solid; }
-
+  
 nav a { @include hover-link; }
 nav .selected a:hover { text-decoration: none;}
 
@@ -64,9 +64,21 @@ header { @extend .group;
 }
     
 #search-docs {
-  width: 20%; position: absolute; top: 29px; right: 0;
-  input { @extend .sans-font; @extend .round-corners-4;
-    @include box-sizing(border-box);
-    width: 100%; max-width: 200px; min-width: 60px; border: 0; margin: 0; padding: 5px 8px;
+  position: absolute; top: 29px; right: 0;
+  &:before {
+    content: "s";
+    display: block;
+    @extend .pictos;
+    position: absolute;
+    left: 6px;
+    top: 4px;
     font-size: .8em;
-    float: right; } }
+    z-index: 20;
+    @include opacity(.8)
+  }
+  input { @extend .sans-font; @include round-corners;
+    @include box-sizing(border-box);
+    max-width: 200px; min-width: 75px; border: 0; margin: 0; padding: 5px 8px 5px 23px;
+    font-size: .8em;
+    float: right;
+    position: relative; } }

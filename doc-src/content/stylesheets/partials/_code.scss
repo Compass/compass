@@ -12,7 +12,6 @@ html .syntaxhighlighter {
   //a.help { font-size: 1.5em; @extend .pictos; color: #aaa; position: relative; right: 6px; top: 2px; }
   }
 
-
 pre {
   margin: 1.5em 0;
   .code-block { padding: .6em; }
@@ -30,6 +29,7 @@ pre {
   padding: 10px 15px;
   @include round-bottom-corners
 }
+
 h3 { @include round-corners; 
   padding: 10px 15px;
   margin: 20px 0 20px;
@@ -82,17 +82,8 @@ h2 + a[rel="view source"]{ margin-top: 12px;}
   .toolbar { position: absolute; right: 1px; top: 1px; width: 11px; height: 11px; font-size: 10px; z-index: 10;
     span.title { display: inline; }
     a { display: block; text-align: center; text-decoration: none; padding-top: 1px; } }
+
+  &::-webkit-scrollbar { width: 12px; height: 12px; }
+  &::-webkit-scrollbar-button { &:start:decrement, &:end:increment { display: block; width: 0; height: 0; } }
+  &::-webkit-scrollbar-thumb:horizontal { -webkit-border-radius: 5px; -webkit-background-clip: padding-box; }
 }
-
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px; }
-
-::-webkit-scrollbar-button {
-  &:start:decrement, &:end:increment {
-    display: block;
-    width: 0;
-    height: 0; } }
-
-::-webkit-scrollbar-thumb:horizontal {
-    -webkit-border-radius: 5px; -webkit-background-clip: padding-box; }

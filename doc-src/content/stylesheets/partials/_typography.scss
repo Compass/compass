@@ -7,13 +7,14 @@
 
 
 .sans-font { font-family: 'Lucida Grande', Arial, sans-serif; }
-.heading-font { font-family: 'museosans-web', 'serif'; }
+.heading-font { font-family: 'Museo Sans', 'serif'; }
 .pictos { font-family: pictos, pictos-web; font-weight: normal; font-style: normal;}
 .fixed-font { font-family: menlo, monaco, "andale mono", "courier new", fixed;}
 
-#page > article {
+#page {
   line-height: 1.45em;
-  ol { list-style: outside decimal; padding-left: 2.5em;}
+  ol { list-style: outside decimal; padding-left: 2.5em; }
+  ol ol { list-style: outside lower-alpha; padding-left: 2.5em; }
   ul, ol, dl { margin-bottom: 1.5em;}
   p { margin-bottom: 1.2em;}
   #{headings(1,2)}{ @extend .heading-font; line-height: 1.2em; }
@@ -23,4 +24,8 @@
   h1 { padding-bottom: 6px; margin-bottom: 9px; }
   ul { list-style: inside disc; }
   dt { font-weight: bold; }
+}
+#page aside {
+  ul { list-style: none; margin-bottom: 1em;}
+  h2 { line-height: 1.4em; margin-top: 0;}
 }

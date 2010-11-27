@@ -1,65 +1,66 @@
 ---
-title: Compass Documentation
-crumb: Docs
+title: Compass Home
+crumb: Home
 body_id: home
+layout: homepage
 ---
-%article
-  %h1#logo Compass
-
-  :markdown
-    Compass is a stylesheet authoring tool that uses the Sass stylesheet
-    language to make your stylesheets smaller and your web site easier to
-    maintain. Compass provides ports of the best of breed css frameworks
-    that you can use without forcing you to use their presentational class
-    names. It’s a new way of thinking about stylesheets that must be seen
-    in action!
-    
-    <object width="700" height="438"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=11671458&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=11671458&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="700" height="438"></embed></object><p><a href="http://vimeo.com/11671458">An introduction to Compass</a> from <a href="http://vimeo.com/ltackett">Lorin Tackett</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
-    
-    ## Installing
-    
-    Compass is a tool that runs on the command line.
-    
-    On any system with ruby installed, open your terminal and type:
-    
-        gem install compass
-    
-    This will install Compass and Sass too. Verify that compass is installed:
-    
-        compass version
-    
-    ## Creating a stand-alone project
-    
-        compass create myproject
-        mate myproject
-        compass watch myproject
-    
-    If you don't have TextMate, substitute the `mate myproject` part with the text
-    editor of your choice. Edit the `*.scss` files in the `sass` directory.
-    These files are yours and you can change them as you see fit, delete them,
-    make new ones, etc. Compass will automatically compile them into css in the
-    `stylesheets` directory whenever they change.
-    
-    ## Rails Support
-    
-        compass init rails /path/to/myrailsproject
-    
-    ## Installing a framework
-    
-    When creating a new project:
-    
-        compass create myproject --using blueprint/basic
-    
-    When installing into an existing project:
-    
-        cd myproject
-        compass install blueprint/semantic
-    
-    With Rails:
-    
-        compass init rails /path/to/myrailsproject --using blueprint/semantic
-    
-    ## Bugs Reports, Discussions, Support
-    
-    Send a note to the [mailing list](http://groups.google.com/group/compass-users)
-    and/or [File a bug](http://github.com/chriseppstein/compass/issues).
+%h1#logo Compass
+%h2 <strong>Compass</strong> is an open-source <em>CSS Authoring Framework</em>.
+.overview
+  .compass
+    %h4 Why designers love Compass.
+    %ol
+      %li Get cleaner markup with no presentational classes.
+      %li It’s chock full of the web’s best reusable patterns.
+      %li Developing a personal framework is simple. 
+      %li Compass mixins make CSS3 easy.
+  .sass
+    %h4 Compass uses Sass.
+    %p <a href="http://sass-lang.com/">Sass</a> is an extension of CSS3 which adds nested rules, variables, mixins, selector inheritance, and more. Sass generates well formatted CSS.
+%h3 Brilliant people use Compass, including these <em>wildly talented</em> folks:
+%ul#featured_sites
+  %li
+    %a(href="http://addons.heroku.com/")
+      %img(src="/images/sites/addons.heroku.jpg")
+      %span.title Heroku Addons
+      %span.url http://addons.heroku.com
+  %li
+    %a(href="http://sencha.com/products/touch/")
+      %img(src="/images/sites/sencha.jpg")
+      %span.title Sencha Touch
+      %span.url http://sencha.com/products/touch
+  %li
+    %a(href="http://caring.com/")
+      %img(src="/images/sites/caring.jpg")
+      %span.title Caring.com
+      %span.url http://caring.com
+  %li
+    %a(href="http://hubblesite.org/")
+      %img(src="/images/sites/hubblesite.jpg")
+      %span.title HubbleSite
+      %span.url http://hubblesite.org
+  %li
+    %a(href="http://dailymile.com/")
+      %img(src="/images/sites/dailymile.jpg")
+      %span.title DailyMile
+      %span.url http://dailymile.com
+  %li
+    %a(href="http://cofamilies.com/")
+      %img(src="/images/sites/cofamilies.jpg")
+      %span.title Cofamilies
+      %span.url http://cofamilies.com
+  %li
+    %a(href="http://jumpstartlab.com")
+      %img(src="/images/sites/jumpstartlab.jpg")
+      %span.title Jumpstart Lab
+      %span.url http://jumpstartlab.com
+  %li
+    %a(href="http://green.cals.cornell.edu/")
+      %img(src="/images/sites/cornell.jpg")
+      %span.title Corenell University - CALS
+      %span.url http://green.cals.cornell.edu
+  %li
+    %a(href="http://busyconf.com/")
+      %img(src="/images/sites/busyconf.jpg")
+      %span.title BusyConf
+      %span.url http://busyconf.com

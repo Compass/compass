@@ -1,0 +1,82 @@
+body#home {
+  width: 810px;
+  #page { padding-top: 31px;}
+  h1#logo {
+    $logo: 'compass-logo.png';
+    background: image-url($logo) no-repeat;
+    text-indent: -9999px;
+    overflow: hidden;
+    width: image-width($logo);
+    height: image-height($logo)/2;
+    padding: 0;
+    margin: 0 auto 18px;
+  }
+  #{headings()}{ @extend .heading-font; }
+  h2 {
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    line-height: 1.1em;
+  }
+  h3 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 32px;
+  }
+  h4 { font-size: 1.5em; }
+  .overview {
+    @extend .group;
+    .compass { width: 406px; float: left;
+      h4:before { content: "k"; } }
+    .sass { width: 275px; float: right; 
+      h4:before { content: "2"; } }
+    div { 
+      padding: 20px;
+      h4 {
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        &:before {
+          @extend .pictos;
+          color: #fb292d;
+          display: inline-block;
+          font-size: 1.2em;
+          padding-right: .3em;
+        }
+      }
+    }
+    ol { padding-left: 0; list-style: inside decimal; margin-bottom: 0; }
+    p { margin-bottom: 0; }
+    ol, p { line-height: 1.8em; font-size: .95em;}
+  }
+}
+ul#featured_sites {
+  @extend .group;
+  overflow: visible;
+  margin-top: 30px;
+  list-style: none;
+  padding: 0px;
+  li {
+    float: left;
+    text-shadow: none;
+    overflow: visible;
+    position: relative;
+    &:nth-child(3n+2){ margin: 0 7px; }
+    &:nth-child(1n+4){ margin-top: 7px; }
+    &:nth-child(3n+4){ clear: left; }
+    padding: 6px;
+    a { text-decoration: none; }
+    img { float: left; width: 240px; }
+    span { display: none;}
+    &:hover { z-index: 100;
+      padding: 3px 2px;
+      img { width: 248px; }
+      span { display: block; position: absolute; text-shadow: none;}
+    }
+    .url {
+      bottom: 2px; left: 2px; right: 2px; background: #000; background: rgba(#000, .8); z-index: 102; padding: 2.2em 10px 6px;
+      font-size: .8em; border-top: 1px solid rgba(#fff, .2); }
+    .title { bottom: 1.7em; left: 0; z-index: 103; text-decoration: none; padding: 0 11px; color: #fff; }
+  }
+}
+html.light body#home { h1#logo { background-position: bottom;} }

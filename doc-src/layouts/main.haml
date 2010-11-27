@@ -1,19 +1,6 @@
 - render "basic" do
   #wrap
-    %header#banner{:role => "banner"}
-      %nav#main-nav{:role => "navigation"}
-        %ul
-          %li.vcard
-            %a.fn.org.url.uid{:href => "/", :rel => "home"} Compass
-          %li
-            %a{:href => "/reference/compass/", :rel => "documentation"} Docs
-          %li
-            %a{:href => "/help", :rel=> "help"} Get Help
-          %li
-            %a{:href => "/get-involved", :rel=> "get-involved"} Get Involved
-              
-      %form#search-docs{:action => "/search/", :method => "GET"}
-        %input#search{:name => "q", :type => "text", :value => "", :placeholder => "Search the docs"}
+    = render "partials/main-navigation"
     #sub-nav
       %nav#docs-nav{:role => "navigation"}
         %a{:href => "/reference/blueprint/", :rel => "blueprint"} Blueprint
@@ -23,7 +10,7 @@
     #page
       #docs_panel
         #theme_pref
-          %a{:href => "#", :rel => "theme", :title => "switch theme" } switch theme
+          %a{:href => "#", :rel => "theme", :title => "switch theme" } Q
         #syntax_pref
           %a{:href => "#", :rel => "scss" } scss
           %a{:href => "#", :rel => "sass" } sass
