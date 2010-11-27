@@ -54,7 +54,7 @@ $default-box-shadow-inset : false !default;
   }
   @else {
     @if $shadow-1 == default {
-      $shadow-1 : -compass-space-list(compact(if($default-box-shadow-inset, inset), $default-box-shadow-h-offset, $default-box-shadow-v-offset, $default-box-shadow-blur, $default-box-shadow-spread, $default-box-shadow-color));
+      $shadow-1 : -compass-space-list(compact(if($default-box-shadow-inset, inset, false), $default-box-shadow-h-offset, $default-box-shadow-v-offset, $default-box-shadow-blur, $default-box-shadow-spread, $default-box-shadow-color));
     }
     $shadow : compact($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10);
     @include experimental(box-shadow, $shadow,
