@@ -244,7 +244,7 @@ Feature: Command Line
 
   @validator
   Scenario: Validate the generated CSS
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass validate
     Then my css is validated
     And I am informed that my css is valid.

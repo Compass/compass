@@ -201,14 +201,14 @@ end
 
 Then /^my css is validated$/ do
   if @last_error =~ /The Compass CSS Validator could not be loaded/
-    pending "Missing Dependency: sudo gem install chriseppstein-compass-validator"
+    pending "Missing Dependency: sudo gem install compass-validator"
   else
-    @last_result.should =~ /Compass CSS Validator/
+    @last_result.should =~ /files? validated/
   end
 end
 
 Then /^I am informed that my css is valid.$/ do
-  @last_result.should =~ /Your CSS files are valid\./
+  @last_result.should =~ /Result: Valid/
 end
 
 Then /^I am told statistics for each file:$/ do |table|
