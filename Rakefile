@@ -5,10 +5,16 @@ require 'compass'
 
 # ----- Default: Testing ------
 
-task :default => :test
+task :default => [:test, :features]
 
 require 'rake/testtask'
 require 'fileutils'
+require 'cucumber'
+require 'cucumber/rake/task'
+
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "features --format pretty"
+end
 
 Rake::TestTask.new :test do |t|
   t.libs << 'lib'
