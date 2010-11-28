@@ -61,7 +61,7 @@ This can be done in one of the following ways:
      compass watch [path/to/project]
 
 More Resources:
-  * Wiki: http://wiki.github.com/chriseppstein/compass
+  * Website: http://compass-style.org/
   * Sass: http://sass-lang.com
   * Community: http://groups.google.com/group/compass-users/
 
