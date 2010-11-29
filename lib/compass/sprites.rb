@@ -101,6 +101,16 @@ module Compass
       [self.class.name + ":" + File.dirname(File.expand_path(uri)),
         File.basename(uri)]
     end
+
+    def mtime(uri, options)
+      Compass.quick_cache("mtime:#{uri}") do
+        self.path, self.name = Compass::Sprites.path_and_name(uri)
+        glob = File.join(Compass.configuration.images_path, uri)
+        Dir.glob(glob).inject(Time.at(0)) do |max_time, file|
+          (t = File.mtime(file)) > max_time ? t : max_time
+        end
+      end
+    end
     
     def to_s
       ""
