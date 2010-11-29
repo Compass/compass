@@ -22,6 +22,8 @@ module Compass
         plugin_opts[:cache] = cache unless cache.nil?
         plugin_opts[:cache_location] = cache_path unless cache_path.nil?
         plugin_opts.merge!(sass_options || {})
+        plugin_opts[:load_paths] ||= []
+        plugin_opts[:load_paths] << Compass::Sprites.new
         plugin_opts
       end
 
@@ -57,6 +59,7 @@ module Compass
           load_paths << framework.stylesheets_directory if File.exists?(framework.stylesheets_directory)
         end
         load_paths += resolve_additional_import_paths
+        load_paths << Compass::Sprites.new
         load_paths
       end
     end

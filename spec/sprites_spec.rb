@@ -33,7 +33,6 @@ describe Compass::Sprites do
     options[:line_comments] = false
     options[:style] = :expanded
     options[:syntax] = :scss
-    options[:load_paths] << Compass::Sprites.new
     css = Sass::Engine.new(scss, options).render
     # reformat to fit result of heredoc:
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
