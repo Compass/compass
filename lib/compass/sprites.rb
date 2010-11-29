@@ -15,7 +15,9 @@ module Compass
       end
     
       def sprites(path, name, create = false)
-        @@sprites = {} if @@sprites.nil?
+        if !defined?(@@sprites) || @@sprites.nil?
+          @@sprites = {}
+        end
         index = "#{path}/#{name}"
         images = @@sprites[index]
         if images
