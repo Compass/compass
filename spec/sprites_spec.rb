@@ -46,15 +46,15 @@ describe Compass::Sprites do
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -10px;
       }
     CSS
@@ -69,17 +69,17 @@ describe Compass::Sprites do
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
         height: 10px;
         width: 10px;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -10px;
         height: 20px;
         width: 20px;
@@ -93,11 +93,11 @@ describe Compass::Sprites do
       @import "squares/*.png";
       
       .cubicle {
-        @include squares-sprite("10x10");
+        @include squares-sprite("ten-by-ten");
       }
       
       .large-cube {
-        @include squares-sprite("20x20", true);
+        @include squares-sprite("twenty-by-twenty", true);
       }
     SCSS
     css.should == <<-CSS
@@ -135,20 +135,20 @@ describe Compass::Sprites do
   
   it "should calculate the spacing between images but not before first image" do
     css = render <<-SCSS
-      $squares-10x10-spacing: 33px;
+      $squares-ten-by-ten-spacing: 33px;
       @import "squares/*.png";
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -43px;
       }
     CSS
@@ -157,20 +157,20 @@ describe Compass::Sprites do
   
   it "should calculate the spacing between images" do
     css = render <<-SCSS
-      $squares-20x20-spacing: 33px;
+      $squares-twenty-by-twenty-spacing: 33px;
       @import "squares/*.png";
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -43px;
       }
     CSS
@@ -179,21 +179,21 @@ describe Compass::Sprites do
   
   it "should calculate the maximum spacing between images" do
     css = render <<-SCSS
-      $squares-10x10-spacing: 44px;
-      $squares-20x20-spacing: 33px;
+      $squares-ten-by-ten-spacing: 44px;
+      $squares-twenty-by-twenty-spacing: 33px;
       @import "squares/*.png";
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -54px;
       }
     CSS
@@ -202,21 +202,21 @@ describe Compass::Sprites do
   
   it "should calculate the maximum spacing between images in reversed order" do
     css = render <<-SCSS
-      $squares-10x10-spacing: 33px;
-      $squares-20x20-spacing: 44px;
+      $squares-ten-by-ten-spacing: 33px;
+      $squares-twenty-by-twenty-spacing: 44px;
       @import "squares/*.png";
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -54px;
       }
     CSS
@@ -230,15 +230,15 @@ describe Compass::Sprites do
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -32px;
       }
     CSS
@@ -251,15 +251,15 @@ describe Compass::Sprites do
       @import "squares/*.png";
       
       .adjusted-percentage {
-        background-position: sprite-position("squares/10x10.png", 100%);
+        background-position: sprite-position("squares/ten-by-ten.png", 100%);
       }
       
       .adjusted-px-1 {
-        background-position: sprite-position("squares/10x10.png", 4px);
+        background-position: sprite-position("squares/ten-by-ten.png", 4px);
       }
       
       .adjusted-px-2 {
-        background-position: sprite-position("squares/20x20.png", -3px, 2px);
+        background-position: sprite-position("squares/twenty-by-twenty.png", -3px, 2px);
       }
     SCSS
     css.should == <<-CSS
@@ -289,15 +289,15 @@ describe Compass::Sprites do
       @import "squares/*.png";
       
       .adjusted-percentage {
-        @include squares-sprite("10x10", $x: 100%);
+        @include squares-sprite("ten-by-ten", $x: 100%);
       }
       
       .adjusted-px-1 {
-        @include squares-sprite("10x10", $x: 4px);
+        @include squares-sprite("ten-by-ten", $x: 4px);
       }
       
       .adjusted-px-2 {
-        @include squares-sprite("20x20", $x: -3px, $y: 2px);
+        @include squares-sprite("twenty-by-twenty", $x: -3px, $y: 2px);
       }
     SCSS
     css.should == <<-CSS
@@ -328,15 +328,15 @@ describe Compass::Sprites do
       @include all-squares-sprites;
     SCSS
     css.should == <<-CSS
-      .squares-sprite, .squares-10x10, .squares-20x20 {
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares.png') no-repeat;
       }
       
-      .squares-10x10 {
+      .squares-ten-by-ten {
         background-position: 0 0;
       }
       
-      .squares-20x20 {
+      .squares-twenty-by-twenty {
         background-position: 0 -10px;
       }
     CSS
@@ -349,19 +349,19 @@ describe Compass::Sprites do
       @import "squares/*.png";
       
       .squares-1 {
-        background: sprite-image("squares/20x20.png") no-repeat;
+        background: sprite-image("squares/twenty-by-twenty.png") no-repeat;
       }
       
       .squares-2 {
-        background: sprite-image("squares/20x20.png", 100%) no-repeat;
+        background: sprite-image("squares/twenty-by-twenty.png", 100%) no-repeat;
       }
       
       .squares-3 {
-        background: sprite-image("squares/20x20.png", -4px, 3px) no-repeat;
+        background: sprite-image("squares/twenty-by-twenty.png", -4px, 3px) no-repeat;
       }
       
       .squares-4 {
-        background-image: sprite-url("squares/20x20.png");
+        background-image: sprite-url("squares/twenty-by-twenty.png");
       }
       
       .squares-5 {
@@ -395,34 +395,34 @@ describe Compass::Sprites do
     CSS
   end
   
-  it "should raise deprication errors for lemonade's spacing syntax" do
+  it "should raise deprecation errors for lemonade's spacing syntax" do
     proc do
       render <<-SCSS
         @import "squares/*.png";
         
         .squares {
-          background: sprite-image("squares/20x20.png", 0, 0, 11px) no-repeat;
+          background: sprite-image("squares/twenty-by-twenty.png", 0, 0, 11px) no-repeat;
         }
       SCSS
     end.should raise_error Compass::Error,
-      %q(Spacing parameter is deprecated. Please add `$squares-20x20-spacing: 11px;` before the `@import "squares/*.png";` statement.)
+      %q(Spacing parameter is deprecated. Please add `$squares-twenty-by-twenty-spacing: 11px;` before the `@import "squares/*.png";` statement.)
     proc do
       render <<-SCSS
         @import "squares/*.png";
         
         .squares {
-          background: sprite-position("squares/20x20.png", 0, 0, 11px) no-repeat;
+          background: sprite-position("squares/twenty-by-twenty.png", 0, 0, 11px) no-repeat;
         }
       SCSS
     end.should raise_error Compass::Error,
-      %q(Spacing parameter is deprecated. Please add `$squares-20x20-spacing: 11px;` before the `@import "squares/*.png";` statement.)
+      %q(Spacing parameter is deprecated. Please add `$squares-twenty-by-twenty-spacing: 11px;` before the `@import "squares/*.png";` statement.)
   end
   
   it "should raise an error if @import is missing" do
     proc do
       render <<-SCSS
         .squares {
-          background: sprite-image("squares/20x20.png") no-repeat;
+          background: sprite-image("squares/twenty-by-twenty.png") no-repeat;
         }
       SCSS
     end.should raise_error Compass::Error,
