@@ -156,6 +156,7 @@ Feature: Command Line
       | imports     |
       | install     |
       | interactive |
+      | sprite      |
       | stats       |
       | unpack      |
       | validate    |
