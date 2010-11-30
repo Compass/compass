@@ -3,16 +3,32 @@ require 'chunky_png'
 module Compass::SassExtensions::Functions::Sprites
   SASS_NULL = Sass::Script::Number::new(0)
   
-  def generate_sprite_image(uri)
+  # Provides a consistent interface for getting a variable in ruby
+  # from a keyword argument hash that accounts for underscores/dash equivalence
+  # and allows the caller to pass a symbol instead of a string.
+  module VariableReader
+    def get_var(variable_name)
+      self[variable_name.to_s.gsub(/-/,"_")]
+    end
+  end
+
+  def generate_sprite_image(uri, kwargs = {})
+    kwargs.extend VariableReader
     path, name = Compass::Sprites.path_and_name(uri.value)
     last_spacing = 0
     width = 0
     height = 0
+
+    # Get image metadata
+    Compass::Sprites.discover_sprites(uri.value).each do |file|
+      Compass::Sprites.compute_image_metadata! file, path, name
+    end
+
     images = Compass::Sprites.sprites(path, name)
-    
+
     # Calculation
     images.each do |image|
-      current_spacing = number_from_var("#{name}-#{image[:name]}-spacing")
+      current_spacing = number_from_var(kwargs, "#{image[:name]}-spacing", 0)
       if height > 0
         height += [current_spacing, last_spacing].max
       end
@@ -27,14 +43,18 @@ module Compass::SassExtensions::Functions::Sprites
     images.each do |image|
       input_png  = ChunkyPNG::Image.from_file(image[:file])
       
-      position = environment.var("#{name}-#{image[:name]}-position")
+      position = kwargs.get_var("#{image[:name]}-position") || Sass::Script::Number.new(0, ["%"])
       if position.unit_str == "%"
         image[:x] = (width - image[:width]) * (position.value / 100)
       else
         image[:x] = position.value
       end
       
-      repeat = environment.var("#{name}-#{image[:name]}-repeat").to_s
+      repeat = if (var = kwargs.get_var("#{image[:name]}-repeat"))
+        var.value
+      else
+        "no-repeat"
+      end
       if repeat == "no-repeat"
         output_png.replace input_png, image[:x], image[:y]
       else
@@ -49,6 +69,7 @@ module Compass::SassExtensions::Functions::Sprites
     
     sprite_url(uri)
   end
+  Sass::Script::Functions.declare :generate_sprite_image, [:uri], :var_kwargs => true
   
   def sprite_image(uri, x_shift = SASS_NULL, y_shift = SASS_NULL, depricated_1 = nil, depricated_2 = nil)
     check_spacing_deprecation uri, depricated_1, depricated_2
@@ -80,11 +101,12 @@ module Compass::SassExtensions::Functions::Sprites
   
 private
   
-  def number_from_var(var_name)
-    if var = environment.var(var_name)
-      var.value
+  def number_from_var(kwargs, var_name, default_value)
+    if number = kwargs.get_var(var_name)
+      assert_type number, :Number
+      number.value
     else
-      0
+      default_value
     end
   end
   

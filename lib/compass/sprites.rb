@@ -28,6 +28,25 @@ module Compass
           raise Compass::Error, %Q(`@import` statement missing. Please add `@import "#{path}/*.png";`.)
         end
       end
+
+      def discover_sprites(uri)
+        glob = File.join(Compass.configuration.images_path, uri)
+        Dir.glob(glob).sort
+      end
+
+      def compute_image_metadata!(file, path, name)
+        width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
+        sprite_name = File.basename(file, '.png');
+        unless sprite_name =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
+          raise Sass::SyntaxError, "#{sprite_name} must be a legal css identifier"
+        end
+        sprites(path, name, true) << {
+          :name => sprite_name,
+          :file => file,
+          :height => height,
+          :width => width
+        }
+      end
     end
 
     def images
@@ -37,66 +56,76 @@ module Compass
     def find(uri, options)
       if uri =~ /\.png$/
         self.path, self.name = Compass::Sprites.path_and_name(uri)
-        glob = File.join(Compass.configuration.images_path, uri)
-        Dir.glob(glob).sort.each do |file|
-          width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
-          images << {
-            :name => File.basename(file, '.png'),
-            :file => file,
-            :height => height,
-            :width => width
-          }
-        end
-
-        contents = <<-SCSS
-          $#{name}-sprite-base-class: ".#{name}-sprite" !default;
-          $#{name}-sprite-dimensions: false !default;
-          $#{name}-position: 0% !default;
-          $#{name}-spacing: 0 !default;
-          $#{name}-repeat: no-repeat !default;
-
-          #{images.map do |sprite| 
-            <<-SCSS
-              $#{name}-#{sprite[:name]}-position: $#{name}-position !default;
-              $#{name}-#{sprite[:name]}-spacing: $#{name}-spacing !default;
-              $#{name}-#{sprite[:name]}-repeat: $#{name}-repeat !default;
-            SCSS
-          end.join}
-        
-          \#{$#{name}-sprite-base-class} {
-            background: generate-sprite-image("#{uri}") no-repeat;
-          }
-        
-          @mixin #{name}-sprite-dimensions($sprite) {
-            height: image-height("#{name}/\#{$sprite}.png");
-            width: image-width("#{name}/\#{$sprite}.png");
-          }
-          
-          @mixin #{name}-sprite-position($sprite, $x: 0, $y: 0) {
-            background-position: sprite-position("#{path}/\#{$sprite}.png", $x, $y);  
-          }
-        
-          @mixin #{name}-sprite($sprite, $dimensions: $#{name}-sprite-dimensions, $x: 0, $y: 0) {
-            @extend \#{$#{name}-sprite-base-class};
-            @include #{name}-sprite-position($sprite, $x, $y);
-            @if $dimensions {
-              @include #{name}-sprite-dimensions($sprite);
-            }
-          }
-        
-          @mixin all-#{name}-sprites {
-            #{images.map do |sprite| 
-              <<-SCSS
-                .#{name}-#{sprite[:name]} {
-                  @include #{name}-sprite("#{sprite[:name]}");
-                }
-              SCSS
-            end.join}
-          }
-        SCSS
         options.merge! :filename => name, :syntax => :scss, :importer => self
-        Sass::Engine.new(contents, options)
+        image_names = Compass::Sprites.discover_sprites(uri).map{|i| File.basename(i, '.png')}
+        Sass::Engine.new(content_for_images(uri, name, image_names), options)
       end
+    end
+
+    def content_for_images(uri, name, images)
+      <<-SCSS
+// General Sprite Defaults
+// You can override them before you import this file.
+$#{name}-sprite-base-class: ".#{name}-sprite" !default;
+$#{name}-sprite-dimensions: false !default;
+$#{name}-position: 0% !default;
+$#{name}-spacing: 0 !default;
+$#{name}-repeat: no-repeat !default;
+
+// These variables control the generated sprite output
+// You can override them selectively before you import this file.
+#{images.map do |sprite_name| 
+<<-SCSS
+$#{name}-#{sprite_name}-position: $#{name}-position !default;
+$#{name}-#{sprite_name}-spacing: $#{name}-spacing !default;
+$#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
+SCSS
+end.join}
+
+// All sprites should extend this class
+// The #{name}-sprite mixin will do so for you.
+\#{$#{name}-sprite-base-class} {
+  background: generate-sprite-image("#{uri}",
+#{images.map do |sprite_name| 
+%Q{    $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
+    $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
+    $#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}
+end.join(",\n")}) no-repeat;
+}
+
+// Use this to set the dimensions of an element
+// based on the size of the original image.
+@mixin #{name}-sprite-dimensions($sprite) {
+  height: image-height("#{name}/\#{$sprite}.png");
+  width: image-width("#{name}/\#{$sprite}.png");
+}
+
+// Move the background position to display the sprite.
+@mixin #{name}-sprite-position($sprite, $x: 0, $y: 0) {
+  background-position: sprite-position("#{path}/\#{$sprite}.png", $x, $y);  
+}
+
+// Extends the sprite base class and set the background position for the desired sprite.
+// It will also apply the image dimensions if $dimensions is true.
+@mixin #{name}-sprite($sprite, $dimensions: $#{name}-sprite-dimensions, $x: 0, $y: 0) {
+  @extend \#{$#{name}-sprite-base-class};
+  @include #{name}-sprite-position($sprite, $x, $y);
+  @if $dimensions {
+    @include #{name}-sprite-dimensions($sprite);
+  }
+}
+
+// Generates a class for each sprited image.
+@mixin all-#{name}-sprites {
+#{images.map do |sprite_name| 
+<<-SCSS
+  .#{name}-#{sprite_name} {
+    @include #{name}-sprite("#{sprite_name}");
+  }
+SCSS
+end.join}
+}
+      SCSS
     end
 
     def key(uri, options)
