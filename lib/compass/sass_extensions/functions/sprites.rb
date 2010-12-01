@@ -191,13 +191,30 @@ module Compass::SassExtensions::Functions::Sprites
 
   end
 
+  # Creates a sprite object. A sprite object, when used in a property is the same
+  # as calling sprite-url. So the following background properties are equivalent:
+  #
+  #     $sprite: sprite("icons/*.png");
+  #     background: sprite-url($sprite) no-repeat;
+  #     background: $sprite no-repeat;
+  #
+  # The sprite object will generate the sprite image, if it is needed,
+  # the first time it is converted to a url. Simply constructing it has no side-effects.
   def sprite(uri, kwargs = {})
     kwargs.extend VariableReader
     Sprite.from_uri(uri, self, kwargs)
   end
   Sass::Script::Functions.declare :sprite, [:uri], :var_kwargs => true
 
-  def sprite_image(sprite, image = nil, x_shift = ZERO, y_shift = ZERO)
+  # Returns the image and background position for use in a single shorthand property:
+  #
+  #     $sprite: sprite("icons/*.png"); // contains icons/new.png among others.
+  #     background: sprite-image($sprite, new) no-repeat;
+  #
+  # Becomes:
+  #
+  #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
+  def sprite_image(sprite, image = nil, offset_x = ZERO, offset_y = ZERO)
     unless sprite.is_a?(Sprite)
       missing_sprite!("sprite-image")
     end
@@ -205,17 +222,25 @@ module Compass::SassExtensions::Functions::Sprites
       raise Sass::SyntaxError, %Q(The second argument to sprite-image must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
     url = sprite_url(sprite)
-    position = sprite_position(sprite, image, x_shift, y_shift)
-    Sass::Script::List.new([url, position], :space)
+    position = sprite_position(sprite, image, offset_x, offset_y)
+    Sass::Script::List.new([url] + position.value, :space)
   end
+  Sass::Script::Functions.declare :sprite_image, [:sprite]
+  Sass::Script::Functions.declare :sprite_image, [:sprite, :name]
+  Sass::Script::Functions.declare :sprite_image, [:sprite, :name, :offset_x]
+  Sass::Script::Functions.declare :sprite_image, [:sprite, :name, :offset_x, :offset_y]
 
+  # Returns the name of a sprite
+  # The name is derived from the folder than contains the sprite images.
   def sprite_name(sprite)
     unless sprite.is_a?(Sprite)
       missing_sprite!("sprite-name")
     end
     Sass::Script::String.new(sprite.name)
   end
+  Sass::Script::Functions.declare :sprite_name, [:sprite]
 
+  # Returns the path to the original image file for the sprite with the given name
   def sprite_file(sprite, image_name)
     unless sprite.is_a?(Sprite)
       missing_sprite!("sprite-file")
@@ -226,7 +251,9 @@ module Compass::SassExtensions::Functions::Sprites
       missing_image!(sprite, image_name)
     end
   end
+  Sass::Script::Functions.declare :sprite_file, [:sprite, :name]
     
+  # Returns a url to the sprite image.
   def sprite_url(sprite)
     unless sprite.is_a?(Sprite)
       missing_sprite!("sprite-url")
@@ -234,16 +261,28 @@ module Compass::SassExtensions::Functions::Sprites
     sprite.generate
     image_url(Sass::Script::String.new("#{sprite.path}.png"))
   end
+  Sass::Script::Functions.declare :sprite_url, [:sprite]
 
-  def missing_image!(sprite, image_name)
-    raise Sass::SyntaxError, "No image called #{image_name} found in sprite #{sprite.path}/#{sprite.name}. Did you mean one of: #{sprite.sprite_names.join(", ")}"
-  end
-
-  def missing_sprite!(function_name)
-    raise Sass::SyntaxError, %Q(The first argument to #{function_name} must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
-  end
-
-  def sprite_position(sprite, image_name = nil, x_shift = ZERO, y_shift = ZERO)
+  # Returns the position for the original image in the sprite.
+  # This is suitable for use as a value to background-position:
+  #
+  #     $sprite: sprite("icons/*.png");
+  #     background-position: sprite-position($sprite, new);
+  #
+  # Might generate something like:
+  #
+  #     background-position: 0 34px;
+  #
+  # You can adjust the background relative to this position by passing values for
+  # offset-x and offset-y:
+  #
+  #     $sprite: sprite("icons/*.png");
+  #     background-position: sprite-position($sprite, new, 3px, -2px);
+  #
+  # Would change the above output to:
+  #
+  #     background-position: 3px 32px;
+  def sprite_position(sprite, image_name = nil, offset_x = ZERO, offset_y = ZERO)
     unless sprite.is_a?(Sprite)
       missing_sprite!("sprite-position")
     end
@@ -254,15 +293,29 @@ module Compass::SassExtensions::Functions::Sprites
     unless image
       missing_image!(sprite, image_name)
     end
-    if x_shift.unit_str == "%"
-      x = x_shift # CE: Shouldn't this be a percentage of the total width?
+    if offset_x.unit_str == "%"
+      x = offset_x # CE: Shouldn't this be a percentage of the total width?
     else
-      x = x_shift.value - image[:left]
+      x = offset_x.value - image[:left]
       x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
     end
-    y = y_shift.value - image[:top]
+    y = offset_y.value - image[:top]
     y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
     Sass::Script::List.new([x, y],:space)
   end
-  
+  Sass::Script::Functions.declare :sprite_position, [:sprite]
+  Sass::Script::Functions.declare :sprite_position, [:sprite, :name]
+  Sass::Script::Functions.declare :sprite_position, [:sprite, :name, :offset_x]
+  Sass::Script::Functions.declare :sprite_position, [:sprite, :name, :offset_x, :offset_y]
+
+protected
+
+  def missing_image!(sprite, image_name)
+    raise Sass::SyntaxError, "No image called #{image_name} found in sprite #{sprite.path}/#{sprite.name}. Did you mean one of: #{sprite.sprite_names.join(", ")}"
+  end
+
+  def missing_sprite!(function_name)
+    raise Sass::SyntaxError, %Q(The first argument to #{function_name} must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+  end
+
 end
