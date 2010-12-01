@@ -12,7 +12,7 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  class Sprite < Sass::Script::Literal
+  class SpriteMap < Sass::Script::Literal
 
     attr_accessor :image_names, :path, :name, :options
     attr_accessor :images, :width, :height
@@ -191,107 +191,106 @@ module Compass::SassExtensions::Functions::Sprites
 
   end
 
-  # Creates a sprite object. A sprite object, when used in a property is the same
+  # Creates a SpriteMap object. A sprite map, when used in a property is the same
   # as calling sprite-url. So the following background properties are equivalent:
   #
-  #     $sprite: sprite("icons/*.png");
-  #     background: sprite-url($sprite) no-repeat;
-  #     background: $sprite no-repeat;
+  #     $icons: sprite-map("icons/*.png");
+  #     background: sprite-url($icons) no-repeat;
+  #     background: $icons no-repeat;
   #
-  # The sprite object will generate the sprite image, if it is needed,
+  # The sprite map object will generate the sprite map image, if necessary,
   # the first time it is converted to a url. Simply constructing it has no side-effects.
-  def sprite(uri, kwargs = {})
+  def sprite_map(glob, kwargs = {})
     kwargs.extend VariableReader
-    Sprite.from_uri(uri, self, kwargs)
+    SpriteMap.from_uri(glob, self, kwargs)
   end
-  Sass::Script::Functions.declare :sprite, [:uri], :var_kwargs => true
+  Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
 
   # Returns the image and background position for use in a single shorthand property:
   #
-  #     $sprite: sprite("icons/*.png"); // contains icons/new.png among others.
-  #     background: sprite-image($sprite, new) no-repeat;
+  #     $icons: sprite-map("icons/*.png"); // contains icons/new.png among others.
+  #     background: sprite($icons, new) no-repeat;
   #
   # Becomes:
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
-  def sprite_image(sprite, image = nil, offset_x = ZERO, offset_y = ZERO)
-    unless sprite.is_a?(Sprite)
-      missing_sprite!("sprite-image")
+  def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
+    unless map.is_a?(SpriteMap)
+      missing_sprite!("sprite")
     end
-    unless image && image.is_a?(Sass::Script::String)
-      raise Sass::SyntaxError, %Q(The second argument to sprite-image must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    unless sprite.is_a?(Sass::Script::String)
+      raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
-    url = sprite_url(sprite)
-    position = sprite_position(sprite, image, offset_x, offset_y)
+    url = sprite_url(map)
+    position = sprite_position(map, sprite, offset_x, offset_y)
     Sass::Script::List.new([url] + position.value, :space)
   end
-  Sass::Script::Functions.declare :sprite_image, [:sprite]
-  Sass::Script::Functions.declare :sprite_image, [:sprite, :name]
-  Sass::Script::Functions.declare :sprite_image, [:sprite, :name, :offset_x]
-  Sass::Script::Functions.declare :sprite_image, [:sprite, :name, :offset_x, :offset_y]
+  Sass::Script::Functions.declare :sprite, [:map, :sprite]
+  Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x]
+  Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y]
 
-  # Returns the name of a sprite
-  # The name is derived from the folder than contains the sprite images.
-  def sprite_name(sprite)
-    unless sprite.is_a?(Sprite)
-      missing_sprite!("sprite-name")
+  # Returns the name of a sprite map
+  # The name is derived from the folder than contains the sprites.
+  def sprite_map_name(map)
+    unless map.is_a?(SpriteMap)
+      missing_sprite!("sprite-map-name")
     end
-    Sass::Script::String.new(sprite.name)
+    Sass::Script::String.new(map.name)
   end
   Sass::Script::Functions.declare :sprite_name, [:sprite]
 
   # Returns the path to the original image file for the sprite with the given name
-  def sprite_file(sprite, image_name)
-    unless sprite.is_a?(Sprite)
+  def sprite_file(map, sprite)
+    unless map.is_a?(SpriteMap)
       missing_sprite!("sprite-file")
     end
-    if image = sprite.image_for(image_name.value)
+    if image = map.image_for(sprite.value)
       Sass::Script::String.new(image[:relative_file])
     else
-      missing_image!(sprite, image_name)
+      missing_image!(map, sprite)
     end
   end
-  Sass::Script::Functions.declare :sprite_file, [:sprite, :name]
+  Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
     
   # Returns a url to the sprite image.
-  def sprite_url(sprite)
-    unless sprite.is_a?(Sprite)
+  def sprite_url(map)
+    unless map.is_a?(SpriteMap)
       missing_sprite!("sprite-url")
     end
-    sprite.generate
-    image_url(Sass::Script::String.new("#{sprite.path}.png"))
+    map.generate
+    image_url(Sass::Script::String.new("#{map.path}.png"))
   end
-  Sass::Script::Functions.declare :sprite_url, [:sprite]
+  Sass::Script::Functions.declare :sprite_url, [:map]
 
   # Returns the position for the original image in the sprite.
   # This is suitable for use as a value to background-position:
   #
-  #     $sprite: sprite("icons/*.png");
-  #     background-position: sprite-position($sprite, new);
+  #     $icons: sprite-map("icons/*.png");
+  #     background-position: sprite-position($icons, new);
   #
   # Might generate something like:
   #
-  #     background-position: 0 34px;
+  #     background-position: 0 -34px;
   #
   # You can adjust the background relative to this position by passing values for
-  # offset-x and offset-y:
+  # `$offset-x` and `$offset-y`:
   #
-  #     $sprite: sprite("icons/*.png");
-  #     background-position: sprite-position($sprite, new, 3px, -2px);
+  #     $icons: sprite-map("icons/*.png");
+  #     background-position: sprite-position($icons, new, 3px, -2px);
   #
   # Would change the above output to:
   #
-  #     background-position: 3px 32px;
-  def sprite_position(sprite, image_name = nil, offset_x = ZERO, offset_y = ZERO)
-    unless sprite.is_a?(Sprite)
+  #     background-position: 3px -36px;
+  def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
+    unless map.is_a?(SpriteMap)
       missing_sprite!("sprite-position")
     end
-    unless image_name && image_name.is_a?(Sass::Script::String)
-      raise Sass::SyntaxError, %Q(The second argument to sprite-image must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    unless sprite && sprite.is_a?(Sass::Script::String)
+      raise Sass::SyntaxError, %Q(The second argument to sprite-position must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
-    image = sprite.image_for(image_name.value)
+    image = map.image_for(sprite.value)
     unless image
-      missing_image!(sprite, image_name)
+      missing_image!(map, sprite)
     end
     if offset_x.unit_str == "%"
       x = offset_x # CE: Shouldn't this be a percentage of the total width?
@@ -303,19 +302,23 @@ module Compass::SassExtensions::Functions::Sprites
     y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
     Sass::Script::List.new([x, y],:space)
   end
-  Sass::Script::Functions.declare :sprite_position, [:sprite]
-  Sass::Script::Functions.declare :sprite_position, [:sprite, :name]
-  Sass::Script::Functions.declare :sprite_position, [:sprite, :name, :offset_x]
-  Sass::Script::Functions.declare :sprite_position, [:sprite, :name, :offset_x, :offset_y]
+  Sass::Script::Functions.declare :sprite_position, [:map]
+  Sass::Script::Functions.declare :sprite_position, [:map, :sprite]
+  Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x]
+  Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y]
+
+  def sprite_image(*args)
+    raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+  end
 
 protected
 
-  def missing_image!(sprite, image_name)
-    raise Sass::SyntaxError, "No image called #{image_name} found in sprite #{sprite.path}/#{sprite.name}. Did you mean one of: #{sprite.sprite_names.join(", ")}"
+  def missing_image!(map, sprite)
+    raise Sass::SyntaxError, "No sprite called #{sprite} found in sprite map #{map.path}/#{map.name}. Did you mean one of: #{map.sprite_names.join(", ")}"
   end
 
   def missing_sprite!(function_name)
-    raise Sass::SyntaxError, %Q(The first argument to #{function_name} must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    raise Sass::SyntaxError, %Q(The first argument to #{function_name}() must be a sprite map. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
   end
 
 end

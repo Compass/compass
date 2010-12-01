@@ -1,29 +1,40 @@
 // Set the width and height of an element to the original
 // dimensions of an image before it was included in the sprite.
-@mixin sprite-dimensions($sprite, $name) {
-  height: image-height(sprite-file($sprite, $name));
-  width: image-width(sprite-file($sprite, $name));
+@mixin sprite-dimensions($map, $sprite) {
+  height: image-height(sprite-file($map, $sprite));
+  width: image-width(sprite-file($map, $sprite));
 }
 
-// Set the background position of the given `$sprite` to display the
-// image of the given `$name`. You can move the image relative to its
+// Set the background position of the given sprite `$map` to display the
+// sprite of the given `$sprite` name. You can move the image relative to its
 // natural position by passing `$offset-x` and `$offset-y`.
-@mixin sprite-position($sprite, $name, $offset-x: 0, $offset-y: 0) {
-  background-position: sprite-position($sprite, $name, $offset-x, $offset-y);  
+@mixin sprite-position($map, $sprite, $offset-x: 0, $offset-y: 0) {
+  background-position: sprite-position($map, $sprite, $offset-x, $offset-y);  
 }
 
-@mixin sprite($sprite, $name, $dimensions: false, $offset-x: 0, $offset-y: 0) {
-  @include sprite-position($sprite, $name, $offset-x, $offset-y);
+// Include the position and (optionally) dimensions of this `$sprite`
+// in the given sprite `$map`. The sprite url should come from either a base
+// class or you can specify the `sprite-url` explicitly like this:
+//
+//     background: $map no-repeat;
+@mixin sprite($map, $sprite, $dimensions: false, $offset-x: 0, $offset-y: 0) {
+  @include sprite-position($map, $sprite, $offset-x, $offset-y);
   @if $dimensions {
-    @include sprite-dimensions($sprite, $name);
+    @include sprite-dimensions($map, $sprite);
   }
 }
 
-@mixin sprites($sprite, $sprite-names, $base-class: false, $dimensions: false) {
+// Generates a class for each space separated name in `$sprite-names`.
+// The class will be of the form .<map-name>-<sprite-name>.
+//
+// If a base class is provided, then each class will extend it.
+//
+// If `$dimensions` is `true`, the sprite dimensions will specified.
+@mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false) {
   @each $sprite-name in $sprite-names {
-    .#{sprite-name($sprite)}-#{$sprite-name} {
+    .#{sprite-map-name($map)}-#{$sprite-name} {
       @if $base-class { @extend #{$base-class}; }
-      @include sprite($sprite, $sprite-name, $dimensions);
+      @include sprite($map, $sprite-name, $dimensions);
     }
   }
 }

@@ -57,7 +57,7 @@ $#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
 SCSS
 end.join}
 
-$#{name}-sprite: sprite("#{uri}",
+$#{name}-sprites: sprite-map("#{uri}",
 #{images.map do |sprite_name| 
 %Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
   $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
@@ -67,29 +67,29 @@ end.join(",\n")});
 // All sprites should extend this class
 // The #{name}-sprite mixin will do so for you.
 \#{$#{name}-sprite-base-class} {
-  background: $#{name}-sprite no-repeat;
+  background: $#{name}-sprites no-repeat;
 }
 
 // Use this to set the dimensions of an element
 // based on the size of the original image.
 @mixin #{name}-sprite-dimensions($name) {
-  @include sprite-dimensions($#{name}-sprite, $name)
+  @include sprite-dimensions($#{name}-sprites, $name)
 }
 
 // Move the background position to display the sprite.
 @mixin #{name}-sprite-position($name, $offset-x: 0, $offset-y: 0) {
-  @include sprite-position($#{name}-sprite, $name, $offset-x, $offset-y)
+  @include sprite-position($#{name}-sprites, $name, $offset-x, $offset-y)
 }
 
 // Extends the sprite base class and set the background position for the desired sprite.
 // It will also apply the image dimensions if $dimensions is true.
 @mixin #{name}-sprite($name, $dimensions: $#{name}-sprite-dimensions, $offset-x: 0, $offset-y: 0) {
   @extend \#{$#{name}-sprite-base-class};
-  @include sprite($#{name}-sprite, $name, $dimensions, $offset-x, $offset-y)
+  @include sprite($#{name}-sprites, $name, $dimensions, $offset-x, $offset-y)
 }
 
 @mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions) {
-  @include sprites($#{name}-sprite, $sprite-names, $#{name}-sprite-base-class, $dimensions)
+  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions)
 }
 
 // Generates a class for each sprited image.
