@@ -141,7 +141,7 @@ module Compass::SassExtensions::Functions::Sprites
 
     # The on-the-disk filename of the sprite
     def filename
-      File.join(File.join(Compass.configuration.images_path, "#{path}.png"))
+      File.join(Compass.configuration.images_path, "#{path}.png")
     end
 
     # saves the sprite for later retrieval
@@ -152,7 +152,7 @@ module Compass::SassExtensions::Functions::Sprites
     # All the full-path filenames involved in this sprite
     def image_filenames
       image_names.map do |image_name|
-        File.join(File.join(Compass.configuration.images_path, image_name))
+        File.join(Compass.configuration.images_path, image_name)
       end
     end
 
@@ -175,6 +175,10 @@ module Compass::SassExtensions::Functions::Sprites
 
     def to_s(options = self.options)
       sprite_url(self).value
+    end
+
+    def respond_to?(meth)
+      super || @evaluation_context.respond_to?(meth)
     end
 
     def method_missing(meth, *args, &block)
