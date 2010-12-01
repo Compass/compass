@@ -10,7 +10,6 @@ describe Compass::Sprites do
     FileUtils.cp_r @images_src_path, @images_tmp_path
     Compass.configuration.images_path = @images_tmp_path
     Compass.configure_sass_plugin!
-    Compass::Sprites.reset
   end
 
   after :each do
@@ -247,19 +246,21 @@ describe Compass::Sprites do
   
   it "should use position adjustments in functions" do
     css = render <<-SCSS
-      $squares-position: 100%;
-      @import "squares/*.png";
+      $squares-sprite: sprite("squares/*.png", $position: 100%);
+      .squares-sprite {
+        background: $squares-sprite no-repeat;
+      }
       
       .adjusted-percentage {
-        background-position: sprite-position("squares/ten-by-ten.png", 100%);
+        background-position: sprite-position($squares-sprite, ten-by-ten, 100%);
       }
       
       .adjusted-px-1 {
-        background-position: sprite-position("squares/ten-by-ten.png", 4px);
+        background-position: sprite-position($squares-sprite, ten-by-ten, 4px);
       }
       
       .adjusted-px-2 {
-        background-position: sprite-position("squares/twenty-by-twenty.png", -3px, 2px);
+        background-position: sprite-position($squares-sprite, twenty-by-twenty, -3px, 2px);
       }
     SCSS
     css.should == <<-CSS
@@ -289,15 +290,15 @@ describe Compass::Sprites do
       @import "squares/*.png";
       
       .adjusted-percentage {
-        @include squares-sprite("ten-by-ten", $x: 100%);
+        @include squares-sprite("ten-by-ten", $offset-x: 100%);
       }
       
       .adjusted-px-1 {
-        @include squares-sprite("ten-by-ten", $x: 4px);
+        @include squares-sprite("ten-by-ten", $offset-x: 4px);
       }
       
       .adjusted-px-2 {
-        @include squares-sprite("twenty-by-twenty", $x: -3px, $y: 2px);
+        @include squares-sprite("twenty-by-twenty", $offset-x: -3px, $offset-y: 2px);
       }
     SCSS
     css.should == <<-CSS
@@ -344,89 +345,46 @@ describe Compass::Sprites do
     image_md5('squares.png').should == '0187306f3858136feee87d3017e7f307'
   end
   
-  it "should use the sprite-image and sprite-url function as in lemonade" do
-    css = render <<-SCSS
-      @import "squares/*.png";
-      
-      .squares-1 {
-        background: sprite-image("squares/twenty-by-twenty.png") no-repeat;
-      }
-      
-      .squares-2 {
-        background: sprite-image("squares/twenty-by-twenty.png", 100%) no-repeat;
-      }
-      
-      .squares-3 {
-        background: sprite-image("squares/twenty-by-twenty.png", -4px, 3px) no-repeat;
-      }
-      
-      .squares-4 {
-        background-image: sprite-url("squares/twenty-by-twenty.png");
-      }
-      
-      .squares-5 {
-        background-image: sprite-url("squares/*.png");
-      }
-    SCSS
-    css.should == <<-CSS
-      .squares-sprite {
-        background: url('/squares.png') no-repeat;
-      }
-      
-      .squares-1 {
-        background: url('/squares.png') 0 -10px no-repeat;
-      }
-      
-      .squares-2 {
-        background: url('/squares.png') 100% -10px no-repeat;
-      }
-      
-      .squares-3 {
-        background: url('/squares.png') -4px -7px no-repeat;
-      }
-      
-      .squares-4 {
-        background-image: url('/squares.png');
-      }
-      
-      .squares-5 {
-        background-image: url('/squares.png');
-      }
-    CSS
-  end
-  
-  it "should raise deprecation errors for lemonade's spacing syntax" do
+  it "should provide a nice errors for lemonade's old users" do
     proc do
       render <<-SCSS
-        @import "squares/*.png";
-        
         .squares {
-          background: sprite-image("squares/twenty-by-twenty.png", 0, 0, 11px) no-repeat;
+          background: sprite-url("squares/*.png") no-repeat;
         }
       SCSS
-    end.should raise_error Compass::Error,
-      %q(Spacing parameter is deprecated. Please add `$squares-twenty-by-twenty-spacing: 11px;` before the `@import "squares/*.png";` statement.)
-    proc do
-      render <<-SCSS
-        @import "squares/*.png";
-        
-        .squares {
-          background: sprite-position("squares/twenty-by-twenty.png", 0, 0, 11px) no-repeat;
-        }
-      SCSS
-    end.should raise_error Compass::Error,
-      %q(Spacing parameter is deprecated. Please add `$squares-twenty-by-twenty-spacing: 11px;` before the `@import "squares/*.png";` statement.)
-  end
-  
-  it "should raise an error if @import is missing" do
+    end.should raise_error Sass::SyntaxError,
+      %q(The first argument to sprite-url must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     proc do
       render <<-SCSS
         .squares {
           background: sprite-image("squares/twenty-by-twenty.png") no-repeat;
         }
       SCSS
-    end.should raise_error Compass::Error,
-      %q(`@import` statement missing. Please add `@import "squares/*.png";`.)
+    end.should raise_error Sass::SyntaxError,
+      %q(The first argument to sprite-image must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    proc do
+      render <<-SCSS
+        @import "squares/*.png";
+        
+        .squares {
+          background: sprite-position("squares/twenty-by-twenty.png") no-repeat;
+        }
+      SCSS
+    end.should raise_error Sass::SyntaxError,
+      %q(The first argument to sprite-position must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+  end
+  
+  it "should work even if @import is missing" do
+    actual_css = render <<-SCSS
+      .squares {
+        background: sprite-image(sprite("squares/*.png"), twenty-by-twenty) no-repeat;
+      }
+    SCSS
+    actual_css.should == <<-CSS
+      .squares {
+        background: url('/squares.png') 0 -10px no-repeat;
+      }
+    CSS
   end
   
 end
