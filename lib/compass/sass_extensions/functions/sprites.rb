@@ -1,7 +1,7 @@
 require 'chunky_png'
 
 module Compass::SassExtensions::Functions::Sprites
-  SASS_NULL = Sass::Script::Number::new(0)
+  ZERO = Sass::Script::Number::new(0)
   
   # Provides a consistent interface for getting a variable in ruby
   # from a keyword argument hash that accounts for underscores/dash equivalence
@@ -12,111 +12,253 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  def generate_sprite_image(uri, kwargs = {})
-    kwargs.extend VariableReader
-    path, name = Compass::Sprites.path_and_name(uri.value)
-    last_spacing = 0
-    width = 0
-    height = 0
+  class Sprite < Sass::Script::Literal
 
-    # Get image metadata
-    Compass::Sprites.discover_sprites(uri.value).each do |file|
-      Compass::Sprites.compute_image_metadata! file, path, name
+    attr_accessor :image_names, :path, :name, :options
+    attr_accessor :images, :width, :height
+
+    def self.from_uri(uri, context, kwargs)
+      path, name = Compass::Sprites.path_and_name(uri.value)
+      new(Compass::Sprites.discover_sprites(uri.value), path, name, context, kwargs)
     end
 
-    images = Compass::Sprites.sprites(path, name)
-
-    # Calculation
-    images.each do |image|
-      current_spacing = number_from_var(kwargs, "#{image[:name]}-spacing", 0)
-      if height > 0
-        height += [current_spacing, last_spacing].max
-      end
-      image[:y] = height
-      height += image[:height]
-      last_spacing = current_spacing
-      width = image[:width] if image[:width] > width
+    def initialize(image_names, path, name, context, options)
+      @image_names, @path, @name, @options = image_names, path, name, options
+      @images = nil
+      @width = nil
+      @height = nil
+      @evaluation_context = context
+      validate!
+      compute_image_metadata!
     end
-    
-    # Generation
-    output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
-    images.each do |image|
-      input_png  = ChunkyPNG::Image.from_file(image[:file])
-      
-      position = kwargs.get_var("#{image[:name]}-position") || Sass::Script::Number.new(0, ["%"])
-      if position.unit_str == "%"
-        image[:x] = (width - image[:width]) * (position.value / 100)
-      else
-        image[:x] = position.value
+
+    def sprite_names
+      image_names.map{|f| Compass::Sprites.sprite_name(f) }
+    end
+
+    def validate!
+      for sprite_name in sprite_names
+        unless sprite_name =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
+          raise Sass::SyntaxError, "#{sprite_name} must be a legal css identifier"
+        end
       end
-      
-      repeat = if (var = kwargs.get_var("#{image[:name]}-repeat"))
+    end
+
+    # Calculates the overal image dimensions
+    # collects image sizes and input parameters for each sprite
+    def compute_image_metadata!
+      @images = []
+      @width = 0
+      image_names.each do |file|
+        relative_file = file.gsub(Compass.configuration.images_path+"/", "")
+        width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
+        sprite_name = Compass::Sprites.sprite_name(relative_file)
+        @width = [@width, width].max
+        @images << {
+          :name => sprite_name,
+          :file => file,
+          :relative_file => relative_file,
+          :height => height,
+          :width => width,
+          :repeat => repeat_for(sprite_name),
+          :spacing => spacing_for(sprite_name),
+          :position => position_for(sprite_name)
+        }
+      end
+      @images.each_with_index do |image, index|
+        if index == 0
+          image[:top] = 0
+        else
+          last_image = @images[index-1]
+          image[:top] = last_image[:top] + last_image[:height] + [image[:spacing],  last_image[:spacing]].max
+        end
+        if image[:position].unit_str == "%"
+          image[:left] = (@width - image[:width]) * (image[:position].value / 100)
+        else
+          image[:left] = image[:position].value
+        end
+      end
+      @height = @images.last[:top] + @images.last[:height]
+    end
+
+    def position_for(name)
+      options.get_var("#{name}-position") || options.get_var("position") || Sass::Script::Number.new(0, ["px"])
+    end
+
+    def repeat_for(name)
+      if (var = options.get_var("#{name}-repeat"))
+        var.value
+      elsif (var = options.get_var("repeat"))
         var.value
       else
         "no-repeat"
       end
-      if repeat == "no-repeat"
-        output_png.replace input_png, image[:x], image[:y]
-      else
-        x = image[:x] - (image[:x] / image[:width]).ceil * image[:width]
-        while x < width do
-          output_png.replace input_png, x, image[:y]
-          x += image[:width]
-        end
+    end
+
+    def spacing_for(name)
+      (options.get_var("#{name}-spacing") ||
+       options.get_var("spacing") ||
+       ZERO).value
+    end
+
+    def image_for(name)
+      @images.detect{|img| img[:name] == name}
+    end
+
+    # Calculate the size of the sprite
+    def size
+      [width, height]
+    end
+
+    # Generate a sprite image if necessary
+    def generate
+      if generation_required?
+        save!(construct_sprite)
       end
     end
-    output_png.save File.join(File.join(Compass.configuration.images_path, "#{path}.png"))
-    
-    sprite_url(uri)
-  end
-  Sass::Script::Functions.declare :generate_sprite_image, [:uri], :var_kwargs => true
-  
-  def sprite_image(uri, x_shift = SASS_NULL, y_shift = SASS_NULL, depricated_1 = nil, depricated_2 = nil)
-    check_spacing_deprecation uri, depricated_1, depricated_2
-    url = sprite_url(uri)
-    position = sprite_position(uri, x_shift, y_shift)
-    Sass::Script::String.new("#{url} #{position}")
-  end
-    
-  def sprite_url(uri)
-    path, name = Compass::Sprites.path_and_name(uri.value)
-    image_url(Sass::Script::String.new("#{path}.png"))
+
+    def generation_required?
+      !File.exists?(filename) || outdated?
+    end
+
+    # Returns a PNG object
+    def construct_sprite
+      output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
+      images.each do |image|
+        input_png  = ChunkyPNG::Image.from_file(image[:file])
+        if image[:repeat] == "no-repeat"
+          output_png.replace input_png, image[:left], image[:top]
+        else
+          x = image[:left] - (image[:left] / image[:width]).ceil * image[:width]
+          while x < width do
+            output_png.replace input_png, x, image[:top]
+            x += image[:width]
+          end
+        end
+      end
+      output_png 
+    end
+
+    # The on-the-disk filename of the sprite
+    def filename
+      File.join(File.join(Compass.configuration.images_path, "#{path}.png"))
+    end
+
+    # saves the sprite for later retrieval
+    def save!(output_png)
+      output_png.save filename
+    end
+
+    # All the full-path filenames involved in this sprite
+    def image_filenames
+      image_names.map do |image_name|
+        File.join(File.join(Compass.configuration.images_path, image_name))
+      end
+    end
+
+    # Checks whether this sprite is outdated
+    def outdated?
+      last_update = self.mtime
+      image_filenames.each do |image|
+        return true if File.mtime(image) > last_update
+      end
+      false
+    end
+
+    def mtime
+      File.mtime(filename)
+    end
+
+    def inspect
+      to_s
+    end
+
+    def to_s(options = self.options)
+      sprite_url(self).value
+    end
+
+    def method_missing(meth, *args, &block)
+      if @evaluation_context.respond_to?(meth)
+        @evaluation_context.send(meth, *args, &block)
+      else
+        super
+      end
+    end
+
   end
 
-  def sprite_position(uri, x_shift = SASS_NULL, y_shift = SASS_NULL, depricated_1 = nil, depricated_2 = nil)
-    check_spacing_deprecation uri, depricated_1, depricated_2
-    path, name = Compass::Sprites.path_and_name(uri.value)
-    image_name = File.basename(uri.value, '.png')
-    image = Compass::Sprites.sprites(path, name).detect{ |image| image[:name] == image_name }
+  def sprite(uri, kwargs = {})
+    kwargs.extend VariableReader
+    Sprite.from_uri(uri, self, kwargs)
+  end
+  Sass::Script::Functions.declare :sprite, [:uri], :var_kwargs => true
+
+  def sprite_image(sprite, image = nil, x_shift = ZERO, y_shift = ZERO)
+    unless sprite.is_a?(Sprite)
+      missing_sprite!("sprite-image")
+    end
+    unless image && image.is_a?(Sass::Script::String)
+      raise Sass::SyntaxError, %Q(The second argument to sprite-image must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    end
+    url = sprite_url(sprite)
+    position = sprite_position(sprite, image, x_shift, y_shift)
+    Sass::Script::List.new([url, position], :space)
+  end
+
+  def sprite_name(sprite)
+    unless sprite.is_a?(Sprite)
+      missing_sprite!("sprite-name")
+    end
+    Sass::Script::String.new(sprite.name)
+  end
+
+  def sprite_file(sprite, image_name)
+    unless sprite.is_a?(Sprite)
+      missing_sprite!("sprite-file")
+    end
+    if image = sprite.image_for(image_name.value)
+      Sass::Script::String.new(image[:relative_file])
+    else
+      missing_image!(sprite, image_name)
+    end
+  end
+    
+  def sprite_url(sprite)
+    unless sprite.is_a?(Sprite)
+      missing_sprite!("sprite-url")
+    end
+    sprite.generate
+    image_url(Sass::Script::String.new("#{sprite.path}.png"))
+  end
+
+  def missing_image!(sprite, image_name)
+    raise Sass::SyntaxError, "No image called #{image_name} found in sprite #{sprite.path}/#{sprite.name}. Did you mean one of: #{sprite.sprite_names.join(", ")}"
+  end
+
+  def missing_sprite!(function_name)
+    raise Sass::SyntaxError, %Q(The first argument to #{function_name} must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+  end
+
+  def sprite_position(sprite, image_name = nil, x_shift = ZERO, y_shift = ZERO)
+    unless sprite.is_a?(Sprite)
+      missing_sprite!("sprite-position")
+    end
+    unless image_name && image_name.is_a?(Sass::Script::String)
+      raise Sass::SyntaxError, %Q(The second argument to sprite-image must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    end
+    image = sprite.image_for(image_name.value)
+    unless image
+      missing_image!(sprite, image_name)
+    end
     if x_shift.unit_str == "%"
-      x = x_shift.to_s
+      x = x_shift # CE: Shouldn't this be a percentage of the total width?
     else
-      x = x_shift.value - image[:x]
-      x = "#{x}px" unless x == 0
+      x = x_shift.value - image[:left]
+      x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
     end
-    y = y_shift.value - image[:y]
-    y = "#{y}px" unless y == 0
-    Sass::Script::String.new("#{x} #{y}")
+    y = y_shift.value - image[:top]
+    y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
+    Sass::Script::List.new([x, y],:space)
   end
   
-private
-  
-  def number_from_var(kwargs, var_name, default_value)
-    if number = kwargs.get_var(var_name)
-      assert_type number, :Number
-      number.value
-    else
-      default_value
-    end
-  end
-  
-  def check_spacing_deprecation(uri, spacing_before, spacing_after)
-    if spacing_before or spacing_after
-      path, name, image_name = Compass::Sprites.path_and_name(uri.value)
-      message = %Q(Spacing parameter is deprecated. ) +
-        %Q(Please add `$#{name}-#{image_name}-spacing: #{spacing_before};` ) +
-        %Q(before the `@import "#{path}/*.png";` statement.)
-      raise Compass::Error, message
-    end
-  end
 end
