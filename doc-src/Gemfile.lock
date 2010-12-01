@@ -1,20 +1,27 @@
 GIT
   remote: git://github.com/chriseppstein/nanoc.git
-  revision: 4ecb400489c83fd2068659de0c651733b8dad28f
+  revision: 4eee0e60c5121b90498caa88605d416521553378
   specs:
     nanoc3 (3.2.0a3)
       cri (>= 1.0.0)
 
 PATH
-  remote: /Users/bmathis/Documents/Workspace/compass-projects/compass
+  remote: ..
   specs:
-    compass (0.11.alpha.1.8f9cce8)
-      haml (~> 3.0.23)
+    compass (0.11.alpha.1.1d9e2cb)
+      chunky_png (~> 0.10.3)
+      sass (~> 3.1)
+
+PATH
+  remote: ../../sass
+  specs:
+    sass (3.1.0.alpha.0)
 
 GEM
   remote: http://rubygems.org/
   specs:
     activesupport (3.0.1)
+    chunky_png (0.10.5)
     coderay (0.9.5)
     compass-susy-plugin (0.8.1)
       compass (>= 0.10.0)
@@ -22,7 +29,7 @@ GEM
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
     fssm (0.2.0)
-    haml (3.0.23)
+    haml (3.1.0.alpha.36)
     i18n (0.4.2)
     json (1.4.6)
     mime-types (1.16)
@@ -47,7 +54,7 @@ DEPENDENCIES
   compass-susy-plugin (>= 0.7.0.pre8)
   css-slideshow (= 0.2.0)
   fssm
-  haml (>= 3.0.23)
+  haml (>= 3.1.0.alpha.36)
   json
   mime-types
   nanoc3!
@@ -55,5 +62,6 @@ DEPENDENCIES
   rack
   rake
   rdiscount
+  sass!
   serve (= 1.0.0)
   thor

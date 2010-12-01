@@ -6,7 +6,7 @@ module Sass
           visitor.visit(self)
           visitor.down(self) if children.any? and visitor.respond_to?(:down)
           if is_a?(ImportNode) && visitor.import?(self)
-            root = Sass::Files.tree_for(import, @options)
+            root = Sass::Engine.for_file(import, @options).to_tree
             imported_children = root.children
           end
 
