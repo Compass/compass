@@ -9,7 +9,8 @@ gem 'fssm'
 gem 'serve', "1.0.0"
 gem 'nokogiri'
 gem 'coderay'
-gem 'haml', ">=3.0.23", :require => 'sass'
+gem 'sass', :path => "../../sass"
+gem 'haml', ">= 3.1.0.alpha.36"
 gem 'rake'
 gem 'compass', :path => ".."
 gem 'compass-susy-plugin', ">=0.7.0.pre8"
