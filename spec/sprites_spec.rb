@@ -246,21 +246,21 @@ describe Compass::Sprites do
   
   it "should use position adjustments in functions" do
     css = render <<-SCSS
-      $squares-sprite: sprite("squares/*.png", $position: 100%);
+      $squares: sprite-map("squares/*.png", $position: 100%);
       .squares-sprite {
-        background: $squares-sprite no-repeat;
+        background: $squares no-repeat;
       }
       
       .adjusted-percentage {
-        background-position: sprite-position($squares-sprite, ten-by-ten, 100%);
+        background-position: sprite-position($squares, ten-by-ten, 100%);
       }
       
       .adjusted-px-1 {
-        background-position: sprite-position($squares-sprite, ten-by-ten, 4px);
+        background-position: sprite-position($squares, ten-by-ten, 4px);
       }
       
       .adjusted-px-2 {
-        background-position: sprite-position($squares-sprite, twenty-by-twenty, -3px, 2px);
+        background-position: sprite-position($squares, twenty-by-twenty, -3px, 2px);
       }
     SCSS
     css.should == <<-CSS
@@ -353,7 +353,7 @@ describe Compass::Sprites do
         }
       SCSS
     end.should raise_error Sass::SyntaxError,
-      %q(The first argument to sprite-url must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+      %q(The first argument to sprite-url() must be a sprite map. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     proc do
       render <<-SCSS
         .squares {
@@ -361,7 +361,7 @@ describe Compass::Sprites do
         }
       SCSS
     end.should raise_error Sass::SyntaxError,
-      %q(The first argument to sprite-image must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+      %q(The sprite-image() function has been replaced by sprite(). See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     proc do
       render <<-SCSS
         @import "squares/*.png";
@@ -371,13 +371,13 @@ describe Compass::Sprites do
         }
       SCSS
     end.should raise_error Sass::SyntaxError,
-      %q(The first argument to sprite-position must be a sprite. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+      %q(The first argument to sprite-position() must be a sprite map. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
   end
   
   it "should work even if @import is missing" do
     actual_css = render <<-SCSS
       .squares {
-        background: sprite-image(sprite("squares/*.png"), twenty-by-twenty) no-repeat;
+        background: sprite(sprite-map("squares/*.png"), twenty-by-twenty) no-repeat;
       }
     SCSS
     actual_css.should == <<-CSS
