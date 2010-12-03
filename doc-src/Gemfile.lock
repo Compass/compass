@@ -8,8 +8,8 @@ GIT
 PATH
   remote: /Users/bmathis/Documents/Workspace/compass-projects/compass
   specs:
-    compass (0.11.alpha.1.8f9cce8)
-      haml (~> 3.0.23)
+    compass (0.11.alpha.1.488fddf)
+      sass (~> 3.1)
 
 GEM
   remote: http://rubygems.org/
@@ -30,6 +30,7 @@ GEM
     rack (1.2.1)
     rake (0.8.7)
     rdiscount (1.6.5)
+    sass (3.1.0.alpha.28)
     serve (1.0.0)
       activesupport (~> 3.0.1)
       i18n (~> 0.4.1)
