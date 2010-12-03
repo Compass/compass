@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/chriseppstein/nanoc.git
-  revision: 4ecb400489c83fd2068659de0c651733b8dad28f
+  revision: 4eee0e60c5121b90498caa88605d416521553378
   specs:
     nanoc3 (3.2.0a3)
       cri (>= 1.0.0)
@@ -8,7 +8,7 @@ GIT
 PATH
   remote: /Users/chris/Projects/compass
   specs:
-    compass (0.11.alpha.1.7aba64e)
+    compass (0.11.alpha.1.610f3cd)
       chunky_png (~> 0.10.3)
       sass (~> 3.1)
 
