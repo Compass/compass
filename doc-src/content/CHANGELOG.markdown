@@ -14,6 +14,11 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.alpha.3 (12/05/2010)
+-------------------------
+
+* Fix a bug in compass running under ruby 1.9.2 that was introduced in v0.11.alpha.2.
+
 0.11.alpha.2 (12/05/2010)
 -------------------------
 
