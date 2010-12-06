@@ -94,7 +94,7 @@ $default-skew-y      : 5deg                  !default;
     );
   } @else {
     @include experimental(transform-origin, $origin,
-      -moz, -webkit, -o, not -ms, not -khtml, official
+      -moz, -webkit, -o, -ms, not -khtml, official
     );
   }
 }
@@ -137,7 +137,7 @@ $default-skew-y      : 5deg                  !default;
     );
   } @else {
     @include experimental(transform, $transform,
-      -moz, -webkit, -o, not -ms, not -khtml, official
+      -moz, -webkit, -o, -ms, not -khtml, official
     );
   }
 }
