@@ -1,4 +1,5 @@
-require 'md5'
+require 'digest/md5'
+
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
   
