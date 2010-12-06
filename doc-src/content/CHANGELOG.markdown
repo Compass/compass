@@ -19,6 +19,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 * Merge with Lemonade. Compass now provides a full featured spriting solution.
   See the [spriting tutorial](/help/tutorials/spriting/) for more information.
+* Compass now depends on Sass 3.1. You can install the preview release:
+  `gem install sass --pre`. Note: you must also upgrade your haml gem if you
+  use both in the same application.
 
 0.11.alpha.1 (11/22/2010)
 -------------------------
