@@ -8,14 +8,9 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.11.alpha.1.610f3cd)
+    compass (0.11.alpha.3.04fb6df)
       chunky_png (~> 0.10.3)
-      sass (~> 3.1)
-
-PATH
-  remote: ../../sass
-  specs:
-    sass (3.1.0.alpha.0)
+      sass (>= 3.1.0.alpha.50)
 
 GEM
   remote: http://rubygems.org/
@@ -37,7 +32,7 @@ GEM
     rack (1.2.1)
     rake (0.8.7)
     rdiscount (1.6.5)
-    sass (3.1.0.alpha.28)
+    sass (3.1.0.alpha.50)
     serve (1.0.0)
       activesupport (~> 3.0.1)
       i18n (~> 0.4.1)
@@ -63,6 +58,6 @@ DEPENDENCIES
   rack
   rake
   rdiscount
-  sass!
+  sass (>= 3.1.0.alpha.50)
   serve (= 1.0.0)
   thor
