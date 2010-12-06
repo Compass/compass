@@ -5,11 +5,11 @@ gem 'rdiscount'
 gem 'thor'
 gem 'rack'
 gem 'mime-types'
-gem 'fssm'
 gem 'serve', "1.0.0"
 gem 'nokogiri'
 gem 'coderay'
-gem 'sass', ">= 3.1.0.alpha.50"
+gem 'sass', ">= 3.1.0.alpha.50", :git => "git://github.com/chriseppstein/sass.git"
+gem 'fssm', '0.1.2'
 gem 'haml', ">= 3.1.0.alpha.36"
 gem 'rake'
 gem 'compass', :path => ".."
