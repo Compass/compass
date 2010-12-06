@@ -288,7 +288,9 @@ module Compass::SassExtensions::Functions::Sprites
       missing_sprite!("sprite-url")
     end
     map.generate
-    image_url(Sass::Script::String.new("#{map.path}-#{map.uniqueness_hash}.png"))
+    image_url(Sass::Script::String.new("#{map.path}-#{map.uniqueness_hash}.png"),
+              Sass::Script::Bool.new(false),
+              Sass::Script::Bool.new(false))
   end
   Sass::Script::Functions.declare :sprite_url, [:map]
 

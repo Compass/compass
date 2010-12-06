@@ -18,6 +18,8 @@ module Compass::SassExtensions::Functions::Urls
       clean_url(path)
     end
   end
+  Sass::Script::Functions.declare :stylesheet_url, [:path]
+  Sass::Script::Functions.declare :stylesheet_url, [:path, :only_path]
 
   def font_url(path, only_path = Sass::Script::Bool.new(false))
     path = path.value # get to the string value of the literal.
@@ -43,8 +45,10 @@ module Compass::SassExtensions::Functions::Urls
       clean_url(path)
     end
   end
+  Sass::Script::Functions.declare :font_url, [:path]
+  Sass::Script::Functions.declare :font_url, [:path, :only_path]
 
-  def image_url(path, only_path = Sass::Script::Bool.new(false))
+  def image_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(true))
     path = path.value # get to the string value of the literal.
 
     if path =~ %r{^#{Regexp.escape(Compass.configuration.http_images_path)}/(.*)}
@@ -83,8 +87,14 @@ module Compass::SassExtensions::Functions::Urls
     end
 
     # Compute and append the cache buster if there is one.
-    if buster = compute_cache_buster(path, real_path)
-      path += "?#{buster}"
+    if cache_buster.to_bool
+      if cache_buster.is_a?(Sass::Script::String)
+        path += "?#{cache_buster.value}"
+      else
+        if buster = compute_cache_buster(path, real_path)
+          path += "?#{buster}"
+        end
+      end
     end
 
     # prepend the asset host if there is one.
@@ -96,6 +106,9 @@ module Compass::SassExtensions::Functions::Urls
       clean_url(path)
     end
   end
+  Sass::Script::Functions.declare :image_url, [:path]
+  Sass::Script::Functions.declare :image_url, [:path, :only_path]
+  Sass::Script::Functions.declare :image_url, [:path, :only_path, :cache_buster]
 
   private
 

@@ -22,6 +22,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Compass now depends on Sass 3.1. You can install the preview release:
   `gem install sass --pre`. Note: you must also upgrade your haml gem if you
   use both in the same application.
+* A third argument is now available on the `image-url()` helper. When `true` or
+  `false`, it will enable/disable the cache buster for a single image url. Or when
+  a string, it will be the cache buster used.
 
 0.11.alpha.1 (11/22/2010)
 -------------------------
