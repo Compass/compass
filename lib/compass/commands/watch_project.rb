@@ -60,6 +60,7 @@ module Compass
 
         FSSM.monitor do |monitor|
           Compass.configuration.sass_load_paths.each do |load_path|
+            next unless load_path.is_a? String
             monitor.path load_path do |path|
               path.glob '**/*.s[ac]ss'
 
