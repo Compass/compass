@@ -25,6 +25,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * A third argument is now available on the `image-url()` helper. When `true` or
   `false`, it will enable/disable the cache buster for a single image url. Or when
   a string, it will be the cache buster used.
+* Upgrade CSS3 PIE to 1.0-beta3.
+* Bug fixes.
 
 0.11.alpha.1 (11/22/2010)
 -------------------------

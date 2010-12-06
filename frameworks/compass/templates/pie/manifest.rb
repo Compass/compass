@@ -21,7 +21,7 @@ For more information see:
 
 CSS PIE is written by and copyright to: Jason Johnston
 
-Compass is using css3pie version 1.0-beta2. It can be upgraded by downloading
+Compass is using css3pie version 1.0-beta3. It can be upgraded by downloading
 a newer behavior file and replacing the one that comes with compass.
 }
 
