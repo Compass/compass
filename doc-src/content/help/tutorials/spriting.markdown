@@ -34,7 +34,7 @@ And you'll get the following CSS output:
     .icon-delete,
     .icon-edit,
     .icon-new,
-    .icon-save   { background: url('/images/icon.png?1291584143') no-repeat; }
+    .icon-save   { background: url('/images/icon-34fe0604ab.png') no-repeat; }
     
     .icon-delete { background-position: 0 0; }
     .icon-edit   { background-position: 0 -32px; }
@@ -73,7 +73,7 @@ And your stylesheet will compile to:
     .actions .new,
     .actions .edit,
     .actions .save,
-    .actions .delete { background: url('/images/icon.png?1291584143') no-repeat; }
+    .actions .delete { background: url('/images/icon-34fe0604ab.png') no-repeat; }
     
     .actions .new    { background-position: 0 -64px; }
     .actions .edit   { background-position: 0 -32px; }

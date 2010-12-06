@@ -1,3 +1,4 @@
+require 'md5'
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
   
@@ -11,6 +12,10 @@ module Compass::SassExtensions::Functions::Sprites
   end
 
   class SpriteMap < Sass::Script::Literal
+
+    # Changing this string will invalidate all previously generated sprite images.
+    # We should do so only when the packing algorithm changes
+    SPRITE_VERSION = "1"
 
     attr_accessor :image_names, :path, :name, :options
     attr_accessor :images, :width, :height
@@ -63,7 +68,8 @@ module Compass::SassExtensions::Functions::Sprites
           :width => width,
           :repeat => repeat_for(sprite_name),
           :spacing => spacing_for(sprite_name),
-          :position => position_for(sprite_name)
+          :position => position_for(sprite_name),
+          :digest => MD5.file(file).hexdigest
         }
       end
       @images.each_with_index do |image, index|
@@ -151,7 +157,21 @@ module Compass::SassExtensions::Functions::Sprites
 
     # The on-the-disk filename of the sprite
     def filename
-      File.join(Compass.configuration.images_path, "#{path}.png")
+      File.join(Compass.configuration.images_path, "#{path}-#{uniqueness_hash}.png")
+    end
+
+    def uniqueness_hash
+      @uniqueness_hash ||= begin
+        sum = MD5.md5(SPRITE_VERSION)
+        sum << path
+        images.each do |image|
+          [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|
+            sum << image[attr].to_s
+          end
+        end
+        sum.hexdigest[0...10]
+      end
+      @uniqueness_hash
     end
 
     # saves the sprite for later retrieval
@@ -268,7 +288,7 @@ module Compass::SassExtensions::Functions::Sprites
       missing_sprite!("sprite-url")
     end
     map.generate
-    image_url(Sass::Script::String.new("#{map.path}.png"))
+    image_url(Sass::Script::String.new("#{map.path}-#{map.uniqueness_hash}.png"))
   end
   Sass::Script::Functions.declare :sprite_url, [:map]
 

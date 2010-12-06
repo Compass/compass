@@ -16,13 +16,17 @@ describe Compass::Sprites do
     FileUtils.rm_r @images_tmp_path
   end
 
+  def map_location(file)
+    Dir.glob(File.join(@images_tmp_path, file)).first
+  end
+
   def image_size(file)
-    IO.read(File.join(@images_tmp_path, file))[0x10..0x18].unpack('NN')
+    IO.read(map_location(file))[0x10..0x18].unpack('NN')
   end
 
   def image_md5(file)
     md5 = Digest::MD5.new
-    md5.update IO.read(File.join(@images_tmp_path, file))
+    md5.update IO.read(map_location(file))
     md5.hexdigest
   end
   
@@ -46,7 +50,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-161c60ad78.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -57,8 +61,8 @@ describe Compass::Sprites do
         background-position: 0 -10px;
       }
     CSS
-    image_size('squares.png').should == [20, 30]
-    image_md5('squares.png').should == 'e8cd71d546aae6951ea44cb01af35820'
+    image_size('squares-*.png').should == [20, 30]
+    image_md5('squares-*.png').should == 'e8cd71d546aae6951ea44cb01af35820'
   end
 
   it "should generate sprite classes with dimensions" do
@@ -69,7 +73,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-161c60ad78.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -84,7 +88,7 @@ describe Compass::Sprites do
         width: 20px;
       }
     CSS
-    image_size('squares.png').should == [20, 30]
+    image_size('squares-*.png').should == [20, 30]
   end
   
   it "should provide sprite mixin" do
@@ -101,7 +105,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .cubicle, .large-cube {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-161c60ad78.png') no-repeat;
       }
       
       .cubicle {
@@ -114,7 +118,7 @@ describe Compass::Sprites do
         width: 20px;
       }
     CSS
-    image_size('squares.png').should == [20, 30]
+    image_size('squares-*.png').should == [20, 30]
   end
   
   # CUSTOMIZATIONS:
@@ -126,10 +130,10 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .circles {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-161c60ad78.png') no-repeat;
       }
     CSS
-    image_size('squares.png').should == [20, 30]
+    image_size('squares-*.png').should == [20, 30]
   end
   
   it "should calculate the spacing between images but not before first image" do
@@ -140,7 +144,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-89450808af.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -151,7 +155,7 @@ describe Compass::Sprites do
         background-position: 0 -43px;
       }
     CSS
-    image_size('squares.png').should == [20, 63]
+    image_size('squares-*.png').should == [20, 63]
   end
   
   it "should calculate the spacing between images" do
@@ -162,7 +166,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-673837183a.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -173,7 +177,7 @@ describe Compass::Sprites do
         background-position: 0 -43px;
       }
     CSS
-    image_size('squares.png').should == [20, 63]
+    image_size('squares-*.png').should == [20, 63]
   end
   
   it "should calculate the maximum spacing between images" do
@@ -185,7 +189,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-1cd84c9068.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -196,7 +200,7 @@ describe Compass::Sprites do
         background-position: 0 -54px;
       }
     CSS
-    image_size('squares.png').should == [20, 74]
+    image_size('squares-*.png').should == [20, 74]
   end
   
   it "should calculate the maximum spacing between images in reversed order" do
@@ -208,7 +212,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-f25b7090ca.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -219,7 +223,7 @@ describe Compass::Sprites do
         background-position: 0 -54px;
       }
     CSS
-    image_size('squares.png').should == [20, 74]
+    image_size('squares-*.png').should == [20, 74]
   end
   
   it "should calculate the default spacing between images" do
@@ -230,7 +234,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-d66bf24bab.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -241,7 +245,7 @@ describe Compass::Sprites do
         background-position: 0 -32px;
       }
     CSS
-    image_size('squares.png').should == [20, 52]
+    image_size('squares-*.png').should == [20, 52]
   end
   
   it "should use position adjustments in functions" do
@@ -265,7 +269,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-8e490168dd.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -280,8 +284,8 @@ describe Compass::Sprites do
         background-position: -3px -8px;
       }
     CSS
-    image_size('squares.png').should == [20, 30]
-    image_md5('squares.png').should == 'b61700e6d402d9df5f3820b73479f371'
+    image_size('squares-*.png').should == [20, 30]
+    image_md5('squares-*.png').should == 'b61700e6d402d9df5f3820b73479f371'
   end
   
   it "should use position adjustments in mixins" do
@@ -303,7 +307,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .adjusted-percentage, .adjusted-px-1, .adjusted-px-2 {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-8e490168dd.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -318,8 +322,8 @@ describe Compass::Sprites do
         background-position: -3px -8px;
       }
     CSS
-    image_size('squares.png').should == [20, 30]
-    image_md5('squares.png').should == 'b61700e6d402d9df5f3820b73479f371'
+    image_size('squares-*.png').should == [20, 30]
+    image_md5('squares-*.png').should == 'b61700e6d402d9df5f3820b73479f371'
   end
   
   it "should repeat the image" do
@@ -330,7 +334,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares.png') no-repeat;
+        background: url('/squares-a5550fd132.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -341,8 +345,8 @@ describe Compass::Sprites do
         background-position: 0 -10px;
       }
     CSS
-    image_size('squares.png').should == [20, 30]
-    image_md5('squares.png').should == '0187306f3858136feee87d3017e7f307'
+    image_size('squares-*.png').should == [20, 30]
+    image_md5('squares-*.png').should == '0187306f3858136feee87d3017e7f307'
   end
   
   it "should provide a nice errors for lemonade's old users" do
@@ -382,7 +386,7 @@ describe Compass::Sprites do
     SCSS
     actual_css.should == <<-CSS
       .squares {
-        background: url('/squares.png') 0 -10px no-repeat;
+        background: url('/squares-145869726f.png') 0 -10px no-repeat;
       }
     CSS
   end
