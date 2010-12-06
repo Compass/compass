@@ -17,7 +17,10 @@ module Compass::SassExtensions::Functions::Sprites
 
     def self.from_uri(uri, context, kwargs)
       path, name = Compass::Sprites.path_and_name(uri.value)
-      new(Compass::Sprites.discover_sprites(uri.value), path, name, context, kwargs)
+      sprites = Compass::Sprites.discover_sprites(uri.value).map do |sprite|
+        sprite.gsub(Compass.configuration.images_path+"/", "")
+      end
+      new(sprites, path, name, context, kwargs)
     end
 
     def initialize(image_names, path, name, context, options)
@@ -47,8 +50,8 @@ module Compass::SassExtensions::Functions::Sprites
     def compute_image_metadata!
       @images = []
       @width = 0
-      image_names.each do |file|
-        relative_file = file.gsub(Compass.configuration.images_path+"/", "")
+      image_names.each do |relative_file|
+        file = File.join(Compass.configuration.images_path, relative_file)
         width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
         sprite_name = Compass::Sprites.sprite_name(relative_file)
         @width = [@width, width].max
