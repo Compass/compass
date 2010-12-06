@@ -14,8 +14,14 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.alpha.2 (12/05/2010)
+-------------------------
+
+* Merge with Lemonade. Compass now provides a full featured spriting solution.
+  See the [spriting tutorial](/help/tutorials/spriting/) for more information.
+
 0.11.alpha.1 (11/22/2010)
----------------------------
+-------------------------
 
 * Support for Sass 3.1 alpha version
 * CSS3 PIE module. [Docs](/reference/compass/css3/pie/).
@@ -30,8 +36,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   and `box-shadow` mixins.
 * The docs are [getting a make-over](http://beta.compass-style.org/) by Brandon :) 
 
-0.11.alpha.0   (11/15/2010)
----------------------------
+0.11.alpha.0 (11/15/2010)
+-------------------------
 
 Note: Compass does not currently support Sass 3.1 alphas.
 
