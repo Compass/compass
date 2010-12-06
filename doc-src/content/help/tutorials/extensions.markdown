@@ -88,6 +88,7 @@ The compass_init.rb file takes priority, so that extensions that want to work
 differently as compass extensions than they do as normal ruby libraries,
 have a way of targeting compass.
 
+<a name="registration"></a>
 ### Stylesheet and Template Locations
 
 If you'd like to store your stylesheets and/or templates in a non-standard location within your extension,
@@ -241,9 +242,13 @@ design and to get the user started off with working product.
 Distributing Extensions as Ruby Gems
 ------------------------------------
 
-How to build and distribute ruby gems is outside the scope of this document.
-But delivering an extension as a ruby gem makes it easier to manage software
-dependencies, install, and uninstall.
+Rubygems is a flexible, easy-to-use system for distributing ruby software.
+If you have any questions about rubygems, I suggest that you start looking
+for help [here](http://help.rubygems.org/).
+
+The big advantages of using rubygems to distribute your extension is that
+it allows your extension to be a dependency for other projects and that each
+install is versioned, which makes supporting your extension easier.
 
 Tips for Developing Extensions
 ------------------------------
@@ -271,9 +276,17 @@ Before you begin, please ensure you have gem version `1.3.6` or greater. `gem -v
 1. Define your gemspec file at the top of your extension. Here's [an example of
    one](http://github.com/ericam/compass-css-lightbox/blob/master/css-lightbox.gemspec).
    The gemspec should have the same name as your gem.
-2. Build a gem: `gem build my_extension.gemspec`. This will build your gem file and
+2. Register your framework by adding `lib/my_extension.rb` and registering it:
+   
+       require 'compass'
+       extension_path = File.expand_path(File.join(File.dirname(__FILE__), ".."))
+       Compass::Frameworks.register('my_extension', :path => extension_path)
+   
+   This is how compass knows where to find your extension's files when a user requires it.
+   For more options, go back up and read about [Stylesheet and Template Locations](#registration).
+3. Build a gem: `gem build my_extension.gemspec`. This will build your gem file and
    add the current version to the name. E.g. `my_extension-0.0.1.gem`
-3. Test your gem by installing it locally: `gem install my_extension-0.0.1.gem`
+4. Test your gem by installing it locally: `gem install my_extension-0.0.1.gem`
 
 ### Releasing a Gem
 
