@@ -1,5 +1,3 @@
-require 'chunky_png'
-
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
   
@@ -121,8 +119,17 @@ module Compass::SassExtensions::Functions::Sprites
       !File.exists?(filename) || outdated?
     end
 
+    def require_png_library!
+      begin
+        require 'oily_png'
+      rescue LoadError
+        require 'chunky_png'
+      end
+    end
+
     # Returns a PNG object
     def construct_sprite
+      require_png_library!
       output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
       images.each do |image|
         input_png  = ChunkyPNG::Image.from_file(image[:file])
