@@ -7,14 +7,14 @@ html .syntaxhighlighter {
   text-shadow: none;
   .code-block { background: none; @extend .clear-box-shadow; }
   &, table td.code .container { position: static !important; }
-  table td.gutter { .line { &:first-child { padding-top: 10px !important; } &:last-child { padding-bottom: 10px !important; } } } 
+  table td.gutter { .line { &:first-child { padding-top: 10px !important; } &:last-child { padding-bottom: 10px !important; } } }
   .toolbar { display: none; }
   //a.help { font-size: 1.5em; @extend .pictos; color: #aaa; position: relative; right: 6px; top: 2px; }
   }
 
 pre {
   margin: 1.5em 0;
-  .code-block { padding: .6em; }
+  .code-block:first-child { padding: .6em; }
 }
 
 .code-block { @extend .round-corners-4; @extend .fixed-font;
@@ -25,12 +25,12 @@ pre {
 }
 
 .source-documentation {
-  @extend .round-corners-4; 
+  @extend .round-corners-4;
   padding: 10px 15px;
   @include round-bottom-corners
 }
 
-h3 { @include round-corners; 
+h3 { @include round-corners;
   padding: 10px 15px;
   margin: 20px 0 20px;
   font-weight: bold;
@@ -66,18 +66,18 @@ h2 + a[rel="view source"]{ margin-top: 12px;}
 }
 
 .syntaxhighlighter { width: 100%; margin: 1em 0 1em 0; position: relative; overflow: auto; font-size: 1em;
-  
+
   // set up bold and italic
   .bold { font-weight: bold; }
   .italic { font-style: italic; }
   .line { white-space: pre; }
-  
+
   // main table and columns
   table { width: 100%;
     td.code { width: 100%;
-      .line { padding: 0 .6em; } }    
+      .line { padding: 0 .6em; } }
     td.gutter .line { text-align: right; padding: 0 0.8em 0 1em; } } // middle spacing between line numbers and lines
-    
+
   // Styles for the toolbar
   .toolbar { position: absolute; right: 1px; top: 1px; width: 11px; height: 11px; font-size: 10px; z-index: 10;
     span.title { display: inline; }

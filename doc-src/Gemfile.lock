@@ -12,9 +12,9 @@ GIT
     sass (3.1.0.alpha.50)
 
 PATH
-  remote: ..
+  remote: /Users/bmathis/Documents/Workspace/compass-projects/compass
   specs:
-    compass (0.11.alpha.3.d0c39f9)
+    compass (0.11.alpha.3.caafd96)
       chunky_png (~> 0.10.3)
       sass (>= 3.1.0.alpha.50)
 

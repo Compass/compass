@@ -5,22 +5,25 @@ layout: tutorial
 classnames:
   - tutorial
 ---
-### Use a Base stylesheet file
+
+# Best Practices
+
+## Use a Base stylesheet file
 
 Create a `_base.scss` [partial][1] to initialize your stylesheets with common
 variables and ([often][2]) the framework utilities you plan to use:
 
-#### _base.scss
+### _base.scss
 
     $blueprint-grid-columns : 24;
     $blueprint-grid-width   : 30px;
     $blueprint-grid-margin  : 10px;
     $font-color             : #333;
-     
+
     @import "compass/reset";
     @import "compass/utilities";
     @import "blueprint";
-     
+
     // etc.
 
 The `_base.scss` file is also a great place to keep your own custom mixins, so
@@ -28,14 +31,14 @@ they’re available to any stylesheet that includes it.
 
 Then you can include this file in all other stylesheets:
 
-#### application.scss
+### application.scss
 
     @import "base";
-     
+
     #wrapper {
       @include container;
     }
-    
+
     // etc.
 
 It is important to define any compass/framework constants that you want to override
@@ -44,7 +47,7 @@ Constants][3] , for an example of where the number of grid columns for blueprint
 is overridden/set to 32.  Note that you can refer to `_base.scss` without the
 leading underscore and without the extension, since it is a [partial][1].
 
-### Write your own Custom Mixins
+## Write your own Custom Mixins
 
 Mixins let you insert any number of style rules into a selector (and its
 descendants!) with a single line. This is a great way to [DRY][4] up your
@@ -53,7 +56,7 @@ also make your stylesheet look like self-documented source code -- It’s much
 more obvious to read something like `@include round-corners(6px, #f00)` than the whole
 list of rules which define that appearance.
 
-#### Presentation-free Markup
+## Presentation-free Markup
 
 CSS was created to extract the presentational concerns of a website from the
 webpage content. Following this best practice theoretically results in a website
@@ -87,7 +90,7 @@ Instead, ask yourself "what non-presentational quality do these pages share in
 common?" In this case, they are all pages of content, so it's better to apply a
 body class of "content" to these pages and then style against that class.
 
-#### Nest selectors, but not too much.
+## Nest selectors, but not too much.
 
 It's easier to style a webpage from scratch or starting from some common base
 point for your application than it is to contend with unwanted styles bleeding

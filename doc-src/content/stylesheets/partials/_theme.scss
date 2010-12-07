@@ -1,86 +1,90 @@
 @mixin site-theme($theme, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $option-panel-border, $option-panel-bg){
   body { background: $page-bg; color: $text;
     a { color: $link; } }
-  
+
   #page { @extend .horizontal-rule-#{$theme}; }
   header { @extend .horizontal-rule-#{$theme}; border-width: 4px; }
-  
+
   nav a { color: $nav-link; }
   #main-nav a { color: $main-nav;}
-  
+
   body#home #main-nav a[rel=home],
   body#help #main-nav a[rel=help],
   body.reference #main-nav a[rel=documentation],
   body#get-involved #main-nav a[rel=get-involved]{ color: $main-nav-selected; }
-  
+
   #search-docs input {
-    @extend .inset-panel-#{$theme}; color: $search; 
+    @extend .inset-panel-#{$theme}; color: $search;
     &::-webkit-input-placeholder { color: $search; } }
   #{headings()}{ color: $heading;
     strong { color: $main-nav-selected; }
     em { color: $code; } }
-  
+
   h2 { @extend .horizontal-rule-#{$theme}; }
-  
+
   aside { @extend .vertical-rule-#{$theme};
-    h2 a { color: $strong-text; } }
-      
+    h2 a { color: $strong-text; }
+    h3 { @extend .horizontal-rule-#{$theme}; }}
+
   footer .links li { @extend .vertical-rule-#{$theme}; }
   code { @extend .code-block-#{$theme}; color: $code; }
-  
+
   #theme_pref { @extend .theme-switch-#{$theme}; }
   #docs_panel div { background: $option-panel-bg; border: 1px solid $option-panel-border; border-top: 0; }
-  
+
   body#home .overview div { @extend .inset-panel-#{$theme};
     h4 { @extend .horizontal-rule-#{$theme}; } }
   #featured_sites li { @extend .inset-panel-#{$theme}; }
-  
+
 }
 @mixin docs-theme($theme, $heading, $code, $nav-link, $docs-nav-selected, $module-nav-selected){
 
   #page > article {
     h1, h2 { @extend .horizontal-rule-#{$theme}; }
     h3 { @extend .heading-panel-#{$theme}; } }
-  
+
   #sub-nav { @extend .horizontal-rule-#{$theme}; }
   #docs-nav { @extend .vertical-rule-#{$theme}; }
   body.core a[rel=core], body.blueprint a[rel=blueprint]{ @extend .inset-panel-#{$theme}; color: $docs-nav-selected; @extend .round-corners-4;}
   #main-nav a[rel=home] { @include replace-text-with-dimensions("compass-logo-small-#{$theme}.png"); display: inline-block; float: left; }
-  
+
   #module-nav {
-    ul { overflow: visible; }
-    li.selected { @extend .selected-marker-#{$theme};
-      a { color: $module-nav-selected; } } }
-  
+    ul { overflow: visible; }}
+  body.getting-started #module-nav li.getting-started,
+  body.tutorial #module-nav li.tutorials,
+  body.support #module-nav li.support,
+  #module-nav li.selected { @extend .selected-marker-#{$theme};
+    a { color: $module-nav-selected; } }
+
   a[rel=sass], a[rel=scss] { @extend .syntax-switch-#{$theme}; }
   &.sass a[rel=sass], &.scss a[rel=scss] { color: $heading; color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
-  
+
   #version { color: rgba($heading, .3); a { color: rgba($nav-link, .7); } }
   .mixin-source { @extend .mixin-panel-#{$theme}; }
   h2 a.help { color: $heading;}
-  
-  
+
+
   .source-documentation { @extend .doc-panel-#{$theme}; }
-  
+
   .arg { color: $code; }
   .arg[data-default-value] { color: rgba($code, .7); }
   a[rel="view source"]{ color: rgba($heading, .5); &:hover{ color: rgba($heading, .8);} }
-  
+
 }
 
 // Dark theme
 .inset-panel-dark {
   @include box-shadow(rgba(#fff, .1) 0 1px 0, rgba(#000, .8) 0 1px 7px 0px inset);
   background: darken(#2f2f2f, 4); background-color: rgba(#000, .3); }
-  
-.horizontal-rule-dark {  
+
+.horizontal-rule-dark {
   @include box-shadow(rgba(#fff, .07) 0 1px 0);
   border-bottom: 1px solid #121212; }
-  
+
 .vertical-rule-dark {
   @include box-shadow(rgba(#fff, .07) 1px 0 0);
   border-right: 1px solid #121212; }
-  
+
 .code-block-dark { @extend .code-block; @extend .inset-panel-dark; }
 
 .heading-panel-dark {
@@ -124,22 +128,22 @@
   $strong-text: #dbdbdb;
 
   $search: #6e6e6e;
-  
+
   $code: #dadbb1;
   $nav-link: #bfbfbf;
   $link: saturate(lighten(#85AFC9, 4), 19);
 
-  $main-nav: $strong-text;
+  $main-nav: white;
   $main-nav-selected: #fb292d;
   $docs-nav-selected: $strong-text;
   $module-nav-selected: $link;
 
   $option-panel-border: rgba(#000, .3);
   $option-panel-bg: rgba(#fff, .03);
-  
+
   @include site-theme(dark, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $option-panel-border, $option-panel-bg);
-  
-  @if($docs){ 
+
+  @if($docs){
     @include docs-theme(dark, $heading, $code, $nav-link, $docs-nav-selected, $module-nav-selected);
     .syntaxhighlighter::-webkit-scrollbar-track-piece { -webkit-box-shadow: rgba(#000, .5) 0 0 3px 1px inset; background: rgba(#000, .2); }
     .syntaxhighlighter::-webkit-scrollbar-thumb:horizontal { background: -webkit(linear-gradient(rgba(#fff, .3), rgba(#fff, 0))) #000; -webkit-box-shadow: rgba(black, 0.8) 0px 0 0 1px inset; }
@@ -151,15 +155,15 @@
   @include box-shadow(rgba(#fff, 1) 0 1px 0, rgba(#000, .5) 0 1px 3px 0px inset);
   text-shadow: 0 1px 1px #fff;
   background-color: rgba(#000, .04); }
-  
-.horizontal-rule-light {  
+
+.horizontal-rule-light {
   @include single-box-shadow(rgba(#fff, 1), 0, 1px, 0);
   border-bottom: 1px solid #bbb; }
-  
+
 .vertical-rule-light {
   @include single-box-shadow(rgba(#fff, 1), 1px, 0, 0);
   border-right: 1px solid #bbb; }
-  
+
 .code-block-light { @extend .code-block; @extend .inset-panel-light; background: rgba(#fff, .5); }
 
 .syntax-switch-light {
@@ -218,7 +222,7 @@
   $option-panel-bg: #fff;
 
   @include site-theme(light, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $option-panel-border, $option-panel-bg);
-  
+
   @if($docs){
     @include docs-theme(light, $heading, $code, $nav-link, $docs-nav-selected, $module-nav-selected);
     .syntaxhighlighter::-webkit-scrollbar-track-piece { -webkit-box-shadow: rgba(#000, .3) 0 0 3px 1px inset; background: rgba(#ddd, .8); }
