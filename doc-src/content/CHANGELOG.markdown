@@ -19,7 +19,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 * Add a `--time` option to the compile and watch commands. This will print out
   the time spent compiling each sass file and a total at the end.
-
+* Upgrade FSSM, the internal library that monitors the filesystem events for compass.
 
 0.11.alpha.3 (12/05/2010)
 -------------------------

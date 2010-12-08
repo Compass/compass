@@ -39,11 +39,14 @@ module FSSM::Support
     def rb_inotify?
       found = begin
         require 'rb-inotify'
-        INotify::Notifier.ancestors.include?(IO)
+        if defined?(INotify::VERSION)
+          version = INotify::VERSION
+          version[0] > 0 || version[1] >= 6
+        end
       rescue LoadError
         false
       end
-      STDERR.puts("Warning: Unable to load rb-inotify >= 0.3.0. Inotify will be unavailable.") unless found
+      STDERR.puts("Warning: Unable to load rb-inotify >= 0.5.1. Inotify will be unavailable.") unless found
       found
     end
 
