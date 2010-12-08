@@ -14,6 +14,13 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.alpha.4 (12/08/2010)
+-------------------------
+
+* Add a `--time` option to the compile and watch commands. This will print out
+  the time spent compiling each sass file and a total at the end.
+
+
 0.11.alpha.3 (12/05/2010)
 -------------------------
 

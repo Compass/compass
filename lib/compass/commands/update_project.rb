@@ -14,6 +14,9 @@ module Compass
           Options:
         }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n")
 
+        opts.on("--time", "Display compilation times.") do
+          self.options[:time] = true
+        end
         super
       end
     end
@@ -51,6 +54,7 @@ module Compass
                              :sass_files => explicit_sass_files,
                              :dry_run => options[:dry_run])
         compiler_opts[:quiet] = options[:quiet] if options[:quiet]
+        compiler_opts[:time] = options[:time] if options[:time]
         compiler_opts.merge!(additional_options)
         Compass::Compiler.new(working_path,
           Compass.configuration.sass_path,

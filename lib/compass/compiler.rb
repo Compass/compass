@@ -76,29 +76,49 @@ module Compass
       target_directories.each {|dir| directory dir}
 
       # Compile each sass file.
-      sass_files.zip(css_files).each do |sass_filename, css_filename|
-        begin
-          compile_if_required sass_filename, css_filename
-        rescue Sass::SyntaxError => e
-          handle_exception(sass_filename, css_filename, e)
+      result = timed do
+        sass_files.zip(css_files).each do |sass_filename, css_filename|
+          begin
+            compile_if_required sass_filename, css_filename
+          rescue Sass::SyntaxError => e
+            handle_exception(sass_filename, css_filename, e)
+          end
         end
+      end
+      if options[:time]
+        puts "Compilation took #{(result.__duration * 1000).round / 1000.0}s"
       end
     end
 
     def compile_if_required(sass_filename, css_filename)
       if should_compile?(sass_filename, css_filename)
-        compile sass_filename, css_filename
+        compile sass_filename, css_filename, :time => options[:time]
       else
         logger.record :unchanged, basename(sass_filename) unless options[:quiet]
       end
     end
 
-    # Compile one Sass file
-    def compile(sass_filename, css_filename)
-      css_content = logger.red do
-        engine(sass_filename, css_filename).render
+    def timed
+      start_time = Time.now
+      res = yield
+      end_time = Time.now
+      res.instance_variable_set("@__duration", end_time - start_time)
+      def res.__duration
+        @__duration
       end
-      write_file(css_filename, css_content, options.merge(:force => true))
+      res
+    end
+
+    # Compile one Sass file
+    def compile(sass_filename, css_filename, additional_options = {})
+      start_time = end_time = nil
+      css_content = logger.red do
+        timed do
+          engine(sass_filename, css_filename).render
+        end
+      end
+      duration = additional_options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
+      write_file(css_filename, css_content, options.merge(:force => true, :extra => duration))
     end
 
     def should_compile?(sass_filename, css_filename)
