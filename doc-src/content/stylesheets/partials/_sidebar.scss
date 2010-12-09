@@ -8,6 +8,7 @@ aside {
     line-height: 1.45em;
     padding-bottom: .2em;
     margin-bottom: .4em;
+    @extend .clear-border-radius;
   }
   h3 {
     padding: 0 0 .5em; line-height: 1.1em;

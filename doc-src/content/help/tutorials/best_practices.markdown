@@ -8,6 +8,9 @@ classnames:
 
 # Best Practices
 
+Here are some best practices for making your projects easier to build and
+simpler to maintain.
+
 ## Use a Base stylesheet file
 
 Create a `_base.scss` [partial][1] to initialize your stylesheets with common

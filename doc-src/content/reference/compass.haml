@@ -1,4 +1,4 @@
---- 
+---
 title: Compass Core Framework
 crumb: Compass Core
 framework: compass
@@ -16,10 +16,8 @@ layout: core
     other frameworks and extensions.
 
 %h2 Non Imported Modules
-
-%p
-  You can import these yourself if you want to use them.
-%ul
-  = render "partials/reference/import", :import => "compass/_layout.scss"
-  = render "partials/reference/import", :import => "compass/_reset.scss"
+%em You can import these yourself if you want to use them.
+%ol
+  %li= render "partials/reference/import", :import => "compass/_layout.scss"
+  %li= render "partials/reference/import", :import => "compass/_reset.scss"
 

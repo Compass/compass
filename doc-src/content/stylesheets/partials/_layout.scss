@@ -11,10 +11,11 @@ body {
 }
 
 #wrap { @extend .group; padding: 0 20px 20px; }
-#page { @extend .group; padding-bottom: 30px; overflow: hidden;}
+#page { @extend .group; padding-bottom: 30px; overflow: visible;}
 footer { @extend .group; clear: both; padding-top: 20px;}
 header { padding: 22px 0 0; position: relative; }
 #page aside + article { padding-left: $side-nav-width + 45px;}
-aside { float: left; width: $side-nav-width; }
+aside { float: left; width: $side-nav-width; position: relative; z-index: 2;}
 
 body#home #page article { padding-left: 0;}
+body.site { max-width: 1024px; }

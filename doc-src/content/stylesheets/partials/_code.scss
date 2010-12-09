@@ -12,6 +12,12 @@ html .syntaxhighlighter {
   //a.help { font-size: 1.5em; @extend .pictos; color: #aaa; position: relative; right: 6px; top: 2px; }
   }
 
+a[rel="github-source"] {
+  position: relative;
+  float: right;
+  top: 1.1em;
+}
+
 pre {
   margin: 1.5em 0;
   .code-block:first-child { padding: .6em; }
@@ -44,12 +50,12 @@ h3.mixin { @include round-top-corners; margin-bottom: 2px;}
   padding: 0 2px;
   &[data-default-value] {
     font-style: italic;
-    &:before{ content: "[" ; }
-    &:after{ content: "]" ; } }
-  }
+    &:before { content: "[" ; }
+    &:after { content: "]" ; }}
+}
 
 a[rel="view source"]{ float: right; padding: 9px 15px; margin-top: 20px; position: relative; z-index: 2; font-size: .8em; @include hover-link;}
-h2 + a[rel="view source"]{ margin-top: 12px;}
+h2 + a[rel="view source"]{ margin-top: 6px;}
 
 .syntaxhighlighter {
   a, div, code, table, table td, table tr, table tbody, table thead, table caption, textarea {

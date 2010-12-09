@@ -20,10 +20,13 @@
 footer {
   .links { float: left; font-size: .9em;
     img { vertical-align: middle; padding-right: 5px; position: relative; top: -2px;}
-    span { position: relative; top: -1px; } 
-    ul { @include horizontal-list(15px); overflow: visible; 
+    span { position: relative; top: -1px; }
+    ul { @include horizontal-list(15px); overflow: visible;
     li {padding-top: 3px;}
     li:last-child {border: 0; @include box-shadow(none); } } }
+}
+#page article h2 {
+  margin-top: 1.5em;
 }
 h2 a.help {
   text-indent: -9999px;
@@ -41,4 +44,11 @@ h2 a.help {
     left: 0;
     font-size: .85em;
   }
+}
+hr {
+  height: 0px;
+  border: 0;
+  border-bottom-width: 4px;
+  margin: 3em 0;
+  background: transparent;
 }

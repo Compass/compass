@@ -20,11 +20,13 @@
     strong { color: $main-nav-selected; }
     em { color: $code; } }
 
-  h2 { @extend .horizontal-rule-#{$theme}; }
-
+  #page > article h2 { @extend .horizontal-rule-top-#{$theme}; }
+  hr { @extend .horizontal-rule-#{$theme};
+    border-bottom-width: 8px}
+  body#home h2 { @extend .horizontal-rule-#{$theme}; }
   aside { @extend .vertical-rule-#{$theme};
     h2 a { color: $strong-text; }
-    h3 { @extend .horizontal-rule-#{$theme}; }}
+    h2, h3 { @extend .horizontal-rule-#{$theme}; }}
 
   footer .links li { @extend .vertical-rule-#{$theme}; }
   code { @extend .code-block-#{$theme}; color: $code; }
@@ -40,8 +42,13 @@
 @mixin docs-theme($theme, $heading, $code, $nav-link, $docs-nav-selected, $module-nav-selected){
 
   #page > article {
-    h1, h2 { @extend .horizontal-rule-#{$theme}; }
-    h3 { @extend .heading-panel-#{$theme}; } }
+    h1 { @extend .horizontal-rule-#{$theme}; }
+    h2 { @extend .horizontal-rule-top-#{$theme}; }
+    h3 { @extend .heading-panel-#{$theme}; }
+    h1 + h2, hr + h2 {
+      @extend .clear-box-shadow; border-top: 0;
+    margin-top: 0;}
+  }
 
   #sub-nav { @extend .horizontal-rule-#{$theme}; }
   #docs-nav { @extend .vertical-rule-#{$theme}; }
@@ -80,6 +87,10 @@
 .horizontal-rule-dark {
   @include box-shadow(rgba(#fff, .07) 0 1px 0);
   border-bottom: 1px solid #121212; }
+
+.horizontal-rule-top-dark {
+  @include box-shadow(rgba(#fff, .07) 0 1px 0 inset);
+  border-top: 1px solid #121212; }
 
 .vertical-rule-dark {
   @include box-shadow(rgba(#fff, .07) 1px 0 0);
