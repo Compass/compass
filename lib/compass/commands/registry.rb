@@ -5,6 +5,7 @@ module Compass::Commands
       @commands[name.to_sym] = command_class
     end
     def get(name)
+      return unless name
       @commands ||= Hash.new
       @commands[name.to_sym] || @commands[abbreviation_of(name)]
     end
@@ -13,6 +14,8 @@ module Compass::Commands
       matching = @commands.keys.select{|k| k.to_s =~ re}
       if matching.size == 1
         matching.first
+      elsif name =~ /^-/
+        nil
       else
         raise Compass::Error, "Ambiguous abbreviation '#{name}'. Did you mean one of: #{matching.join(", ")}"
       end

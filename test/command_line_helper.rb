@@ -107,8 +107,7 @@ module Compass::CommandLineHelper
   end
 
   def execute(*arguments)
-    command_line_class = Compass::Exec::Helpers.select_appropriate_command_line_ui(arguments)
-    exit_code = command_line_class.new(arguments).run!
+    exit_code = Compass::Exec::SubCommandUI.new(arguments).run!
     # fail "Command Failed with exit code: #{exit_code}" unless exit_code == 0
     exit_code
   end
