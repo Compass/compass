@@ -83,6 +83,8 @@ Options:
           lines << "Compass #{::Compass.version[:string]}"
           lines << "Copyright (c) 2008-#{Time.now.year} Chris Eppstein"
           lines << "Released under the MIT License."
+          lines << "Compass is charityware."
+          lines << "Please make a tax deductable donation: http://umdf.org/compass"
           puts lines.join("\n")
         end
       end
