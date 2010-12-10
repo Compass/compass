@@ -4,6 +4,7 @@ module Compass
       Dir.mkdir name
       Dir.mkdir File.join(name, "config")
       Dir.mkdir File.join(name, "config", "initializers")
+      Dir.mkdir File.join(name, "tmp")
     end
 
     # Generate a rails application without polluting our current set of requires
