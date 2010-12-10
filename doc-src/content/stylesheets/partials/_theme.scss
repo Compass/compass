@@ -168,8 +168,12 @@
   background-color: rgba(#000, .04); }
 
 .horizontal-rule-light {
-  @include single-box-shadow(rgba(#fff, 1), 0, 1px, 0);
+  @include box-shadow(#fff 0 1px 0);
   border-bottom: 1px solid #bbb; }
+
+.horizontal-rule-top-light {
+  @include box-shadow(#fff 0 1px 0 inset);
+  border-top: 1px solid #bbb; }
 
 .vertical-rule-light {
   @include single-box-shadow(rgba(#fff, 1), 1px, 0, 0);
@@ -214,17 +218,17 @@
 @mixin light-theme($docs: false) {
   $page-bg: #ececec; // image-url('bg-light.jpg');
 
-  $text: #222 ;
-  $heading: #444;
+  $text: #111;
+  $heading: #222;
   $strong-text: #000;
 
   $search: #666;
 
   $link: #307eb6;
-  $nav-link: #555;
+  $nav-link: #444;
   $code: #222;
 
-  $main-nav: #555;
+  $main-nav: #000;
   $main-nav-selected: darken(#fb292d, 15);
   $docs-nav-selected: $strong-text;
   $module-nav-selected: $link;

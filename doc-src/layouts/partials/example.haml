@@ -5,12 +5,10 @@
 
 #how
   %section#markup
-    %nav
-      %ul
-        %li
-          %a{:href => "#html"} html
-        %li
-          %a{:href => "#haml"} haml
+    .syntax_pref
+      %a{:href => "#", :rel => "html" } html
+      %a{:href => "#", :rel => "haml" } haml
+
     .code
       %ul
         %li#html
@@ -18,14 +16,10 @@
         %li#haml
           %pre= h(example_haml)
   %section#styles
-    %nav
-      %ul
-        %li
-          %a{:href => "#scss"} scss
-        %li
-          %a{:href => "#sass"} sass
-        %li
-          %a{:href => "#css"} css
+    .syntax_pref
+      %a{:href => "#", :rel => "scss" } scss
+      %a{:href => "#", :rel => "sass" } sass
+      %a{:href => "#", :rel => "css" } css
     .code
       %ul
         %li#scss
