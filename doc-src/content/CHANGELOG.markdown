@@ -14,6 +14,12 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.alpha.4 (future)
+---------------------
+
+* Added optional support for IE8 with $legacy-support-for-ie8 which defaults to true.
+* Updated the opacity and filter-gradient mixins to make IE's hacky DirectX filters optional based on Compass's legacy support settings.
+
 0.11.alpha.3 (12/05/2010)
 -------------------------
 
@@ -47,7 +53,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * The `multiple-text-shadows` and `multiple-box-shadows` mixins that were present in
   v0.11.alpha.0 were removed because they were unnecessary. Just use the `text-shadow`
   and `box-shadow` mixins.
-* The docs are [getting a make-over](http://beta.compass-style.org/) by Brandon :) 
+* The docs are [getting a make-over](http://beta.compass-style.org/) by Brandon :)
 
 0.11.alpha.0 (11/15/2010)
 -------------------------
@@ -230,7 +236,7 @@ This will update your compass initializer file.
 * New helper `opposite-position($position)` returns the opposite value of a position. [Documentation](http://compass-style.org/reference/compass/helpers/constants/)
 * Allow horizontal lists to be floated to the right.
 * Bugfix for inline-font-files helper.
-* `+font-face` mixin no longer uses `$postscript` name or `$style` type variables, in favor of the Paul Irish [smiley bulletproof technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/). Older declarations will still work, but will not apply the variables and will display a deprecation warning. 
+* `+font-face` mixin no longer uses `$postscript` name or `$style` type variables, in favor of the Paul Irish [smiley bulletproof technique](http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/). Older declarations will still work, but will not apply the variables and will display a deprecation warning.
 * `+box-shadow` now supports `$spread` length and `$inset` declarations.
 * The gradient mixins output official w3c declarations along with the `-webkit` and `-moz` prefixed versions. The official code is based on the w3c spec and is nearly ideantical to the mozilla version, although it is currently not supported by any browser.
 * `+opacity` no longer uses any prefixed variations, as IE uses `filter` and
