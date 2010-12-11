@@ -9,12 +9,18 @@
 #docs_panel {
   position: absolute; top: 0; right: 0;
   width: 100%;
-  & > div { float: right; margin-left: 10px; }
+  & > div { float: right; margin-left: 10px; @include round-bottom-corners; border: 1px solid; border-top: 0;}
+  a { text-decoration: none; }
   #theme_pref { padding: 3px 12px 6px; a { position: relative; top: 2px;} }
   #version { font-size: .75em; padding: 4px 0 5px; background: none; border: none; position: absolute; left: 0; a { @include hover-link; } }
-  #syntax_pref { padding: 4px 8px 5px; a { font-size: .9em; padding: 0px 6px 1px; display: inline-block; line-height: 1.45em;} }
+
+}
+
+#syntax_pref, .syntax_pref { padding: 4px 8px 5px; a { font-size: .9em; padding: 0px 6px 1px; display: inline-block; line-height: 1.45em;} }
+
+.syntax_pref {
+  float: right; @include round-top-corners; border: 1px solid; border-bottom: 0;
   a { text-decoration: none; }
-  & > div { @include round-bottom-corners; }
 }
 
 footer {
@@ -22,7 +28,7 @@ footer {
     img { vertical-align: middle; padding-right: 5px; position: relative; top: -2px;}
     span { position: relative; top: -1px; }
     ul { @include horizontal-list(15px); overflow: visible;
-    li {padding-top: 3px;}
+    li { padding-top: 3px; }
     li:last-child {border: 0; @include box-shadow(none); } } }
 }
 #page article h2 {

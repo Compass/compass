@@ -1,0 +1,21 @@
+html.light #demo, html.dark #demo {
+  color: #333;
+}
+
+#demo {
+  @include round-corners;
+  @extend .group;
+  background: #fff;
+  margin-bottom: 1.2em;
+  padding: 40px;
+}
+
+#how {
+  section { width: 49%; float: left; }
+  section + section { float: right; }
+
+  .example-source { clear: both; }
+  #markup { margin-top: 12px; }
+}
+
+

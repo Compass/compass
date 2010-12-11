@@ -14,7 +14,7 @@ $(function(){
 	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
 	function Brush(){};
 	Brush.prototype	= new SyntaxHighlighter.Highlighter();
-	Brush.aliases	= ['sass', 'scss'];
+	Brush.aliases	= ['sass', 'scss', 'css', 'html'];
 
 	SyntaxHighlighter.brushes.Sass = Brush;
 

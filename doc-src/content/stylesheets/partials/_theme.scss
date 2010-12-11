@@ -32,7 +32,7 @@
   code { @extend .code-block-#{$theme}; color: $code; }
 
   #theme_pref { @extend .theme-switch-#{$theme}; }
-  #docs_panel div { background: $option-panel-bg; border: 1px solid $option-panel-border; border-top: 0; }
+  #docs_panel div, .syntax_pref { background: $option-panel-bg; border-color: $option-panel-border; }
 
   body#home .overview div { @extend .inset-panel-#{$theme};
     h4 { @extend .horizontal-rule-#{$theme}; } }
@@ -63,15 +63,16 @@
   #module-nav li.selected { @extend .selected-marker-#{$theme};
     a { color: $module-nav-selected; } }
 
-  a[rel=sass], a[rel=scss] { @extend .syntax-switch-#{$theme}; }
-  &.sass a[rel=sass], &.scss a[rel=scss] { color: $heading; color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
+  a[rel=sass], a[rel=scss], a[rel=css] { @extend .syntax-switch-#{$theme}; }
+  &.sass a[rel=sass], &.scss a[rel=scss], &.css a[rel=css] { color: $heading; color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
 
   #version { color: rgba($heading, .3); a { color: rgba($nav-link, .7); } }
-  .mixin-source { @extend .mixin-panel-#{$theme}; }
+  .mixin-source, .example-source { @extend .mixin-panel-#{$theme}; }
   h2 a.help { color: $heading;}
 
-
   .source-documentation { @extend .doc-panel-#{$theme}; }
+
+  #demo { @extend .demo-#{$theme}; }
 
   .arg { color: $code; }
   .arg[data-default-value] { color: rgba($code, .7); }
@@ -97,6 +98,10 @@
   border-right: 1px solid #121212; }
 
 .code-block-dark { @extend .code-block; @extend .inset-panel-dark; }
+
+.demo-dark {
+  @include box-shadow(rgba(#000, .5) 0 2px 10px inset, rgba(#fff, .3) 0 1px 2px 0px, rgba(#000, .8) 0 0 0 1px inset); }
+
 
 .heading-panel-dark {
   background: darken(#2f2f2f, 6);
@@ -180,6 +185,8 @@
   border-right: 1px solid #bbb; }
 
 .code-block-light { @extend .code-block; @extend .inset-panel-light; background: rgba(#fff, .5); }
+
+.demo-light { @include box-shadow(rgba(#000, .3) 0 2px 10px inset, #fff 0 1px 2px 0px, rgba(#000, .05) 0 0 0 1px inset); }
 
 .syntax-switch-light {
   color: rgba(#000, .3); text-shadow: rgba(#fff, .08) 0 1px 0;
