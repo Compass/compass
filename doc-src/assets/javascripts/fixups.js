@@ -9,7 +9,7 @@ $(function(){
   });
 });
 
-;(function()
+/*;(function()
 {
 	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
 	function Brush(){};
@@ -19,4 +19,4 @@ $(function(){
 	SyntaxHighlighter.brushes.Sass = Brush;
 
 	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
-})();
+})();*/

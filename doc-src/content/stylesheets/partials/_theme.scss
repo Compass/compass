@@ -10,7 +10,9 @@
 
   body#home #main-nav a[rel=home],
   body#help #main-nav a[rel=help],
+  body.tutorial #main-nav a[rel=help],
   body.reference #main-nav a[rel=documentation],
+  body#changelog #main-nav a[rel=documentation],
   body#get-involved #main-nav a[rel=get-involved]{ color: $main-nav-selected; }
 
   #search-docs input {
@@ -161,8 +163,12 @@
 
   @if($docs){
     @include docs-theme(dark, $heading, $code, $nav-link, $docs-nav-selected, $module-nav-selected);
-    .syntaxhighlighter::-webkit-scrollbar-track-piece { -webkit-box-shadow: rgba(#000, .5) 0 0 3px 1px inset; background: rgba(#000, .2); }
-    .syntaxhighlighter::-webkit-scrollbar-thumb:horizontal { background: -webkit(linear-gradient(rgba(#fff, .3), rgba(#fff, 0))) #000; -webkit-box-shadow: rgba(black, 0.8) 0px 0 0 1px inset; }
+    .syntaxhighlighter, pre, pre .code-block:first-child {
+      &::-webkit-scrollbar-track-piece { -webkit-box-shadow: rgba(#000, .5) 0 0 3px 1px inset; background: rgba(#000, .2); }
+    }
+    .syntaxhighlighter, pre, pre .code-block:first-child {
+      &::-webkit-scrollbar-thumb:horizontal { background: -webkit(linear-gradient(rgba(#fff, .3), rgba(#fff, 0))) #000; -webkit-box-shadow: rgba(black, 0.8) 0px 0 0 1px inset; }
+    }
   }
 }
 

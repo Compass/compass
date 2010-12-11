@@ -38,3 +38,6 @@ em { font-style: italic; }
   hr + h2 { padding-top: 0; }
   hr + h3, h4, h5 { margin-top: 0; }
 }
+
+dl.table dt, dl.table dd { display: inline-block; }
+dg { display: block; }

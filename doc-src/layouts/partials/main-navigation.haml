@@ -1,4 +1,7 @@
 %header#banner{:role => "banner"}
+  %form#search-docs{:action => "/search/", :method => "GET"}
+    %input#search{:name => "q", :type => "text", :value => "", :placeholder => "Search the docs"}
+
   %nav#main-nav{:role => "navigation"}
     %ul
       %li.vcard
@@ -6,9 +9,6 @@
       %li
         %a{:href => "/reference/compass/", :rel => "documentation"} Docs
       %li
-        %a{:href => "/help", :rel=> "help"} Get Help
+        %a{:href => "/help", :rel=> "help"} Help
       %li
         %a{:href => "/get-involved", :rel=> "get-involved"} Get Involved
-          
-  %form#search-docs{:action => "/search/", :method => "GET"}
-    %input#search{:name => "q", :type => "text", :value => "", :placeholder => "Search the docs"}

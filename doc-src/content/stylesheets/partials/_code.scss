@@ -30,7 +30,9 @@ a[rel="github-source"] {
 
 pre {
   margin: 1.5em 0;
-  .code-block:first-child { padding: .6em; }
+  overflow: auto;
+  .code-block:first-child { padding: .6em; display: block; }
+  .code-block:first-child { width: 100%; @include box-sizing(border-box); overflow: auto; }
 }
 
 .code-block { @extend .round-corners-4; @extend .fixed-font;
@@ -98,8 +100,9 @@ h2 + a[rel="view source"]{ margin-top: 6px;}
   .toolbar { position: absolute; right: 1px; top: 1px; width: 11px; height: 11px; font-size: 10px; z-index: 10;
     span.title { display: inline; }
     a { display: block; text-align: center; text-decoration: none; padding-top: 1px; } }
-
-  &::-webkit-scrollbar { width: 12px; height: 12px; }
+}
+.syntaxhighlighter, pre .code-block:first-child, pre {
+  &::-webkit-scrollbar { height: 12px; }
   &::-webkit-scrollbar-button { &:start:decrement, &:end:increment { display: block; width: 0; height: 0; } }
   &::-webkit-scrollbar-thumb:horizontal { -webkit-border-radius: 5px; -webkit-background-clip: padding-box; }
 }
