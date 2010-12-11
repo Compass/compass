@@ -6,18 +6,13 @@
 //         A number between 0 and 1, where 0 is transparent and 1 is opaque.
 
 @mixin opacity($opacity) {
-  opacity: $opacity;
-  @if $experimental-support-for-microsoft {
-    $value: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
-    @include experimental(filter, $value,
-      not -moz,
-      not -webkit,
-      not -o,
-      -ms,
-      not -khtml,
-      official // even though filter is not an official css3 property, IE 6/7 expect it.
-    );
+  @if $legacy-support-for-ie8 {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})";
   }
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+    filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+  }
+  opacity: $opacity;
 }
 
 // Make an element completely transparent.
