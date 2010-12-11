@@ -70,7 +70,7 @@ module Compass::SassExtensions::Functions::Sprites
           :repeat => repeat_for(sprite_name),
           :spacing => spacing_for(sprite_name),
           :position => position_for(sprite_name),
-          :digest => MD5.file(file).hexdigest
+          :digest => Digest::MD5.file(file).hexdigest
         }
       end
       @images.each_with_index do |image, index|
@@ -163,7 +163,8 @@ module Compass::SassExtensions::Functions::Sprites
 
     def uniqueness_hash
       @uniqueness_hash ||= begin
-        sum = MD5.md5(SPRITE_VERSION)
+        sum = Digest::MD5.new
+        sum << SPRITE_VERSION
         sum << path
         images.each do |image|
           [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|

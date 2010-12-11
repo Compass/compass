@@ -1,18 +1,6 @@
 module Compass::Exec
   module Helpers
     extend self
-    def select_appropriate_command_line_ui(arguments)
-      if Compass::Commands.command_exists? arguments.first
-        SubCommandUI
-      else
-        unless arguments.include?("-h") || arguments.include?("--help")
-          Compass::Logger.new.red do
-            Compass::Util.compass_warn "WARNING: This interface is deprecated. Please use the new subcommand interface.\nSee `compass help` for more information.\n"
-          end
-        end
-        SwitchUI
-      end
-    end
     def report_error(e, options)
       $stderr.puts "#{e.class} on line #{get_line e} of #{get_file e}: #{e.message}"
       if options[:trace]

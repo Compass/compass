@@ -33,19 +33,20 @@ module Compass
       options ||= self.options if self.respond_to?(:options)
       skip_write = options[:dry_run]
       contents = process_erb(contents, options[:erb]) if options[:erb]
+      extra = options[:extra] || ""
       if File.exists?(file_name)
         existing_contents = IO.read(file_name)
         if existing_contents == contents
-          logger.record :identical, basename(file_name)
+          logger.record :identical, basename(file_name), extra
           skip_write = true
         elsif options[:force]
-          logger.record :overwrite, basename(file_name)
+          logger.record :overwrite, basename(file_name), extra
         else
           msg = "File #{basename(file_name)} already exists. Run with --force to force overwrite."
           raise Compass::FilesystemConflict.new(msg)
         end
       else
-        logger.record :create, basename(file_name)
+        logger.record :create, basename(file_name), extra
       end
       if skip_write
         FileUtils.touch file_name unless options[:dry_run]

@@ -1,41 +1,182 @@
-# The bundled ruby pathname library is a slow and hideous beast.
-# There. I said it. This version is based on pathname3.
+require 'fileutils'
+require 'find'
 
 module FSSM
   class Pathname < String
+    SYMLOOP_MAX = 8
 
-    SEPARATOR = Regexp.quote(File::SEPARATOR)
-
-    if File::ALT_SEPARATOR
-      ALT_SEPARATOR = Regexp.quote(File::ALT_SEPARATOR)
-      SEPARATOR_PAT = Regexp.compile("[#{SEPARATOR}#{ALT_SEPARATOR}]")
-    else
-      SEPARATOR_PAT = Regexp.compile(SEPARATOR)
-    end
-
-    if RUBY_PLATFORM =~ /(:?mswin|mingw|bccwin)/
-      PREFIX_PAT = Regexp.compile("^([A-Za-z]:#{SEPARATOR_PAT})")
-    else
-      PREFIX_PAT = Regexp.compile("^(#{SEPARATOR_PAT})")
-    end
+    ROOT    = '/'.freeze
+    DOT     = '.'.freeze
+    DOT_DOT = '..'.freeze
 
     class << self
       def for(path)
-        path = path.is_a?(::FSSM::Pathname) ? path : new(path)
-        path.dememo
-        path
+        path.is_a?(::FSSM::Pathname) ? path : new("#{path}")
       end
     end
 
     def initialize(path)
-      if path =~ %r{\0}
-        raise ArgumentError, "path cannot contain ASCII NULLs"
-      end
-
-      dememo
-
+      raise ArgumentError, "path cannot contain ASCII NULLs" if path =~ %r{\0}
       super(path)
     end
+
+    def <=>(other)
+      self.tr('/', "\0").to_s <=> other.to_str.tr('/', "\0")
+    rescue NoMethodError
+      nil
+    end
+
+    def ==(other)
+      left  =                  self.cleanpath.tr('/', "\0").to_s
+      right = self.class.for(other).cleanpath.tr('/', "\0").to_s
+
+      left == right
+    rescue NoMethodError
+      false
+    end
+
+    def +(path)
+      dup << path
+    end
+
+    def <<(path)
+      replace( join(path).cleanpath! )
+    end
+
+    def absolute?
+      self[0, 1].to_s == ROOT
+    end
+
+    def ascend
+      parts = to_a
+      parts.length.downto(1) do |i|
+        yield self.class.join(parts[0, i])
+      end
+    end
+
+    def children
+      entries[2..-1]
+    end
+
+    def cleanpath!
+      parts = to_a
+      final = []
+
+      parts.each do |part|
+        case part
+          when DOT     then
+            next
+          when DOT_DOT then
+            case final.last
+              when ROOT    then
+                next
+              when DOT_DOT then
+                final.push(DOT_DOT)
+              when nil     then
+                final.push(DOT_DOT)
+              else
+                final.pop
+            end
+          else
+            final.push(part)
+        end
+      end
+
+      replace(final.empty? ? DOT : self.class.join(*final))
+    end
+
+    def cleanpath
+      dup.cleanpath!
+    end
+
+    def descend
+      parts = to_a
+      1.upto(parts.length) { |i| yield self.class.join(parts[0, i]) }
+    end
+
+    def dot?
+      self == DOT
+    end
+
+    def dot_dot?
+      self == DOT_DOT
+    end
+
+    def each_filename(&blk)
+      to_a.each(&blk)
+    end
+
+    def mountpoint?
+      stat1 = self.lstat
+      stat2 = self.parent.lstat
+
+      stat1.dev != stat2.dev || stat1.ino == stat2.ino
+    rescue Errno::ENOENT
+      false
+    end
+
+    def parent
+      self + '..'
+    end
+
+    def realpath
+      path = self
+
+      SYMLOOP_MAX.times do
+        link = path.readlink
+        link = path.dirname + link if link.relative?
+        path = link
+      end
+
+      raise Errno::ELOOP, self
+    rescue Errno::EINVAL
+      path.expand_path
+    end
+
+    def relative?
+      !absolute?
+    end
+
+    def relative_path_from(base)
+      base = self.class.for(base)
+
+      raise ArgumentError, 'no relative path between a relative and absolute' if self.absolute? != base.absolute?
+
+      return self if base.dot?
+      return self.class.new(DOT) if self == base
+
+      base = base.cleanpath.to_a
+      dest = self.cleanpath.to_a
+
+      while !dest.empty? && !base.empty? && dest[0] == base[0]
+        base.shift
+        dest.shift
+      end
+
+      base.shift if base[0] == DOT
+      dest.shift if dest[0] == DOT
+
+      raise ArgumentError, "base directory may not contain '#{DOT_DOT}'" if base.include?(DOT_DOT)
+
+      path = base.fill(DOT_DOT) + dest
+      path = self.class.join(*path)
+      path = self.class.new(DOT) if path.empty?
+
+      path
+    end
+
+    def root?
+      !!(self =~ %r{^#{ROOT}+$})
+    end
+
+    def to_a
+      array = to_s.split(File::SEPARATOR)
+      array.delete('')
+      array.insert(0, ROOT) if absolute?
+      array
+    end
+
+    alias segments to_a
 
     def to_path
       self
@@ -47,150 +188,6 @@ module FSSM
 
     alias to_str to_s
 
-    def to_a
-      return @segments if @segments
-      set_prefix_and_names
-      @segments = @names.dup
-      @segments.delete('.')
-      @segments.unshift(@prefix) unless @prefix.empty?
-      @segments
-    end
-
-    alias segments to_a
-
-    def each_filename(&block)
-      to_a.each(&block)
-    end
-
-    def ascend
-      parts = to_a
-      parts.length.downto(1) do |i|
-        yield self.class.join(parts[0, i])
-      end
-    end
-
-    def descend
-      parts = to_a
-      1.upto(parts.length) do |i|
-        yield self.class.join(parts[0, i])
-      end
-    end
-
-    def root?
-      set_prefix_and_names
-      @names.empty? && !@prefix.empty?
-    end
-
-    def parent
-      self + '..'
-    end
-
-    def relative?
-      set_prefix_and_names
-      @prefix.empty?
-    end
-
-    def absolute?
-      !relative?
-    end
-
-    def +(path)
-      dup << path
-    end
-
-    def <<(path)
-      replace(join(path).cleanpath!)
-    end
-
-    def cleanpath!
-      parts = to_a
-      final = []
-
-      parts.each do |part|
-        case part
-          when '.' then
-            next
-          when '..' then
-            case final.last
-              when '..' then
-                final.push('..')
-              when nil then
-                final.push('..')
-              else
-                final.pop
-            end
-          else
-            final.push(part)
-        end
-      end
-
-      replace(final.empty? ? Dir.pwd : File.join(*final))
-    end
-
-    def cleanpath
-      dup.cleanpath!
-    end
-
-    def realpath
-      raise unless self.exist?
-
-      if File.symlink?(self)
-        file = self.dup
-
-        while true
-          file = File.join(File.dirname(file), File.readlink(file))
-          break unless File.symlink?(file)
-        end
-
-        self.class.new(file).clean
-      else
-        self.class.new(Dir.pwd) + self
-      end
-    end
-
-    def relative_path_from(base)
-      base = self.class.for(base)
-
-      if self.absolute? != base.absolute?
-        raise ArgumentError, 'no relative path between a relative and absolute'
-      end
-
-      if self.prefix != base.prefix
-        raise ArgumentError, "different prefix: #{@prefix.inspect} and #{base.prefix.inspect}"
-      end
-
-      base = base.cleanpath!.segments
-      dest = dup.cleanpath!.segments
-
-      while !dest.empty? && !base.empty? && dest[0] == base[0]
-        base.shift
-        dest.shift
-      end
-
-      base.shift if base[0] == '.'
-      dest.shift if dest[0] == '.'
-
-      if base.include?('..')
-        raise ArgumentError, "base directory may not contain '..'"
-      end
-
-      path = base.fill('..') + dest
-      path = self.class.join(*path)
-      path = self.class.new('.') if path.empty?
-
-      path
-    end
-
-    def replace(path)
-      if path =~ %r{\0}
-        raise ArgumentError, "path cannot contain ASCII NULLs"
-      end
-
-      dememo
-
-      super(path)
-    end
-
     def unlink
       Dir.unlink(self)
       true
@@ -198,68 +195,15 @@ module FSSM
       File.unlink(self)
       true
     end
-
-    def prefix
-      set_prefix_and_names
-      @prefix
-    end
-
-    def names
-      set_prefix_and_names
-      @names
-    end
-
-    def dememo
-      @set = nil
-      @segments = nil
-      @prefix = nil
-      @names = nil
-    end
-
-    private
-
-    def set_prefix_and_names
-      return if @set
-
-      @names = []
-
-      if (match = PREFIX_PAT.match(self))
-        @prefix = match[0].to_s
-        @names += match.post_match.split(SEPARATOR_PAT)
-      else
-        @prefix = ''
-        @names += self.split(SEPARATOR_PAT)
-      end
-
-      @names.compact!
-      @names.delete('')
-
-      @set = true
-    end
-
   end
 
   class Pathname
-    class << self
-      def glob(pattern, flags=0)
-        dirs = Dir.glob(pattern, flags)
-        dirs.map! {|path| new(path)}
+    def self.[](pattern)
+      Dir[pattern].map! {|d| FSSM::Pathname.new(d) }
+    end
 
-        if block_given?
-          dirs.each {|dir| yield dir}
-          nil
-        else
-          dirs
-        end
-      end
-
-      def [](pattern)
-        Dir[pattern].map! {|path| new(path)}
-      end
-
-      def pwd
-        new(Dir.pwd)
-      end
+    def self.pwd
+      FSSM::Pathname.new(Dir.pwd)
     end
 
     def entries
@@ -276,6 +220,24 @@ module FSSM
 
     def rmdir
       Dir.rmdir(self)
+    end
+
+    def self.glob(pattern, flags = 0)
+      dirs = Dir.glob(pattern, flags)
+      dirs.map! {|path| FSSM::Pathname.new(path) }
+
+      if block_given?
+        dirs.each {|dir| yield dir }
+        nil
+      else
+        dirs
+      end
+    end
+
+    def glob(pattern, flags = 0, &block)
+      patterns = [pattern].flatten
+      patterns.map! {|p| self.class.glob(self.to_s + p, flags, &block) }
+      patterns.flatten
     end
 
     def chdir
@@ -372,8 +334,6 @@ module FSSM
     def zero?
       FileTest.zero?(self)
     end
-
-    alias exist? exists?
   end
 
   class Pathname
@@ -407,10 +367,10 @@ module FSSM
   end
 
   class Pathname
-    class << self
-      def join(*parts)
-        new(File.join(*parts.reject {|p| p.empty? }))
-      end
+    def self.join(*parts)
+      last_part = FSSM::Pathname.new(parts.last)
+      return last_part if last_part.absolute?
+      FSSM::Pathname.new(File.join(*parts.reject {|p| p.empty? }))
     end
 
     def basename
@@ -478,6 +438,10 @@ module FSSM
       File.size?(self)
     end
 
+    def split
+      File.split(self).map {|part| FSSM::Pathname.new(part) }
+    end
+
     def symlink(to)
       File.symlink(self, to)
     end
@@ -525,4 +489,14 @@ module FSSM
     end
   end
 
+  class Pathname
+    class << self
+      alias getwd pwd
+    end
+
+    alias absolute expand_path
+    alias delete   unlink
+    alias exist?   exists?
+    alias fnmatch  fnmatch?
+  end
 end

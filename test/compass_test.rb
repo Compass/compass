@@ -47,7 +47,7 @@ class CompassTest < Test::Unit::TestCase
         assert_no_errors css_file, 'compass'
       end
       each_sass_file do |sass_file|
-        assert_renders_correctly sass_file
+        assert_renders_correctly sass_file, :ignore_charset => true
       end
     end
   end
@@ -86,8 +86,12 @@ private
     for name in arguments
       actual_result_file = "#{tempfile_path(@current_project)}/#{name}.css"
       expected_result_file = "#{result_path(@current_project)}/#{name}.css"
-      actual_lines = File.read(actual_result_file).split("\n")
-      expected_lines = ERB.new(File.read(expected_result_file)).result(binding).split("\n")
+      actual_lines = File.read(actual_result_file)
+      actual_lines.gsub!(/^@charset[^;]+;/,'') if options[:ignore_charset]
+      actual_lines = actual_lines.split("\n").reject{|l| l=~/\A\Z/}
+      expected_lines = ERB.new(File.read(expected_result_file)).result(binding)
+      expected_lines.gsub!(/^@charset[^;]+;/,'') if options[:ignore_charset]
+      expected_lines = expected_lines.split("\n").reject{|l| l=~/\A\Z/}
       expected_lines.zip(actual_lines).each_with_index do |pair, line|
         message = "template: #{name}\nline:     #{line + 1}"
         assert_equal(pair.first, pair.last, message)

@@ -22,8 +22,7 @@ fallback_load_path(File.join(File.dirname(__FILE__), '..', 'lib')) do
 end
 
 runner = Proc.new do
-  command_line_class = Compass::Exec::Helpers.select_appropriate_command_line_ui(ARGV)
-  command_line_class.new(ARGV).run!
+  Compass::Exec::SubCommandUI.new(ARGV).run!
 end
 
 if ARGV.delete("--profile")

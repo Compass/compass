@@ -9,6 +9,10 @@ Description:
   build and maintain your stylesheets and makes it easy
   for you to use stylesheet libraries provided by others.
 
+Donating:
+  Compass is charityware. If you find it useful please make
+  a tax deductable donation: http://umdf.org/compass
+
 To get help on a particular command please specify the command.
 
 }

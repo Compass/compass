@@ -14,11 +14,19 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.alpha.4 (future)
+0.11.alpha.5 (future)
 ---------------------
 
 * Added optional support for IE8 with $legacy-support-for-ie8 which defaults to true.
 * Updated the opacity and filter-gradient mixins to make IE's hacky DirectX filters optional based on Compass's legacy support settings.
+
+0.11.alpha.4 (12/08/2010)
+-------------------------
+
+* Add a `--time` option to the compile and watch commands. This will print out
+  the time spent compiling each sass file and a total at the end.
+* Upgrade FSSM, the internal library that monitors the filesystem events for compass.
+* Removed the command line options that were deprecated in v0.10.
 
 0.11.alpha.3 (12/05/2010)
 -------------------------

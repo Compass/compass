@@ -39,7 +39,7 @@ class RailsIntegrationTest < Test::Unit::TestCase
     within_tmp_directory do
       generate_rails_app_directories("compass_rails")
       Dir.chdir "compass_rails" do
-        compass(*%w(--rails --trace --boring --sass-dir app/stylesheets --css-dir public/stylesheets/compiled .))
+        compass(*%w(init rails --trace --boring --sass-dir app/stylesheets --css-dir public/stylesheets/compiled .))
         assert_action_performed :create, "./app/stylesheets/screen.scss"
         assert_action_performed :create, "./config/initializers/compass.rb"
       end
