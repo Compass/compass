@@ -1,21 +1,29 @@
-!!! Strict
-%html
+!!!5
+- # This template is just the stuff until the body tag.
+%html.no-js{:dir => "ltr", :lang => "en"}
   %head
-    %title
-      #{@item[:title]} - Compass
-    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "chrome=1", "http-equiv" => "X-UA-Compatible"}
     %meta(name="viewport" content="width=780")
-    - if @item[:meta_description]
-      %meta{:name => "description", :content => @item[:meta_description]}
     %link(rel="shortcut icon" type="image/png" href="/images/compass_icon.png")
-    %link{ :href => "/stylesheets/legacy/main.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }
-    %script{:src => "/javascripts/jquery-1.3.2.min.js", :type => "text/javascript"}
-  %body{body_attributes(@item)}
-    #container
-      #main
-        = yield
-      #sidebar
-        = render "partials/sidebar", :default_stylesheet => "_compass.scss"
-      #footer= render "partials/footer"
-    %script(src="/javascripts/fixups.js" deferred)
+    %title
+      #{@item[:title]} | Compass Documentation
+    %link{:charset => "utf-8", :href => "/stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
+    %script(src="/javascripts/jquery-1.3.2.min.js" type="text/javascript")
+    %script(src="/javascripts/jquery.cookie.js" type="text/javascript")
+    %script(src="/javascripts/site.js" type="text/javascript")
+    %script(src="/javascripts/modernizr-1.6.min.js" type="text/javascript")
+  %body.default{body_attributes(@item)}
+    #wrap
+      = render "partials/main-navigation"
+      #page
+        #docs_panel
+          #theme_pref
+            %a{:href => "#", :rel => "theme", :title => "switch theme" } Q
+          #version
+            Version:
+            %a.number(href="/CHANGELOG/")= compass_version
+        %article= yield
+      %footer(role="contentinfo")= render "partials/footer"
     = render "partials/analytics"
+

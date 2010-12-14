@@ -2,7 +2,7 @@
 title: Compass History
 crumb: CHANGELOG
 body_id: changelog
-layout: article
+layout: default
 ---
 COMPASS CHANGELOG
 =================

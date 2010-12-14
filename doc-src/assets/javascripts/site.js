@@ -70,14 +70,14 @@ function getSyntaxPreference(defaultSyntax, defaultMarkup) {
 
   // add example styling preferences
   if ($('body').hasClass('demo')){
-    //markupCookie = $.cookie("compass-example-markup");
+    markupCookie = $.cookie("compass-example-markup");
     styleCookie = $.cookie("compass-example-style");
 
-    //markup = (markupCookie) ? markupCookie : defaultMarkup;
+    markup = (markupCookie) ? markupCookie : defaultMarkup;
     style = (styleCookie) ? styleCookie : defaultSyntax;
 
     changeExampleStyleSyntax(style)
-    //changeExampleMarkupSyntax(markup);
+    changeExampleMarkupSyntax(markup);
   }
 }
 
@@ -98,10 +98,11 @@ $('document').ready(function(){
     // Set Demo page syntax preferences
     } else if (target.parent().is('.syntax_pref')) {
       event.preventDefault();
-      //if (target.parent().parent().is('#markup')) {
-      //  changeExampleMarkupSyntax(target.attr("rel"), true);
-      //else
-      changeExampleStyleSyntax(target.attr("rel"), true);
+      if (target.parent().parent().is('#markup')) {
+        changeExampleMarkupSyntax(target.attr("rel"), true);
+      } else {
+        changeExampleStyleSyntax(target.attr("rel"), true);
+      }
 
     // Set Theme preference
     } else if (target.is('#theme_pref') || target.parent().is('#theme_pref')) {

@@ -18,4 +18,4 @@ header { padding: 22px 0 0; position: relative; }
 aside { float: left; width: $side-nav-width; position: relative; z-index: 2;}
 
 body#home #page article { padding-left: 0;}
-body.site, body#changelog { max-width: 1024px; }
+body.site, body#changelog, body.default { max-width: 1024px; }

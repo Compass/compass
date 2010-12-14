@@ -5,12 +5,12 @@
 
 #how
   %section#markup
-    -#.syntax_pref
+    .syntax_pref
       %a{:href => "#", :rel => "html" } html
       %a{:href => "#", :rel => "haml" } haml
     .example-source
       %pre.source-code.html= h(example_html)
-      -# %pre.source-code.haml= h(example_haml)
+      %pre.source-code.haml= h(example_haml)
   %section#styles
     .syntax_pref
       %a{:href => "#", :rel => "scss" } scss

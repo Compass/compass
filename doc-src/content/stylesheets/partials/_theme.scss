@@ -13,6 +13,7 @@
   body.tutorial #main-nav a[rel=help],
   body.reference #main-nav a[rel=documentation],
   body#changelog #main-nav a[rel=documentation],
+  body.demo #main-nav a[rel=documentation],
   body#get-involved #main-nav a[rel=get-involved]{ color: $main-nav-selected; }
 
   #search-docs input {
@@ -65,8 +66,8 @@
   #module-nav li.selected { @extend .selected-marker-#{$theme};
     a { color: $module-nav-selected; } }
 
-  a[rel=sass], a[rel=scss], a[rel=css] { @extend .syntax-switch-#{$theme}; }
-  &.sass a[rel=sass], &.scss a[rel=scss], &.css a[rel=css] { color: $heading; color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
+  a[rel=sass], a[rel=scss], a[rel=css], a[rel=html], a[rel=haml] { @extend .syntax-switch-#{$theme}; }
+  &.sass a[rel=sass], &.scss a[rel=scss], &.css a[rel=css], &.html a[rel=html], &.haml a[rel=haml] { color: $heading; color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
 
   #version { color: rgba($heading, .3); a { color: rgba($nav-link, .7); } }
   .mixin-source, .example-source { @extend .mixin-panel-#{$theme}; }

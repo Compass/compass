@@ -1,3 +1,5 @@
+body.get-involved h1 + p { font-size: 1.2em; line-height: 1.45em; }
+
 #page {
   position: relative;
   padding-top: 40px;
@@ -19,7 +21,7 @@
 #syntax_pref, .syntax_pref { padding: 4px 8px 5px; a { font-size: .9em; padding: 0px 6px 1px; display: inline-block; line-height: 1.45em;} }
 
 .syntax_pref {
-  float: right; @include round-top-corners; border: 1px solid; border-bottom: 0;
+  float: left; @include round-top-corners; border: 1px solid; border-bottom: 0;
   a { text-decoration: none; }
 }
 

@@ -1,12 +1,16 @@
 //html.sass .mixin-source .scss, html.scss .mixin-source .sass { @extend .hide;}
 .mixin-source, .example-source {
   position: relative; @extend .fixed-font;
-  .syntaxhighlighter {
-  &.scss, &.sass, &.css { display: none; } } }
+  .syntaxhighlighter, pre {
+  &.scss, &.sass, &.css, &.haml, &.html { display: none; } } }
 
 html.sass { .mixin-source .syntaxhighlighter.sass, .example-source .syntaxhighlighter.sass { display: block; } }
 html.scss { .mixin-source .syntaxhighlighter.scss, .example-source .syntaxhighlighter.scss { display: block; } }
 html.css .example-source .syntaxhighlighter.css { display: block; }
+html.html .example-source .html { display: block; }
+html.haml .example-source .haml { display: block; }
+
+
 
 .mixin-source { display: none; }
 
