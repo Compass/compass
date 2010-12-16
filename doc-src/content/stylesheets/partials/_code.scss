@@ -7,8 +7,8 @@
 html.sass { .mixin-source .syntaxhighlighter.sass, .example-source .syntaxhighlighter.sass { display: block; } }
 html.scss { .mixin-source .syntaxhighlighter.scss, .example-source .syntaxhighlighter.scss { display: block; } }
 html.css .example-source .syntaxhighlighter.css { display: block; }
-html.html .example-source .html { display: block; }
-html.haml .example-source .haml { display: block; }
+html.html .example-source .syntaxhighlighter.html { display: block; }
+html.haml .example-source .syntaxhighlighter.haml { display: block; }
 
 
 
@@ -20,7 +20,6 @@ html.light .syntaxhighlighter, html.dark .syntaxhighlighter {
   //font-size: 1.1em;
   text-shadow: none;
   .code-block { background: none; @extend .clear-box-shadow; }
-  &, table td.code .container { position: static !important; }
   table td.gutter { .line { &:first-child { padding-top: 10px !important; } &:last-child { padding-bottom: 10px !important; } } }
   .toolbar { display: none; }
   //a.help { font-size: 1.5em; @extend .pictos; color: #aaa; position: relative; right: 6px; top: 2px; }
@@ -104,6 +103,8 @@ h2 + a[rel="view source"]{ margin-top: 6px;}
   .toolbar { position: absolute; right: 1px; top: 1px; width: 11px; height: 11px; font-size: 10px; z-index: 10;
     span.title { display: inline; }
     a { display: block; text-align: center; text-decoration: none; padding-top: 1px; } }
+  .container { position: relative; }
+  textarea { @include stretch(0, .65em, 0, .65em); @extend .fixed-font; font-size: .95em; line-height: 1.3em !important;}
 }
 .syntaxhighlighter, pre .code-block:first-child, pre {
   &::-webkit-scrollbar { height: 12px; }

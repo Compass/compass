@@ -70,7 +70,9 @@
   &.sass a[rel=sass], &.scss a[rel=scss], &.css a[rel=css], &.html a[rel=html], &.haml a[rel=haml] { color: $heading; color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
 
   #version { color: rgba($heading, .3); a { color: rgba($nav-link, .7); } }
-  .mixin-source, .example-source { @extend .mixin-panel-#{$theme}; }
+  .mixin-source, .example-source { @extend .mixin-panel-#{$theme};
+    .container textarea { color: $code; }
+  }
   h2 a.help { color: $heading;}
 
   .source-documentation { @extend .doc-panel-#{$theme}; }
@@ -86,7 +88,7 @@
 // Dark theme
 .inset-panel-dark {
   @include box-shadow(rgba(#fff, .1) 0 1px 0, rgba(#000, .8) 0 1px 7px 0px inset);
-  background: darken(#2f2f2f, 4); background-color: rgba(#000, .3); }
+  background: darken(#2f2f2f, 6); background-color: rgba(#000, .3); }
 
 .horizontal-rule-dark {
   @include box-shadow(rgba(#fff, .07) 0 1px 0);
@@ -104,7 +106,6 @@
 
 .demo-dark {
   @include box-shadow(rgba(#000, .5) 0 2px 10px inset, rgba(#fff, .3) 0 1px 2px 0px, rgba(#000, .8) 0 0 0 1px inset); }
-
 
 .heading-panel-dark {
   background: darken(#2f2f2f, 6);
@@ -137,6 +138,7 @@
 .mixin-panel-dark {
   @extend .inset-panel-dark;
   td.gutter { background: rgba(#fff, .05); .line { border-right: 2px solid rgba(#fff, .15); color: rgba(#fff, .5); }}
+  .container textarea { background: darken(#2f2f2f, 6); }
 }
 
 @mixin dark-theme($docs: false) {
@@ -157,8 +159,8 @@
   $docs-nav-selected: $strong-text;
   $module-nav-selected: $link;
 
-  $option-panel-border: rgba(#000, .3);
-  $option-panel-bg: rgba(#fff, .03);
+  $option-panel-border: rgba(#000, .5);
+  $option-panel-bg: rgba(#fff, .06);
 
   @include site-theme(dark, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $option-panel-border, $option-panel-bg);
 
@@ -177,7 +179,7 @@
 .inset-panel-light {
   @include box-shadow(rgba(#fff, 1) 0 1px 0, rgba(#000, .5) 0 1px 3px 0px inset);
   text-shadow: 0 1px 1px #fff;
-  background-color: rgba(#000, .04); }
+  background: darken(#fff, .04); background-color: rgba(#000, .04); }
 
 .horizontal-rule-light {
   @include box-shadow(#fff 0 1px 0);
@@ -227,6 +229,7 @@
   @extend .inset-panel-light;
   background: rgba(#fff, .8);
   td.gutter { background: rgba(#000, .08); .line { border-right: 2px solid rgba(#000, .2); color: rgba(#000, .4); } }
+  .container textarea { background: darken(#fff, .04); }
 }
 
 @mixin light-theme($docs: false) {

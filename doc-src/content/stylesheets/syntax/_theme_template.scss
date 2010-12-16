@@ -45,60 +45,60 @@ $caption_color:					$code_plain !default;
 	.line {
 		&.alt1 { background-color: $line_alt1_background !important; }
 		&.alt2 { background-color: $line_alt2_background !important; }
-		
+
 		// Highlighed line
 		&.highlighted {
 			&.alt1, &.alt2 { background-color: $line_highlighted_background !important; }
 			&.number { color: $line_highlighted_number !important; }
 		}
 	}
-	
+
 	table {
 		caption {
 			color: $caption_color !important;
 		}
 	}
-	
+
 	// Add border to the lines
 	.gutter {
 		color: $gutter_text !important;
 		.line {
 			border-right: $gutter_border !important;
-			
+
 			&.highlighted {
 				background-color: $gutter_border_color !important;
 				color: $background !important;
-			} 
-		} 
+			}
+		}
 	}
-	
+
 	&.printing .line .content { border: none !important; }
-	
+
 	&.collapsed {
 		overflow: visible !important;
-		
+
 		.toolbar {
 			color: $toolbar_collapsed_a !important;
 			background: $toolbar_collapsed_background !important;
 			border: $toolbar_collapsed_border !important;
-			
+
 			a {
 				color: $toolbar_collapsed_a !important;
-				&:hover { color: $toolbar_collapsed_a_hover !important; } 
-			} 
+				&:hover { color: $toolbar_collapsed_a_hover !important; }
+			}
 		}
 	}
-	
+
 	.toolbar {
 		color: $toolbar_a !important;
 		background: $toolbar_background !important;
 		border: $toolbar_border !important;
 		a {
 			color: $toolbar_a !important;
-			&:hover { color: $toolbar_a_hover !important; } 
-		} 
+			&:hover { color: $toolbar_a_hover !important; }
+		}
 	}
-	
+
 	// Actual syntax highlighter colors.
 	.plain, .plain a { color: $code_plain !important; }
 	.comments, .comments a { color: $code_comments !important; }
@@ -116,5 +116,5 @@ $caption_color:					$code_plain !default;
 	}
 	.color1, .color1 a { color: $code_color1 !important; }
 	.color2, .color2 a { color: $code_color2 !important; }
-	.color3, .color3 a { color: $code_color3 !important; } 
+	.color3, .color3 a { color: $code_color3 !important; }
 }

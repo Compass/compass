@@ -1,4 +1,5 @@
 @import "compass";
+@import "compass/layout";
 @import "core/extensions";
 
 @include global-reset;
@@ -16,7 +17,7 @@
 @import "partials/code";
 @import "partials/example";
 
-//@import "syntax/syntax-theme";
+@import "syntax/syntax-theme";
 
 @import "core/clearing-classes";
 
