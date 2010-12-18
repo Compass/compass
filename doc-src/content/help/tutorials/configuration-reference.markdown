@@ -302,3 +302,17 @@ that points to the asset on disk — which may or may not exist.
 To disable the asset cache buster:
 
     asset_cache_buster :none
+
+---
+
+**`watch`** -- React to changes to arbitrary files within your project. Can be invoked
+more than once. Example:
+
+    watch "images/**/*" do |project_dir, relative_path|
+      if File.exists?(File.join(project_dir, relative_path))
+        puts "File size of #{relative_path} is: #{File.size(File.join(project_dir, relative_path))}"
+      end
+    end
+
+This code will be called if the file is added, updated, or removed. Be sure to check for existence
+to avoid crashing the watcher in the case where the file has been removed.

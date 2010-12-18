@@ -69,6 +69,23 @@ module Compass
               path.create &method(:recompile)
             end
           end
+          Compass.configuration.watches.each do |glob, callback|
+            monitor.path Compass.configuration.project_path do |path|
+              path.glob glob
+              path.update do |base, relative|
+                puts ">>> Change detected to: #{relative}"
+                callback.call(base, relative)
+              end
+              path.create do |base, relative|
+                puts ">>> New file detected: #{relative}"
+                callback.call(base, relative)
+              end
+              path.delete do |base, relative|
+                puts ">>> File Removed: #{relative}"
+                callback.call(base, relative)
+              end
+            end
+          end
 
         end
         

@@ -18,7 +18,11 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 ---------------------
 
 * Added optional support for IE8 with $legacy-support-for-ie8 which defaults to true.
-* Updated the opacity and filter-gradient mixins to make IE's hacky DirectX filters optional based on Compass's legacy support settings.
+* Updated the opacity and filter-gradient mixins to make IE's hacky DirectX filters
+  optional based on Compass's legacy support settings.
+* Added the ability to piggy back on compass's watcher within your configuration file.
+  See the [configuration reference](/help/tutorials/configuration-reference/) for details.
+
 
 0.11.alpha.4 (12/08/2010)
 -------------------------

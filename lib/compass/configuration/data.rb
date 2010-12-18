@@ -99,6 +99,21 @@ module Compass
         end
       end
 
+      def watch(glob, &block)
+        @watches ||= []
+        @watches << [glob, block]
+      end
+      
+      def watches
+        if defined?(@watches)
+          @watches
+        elsif inherited_data.respond_to?(:watches)
+          inherited_data.watches
+        else
+          []
+        end
+      end
+
       # Require a compass plugin and capture that it occured so that the configuration serialization works next time.
       def require(lib)
         (self.required_libraries ||= []) << lib
