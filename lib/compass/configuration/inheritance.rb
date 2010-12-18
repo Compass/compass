@@ -99,6 +99,10 @@ module Compass
           @set_attributes[attribute]
         end
 
+        def any_attributes_set?
+          @set_attributes && @set_attributes.size > 0
+        end
+
         def default_for(attribute)
           method = "default_#{attribute}".to_sym
           if respond_to?(method)

@@ -8,9 +8,11 @@ module Compass
         end
 
         def default_sass_dir
-          # XXX Maybe this should be: app/views/stylesheets
-          # or maybe layouts should be moved up a level.
-          File.join("app", "stylesheets")
+          if Sass::Util.ap_geq?('3.1.0.beta')
+            File.join("app", "assets", "stylesheets")
+          else
+            File.join("app", "stylesheets")
+          end
         end
 
         def default_css_dir
@@ -26,23 +28,27 @@ module Compass
         end
 
         def default_javascripts_dir
-          File.join("public", "javascripts")
+          if Sass::Util.ap_geq?('3.1.0.beta')
+            File.join("app", "assets", "javascripts")
+          else
+            File.join("public", "javascripts")
+          end
         end
 
         def default_http_images_path
-          "/images"
+          "#{top_level.http_path}images"
         end
 
         def default_http_javascripts_path
-          "/javascripts"
+          "#{top_level.http_path}javascripts"
         end
 
         def default_http_fonts_path
-          "/fonts"
+          "#{top_level.http_path}fonts"
         end
 
         def default_http_stylesheets_path
-          "/stylesheets"
+          "#{top_level.http_path}stylesheets"
         end
 
         def default_extensions_dir

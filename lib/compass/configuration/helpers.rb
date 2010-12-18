@@ -28,7 +28,9 @@ module Compass
       end
 
       def configuration_for(config, filename = nil)
-        if config.is_a?(Compass::Configuration::Data)
+        if config.nil?
+          nil
+        elsif config.is_a?(Compass::Configuration::Data)
           config
         elsif config.respond_to?(:read)
           filename ||= config.to_s if config.is_a?(Pathname)
@@ -74,10 +76,7 @@ module Compass
         options = args.last.is_a?(Hash) ? args.pop : {}
         configuration_file_path = args.shift || detect_configuration_file
         raise ArgumentError, "Too many arguments" if args.any?
-        if configuration_file_path && File.exists?(configuration_file_path)
-
-          data = configuration_for(configuration_file_path)
-
+        if data = configuration_for(configuration_file_path)
           if data.raw_project_type
             add_configuration(data.raw_project_type.to_sym)
           elsif options[:project_type]
