@@ -64,6 +64,10 @@ end
   route("/stylesheets/#{'*/' * i}_*/") {nil}
 end
 
+route '/assets/htaccess/' do
+  "#{SITE_ROOT}/.htaccess"
+end
+
 route '/assets/css/*/' do
   "#{SITE_ROOT}/stylesheets"+item.identifier.chop[11..-1]+"."+item[:extension]
 end
