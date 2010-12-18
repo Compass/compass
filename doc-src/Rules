@@ -18,7 +18,7 @@ end
 
 compile '/' do
   filter :haml, :ugly => true
-  layout item[:redirect] ? "redirect" : (item[:layout] ? item[:layout] : "main")
+  layout item[:layout] ? item[:layout] : "main"
 end
 
 compile '/search-data/' do
@@ -28,7 +28,7 @@ end
 compile '/examples/*/' do
   filter :haml, :ugly => true
   filter :highlight
-  layout item[:redirect] ? "redirect" : (item[:layout] ? item[:layout] : "example")
+  layout item[:layout] ? item[:layout] : "example"
 end
 
 sass_options = Compass.sass_engine_options
@@ -44,7 +44,7 @@ end
 compile '/reference/*/' do
   filter :haml, :ugly => true
   filter :highlight
-  layout item[:redirect] ? "redirect" : (item[:layout] ? item[:layout] : "main")
+  layout item[:layout] ? item[:layout] : "main"
 end
 
 compile '*' do
@@ -53,7 +53,7 @@ compile '*' do
   elsif item[:extension] == "haml"
     filter :haml, :ugly => true
   end
-  layout item[:redirect] ? "redirect" : (item[:layout] ? item[:layout] : "main")
+  layout item[:layout] ? item[:layout] : "main"
 end
 
 route '/search-data/' do
