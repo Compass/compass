@@ -1,3 +1,6 @@
+- if @item[:stylesheet] && (reference = reference_item(:stylesheet => @item[:stylesheet]))
+  #reference= link_to "Reference Documentation", reference
+
 %h1 Demo: #{@item[:title]}
 #demo= example_html
 
