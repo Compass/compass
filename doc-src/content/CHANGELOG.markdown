@@ -22,6 +22,10 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   optional based on Compass's legacy support settings.
 * Added the ability to piggy back on compass's watcher within your configuration file.
   See the [configuration reference](/help/tutorials/configuration-reference/) for details.
+* The options passed to the CLI can now be inspected within the compass configuration file.
+  The CLI options will still override the values set within the config file, but they might
+  inform other values. For instance `compass compile -e production` will have the environment
+  parameter preset to `:production` so that you can set other values in the project accordingly.
 
 
 0.11.alpha.4 (12/08/2010)

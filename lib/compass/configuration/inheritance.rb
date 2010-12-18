@@ -87,6 +87,16 @@ module Compass
           self
         end
 
+        def reset_inheritance!
+          self.inherited_data = nil
+        end
+
+        def with_defaults(data)
+          inherit_from!(data)
+          yield
+          reset_inheritance!
+        end
+
         def unset!(attribute)
           @set_attributes ||= {}
           send("#{attribute}=", nil)
