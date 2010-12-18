@@ -64,6 +64,21 @@ Example:
 When using the compass command line, configuration options that you set on the
 command line will override the corresponding settings in your configuration file.
 
+## Inspecting Configuration Settings passed via the Command Line
+
+When using the compass command line, configuration options that you set on the
+command line can be inspected within the configuration file. For instance,
+if you set the environment:
+
+    $ compass compile -e production --force
+
+Then you can inspect the value like so:
+
+    output_style = (environment == :production) ? :compressed : :expanded
+
+Values that are not set on the CLI will be `nil` even though they will have a default value
+later on.
+
 ## Configuration Properties
 
 <table>
