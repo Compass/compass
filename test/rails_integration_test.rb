@@ -19,9 +19,9 @@ class RailsIntegrationTest < Test::Unit::TestCase
     begin
       generate_rails_app_directories("compass_rails")
       Dir.chdir "compass_rails" do
-        compass(*%w(--rails --trace --boring .)) do |responder|
-          responder.respond_to %r{^\s*Is this OK\? \(Y/n\)\s*$}, :with => "Y", :required => true
-          responder.respond_to %r{^\s*Emit compiled stylesheets to public/stylesheets/compiled/\? \(Y/n\)\s*$}, :with => "Y", :required => true
+        compass(*%w(init rails --trace --boring .)) do |responder|
+          responder.respond_to %r{^\s*Is this OK\? \(Y/n\)\s*$}, :with => "Y"
+          responder.respond_to %r{^\s*Emit compiled stylesheets to public/stylesheets/compiled/\? \(Y/n\)\s*$}, :with => "Y"
         end
         # puts ">>>#{@last_result}<<<"
         assert_action_performed :create, "./app/stylesheets/screen.scss"

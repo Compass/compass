@@ -8,7 +8,7 @@ module Compass
       end
 
       module ClassMethods
-        def new_from_file(config_file, defaults)
+        def new_from_file(config_file, defaults = nil)
           data = Data.new(config_file)
           data.with_defaults(defaults) do
             data._parse(config_file)
@@ -16,7 +16,7 @@ module Compass
           data
         end
 
-        def new_from_string(contents, filename, defaults)
+        def new_from_string(contents, filename, defaults = nil)
           data = Data.new(filename)
           data.with_defaults(defaults) do
             data.parse_string(contents, filename)
