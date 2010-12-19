@@ -1,5 +1,5 @@
 module Compass::SassExtensions::Functions::Urls
-  def image_url_with_rails_integration(path, only_path = Sass::Script::Bool.new(false))
+  def image_url_with_rails_integration(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(true))
     if (@controller = Sass::Plugin.rails_controller) && @controller.respond_to?(:request) && @controller.request
       begin
         if only_path.to_bool
@@ -11,7 +11,7 @@ module Compass::SassExtensions::Functions::Urls
         @controller = nil
       end
     else
-      image_url_without_rails_integration(path)
+      image_url_without_rails_integration(path, only_path, cache_buster)
     end
   end
   alias_method_chain :image_url, :rails_integration
