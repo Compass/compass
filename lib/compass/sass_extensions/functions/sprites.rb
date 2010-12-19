@@ -60,7 +60,8 @@ module Compass::SassExtensions::Functions::Sprites
         file = File.join(Compass.configuration.images_path, relative_file)
         width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
         sprite_name = Compass::Sprites.sprite_name(relative_file)
-        @width = [@width, width].max
+        position = position_for(sprite_name)
+        offset = (position.unitless? || position.unit_str == "px") ? position.value : 0
         @images << {
           :name => sprite_name,
           :file => file,
@@ -69,9 +70,10 @@ module Compass::SassExtensions::Functions::Sprites
           :width => width,
           :repeat => repeat_for(sprite_name),
           :spacing => spacing_for(sprite_name),
-          :position => position_for(sprite_name),
+          :position => position,
           :digest => Digest::MD5.file(file).hexdigest
         }
+        @width = [@width, width + offset].max
       end
       @images.each_with_index do |image, index|
         if index == 0
@@ -329,7 +331,7 @@ module Compass::SassExtensions::Functions::Sprites
     if offset_x.unit_str == "%"
       x = offset_x # CE: Shouldn't this be a percentage of the total width?
     else
-      x = offset_x.value - image[:left]
+      x = offset_x.value + image[:left]
       x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
     end
     y = offset_y.value - image[:top]

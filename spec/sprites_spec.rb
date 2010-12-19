@@ -277,7 +277,7 @@ describe Compass::Sprites do
       }
       
       .adjusted-px-1 {
-        background-position: -6px 0;
+        background-position: 14px 0;
       }
       
       .adjusted-px-2 {
@@ -315,7 +315,7 @@ describe Compass::Sprites do
       }
       
       .adjusted-px-1 {
-        background-position: -6px 0;
+        background-position: 14px 0;
       }
       
       .adjusted-px-2 {
@@ -347,6 +347,30 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 30]
     image_md5('squares-*.png').should == '0187306f3858136feee87d3017e7f307'
+  end
+
+  it "should allow the position of a sprite to be specified in absolute pixels" do
+    css = render <<-SCSS
+      $squares-ten-by-ten-position: 10px;
+      $squares-twenty-by-twenty-position: 10px;
+      @import "squares/*.png";
+      @include all-squares-sprites;
+    SCSS
+    css.should == <<-CSS
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
+        background: url('/squares-89a274044e.png') no-repeat;
+      }
+      
+      .squares-ten-by-ten {
+        background-position: 10px 0;
+      }
+      
+      .squares-twenty-by-twenty {
+        background-position: 10px -10px;
+      }
+    CSS
+    image_size('squares-*.png').should == [30, 30]
+    image_md5('squares-*.png').should == '262766d3e342f72b052f5708da6a1bf3'
   end
   
   it "should provide a nice errors for lemonade's old users" do
