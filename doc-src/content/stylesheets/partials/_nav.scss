@@ -28,9 +28,9 @@ header { @extend .group;
     padding: 2px 10px;
     display: inline-block; }}
 
-#docs-nav { padding-right: 20px;
+#docs-nav { padding-right: 30px;
   & + #module-nav {
-    padding-left: 10px;
+    padding-left: 20px;
   }}
 
 #module-nav {

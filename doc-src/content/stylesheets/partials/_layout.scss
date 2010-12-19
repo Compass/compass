@@ -1,5 +1,5 @@
 $min-width: 680px;
-$side-nav-width: 150px;
+$side-nav-width: 160px;
 $main-min-width: $min-width - $side-nav-width;
 
 body {
@@ -14,7 +14,7 @@ body {
 #page { @extend .group; padding-bottom: 30px; }
 footer { @extend .group; clear: both; padding-top: 20px;}
 header { padding: 22px 0 0; position: relative; }
-#page aside + article { padding-left: $side-nav-width + 45px;}
+#page aside + article { margin-left: $side-nav-width + 22px; padding-left: 23px; }
 aside { float: left; width: $side-nav-width; position: relative; z-index: 2;}
 
 body#home #page article { padding-left: 0;}

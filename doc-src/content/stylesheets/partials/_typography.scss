@@ -32,6 +32,7 @@
 em { font-style: italic; }
 
 #page > article {
+  ul ul { padding-left: 1em; }
   position: relative;
   h2 { font-size: 26px; margin: .5em 0 .6em;
     padding: 1em 0 6px;}
@@ -40,4 +41,4 @@ em { font-style: italic; }
 }
 
 dl.table dt, dl.table dd { display: inline-block; }
-dg { display: block; }
+dg { display: block; margin-bottom: 1.5em; }

@@ -1,4 +1,5 @@
 @mixin site-theme($theme, $page-bg, $text, $strong-text, $heading, $link, $code, $search, $nav-link, $main-nav, $main-nav-selected, $option-panel-border, $option-panel-bg){
+  background: $page-bg;
   body { background: $page-bg; color: $text;
     a { color: $link; } }
 
@@ -27,7 +28,10 @@
   hr { @extend .horizontal-rule-#{$theme};
     border-bottom-width: 8px}
   body#home h2 { @extend .horizontal-rule-#{$theme}; }
-  aside { @extend .vertical-rule-#{$theme};
+
+  #page aside + article { @extend .vertical-rule-left-#{$theme}; }
+
+  aside {
     h2 a { color: $strong-text; }
     h2, h3 { @extend .horizontal-rule-#{$theme}; }}
 
@@ -101,6 +105,10 @@
 .vertical-rule-dark {
   @include box-shadow(rgba(#fff, .07) 1px 0 0);
   border-right: 1px solid #121212; }
+
+.vertical-rule-left-dark {
+  @include box-shadow(rgba(#fff, .07) 1px 0 0 inset);
+  border-left: 1px solid #121212; }
 
 .code-block-dark { @extend .code-block; @extend .inset-panel-dark; }
 
@@ -192,6 +200,10 @@
 .vertical-rule-light {
   @include single-box-shadow(rgba(#fff, 1), 1px, 0, 0);
   border-right: 1px solid #bbb; }
+
+.vertical-rule-left-light {
+  @include single-box-shadow(rgba(#fff, 1), 1px, 0, 0 inset);
+  border-left: 1px solid #bbb; }
 
 .code-block-light { @extend .code-block; @extend .inset-panel-light; background: rgba(#fff, .5); }
 

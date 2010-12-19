@@ -3,7 +3,8 @@ body.get-involved h1 + p { font-size: 1.2em; line-height: 1.45em; }
 #page {
   position: relative;
   padding-top: 40px;
-  & > article { padding-top: 10px; font-size: 15px; } }
+  & > article { padding-top: 10px; font-size: 15px;
+  img { max-width: 100%; } } }
 
 #theme_pref {
   a { display: block; font-size: 18px; width: .9em; position: relative; text-decoration: none; @extend .pictos; } }

@@ -34,10 +34,10 @@ Here's some general information about the project you might find useful along th
 
 * [Submitting Patches](#patches)
 * [Project Structure](#project-structure)
-* [Project Architecture](#project-architecture)
-  * [Command Line](#cli-architecture)
-  * [Extensions](#extensions-architecture)
-  * [Configuration](#configuration-architecture)
+* Project Architecture
+  * [Command Line](/help/tutorials/command-line)
+  * [Extensions](/help/tutorials/extensions)
+  * [Configuration](help/tutorials/configuration-reference)
 * [General Philosophy](#project-philosophy)
 * [Stylesheet Conventions](#stylesheet-conventions)
 * [Miscellaneous Stuff](#faq)
@@ -78,7 +78,7 @@ This helps us better understand the patch.
 id in your commit message like so:
 
     Fixed the display of the fizzlebuzz in IE6.
-    
+
     Closes GH-123.
 
 **Step 6**: Verify the fix in as many browsers as you can as well as against your own
@@ -255,7 +255,7 @@ Getting recent changes from the main repo:
    to your `$PATH`, or refer to it directly.
 2. Build and install a gem:
    1. Edit VERSION.yml and add a build indicator like so (**Do not commit this change**):
-      
+
           ---
           :major: 0
           :minor: 10
@@ -267,30 +267,30 @@ Getting recent changes from the main repo:
       what that means, you probably need to add `sudo` to the front.
 3. In a [bundled][bundler] environment, you can configure your gem to use compass
    while you work on it like so:
-   
+
        gem 'compass', :path => "/Users/myusername/some/path/to/compass"
-   
+
    Bundler will perform some sort of charm on ruby to make it work.
 4. Configuring ruby directly. If you're a ruby pro, you probably don't need to be
    told that you can set compass on the load path like so:
-   
+
        export RUBYLIB=/Users/myusername/some/path/to/compass/lib
 
 <h3 id="running-tests">Running Tests</h3>
 
 1. Install development dependencies:
-   
+
        bundle install --binstubs devbin
-   
+
 2. Running core library and stylesheet tests:
-   
+
        rake run_tests
 
 3. Running behavior tests
-   
+
        ./devbin/cucumber
 
-If stylesheet tests fail, the output of the test project is captured in 
+If stylesheet tests fail, the output of the test project is captured in
 `test/fixtures/stylesheets/<project>/saved/` and the error message will report where
 the error was. Here's an example:
 
