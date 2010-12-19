@@ -16,6 +16,12 @@ aside {
   a {
     font-size: .85em;
   }
+  ul ul a {
+    &.selected, &.selected:hover {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
   .deprecated {
     text-decoration: line-through;
   }

@@ -61,6 +61,21 @@ end
 def get_var(instance_var)
   instance_variable_defined?("@#{instance_var}") ? instance_variable_get("@#{instance_var}") : yield
 end
+
+def sidebar_item(item)
+  if item.nil?
+    nil
+  elsif item[:sidebar]
+    item
+  else
+    sidebar_item(item.parent)
+  end
+end
+
+def sidebar_stylesheet(item)
+  i = sidebar_item(item)
+  i[:stylesheet] if i
+end
   
 
 def item_tree(item, options = {})
@@ -70,6 +85,7 @@ def item_tree(item, options = {})
   if options.fetch(:depth,1) > 0
     child_opts = options.dup
     child_opts[:depth] -= 1 if child_opts.has_key?(:depth)
+    child_opts[:heading_depth] -= 1 if child_opts.has_key?(:heading_depth)
     child_opts[:heading_level] += 1 if child_opts[:heading_level]
     child_opts.delete(:omit_self)
     item.children.sort_by{|c| c[:crumb] || c[:title]}.each do |child|
@@ -87,7 +103,7 @@ def item_tree(item, options = {})
       :selected => !!@item.identifier[item.identifier],
       :crumb => item[:crumb] || item[:title]
     }
-    if options[:heading_level]
+    if options[:heading_level] && (options.fetch(:heading_depth, 1) > 0)
       render("partials/sidebar/heading",
         item_opts.merge(:heading => "h#{options[:heading_level]}")
       )
