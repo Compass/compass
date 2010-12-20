@@ -1,0 +1,12 @@
+$flag-position: 2px;
+@import "flag/*.png";
+
+.flag-sprite {
+  width: image-width("flag/us.png");
+  height: image-height("flag/us.png");
+  padding: 0;
+}
+
+#flags {
+  @include sprites($flag-sprites, us de ca au cn cz nz jp scotland tw rs gb, $flag-sprite-base-class, $prefix: false);
+}
