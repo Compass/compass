@@ -1,5 +1,5 @@
-$flag-position: 2px;
 @import "flag/*.png";
+@import "emblem/*.png";
 
 .flag-sprite {
   width: image-width("flag/us.png");
@@ -7,6 +7,19 @@ $flag-position: 2px;
   padding: 0;
 }
 
+.emblem-sprite {
+  width: image-width("emblem/favorite.png");
+  height: image-height("emblem/favorite.png");
+  padding: 0;
+}
+
 #flags {
-  @include sprites($flag-sprites, us de ca au cn cz nz jp scotland tw rs gb, $flag-sprite-base-class, $prefix: false);
+  @include sprites($flag-sprites,
+                   us de ca au cn cz nz jp scotland tw rs gb,
+                   $flag-sprite-base-class,
+                   $prefix: false);
+}
+
+#emblems {
+  @include all-emblem-sprites($prefix: false);
 }
