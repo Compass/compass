@@ -30,9 +30,10 @@
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
-@mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false) {
+@mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false, $prefix: sprite-map-name($map)) {
   @each $sprite-name in $sprite-names {
-    .#{sprite-map-name($map)}-#{$sprite-name} {
+    $full-sprite-name: if($prefix and $prefix != "", "#{$prefix}-#{$sprite-name}", $sprite-name);
+    .#{$full-sprite-name} {
       @if $base-class { @extend #{$base-class}; }
       @include sprite($map, $sprite-name, $dimensions);
     }

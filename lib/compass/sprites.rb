@@ -88,13 +88,13 @@ end.join(",\n")});
   @include sprite($#{name}-sprites, $name, $dimensions, $offset-x, $offset-y)
 }
 
-@mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions) {
-  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions)
+@mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
+  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions, $prefix)
 }
 
 // Generates a class for each sprited image.
-@mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions) {
-  @include #{name}-sprites(#{images.join(" ")}, $dimensions);
+@mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
+  @include #{name}-sprites(#{images.join(" ")}, $dimensions, $prefix);
 }
 SCSS
     end
