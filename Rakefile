@@ -61,7 +61,7 @@ task :examples do
     puts "=" * "Compiling #{example}".length
     Dir.chdir example do
       load "bootstrap.rb" if File.exists?("bootstrap.rb")
-      Compass::Exec::SwitchUI.new(["--force"]).run!
+      Compass::Exec::SubCommandUI.new(%w(compile --force)).run!
     end
     # compile any haml templates to html
     FileList["#{example}/**/*.haml"].each do |haml_file|
