@@ -12,4 +12,6 @@ gem "rcov"
 gem "rubyzip"
 gem "livereload"
 gem "chunky_png", "~> 0.10.1"
-gem "ruby-prof"
+
+gem "ruby-prof" unless RUBY_PLATFORM == "java"
+
