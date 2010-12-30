@@ -133,29 +133,29 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     # Check if any of the arguments passed have a tendency towards vendor prefixing.
     def prefixed(prefix, *args)
-      method = prefix.value.sub(/^-/,"to_").to_sym
+      method = prefix.value.sub(/^-/,"")
       args.map!{|a| a.is_a?(List) ? a.values : a}.flatten!
-      Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
+      Sass::Script::Bool.new(args.any?{|a| a.supports?(method)})
     end
 
     %w(webkit moz o ms svg pie css2).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
-          List.new(*args.map! {|a| add_prefix(:to_#{prefix}, a)})
+          List.new(*args.map! {|a| add_prefix("#{prefix}", a)})
         end
       RUBY
     end
 
     protected
 
-    def add_prefix(prefix_method, object)
+    def add_prefix(prefix, object)
       if object.is_a?(List)
         object.class.new(object.value.map{|e|
-          add_prefix(prefix_method, e)
+          add_prefix(prefix, e)
         })
-      elsif object.respond_to?(prefix_method)
+      elsif object.respond_to?(:supports?) && object.supports?(prefix)
         object.options = options
-        object.send(prefix_method)
+        object.send(:"to_#{prefix_method}")
       else
         object
       end
@@ -269,33 +269,31 @@ module Compass::SassExtensions::Functions::GradientSupport
       Sass::Script::List.new list.values[start_index..end_index], list.separator
     end
 
-    # Check if any of the arguments passed have a tendency towards vendor prefixing.
+    # Check if any of the arguments passed have require the vendor prefix.
     def prefixed(prefix, *args)
-      method = prefix.value.sub(/^-/,"to_").to_sym
-      2.times do
-        args.map!{|a| a.is_a?(Sass::Script::List) ? a.value : a}.flatten!
-      end
-      Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
+      aspect = prefix.value.sub(/^-/,"")
+      needed = args.any?{|a| a.respond_to?(:supports?) && a.supports?(aspect)}
+      Sass::Script::Bool.new(needed)
     end
 
     %w(webkit moz o ms svg pie css2).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def _#{prefix}(*args)
-          Sass::Script::List.new(args.map! {|a| add_prefix(:to_#{prefix}, a)}, :comma)
+          Sass::Script::List.new(args.map! {|a| add_prefix("#{prefix}", a)}, :comma)
         end
       RUBY
     end
 
     protected
 
-    def add_prefix(prefix_method, object)
+    def add_prefix(prefix, object)
       if object.is_a?(Sass::Script::List)
         Sass::Script::List.new(object.value.map{|e|
-          add_prefix(prefix_method, e)
+          add_prefix(prefix, e)
         }, object.separator)
-      elsif object.respond_to?(prefix_method)
+      elsif object.respond_to?(:supports?) && object.supports?(prefix)
         object.options = options
-        object.send(prefix_method)
+        object.send(:"to_#{prefix}")
       else
         object
       end
@@ -316,7 +314,6 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
   end
-
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
@@ -349,6 +346,8 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
   end
 
+  GRADIENT_ASPECTS = %w(webkit moz svg pie css2).freeze
+
   class RadialGradient < Sass::Script::Literal
     attr_accessor :position_and_angle, :shape_and_size, :color_stops
     def children
@@ -371,6 +370,12 @@ module Compass::SassExtensions::Functions::GradientSupport
       s << shape_and_size.to_s(options) << ", " if shape_and_size
       s << color_stops.to_s(options)
       s << ")"
+    end
+    def supports?(aspect)
+      GRADIENT_ASPECTS.include?(aspect)
+    end
+    def has_aspect?
+      true
     end
     def to_webkit(options = self.options)
       args = [
@@ -420,6 +425,12 @@ module Compass::SassExtensions::Functions::GradientSupport
       s << position_and_angle.to_s(options) << ", " if position_and_angle
       s << color_stops.to_s(options)
       s << ")"
+    end
+    def supports?(aspect)
+      GRADIENT_ASPECTS.include?(aspect)
+    end
+    def has_aspect?
+      true
     end
     def to_webkit(options = self.options)
       args = []
@@ -726,6 +737,7 @@ EOS
     end
 
   end
+
   class LinearGradient < Sass::Script::Literal
     include Functions
     include Compass::SassExtensions::Functions::Constants

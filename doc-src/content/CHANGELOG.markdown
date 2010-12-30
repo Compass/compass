@@ -26,6 +26,21 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   The CLI options will still override the values set within the config file, but they might
   inform other values. For instance `compass compile -e production` will have the environment
   parameter preset to `:production` so that you can set other values in the project accordingly.
+* New infrastructure for supporting experimental css3 functions that have the same syntax
+  across all browsers. It is now possible to configure which browsers support which experimental
+  functions outside of the compass release cycle by calling
+  `Compass::BrowserSupport.add_support('function', 'prefix')` and
+  `Compass::BrowserSupport.remove_support('function', 'prefix')`.
+  Once properly configured, the browser specific aspect can be inspected
+  via the `prefixed()` helper function and accessed via the various support
+  aspect helpers like `-moz()` and `-webkit()`. For example, if you call:
+  `Compass::BrowserSupport.add_support('image', 'webkit')` in your config
+  then in your stylesheet, `prefixed(-webkit, image("foo.png", "foo.gif"))` would
+  return true and `prefixed(-moz, image("foo.png", "foo.gif"))` would return false.
+  Additionally `-webkit(image("foo.png", "foo.gif"))` will return
+  `-webkit-image("foo.png", "foo.gif")`. This is very useful for creating mixins
+  that can support a range of inputs and vary the outputs according to the
+  support needs.
 
 
 0.11.alpha.4 (12/08/2010)
