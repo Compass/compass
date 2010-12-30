@@ -47,6 +47,7 @@
     &[type=email],
     &[type=text],
     &[type=password] { width: $input_width; }
+    &[type=url]
   }
   textarea { width: $textarea_width; height: $textarea_height; }
 }
