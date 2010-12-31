@@ -5,16 +5,10 @@ GIT
     nanoc3 (3.2.0a3)
       cri (>= 1.0.0)
 
-GIT
-  remote: git://github.com/chriseppstein/sass.git
-  revision: c9de58c678644ec9b0ae5103ab595815e5aa4ecf
-  specs:
-    sass (3.1.0.alpha.50)
-
 PATH
   remote: ..
   specs:
-    compass (0.11.alpha.4.02d6292)
+    compass (0.11.alpha.4.e11f103)
       chunky_png (~> 0.10.3)
       sass (>= 3.1.0.alpha.50)
 
@@ -40,6 +34,7 @@ GEM
     rake (0.8.7)
     rdiscount (1.6.5)
     ruby-prof (0.9.2)
+    sass (3.1.0.alpha.214)
     serve (1.0.0)
       activesupport (~> 3.0.1)
       i18n (~> 0.4.1)
@@ -67,6 +62,6 @@ DEPENDENCIES
   rake
   rdiscount
   ruby-prof
-  sass (>= 3.1.0.alpha.50)!
+  sass (>= 3.1.0.alpha.50)
   serve (= 1.0.0)
   thor
