@@ -118,6 +118,26 @@ def mixins(item)
   mixins.reject{|m| m.comment =~ /@private/}
 end
 
+def functions(item)
+  sass_tree = tree(item)
+  functions = []
+  comment = nil
+  sass_tree.children.each do |child|
+    if child.is_a?(Sass::Tree::FunctionNode)
+      child.comment = comment && Sass::Tree::CommentNode.clean(comment)
+      comment = nil
+      functions << child
+    elsif child.is_a?(Sass::Tree::CommentNode)
+      comment ||= ""
+      comment << "\n" unless comment.empty?
+      comment << child.docstring
+    else
+      comment = nil
+    end
+  end
+  functions.reject{|m| m.comment =~ /@private/}
+end
+
 def constants(item)
   sass_tree = tree(item)
   constants = []
@@ -165,8 +185,17 @@ def all_mixins
   all_mixins
 end
 
-def mixin_signature(mixin, format = :html)
-  mixin.sass_signature(:none, format)
+def all_functions
+  all_functions = []
+  @items.each do |item|
+    next unless item.identifier =~ %r{/reference}
+    next unless item[:stylesheet]
+    fns = functions(item)
+    if fns.any?
+      all_functions << [item, fns]
+    end
+  end
+  all_functions
 end
 
 def example_items

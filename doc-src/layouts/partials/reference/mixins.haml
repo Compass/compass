@@ -4,7 +4,7 @@
   - mixin_defs.each do |mixin|
     %a{:href=>"#mixin-#{mixin.name}-source", :rel => "view source"} view source
     %h3.mixin{:id=>"mixin-#{mixin.name}"}
-      %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin_signature(mixin)
+      %a.permalink{:href => "#mixin-#{mixin.name}"}= mixin.sass_signature(:none, :html)
     .mixin-source{:id=>"mixin-#{mixin.name}-source"}
       %pre.source-code.sass= mixin.to_sass
       %pre.source-code.scss= mixin.to_scss

@@ -1,0 +1,18 @@
+---
+title: Compass Documentation | All Functions
+crumb: Docs
+body_id: home
+---
+%article
+  %h1#logo Sass Based Functions
+  
+  - all_functions.sort_by{|i| i.first.identifier}.each do |item, functions|
+    %h3= link_to item[:title], item
+    %ul
+      - functions.sort_by{|f| f.name}.each do |f|
+        %li= f.sass_signature(:html)
+
+  %h1#logo All Ruby Based Functions
+  %ul
+    - Sass::Script::Functions.public_instance_methods.sort_by{|m| m.to_s}.each do |m|
+      %li= m.to_s.gsub("_","-")

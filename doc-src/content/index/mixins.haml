@@ -10,5 +10,5 @@ body_id: home
     %h3= link_to item[:title], item
     %ul
       - mixins.sort_by{|m| m.name}.each do |m|
-        %li= mixin_signature(m)
+        %li= m.sass_signature(:none, :html)
 
