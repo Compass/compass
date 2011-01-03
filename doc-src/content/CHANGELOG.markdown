@@ -30,6 +30,12 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   syntax across all browsers. It is now possible to configure which browsers support which
   experimental functions outside of the compass release cycle. For details, see the
   [cross browser helpers](/reference/compass/helpers/cross-browser/).
+* [Blueprint] Added a new sass function called span($n) to the grid module which replaces
+  the now **deprecated span mixin**. If you are using this mixin, please replace it with:
+  `width: span($n)`.
+* [Blueprint] Blueprint no longer adds `!important` to the widths of `input`, `textarea`,
+  and `select` form fields, so compass no longer defaults to using `!important` in those cases.
+  If you were relying on this behavior, you may need to adjust your stylesheets accordingly.
 
 
 0.11.alpha.4 (12/08/2010)

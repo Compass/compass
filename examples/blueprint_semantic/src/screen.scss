@@ -20,11 +20,11 @@ body.blueprint {
 
 body#index {
   #page-header {
-    @include span(6); }
+    width: span(6); }
   #files-header {
-    @include span(8); }
+    width: span(8); }
   #description-header {
-    @include span(10); }
+    width: span(10); }
   #info {
     @include box;
     ul {

@@ -54,15 +54,15 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
   @for $n from 1 to $blueprint-grid-columns {
     .span-#{$n} {
       @extend .column;
-      @include span($n); } }
+      width: span($n); } }
   .span-#{$blueprint-grid-columns} {
     @extend .column;
-    @include span($blueprint-grid-columns);
+    width: span($blueprint-grid-columns);
     margin: 0; }
   input, textarea, select {
     @for $n from 1 through $blueprint-grid-columns {
       &.span-#{$n} {
-        @include span($n, true); } } }
+        width: span($n); } } }
   // Add these to a column to append empty cols.
   @for $n from 1 to $blueprint-grid-columns {
     .append-#{$n} {
@@ -106,9 +106,9 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
 // Use this mixins to set the width of n columns.
 @mixin column($n, $last: false) {
   @include column-base($last);
-  @include span($n); }
+  width: span($n); }
 
-// Return the width of `$n` columns.
+// Return the width in pixels of `$n` columns.
 @function span($n) {
   @return $blueprint-grid-width * $n + $blueprint-grid-margin * ($n - 1);
 }
@@ -117,7 +117,10 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
 // Most of the time you'll want to use `+column` instead.
 //
 // This mixin is especially useful for aligning tables to the grid.
+//
+// @deprecated Please use the span function with the width property instead.
 @mixin span($n, $important: false) {
+  @warn "The span mixin is deprecated. Please use the span function instead. E.g. width: span(#{$n})";
   @if $important {
     width: span($n) !important; }
   @else {
