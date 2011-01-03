@@ -9,7 +9,7 @@ body.blueprint {
   .container {
     @include container; }
   .showgrid {
-    background: inline_image(unquote("grid.png")); }
+    background: inline_image("grid.png"); }
   hr {
     @include colruler; }
   hr.space {
