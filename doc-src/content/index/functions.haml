@@ -6,11 +6,12 @@ body_id: home
 %article
   %h1#logo Sass Based Functions
   
-  - all_functions.sort_by{|i| i.first.identifier}.each do |item, functions|
-    %h3= link_to item[:title], item
+  - all_functions.sorted_and_grouped_by_name{|f| f.last.name }.each do |(group, functions)|
+    %h3= group
     %ul
-      - functions.sort_by{|f| f.name}.each do |f|
-        %li= f.sass_signature(:html)
+      - functions.each do |(i, f)|
+        %li
+          %a{:href=>"#{i.path}#function-#{f.name}"}= f.sass_signature(:html)
 
   %h1#logo All Ruby Based Functions
   %ul

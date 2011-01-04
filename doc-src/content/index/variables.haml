@@ -6,10 +6,10 @@ body_id: home
 %article
   %h1#logo Compass Variables
   
-  - all_constants.sort_by{|i| i.first.identifier}.each do |item, constants|
-    %h3= link_to item[:title], item
+  - all_constants.sorted_and_grouped_by_name{|v| v.last.name }.each do |(group, variables)|
+    %h3= group
     %ul
-      - constants.sort_by{|c| c.name}.each do |c|
-        %li $#{c.name}
-
+      - variables.each do |(i, v)|
+        %li
+          %a{:href=>"#{i.path}#const-#{v.name}"}= "$" + v.name
   

@@ -160,42 +160,28 @@ def constants(item)
 end
 
 def all_constants
-  variables = []
-  @items.each do |item|
-    next unless item.identifier =~ %r{/reference}
-    next unless item[:stylesheet]
-    vars = constants(item)
-    if vars.any?
-      variables << [item, vars]
-    end
+  @items.inject([]) do |variables, item|
+    next variables unless item.identifier =~ %r{/reference}
+    next variables unless item[:stylesheet]
+    variables += constants(item).map{|v| [item, v] }
   end
-  variables
 end
 
 def all_mixins
-  all_mixins = []
-  @items.each do |item|
-    next unless item.identifier =~ %r{/reference}
-    next unless item[:stylesheet]
-    ms = mixins(item)
-    if ms.any?
-      all_mixins << [item, ms]
-    end
+  @items.inject([]) do |all_mixins, item|
+    next all_mixins unless item.identifier =~ %r{/reference}
+    next all_mixins unless item[:stylesheet]
+    all_mixins += mixins(item).map{|m| [item, m] }
   end
-  all_mixins
 end
 
 def all_functions
-  all_functions = []
-  @items.each do |item|
-    next unless item.identifier =~ %r{/reference}
-    next unless item[:stylesheet]
-    fns = functions(item)
-    if fns.any?
-      all_functions << [item, fns]
-    end
+  rv = @items.inject([]) do |all_functions, item|
+    next all_functions unless item.identifier =~ %r{/reference}
+    next all_functions unless item[:stylesheet]
+    all_functions += functions(item).map{|f| [item, f] }
   end
-  all_functions
+  rv
 end
 
 def example_items
