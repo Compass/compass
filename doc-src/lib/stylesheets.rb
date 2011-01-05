@@ -176,12 +176,11 @@ def all_mixins
 end
 
 def all_functions
-  rv = @items.inject([]) do |all_functions, item|
+  @items.inject([]) do |all_functions, item|
     next all_functions unless item.identifier =~ %r{/reference}
     next all_functions unless item[:stylesheet]
     all_functions += functions(item).map{|f| [item, f] }
   end
-  rv
 end
 
 def example_items
@@ -189,6 +188,12 @@ def example_items
     @items.select do |i|
       i.identifier =~ /^\/examples/ && i[:example]
     end
+  end
+end
+
+def item_for_function_name(function_name)
+  @items.detect do |item|
+    (item.identifier =~ %r{helpers}) && item[:documented_functions] && item[:documented_functions].include?(function_name)
   end
 end
 

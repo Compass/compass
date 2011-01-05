@@ -30,5 +30,15 @@ body_id: search
     }
 %input#q{:type => "text", :placeholder=>"Search"}
 
+%h2 Index of all:
+%ul#indexes
+  %li
+    %a(href="/index/variables/") Variables
+  %li
+    %a(href="/index/mixins/") Mixins
+  %li
+    %a(href="/index/functions/") Functions
+
+%h2 Results
 %ol#results
   %li.none Please enter a search term.

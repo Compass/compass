@@ -16,4 +16,9 @@ body_id: home
   %h1#logo All Ruby Based Functions
   %ul
     - Sass::Script::Functions.public_instance_methods.sort_by{|m| m.to_s}.each do |m|
-      %li= m.to_s.gsub("_","-")
+      %li
+        - name = m.to_s.gsub("_","-")
+        - if i = item_for_function_name(name)
+          %a{:href=>"#{i.path}##{name}"}= name
+        - else
+          = name
