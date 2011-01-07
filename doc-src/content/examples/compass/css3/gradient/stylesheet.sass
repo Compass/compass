@@ -14,30 +14,30 @@
 
 // This will yield a radial gradient with an apparent specular highlight  
 #radial-gradient
-  +radial-gradient(color-stops(#00FFFF 10px, #1E90FF 30px), 45 45)
+  +background-image(radial-gradient(45 45, #0ff 10px, #1e90ff 30px))
 
 // This yields a linear gradient spanning from the upper left corner to the lower right corner
 #linear-gradient
-  +linear-gradient(color-stops(#fff, #ddd), left top)
+  +background-image(linear-gradient(left top, #fff, #ddd))
 
 // This yields a gradient starting at the top with #fff, ending in #aaa  
 #v-gradient
-  +linear-gradient(color-stops(#fff, #aaa))
+  +background-image(linear-gradient(#fff, #aaa))
 
 // Same as above but with a #ccc at the halfway point  
 #v-gradient-2
-  +linear-gradient(color-stops(#fff, #ccc, #aaa))
+  +background-image(linear-gradient(#fff, #ccc, #aaa))
 
 // Same as the first example but with #ccc at the 30% from the top, and #bbb at 70% from the top  
 #v-gradient-3
-  +linear-gradient(color-stops(#fff, #ccc 30%, #bbb 70%, #aaa))
+  +background-image(linear-gradient(#fff, #ccc 30%, #bbb 70%, #aaa))
 
 // This yields a horizontal linear gradient spanning from left to right.
 #h-gradient
-  +linear-gradient(color-stops(#fff, #ddd), left)
+  +background-image(linear-gradient(left, #fff, #ddd))
 
 #svg-gradient
   $experimental-support-for-svg: true
-  +linear-gradient(color-stops(#2AC363, #CD8C14, #9C4CC2), left)
+  +background-image(linear-gradient(left, #2ac363, #cd8c14, #9c4cc2))
   width: 80px
   height: 80px

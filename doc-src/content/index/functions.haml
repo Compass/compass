@@ -1,0 +1,24 @@
+---
+title: Compass Documentation | All Functions
+crumb: Docs
+body_id: home
+---
+%article
+  %h1#logo Sass Based Functions
+  
+  - all_functions.sorted_and_grouped_by_name{|f| f.last.name }.each do |(group, functions)|
+    %h3= group
+    %ul
+      - functions.each do |(i, f)|
+        %li
+          %a{:href=>"#{i.path}#function-#{f.name}"}= f.sass_signature(:html)
+
+  %h1#logo All Ruby Based Functions
+  %ul
+    - Sass::Script::Functions.public_instance_methods.sort_by{|m| m.to_s}.each do |m|
+      %li
+        - name = m.to_s.gsub("_","-")
+        - if i = item_for_function_name(name)
+          %a{:href=>"#{i.path}##{name}"}= name
+        - else
+          = name

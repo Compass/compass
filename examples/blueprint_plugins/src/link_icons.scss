@@ -10,4 +10,4 @@ body {
   // Not all links have a url structure that can be detected,
   // So you can set them explicitly yourself like so:
   a#this-is-a-pdf-link {
-    @include link-icon(unquote("pdf.png")); } }
+    @include link-icon("pdf.png"); } }

@@ -58,6 +58,15 @@ $experimental-support-for-svg: false
 .bg-radial-gradient-no-position
   +background-image(radial-gradient(#ddd, #aaa 100px))
 
+.image-fallback
+  +background-image(image(radial-gradient(#ddd, #aaa 100px), image-url("4x6.png"), #c00))
+
+.cross-fade
+  +background-image(cross-fade(radial-gradient(#ddd, #aaa 100px), image-url("4x6.png")))
+
+.unknown-function-wrapper
+  +background(foo(radial-gradient(#ddd, #aaa 100px)))
+
 .linear-1
   +linear-gradient(color-stops(#dddddd, #aaaaaa))
 

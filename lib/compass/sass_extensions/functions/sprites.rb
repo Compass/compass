@@ -331,7 +331,7 @@ module Compass::SassExtensions::Functions::Sprites
     if offset_x.unit_str == "%"
       x = offset_x # CE: Shouldn't this be a percentage of the total width?
     else
-      x = offset_x.value + image[:left]
+      x = offset_x.value - image[:left]
       x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
     end
     y = offset_y.value - image[:top]

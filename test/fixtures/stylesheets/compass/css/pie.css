@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .pie-element, .bordered, .gradient {
   behavior: url('/tmp/PIE.htc');
   position: relative; }

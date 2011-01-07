@@ -55,8 +55,7 @@ $blueprint-liquid-grid-push-pull: -($blueprint-liquid-grid-margin + $blueprint-l
     @include container; }
   // Use these classes (or mixins) to set the width of a column.
   @for $n from 1 to $blueprint-liquid-grid-columns + 1 {
-    .span-#{$n} {
-      @include span($n); }
+    .span-#{$n} { width: span-fluid($n); }
     div {
       &.span-#{$n} {
         @include column($n, $n == $blueprint-liquid-grid-columns); } } }
@@ -86,9 +85,15 @@ $blueprint-liquid-grid-push-pull: -($blueprint-liquid-grid-margin + $blueprint-l
   margin: 0 auto;
   @include clearfix; }
 
-@mixin span($n, $override: false) {
-  $width: $blueprint-liquid-grid-width * $n + $blueprint-liquid-grid-margin * ($n - 1);
-  @if $override {
+// Return the width of `$n` columns in percents.
+@function span-fluid($n) {
+  @return $blueprint-liquid-grid-width * $n + $blueprint-liquid-grid-margin * ($n - 1);
+}
+
+@mixin span($n, $important: false) {
+  @warn "The span mixin is deprecated. Please use the span-fluid function instead. E.g. width: span-fluid(#{$n})";
+  $width: span-fluid($n);
+  @if $important {
     width: $width !important; }
   @else {
     width: $width; } }
@@ -99,7 +104,7 @@ $blueprint-liquid-grid-push-pull: -($blueprint-liquid-grid-margin + $blueprint-l
 @mixin column($n, $last: false) {
   @include float-left;
   overflow: hidden;
-  @include span($n);
+  width: span-fluid($n);
   @if $last {
     @include last; }
   @else {

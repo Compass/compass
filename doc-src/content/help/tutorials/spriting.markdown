@@ -146,9 +146,11 @@ this in mind.
 
 ## Large numbers of sprites
 The magic stylesheet can get very large when there are large numbers of sprites. 50 sprites
-will cause there to be over 150 variables created and then passed into the `sprite` function.
+will cause there to be over 150 variables created and then passed into the
+`sprite-map` [function](/reference/compass/helpers/sprites/#sprite-map).
 You may find that customizing the sprite function call to only pass those values that you
-are overriding will provide a performance boost.
+are overriding will provide a small performance boost.
+See a [concrete example](https://gist.github.com/747970).
 
 ## Oily PNG
 

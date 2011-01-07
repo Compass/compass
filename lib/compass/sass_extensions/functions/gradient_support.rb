@@ -1,322 +1,6 @@
 module Compass::SassExtensions::Functions::GradientSupport
 
-  module ListFreeSassSupport
-    class List < Sass::Script::Literal
-      attr_accessor :values
-      def children
-        values
-      end
-      def value
-        # duck type to a Sass List
-        values
-      end
-      def initialize(*values)
-        self.values = values
-      end
-      def join_with
-        ", "
-      end
-      def inspect
-        to_s
-      end
-      def to_s(options = self.options)
-        values.map {|v| v.to_s }.join(join_with)
-      end
-      def size
-        values.size
-      end
-    end
-
-    class SpaceList < List
-      def join_with
-        " "
-      end
-    end
-
-    # given a position list, return a corresponding position in percents
-    def grad_point(position)
-      position = position.is_a?(Sass::Script::String) ? position.value : position.to_s
-      position = if position[" "]
-        if position =~ /(top|bottom|center) (left|right|center)/
-          "#{$2} #{$1}"
-        else
-          position
-        end
-      else
-        case position
-        when /top|bottom/
-          "center #{position}"
-        when /left|right/
-          "#{position} center"
-        when /center/
-          "center center"
-        else
-          "#{position} center"
-        end
-      end
-      position = position.
-        gsub(/top/, "0%").
-        gsub(/bottom/, "100%").
-        gsub(/left/,"0%").
-        gsub(/right/,"100%").
-        gsub(/center/, "50%")
-      SpaceList.new(*position.split(/ /).map{|s| Sass::Script::String.new(s)})
-    end
-
-    def color_stops(*args)
-      List.new(*args.map do |arg|
-        case arg
-        when ColorStop
-          arg
-        when Sass::Script::Color
-          ColorStop.new(arg)
-        when Sass::Script::String
-          # We get a string as the result of concatenation
-          # So we have to reparse the expression
-          parse_color_stop(arg)
-        else
-          raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
-        end
-      end)
-    end
-
-    # Returns a comma-delimited list after removing any non-true values
-    def compact(*args)
-      List.new(*args.reject{|a| !a.to_bool})
-    end
-
-    # Returns a list object from a value that was passed.
-    # This can be used to unpack a space separated list that got turned
-    # into a string by sass before it was passed to a mixin.
-    def _compass_list(arg)
-      return arg if arg.is_a?(List)
-      values = case arg
-        when Sass::Script::String
-          expr = Sass::Script::Parser.parse(arg.value, 0, 0)
-          if expr.is_a?(Sass::Script::Operation)
-            extract_list_values(expr)
-          elsif expr.is_a?(Sass::Script::Funcall)
-            expr.perform(Sass::Environment.new) #we already evaluated the args in context so no harm in using a fake env
-          else
-            [arg]
-          end
-        else
-          [arg]
-        end
-
-      SpaceList.new(*values)
-    end
-
-    def _compass_space_list(list)
-      if list.is_a?(List) && !list.is_a?(SpaceList)
-        SpaceList.new(*list.values)
-      elsif list.is_a?(SpaceList)
-        list
-      else
-        SpaceList.new(list)
-      end
-    end
-
-    def _compass_list_size(list)
-      Sass::Script::Number.new(list.size)
-    end
-
-    # slice a sublist from a list
-    def _compass_slice(list, start_index, end_index = nil)
-      end_index ||= Sass::Script::Number.new(-1)
-      start_index = start_index.value
-      end_index = end_index.value
-      start_index -= 1 unless start_index < 0
-      end_index -= 1 unless end_index < 0
-      list.class.new *list.values[start_index..end_index]
-    end
-
-    # Check if any of the arguments passed have a tendency towards vendor prefixing.
-    def prefixed(prefix, *args)
-      method = prefix.value.sub(/^-/,"to_").to_sym
-      args.map!{|a| a.is_a?(List) ? a.values : a}.flatten!
-      Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
-    end
-
-    %w(webkit moz o ms svg pie css2).each do |prefix|
-      class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        def _#{prefix}(*args)
-          List.new(*args.map! {|a| add_prefix(:to_#{prefix}, a)})
-        end
-      RUBY
-    end
-
-    protected
-
-    def add_prefix(prefix_method, object)
-      if object.is_a?(List)
-        object.class.new(object.value.map{|e|
-          add_prefix(prefix_method, e)
-        })
-      elsif object.respond_to?(prefix_method)
-        object.options = options
-        object.send(prefix_method)
-      else
-        object
-      end
-    end
-
-    def color_stop?(arg)
-      parse_color_stop(arg)
-    rescue
-      nil
-    end
-
-    def assert_list(value)
-      unless value.is_a?(List)
-        raise ArgumentError.new("#{value.inspect} is not a list")
-      end
-    end
-
-  end
-
-  module ListBasedSassSupport
-    # given a position list, return a corresponding position in percents
-    def grad_point(position)
-      position = unless position.is_a?(Sass::Script::List)
-        Sass::Script::List.new([position], :space)
-      else
-        Sass::Script::List.new(position.value.dup, position.separator)
-      end
-      position.value.reject!{|p| p.is_a?(Sass::Script::Number) && p.numerator_units.include?("deg")}
-      if (position.value.first.value =~ /top|bottom/) or (position.value.last.value =~ /left|right/)
-        # browsers are pretty forgiving of reversed positions so we are too.
-        position.value.reverse!
-      end
-      if position.value.size == 1
-        if position.value.first.value =~ /top|bottom/
-          position.value.unshift Sass::Script::String.new("center")
-        elsif position.value.first.value =~ /left|right/
-          position.value.push Sass::Script::String.new("center")
-        end
-      end
-      position.value.map! do |p|
-        case p.value
-        when /top|left/
-          Sass::Script::Number.new(0, ["%"])
-        when /bottom|right/
-          Sass::Script::Number.new(100, ["%"])
-        when /center/
-          Sass::Script::Number.new(50, ["%"])
-        else
-          p
-        end
-      end
-      position
-    end
-
-    def color_stops(*args)
-      Sass::Script::List.new(args.map do |arg|
-        case arg
-        when ColorStop
-          arg
-        when Sass::Script::Color
-          ColorStop.new(arg)
-        when Sass::Script::List
-          ColorStop.new(*arg.value)
-        else
-          raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
-        end
-      end, :comma)
-    end
-
-    # Returns a comma-delimited list after removing any non-true values
-    def compact(*args)
-      sep = :comma
-      if args.size == 1 && args.first.is_a?(Sass::Script::List)
-        args = args.first.value
-        sep = args.first.separator
-      end
-      Sass::Script::List.new(args.reject{|a| !a.to_bool}, sep)
-    end
-
-    # Returns a list object from a value that was passed.
-    # This can be used to unpack a space separated list that got turned
-    # into a string by sass before it was passed to a mixin.
-    def _compass_list(arg)
-      if arg.is_a?(Sass::Script::List)
-        Sass::Script::List.new(arg.value.dup, arg.separator)
-      else
-        Sass::Script::List.new([arg], :space)
-      end
-    end
-
-    def _compass_space_list(list)
-      if list.is_a?(Sass::Script::List)
-        Sass::Script::List.new(list.value.dup, :space)
-      else
-        Sass::Script::List.new([list], :space)
-      end
-    end
-
-    def _compass_list_size(list)
-      assert_list list
-      Sass::Script::Number.new(list.value.size)
-    end
-
-    # slice a sublist from a list
-    def _compass_slice(list, start_index, end_index = nil)
-      end_index ||= Sass::Script::Number.new(-1)
-      start_index = start_index.value
-      end_index = end_index.value
-      start_index -= 1 unless start_index < 0
-      end_index -= 1 unless end_index < 0
-      Sass::Script::List.new list.values[start_index..end_index], list.separator
-    end
-
-    # Check if any of the arguments passed have a tendency towards vendor prefixing.
-    def prefixed(prefix, *args)
-      method = prefix.value.sub(/^-/,"to_").to_sym
-      2.times do
-        args.map!{|a| a.is_a?(Sass::Script::List) ? a.value : a}.flatten!
-      end
-      Sass::Script::Bool.new(args.any?{|a| a.respond_to?(method)})
-    end
-
-    %w(webkit moz o ms svg pie css2).each do |prefix|
-      class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        def _#{prefix}(*args)
-          Sass::Script::List.new(args.map! {|a| add_prefix(:to_#{prefix}, a)}, :comma)
-        end
-      RUBY
-    end
-
-    protected
-
-    def add_prefix(prefix_method, object)
-      if object.is_a?(Sass::Script::List)
-        Sass::Script::List.new(object.value.map{|e|
-          add_prefix(prefix_method, e)
-        }, object.separator)
-      elsif object.respond_to?(prefix_method)
-        object.options = options
-        object.send(prefix_method)
-      else
-        object
-      end
-    end
-
-    def color_stop?(arg)
-      arg.is_a?(ColorStop) ||
-      (arg.is_a?(Sass::Script::List) && ColorStop.new(*arg.value)) ||
-      ColorStop.new(arg)
-    rescue
-      nil
-    end
-
-    def assert_list(value)
-      unless value.is_a?(Sass::Script::List)
-        raise ArgumentError.new("#{value.inspect} is not a list")
-      end
-    end
-
-  end
-
+  GRADIENT_ASPECTS = %w(webkit moz svg pie css2).freeze
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
@@ -372,6 +56,12 @@ module Compass::SassExtensions::Functions::GradientSupport
       s << color_stops.to_s(options)
       s << ")"
     end
+    def supports?(aspect)
+      GRADIENT_ASPECTS.include?(aspect)
+    end
+    def has_aspect?
+      true
+    end
     def to_webkit(options = self.options)
       args = [
         grad_point(position_and_angle || _center_position),
@@ -421,6 +111,12 @@ module Compass::SassExtensions::Functions::GradientSupport
       s << color_stops.to_s(options)
       s << ")"
     end
+    def supports?(aspect)
+      GRADIENT_ASPECTS.include?(aspect)
+    end
+    def has_aspect?
+      true
+    end
     def to_webkit(options = self.options)
       args = []
       args << grad_point(position_and_angle || Sass::Script::String.new("top"))
@@ -447,11 +143,53 @@ module Compass::SassExtensions::Functions::GradientSupport
 
   module Functions
 
-    # While supporting sass 3.1 and older versions, we need two different implementations.
-    if defined?(Sass::Script::List)
-      include ListBasedSassSupport
-    else
-      include ListFreeSassSupport
+    # given a position list, return a corresponding position in percents
+    def grad_point(position)
+      position = unless position.is_a?(Sass::Script::List)
+        Sass::Script::List.new([position], :space)
+      else
+        Sass::Script::List.new(position.value.dup, position.separator)
+      end
+      position.value.reject!{|p| p.is_a?(Sass::Script::Number) && p.numerator_units.include?("deg")}
+      if (position.value.first.value =~ /top|bottom/) or (position.value.last.value =~ /left|right/)
+        # browsers are pretty forgiving of reversed positions so we are too.
+        position.value.reverse!
+      end
+      if position.value.size == 1
+        if position.value.first.value =~ /top|bottom/
+          position.value.unshift Sass::Script::String.new("center")
+        elsif position.value.first.value =~ /left|right/
+          position.value.push Sass::Script::String.new("center")
+        end
+      end
+      position.value.map! do |p|
+        case p.value
+        when /top|left/
+          Sass::Script::Number.new(0, ["%"])
+        when /bottom|right/
+          Sass::Script::Number.new(100, ["%"])
+        when /center/
+          Sass::Script::Number.new(50, ["%"])
+        else
+          p
+        end
+      end
+      position
+    end
+
+    def color_stops(*args)
+      Sass::Script::List.new(args.map do |arg|
+        case arg
+        when ColorStop
+          arg
+        when Sass::Script::Color
+          ColorStop.new(arg)
+        when Sass::Script::List
+          ColorStop.new(*arg.value)
+        else
+          raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
+        end
+      end, :comma)
     end
 
     def radial_gradient(position_and_angle, shape_and_size, *color_stops)
@@ -508,7 +246,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
     def color_stops_in_percentages(color_list)
-      assert_list(color_list)
+      assert_type color_list, :List
       color_list = normalize_stops(color_list)
       max = color_list.value.last.stop
       last_value = nil
@@ -527,13 +265,13 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     # returns the end position of the gradient from the color stop
     def grad_end_position(color_list, radial = Sass::Script::Bool.new(false))
-      assert_list(color_list)
+      assert_type color_list, :List
       default = Sass::Script::Number.new(100)
       grad_position(color_list, Sass::Script::Number.new(color_list.value.size), default, radial)
     end
 
     def grad_position(color_list, index, default, radial = Sass::Script::Bool.new(false))
-      assert_list(color_list)
+      assert_type color_list, :List
       stop = color_list.value[index.value - 1].stop
       if stop && radial.to_bool
         orig_stop = stop
@@ -576,55 +314,16 @@ module Compass::SassExtensions::Functions::GradientSupport
       inline_image_string(svg.gsub(/\s+/, ' '), 'image/svg+xml')
     end
 
-    # Get the nth value from a list
-    def _compass_nth(list, place)
-      assert_list list
-      if place.value == "first"
-        list.value.first
-      elsif place.value == "last"
-        list.value.last
-      else
-        list.value[place.value - 1]
-      end
-    end
-
-    def blank(obj)
-      case obj
-      when Sass::Script::Bool
-        Sass::Script::Bool.new !obj.to_bool
-      when Sass::Script::String
-        Sass::Script::Bool.new obj.value.strip.size == 0
-      when Sass::Script::List
-        Sass::Script::Bool.new obj.value.size == 0 || obj.value.all?{|el| blank(el).to_bool}
-      else
-        Sass::Script::Bool.new false
-      end
-    end
-
     private
 
-    # After using the sass script parser to parse a string, this reconstructs
-    # a list from operands to the space/concat operation
-    def extract_list_values(operation)
-      left = operation.instance_variable_get("@operand1")
-      right = operation.instance_variable_get("@operand2")
-      left = extract_list_values(left) if left.is_a?(Sass::Script::Operation)
-      right = extract_list_values(right) if right.is_a?(Sass::Script::Operation)
-      left = literalize(left) unless left.is_a?(Array)
-      right = literalize(right) unless right.is_a?(Array)
-      Array(left) + Array(right)
+    def color_stop?(arg)
+      arg.is_a?(ColorStop) ||
+      (arg.is_a?(Sass::Script::List) && ColorStop.new(*arg.value)) ||
+      ColorStop.new(arg)
+    rescue
+      nil
     end
-    # Makes a literal from other various script nodes.
-    def literalize(node)
-      case node
-      when Sass::Script::Literal
-        node
-      when Sass::Script::Funcall
-        node.perform(Sass::Environment.new)
-      else
-        Sass::Script::String.new(node.to_s)
-      end
-    end
+
     def normalize_stops(color_list)
       positions = color_list.value.map{|obj| obj.dup}
       # fill in the start and end positions, if unspecified
@@ -715,23 +414,32 @@ EOS
     end
 
     def _center_position
-      if defined?(Sass::Script::List)
-        Sass::Script::List.new([
-          Sass::Script::String.new("center"),
-          Sass::Script::String.new("center")
-        ],:space)
-      else
-        Sass::Script::String.new("center center")
-      end
+      Sass::Script::List.new([
+        Sass::Script::String.new("center"),
+        Sass::Script::String.new("center")
+      ],:space)
     end
 
   end
+
+  module Assertions
+    def assert_type(value, type, name = nil)
+      return if value.is_a?(Sass::Script.const_get(type))
+      err = "#{value.inspect} is not a #{type.to_s.downcase}"
+      err = "$#{name}: " + err if name
+      raise ArgumentError.new(err)
+    end
+  end
+
   class LinearGradient < Sass::Script::Literal
+    include Assertions
     include Functions
     include Compass::SassExtensions::Functions::Constants
     include Compass::SassExtensions::Functions::InlineImage
   end
+
   class RadialGradient < Sass::Script::Literal
+    include Assertions
     include Functions
     include Compass::SassExtensions::Functions::Constants
     include Compass::SassExtensions::Functions::InlineImage

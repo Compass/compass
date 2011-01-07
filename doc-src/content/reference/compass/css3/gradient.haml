@@ -12,13 +12,8 @@ classnames:
   - css3
 ---
 - render 'reference' do
-  %p
+  :markdown
+    **<span class="warning">IMPORTANT:</span>** This module has been deprecated. See the new
+    [images module](../images/) for the new, more flexible approach to gradients.
+    
     Provides mixins to create cross-browser CSS3 gradients.
-  %p
-    To enable SVG gradient support in Opera and IE9, set
-    <code>$experimental-support-for-svg: true</code> in your stylesheet.
-  %p
-    NOTE: At this time, Opera renders incorrectly an SVG background on a element
-    with a border, repeating the gradient towards the end. You can set
-    <code>background-repeat: no-repeat</code> to avoid this, but the gradient
-    will not fill the area completely.

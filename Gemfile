@@ -7,8 +7,11 @@ gem "rails", "~>3.0.0.rc"
 gem "compass-validator", "3.0.0"
 gem "css_parser", "~> 1.0.1"
 gem "sass"
+gem "haml", "~> 3.1.alpha"
 gem "rcov"
 gem "rubyzip"
 gem "livereload"
 gem "chunky_png", "~> 0.10.1"
-gem "ruby-prof"
+
+gem "ruby-prof" unless RUBY_PLATFORM == "java"
+

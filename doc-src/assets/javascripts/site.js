@@ -109,7 +109,7 @@ $('document').ready(function(){
       changeTheme();
       event.preventDefault();
 
-    // View source for mixins
+    // View source for mixins & functions
     } else if (target.attr("rel") == "view source") {
       $(target.attr("href")).toggle();
       event.preventDefault();

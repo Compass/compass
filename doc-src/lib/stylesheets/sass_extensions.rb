@@ -19,18 +19,9 @@ module Sass
     class VariableNode < Node
       attr_accessor :comment unless method_defined? :comment
     end
-    class MixinDefNode < Node
-      attr_accessor :name unless method_defined? :name
-      attr_accessor :args unless method_defined? :args
-      attr_accessor :comment unless method_defined? :comment
-      def sass_signature(mode = :definition, format = :text)
-        prefix = case mode
-        when :definition
-          "="
-        when :include
-          "+"
-        end
-        "#{prefix}#{name}#{arglist_to_sass(format)}"
+    module HasSignature
+      def sass_signature(format = :text)
+        "#{name}#{arglist_to_sass(format)}"
       end
 
       private
@@ -56,6 +47,30 @@ module Sass
         end
         sass_str
       end
+    end
+    class MixinDefNode < Node
+      attr_accessor :name unless method_defined? :name
+      attr_accessor :args unless method_defined? :args
+      attr_accessor :comment unless method_defined? :comment
+      unless included_modules.include?(HasSignature)
+        include HasSignature
+        alias sass_signature_without_prefix sass_signature
+        def sass_signature(mode = :definition, format = :text)
+          prefix = case mode
+          when :definition
+            "="
+          when :include
+            "+"
+          end
+          "#{prefix}#{sass_signature_without_prefix(format)}"
+        end
+      end
+    end
+    class FunctionNode < Node
+      attr_accessor :name unless method_defined? :name
+      attr_accessor :args unless method_defined? :args
+      attr_accessor :comment unless method_defined? :comment
+      include HasSignature unless included_modules.include?(HasSignature)
     end
     class ImportNode < RootNode
       attr_accessor :imported_filename unless method_defined? :imported_filename

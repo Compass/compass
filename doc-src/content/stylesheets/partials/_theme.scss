@@ -74,7 +74,7 @@
   &.sass a[rel=sass], &.scss a[rel=scss], &.css a[rel=css], &.html a[rel=html], &.haml a[rel=haml] { color: $heading; color: rgba($heading, .7); @extend .round-corners-em; @extend .inset-panel-#{$theme}; }
 
   #version { color: rgba($heading, .3); a { color: rgba($nav-link, .7); } }
-  .mixin-source, .example-source { @extend .mixin-panel-#{$theme};
+  .mixin-source, .example-source, .function-source { @extend .mixin-panel-#{$theme};
     .container textarea { color: $code; }
   }
   h2 a.help { color: $heading;}

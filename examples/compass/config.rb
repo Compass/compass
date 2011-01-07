@@ -5,3 +5,4 @@ sass_dir = "src"
 images_dir = "images"
 output_style = :compact
 relative_assets = true
+line_comments = false

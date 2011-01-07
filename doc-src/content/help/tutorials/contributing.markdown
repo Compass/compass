@@ -34,10 +34,10 @@ Here's some general information about the project you might find useful along th
 
 * [Submitting Patches](#patches)
 * [Project Structure](#project-structure)
-* Project Architecture
+<!-- * Project Architecture
   * [Command Line](/help/tutorials/command-line)
   * [Extensions](/help/tutorials/extensions)
-  * [Configuration](help/tutorials/configuration-reference)
+  * [Configuration](help/tutorials/configuration-reference) -->
 * [General Philosophy](#project-philosophy)
 * [Stylesheet Conventions](#stylesheet-conventions)
 * [Miscellaneous Stuff](#faq)

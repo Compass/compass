@@ -1,18 +1,18 @@
 //html.sass .mixin-source .scss, html.scss .mixin-source .sass { @extend .hide;}
-.mixin-source, .example-source {
+.mixin-source, .example-source, .function-source {
   position: relative; @extend .fixed-font;
   .syntaxhighlighter, pre {
   &.scss, &.sass, &.css, &.haml, &.html { display: none; } } }
 
-html.sass { .mixin-source .syntaxhighlighter.sass, .example-source .syntaxhighlighter.sass { display: block; } }
-html.scss { .mixin-source .syntaxhighlighter.scss, .example-source .syntaxhighlighter.scss { display: block; } }
+html.sass { .mixin-source, .example-source, .function-source { .syntaxhighlighter.sass { display: block; } } }
+html.scss { .mixin-source, .example-source, .function-source { .syntaxhighlighter.scss { display: block; } } }
 html.css .example-source .syntaxhighlighter.css { display: block; }
 html.html .example-source .syntaxhighlighter.html { display: block; }
 html.haml .example-source .syntaxhighlighter.haml { display: block; }
 
 
 
-.mixin-source { display: none; }
+.mixin-source, .function-source { display: none; }
 
 html.light .syntaxhighlighter, html.dark .syntaxhighlighter {
   margin: 0 0 2px;
@@ -59,7 +59,7 @@ h3 { @include round-corners;
   a { text-decoration: none;}
   code, .arg { font-weight: normal; }
 }
-h3.mixin { @include round-top-corners; margin-bottom: 2px;}
+h3.mixin, h3.function { @include round-top-corners; margin-bottom: 2px;}
 .arg {
   display: inline-block;
   padding: 0 2px;

@@ -277,7 +277,7 @@ describe Compass::Sprites do
       }
       
       .adjusted-px-1 {
-        background-position: 14px 0;
+        background-position: -6px 0;
       }
       
       .adjusted-px-2 {
@@ -315,7 +315,7 @@ describe Compass::Sprites do
       }
       
       .adjusted-px-1 {
-        background-position: 14px 0;
+        background-position: -6px 0;
       }
       
       .adjusted-px-2 {
@@ -362,11 +362,11 @@ describe Compass::Sprites do
       }
       
       .squares-ten-by-ten {
-        background-position: 10px 0;
+        background-position: -10px 0;
       }
       
       .squares-twenty-by-twenty {
-        background-position: 10px -10px;
+        background-position: -10px -10px;
       }
     CSS
     image_size('squares-*.png').should == [30, 30]

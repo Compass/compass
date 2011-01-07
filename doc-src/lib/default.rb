@@ -28,6 +28,12 @@ def body_attributes(item)
   }
 end
 
+module Enumerable
+  def sorted_and_grouped_by_name
+    sort_by{|i| yield(i)}.group_by{|i| yield(i).sub(/^[^\w]/,"")[0..0].upcase}
+  end
+end
+
 class Recycler
   attr_accessor :values
   attr_accessor :index
