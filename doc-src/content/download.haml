@@ -32,17 +32,25 @@ body_id: download
     %option{:value => "scss"} CSS based (SCSS)
     %option{:value => "sass"} Indent based (Sass)
   syntax<span class="customization">
-  = succeed "." do
-    and would like to
-    %select#options
-      %option{:value => "default"} use compass's recommended
-      %option{:value => "customized"} customize my project's
-    directory structure</span>
+  and would like to
+  %select#options
+    %option{:value => "default"} use compass's recommended
+    %option{:value => "customized"} customize my project's
+  directory structure</span>.
 %h4 Thanks. Now run the following steps in your terminal:
 #steps
   Loading...
 %p.note Note: <code>$</code> is a placeholder for your terminal's prompt. You don't type it.
 %h4 Then follow the instructions that compass provides in the output.
 
-%h2 Or you can buy a <a href="http://compass.handlino.com/">GUI for Compass</a> from Handlino.
+%h4 Or you can buy a <a href="http://compass.handlino.com/">GUI for Compass</a> from Handlino.
+
+%h2 Next Steps
+%ul
+  %li
+    %a(href="http://sass-lang.com" target="_blank") Learn about Sass
+  %li
+    %a(href="/help/tutorials/") Read our tutorials
+  %li
+    %a(href="/reference/compass/") Study the reference documentation
 
