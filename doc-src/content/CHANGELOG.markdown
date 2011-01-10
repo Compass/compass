@@ -7,15 +7,17 @@ layout: default
 COMPASS CHANGELOG
 =================
 
-Upgrading compass is really easy.
+Upgrading compass is pretty easy.
 Don't let all these details [scare you...](/help/tutorials/upgrading/im-scared/)
 
 The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.alpha.5 (future)
----------------------
+0.11.beta.0 (01/09/2011)
+------------------------
+
+Compass v0.11 is now feature complete. Future changes to this release will be doc improvements, bug fixes, performance tuning, and addressing user feedback.
 
 * Added optional support for IE8 with $legacy-support-for-ie8 which defaults to true.
 * Updated the opacity and filter-gradient mixins to make IE's hacky DirectX filters
@@ -36,7 +38,6 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [Blueprint] Blueprint no longer adds `!important` to the widths of `input`, `textarea`,
   and `select` form fields, so compass no longer defaults to using `!important` in those cases.
   If you were relying on this behavior, you may need to adjust your stylesheets accordingly.
-
 
 0.11.alpha.4 (12/08/2010)
 -------------------------
