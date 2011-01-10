@@ -1,0 +1,48 @@
+---
+title: Download | Compass Documentation
+crumb: Download
+body_id: download
+---
+- content_for :javascripts do
+  %script(src="/javascripts/download.js")
+%p
+  Compass runs on any computer that has
+  <a href="http://www.ruby-lang.org/en/downloads/">ruby installed</a>.
+
+%h2 Tell us about your project and we'll help you get it set up:
+%blockquote.madlib.customizable<
+  I would like to set up my
+  %select#existence
+    %option{:value => "create"} new
+    %option{:value => "init"} existing
+  %select#app-type
+    %option{:value => "stand-alone"} compass
+    %option{:value => "rails"} rails
+    %option{:value => "other"} other
+  project
+  with
+  %select#framework
+    %option{:value => "compass"} compass's
+    %option{:value => "blueprint"} blueprint's
+    %option{:value => "bare"} no
+  starter stylesheets.
+  %br
+  I prefer the
+  %select#syntax
+    %option{:value => "scss"} CSS based (SCSS)
+    %option{:value => "sass"} Indent based (Sass)
+  syntax<span class="customization">
+  = succeed "." do
+    and would like to
+    %select#options
+      %option{:value => "default"} use compass's recommended
+      %option{:value => "customized"} customize my project's
+    directory structure</span>
+%h4 Thanks. Now run the following steps in your terminal:
+#steps
+  Loading...
+%p.note Note: <code>$</code> is a placeholder for your terminal's prompt. You don't type it.
+%h4 Then follow the instructions that compass provides in the output.
+
+%h2 Or you can buy a <a href="http://compass.handlino.com/">GUI for Compass</a> from Handlino.
+

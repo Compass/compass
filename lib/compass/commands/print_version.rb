@@ -54,6 +54,15 @@ Options:
           parser.parse!
           parser.options
         end
+        def long_output_string
+          lines = []
+          lines << "Compass #{::Compass.version[:string]}"
+          lines << "Copyright (c) 2008-#{Time.now.year} Chris Eppstein"
+          lines << "Released under the MIT License."
+          lines << "Compass is charityware."
+          lines << "Please make a tax deductable donation for a worthy cause: http://umdf.org/compass"
+          lines.join("\n")
+        end
       end
 
       attr_accessor :options
@@ -79,13 +88,7 @@ Options:
         elsif options[:quiet]
           puts ::Compass.version[:string]
         else
-          lines = []
-          lines << "Compass #{::Compass.version[:string]}"
-          lines << "Copyright (c) 2008-#{Time.now.year} Chris Eppstein"
-          lines << "Released under the MIT License."
-          lines << "Compass is charityware."
-          lines << "Please make a tax deductable donation: http://umdf.org/compass"
-          puts lines.join("\n")
+          puts self.class.long_output_string
         end
       end
     end
