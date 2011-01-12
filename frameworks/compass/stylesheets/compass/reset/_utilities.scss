@@ -144,9 +144,6 @@
 // body.signup
 //   #footer li
 //     +reset-float
-@mixin reset-float($inline: block) {
+@mixin reset-float($display: block) {
   float: none;
-  @if $inline == inline {
-    display: inline; }
-  @else {
-    display: block; } }
+  display: $display; }
