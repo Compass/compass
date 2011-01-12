@@ -133,3 +133,20 @@
       display: block !important; }
     @else {
       display: block; } } }
+
+// Resets floated elements back to their dfault of float: none and defaults
+// to display: block unless you pass the string 'inline' as an argument
+// Usage Example:
+//
+// body.homepage
+//   #footer li
+//     +float-left
+// body.signup
+//   #footer li
+//     +reset-float
+@mixin reset-float($inline: block) {
+  float: none;
+  @if $inline == inline {
+    display: inline; }
+  @else {
+    display: block; } }
