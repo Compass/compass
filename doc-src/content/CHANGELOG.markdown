@@ -14,6 +14,13 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.beta.1 (UNRELEASED)
+------------------------
+* Add an option `--skip-overrides` to the sprite
+  subcommand. When provided, the default variables for overriding the sprite
+  behavior are not created. Instead, you would change the call to
+  `sprite-map()` to customize your sprite map.
+
 0.11.beta.0 (01/09/2011)
 ------------------------
 
