@@ -35,7 +35,7 @@ module Compass
       end
     end
 
-    def content_for_images(uri, name, images)
+    def content_for_images(uri, name, images, skip_overrides = false)
       <<-SCSS
 @import "compass/utilities/sprites/base";
 
@@ -47,22 +47,7 @@ $#{name}-position: 0% !default;
 $#{name}-spacing: 0 !default;
 $#{name}-repeat: no-repeat !default;
 
-// These variables control the generated sprite output
-// You can override them selectively before you import this file.
-#{images.map do |sprite_name| 
-<<-SCSS
-$#{name}-#{sprite_name}-position: $#{name}-position !default;
-$#{name}-#{sprite_name}-spacing: $#{name}-spacing !default;
-$#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
-SCSS
-end.join}
-
-$#{name}-sprites: sprite-map("#{uri}",
-#{images.map do |sprite_name| 
-%Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
-  $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
-  $#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}
-end.join(",\n")});
+#{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\");" : generate_overrides(uri, name, images) }
 
 // All sprites should extend this class
 // The #{name}-sprite mixin will do so for you.
@@ -118,5 +103,25 @@ SCSS
       ""
     end
 
+    def generate_overrides(uri, name,images)
+      content = <<-TXT
+// These variables control the generated sprite output
+// You can override them selectively before you import this file.
+      TXT
+      images.map do |sprite_name| 
+        content += <<-SCSS
+$#{name}-#{sprite_name}-position: $#{name}-position !default;
+$#{name}-#{sprite_name}-spacing: $#{name}-spacing !default;
+$#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
+        SCSS
+      end.join
+      content += "\n$#{name}-sprites: sprite-map(\"#{uri}\",\n"
+      content += images.map do |sprite_name| 
+%Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
+  $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
+  $#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}
+      end.join(",\n")
+      content += ");"
+    end
   end
 end
