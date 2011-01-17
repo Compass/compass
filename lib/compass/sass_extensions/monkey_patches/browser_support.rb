@@ -65,7 +65,13 @@ module Sass::Script
   class Funcall < Node
     include HasSimpleCrossBrowserFunctionSupport
 
-    alias sass_to_literal to_literal
+    if method_defined? :to_literal
+      alias sass_to_literal to_literal 
+    else
+      def sass_to_literal
+        Script::String.new("#{name}(#{args.join(', ')})")
+      end
+    end
 
     def to_literal(args)
       if has_aspect?(args)
