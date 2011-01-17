@@ -8,7 +8,7 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.11.beta.0.b9be470)
+    compass (0.11.beta.1.c161b8b)
       chunky_png (~> 0.10.3)
       sass (>= 3.1.0.alpha.50)
 

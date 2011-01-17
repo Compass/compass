@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.beta.1 (UNRELEASED)
+0.11.beta.1 (01/17/2011)
 ------------------------
 * Add an option `--skip-overrides` to the sprite
   subcommand. When provided, the default variables for overriding the sprite
