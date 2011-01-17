@@ -8,7 +8,7 @@
 // Set the background position of the given sprite `$map` to display the
 // sprite of the given `$sprite` name. You can move the image relative to its
 // natural position by passing `$offset-x` and `$offset-y`.
-@mixin sprite-position($map, $sprite, $offset-x: 0, $offset-y: 0) {
+@mixin sprite-background-position($map, $sprite, $offset-x: 0, $offset-y: 0) {
   background-position: sprite-position($map, $sprite, $offset-x, $offset-y);  
 }
 
@@ -18,7 +18,7 @@
 //
 //     background: $map no-repeat;
 @mixin sprite($map, $sprite, $dimensions: false, $offset-x: 0, $offset-y: 0) {
-  @include sprite-position($map, $sprite, $offset-x, $offset-y);
+  @include sprite-background-position($map, $sprite, $offset-x, $offset-y);
   @if $dimensions {
     @include sprite-dimensions($map, $sprite);
   }

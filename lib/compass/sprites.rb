@@ -63,7 +63,7 @@ $#{name}-repeat: no-repeat !default;
 
 // Move the background position to display the sprite.
 @mixin #{name}-sprite-position($name, $offset-x: 0, $offset-y: 0) {
-  @include sprite-position($#{name}-sprites, $name, $offset-x, $offset-y)
+  @include sprite-background-position($#{name}-sprites, $name, $offset-x, $offset-y)
 }
 
 // Extends the sprite base class and set the background position for the desired sprite.

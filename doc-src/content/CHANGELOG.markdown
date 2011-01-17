@@ -20,6 +20,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   subcommand. When provided, the default variables for overriding the sprite
   behavior are not created. Instead, you would change the call to
   `sprite-map()` to customize your sprite map.
+* Rename the `sprite-position` mixin in the new `sprite/base` module to
+  `sprite-background-position` in order avoid a naming conflict with the old
+  sprite module.
 
 0.11.beta.0 (01/09/2011)
 ------------------------
