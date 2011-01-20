@@ -62,7 +62,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares-*.png').should == [20, 30]
-    image_md5('squares-*.png').should == 'e8cd71d546aae6951ea44cb01af35820'
+    image_md5('squares-*.png').should == 'fcc93d7b279c2ad6898fbca49cbd01e1'
   end
 
   it "should generate sprite classes with dimensions" do
@@ -285,7 +285,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares-*.png').should == [20, 30]
-    image_md5('squares-*.png').should == 'b61700e6d402d9df5f3820b73479f371'
+    image_md5('squares-*.png').should == '652b67f5e9092520d6f26caae7e18012'
   end
   
   it "should use position adjustments in mixins" do
@@ -323,7 +323,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares-*.png').should == [20, 30]
-    image_md5('squares-*.png').should == 'b61700e6d402d9df5f3820b73479f371'
+    image_md5('squares-*.png').should == '652b67f5e9092520d6f26caae7e18012'
   end
   
   it "should repeat the image" do
@@ -346,7 +346,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares-*.png').should == [20, 30]
-    image_md5('squares-*.png').should == '0187306f3858136feee87d3017e7f307'
+    image_md5('squares-*.png').should == '94abae8440f1b58617f52920b70aaed2'
   end
 
   it "should allow the position of a sprite to be specified in absolute pixels" do
@@ -370,7 +370,7 @@ describe Compass::Sprites do
       }
     CSS
     image_size('squares-*.png').should == [30, 30]
-    image_md5('squares-*.png').should == '262766d3e342f72b052f5708da6a1bf3'
+    image_md5('squares-*.png').should == '2fb19ef9c83018c93c6f147af3a56cb2'
   end
   
   it "should provide a nice errors for lemonade's old users" do
