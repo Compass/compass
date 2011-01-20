@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    compass (0.11.beta.0.0429720)
-      chunky_png (~> 0.10.3)
+    compass (0.11.beta.1.c161b8b)
+      chunky_png (~> 0.12)
       sass (>= 3.1.0.alpha.50)
 
 GEM
@@ -35,10 +35,10 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
-    addressable (2.2.2)
-    arel (2.0.6)
+    addressable (2.2.3)
+    arel (2.0.7)
     builder (2.1.2)
-    chunky_png (0.10.5)
+    chunky_png (0.12.0)
     compass-validator (3.0.0)
     css_parser (1.0.1)
     cucumber (0.9.4)
@@ -49,7 +49,7 @@ GEM
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
     em-dir-watcher (0.9.4)
-    em-websocket (0.1.4)
+    em-websocket (0.2.0)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
     erubis (2.6.6)
@@ -58,14 +58,14 @@ GEM
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
-    haml (3.1.0.alpha.36)
+    haml (3.1.0.alpha.147)
     i18n (0.5.0)
     json (1.4.6)
-    livereload (1.4)
+    livereload (1.5)
       em-dir-watcher (>= 0.1)
       em-websocket (>= 0.1.2)
       ruby-json (>= 1.1.2)
-    mail (2.2.12)
+    mail (2.2.14)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -75,7 +75,7 @@ GEM
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
-    rack-test (0.5.6)
+    rack-test (0.5.7)
       rack (>= 1.0)
     rails (3.0.3)
       actionmailer (= 3.0.3)
@@ -110,13 +110,13 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.23)
+    tzinfo (0.3.24)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  chunky_png (~> 0.10.1)
+  chunky_png (~> 0.12)
   compass!
   compass-validator (= 3.0.0)
   css_parser (~> 1.0.1)
