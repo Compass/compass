@@ -15,6 +15,8 @@
   pre, a, abbr, acronym, address, code, del, dfn, em, img,
   dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
     @include blueprint-reset; }
+  article, aside, dialog, figure, footer, header, hgroup, nav, section {
+    display:block; }
   blockquote, q {
     @include blueprint-reset-quotation; }
   th, td, caption {
@@ -22,7 +24,9 @@
   table {
     @include blueprint-reset-table; }
   a img {
-    border: none; } }
+    border: none; }
+  :focus {
+    outline: 0; } }
 
 @mixin blueprint-reset-box-model {
   margin: 0;
@@ -43,7 +47,7 @@
   quotes: "" "";
   &:before,
   &:after {
-    content: ""; } }
+    content: ''; } }
 
 @mixin blueprint-reset-table-cell {
   @include blueprint-reset;
