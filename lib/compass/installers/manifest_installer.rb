@@ -48,7 +48,7 @@ module Compass
           media = if stylesheet.options[:media]
             %Q{ media="#{stylesheet.options[:media]}"}
           end
-          ss_line = %Q{  <link href="#{http_stylesheets_path}/#{stylesheet.to.sub(/\.sass$/,'.css')}"#{media} rel="stylesheet" type="text/css" />}
+          ss_line = %Q{  <link href="#{http_stylesheets_path}/#{stylesheet.to.sub(/\.s[ac]ss$/,'.css')}"#{media} rel="stylesheet" type="text/css" />}
           if stylesheet.options[:condition]
             ss_line = "  <!--[if #{stylesheet.options[:condition]}]>\n    #{ss_line}\n  <![endif]-->"
           end
