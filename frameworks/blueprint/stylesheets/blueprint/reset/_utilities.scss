@@ -5,6 +5,7 @@
   body {
     @extend .bp-reset-element;
     line-height: 1.5;
+    background:white;
   }
   @include blueprint-nested-reset; }
 
@@ -25,6 +26,7 @@
   th, td, caption                  { @include blueprint-reset-table-cell(bp-reset-element);    }
   table                            { @include blueprint-reset-table(bp-reset-element);         }
   a img                            { border: none;                                             }
+  :focus                           { outline: 0;                                               }
 }
 
 @mixin blueprint-reset-html5-element($reset-base-class: false) {
@@ -68,7 +70,7 @@
   quotes: "" "";
   &:before,
   &:after {
-    content: ""; } }
+    content: ''; } }
 
 @mixin blueprint-reset-table-cell($reset-base-class: false) {
   @if $reset-base-class { @extend .#{$reset-base-class}; }
