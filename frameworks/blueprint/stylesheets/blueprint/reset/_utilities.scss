@@ -2,7 +2,10 @@
 // For more specific resets, use the reset mixins provided below
 @mixin blueprint-global-reset {
   html { @include blueprint-reset-box-model; }
-  body { @extend .bp-reset-element; }
+  body {
+    @extend .bp-reset-element;
+    line-height: 1.5;
+  }
   @include blueprint-nested-reset; }
 
 // Reset all elements within some selector scope.To reset the selector itself,
