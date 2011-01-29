@@ -1,0 +1,8 @@
+$contrasted-default-dark:   #000;
+$contrasted-default-light:  #fff;
+
+// Sets the specified background color and calculates a dark or light contrasted text color.
+@mixin contrasted($bg, $dark:$contrasted-default-dark, $light:$contrasted-default-light){
+  background-color: $bg;
+  color: get_contrast_yiq($bg, $dark, $light);
+}
