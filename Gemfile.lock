@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    compass (0.11.beta.0.0429720)
-      chunky_png (~> 0.10.3)
-      sass (>= 3.1.0.alpha.50)
+    compass (0.11.beta.1.0fd9c08)
+      chunky_png (~> 0.12.0)
+      sass (>= 3.1.0.alpha.218)
 
 GEM
   remote: http://rubygems.org/
@@ -38,7 +38,7 @@ GEM
     addressable (2.2.2)
     arel (2.0.6)
     builder (2.1.2)
-    chunky_png (0.10.5)
+    chunky_png (0.12.0)
     compass-validator (3.0.0)
     css_parser (1.0.1)
     cucumber (0.9.4)
@@ -105,7 +105,7 @@ GEM
     ruby-json (1.1.2)
     ruby-prof (0.9.2)
     rubyzip (0.9.4)
-    sass (3.1.0.alpha.214)
+    sass (3.1.0.alpha.221)
     term-ansicolor (1.0.5)
     thor (0.14.6)
     treetop (1.4.9)
@@ -116,7 +116,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  chunky_png (~> 0.10.1)
+  chunky_png (~> 0.12.0)
   compass!
   compass-validator (= 3.0.0)
   css_parser (~> 1.0.1)
@@ -128,4 +128,4 @@ DEPENDENCIES
   rspec (~> 2.0.0)
   ruby-prof
   rubyzip
-  sass (= 3.1.0.alpha.214)
+  sass (>= 3.1.0.alpha.218)
