@@ -14,9 +14,17 @@
   }
   @font-face {
     font-family: quote($name);
-    @if $eot { src: font-url($eot); }
+    @if $eot {
+      src: font-url($eot); }
     src: local("☺"), $font-files; 
   }
+  @media screen and (max-device-width: 480px) {
+    @font-face {
+      font-family: quote($name);   
+      src: $font-files;
+    }
+  }
+ 
 }
 
 // EXAMPLE

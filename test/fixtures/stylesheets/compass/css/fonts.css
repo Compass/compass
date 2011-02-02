@@ -2,3 +2,8 @@
 @font-face {
   font-family: "font1";
   src: local("☺"), url('/tmp/fonts/font1.woff') format('woff'); }
+
+@media screen and (max-device-width: 480px) {
+  @font-face {
+    font-family: "font1";
+    src: url('/tmp/fonts/font1.woff') format('woff'); } }
