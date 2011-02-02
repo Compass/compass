@@ -14,6 +14,12 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.beta.2 (02/01/2011)
+------------------------
+* Updated the font-face mixin so it works in Android 2.2.
+  Credit: [Paul Irish](http://paulirish.com/).
+* The deprecated & unused arguments to the font-face mixin have been removed.
+
 0.11.beta.1 (01/17/2011)
 ------------------------
 * Add an option `--skip-overrides` to the sprite
