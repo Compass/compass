@@ -217,13 +217,13 @@ later on.
       approach.
     </td>
   </tr>
-  <tr> 
-    <td style="vertical-align:top;"><code>disable_warnings</code> </td> 
-    <td style="vertical-align:top;">Boolean </td> 
+  <tr>
+    <td style="vertical-align:top;"><code>disable_warnings</code> </td>
+    <td style="vertical-align:top;">Boolean </td>
     <td style="vertical-align:top;">
       Set this to true to silence deprecation warnings.
-    </td> 
-  </tr> 
+    </td>
+  </tr>
   <tr>
     <td style="vertical-align:top;"><code>sass_options</code> </td>
     <td style="vertical-align:top;">Hash </td>
@@ -331,3 +331,36 @@ more than once. Example:
 
 This code will be called if the file is added, updated, or removed. Be sure to check for existence
 to avoid crashing the watcher in the case where the file has been removed.
+
+## Callbacks
+
+**`on_sprite_saved`** -- Pass this function a block of code that gets executed after a sprite is saved to disk. The block will be passed the filename. Can be invoked more then once. Example:
+
+    on_sprite_saved do |filename|
+      post_process(filename) if File.exists?(filename)
+    end
+
+**`on_sprite_generated`** -- Pass this function a block of code that gets executed after a sprite is generated but before its saved to disk. The block will be passed an instance of `ChunkyPNG::Image`. Can be invoked more then once. Example:
+
+    on_sprite_generated do |sprite_data|
+      sprite_data.metadata['Caption'] = "This Image is &copy; My Company 2011"
+    end
+
+**`on_stylesheet_saved`** -- Pass this function a block of code that gets executed after a stylesheet is processed. The block will be passed the filename. Can be invoked more then once. Example:
+
+    on_stylesheet_saved do |filename|
+      Growl.notify {
+         self.message "#{filename} updated!"
+         self.icon = '/path/to/success.jpg'
+       }
+    end
+
+**`on_stylesheet_error`** -- Pass this function a block of code that gets executed if a stylesheet has an error while processing. The block will be passed the filename and the error message. Can be invoked more then once. Example:
+
+    on_stylesheet_error do |filename, message|
+      Growl.notify {
+        self.message = "#{filename}: #{message}"
+        self.icon = '/path/to/fail.jpg'
+        sticky!
+      }
+    end

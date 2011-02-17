@@ -2,7 +2,7 @@ require 'digest/md5'
 
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
-  
+
   # Provides a consistent interface for getting a variable in ruby
   # from a keyword argument hash that accounts for underscores/dash equivalence
   # and allows the caller to pass a symbol instead of a string.
@@ -124,6 +124,7 @@ module Compass::SassExtensions::Functions::Sprites
     def generate
       if generation_required?
         save!(construct_sprite)
+        Compass.configuration.send(:run_sprite_generated, construct_sprite)
       end
     end
 
@@ -155,7 +156,7 @@ module Compass::SassExtensions::Functions::Sprites
           end
         end
       end
-      output_png 
+      output_png
     end
 
     # The on-the-disk filename of the sprite
@@ -180,7 +181,9 @@ module Compass::SassExtensions::Functions::Sprites
 
     # saves the sprite for later retrieval
     def save!(output_png)
-      output_png.save filename
+      saved = output_png.save filename
+      Compass.configuration.send(:run_sprite_saved, filename)
+      saved
     end
 
     # All the full-path filenames involved in this sprite
@@ -285,7 +288,7 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
   Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
-    
+
   # Returns a url to the sprite image.
   def sprite_url(map)
     unless map.is_a?(SpriteMap)

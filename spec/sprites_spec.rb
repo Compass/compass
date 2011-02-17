@@ -3,7 +3,7 @@ require "compass/sprites"
 require 'digest/md5'
 
 describe Compass::Sprites do
-  
+
   before :each do
     @images_src_path = File.join(File.dirname(__FILE__), 'test_project', 'public', 'images')
     @images_tmp_path = File.join(File.dirname(__FILE__), 'test_project', 'public', 'images-tmp')
@@ -29,7 +29,7 @@ describe Compass::Sprites do
     md5.update IO.read(map_location(file))
     md5.hexdigest
   end
-  
+
   def render(scss)
     scss = %Q(@import "compass"; #{scss})
     options = Compass.sass_engine_options
@@ -40,9 +40,34 @@ describe Compass::Sprites do
     # reformat to fit result of heredoc:
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
   end
-  
-  # DEFAULT USAGE:
 
+  #Callbacks
+  describe 'callbacks' do
+    it "should fire on_sprite_saved" do
+      saved = false
+      path = nil
+      Compass.configuration.on_sprite_saved {|filepath| path = filepath; saved = true }
+      render <<-SCSS
+        @import "squares/*.png";
+        @include all-squares-sprites;
+      SCSS
+      saved.should eq true
+      path.should be_kind_of String
+    end
+    it "should fire on_sprite_generated" do
+      saved = false
+      sprite_data = nil
+      Compass.configuration.on_sprite_generated {|data| sprite_data = data; saved = true }
+      render <<-SCSS
+        @import "squares/*.png";
+        @include all-squares-sprites;
+      SCSS
+      sprite_data.should be_kind_of ChunkyPNG::Image
+      saved.should eq true
+    end
+  end
+
+  # DEFAULT USAGE:
   it "should generate sprite classes" do
     css = render <<-SCSS
       @import "squares/*.png";
@@ -90,15 +115,15 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 30]
   end
-  
+
   it "should provide sprite mixin" do
     css = render <<-SCSS
       @import "squares/*.png";
-      
+
       .cubicle {
         @include squares-sprite("ten-by-ten");
       }
-      
+
       .large-cube {
         @include squares-sprite("twenty-by-twenty", true);
       }
@@ -120,9 +145,9 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 30]
   end
-  
+
   # CUSTOMIZATIONS:
-  
+
   it "should be possible to change the base class" do
     css = render <<-SCSS
       $squares-sprite-base-class: ".circles";
@@ -135,7 +160,7 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 30]
   end
-  
+
   it "should calculate the spacing between images but not before first image" do
     css = render <<-SCSS
       $squares-ten-by-ten-spacing: 33px;
@@ -157,7 +182,7 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 63]
   end
-  
+
   it "should calculate the spacing between images" do
     css = render <<-SCSS
       $squares-twenty-by-twenty-spacing: 33px;
@@ -179,7 +204,7 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 63]
   end
-  
+
   it "should calculate the maximum spacing between images" do
     css = render <<-SCSS
       $squares-ten-by-ten-spacing: 44px;
@@ -202,7 +227,7 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 74]
   end
-  
+
   it "should calculate the maximum spacing between images in reversed order" do
     css = render <<-SCSS
       $squares-ten-by-ten-spacing: 33px;
@@ -225,7 +250,7 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 74]
   end
-  
+
   it "should calculate the default spacing between images" do
     css = render <<-SCSS
       $squares-spacing: 22px;
@@ -247,22 +272,22 @@ describe Compass::Sprites do
     CSS
     image_size('squares-*.png').should == [20, 52]
   end
-  
+
   it "should use position adjustments in functions" do
     css = render <<-SCSS
       $squares: sprite-map("squares/*.png", $position: 100%);
       .squares-sprite {
         background: $squares no-repeat;
       }
-      
+
       .adjusted-percentage {
         background-position: sprite-position($squares, ten-by-ten, 100%);
       }
-      
+
       .adjusted-px-1 {
         background-position: sprite-position($squares, ten-by-ten, 4px);
       }
-      
+
       .adjusted-px-2 {
         background-position: sprite-position($squares, twenty-by-twenty, -3px, 2px);
       }
@@ -287,20 +312,20 @@ describe Compass::Sprites do
     image_size('squares-*.png').should == [20, 30]
     image_md5('squares-*.png').should == '652b67f5e9092520d6f26caae7e18012'
   end
-  
+
   it "should use position adjustments in mixins" do
     css = render <<-SCSS
       $squares-position: 100%;
       @import "squares/*.png";
-      
+
       .adjusted-percentage {
         @include squares-sprite("ten-by-ten", $offset-x: 100%);
       }
-      
+
       .adjusted-px-1 {
         @include squares-sprite("ten-by-ten", $offset-x: 4px);
       }
-      
+
       .adjusted-px-2 {
         @include squares-sprite("twenty-by-twenty", $offset-x: -3px, $offset-y: 2px);
       }
@@ -325,7 +350,7 @@ describe Compass::Sprites do
     image_size('squares-*.png').should == [20, 30]
     image_md5('squares-*.png').should == '652b67f5e9092520d6f26caae7e18012'
   end
-  
+
   it "should repeat the image" do
     css = render <<-SCSS
       $squares-repeat: repeat;
@@ -372,7 +397,7 @@ describe Compass::Sprites do
     image_size('squares-*.png').should == [30, 30]
     image_md5('squares-*.png').should == '2fb19ef9c83018c93c6f147af3a56cb2'
   end
-  
+
   it "should provide a nice errors for lemonade's old users" do
     proc do
       render <<-SCSS
@@ -393,7 +418,7 @@ describe Compass::Sprites do
     proc do
       render <<-SCSS
         @import "squares/*.png";
-        
+
         .squares {
           background: sprite-position("squares/twenty-by-twenty.png") no-repeat;
         }
@@ -401,7 +426,7 @@ describe Compass::Sprites do
     end.should raise_error Sass::SyntaxError,
       %q(The first argument to sprite-position() must be a sprite map. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
   end
-  
+
   it "should work even if @import is missing" do
     actual_css = render <<-SCSS
       .squares {
@@ -414,5 +439,5 @@ describe Compass::Sprites do
       }
     CSS
   end
-  
+
 end

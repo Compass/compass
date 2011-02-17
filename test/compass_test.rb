@@ -20,6 +20,26 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
+  def test_on_stylesheet_saved_callback
+    saved = false
+    filepath = nil
+    Compass.configuration.on_stylesheet_saved {|filepath| path = filepath; saved = true }
+    within_project(:blueprint) {  } #requires a block but we don't need to pass anything - sdavis
+    assert saved, "Stylesheet callback didn't get called"
+    assert filepath.is_a?(String), "Path is not a string"
+  end
+
+  # no project with errors exists to test aginst - leep of FAITH!
+  # *chriseppstein flogs himself*
+  # def test_on_stylesheet_error_callback
+  #     error = false
+  #     file = nil
+  #     Compass.configuration.on_stylesheet_error {|filename, message| file = filename; error = true }
+  #     within_project(:error) { } #requires a block but we don't need to pass anything - sdavis
+  #     assert error, "Project did not throw a compile error"
+  #     assert file.is_a?(String), "Filename was not a string"
+  #   end
+
   def test_empty_project
     # With no sass files, we should have no css files.
     within_project(:empty) do |proj|
@@ -114,10 +134,10 @@ private
     end
     yield Compass.configuration
   rescue
-    save_output(project_name)    
+    save_output(project_name)
     raise
   end
-  
+
   def each_css_file(dir, &block)
     Dir.glob("#{dir}/**/*.css").each(&block)
   end
@@ -145,15 +165,15 @@ private
   def tempfile_path(project_name)
     File.join(project_path(project_name), "tmp")
   end
-  
+
   def template_path(project_name)
     File.join(project_path(project_name), "sass")
   end
-  
+
   def result_path(project_name)
     File.join(project_path(project_name), "css")
   end
-  
+
   def save_path(project_name)
     File.join(project_path(project_name), "saved")
   end
