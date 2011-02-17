@@ -5,6 +5,8 @@ end
   require "compass/#{lib}"
 end
 
+require 'sass/callbacks'
+
 module Compass
   def base_directory
     File.expand_path(File.join(File.dirname(__FILE__), '..'))

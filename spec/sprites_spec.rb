@@ -41,8 +41,33 @@ describe Compass::Sprites do
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
   end
   
+  #Callbacks
+  describe 'callbacks' do
+    it "should fire on_sprite_saved" do
+      saved = false
+      path = nil
+      Compass::Configuration::Data.on_sprite_saved {|filepath| path = filepath; saved = true }
+      render <<-SCSS
+        @import "squares/*.png";
+        @include all-squares-sprites;
+      SCSS
+      saved.should eq true
+      path.should be_kind_of String
+    end
+    it "should fire on_sprite_generated" do
+      saved = false
+      sprite_data = nil
+      Compass::Configuration::Data.on_sprite_generated {|data| sprite_data = data; saved = true }
+      render <<-SCSS
+        @import "squares/*.png";
+        @include all-squares-sprites;
+      SCSS
+      sprite_data.should be_kind_of ChunkyPNG::Image
+      saved.should eq true
+    end
+  end
+  
   # DEFAULT USAGE:
-
   it "should generate sprite classes" do
     css = render <<-SCSS
       @import "squares/*.png";

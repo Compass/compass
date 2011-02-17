@@ -13,7 +13,7 @@ module Compass::SassExtensions::Functions::Sprites
   end
 
   class SpriteMap < Sass::Script::Literal
-
+    
     # Changing this string will invalidate all previously generated sprite images.
     # We should do so only when the packing algorithm changes
     SPRITE_VERSION = "1"
@@ -124,6 +124,7 @@ module Compass::SassExtensions::Functions::Sprites
     def generate
       if generation_required?
         save!(construct_sprite)
+        Compass::Configuration::Data.send(:run_sprite_generated, construct_sprite)
       end
     end
 
@@ -179,8 +180,10 @@ module Compass::SassExtensions::Functions::Sprites
     end
 
     # saves the sprite for later retrieval
-    def save!(output_png)
-      output_png.save filename
+    def save!(output_png)      
+      saved = output_png.save filename
+      Compass::Configuration::Data.send(:run_sprite_saved, filename)
+      saved
     end
 
     # All the full-path filenames involved in this sprite
