@@ -23,7 +23,8 @@ class CompassTest < Test::Unit::TestCase
   def test_on_stylesheet_saved_callback
     saved = false
     filepath = nil
-    Compass::Configuration::Data.on_stylesheet_saved {|filepath| path = filepath; saved = true }
+    puts Compass.configuration.inspect
+    Compass.configuration.on_stylesheet_saved {|filepath| puts "*****"; path = filepath; saved = true }
     within_project(:blueprint) {  } #requires a block but we don't need to pass anything - sdavis
     assert saved, "Stylesheet callback didn't get called"
     assert filepath.is_a?(String), "Path is not a string"
@@ -34,7 +35,7 @@ class CompassTest < Test::Unit::TestCase
   # def test_on_stylesheet_error_callback
   #     error = false
   #     file = nil
-  #     Compass::Configuration::Data.on_stylesheet_error {|filename, message| file = filename; error = true }
+  #     Compass.configuration.on_stylesheet_error {|filename, message| file = filename; error = true }
   #     within_project(:error) { } #requires a block but we don't need to pass anything - sdavis
   #     assert error, "Project did not throw a compile error"
   #     assert file.is_a?(String), "Filename was not a string"

@@ -43,6 +43,6 @@ module Compass
   end
 end
 
-['callbacks', 'adapters', 'comments', 'defaults', 'helpers', 'inheritance', 'serialization', 'paths', 'data'].each do |lib|
+['adapters', 'callbacks', 'comments', 'defaults', 'helpers', 'inheritance', 'serialization', 'paths', 'data'].each do |lib|
   require "compass/configuration/#{lib}"
 end

@@ -46,7 +46,7 @@ describe Compass::Sprites do
     it "should fire on_sprite_saved" do
       saved = false
       path = nil
-      Compass::Configuration::Data.on_sprite_saved {|filepath| path = filepath; saved = true }
+      Compass.configuration.on_sprite_saved {|filepath| path = filepath; saved = true }
       render <<-SCSS
         @import "squares/*.png";
         @include all-squares-sprites;
@@ -57,7 +57,7 @@ describe Compass::Sprites do
     it "should fire on_sprite_generated" do
       saved = false
       sprite_data = nil
-      Compass::Configuration::Data.on_sprite_generated {|data| sprite_data = data; saved = true }
+      Compass.configuration.on_sprite_generated {|data| sprite_data = data; saved = true }
       render <<-SCSS
         @import "squares/*.png";
         @include all-squares-sprites;

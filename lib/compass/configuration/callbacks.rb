@@ -2,6 +2,7 @@ module Compass
   module Configuration
     module Callbacks
       extend ::Sass::Callbacks
+      
       # on_sprite_generated
       # yields the filename
       # usage: on_sprite_save {|filename| do_somethign(filename) }

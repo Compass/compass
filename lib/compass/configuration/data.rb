@@ -24,6 +24,7 @@ module Compass
       include Compass::Configuration::Adapters
       extend  Compass::Configuration::Paths
       extend  Compass::Configuration::Callbacks
+      include Compass::Configuration::Callbacks
 
       inherited_accessor *ATTRIBUTES
       inherited_accessor :required_libraries, :loaded_frameworks, :framework_path #XXX we should make these arrays add up cumulatively.
