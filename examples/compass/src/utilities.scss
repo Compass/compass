@@ -3,7 +3,7 @@
 @import "yui/modules/base";
 @import "blueprint/grid";
 @import "blueprint/scaffolding";
-@import "compass/utilities/text/ellipsis";
+@import "compass/typography/text/ellipsis";
 
 html {
   @include yui-base; }

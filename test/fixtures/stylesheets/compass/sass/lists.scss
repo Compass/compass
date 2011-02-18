@@ -1,4 +1,4 @@
-@import "compass/utilities/lists";
+@import "compass/typography/lists";
 
 ul.horizontal        { @include horizontal-list;             }
 ul.wide-horizontal   { @include horizontal-list(10px);       }
