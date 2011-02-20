@@ -16,9 +16,7 @@ module Compass
       define_callback :stylesheet_error
       
     end
-    
-    # This is really gross and i hate it but after an hour this is the only way 
-    # I can get it to work wit hthe way the current sass call backs are build using class_eval and InstanceMethods
+
     class Callbacks
       extend CallbackMethods
     end
