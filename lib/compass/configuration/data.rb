@@ -140,7 +140,7 @@ module Compass
           Compass.configuration.send(:"run_#{event}", *args)
         rescue NoMethodError => e
           unless e.message =~ /run_#{event}/
-           raise
+            raise
           end
         end
       end
