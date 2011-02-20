@@ -14,6 +14,18 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.beta.3 (UNRELEASED)
+------------------------
+* There is a new typography module: Vertical Rhythm.
+  This makes it easier to align the typography of your page to a common rhythm.
+* Some text-based mixins have been moved from utilities to the new
+  typography module. The old imports are deprecated now.
+  Affected modules: utilities/links, utilities/lists, and utilities/text and
+  their sub-modules.
+* You can now register callbacks for compilation events so that you can take
+  custom actions when they occur. For instance, you might want to notify
+  Growl when a stylesheet compilation error occurs.
+
 0.11.beta.2 (02/01/2011)
 ------------------------
 * Updated the font-face mixin so it works in Android 2.2.
