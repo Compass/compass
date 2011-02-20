@@ -137,10 +137,10 @@ module Compass
 
       def run_callback(event, *args)
         begin
-          send(:"run_#{event}", *args)
+          Compass.configuration.send(:"run_#{event}", *args)
         rescue NoMethodError => e
           unless e.message =~ /run_#{event}/
-            raise
+           raise
           end
         end
       end

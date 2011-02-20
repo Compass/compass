@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    compass (0.11.beta.2.0dc38bc)
+    compass (0.11.beta.2.8a8ef87)
       chunky_png (~> 0.12.0)
       sass (>= 3.1.0.alpha.218)
 
