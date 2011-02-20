@@ -350,7 +350,7 @@ to avoid crashing the watcher in the case where the file has been removed.
 
     on_stylesheet_saved do |filename|
       Growl.notify {
-         self.message "#{filename} updated!"
+         self.message "#{File.basename(filename)} updated!"
          self.icon = '/path/to/success.jpg'
        }
     end
@@ -359,7 +359,7 @@ to avoid crashing the watcher in the case where the file has been removed.
 
     on_stylesheet_error do |filename, message|
       Growl.notify {
-        self.message = "#{filename}: #{message}"
+        self.message = "#{File.basename(filename)}: #{message}"
         self.icon = '/path/to/fail.jpg'
         sticky!
       }

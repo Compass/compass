@@ -23,8 +23,11 @@ class CompassTest < Test::Unit::TestCase
   def test_on_stylesheet_saved_callback
     saved = false
     filepath = nil
-    Compass.configuration.on_stylesheet_saved {|filepath| path = filepath; saved = true }
-    within_project(:blueprint) {  } #requires a block but we don't need to pass anything - sdavis
+    config = nil
+    before_compile = Proc.new do |config|
+      config.on_stylesheet_saved {|filepath| path = filepath; saved = true }
+    end
+    within_project(:blueprint, before_compile)
     assert saved, "Stylesheet callback didn't get called"
     assert filepath.is_a?(String), "Path is not a string"
   end
@@ -122,17 +125,22 @@ private
     end
   end
 
-  def within_project(project_name)
+  def within_project(project_name, config_block = nil)
     @current_project = project_name
     Compass.add_configuration(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
     Compass.configuration.project_path = project_path(project_name)
     Compass.configuration.environment = :production
     args = Compass.configuration.to_compiler_arguments(:logger => Compass::NullLogger.new)
+
+    if config_block
+      config_block.call(Compass.configuration)
+    end
+
     if Compass.configuration.sass_path && File.exists?(Compass.configuration.sass_path)
       compiler = Compass::Compiler.new *args
       compiler.run
     end
-    yield Compass.configuration
+    yield Compass.configuration if block_given?
   rescue
     save_output(project_name)
     raise

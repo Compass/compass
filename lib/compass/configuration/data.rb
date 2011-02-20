@@ -135,6 +135,16 @@ module Compass
         relative_assets || http_images_path == :relative
       end
 
+      def run_callback(event, *args)
+        begin
+          send(:"run_#{event}", *args)
+        rescue NoMethodError => e
+          unless e.message =~ /run_#{event}/
+            raise
+          end
+        end
+      end
+
       private
 
       def assert_valid_keys!(attr_hash)

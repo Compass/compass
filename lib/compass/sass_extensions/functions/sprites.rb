@@ -123,8 +123,9 @@ module Compass::SassExtensions::Functions::Sprites
     # Generate a sprite image if necessary
     def generate
       if generation_required?
-        save!(construct_sprite)
-        Compass.configuration.send(:run_sprite_generated, construct_sprite)
+        sprite_data = construct_sprite
+        save!(sprite_data)
+        Compass.configuration.run_callback(:sprite_generated, sprite_data)
       end
     end
 
@@ -182,7 +183,7 @@ module Compass::SassExtensions::Functions::Sprites
     # saves the sprite for later retrieval
     def save!(output_png)
       saved = output_png.save filename
-      Compass.configuration.send(:run_sprite_saved, filename)
+      Compass.configuration.run_callback(:sprite_saved, filename)
       saved
     end
 

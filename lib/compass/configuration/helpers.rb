@@ -34,11 +34,11 @@ module Compass
           config
         elsif config.respond_to?(:read)
           filename ||= config.to_s if config.is_a?(Pathname)
-          Compass::Configuration::Data.new_from_string(config.read, filename, defaults)
+          Compass::Configuration::FileData.new_from_string(config.read, filename, defaults)
         elsif config.is_a?(Hash)
           Compass::Configuration::Data.new(filename, config)
         elsif config.is_a?(String)
-          Compass::Configuration::Data.new_from_file(config, defaults)
+          Compass::Configuration::FileData.new_from_file(config, defaults)
         elsif config.is_a?(Symbol)
           Compass::AppIntegration.lookup(config).configuration
         else

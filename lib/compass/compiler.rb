@@ -119,7 +119,7 @@ module Compass
       end
       duration = additional_options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
       write_file(css_filename, css_content, options.merge(:force => true, :extra => duration))
-      Compass.configuration.send(:run_stylesheet_saved, File.basename(css_filename)) #run callback
+      Compass.configuration.run_callback(:stylesheet_saved, css_filename)
     end
 
     def should_compile?(sass_filename, css_filename)
@@ -140,7 +140,7 @@ module Compass
       formatted_error = "(Line #{e.sass_line}: #{e.message})"
       file = basename(sass_filename)
       logger.record :error, file, formatted_error
-      Compass.configuration.send(:run_styesheet_error, file, formatted_error) #run callback
+      Compass.configuration.run_callback(:styesheet_error, sass_filename, formatted_error)
       write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
     end
 
