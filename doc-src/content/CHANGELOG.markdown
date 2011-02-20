@@ -1063,6 +1063,6 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [der-rich]: http://github.com/der-rich
 [adamstac]: http://github.com/adamstac
 [ttilley]: http://github.com/ttilley
-[inline-block-list]: http://compass-style.org/reference/compass/utilities/lists/inline-block-list/
+[inline-block-list]: http://compass-style.org/reference/compass/typography/lists/inline-block-list/
 [html5-reset]: http://compass-style.org/reference/compass/reset/utilities/#mixin-reset-html5
 [blueprint_10_change]: https://github.com/chriseppstein/compass/compare/a05e1ee7c0a1e4c0f0595a8bb812daa47872e476...864780969d872a93b1fd3b4f39f29dd9f0c3fe75

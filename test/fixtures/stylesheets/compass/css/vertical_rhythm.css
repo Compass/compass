@@ -1,0 +1,42 @@
+body {
+  font-size: 87.5%;
+  line-height: 1.143em; }
+
+html > body {
+  font-size: 14px; }
+
+.small {
+  font-size: 0.857em;
+  line-height: 1.333em; }
+
+.padded {
+  margin-top: 1.143em;
+  padding-top: 1.143em;
+  padding-bottom: 1.143em;
+  margin-bottom: 1.143em; }
+
+.small-padded {
+  font-size: 0.857em;
+  line-height: 1.333em;
+  margin-top: 1.333em;
+  padding-top: 1.333em;
+  padding-bottom: 1.333em;
+  margin-bottom: 1.333em; }
+
+.borders {
+  border-top-style: solid;
+  border-top-width: 0.071em;
+  padding-top: 1.071em;
+  border-bottom-style: solid;
+  border-bottom-width: 0.071em;
+  padding-bottom: 1.071em; }
+
+.large-borders {
+  font-size: 1.714em;
+  line-height: 2em;
+  border-top-style: solid;
+  border-top-width: 0.25em;
+  padding-top: 0.417em;
+  border-bottom-style: solid;
+  border-bottom-width: 0.25em;
+  padding-bottom: 0.417em; }
