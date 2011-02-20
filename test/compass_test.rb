@@ -22,14 +22,14 @@ class CompassTest < Test::Unit::TestCase
 
   def test_on_stylesheet_saved_callback
     saved = false
-    filepath = nil
+    path = nil
     config = nil
     before_compile = Proc.new do |config|
       config.on_stylesheet_saved {|filepath| path = filepath; saved = true }
     end
     within_project(:blueprint, before_compile)
     assert saved, "Stylesheet callback didn't get called"
-    assert filepath.is_a?(String), "Path is not a string"
+    assert path.is_a?(String), "Path is not a string. Got: #{path.class.name}"
   end
 
   # no project with errors exists to test aginst - leep of FAITH!
