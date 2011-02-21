@@ -25,6 +25,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * You can now register callbacks for compilation events so that you can take
   custom actions when they occur. For instance, you might want to notify
   Growl when a stylesheet compilation error occurs.
+* A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
 
 0.11.beta.2 (02/01/2011)
 ------------------------
