@@ -26,6 +26,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   custom actions when they occur. For instance, you might want to notify
   Growl when a stylesheet compilation error occurs.
 * A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
+* Reset mixins have been updated based on [Eric Meyer's CSS Reset v2.0](http://meyerweb.com/eric/tools/css/reset/index.html). HTML5 support is included by default.
 
 0.11.beta.2 (02/01/2011)
 ------------------------
