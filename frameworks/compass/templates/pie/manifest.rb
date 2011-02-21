@@ -1,4 +1,4 @@
-description "Plugin for cross-browser ellipsis truncated text."
+description "Integration with http://css3pie.com/"
 
 file 'PIE.htc', :like => :css
 stylesheet 'pie.scss', :erb => true
