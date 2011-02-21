@@ -88,11 +88,6 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "true", evaluate("blank(' ')")
     assert_equal "true", evaluate("blank(-compass-space-list(' '))")
   end
-  
-  def test_get_contrast
-    assert_equal "white", evaluate("get_contrast_yiq(#000)")
-    assert_equal "black", evaluate("get_contrast_yiq(#fff)")
-  end
 
 protected
   def evaluate(value)

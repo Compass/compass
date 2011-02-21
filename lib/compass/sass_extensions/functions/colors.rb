@@ -41,13 +41,6 @@ module Compass::SassExtensions::Functions::Colors
     Sass::Script::String.new("##{alphastr}#{color.send(:hex_str)[1..-1]}".upcase)
   end
   
-  # Calculates the contrast of a color using the YIQ algorithm
-  # Returns one of either a dark or light color based on the YIQ
-  def get_contrast_yiq(color, dark = Sass::Script::Color.new([0,0,0]), light = Sass::Script::Color.new([255,255,255]))
-    yiq = ( (color.red*299) + (color.green*587) + (color.blue*114) ) / 1000;
-    yiq >= 128 ? dark : light
-  end
-
   private
   def scale_color_value(value, amount)
     if amount > 0
