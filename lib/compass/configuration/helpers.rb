@@ -65,6 +65,12 @@ module Compass
             Sass::Plugin.add_template_location sass_dir, css_dir
           end
         end
+        Sass::Plugin.on_updating_stylesheet do |sass_file, css_file|
+          Compass.configuration.run_callback(:stylesheet_saved, css_file)
+        end
+        Sass::Plugin.on_compilation_error do |e, filename, css|
+          Compass.configuration.run_callback(:stylesheet_error, filename, e.message)
+        end
       end
 
       def sass_engine_options
