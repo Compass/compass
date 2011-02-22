@@ -2,29 +2,29 @@
 
 // This yields a linear gradient spanning from top to bottom
 //
-//     +linear-gradient(color-stops(white, black))
+//     +linear-gradient("white, black")
 //
 // This yields a linear gradient spanning from bottom to top
 //
-//     +linear-gradient(color-stops(white, black), bottom)
+//     +linear-gradient("white, black", bottom)
 //
 // This yields a linear gradient spanning from left to right
 //
-//     +linear-gradient(color-stops(white, black), left)
+//     +linear-gradient("white, black", left)
 //
 // This yields a linear gradient starting at white passing
 // thru blue at 33% down and then to black
 //
-//     +linear-gradient(color-stops(white, blue 33%, black))
+//     +linear-gradient("white, blue 33%, black")
 //
 // This yields a linear gradient starting at white passing
 // thru blue at 33% down and then to black at 67% until the end
 //
-//     +linear-gradient(color-stops(white, blue 33%, black 67%))
+//     +linear-gradient("white, blue 33%, black 67%")
 //
 // This yields a linear gradient on top of a background image
 //
-//     +linear-gradient(color_stops(white,black), top, image-url('noise.png'))
+//     +linear-gradient("white, black", top, image-url('noise.png'))
 // Browsers Supported:
 //
 // - Chrome
@@ -33,18 +33,19 @@
 
 @mixin linear-gradient($color-stops, $start: top, $image: false) {
   // Firefox's gradient api is nice.
-  // Webkit's gradient api sucks -- hence these backflips:
+  // Webkit's gradient api doesn't suck anymore:
   $background: unquote("");
-  @if $image { $background : $image + unquote(", "); }
+  @if $image { $background: $image + unquote(", "); }
+  $color-stops: unquote($color-stops);
   $start: unquote($start);
   $end: opposite-position($start);
   @if $experimental-support-for-webkit {
-    background-image: #{$background}-webkit-gradient(linear, grad-point($start), grad-point($end), grad-color-stops($color-stops));
+    background: #{$background}-webkit-linear-gradient($start, $color-stops);
   }
   @if $experimental-support-for-mozilla {
-    background-image: #{$background}-moz-linear-gradient($start, $color-stops);
+    background: #{$background}-moz-linear-gradient($start, $color-stops);
   }
-  background-image: #{$background}linear-gradient($start, $color-stops);
+  background: #{$background}linear-gradient($start, $color-stops);
 }
 
 // Due to limitation's of webkit, the radial gradient mixin works best if you use
