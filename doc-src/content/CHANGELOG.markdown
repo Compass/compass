@@ -32,6 +32,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * The comma-delimited-list has been renamed to delimited-list and
   generalized to accept a delimiter which defaults to a comma.
   The old function continues to exist, but is deprecated.
+* A new CSS3 mixin for [appearance](/reference/compass/css3/appearance/) was added.
 
 0.11.beta.2 (02/01/2011)
 ------------------------
