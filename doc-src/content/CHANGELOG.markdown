@@ -28,6 +28,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
 * Reset mixins have been updated based on [Eric Meyer's CSS Reset v2.0](http://meyerweb.com/eric/tools/css/reset/index.html). HTML5 support is included by default.
 * A new module has been added to create readable text against an arbitrary background color based on the lightness of the background: [compass/utilities/color/contrast](/reference/compass/utilities/color/contrast/).
+* The comma-delimited-list has been renamed to delimited-list and
+  generalized to accept a delimiter which defaults to a comma.
+  The old function continues to exist, but is deprecated.
 
 0.11.beta.2 (02/01/2011)
 ------------------------
