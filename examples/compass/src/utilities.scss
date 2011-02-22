@@ -55,7 +55,7 @@ h2 {
   ul.inline {
     @include inline-list; }
   ul.comma-delimited {
-    @include comma-delimited-list; }
+    @include delimited-list; }
   ol.pretty {
     @include pretty-bullets("blue_arrow.gif", 5px, 7px, 18px); } }
 
