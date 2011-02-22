@@ -39,5 +39,6 @@
 // See [delimited-list](#mixin-delimited-list)
 // @deprecated
 @mixin comma-delimited-list {
-  @include delimited-list
+  @warn "comma-delimited-list is deprecated. Please use delimited-list instead.";
+  @include delimited-list;
 }
