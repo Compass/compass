@@ -19,36 +19,30 @@ module Compass::SassExtensions::Functions::Sprites
     # collects image sizes and input parameters for each sprite
     def compute_image_metadata!
       @width = 0
-
+      init_images
+      compute_image_positions!
+      @height = @images.last.top + @images.last.height
+    end
+    
+    def init_images
       @images = image_names.collect do |relative_file|
         image = Compass::SassExtensions::Sprites::Image.new(relative_file, options)
         @width = [ @width, image.width + image.offset ].max
         image
       end
-
+    end
+    
+    def compute_image_positions!
       @images.each_with_index do |image, index|
-        if index == 0
-          image.top = 0
-        else
-          last_image = @images[index-1]
-          image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
-        end
-        if image.position.unit_str == "%"
-          image.left = (@width - image.width) * (image.position.value / 100)
-        else
-          image.left = image.position.value
-        end
+        image.left = image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100) : image.position.value
+        next if index == 0
+        last_image = @images[index-1]
+        image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
       end
-      @height = @images.last.top + @images.last.height
     end
 
     def image_for(name)
       @images.detect { |img| img.name == name}
-    end
-
-    # Calculate the size of the sprite
-    def size
-      [width, height]
     end
 
     def require_png_library!

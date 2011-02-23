@@ -27,6 +27,11 @@ module Compass
           compute_image_metadata!
         end
 
+        # Calculate the size of the sprite
+        def size
+          [width, height]
+        end
+
         def sprite_names
           image_names.map{|f| Compass::Sprites.sprite_name(f) }
         end

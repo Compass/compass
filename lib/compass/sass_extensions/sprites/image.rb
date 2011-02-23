@@ -9,6 +9,7 @@ module Compass
 
         def initialize(relative_file, options)
           @relative_file, @options = relative_file, options
+          @left = @top = 0
         end
 
         def file
