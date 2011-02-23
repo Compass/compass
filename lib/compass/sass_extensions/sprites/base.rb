@@ -8,7 +8,7 @@ module Compass
 
         attr_accessor :image_names, :path, :name, :options
         attr_accessor :images, :width, :height
-        
+
         def self.from_uri(uri, context, kwargs)
           path, name = Compass::Sprites.path_and_name(uri.value)
           sprites = Compass::Sprites.discover_sprites(uri.value).map do |sprite|
@@ -26,7 +26,7 @@ module Compass
           validate!
           compute_image_metadata!
         end
-        
+
         def sprite_names
           image_names.map{|f| Compass::Sprites.sprite_name(f) }
         end
@@ -38,7 +38,7 @@ module Compass
             end
           end
         end
-        
+
         # The on-the-disk filename of the sprite
         def filename
           File.join(Compass.configuration.images_path, "#{path}-#{uniqueness_hash}.png")
@@ -48,7 +48,7 @@ module Compass
         # collects image sizes and input parameters for each sprite
         def compute_image_metadata!
         end
-        
+
         # Generate a sprite image if necessary
         def generate
           if generation_required?
@@ -61,7 +61,7 @@ module Compass
         def generation_required?
           !File.exists?(filename) || outdated?
         end
-        
+
         def uniqueness_hash
           @uniqueness_hash ||= begin
             sum = Digest::MD5.new
@@ -69,14 +69,14 @@ module Compass
             sum << path
             images.each do |image|
               [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|
-                sum << image[attr].to_s
+                sum << image.send(attr).to_s
               end
             end
             sum.hexdigest[0...10]
           end
           @uniqueness_hash
         end
-        
+
         # saves the sprite for later retrieval
         def save!(output_png)
           saved = output_png.save filename
@@ -90,7 +90,7 @@ module Compass
             File.join(Compass.configuration.images_path, image_name)
           end
         end
-        
+
         def inspect
           to_s
         end
@@ -98,7 +98,7 @@ module Compass
         def to_s(options = self.options)
           sprite_url(self).value
         end
-        
+
         def respond_to?(meth)
           super || @evaluation_context.respond_to?(meth)
         end
@@ -110,7 +110,7 @@ module Compass
             super
           end
         end
-        
+
       end
     end
   end
