@@ -2,7 +2,6 @@ ul.horizontal {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   overflow: hidden;
   *zoom: 1; }
   ul.horizontal li {
@@ -25,7 +24,6 @@ ul.wide-horizontal {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   overflow: hidden;
   *zoom: 1; }
   ul.wide-horizontal li {
@@ -48,7 +46,6 @@ ul.right-horizontal {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   overflow: hidden;
   *zoom: 1; }
   ul.right-horizontal li {
@@ -71,7 +68,6 @@ ul.no-padding {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   overflow: hidden;
   *zoom: 1; }
   ul.no-padding li {
@@ -86,7 +82,6 @@ ul.inline-block {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   overflow: hidden;
   *zoom: 1; }
   ul.inline-block li {
@@ -106,7 +101,6 @@ ul.wide-inline-block {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   overflow: hidden;
   *zoom: 1; }
   ul.wide-inline-block li {
