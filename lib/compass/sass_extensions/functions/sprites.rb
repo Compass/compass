@@ -133,7 +133,7 @@ module Compass::SassExtensions::Functions::Sprites
       missing_sprite!("sprite-file")
     end
     if image = map.image_for(sprite.value)
-      Sass::Script::String.new(image[:relative_file])
+      Sass::Script::String.new(image.relative_file)
     else
       missing_image!(map, sprite)
     end
