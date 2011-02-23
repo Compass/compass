@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'compass/sass_extensions/sprites/image'
 
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
@@ -54,65 +55,32 @@ module Compass::SassExtensions::Functions::Sprites
     # Calculates the overal image dimensions
     # collects image sizes and input parameters for each sprite
     def compute_image_metadata!
-      @images = []
       @width = 0
-      image_names.each do |relative_file|
-        file = File.join(Compass.configuration.images_path, relative_file)
-        width, height = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
-        sprite_name = Compass::Sprites.sprite_name(relative_file)
-        position = position_for(sprite_name)
-        offset = (position.unitless? || position.unit_str == "px") ? position.value : 0
-        @images << {
-          :name => sprite_name,
-          :file => file,
-          :relative_file => relative_file,
-          :height => height,
-          :width => width,
-          :repeat => repeat_for(sprite_name),
-          :spacing => spacing_for(sprite_name),
-          :position => position,
-          :digest => Digest::MD5.file(file).hexdigest
-        }
-        @width = [@width, width + offset].max
+
+      @images = image_names.collect do |relative_file|
+        image = Compass::SassExtensions::Sprites::Image.new(relative_file, options)
+        @width = [ @width, image.width + image.offset ].max
+        image
       end
+
       @images.each_with_index do |image, index|
         if index == 0
-          image[:top] = 0
+          image.top = 0
         else
           last_image = @images[index-1]
-          image[:top] = last_image[:top] + last_image[:height] + [image[:spacing],  last_image[:spacing]].max
+          image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
         end
-        if image[:position].unit_str == "%"
-          image[:left] = (@width - image[:width]) * (image[:position].value / 100)
+        if image.position.unit_str == "%"
+          image.left = (@width - image.width) * (image.position.value / 100)
         else
-          image[:left] = image[:position].value
+          image.left = image.position.value
         end
       end
-      @height = @images.last[:top] + @images.last[:height]
-    end
-
-    def position_for(name)
-      options.get_var("#{name}-position") || options.get_var("position") || Sass::Script::Number.new(0, ["px"])
-    end
-
-    def repeat_for(name)
-      if (var = options.get_var("#{name}-repeat"))
-        var.value
-      elsif (var = options.get_var("repeat"))
-        var.value
-      else
-        "no-repeat"
-      end
-    end
-
-    def spacing_for(name)
-      (options.get_var("#{name}-spacing") ||
-       options.get_var("spacing") ||
-       ZERO).value
+      @height = @images.last.top + @images.last.height
     end
 
     def image_for(name)
-      @images.detect{|img| img[:name] == name}
+      @images.detect { |img| img.name == name}
     end
 
     # Calculate the size of the sprite
@@ -146,14 +114,14 @@ module Compass::SassExtensions::Functions::Sprites
       require_png_library!
       output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
       images.each do |image|
-        input_png  = ChunkyPNG::Image.from_file(image[:file])
-        if image[:repeat] == "no-repeat"
-          output_png.replace input_png, image[:left], image[:top]
+        input_png  = ChunkyPNG::Image.from_file(image.file)
+        if image.repeat == "no-repeat"
+          output_png.replace input_png, image.left, image.top
         else
-          x = image[:left] - (image[:left] / image[:width]).ceil * image[:width]
+          x = image.left - (image.left / image.width).ceil * image.width
           while x < width do
-            output_png.replace input_png, x, image[:top]
-            x += image[:width]
+            output_png.replace input_png, x, image.top
+            x += image.width
           end
         end
       end
@@ -172,7 +140,7 @@ module Compass::SassExtensions::Functions::Sprites
         sum << path
         images.each do |image|
           [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|
-            sum << image[attr].to_s
+            sum << image.send(attr).to_s
           end
         end
         sum.hexdigest[0...10]
@@ -335,10 +303,10 @@ module Compass::SassExtensions::Functions::Sprites
     if offset_x.unit_str == "%"
       x = offset_x # CE: Shouldn't this be a percentage of the total width?
     else
-      x = offset_x.value - image[:left]
+      x = offset_x.value - image.left
       x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
     end
-    y = offset_y.value - image[:top]
+    y = offset_y.value - image.top
     y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
     Sass::Script::List.new([x, y],:space)
   end
