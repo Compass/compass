@@ -108,22 +108,6 @@ module Compass::SassExtensions::Functions::Sprites
       end
       output_png
     end
-
-    def uniqueness_hash
-      @uniqueness_hash ||= begin
-        sum = Digest::MD5.new
-        sum << SPRITE_VERSION
-        sum << path
-        images.each do |image|
-          [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|
-            sum << image[attr].to_s
-          end
-        end
-        sum.hexdigest[0...10]
-      end
-      @uniqueness_hash
-    end
-
   end
 
   # Creates a SpriteMap object. A sprite map, when used in a property is the same
