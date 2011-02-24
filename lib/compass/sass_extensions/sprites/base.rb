@@ -111,6 +111,7 @@ module Compass
         end
 
         def generation_required?
+          puts !File.exists?(filename) || outdated?
           !File.exists?(filename) || outdated?
         end
 
@@ -129,7 +130,6 @@ module Compass
           @uniqueness_hash
         end
 
-        # saves the sprite for later retrieval
         def save!(output_png)
           saved = output_png.save filename
           Compass.configuration.run_callback(:sprite_saved, filename)
@@ -138,31 +138,12 @@ module Compass
 
         # All the full-path filenames involved in this sprite
         def image_filenames
-          image_names.map do |image_name|
-            File.join(Compass.configuration.images_path, image_name)
-          end
-        end
-
-        def save!(output_png)
-          saved = output_png.save filename
-          Compass.configuration.run_callback(:sprite_saved, filename)
-          saved
-        end
-
-        # All the full-path filenames involved in this sprite
-        def image_filenames
-          image_names.map do |image_name|
-            File.join(Compass.configuration.images_path, image_name)
-          end
+          @images.map(&:file)
         end
 
         # Checks whether this sprite is outdated
         def outdated?
-          last_update = self.mtime
-          image_filenames.each do |image|
-            return true if File.mtime(image) > last_update
-          end
-          false
+          @images.map(&:mtime).any? { |mtime| mtime > self.mtime }
         end
 
         def mtime
