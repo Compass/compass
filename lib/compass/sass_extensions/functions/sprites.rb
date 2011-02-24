@@ -1,6 +1,7 @@
 require 'digest/md5'
 require 'compass/sass_extensions/sprites/image'
 require 'compass/sass_extensions/sprites/base'
+require 'compass/sass_extensions/sprites/engines/chunky_png_engine'
 
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
@@ -14,63 +15,8 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  class SpriteMap < Compass::SassExtensions::Sprites::Base
-    # Calculates the overal image dimensions
-    # collects image sizes and input parameters for each sprite
-    def compute_image_metadata!
-      @width = 0
-      init_images
-      compute_image_positions!
-      @height = @images.last.top + @images.last.height
-    end
-    
-    def init_images
-      @images = image_names.collect do |relative_file|
-        image = Compass::SassExtensions::Sprites::Image.new(relative_file, options)
-        @width = [ @width, image.width + image.offset ].max
-        image
-      end
-    end
-    
-    def compute_image_positions!
-      @images.each_with_index do |image, index|
-        image.left = image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100) : image.position.value
-        next if index == 0
-        last_image = @images[index-1]
-        image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
-      end
-    end
+  class SpriteMap < Compass::SassExtensions::Sprites::ChunkyPngEngine
 
-    def image_for(name)
-      @images.detect { |img| img.name == name}
-    end
-
-    def require_png_library!
-      begin
-        require 'oily_png'
-      rescue LoadError
-        require 'chunky_png'
-      end
-    end
-
-    # Returns a PNG object
-    def construct_sprite
-      require_png_library!
-      output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
-      images.each do |image|
-        input_png  = ChunkyPNG::Image.from_file(image.file)
-        if image.repeat == "no-repeat"
-          output_png.replace input_png, image.left, image.top
-        else
-          x = image.left - (image.left / image.width).ceil * image.width
-          while x < width do
-            output_png.replace input_png, x, image.top
-            x += image.width
-          end
-        end
-      end
-      output_png
-    end
   end
 
   # Creates a SpriteMap object. A sprite map, when used in a property is the same
