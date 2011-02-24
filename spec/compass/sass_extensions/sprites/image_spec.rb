@@ -22,6 +22,8 @@ describe Compass::SassExtensions::Sprites::Image do
     its(:width) { should == 10 }
     its(:height) { should == 10 }
     its(:digest) { should == digest }
+    its(:top) { should == 0 }
+    its(:left) { should == 0 }
   end
 
   let(:options) {
