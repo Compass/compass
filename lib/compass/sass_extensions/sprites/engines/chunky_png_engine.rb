@@ -1,20 +1,10 @@
 module Compass
   module SassExtensions
     module Sprites
-      class ChunkyPngEngine < Sass::Script::Literal
-        include Compass::SassExtensions::Sprites::Base::InstanceMethods
-
-        def require_png_library!
-          begin
-            require 'oily_png'
-          rescue LoadError
-            require 'chunky_png'
-          end
-        end
-
+      module ChunkyPngEngine
         # Returns a PNG object
         def construct_sprite
-          require_png_library!
+          #require_png_library!
           output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
           images.each do |image|
             input_png  = ChunkyPNG::Image.from_file(image.file)

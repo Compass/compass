@@ -1,7 +1,5 @@
 require 'digest/md5'
-require 'compass/sass_extensions/sprites/image'
 require 'compass/sass_extensions/sprites/base'
-require 'compass/sass_extensions/sprites/engines/chunky_png_engine'
 
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
@@ -15,8 +13,8 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  class SpriteMap < Compass::SassExtensions::Sprites::ChunkyPngEngine
-
+  class SpriteMap < Compass::SassExtensions::Sprites::Base
+    
   end
 
   # Creates a SpriteMap object. A sprite map, when used in a property is the same
