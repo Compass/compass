@@ -128,6 +128,11 @@ module Compass
       def default_preferred_syntax
         :scss
       end
+      
+      def default_sprite_engine
+        :chunky_png
+      end
+      
       # helper functions
 
       def http_join(*segments)

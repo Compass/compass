@@ -1,4 +1,5 @@
 require 'compass/sass_extensions/sprites/image'
+require 'compass/sass_extensions/sprites/engines/chunky_png_engine'
 module Compass
   module SassExtensions
     module Sprites
@@ -12,21 +13,8 @@ module Compass
           new(sprites, path, name, context, kwargs)
         end
 
-      
         def require_engine!
-          begin
-            require 'rmagick'
-            require 'compass/sass_extensions/sprites/engines/rmagick_engine'
-            self.class.send(:include, ::Compass::SassExtensions::Sprites::RmagickEngine)
-          rescue LoadError
-            require 'compass/sass_extensions/sprites/engines/chunky_png_engine'
-            begin
-              require 'oily_png'
-            rescue LoadError
-              require 'chunky_png'
-            end
-            self.class.send(:include, ::Compass::SassExtensions::Sprites::ChunkyPngEngine)
-          end
+          self.class.send(:include, eval("::Compass::SassExtensions::Sprites::#{modulize}Engine"))
         end
       
         # Changing this string will invalidate all previously generated sprite images.
@@ -111,7 +99,6 @@ module Compass
         end
 
         def generation_required?
-          puts !File.exists?(filename) || outdated?
           !File.exists?(filename) || outdated?
         end
 
@@ -169,6 +156,13 @@ module Compass
             super
           end
         end
+        
+        private 
+        
+        def modulize
+          @modulize ||= Compass::configuration.sprite_engine.to_s.scan(/([^_.]+)/).flatten.map {|chunk| "#{chunk[0].chr.upcase}#{chunk[1..-1]}" }.join
+        end
+        
       end
     end
   end

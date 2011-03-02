@@ -37,7 +37,8 @@ module Compass
       :line_comments,
       :color_output,
       :preferred_syntax,
-      :disable_warnings
+      :disable_warnings,
+      :sprite_engine
     ].flatten
 
   end

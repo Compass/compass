@@ -1,7 +1,14 @@
+begin
+  require 'oily_png'
+rescue LoadError
+  require 'chunky_png'
+end
+
 module Compass
   module SassExtensions
     module Sprites
       module ChunkyPngEngine
+        
         # Returns a PNG object
         def construct_sprite
           #require_png_library!
