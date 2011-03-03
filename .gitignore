@@ -25,3 +25,4 @@ doc-src/.bundle
 attic
 devbin
 .rvmrc
+*.rbc
