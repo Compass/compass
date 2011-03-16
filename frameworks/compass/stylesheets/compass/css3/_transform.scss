@@ -201,7 +201,7 @@ $default-skew-y      : 5deg                  !default;
 // where `style` can be either `flat` or `preserves-3d`
 // browsers default to `flat`, mixin defaults to `preserves-3d`
 @mixin transform-style($style: preserves-3d) {
-  @include experimental(perspective-origin, $style,
+  @include experimental(transform-style, $style,
     not -moz, -webkit, not -o, not -ms, not -khtml, official
   );
 }
