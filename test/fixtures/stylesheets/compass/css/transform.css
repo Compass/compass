@@ -40,8 +40,8 @@
   perspective-origin: 25% 25%; }
 
 .transform-style {
-  -webkit-transform-style: preserves-3d;
-  transform-style: preserves-3d; }
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d; }
 
 .backface-visibility {
   -webkit-backface-visibility: hidden;
