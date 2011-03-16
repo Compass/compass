@@ -14,25 +14,40 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.beta.3 (UNRELEASED)
+0.11.beta.3 (3/15/2011)
 ------------------------
-* There is a new typography module: Vertical Rhythm.
-  This makes it easier to align the typography of your page to a common rhythm.
+
+### Compass CSS3
+
+* A new CSS3 mixin for [appearance](/reference/compass/css3/appearance/) was added.
+* The font-face mixin has been updated again with the [syntax recommendations
+  from font-spring](http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax).
+  The API has not changed.
+
+### Compass Typography
+
 * Some text-based mixins have been moved from utilities to the new
   typography module. The old imports are deprecated now.
   Affected modules: utilities/links, utilities/lists, and utilities/text and
   their sub-modules.
-* You can now register callbacks for compilation events so that you can take
-  custom actions when they occur. For instance, you might want to notify
-  Growl when a stylesheet compilation error occurs.
+* There is a new typography module: [Vertical Rhythm](/reference/compass/typography/vertical_rhythm/).
+  This makes it easier to align the typography of your page to a common rhythm.
+
+### Compass Utilities
+
 * A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
-* Reset mixins have been updated based on [Eric Meyer's CSS Reset v2.0](http://meyerweb.com/eric/tools/css/reset/index.html). HTML5 support is included by default.
-  For the legacy projects, you can adjust your imports to reference the the [legacy reset](/reference/compass/reset/) or [legacy reset utilities](/reference/compass/reset/utilities/).
+* A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
 * A new module has been added to create readable text against an arbitrary background color based on the lightness of the background: [compass/utilities/color/contrast](/reference/compass/utilities/color/contrast/).
 * The comma-delimited-list has been renamed to delimited-list and
   generalized to accept a delimiter which defaults to a comma.
   The old function continues to exist, but is deprecated.
-* A new CSS3 mixin for [appearance](/reference/compass/css3/appearance/) was added.
+
+### Compass Internals
+
+* You can now register callbacks for compilation events so that you can take
+  custom actions when they occur. For instance, you might want to notify
+  Growl when a stylesheet compilation error occurs.
+* Bug fixes & performance improvements.
 
 0.11.beta.2 (02/01/2011)
 ------------------------
