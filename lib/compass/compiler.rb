@@ -3,7 +3,7 @@ module Compass
 
     include Actions
 
-    attr_accessor :working_path, :from, :to, :options
+    attr_accessor :working_path, :from, :to, :options, :staleness_checker, :importer
 
     def initialize(working_path, from, to, options)
       self.working_path = working_path
@@ -12,6 +12,8 @@ module Compass
       self.options = options
       self.options[:cache_location] ||= determine_cache_location
       Compass.configure_sass_plugin!
+      self.importer = Sass::Importers::Filesystem.new(from)
+      self.staleness_checker = Sass::Plugin::StalenessChecker.new(options)
     end
 
     def determine_cache_location
@@ -21,6 +23,10 @@ module Compass
     def sass_files(options = {})
       exclude_partials = options.fetch(:exclude_partials, true)
       @sass_files = self.options[:sass_files] || Dir.glob(separate("#{from}/**/#{'[^_]' if exclude_partials}*.s[ac]ss"))
+    end
+
+    def relative_stylesheet_name(sass_file)
+      sass_file[("#{from}/".length)..-1]
     end
 
     def stylesheet_name(sass_file)
@@ -42,9 +48,13 @@ module Compass
     # Returns the sass file that needs to be compiled, if any.
     def out_of_date?
       sass_files.zip(css_files).each do |sass_filename, css_filename|
-        return sass_filename if Sass::Plugin.send(:stylesheet_needs_update?, css_filename, sass_filename)
+        return sass_filename if needs_update?(css_filename, sass_filename)
       end
       false
+    end
+
+    def needs_update?(css_filename, sass_filename)
+      staleness_checker.stylesheet_needs_update?(css_filename, relative_stylesheet_name(sass_filename), importer)
     end
 
     # Determines if the configuration file is newer than any css file
@@ -123,7 +133,7 @@ module Compass
     end
 
     def should_compile?(sass_filename, css_filename)
-      options[:force] || Sass::Plugin.send(:stylesheet_needs_update?, css_filename, sass_filename)
+      options[:force] || needs_update?(css_filename, sass_filename)
     end
 
     # A sass engine for compiling a single file.
