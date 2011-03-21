@@ -13,11 +13,7 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  class SpriteMap < Compass::SassExtensions::Sprites::Base
-    
-  end
-
-  # Creates a SpriteMap object. A sprite map, when used in a property is the same
+  # Creates a Compass::SassExtensions::Sprites::Base object. A sprite map, when used in a property is the same
   # as calling sprite-url. So the following background properties are equivalent:
   #
   #     $icons: sprite-map("icons/*.png");
@@ -28,7 +24,7 @@ module Compass::SassExtensions::Functions::Sprites
   # the first time it is converted to a url. Simply constructing it has no side-effects.
   def sprite_map(glob, kwargs = {})
     kwargs.extend VariableReader
-    SpriteMap.from_uri(glob, self, kwargs)
+    Compass::SassExtensions::Sprites::Base.from_uri(glob, self, kwargs)
   end
   Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
 
@@ -41,7 +37,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
   def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
-    unless map.is_a?(SpriteMap)
+    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
       missing_sprite!("sprite")
     end
     unless sprite.is_a?(Sass::Script::String)
@@ -58,7 +54,7 @@ module Compass::SassExtensions::Functions::Sprites
   # Returns the name of a sprite map
   # The name is derived from the folder than contains the sprites.
   def sprite_map_name(map)
-    unless map.is_a?(SpriteMap)
+    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
       missing_sprite!("sprite-map-name")
     end
     Sass::Script::String.new(map.name)
@@ -67,7 +63,7 @@ module Compass::SassExtensions::Functions::Sprites
 
   # Returns the path to the original image file for the sprite with the given name
   def sprite_file(map, sprite)
-    unless map.is_a?(SpriteMap)
+    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
       missing_sprite!("sprite-file")
     end
     if image = map.image_for(sprite.value)
@@ -80,7 +76,7 @@ module Compass::SassExtensions::Functions::Sprites
 
   # Returns a url to the sprite image.
   def sprite_url(map)
-    unless map.is_a?(SpriteMap)
+    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
       missing_sprite!("sprite-url")
     end
     map.generate
@@ -110,7 +106,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background-position: 3px -36px;
   def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
-    unless map.is_a?(SpriteMap)
+    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
       missing_sprite!("sprite-position")
     end
     unless sprite && sprite.is_a?(Sass::Script::String)
