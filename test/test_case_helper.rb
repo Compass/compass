@@ -1,7 +1,7 @@
 module Compass
   module TestCaseHelper
     def absolutize(path)
-      if path.blank?
+      if Compass::Util.blank?(path)
         File.dirname(__FILE__)
       elsif path[0] == ?/
         "#{File.dirname(__FILE__)}#{path}"

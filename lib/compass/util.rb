@@ -15,4 +15,15 @@ module Compass::Util
     send(WARN_METHOD, *args)
   end
 
+  def blank?(value)
+    case value
+    when NilClass, FalseClass
+      true
+    when String, Array
+      value.length.zero?
+    else
+      false
+    end
+  end
+
 end
