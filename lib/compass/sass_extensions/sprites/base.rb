@@ -1,5 +1,3 @@
-require 'compass/sass_extensions/sprites/image'
-require 'compass/sass_extensions/sprites/engines/chunky_png_engine'
 module Compass
   module SassExtensions
     module Sprites

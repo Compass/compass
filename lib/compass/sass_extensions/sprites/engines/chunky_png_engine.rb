@@ -16,7 +16,7 @@ module Compass
           images.each do |image|
             input_png  = ChunkyPNG::Image.from_file(image.file)
             if image.repeat == "no-repeat"
-              output_png.replace input_png, image.left, image.top
+              output_png.replace! input_png, image.left, image.top
             else
               x = image.left - (image.left / image.width).ceil * image.width
               while x < width do
