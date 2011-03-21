@@ -45,7 +45,14 @@ function showInstallCommand() {
         create_command = create_command + " --syntax sass";
     }
     if ($("#options").val() == "customized") {
-        create_command = create_command + " --sass-dir &lt;sassdir> --css-dir &lt;cssdir> --javascripts-dir &lt;jsdir> --images-dir &lt;imgsdir>";
+        $("#directories").show();
+        create_command = create_command +
+                         " --sass-dir \"" + $("#sassdir").val() + "\"" +
+                         " --css-dir \"" + $("#cssdir").val() + "\"" +
+                         " --javascripts-dir \"" + $("#jsdir").val() + "\"" +
+                         " --images-dir \"" + $("#imagesdir").val() + "\"";
+    } else {
+      $("#directories").hide();
     }
     commands.push(create_command);
     var instructions = "<pre><code>" + commands.join("\n") + "</code></pre>";
@@ -69,6 +76,7 @@ function attachMadlibBehaviors() {
         }
     });
     $("#existence, #app-type, #framework, #syntax, #options").change(showInstallCommand);
+    $(".madlib input").keyup(function(){setTimeout(showInstallCommand, 0.1)});
 }
 
 function setupMadlib() {
