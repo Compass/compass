@@ -1,6 +1,3 @@
-require 'digest/md5'
-require 'compass/sass_extensions/sprites/base'
-
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
 

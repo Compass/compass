@@ -46,6 +46,7 @@ $#{name}-sprite-dimensions: false !default;
 $#{name}-position: 0% !default;
 $#{name}-spacing: 0 !default;
 $#{name}-repeat: no-repeat !default;
+$#{name}-prefix: '' !default;
 
 #{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\");" : generate_overrides(uri, name, images) }
 
