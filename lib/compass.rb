@@ -14,7 +14,10 @@ module Compass
   def lib_directory
     File.expand_path(File.join(File.dirname(__FILE__)))
   end
-  module_function :base_directory, :lib_directory
+  def shared_extension_paths
+    [File.expand_path("~/.compass/extensions")]
+  end
+  module_function :base_directory, :lib_directory, :shared_extension_paths
   extend QuickCache
 end
 

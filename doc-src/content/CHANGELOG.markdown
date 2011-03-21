@@ -14,7 +14,12 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.beta.3 (3/15/2011)
+0.11.beta.4 (UNRELEASED)
+------------------------
+
+* Extensions that are installed into ~/.compass/extensions will be automatically available to all your compass projects.
+
+0.11.beta.3 (03/15/2011)
 ------------------------
 
 ### Compass CSS3

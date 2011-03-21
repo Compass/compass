@@ -101,7 +101,12 @@ module Compass
       end
 
       def discover_extensions!
-        if File.exists?(configuration.extensions_path)
+        Compass.shared_extension_paths.each do |extensions_path|
+          if File.directory?(extensions_path)
+            Compass::Frameworks.discover(extensions_path)
+          end
+        end
+        if File.directory?(configuration.extensions_path)
           Compass::Frameworks.discover(configuration.extensions_path)
         end
       end
