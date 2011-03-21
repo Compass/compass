@@ -11,7 +11,6 @@ gem "haml", "~> 3.1.0.alpha"
 gem "rcov"
 gem "rubyzip"
 gem "livereload"
-gem "chunky_png", "~> 0.12.0"
 
 gem "ruby-prof" unless RUBY_PLATFORM == "java"
 
