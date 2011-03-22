@@ -70,7 +70,19 @@ module Compass
         def image_for(name)
           @images.detect { |img| img.name == name}
         end
-
+        
+        def has_hover?(name)
+          !image_for("#{name}_hover").nil?
+        end
+        
+        def has_target?(name)
+          !image_for("#{name}_target").nil?
+        end
+        
+        def has_active?(name)
+          !image_for("#{name}_active").nil?
+        end
+        
         def sprite_names
           image_names.map{|f| Compass::Sprites.sprite_name(f) }
         end

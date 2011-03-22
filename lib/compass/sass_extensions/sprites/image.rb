@@ -54,7 +54,7 @@ module Compass
         def mtime
           File.mtime(file)
         end
-        
+                
         private
           def dimensions
             @dimensions ||= Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size
