@@ -51,6 +51,10 @@ module Compass
           Digest::MD5.file(file).hexdigest
         end
 
+        def mtime
+          File.mtime(file)
+        end
+        
         private
           def dimensions
             @dimensions ||= Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(file).size

@@ -55,6 +55,7 @@ module Compass
             image
           end
         end
+        
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
         def compute_image_positions!
