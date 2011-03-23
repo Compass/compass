@@ -1,14 +1,16 @@
+require 'compass/sprite_map'
+
 module Compass
   module SassExtensions
     module Sprites
       class Base < Sass::Script::Literal
-
         def self.from_uri(uri, context, kwargs)
-          path, name = Compass::Sprites.path_and_name(uri.value)
-          sprites = Compass::Sprites.discover_sprites(uri.value).map do |sprite|
+          sprite_map = ::Compass::SpriteMap.new(uri.value, {})
+
+          sprites = sprite_map.files.map do |sprite|
             sprite.gsub(Compass.configuration.images_path+"/", "")
           end
-          new(sprites, path, name, context, kwargs)
+          new(sprites, sprite_map.path, sprite_map.name, context, kwargs)
         end
 
         def require_engine!
@@ -50,7 +52,7 @@ module Compass
 
         def init_images
           @images = image_names.collect do |relative_file|
-            image = Compass::SassExtensions::Sprites::Image.new(relative_file, options)
+            image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, options)
             @width = [ @width, image.width + image.offset ].max
             image
           end
@@ -84,7 +86,7 @@ module Compass
         end
         
         def sprite_names
-          image_names.map{|f| Compass::Sprites.sprite_name(f) }
+          image_names.map { |f| File.basename(f, '.png') }
         end
 
         def validate!

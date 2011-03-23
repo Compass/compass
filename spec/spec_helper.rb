@@ -4,6 +4,7 @@ require 'rubygems'
 require 'compass'
 require 'rspec'
 require 'rspec/autorun'
+require 'mocha'
 
 module CompassGlobalInclude
   class << self
@@ -17,4 +18,6 @@ end
 
 RSpec.configure do |config|
   config.include(CompassGlobalInclude)
+
+  config.mock_with :mocha
 end

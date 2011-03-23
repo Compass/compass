@@ -5,7 +5,7 @@ describe Compass::SassExtensions::Sprites::Image do
   let(:sprite_filename) { 'squares/ten-by-ten.png' }
   let(:sprite_path) { File.join(images_src_path, sprite_filename) }
   let(:sprite_name) { File.basename(sprite_filename, '.png') }
-  let(:image) { self.class.describes.new(File.join(sprite_filename), options)}
+  let(:image) { self.class.describes.new(nil, File.join(sprite_filename), options)}
   let(:digest) { Digest::MD5.file(sprite_path).hexdigest }
 
   subject { image }
@@ -26,9 +26,13 @@ describe Compass::SassExtensions::Sprites::Image do
     its(:left) { should == 0 }
   end
 
+  let(:get_var_expects) { nil }
+  let(:get_var_return) { nil }
+
   let(:options) {
-    options = Object.new
-    options.stub(:get_var) { |which| (which == get_var_expects) ? get_var_return : nil }
+    options = mock
+    options.stubs(:get_var).with(anything).returns(nil)
+    options.stubs(:get_var).with(get_var_expects).returns(get_var_return)
     options
   }
 
@@ -105,32 +109,30 @@ describe Compass::SassExtensions::Sprites::Image do
   end
 
   describe '#offset' do
-    before { image.stub(:position) { stub_position } }
+    before { image.stubs(:position).returns(stub_position) }
 
     let(:offset) { 100 }
     let(:stub_position) {
-      stub = double
-      stub.stub(:value) { offset }
-      stub
+      stub(:value => offset)
     }
 
     context 'unitless' do
-      before { stub_position.stub(:unitless?) { true } }
-      before { stub_position.stub(:unit_str) { 'em' } }
+      before { stub_position.stubs(:unitless?).returns(true) }
+      before { stub_position.stubs(:unit_str).returns('em') }
 
       its(:offset) { should == offset }
     end
 
     context 'pixels' do
-      before { stub_position.stub(:unitless?) { false } }
-      before { stub_position.stub(:unit_str) { 'px' } }
+      before { stub_position.stubs(:unitless?).returns(false) }
+      before { stub_position.stubs(:unit_str).returns('px') }
 
       its(:offset) { should == offset }
     end
 
     context 'neither, use 0' do
-      before { stub_position.stub(:unitless?) { false } }
-      before { stub_position.stub(:unit_str) { 'em' } }
+      before { stub_position.stubs(:unitless?).returns(false) }
+      before { stub_position.stubs(:unit_str).returns('em') }
 
       its(:offset) { should == 0 }
     end

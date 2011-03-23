@@ -2,11 +2,11 @@ module Compass
   module SassExtensions
     module Sprites
       class Image
-        attr_reader :relative_file, :options
+        attr_reader :relative_file, :options, :base
         attr_accessor :top, :left
 
-        def initialize(relative_file, options)
-          @relative_file, @options = relative_file, options
+        def initialize(base, relative_file, options)
+          @base, @relative_file, @options = base, relative_file, options
           @left = @top = 0
         end
 
@@ -23,7 +23,7 @@ module Compass
         end
 
         def name
-          Compass::Sprites.sprite_name(relative_file)
+          File.basename(relative_file, '.png')
         end
 
         def repeat
