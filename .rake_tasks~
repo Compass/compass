@@ -1,0 +1,10 @@
+examples
+examples:clean
+features
+rcov
+rcov:all
+rcov:clobber_units
+rcov:cucumber
+rcov:units
+spec
+test
