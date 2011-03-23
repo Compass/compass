@@ -7,7 +7,6 @@ describe Compass::SassExtensions::Sprites::Image do
   let(:sprite_name) { File.basename(sprite_filename, '.png') }
   let(:image) { self.class.describes.new(nil, File.join(sprite_filename), options)}
   let(:digest) { Digest::MD5.file(sprite_path).hexdigest }
-
   subject { image }
 
   before {
@@ -37,6 +36,7 @@ describe Compass::SassExtensions::Sprites::Image do
   }
 
   describe '#repeat' do
+    let(:type) { nil }
     let(:get_var_return) { OpenStruct.new(:value => type) }
 
     context 'specific image' do
@@ -61,6 +61,7 @@ describe Compass::SassExtensions::Sprites::Image do
   end
 
   describe '#position' do
+    let(:type) { nil }
     let(:get_var_return) { type }
 
     context 'specific image' do
@@ -85,6 +86,7 @@ describe Compass::SassExtensions::Sprites::Image do
   end
 
   describe '#spacing' do
+    let(:type) { nil }
     let(:get_var_return) { OpenStruct.new(:value => type) }
 
     context 'specific image' do

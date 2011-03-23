@@ -45,6 +45,8 @@ describe Compass::SpriteMap do
 
     its(:mtime) { should == mtime }
 
-    it "should have a test for the sass engine"
+    it "should have a test for the sass engine" do
+      pending 'sass'
+    end
   end
 end
