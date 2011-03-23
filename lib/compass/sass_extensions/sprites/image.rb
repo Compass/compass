@@ -54,6 +54,30 @@ module Compass
         def mtime
           File.mtime(file)
         end
+        
+        def hover?
+          base.has_hover?(name)
+        end
+        
+        def hover
+          base.image_for("#{name}_hover")
+        end
+        
+        def target?
+          base.has_target?(name)
+        end
+        
+        def target
+          base.image_for("#{name}_target")
+        end
+        
+        def active?
+          base.has_active?(name)
+        end
+        
+        def active
+          base.image_for("#{name}_active")
+        end
                 
         private
           def dimensions

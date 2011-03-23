@@ -38,6 +38,11 @@ describe Compass::SassExtensions::Sprites::Base do
     it "should have a #{selector}" do
       subject.send(:"has_#{selector}?", 'ten-by-ten').should be_true
     end
+    
+    it "should return #{selector} image class" do
+      subject.image_for('ten-by-ten').send(:"#{selector}").name.should == "ten-by-ten_#{selector}"
+    end
+    
   end
   context "#generate" do
     before { @base.generate }
