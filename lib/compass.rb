@@ -18,6 +18,6 @@ module Compass
   extend QuickCache
 end
 
-%w(configuration frameworks app_integration actions compiler sprites).each do |lib|
+%w(configuration frameworks app_integration actions compiler).each do |lib|
   require "compass/#{lib}"
 end

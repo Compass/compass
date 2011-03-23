@@ -1,5 +1,3 @@
-require 'compass/sprite_map'
-
 module Compass
   module SassExtensions
     module Sprites
