@@ -7,7 +7,7 @@ Gem::Specification.new do |gemspec|
   gemspec.date = "#{Time.now.year}-#{Time.now.month}-#{Time.now.day}" # Automatically update for each build
   gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS."
   gemspec.homepage = "http://compass-style.org"
-  gemspec.authors = ["Chris Eppstein", "Eric A. Meyer", "Brandon Mathis", "Nico Hagenburger"]
+  gemspec.authors = ["Chris Eppstein", "Eric A. Meyer", "Brandon Mathis", "Nico Hagenburger", "Scott Davis"]
   gemspec.email = "chris@eppsteins.net"
   gemspec.default_executable = "compass"
   gemspec.executables = %w(compass)
