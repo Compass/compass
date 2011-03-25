@@ -21,7 +21,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 [Magic Selectors](/help/tutorials/spriting/#magic-selectors) have been added
 
-0.11.beta.4 (02/25/2011)
+0.11.beta.4 (03/25/2011)
 ------------------------
 
 * Extensions that are installed into ~/.compass/extensions will be automatically available to all your compass projects.
