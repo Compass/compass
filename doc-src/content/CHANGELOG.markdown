@@ -19,7 +19,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 ### Compass Sprites
 
-[Magic Imports](/help/tutorials/spriting/#magic-selectors) have been added
+[Magic Selectors](/help/tutorials/spriting/#magic-selectors) have been added
 
 0.11.beta.4 (02/25/2011)
 ------------------------
