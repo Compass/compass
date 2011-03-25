@@ -70,7 +70,7 @@ module Compass
           File.mtime(file)
         end
         
-        # Has hover selector
+        # Is hover selector
         def hover?
           name =~ HOVER
         end
@@ -80,7 +80,7 @@ module Compass
           base.image_for("#{name}_hover")
         end
         
-        # Has target selector
+        # Is target selector
         def target?
           name =~ TARGET
         end
@@ -90,7 +90,7 @@ module Compass
           base.image_for("#{name}_target")
         end
         
-        # Has active selector
+        # Is active selector
         def active?
           name =~ ACTIVE
         end
