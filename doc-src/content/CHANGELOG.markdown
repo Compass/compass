@@ -21,6 +21,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   Set `$relative-font-sizing` to `false` to enable.
 * Vertical rhythm now has a minimum padding that defaults to 2px.
   This makes some edge cases look better.
+* New mixin `force-wrap` prevents URLs and long lines of text from breaking layouts.
 
 0.11.3 (06/11/2011)
 -------------------
