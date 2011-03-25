@@ -100,6 +100,42 @@ might want to avoid it. For instance, if your sprite map has more than about 20 
 sprites, you may find that hand crafting the import will speed up compilation times. See
 the section on [performance considerations](#performance) for more details.
 
+<a name="magic-selectors"></a>
+## Magic Selectors
+
+If you want to add selectors for your sprites, it's easy todo by adding `_active` `_target` or `_hover` to the file name, In the example below we have a sprite directory that looks like:
+
+* `link/icon.png`
+* `link/icon_hover.png`
+* `link/icon_active.png`
+* `link/icon_target.png`
+    
+Now in our sass file we add:
+
+    @import "link/*.png";
+    
+    @include link_sprite(icon);
+    
+And your stylesheet will compile to:
+
+     .link-icon {
+      background-position: 0 0;
+    }
+
+     .link-icon:hover, .link-icon_hover, .link-icon_hover-hover {
+      background-position: 0 -20px;
+    }
+
+     .link-icon:target, .link-icon_hover_target, .link-icon_hover-target {
+      background-position: 0 -30px;
+    }
+
+     .link-icon:active, .link-icon_hover_active, .link-icon_hover-active {
+      background-position: 0 -10px;
+    }
+
+
+
 <a name="customization-options"></a>
 ## Customization Options
 
