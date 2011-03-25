@@ -34,9 +34,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
   def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
-    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
-      missing_sprite!("sprite")
-    end
+    verify_map(map)
     unless sprite.is_a?(Sass::Script::String)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
@@ -51,18 +49,15 @@ module Compass::SassExtensions::Functions::Sprites
   # Returns the name of a sprite map
   # The name is derived from the folder than contains the sprites.
   def sprite_map_name(map)
-    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
-      missing_sprite!("sprite-map-name")
-    end
+    verify_map(map, "sprite-map-name")
     Sass::Script::String.new(map.name)
   end
   Sass::Script::Functions.declare :sprite_name, [:sprite]
 
   # Returns the path to the original image file for the sprite with the given name
   def sprite_file(map, sprite)
-    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
-      missing_sprite!("sprite-file")
-    end
+    verify_map(map, "sprite")
+    verify_sprite(sprite)
     if image = map.image_for(sprite.value)
       Sass::Script::String.new(image.relative_file)
     else
@@ -71,11 +66,37 @@ module Compass::SassExtensions::Functions::Sprites
   end
   Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
 
+  # Returns boolean is sprite image has a hover selector
+  def sprite_has_hover(map, sprite)
+    verify_map(map)
+    verify_sprite(sprite)
+    Sass::Script::Bool.new map.has_hover?(sprite)
+  end
+  
+  Sass::Script::Functions.declare :sprite_has_hover, [:map, :sprite]
+
+  # Returns boolean is sprite image has a target selector
+  def sprite_has_target(map, sprite)
+    verify_map(map)
+    verify_sprite(sprite)
+     Sass::Script::Bool.new map.has_target?(sprite)
+  end
+  
+  Sass::Script::Functions.declare :sprite_has_target, [:map, :sprite]
+  
+  # Returns boolean is sprite image has a active selector
+  def sprite_has_active(map, sprite)
+    verify_map(map)
+    verify_sprite(sprite)
+     Sass::Script::Bool.new map.has_active?(sprite)
+  end
+  
+  Sass::Script::Functions.declare :sprite_has_active, [:map, :sprite]
+
+
   # Returns a url to the sprite image.
   def sprite_url(map)
-    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
-      missing_sprite!("sprite-url")
-    end
+    verify_map(map, "sprite-url")
     map.generate
     image_url(Sass::Script::String.new("#{map.path}-#{map.uniqueness_hash}.png"),
               Sass::Script::Bool.new(false),
@@ -103,9 +124,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background-position: 3px -36px;
   def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
-    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
-      missing_sprite!("sprite-position")
-    end
+    verify_map(map, "sprite-position")
     unless sprite && sprite.is_a?(Sass::Script::String)
       raise Sass::SyntaxError, %Q(The second argument to sprite-position must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
@@ -133,6 +152,18 @@ module Compass::SassExtensions::Functions::Sprites
   end
 
 protected
+
+  def verify_map(map, error = "sprite")
+    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
+      missing_sprite!(error)
+    end
+  end
+
+  def verify_sprite(sprite)
+    unless sprite.is_a?(Sass::Script::String)
+      raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    end
+  end
 
   def missing_image!(map, sprite)
     raise Sass::SyntaxError, "No sprite called #{sprite} found in sprite map #{map.path}/#{map.name}. Did you mean one of: #{map.sprite_names.join(", ")}"

@@ -34,6 +34,21 @@
   @each $sprite-name in $sprite-names {
     $full-sprite-name: if($prefix and $prefix != "", "#{$prefix}-#{$sprite-name}", $sprite-name);
     .#{$full-sprite-name} {
+      @if sprite_has_hover($map, $sprite-name) {
+        &:hover {
+          @include sprite($map, "#{$sprite-name}_hover")
+        }
+      }
+      @if sprite_has_target($map, $sprite-name) {
+        &:target {
+          @include sprite($map, "#{$sprite-name}_target")
+        }
+      }
+      @if sprite_has_active($map, $sprite-name) {
+        &:active {
+          @include sprite($map, "#{$sprite-name}_active")
+        }
+      }
       @if $base-class { @extend #{$base-class}; }
       @include sprite($map, $sprite-name, $dimensions);
     }

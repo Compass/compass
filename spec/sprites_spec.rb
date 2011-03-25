@@ -467,4 +467,41 @@ describe Compass::Sprites do
     CSS
   end
 
+  it "should render corret sprite with css selectors via issue#248" do
+    css = render <<-SCSS
+      @import "selectors/*.png";
+      @include all-selectors-sprites;
+    SCSS
+    css.should == <<-CSS
+      .selectors-sprite, .selectors-ten-by-ten, .selectors-ten-by-ten_active, .selectors-ten-by-ten_hover, .selectors-ten-by-ten_target {
+        background: url('/selectors-edfef809e2.png') no-repeat;
+      }
+      
+      .selectors-ten-by-ten {
+        background-position: 0 0;
+      }
+      .selectors-ten-by-ten:hover {
+        background-position: 0 -20px;
+      }
+      .selectors-ten-by-ten:target {
+        background-position: 0 -30px;
+      }
+      .selectors-ten-by-ten:active {
+        background-position: 0 -10px;
+      }
+      
+      .selectors-ten-by-ten_active {
+        background-position: 0 -10px;
+      }
+      
+      .selectors-ten-by-ten_hover {
+        background-position: 0 -20px;
+      }
+      
+      .selectors-ten-by-ten_target {
+        background-position: 0 -30px;
+      }
+    CSS
+  end
+
 end
