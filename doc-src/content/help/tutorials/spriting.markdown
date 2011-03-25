@@ -122,15 +122,15 @@ And your stylesheet will compile to:
       background-position: 0 0;
     }
 
-     .link-icon:hover, .link-icon_hover, .link-icon_hover-hover {
+     .link-icon:hover, .link-icon_hover, .link-icon-hover {
       background-position: 0 -20px;
     }
 
-     .link-icon:target, .link-icon_hover_target, .link-icon_hover-target {
+     .link-icon:target, .link-icon_target, .link-icon-target {
       background-position: 0 -30px;
     }
 
-     .link-icon:active, .link-icon_hover_active, .link-icon_hover-active {
+     .link-icon:active, .link-icon_active, .link-icon-active {
       background-position: 0 -10px;
     }
 
