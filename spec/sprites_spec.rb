@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require "compass/sprites"
 require 'digest/md5'
 
 describe Compass::Sprites do
@@ -437,6 +436,33 @@ describe Compass::Sprites do
     actual_css.should == <<-CSS
       .squares {
         background: url('/squares-145869726f.png') 0 -10px no-repeat;
+      }
+    CSS
+  end
+  
+  it "should calculate corret sprite demsions when givin spacing via issue#253" do
+    css = render <<-SCSS
+      $squares-spacing: 10px;
+      @import "squares/*.png";
+      .foo {
+        @include sprite-background-position($squares-sprites, "twenty-by-twenty");
+      }
+      .bar {
+        @include sprite-background-position($squares-sprites, "ten-by-ten");
+      }
+    SCSS
+    image_size('squares-*.png').should == [20, 40]
+    css.should == <<-CSS
+      .squares-sprite {
+        background: url('/squares-e3c68372d9.png') no-repeat;
+      }
+      
+      .foo {
+        background-position: 0 -20px;
+      }
+      
+      .bar {
+        background-position: 0 0;
       }
     CSS
   end
