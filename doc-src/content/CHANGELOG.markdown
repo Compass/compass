@@ -19,6 +19,14 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 * Extensions that are installed into ~/.compass/extensions will be automatically available to all your compass projects.
 
+### Compass Internals
+
+* Fixed a small bug in callbacks that was causing them to register twice
+* The Sprite classes have been abstracted allowing for different engines
+* Bumped chunky_png version to 1.1.0
+* Total rewrite of the sprite generation classes - thanks to @johnbintz for the help
+* More Rspec tests
+
 0.11.beta.3 (03/15/2011)
 ------------------------
 
