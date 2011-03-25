@@ -2,6 +2,11 @@ module Compass
   module SassExtensions
     module Sprites
       class Image
+        ACTIVE = %r{[_-]active$}
+        TARGET = %r{[_-]target$}
+        HOVER = %r{[_-]hover$}
+        PARENT = %r{(.+)_(.+)$}
+        
         attr_reader :relative_file, :options, :base
         attr_accessor :top, :left
 
@@ -67,7 +72,7 @@ module Compass
         
         # Has hover selector
         def hover?
-          name[-6..-1] == '_hover'
+          name =~ HOVER
         end
         
         # Hover selector Image object if exsists
@@ -77,7 +82,7 @@ module Compass
         
         # Has target selector
         def target?
-          name[-7..-1] == '_target'
+          name =~ TARGET
         end
         
         # Target selector Image object if exsists
@@ -87,7 +92,7 @@ module Compass
         
         # Has active selector
         def active?
-          name[-7..-1] == '_active'
+          name =~ ACTIVE
         end
         
         # Active selector Image object if exsists
@@ -98,7 +103,7 @@ module Compass
         
         def parent
           if [hover?, target?, active?].any?
-            %r{(.+)_(.+)$}.match name
+            PARENT.match name
             base.image_for($1)
           end
         end
