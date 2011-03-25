@@ -11,7 +11,6 @@ module Compass
         
         # Returns a PNG object
         def construct_sprite
-          #require_png_library!
           output_png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
           images.each do |image|
             input_png  = ChunkyPNG::Image.from_file(image.file)

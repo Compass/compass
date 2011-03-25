@@ -6,34 +6,41 @@ module Compass
       @uri, @options = uri, options
     end
 
+    # Name of this spite
     def name
       ensure_path_and_name!
       @name
     end
 
+    # The on-disk location of this sprite
     def path
       ensure_path_and_name!
       @path
     end
-
+    
+    # Returns the Glob of image files for this sprite
     def files
       @files ||= Dir[File.join(Compass.configuration.images_path, uri)].sort
     end
 
+    # Returns an Array of image names without the file extension
     def sprite_names
       @sprite_names ||= files.collect { |file| File.basename(file, '.png') }
     end
 
+    # Returns the sass options for this sprite
     def sass_options
       @sass_options ||= options.merge(:filename => name, :syntax => :scss, :importer => self)
     end
 
+    # Returns the mtime of all image files combined
     def mtime
       Compass.quick_cache("mtime:#{uri}") do
         files.collect { |file| File.mtime(file) }.max
       end
     end
-
+    
+    # Returns a Sass::Engine for this sprite object
     def sass_engine
       Sass::Engine.new(content_for_images, options)
     end
@@ -45,6 +52,7 @@ module Compass
       @path, @name = $1, $3
     end
 
+    # Generates the Sass for this sprite file
     def content_for_images(skip_overrides = false)
       <<-SCSS
 @import "compass/utilities/sprites/base";
@@ -94,7 +102,11 @@ $#{name}-prefix: '' !default;
 }
 SCSS
     end
-
+    
+    # Generates the override defaults for this Sprite
+    # <tt>$#{name}-#{sprite_name}-position </tt>
+    # <tt> $#{name}-#{sprite_name}-spacing </tt>
+    # <tt> #{name}-#{sprite_name}-repeat: </tt>
     def generate_overrides
       content = <<-TXT
 // These variables control the generated sprite output

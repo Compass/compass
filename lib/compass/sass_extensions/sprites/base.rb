@@ -2,6 +2,10 @@ module Compass
   module SassExtensions
     module Sprites
       class Base < Sass::Script::Literal
+        
+        
+        # Initialize a new aprite object from a relative file path
+        # the path is relative to the <tt>images_path</tt> confguration option
         def self.from_uri(uri, context, kwargs)
           sprite_map = ::Compass::SpriteMap.new(uri.value, {})
 
@@ -10,7 +14,8 @@ module Compass
           end
           new(sprites, sprite_map.path, sprite_map.name, context, kwargs)
         end
-
+        
+        # Loads the sprite engine
         def require_engine!
           self.class.send(:include, eval("::Compass::SassExtensions::Sprites::#{modulize}Engine"))
         end
@@ -41,13 +46,15 @@ module Compass
       
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
+        # Calculates the height
         def compute_image_metadata!
           @width = 0
           init_images
           compute_image_positions!
           @height = @images.last.top + @images.last.height
         end
-
+        
+        # Creates the Sprite::Image objects for each image and calculates the width
         def init_images
           @images = image_names.collect do |relative_file|
             image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, options)
@@ -66,27 +73,34 @@ module Compass
             image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
           end
         end
-
+        
+        # Fetches the Sprite::Image object for the supplied name
         def image_for(name)
           @images.detect { |img| img.name == name}
         end
         
+        # Returns true if the image name has a hover selector image
         def has_hover?(name)
           !image_for("#{name}_hover").nil?
         end
         
+        # Returns true if the image name has a target selector image
         def has_target?(name)
           !image_for("#{name}_target").nil?
         end
         
+        # Returns true if the image name has an active selector image
         def has_active?(name)
           !image_for("#{name}_active").nil?
         end
         
+        # Return and array of image names that make up this sprite
         def sprite_names
           image_names.map { |f| File.basename(f, '.png') }
         end
 
+
+        # Validates that the sprite_names are valid sass
         def validate!
           for sprite_name in sprite_names
             unless sprite_name =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
@@ -108,11 +122,13 @@ module Compass
             Compass.configuration.run_callback(:sprite_generated, sprite_data)
           end
         end
-
+        
+        # Does this sprite need to be generated
         def generation_required?
           !File.exists?(filename) || outdated?
         end
 
+        # Returns the uniqueness hash for this sprite object
         def uniqueness_hash
           @uniqueness_hash ||= begin
             sum = Digest::MD5.new
@@ -128,6 +144,7 @@ module Compass
           @uniqueness_hash
         end
 
+        # Saves the sprite engine
         def save!(output_png)
           saved = output_png.save filename
           Compass.configuration.run_callback(:sprite_saved, filename)
@@ -147,6 +164,7 @@ module Compass
           true
         end
 
+        # Mtime of the sprite file
         def mtime
           File.mtime(filename)
         end
