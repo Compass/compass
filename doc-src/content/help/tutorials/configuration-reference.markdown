@@ -271,6 +271,11 @@ later on.
     <td style="vertical-align:top;">String </td>
     <td style="vertical-align:top;">The relative http path to font files on the web server.</td>
   </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sprite_engine</code> </td>
+    <td style="vertical-align:top;">Symbol </td>
+    <td style="vertical-align:top;">Defaults to <code>:chunky_png</code></td>
+  </tr>
 </table>
 
 ## Configuration Functions
