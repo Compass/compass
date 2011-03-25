@@ -5,7 +5,7 @@ module Compass
         ACTIVE = %r{[_-]active$}
         TARGET = %r{[_-]target$}
         HOVER = %r{[_-]hover$}
-        PARENT = %r{(.+)_(.+)$}
+        PARENT = %r{(.+)[-_](.+)$}
         
         attr_reader :relative_file, :options, :base
         attr_accessor :top, :left
