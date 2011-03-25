@@ -5,7 +5,15 @@ describe Compass::SassExtensions::Sprites::Image do
   let(:sprite_filename) { 'squares/ten-by-ten.png' }
   let(:sprite_path) { File.join(images_src_path, sprite_filename) }
   let(:sprite_name) { File.basename(sprite_filename, '.png') }
-  let(:image) { self.class.describes.new(nil, File.join(sprite_filename), options)}
+  let(:parent) do
+    mock
+  end
+  before do
+    parent.stubs(:image_for).with('ten-by-ten').returns(image)
+    parent.stubs(:image_for).with('ten-by-ten_hover').returns(hover_image)
+  end
+  let(:image) { self.class.describes.new(parent, File.join(sprite_filename), options)}
+  let(:hover_image) { self.class.describes.new(parent, File.join('selectors/ten-by-ten_hover.png'), options)}
   let(:digest) { Digest::MD5.file(sprite_path).hexdigest }
   subject { image }
 
@@ -34,7 +42,18 @@ describe Compass::SassExtensions::Sprites::Image do
     options.stubs(:get_var).with(get_var_expects).returns(get_var_return)
     options
   }
-
+  
+  describe '#parent' do
+    context '_hover' do
+      subject { hover_image }
+      its(:parent) { should == image }
+    end
+    context 'no parent' do
+      subject { image }
+      its(:parent) { should be_nil }
+    end
+  end
+  
   describe '#repeat' do
     let(:type) { nil }
     let(:get_var_return) { OpenStruct.new(:value => type) }

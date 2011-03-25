@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
-
+  VALID_SELECTORS = %w(hover active target)
   # Provides a consistent interface for getting a variable in ruby
   # from a keyword argument hash that accounts for underscores/dash equivalence
   # and allows the caller to pass a symbol instead of a string.
@@ -66,32 +66,26 @@ module Compass::SassExtensions::Functions::Sprites
   end
   Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
 
-  # Returns boolean is sprite image has a hover selector
-  def sprite_has_hover(map, sprite)
-    verify_map(map)
-    verify_sprite(sprite)
-    Sass::Script::Bool.new map.has_hover?(sprite)
+  # Returns voolean if sprite has a parent
+  def sprite_does_not_have_parent(map, sprite)
+    verify_map map
+    verify_sprite sprite
+    Sass::Script::Bool.new map.image_for(sprite.value).parent.nil?
   end
   
-  Sass::Script::Functions.declare :sprite_has_hover, [:map, :sprite]
+  Sass::Script::Functions.declare :sprite_does_not_have_parent, [:map, :sprite]
 
-  # Returns boolean is sprite image has a target selector
-  def sprite_has_target(map, sprite)
-    verify_map(map)
-    verify_sprite(sprite)
-     Sass::Script::Bool.new map.has_target?(sprite)
+  # Returns boolean if sprite has the selector
+  def sprite_has_selector(map, sprite, selector)
+    verify_map map
+    verify_sprite sprite
+    unless VALID_SELECTORS.include?(selector.value)
+      raise Sass::SyntaxError, "Invalid Selctor did you mean one of: #{VALID_SELECTORS.join(', ')}"
+    end
+    Sass::Script::Bool.new map.send(:"has_#{selector.value}?", sprite)
   end
   
-  Sass::Script::Functions.declare :sprite_has_target, [:map, :sprite]
-  
-  # Returns boolean is sprite image has a active selector
-  def sprite_has_active(map, sprite)
-    verify_map(map)
-    verify_sprite(sprite)
-     Sass::Script::Bool.new map.has_active?(sprite)
-  end
-  
-  Sass::Script::Functions.declare :sprite_has_active, [:map, :sprite]
+  Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
 
 
   # Returns a url to the sprite image.

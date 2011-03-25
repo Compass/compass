@@ -24,6 +24,19 @@
   }
 }
 
+// Include the selectors for the `$sprite` given the `$map` and the 
+// `$full-sprite-name`
+// @private
+@mixin sprite_selectors($map, $sprite-name, $full-sprite-name) {
+  @each $selector in $sprite-selectors {
+    @if sprite_has_selector($map, $sprite-name, $selector) {
+      .#{$full-sprite-name}:#{$selector}, .#{$full-sprite-name}_#{$selector}, .#{$full-sprite-name}-#{$selector} {
+        @include sprite($map, "#{$sprite-name}_#{$selector}");
+      }
+    }
+  }
+}
+
 // Generates a class for each space separated name in `$sprite-names`.
 // The class will be of the form .<map-name>-<sprite-name>.
 //
@@ -32,25 +45,13 @@
 // If `$dimensions` is `true`, the sprite dimensions will specified.
 @mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false, $prefix: sprite-map-name($map)) {
   @each $sprite-name in $sprite-names {
-    $full-sprite-name: if($prefix and $prefix != "", "#{$prefix}-#{$sprite-name}", $sprite-name);
-    .#{$full-sprite-name} {
-      @if sprite_has_hover($map, $sprite-name) {
-        &:hover {
-          @include sprite($map, "#{$sprite-name}_hover")
-        }
+    @if sprite_does_not_have_parent($map, $sprite-name) {
+      $full-sprite-name: "#{$prefix}-#{$sprite-name}";
+      .#{$full-sprite-name} {
+        @if $base-class { @extend #{$base-class}; }
+        @include sprite($map, $sprite-name, $dimensions);
       }
-      @if sprite_has_target($map, $sprite-name) {
-        &:target {
-          @include sprite($map, "#{$sprite-name}_target")
-        }
-      }
-      @if sprite_has_active($map, $sprite-name) {
-        &:active {
-          @include sprite($map, "#{$sprite-name}_active")
-        }
-      }
-      @if $base-class { @extend #{$base-class}; }
-      @include sprite($map, $sprite-name, $dimensions);
+      @include sprite_selectors($map, $sprite-name, $full-sprite-name);
     }
   }
 }

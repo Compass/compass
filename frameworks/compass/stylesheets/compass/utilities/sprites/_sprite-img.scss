@@ -24,6 +24,8 @@ $sprite-image-default-width: $sprite-default-size !default;
 
 $sprite-image-default-height: $sprite-default-size !default;
 
+$sprite-selectors: hover, target, active !default;
+
 // Sets all the rules for a sprite from a given sprite image to show just one of the sprites.
 // To reduce duplication use a sprite-bg mixin for common properties and a sprite-select mixin for positioning.
 @mixin sprite-img($img, $col, $row: 1, $width: $sprite-image-default-width, $height: $sprite-image-default-height, $margin: $sprite-default-margin) {

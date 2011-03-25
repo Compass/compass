@@ -67,7 +67,7 @@ module Compass
         
         # Has hover selector
         def hover?
-          base.has_hover?(name)
+          name[-6..-1] == '_hover'
         end
         
         # Hover selector Image object if exsists
@@ -77,7 +77,7 @@ module Compass
         
         # Has target selector
         def target?
-          base.has_target?(name)
+          name[-7..-1] == '_target'
         end
         
         # Target selector Image object if exsists
@@ -87,13 +87,22 @@ module Compass
         
         # Has active selector
         def active?
-          base.has_active?(name)
+          name[-7..-1] == '_active'
         end
         
         # Active selector Image object if exsists
         def active
           base.image_for("#{name}_active")
         end
+        
+        
+        def parent
+          if [hover?, target?, active?].any?
+            %r{(.+)_(.+)$}.match name
+            base.image_for($1)
+          end
+        end
+        
                 
         private
           def dimensions
