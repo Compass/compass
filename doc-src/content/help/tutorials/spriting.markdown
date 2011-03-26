@@ -52,6 +52,7 @@ simple naming convention for your sprites so that you they are easy to remember 
 should never have to care what the is name of the generated sprite map, nor where a sprite
 is located within it.
 
+<a name="selector-control"></a>
 ## Selector Control
 
 If you want control over what selectors are generated, it is easy to do. In this example,
