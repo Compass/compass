@@ -42,7 +42,10 @@ describe Compass::SpriteMap do
 
     its(:sass_options) { should == options.merge(:filename => name, :syntax => :scss, :importer => sprite_map) }
 
-    its(:mtime) { should == mtime }
+
+    it "should have a correct mtime" do
+      puts sprite_map.mtime(uri, subject.sass_options)
+    end
 
     it "should have a test for the sass engine" do
       pending 'sass'

@@ -2,6 +2,11 @@ module Compass
   class SpriteMap
     attr_reader :uri, :options
 
+
+    def find_relative(*args)
+      nil
+    end
+
     def initialize(uri, options)
       @uri, @options = uri, options
     end
@@ -27,29 +32,27 @@ module Compass
     def sprite_names
       @sprite_names ||= files.collect { |file| File.basename(file, '.png') }
     end
-
+    
     # Returns the sass options for this sprite
     def sass_options
       @sass_options ||= options.merge(:filename => name, :syntax => :scss, :importer => self)
     end
-
-    # Returns the mtime of all image files combined
-    def mtime
-      Compass.quick_cache("mtime:#{uri}") do
-        files.collect { |file| File.mtime(file) }.max
-      end
-    end
     
     # Returns a Sass::Engine for this sprite object
     def sass_engine
-      Sass::Engine.new(content_for_images, options)
+      Sass::Engine.new(content_for_images, sass_options)
+    end
+    
+    def ensure_path_and_name!
+      @path, @name = Compass::Sprites.path_and_name(uri)
+    end
+    
+    def key(uri, options)
+      Compass::Sprites.key(uri)
     end
 
-    private
-    def ensure_path_and_name!
-      return if @path && @name
-      uri =~ %r{((.+/)?(.+))/(.+?)\.png}
-      @path, @name = $1, $3
+    def mtime(uri, options)
+      Compass::Sprites.mtime(uri, options)
     end
 
     # Generates the Sass for this sprite file
