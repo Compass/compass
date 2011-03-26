@@ -1,7 +1,6 @@
 module Compass
   class Sprites < Sass::Importers::Base
     attr_accessor :name, :path
-    @maps = {}
     
     def self.path_and_name(uri)
       if uri =~ %r{((.+/)?(.+))/(.+?)\.png}
@@ -18,8 +17,9 @@ module Compass
     end
   
     def self.load_map(uri, options)
-      key = self.key(uri, options)
-      @maps[key] ||= SpriteMap.new(uri, options)
+      Compass.quick_cache("spritemap:#{uri}", 50) do
+        SpriteMap.new(uri, options)
+      end
     end
   
   
