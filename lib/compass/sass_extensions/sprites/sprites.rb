@@ -1,27 +1,25 @@
 module Compass
   class Sprites < Sass::Importers::Base
     attr_accessor :name, :path
-    @@maps = {}
-    class << self
-      
-      def path_and_name(uri)
-        if uri =~ %r{((.+/)?(.+))/(.+?)\.png}
-          [$1, $3, $4]
-        end
+    @maps = {}
+    
+    def self.path_and_name(uri)
+      if uri =~ %r{((.+/)?(.+))/(.+?)\.png}
+        [$1, $3, $4]
       end
+    end
 
-      def discover_sprites(uri)
-        self.load_map(uri, options).files
-      end
+    def self.discover_sprites(uri)
+      self.load_map(uri, options).files
+    end
 
-      def sprite_name(file)
-        File.basename(file, '.png')
-      end
+    def self.sprite_name(file)
+      File.basename(file, '.png')
     end
   
     def self.load_map(uri, options)
       key = self.key(uri, options)
-      @@maps[key] ||= SpriteMap.new(uri, options)
+      @maps[key] ||= SpriteMap.new(uri, options)
     end
   
   
