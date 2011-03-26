@@ -17,7 +17,7 @@ module Compass
     end
   
     def self.load_map(uri, options)
-      Compass.quick_cache("spritemap:#{uri}", 50) do
+      Compass.quick_cache("spritemap:#{uri}", 5) do
         SpriteMap.new(uri, options)
       end
     end
