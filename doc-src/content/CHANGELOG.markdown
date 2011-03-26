@@ -21,6 +21,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 [Magic Selectors](/help/tutorials/spriting/#magic-selectors) have been added
 
+Fixed a bug causing a stack level too deep in ruby 1.8.7
+
 0.11.beta.4 (03/25/2011)
 ------------------------
 

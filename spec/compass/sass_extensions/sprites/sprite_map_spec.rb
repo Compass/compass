@@ -44,7 +44,7 @@ describe Compass::SpriteMap do
 
 
     it "should have a correct mtime" do
-      puts sprite_map.mtime(uri, subject.sass_options)
+      sprite_map.mtime(uri, subject.sass_options).should == mtime
     end
 
     it "should have a test for the sass engine" do
