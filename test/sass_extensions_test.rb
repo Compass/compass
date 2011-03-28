@@ -87,6 +87,7 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "true", evaluate("blank('')")
     assert_equal "true", evaluate("blank(' ')")
     assert_equal "true", evaluate("blank(-compass-space-list(' '))")
+    assert_equal " ", evaluate("-css2(transparent linear-gradient(#fff,#000))")
   end
 
 protected

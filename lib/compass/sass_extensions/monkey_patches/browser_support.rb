@@ -92,4 +92,22 @@ module Sass::Script
     end
   end
 
+  class String < Literal
+    def supports?(aspect)
+      aspect == "css2" && value == "transparent" && type == :identifier 
+    end
+
+    def has_aspect?
+      true
+    end
+
+    def to_css2(options = self.options)
+      if value == "transparent" && type == :identifier
+        Sass::Script::String.new("")
+      else
+        dup
+      end
+    end
+  end
+
 end
