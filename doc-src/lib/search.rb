@@ -66,7 +66,7 @@ def search_index
       # puts "Indexed: #{term}"
     end
     idx["items"][id] = {
-      "url" => "/docs#{item.identifier}",
+      "url" => "#{item.identifier}",
       "title" => item[:title],
       "crumb" => item[:crumb]
     }
