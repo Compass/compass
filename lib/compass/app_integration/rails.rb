@@ -21,13 +21,19 @@ module Compass
       end
 
       def env
-        if rails_env = (defined?(::Rails) ? ::Rails.env : (defined?(RAILS_ENV) ? RAILS_ENV : nil))
-          rails_env.production? ? :production : :development
+        env_production? ? :production : :development
+      end
+
+      def env_production?
+        if defined?(::Rails) && ::Rails.respond_to?(:env)
+          ::Rails.env.production?
+        elsif defined?(RAILS_ENV)
+          RAILS_ENV == "production"
         end
       end
 
       def root
-        if defined?(::Rails)
+        if defined?(::Rails) && ::Rails.respond_to?(:root)
           ::Rails.root
         elsif defined?(RAILS_ROOT)
           RAILS_ROOT
