@@ -91,9 +91,7 @@ module Compass::SassExtensions::Functions::Urls
       if cache_buster.is_a?(Sass::Script::String)
         path += "?#{cache_buster.value}"
       else
-        if buster = compute_cache_buster(path, real_path)
-          path += "?#{buster}"
-        end
+        path = cache_busted_path(path, real_path)
       end
     end
 
@@ -134,6 +132,17 @@ module Compass::SassExtensions::Functions::Urls
   def compute_relative_path(path)
     if (target_css_file = options[:css_filename])
       Pathname.new(path).relative_path_from(Pathname.new(File.dirname(target_css_file))).to_s
+    end
+  end
+
+  def cache_busted_path(path, real_path)
+    cache_buster = compute_cache_buster(path, real_path)
+    if cache_buster.nil?
+      path
+    elsif cache_buster =~ %r{/}
+      cache_buster
+    else
+      "%s?%s" % [path, cache_buster]
     end
   end
 
