@@ -83,9 +83,7 @@ module Compass::SassExtensions::Functions::Urls
     end
 
     # Compute and append the cache buster if there is one.
-    if buster = compute_cache_buster(path, real_path)
-      path += "?#{buster}"
-    end
+    path = cache_busted_path(path, real_path)
 
     # prepend the asset host if there is one.
     path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
@@ -121,6 +119,15 @@ module Compass::SassExtensions::Functions::Urls
   def compute_relative_path(path)
     if (target_css_file = options[:css_filename])
       Pathname.new(path).relative_path_from(Pathname.new(File.dirname(target_css_file))).to_s
+    end
+  end
+
+  def cache_busted_path(path, real_path)
+    cache_buster = compute_cache_buster(path, real_path)
+    if cache_buster =~ %r{/} # path info
+      cache_buster
+    else
+      "%s?%s" % [path, cache_buster]
     end
   end
 
