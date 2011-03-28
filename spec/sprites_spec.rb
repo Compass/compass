@@ -480,16 +480,40 @@ describe Compass::Sprites do
       .selectors-ten-by-ten {
         background-position: 0 0;
       }
-      
-      .selectors-ten-by-ten:hover, .selectors-ten-by-ten_hover, .selectors-ten-by-ten-hover {
+      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
         background-position: 0 -20px;
       }
-      
-      .selectors-ten-by-ten:target, .selectors-ten-by-ten_target, .selectors-ten-by-ten-target {
+      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
         background-position: 0 -30px;
       }
+      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
+        background-position: 0 -10px;
+      }
+    CSS
+  end
+
+  it "should render corret sprite with css selectors via magic mixin" do
+    css = render <<-SCSS
+      @import "selectors/*.png";
+      a {
+        @include selectors_sprite(ten-by-ten)
+      }
+    SCSS
+    css.should == <<-CSS
+      .selectors-sprite, a {
+        background: url('/selectors-edfef809e2.png') no-repeat;
+      }
       
-      .selectors-ten-by-ten:active, .selectors-ten-by-ten_active, .selectors-ten-by-ten-active {
+      a {
+        background-position: 0 0;
+      }
+      a:hover, a.ten-by-ten_hover, a.ten-by-ten-hover {
+        background-position: 0 -20px;
+      }
+      a:target, a.ten-by-ten_target, a.ten-by-ten-target {
+        background-position: 0 -30px;
+      }
+      a:active, a.ten-by-ten_active, a.ten-by-ten-active {
         background-position: 0 -10px;
       }
     CSS
