@@ -82,7 +82,7 @@ module Compass::SassExtensions::Functions::Urls
       Compass.configuration.asset_host.call(path)
     end
 
-    # Compute and append the cache buster if there is one.
+    # Compute and use the cache buster if there is one.
     path = cache_busted_path(path, real_path)
 
     # prepend the asset host if there is one.
