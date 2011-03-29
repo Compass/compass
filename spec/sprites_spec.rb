@@ -496,7 +496,7 @@ describe Compass::Sprites do
     css = render <<-SCSS
       @import "selectors/*.png";
       a {
-        @include selectors_sprite(ten-by-ten)
+        @include selectors-sprite(ten-by-ten)
       }
     SCSS
     css.should == <<-CSS
@@ -517,6 +517,18 @@ describe Compass::Sprites do
         background-position: 0 -10px;
       }
     CSS
+  end
+  
+  it "should raise error on filenames that are not valid sass syntax" do
+    lambda do
+      render <<-SCSS
+        $sprite-file-prefix:'foo';
+        @import "prefix/*.png";
+        a {
+          @include squares-sprite(20-by-20)
+        }
+      SCSS
+    end.should raise_error Compass::Error
   end
 
 end

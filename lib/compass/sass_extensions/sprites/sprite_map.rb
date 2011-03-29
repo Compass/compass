@@ -1,7 +1,7 @@
 module Compass
   class SpriteMap
     attr_reader :uri, :options
-
+    VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
 
     def find_relative(*args)
       nil
@@ -30,7 +30,13 @@ module Compass
 
     # Returns an Array of image names without the file extension
     def sprite_names
-      @sprite_names ||= files.collect { |file| File.basename(file, '.png') }
+      @sprite_names ||= files.collect do |file|
+        filename = File.basename(file, '.png')
+        unless VAILD_FILE_NAME =~ filename
+          raise Compass::Error, "Sprite file names must be legal css identifiers. Please rename #{File.basename(file)}"
+        end
+        filename
+      end
     end
     
     # Returns the sass options for this sprite
