@@ -37,12 +37,18 @@ describe Compass::Commands::Sprite do
   end
   after :each do
     clean_up_sprites
-    FileUtils.rm_r @test_dir if File.exists?(@test_dir)
+    if File.exists?(@test_dir)
+      ::FileUtils.rm_r @test_dir
+    end
   end
   
   it "should create sprite file" do
-    puts run_compass_with_options(['sprite', "-f", "stylesheet.scss", "'#{@images_tmp_path}/*.png'"]).inspect
+    run_compass_with_options(['sprite', "-f", "stylesheet.scss", "'#{@images_tmp_path}/*.png'"]).to_i.should == 0
     File.exists?(File.join(test_dir, 'stylesheet.scss')).should be_true
+  end
+  
+  it "should fail gracfuly when giving bad arguments" do
+    pending
   end
   
   

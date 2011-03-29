@@ -9,7 +9,7 @@ module Compass
     end
 
     def self.discover_sprites(uri)
-      self.load_map(uri, options).files
+      self.load_map(uri, {}).files
     end
 
     def self.sprite_name(file)

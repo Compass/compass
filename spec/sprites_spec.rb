@@ -4,16 +4,14 @@ require 'digest/md5'
 describe Compass::Sprites do
 
   before :each do
-    @images_src_path = File.join(File.dirname(__FILE__), 'test_project', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), 'test_project', 'public', 'images-tmp')
-    ::FileUtils.cp_r @images_src_path, @images_tmp_path
+    create_sprite_temp
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
   end
 
   after :each do
-    FileUtils.rm_r @images_tmp_path
+    clean_up_sprites
   end
 
   def map_location(file)
@@ -75,7 +73,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/images/squares-161c60ad78.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -98,7 +96,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/images/squares-161c60ad78.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -130,7 +128,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .cubicle, .large-cube {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/images/squares-161c60ad78.png') no-repeat;
       }
       
       .cubicle {
@@ -155,7 +153,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .circles {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/images/squares-161c60ad78.png') no-repeat;
       }
     CSS
     image_size('squares-*.png').should == [20, 30]
@@ -169,7 +167,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-89450808af.png') no-repeat;
+        background: url('/images/squares-89450808af.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -191,7 +189,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-673837183a.png') no-repeat;
+        background: url('/images/squares-673837183a.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -214,7 +212,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-1cd84c9068.png') no-repeat;
+        background: url('/images/squares-1cd84c9068.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -237,7 +235,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-f25b7090ca.png') no-repeat;
+        background: url('/images/squares-f25b7090ca.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -259,7 +257,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-d66bf24bab.png') no-repeat;
+        background: url('/images/squares-d66bf24bab.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -294,7 +292,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite {
-        background: url('/squares-8e490168dd.png') no-repeat;
+        background: url('/images/squares-8e490168dd.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -332,7 +330,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .adjusted-percentage, .adjusted-px-1, .adjusted-px-2 {
-        background: url('/squares-8e490168dd.png') no-repeat;
+        background: url('/images/squares-8e490168dd.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -359,7 +357,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-a5550fd132.png') no-repeat;
+        background: url('/images/squares-a5550fd132.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -383,7 +381,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-89a274044e.png') no-repeat;
+        background: url('/images/squares-89a274044e.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -435,7 +433,7 @@ describe Compass::Sprites do
     SCSS
     actual_css.should == <<-CSS
       .squares {
-        background: url('/squares-145869726f.png') 0 -10px no-repeat;
+        background: url('/images/squares-145869726f.png') 0 -10px no-repeat;
       }
     CSS
   end
@@ -454,7 +452,7 @@ describe Compass::Sprites do
     image_size('squares-*.png').should == [20, 40]
     css.should == <<-CSS
       .squares-sprite {
-        background: url('/squares-e3c68372d9.png') no-repeat;
+        background: url('/images/squares-e3c68372d9.png') no-repeat;
       }
       
       .foo {
@@ -474,7 +472,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .selectors-sprite, .selectors-ten-by-ten {
-        background: url('/selectors-edfef809e2.png') no-repeat;
+        background: url('/images/selectors-edfef809e2.png') no-repeat;
       }
       
       .selectors-ten-by-ten {
@@ -501,7 +499,7 @@ describe Compass::Sprites do
     SCSS
     css.should == <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-edfef809e2.png') no-repeat;
+        background: url('/images/selectors-edfef809e2.png') no-repeat;
       }
       
       a {

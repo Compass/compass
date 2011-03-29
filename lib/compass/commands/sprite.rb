@@ -38,14 +38,11 @@ module Compass
       end
 
       def perform
-        sprites = Compass::Sprites.new
         relative_uri = options[:uri].gsub(/^#{Compass.configuration.images_dir}\//, '')
-        sprite_images = Compass::Sprites.discover_sprites(relative_uri)
-        image_names = sprite_images.map{|i| File.basename(i, '.png')}
-        sprites.path, sprites.name = Compass::Sprites.path_and_name(relative_uri)
+        sprites = Compass::SpriteMap.new(relative_uri, Compass.sass_engine_options)
         options[:output_file] ||= File.join(Compass.configuration.sass_path, "sprites", "_#{sprites.name}.#{Compass.configuration.preferred_syntax}")
         options[:skip_overrides] ||= false
-        contents = sprites.content_for_images(relative_uri, sprites.name, image_names, options[:skip_overrides])
+        contents = sprites.content_for_images(options[:skip_overrides])
         if options[:output_file][-4..-1] != "scss"
           contents = Sass::Engine.new(contents, Compass.sass_engine_options.merge(:syntax => :scss)).to_tree.to_sass
         end
