@@ -25,7 +25,7 @@ task :watch do
 
   rebuild_site = lambda do |base, relative|
     if relative && relative =~ /\.s[ac]ss/
-      puts ">>> Change Detected to #{relative} : updating stylsheets <<<"
+      puts ">>> Change Detected to #{relative} : updating stylesheets <<<"
       system "bundle exec compass compile"
     else
       if !relative
