@@ -14,7 +14,11 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.beta.5 (UNRELEASED)
+0.11.beta.6 (3/27/2011)
+------------------------
+* Added opera prefix support for linear and radial gradients.
+
+0.11.beta.5 (03/27/2011)
 ------------------------
 
 ### Compass Sprites

@@ -89,6 +89,12 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "true", evaluate("blank(-compass-space-list(' '))")
   end
 
+  def test_css2_fallback
+    assert_equal "css3", evaluate("css2-fallback(css3, css2)")
+    assert_equal "css2", evaluate("-css2(css2-fallback(css3, css2))")
+    assert_equal "true", evaluate("prefixed(-css2, css2-fallback(css3, css2))")
+  end
+
 protected
   def evaluate(value)
     Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s

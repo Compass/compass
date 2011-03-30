@@ -1,4 +1,31 @@
 module Compass::SassExtensions::Functions::CrossBrowserSupport
+
+  class CSS2FallbackValue < Sass::Script::Literal
+    attr_accessor :value, :css2_value
+    def children
+      [value, css2_value]
+    end
+    def initialize(value, css2_value)
+      self.value = value
+      self.css2_value = css2_value
+    end
+    def inspect
+      to_s
+    end
+    def to_s(options = self.options)
+      value.to_s(options)
+    end
+    def supports?(aspect)
+      aspect == "css2"
+    end
+    def has_aspect?
+      true
+    end
+    def to_css2(options = self.options)
+      css2_value
+    end
+  end
+
   # Check if any of the arguments passed require a vendor prefix.
   def prefixed(prefix, *args)
     aspect = prefix.value.sub(/^-/,"")
@@ -34,6 +61,10 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
         object
       end
     end
+  end
+
+  def css2_fallback(value, css2_value)
+    CSS2FallbackValue.new(value, css2_value)
   end
 
 end

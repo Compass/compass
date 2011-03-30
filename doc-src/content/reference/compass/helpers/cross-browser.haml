@@ -112,3 +112,14 @@ documented_functions:
       It is a kind of hack to sanitize the output of experimental code
       into a form that can be parsed by a css2.1 compliant parser.
       Usually this results in causing some functions to be omitted.
+#css2-fallback.helper
+  %h3
+    %a(href="#css2-fallback")
+      css2-fallback(<span class="arg">$value</span>, <span class="arg">$css2-value</span>)
+  .details
+    %p
+      This function returns a value that is normally <code>$value<code>,
+      but is <code>$css2-value</code> when passed through the <code>-css2()</code>
+      helper function. Many of the compass css3 mixins will create a css2 fallback
+      value if the arguments have a css2 representation (gradients have a null css2
+      representation).
