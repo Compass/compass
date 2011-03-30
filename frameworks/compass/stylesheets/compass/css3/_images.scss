@@ -21,6 +21,7 @@
   @if $experimental-support-for-svg     and prefixed(-svg,    $backgrounds)               {       background:    -svg($backgrounds); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $backgrounds)               {       background: -webkit($backgrounds); }
   @if $experimental-support-for-mozilla and prefixed(-moz,    $backgrounds)               {       background:    -moz($backgrounds); }
+  @if $experimental-support-for-opera   and prefixed(-o,      $backgrounds)               {       background:      -o($backgrounds); }
   @if $experimental-support-for-pie     and (prefixed(-pie,   $backgrounds) or $mult-bgs) {  -pie-background:    -pie($backgrounds); }
                                                                                                   background:         $backgrounds;
 }
@@ -43,7 +44,8 @@
   @if $experimental-support-for-svg     and prefixed(-svg,    $images) { background-image:    -svg($images); background-size: 100%; }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $images) { background-image: -webkit($images); }
   @if $experimental-support-for-mozilla and prefixed(-moz,    $images) { background-image:    -moz($images); }
-  @if $experimental-support-for-pie     and (prefixed(-pie,    $images) or -compass-list-size($images) > 1) { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
+  @if $experimental-support-for-opera   and prefixed(-o,      $images) { background-image:      -o($images); }
+  @if $experimental-support-for-pie     and (prefixed(-pie,   $images) or -compass-list-size($images) > 1) { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
                                                                          background-image:         $images ;
 }
 
@@ -67,6 +69,7 @@
 @mixin border-image($value) {
   @if $experimental-support-for-mozilla {    -moz-border-image:    -moz(-compass-list($value)); }
   @if $experimental-support-for-webkit  { -webkit-border-image: -webkit(-compass-list($value)); }
+  @if $experimental-support-for-opera   {      -o-border-image:      -o(-compass-list($value)); }
   @if $experimental-support-for-svg     {         border-image:    -svg(-compass-list($value)); }
                                                   border-image:                       $value;
 }
@@ -75,6 +78,7 @@
 @mixin list-style-image($image) {
   @if $experimental-support-for-mozilla and prefixed(-moz,    $image) { list-style-image:    -moz($image); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $image) { list-style-image: -webkit($image); }
+  @if $experimental-support-for-opera   and prefixed(-o,      $image) { list-style-image:      -o($image); }
   @if $experimental-support-for-svg     and prefixed(-svg,    $image) { list-style-image:    -svg($image); }
                                                                         list-style-image:         $image ;
 }
@@ -84,6 +88,7 @@
   $value: -compass-list($value);
   @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { list-style-image:    -moz($value); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $value) { list-style-image: -webkit($value); }
+  @if $experimental-support-for-opera   and prefixed(-o,      $value) { list-style-image:      -o($value); }
   @if $experimental-support-for-svg     and prefixed(-svg,    $value) { list-style-image:    -svg($value); }
                                                                         list-style-image:         $value ;
 }
@@ -93,6 +98,7 @@
   $value: -compass-list($value);
   @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { content:    -moz($value); }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $value) { content: -webkit($value); }
+  @if $experimental-support-for-opera   and prefixed(-o,      $value) { content:      -o($value); }
   @if $experimental-support-for-svg     and prefixed(-svg,    $value) { content:    -svg($value); }
                                                                         content:         $value ;
 }

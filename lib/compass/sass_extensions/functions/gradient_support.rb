@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::GradientSupport
 
-  GRADIENT_ASPECTS = %w(webkit moz svg pie css2).freeze
+  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o).freeze
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
@@ -77,6 +77,9 @@ module Compass::SassExtensions::Functions::GradientSupport
     def to_moz(options = self.options)
       Sass::Script::String.new("-moz-#{to_s(options)}")
     end
+    def to_o(options = self.options)
+      Sass::Script::String.new("-o-#{to_s(options)}")
+    end
     def to_svg(options = self.options)
       # XXX Add shape support if possible
       radial_svg_gradient(color_stops, position_and_angle || _center_position)
@@ -127,6 +130,9 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_moz(options = self.options)
       Sass::Script::String.new("-moz-#{to_s(options)}")
+    end
+    def to_o(options = self.options)
+      Sass::Script::String.new("-o-#{to_s(options)}")
     end
     def to_svg(options = self.options)
       linear_svg_gradient(color_stops, position_and_angle || Sass::Script::String.new("top"))
