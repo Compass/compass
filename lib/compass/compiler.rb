@@ -30,7 +30,7 @@ module Compass
     end
 
     def stylesheet_name(sass_file)
-      sass_file[("#{from}/".length)..-6]
+      %r(#{from}\/(.+)\.(.+)).match(sass_file)[1]
     end
 
     def css_files
