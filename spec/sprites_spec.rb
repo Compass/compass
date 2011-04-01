@@ -520,13 +520,33 @@ describe Compass::Sprites do
   it "should raise error on filenames that are not valid sass syntax" do
     lambda do
       render <<-SCSS
-        $sprite-file-prefix:'foo';
         @import "prefix/*.png";
         a {
           @include squares-sprite(20-by-20)
         }
       SCSS
     end.should raise_error Compass::Error
+  end
+  
+  it "should generate sprite with bad repeat-x dimensions" do
+    css = render <<-SCSS
+      $ko-starbg26x27-repeat: repeat-x;
+      @import "ko/*.png";
+      @include all-ko-sprites;
+    SCSS
+    css.should == <<-CSS
+      .ko-sprite, .ko-default_background, .ko-starbg26x27 {
+        background: url('/ko-cc3f80660d.png') no-repeat;
+      }
+      
+      .ko-default_background {
+        background-position: 0 0;
+      }
+      
+      .ko-starbg26x27 {
+        background-position: 0 -128px;
+      }
+    CSS
   end
 
 end

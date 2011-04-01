@@ -17,10 +17,14 @@ module Compass
             if image.repeat == "no-repeat"
               output_png.replace! input_png, image.left, image.top
             else
-              x = image.left - (image.left / image.width).ceil * image.width
+              x = image.left - (image.left / image.width).floor * image.width
               while x < width do
-                output_png.replace! input_png, x, image.top
-                x += image.width
+                begin
+                  output_png.replace! input_png, x, image.top
+                  x += image.width 
+                rescue ChunkyPNG::OutOfBounds
+                  break;
+                end
               end
             end
           end

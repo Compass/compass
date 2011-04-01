@@ -18,5 +18,4 @@ gem 'autotest'
 gem 'fakefs', :git => 'git://github.com/johnbintz/fakefs.git'
 gem 'mocha'
 gem 'timecop'
-
 #gem 'rmagick'
