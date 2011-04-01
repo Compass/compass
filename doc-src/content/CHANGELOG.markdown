@@ -17,6 +17,12 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 0.11.beta.6 (3/27/2011)
 ------------------------
 * Added opera prefix support for linear and radial gradients.
+* The CSS3 `background` mixin's "simple" background that came
+  before the prefixed versions has been removed. If you
+  need to target css2 background it is recommended that you set a
+  the background property before calling the `background` mixin
+  or you can call the `background-with-css2-fallback` if you want
+  keep using compass's automatic simplification of the arguments.
 
 0.11.beta.5 (03/27/2011)
 ------------------------
