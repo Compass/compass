@@ -26,11 +26,15 @@ module Compass
     end
 
     def relative_stylesheet_name(sass_file)
-      sass_file[("#{from}/".length)..-1]
+      sass_file[(from.length + 1)..-1]
     end
 
     def stylesheet_name(sass_file)
-      sass_file.gsub(%r{#{from}/}, '')[0..-6]
+      if sass_file.index(from) == 0
+        sass_file[(from.length + 1)..-6]
+      else
+        raise Compass::Error, "You must compile individual stylesheets from the project directory."
+      end
     end
 
     def css_files
