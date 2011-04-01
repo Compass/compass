@@ -17,10 +17,8 @@ describe Compass::Commands::Sprite do
   
   def run_compass_with_options(options)
     output = 'foo'
-    ::Dir.chdir @test_dir do
-      output = Compass::Exec::SubCommandUI.new(options).run!
-    end
-    output
+    ::Dir.chdir @test_dir
+    %x{compass #{options.join(' ')}}
   end
   
   def options_to_cli(options)
@@ -29,6 +27,7 @@ describe Compass::Commands::Sprite do
   
   let(:test_dir) { @test_dir }  
   before :each do
+    @before_dir = ::Dir.pwd
     create_temp_cli_dir
     create_sprite_temp
     File.open(File.join(@test_dir, 'config.rb'), 'w') do |f|
@@ -36,6 +35,7 @@ describe Compass::Commands::Sprite do
     end
   end
   after :each do
+    ::Dir.chdir @before_dir
     clean_up_sprites
     if File.exists?(@test_dir)
       ::FileUtils.rm_r @test_dir
