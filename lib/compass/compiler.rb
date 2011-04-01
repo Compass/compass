@@ -7,7 +7,7 @@ module Compass
 
     def initialize(working_path, from, to, options)
       self.working_path = working_path
-      self.from, self.to = from, to
+      self.from, self.to = from.gsub('./', ''), to
       self.logger = options.delete(:logger)
       self.options = options
       self.options[:cache_location] ||= determine_cache_location
@@ -30,7 +30,7 @@ module Compass
     end
 
     def stylesheet_name(sass_file)
-      %r(#{from}\/(.+)\.(.+)).match(sass_file)[1]
+      sass_file.gsub(%r{#{from}/}, '')[0..-6]
     end
 
     def css_files
