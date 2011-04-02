@@ -5,9 +5,19 @@ body_id: install
 ---
 - content_for :javascripts do
   %script(src="/javascripts/install.js")
+  
+%h2 Installing Ruby  
 %p
   Compass runs on any computer that has
   <a href="http://www.ruby-lang.org/en/downloads/">ruby installed</a>.
+%p
+  For more advanced users you may want to install
+  <a href="http://rvm.beginrescueend.com/rvm/install/">rvm</a>.
+
+%h2 Setting up the ruby environment
+%ol
+  %li <code>$ gem update --system</code>
+  %li <code>$ gem install compass</code>
 
 %h2 Tell us about your project and we'll help you get it set up:
 %blockquote.madlib.customizable<
