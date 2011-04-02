@@ -1,5 +1,6 @@
 module Compass
   module Configuration
+    @callbacks_loaded = false
     # The helpers are available as methods on the Compass module. E.g. Compass.configuration
     module Helpers
       def configuration
@@ -65,14 +66,14 @@ module Compass
             Sass::Plugin.add_template_location sass_dir, css_dir
           end
         end
-        unless defined?(CallbacksSetup)
+        unless @callbacks_loaded
           Sass::Plugin.on_updating_stylesheet do |sass_file, css_file|
             Compass.configuration.run_callback(:stylesheet_saved, css_file)
           end
           Sass::Plugin.on_compilation_error do |e, filename, css|
             Compass.configuration.run_callback(:stylesheet_error, filename, e.message)
           end
-          const_set('CallbacksSetup', true)
+          @callbacks_loaded = true
         end
       end
 
