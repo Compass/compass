@@ -237,8 +237,8 @@ module Compass::SassExtensions::Functions::GradientSupport
       position_and_angle = nil if position_and_angle && !position_and_angle.to_bool
 
       # Support legacy use of the color-stops() function
-      if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
-        color_stops = color_stops.first.value
+      if color_stops.size == 1 && (stops = list_of_color_stops?(color_stops.first))
+        color_stops = stops
       end
       LinearGradient.new(position_and_angle, send(:color_stops, *color_stops))
     end
@@ -261,8 +261,8 @@ module Compass::SassExtensions::Functions::GradientSupport
         stop = pos.stop
         stop = stop.div(max).times(Sass::Script::Number.new(100,["%"])) if stop.numerator_units == max.numerator_units && max.numerator_units != ["%"]
         # Make sure the color stops are specified in the right order.
-        if last_value && last_value.value > stop.value
-          raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
+        if last_value && stop.numerator_units == last_value.numerator_units && stop.denominator_units == last_value.denominator_units && stop.value < last_value.value
+          raise Sass::SyntaxError.new("Color stops must be specified in increasing order. #{stop.value} came after #{last_value.value}.")
         end
         last_value = stop
         [stop, pos.color]
@@ -392,7 +392,11 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
     def list_of_color_stops?(arg)
-      arg.value.is_a?(Array) && arg.value.all?{|a| a.is_a?(ColorStop)}
+      if arg.respond_to?(:value)
+        arg.value.is_a?(Array) && arg.value.all?{|a| color_stop?(a)} ? arg.value : nil
+      elsif arg.is_a?(Array)
+        arg.all?{|a| color_stop?(a)} ? arg : nil
+      end
     end
 
     def linear_svg(color_stops, x1, y1, x2, y2)
