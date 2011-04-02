@@ -1,0 +1,13 @@
+@import "flag/*.png";
+
+$flag-sprite-dimensions: true;
+
+#flags {
+  @each $flag in us au ca es eg ly {
+    .#{$flag} {
+      @include flag-sprite($flag);
+    }
+  }
+}
+
+@include all-flag-sprites;

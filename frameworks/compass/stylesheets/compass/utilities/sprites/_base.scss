@@ -1,3 +1,6 @@
+// Determines those states for which you want to enable magic sprite selectors
+$sprite-selectors: hover, target, active !default;
+
 // Set the width and height of an element to the original
 // dimensions of an image before it was included in the sprite.
 @mixin sprite-dimensions($map, $sprite) {
