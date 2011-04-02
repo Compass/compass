@@ -24,7 +24,8 @@ Each is an icon that is 32px square.
 
 ## Basic Usage
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
-
+    
+    @import "compass/utilities/sprites";
     @import "icon/*.png";
     @include all-icon-sprites;
 
