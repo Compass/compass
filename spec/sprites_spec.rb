@@ -522,12 +522,12 @@ describe Compass::Sprites do
       render <<-SCSS
         @import "prefix/*.png";
         a {
-          @include squares-sprite(20-by-20)
+          @include squares-sprite(20-by-20);
         }
       SCSS
     end.should raise_error Compass::Error
   end
-  
+
   it "should generate sprite with bad repeat-x dimensions" do
     css = render <<-SCSS
       $ko-starbg26x27-repeat: repeat-x;
