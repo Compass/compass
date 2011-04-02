@@ -11,6 +11,14 @@ module Compass
 
       extend self
 
+      def booted!
+        Compass::AppIntegration::Rails.const_set(:BOOTED, true)
+      end
+
+      def booted?
+        defined?(Compass::AppIntegration::Rails::BOOTED) && Compass::AppIntegration::Rails::BOOTED
+      end
+
       def installer(*args)
         Installer.new(*args)
       end
@@ -41,6 +49,11 @@ module Compass
       end
 
       def initialize!(config = nil)
+        if booted?
+          Compass::Util.compass_warn("Warning: Compass was booted twice. Compass has a Railtie now; please remove your intializer.")
+        else
+          booted!
+        end
         config ||= Compass.detect_configuration_file(root)
         Compass.add_project_configuration(config, :project_type => :rails)
         Compass.discover_extensions!
