@@ -22,6 +22,7 @@
     &.text,
     &.title,
     &[type=email],
+    &[type=tel],
     &[type=text],
     &[type=password]   { margin: 0.5em 0; background-color: white; padding: 5px; }
     &.title            { font-size: 1.5em; }
@@ -44,6 +45,7 @@
     &.text,
     &.title,
     &[type=email],
+    &[type=tel],
     &[type=text],
     &[type=password] { width: $input_width; }
   }
@@ -58,7 +60,7 @@
 ) {
   fieldset {
     border: 1px solid $fieldset_border_color; }
-  input.text, input.title, input[type=email], input[type=text], input[type=password],
+  input.text, input.title, input[type=email], input[type=tel], input[type=text], input[type=password],
   textarea, select {
     border: 1px solid $unfocused_border_color;
     &:focus {
