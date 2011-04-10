@@ -14,8 +14,9 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.beta.6 (3/27/2011)
+0.11.beta.6 (04/10/2011)
 ------------------------
+* Added support for degree-based linear and radial gradients (not yet supported for SVG gradients)
 * Added opera prefix support for linear and radial gradients.
 * The CSS3 `background` mixin's "simple" background that came
   before the prefixed versions has been removed. If you
@@ -23,6 +24,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   the background property before calling the `background` mixin
   or you can call the `background-with-css2-fallback` if you want
   keep using compass's automatic simplification of the arguments.
+* Bug fixes
+* Fixed and issue with the compass gemspec in rubygems 1.7
+* Fixed a bug with sprite imports
 
 0.11.beta.5 (03/27/2011)
 ------------------------
