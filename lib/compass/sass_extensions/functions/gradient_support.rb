@@ -34,15 +34,15 @@ module Compass::SassExtensions::Functions::GradientSupport
   end
 
   class RadialGradient < Sass::Script::Literal
-    attr_accessor :position_and_angle, :shape_and_size, :color_stops
+    attr_accessor :position_or_angle, :shape_and_size, :color_stops
     def children
-      [color_stops, position_and_angle, shape_and_size].compact
+      [color_stops, position_or_angle, shape_and_size].compact
     end
-    def initialize(position_and_angle, shape_and_size, color_stops)
+    def initialize(position_or_angle, shape_and_size, color_stops)
       unless color_stops.value.size >= 2
         raise Sass::SyntaxError, "At least two color stops are required for a radial-gradient"
       end
-      self.position_and_angle = position_and_angle
+      self.position_or_angle = position_or_angle
       self.shape_and_size = shape_and_size
       self.color_stops = color_stops
     end
@@ -51,22 +51,31 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_s(options = self.options)
       s = "radial-gradient("
-      s << position_and_angle.to_s(options) << ", " if position_and_angle
+      s << position_or_angle.to_s(options) << ", " if position_or_angle
       s << shape_and_size.to_s(options) << ", " if shape_and_size
       s << color_stops.to_s(options)
       s << ")"
     end
     def supports?(aspect)
-      GRADIENT_ASPECTS.include?(aspect)
+      if aspect == "svg"
+        if position_or_angle.nil? || is_position(position_or_angle).to_bool || is_position_list(position_or_angle).to_bool
+          true
+        else
+          Compass::Util.compass_warn("Warning: Angle-based gradients are not yet supported in SVG. Found: #{position_or_angle}")
+          false
+        end
+      else
+        GRADIENT_ASPECTS.include?(aspect)
+      end
     end
     def has_aspect?
       true
     end
     def to_webkit(options = self.options)
       args = [
-        grad_point(position_and_angle || _center_position),
+        grad_point(position_or_angle || _center_position),
         Sass::Script::String.new("0"),
-        grad_point(position_and_angle || _center_position),
+        grad_point(position_or_angle || _center_position),
         grad_end_position(color_stops, Sass::Script::Bool.new(true)),
         grad_color_stops(color_stops)
       ]
@@ -82,7 +91,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_svg(options = self.options)
       # XXX Add shape support if possible
-      radial_svg_gradient(color_stops, position_and_angle || _center_position)
+      radial_svg_gradient(color_stops, position_or_angle || _center_position)
     end
     def to_pie(options = self.options)
       Compass::Logger.new.record(:warning, "PIE does not support radial-gradient.")
@@ -94,15 +103,15 @@ module Compass::SassExtensions::Functions::GradientSupport
   end
 
   class LinearGradient < Sass::Script::Literal
-    attr_accessor :color_stops, :position_and_angle
+    attr_accessor :color_stops, :position_or_angle
     def children
-      [color_stops, position_and_angle].compact
+      [color_stops, position_or_angle].compact
     end
-    def initialize(position_and_angle, color_stops)
+    def initialize(position_or_angle, color_stops)
       unless color_stops.value.size >= 2
         raise Sass::SyntaxError, "At least two color stops are required for a linear-gradient"
       end
-      self.position_and_angle = position_and_angle
+      self.position_or_angle = position_or_angle
       self.color_stops = color_stops
     end
     def inspect
@@ -110,20 +119,29 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
     def to_s(options = self.options)
       s = "linear-gradient("
-      s << position_and_angle.to_s(options) << ", " if position_and_angle
+      s << position_or_angle.to_s(options) << ", " if position_or_angle
       s << color_stops.to_s(options)
       s << ")"
     end
     def supports?(aspect)
-      GRADIENT_ASPECTS.include?(aspect)
+      if aspect == "svg"
+        if position_or_angle.nil? || is_position(position_or_angle).to_bool || is_position_list(position_or_angle).to_bool
+          true
+        else
+          Compass::Util.compass_warn("Warning: Angle-based gradients are not yet supported in SVG. Found: #{position_or_angle}")
+          false
+        end
+      else
+        GRADIENT_ASPECTS.include?(aspect)
+      end
     end
     def has_aspect?
       true
     end
     def to_webkit(options = self.options)
       args = []
-      args << grad_point(position_and_angle || Sass::Script::String.new("top"))
-      args << grad_point(opposite_position(position_and_angle || Sass::Script::String.new("top")))
+      args << grad_point(position_or_angle || Sass::Script::String.new("top"))
+      args << grad_point(opposite_position(position_or_angle || Sass::Script::String.new("top")))
       args << grad_color_stops(color_stops)
       args.each{|a| a.options = options}
       Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
@@ -135,7 +153,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       Sass::Script::String.new("-o-#{to_s(options)}")
     end
     def to_svg(options = self.options)
-      linear_svg_gradient(color_stops, position_and_angle || Sass::Script::String.new("top"))
+      linear_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("top"))
     end
     def to_pie(options = self.options)
       # PIE just uses the standard rep, but the property is prefixed so
@@ -150,13 +168,18 @@ module Compass::SassExtensions::Functions::GradientSupport
   module Functions
 
     # given a position list, return a corresponding position in percents
+    # otherwise, returns the original argument
     def grad_point(position)
+      original_value = position
       position = unless position.is_a?(Sass::Script::List)
         Sass::Script::List.new([position], :space)
       else
         Sass::Script::List.new(position.value.dup, position.separator)
       end
-      position.value.reject!{|p| p.is_a?(Sass::Script::Number) && p.numerator_units.include?("deg")}
+      # Handle unknown arguments by passing them along untouched.
+      unless position.value.all?{|p| is_position(p).to_bool }
+        return original_value
+      end
       if (position.value.first.value =~ /top|bottom/) or (position.value.last.value =~ /left|right/)
         # browsers are pretty forgiving of reversed positions so we are too.
         position.value.reverse!
@@ -198,7 +221,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       end, :comma)
     end
 
-    def radial_gradient(position_and_angle, shape_and_size, *color_stops)
+    def radial_gradient(position_or_angle, shape_and_size, *color_stops)
       # Have to deal with variable length/meaning arguments.
       if color_stop?(shape_and_size)
         color_stops.unshift(shape_and_size)
@@ -209,38 +232,38 @@ module Compass::SassExtensions::Functions::GradientSupport
         shape_and_size = nil
       end
       shape_and_size = nil if shape_and_size && !shape_and_size.to_bool # nil out explictly passed falses
-      # ditto for position_and_angle
-      if color_stop?(position_and_angle)
-        color_stops.unshift(position_and_angle)
-        position_and_angle = nil
-      elsif list_of_color_stops?(position_and_angle)
-        color_stops = position_and_angle.value + color_stops
-        position_and_angle = nil
+      # ditto for position_or_angle
+      if color_stop?(position_or_angle)
+        color_stops.unshift(position_or_angle)
+        position_or_angle = nil
+      elsif list_of_color_stops?(position_or_angle)
+        color_stops = position_or_angle.value + color_stops
+        position_or_angle = nil
       end
-      position_and_angle = nil if position_and_angle && !position_and_angle.to_bool
+      position_or_angle = nil if position_or_angle && !position_or_angle.to_bool
 
       # Support legacy use of the color-stops() function
       if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
         color_stops = color_stops.first.value
       end
-      RadialGradient.new(position_and_angle, shape_and_size, send(:color_stops, *color_stops))
+      RadialGradient.new(position_or_angle, shape_and_size, send(:color_stops, *color_stops))
     end
 
-    def linear_gradient(position_and_angle, *color_stops)
-      if color_stop?(position_and_angle)
-        color_stops.unshift(position_and_angle)
-        position_and_angle = nil
-      elsif list_of_color_stops?(position_and_angle)
-        color_stops = position_and_angle.value + color_stops
-        position_and_angle = nil
+    def linear_gradient(position_or_angle, *color_stops)
+      if color_stop?(position_or_angle)
+        color_stops.unshift(position_or_angle)
+        position_or_angle = nil
+      elsif list_of_color_stops?(position_or_angle)
+        color_stops = position_or_angle.value + color_stops
+        position_or_angle = nil
       end
-      position_and_angle = nil if position_and_angle && !position_and_angle.to_bool
+      position_or_angle = nil if position_or_angle && !position_or_angle.to_bool
 
       # Support legacy use of the color-stops() function
       if color_stops.size == 1 && (stops = list_of_color_stops?(color_stops.first))
         color_stops = stops
       end
-      LinearGradient.new(position_and_angle, send(:color_stops, *color_stops))
+      LinearGradient.new(position_or_angle, send(:color_stops, *color_stops))
     end
 
     # returns color-stop() calls for use in webkit.

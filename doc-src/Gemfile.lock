@@ -23,7 +23,7 @@ GEM
     cri (1.0.1)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
-    css_parser (1.1.9)
+    css_parser (1.0.1)
     fssm (0.1.2)
     haml (3.1.0.alpha.147)
     i18n (0.4.2)
@@ -51,7 +51,7 @@ DEPENDENCIES
   compass!
   compass-susy-plugin (>= 0.7.0.pre8)
   css-slideshow (= 0.2.0)
-  css_parser
+  css_parser (= 1.0.1)
   fssm (= 0.1.2)
   haml (>= 3.1.0.alpha.36)
   json
