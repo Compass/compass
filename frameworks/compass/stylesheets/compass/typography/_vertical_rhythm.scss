@@ -25,16 +25,16 @@ $base-half-leader: $base-leader / 2;
 @mixin establish-baseline($font-size: $base-font-size) {
   body {
     font-size: $font-size / $ie-font-ratio;
-    @include adjust-leading-to(1, $font-size); 
+    @include adjust-leading-to(1, $font-size);
   }
   html>body {
-    font-size: $font-size; 
-  } 
+    font-size: $font-size;
+  }
 }
 
 // Show a background image that can be used to debug your alignments.
 @mixin debug-vertical-alignment($img: 'underline.png') {
-  background: url($img); 
+  background: url($img);
 }
 
 // Adjust a block to have a different font size and leading to maintain the rhythm.
@@ -44,37 +44,46 @@ $base-half-leader: $base-leader / 2;
 // Use $from_size to adjust from a non-base font-size.
 @mixin adjust-font-size-to($to-size, $lines: ceil($to-size / $base-line-height), $from-size: $base-font-size) {
   font-size: 1em * $to-size / $from-size;
-  @include adjust-leading-to($lines, $to-size); 
+  @include adjust-leading-to($lines, $to-size);
 }
 
 @mixin adjust-leading-to($lines, $font-size: $base-font-size) {
-  line-height: 1em * $lines * $base-line-height / $font-size; 
+  line-height: 1em * $lines * $base-line-height / $font-size;
+}
+
+// Calculate rhythm units
+@function rhythm(
+  $lines: 1,
+  $font-size: $base-font-size
+) {
+  $rhythm: 1em * $lines * $base-line-height / $font-size;
+  @return $rhythm;
 }
 
 // Apply leading whitespace
 @mixin leader($lines: 1, $font-size: $base-font-size, $property: margin) {
-  #{$property}-top: 1em * $lines * $base-line-height / $font-size; 
+  #{$property}-top: rhythm($lines, $font-size);
 }
 
 @mixin padding-leader($lines: 1, $font-size: $base-font-size) {
-  @include leader($lines, $font-size, padding); 
+  @include leader($lines, $font-size, padding);
 }
 
 @mixin margin-leader($lines: 1, $font-size: $base-font-size) {
-  @include leader($lines, $font-size, margin); 
+  @include leader($lines, $font-size, margin);
 }
 
 // Apply trailing whitespace
 @mixin trailer($lines: 1, $font-size: $base-font-size, $property: margin) {
-  #{$property}-bottom: 1em * $lines * $base-line-height / $font-size; 
+  #{$property}-bottom: rhythm($lines, $font-size);
 }
 
 @mixin padding-trailer($lines: 1, $font-size: $base-font-size) {
-  @include trailer($lines, $font-size, padding); 
+  @include trailer($lines, $font-size, padding);
 }
 
 @mixin margin-trailer($lines: 1, $font-size: $base-font-size) {
-  @include trailer($lines, $font-size, margin); 
+  @include trailer($lines, $font-size, margin);
 }
 
 // Whitespace application shortcut
@@ -90,9 +99,9 @@ $base-half-leader: $base-leader / 2;
 @mixin apply-side-rhythm-border($side, $width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
   border-#{$side}: {
     style: $border-style;
-    width: 1em * $width / $font-size; 
+    width: 1em * $width / $font-size;
   };
-  padding-#{$side}: 1em / $font-size * ($lines * $base-line-height - $width); 
+  padding-#{$side}: 1em / $font-size * ($lines * $base-line-height - $width);
 }
 
 // Aplly rhythm borders equally to all sides
@@ -100,25 +109,25 @@ $base-half-leader: $base-leader / 2;
   border: {
     style: $border-style;
     width: 1em * $width / $font-size; };
-  padding: 1em / $font-size * ($lines * $base-line-height - $width); 
+  padding: 1em / $font-size * ($lines * $base-line-height - $width);
 }
 
 // Apply a leading rhythm border
 @mixin leading-border($width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
-  @include apply-side-rhythm-border(top, $width, $lines, $font-size, $border-style); 
+  @include apply-side-rhythm-border(top, $width, $lines, $font-size, $border-style);
 }
 
 // Apply a trailing rhythm border
 @mixin trailing-border($width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
-  @include apply-side-rhythm-border(bottom, $width, $lines, $font-size, $border-style); 
+  @include apply-side-rhythm-border(bottom, $width, $lines, $font-size, $border-style);
 }
 
 // Apply both leading and trailing rhythm borders
 @mixin horizontal-borders($width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
   @include leading-border($width, $lines, $font-size, $border-style);
-  @include trailing-border($width, $lines, $font-size, $border-style); 
+  @include trailing-border($width, $lines, $font-size, $border-style);
 }
 
 @mixin h-borders($width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
-  @include horizontal-borders($width, $lines, $font-size, $border-style); 
+  @include horizontal-borders($width, $lines, $font-size, $border-style);
 }
