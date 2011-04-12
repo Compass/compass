@@ -1,0 +1,13 @@
+@import "compass/layout/grid-background";
+
+.baseline {
+  @include baseline-grid-background;
+}
+
+.columns {
+  @include column-grid-background;
+}
+
+.combined {
+  @include grid-background;
+}
