@@ -107,32 +107,54 @@ the section on [performance considerations](#performance) for more details.
 
 If you want to add selectors for your sprites, it's easy todo by adding `_active` `_target` or `_hover` to the file name, In the example below we have a sprite directory that looks like:
 
-* `link/icon.png`
-* `link/icon_hover.png`
-* `link/icon_active.png`
-* `link/icon_target.png`
+* `selectors/ten-by-ten.png`
+* `selectors/ten-by-ten_hover.png`
+* `selectors/ten-by-ten_active.png`
+* `selectors/ten-by-ten_target.png`
     
 Now in our sass file we add:
 
-    @import "link/*.png";
+    @import "selectors/*.png";
     
-    @include link_sprite(icon);
+    a {
+      @include selectors-sprite(ten-by-ten)
+    }
     
 And your stylesheet will compile to:
 
-     .link-icon {
+    .selectors-sprite, a {
+      background: url('/selectors-edfef809e2.png') no-repeat;
+    }
+
+    a {
       background-position: 0 0;
     }
-
-     .link-icon:hover, .link-icon_hover, .link-icon-hover {
+    a:hover, a.ten-by-ten_hover, a.ten-by-ten-hover {
       background-position: 0 -20px;
     }
-
-     .link-icon:target, .link-icon_target, .link-icon-target {
+    a:target, a.ten-by-ten_target, a.ten-by-ten-target {
       background-position: 0 -30px;
     }
+    a:active, a.ten-by-ten_active, a.ten-by-ten-active {
+      background-position: 0 -10px;
+    }
 
-     .link-icon:active, .link-icon_active, .link-icon-active {
+Alternatively you can use the `@include all-selectors-sprites;` after the import and get the following output:
+
+    .selectors-sprite, .selectors-ten-by-ten {
+      background: url('/selectors-edfef809e2.png') no-repeat;
+    }
+
+    .selectors-ten-by-ten {
+      background-position: 0 0;
+    }
+    .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
+      background-position: 0 -20px;
+    }
+    .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
+      background-position: 0 -30px;
+    }
+    .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
       background-position: 0 -10px;
     }
 
