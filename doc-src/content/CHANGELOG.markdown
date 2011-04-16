@@ -22,6 +22,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * There is a new mixin for creating
   [pure-css grid backgrounds](/reference/compass/layout/grid_background/)
   for verifying grid alignment for both fixed and fluid grids.
+* Add support for pixel-based gradients in the original webkit gradient syntax.
 
 0.11.beta.6 (04/10/2011)
 ------------------------
