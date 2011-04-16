@@ -159,6 +159,6 @@ $grid-background-force-fluid      : false                        !default;
     get-baseline-gradient($baseline-color),
     get-column-gradient($total,$column,$gutter,$offset,$column-color,$gutter-color, $force-fluid)
   );
-  @include background-size((100% #{$baseline}, auto));
+  @include background-size(100% $baseline, auto);
   background-position: left top;
 }
