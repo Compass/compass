@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.beta.7 (UNRELEASED)
+0.11.beta.7 (04/16/2011)
 ------------------------
 * Added support for the new webkit gradient syntax that matches the css3 specification.
   Support for older webkit browsers remains enabled at this time.
@@ -23,6 +23,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   [pure-css grid backgrounds](/reference/compass/layout/grid_background/)
   for verifying grid alignment for both fixed and fluid grids.
 * Add support for pixel-based gradients in the original webkit gradient syntax.
+* Added a vertical rhythm function for calculating rhythms without returning a property.
 
 0.11.beta.6 (04/10/2011)
 ------------------------
