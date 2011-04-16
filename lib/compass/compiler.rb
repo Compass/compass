@@ -106,7 +106,7 @@ module Compass
 
     def compile_if_required(sass_filename, css_filename)
       if should_compile?(sass_filename, css_filename)
-        compile sass_filename, css_filename, :time => options[:time]
+        compile sass_filename, css_filename
       else
         logger.record :unchanged, basename(sass_filename) unless options[:quiet]
       end
@@ -124,14 +124,14 @@ module Compass
     end
 
     # Compile one Sass file
-    def compile(sass_filename, css_filename, additional_options = {})
+    def compile(sass_filename, css_filename)
       start_time = end_time = nil
       css_content = logger.red do
         timed do
           engine(sass_filename, css_filename).render
         end
       end
-      duration = additional_options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
+      duration = options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
       write_file(css_filename, css_content, options.merge(:force => true, :extra => duration))
       Compass.configuration.run_callback(:stylesheet_saved, css_filename)
     end
