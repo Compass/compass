@@ -19,6 +19,12 @@ $experimental-support-for-svg: true
 .bg-linear-gradient
   +background-image(linear-gradient(top left, #ddd, #aaa))
 
+.bg-linear-gradient-pixel-stop-from-top
+  +background-image(linear-gradient(top, #ddd 10px, #aaa 40px))
+
+.bg-linear-gradient-pixel-stop-from-left
+  +background-image(linear-gradient(left, #ddd 10px, #aaa 40px))
+
 .bg-radial-gradient
   +background-image(radial-gradient(center center, #ddd, #aaa 100px))
 

@@ -147,7 +147,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     def to_owg(options = self.options)
       args = []
       args << grad_point(position_or_angle || Sass::Script::String.new("top"))
-      args << grad_point(opposite_position(position_or_angle || Sass::Script::String.new("top")))
+      args << linear_end_position(position_or_angle, color_stops)
       args << grad_color_stops(color_stops)
       args.each{|a| a.options = options}
       Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
@@ -172,7 +172,6 @@ module Compass::SassExtensions::Functions::GradientSupport
   end
 
   module Functions
-
     # given a position list, return a corresponding position in percents
     # otherwise, returns the original argument
     def grad_point(position)
@@ -296,6 +295,25 @@ module Compass::SassExtensions::Functions::GradientSupport
         last_value = stop
         [stop, pos.color]
       end
+    end
+
+    # only used for webkit
+    def linear_end_position(position_or_angle, color_list)
+      start_point = grad_point(position_or_angle || Sass::Script::String.new("top"))
+      end_point = grad_point(opposite_position(position_or_angle || Sass::Script::String.new("top")))
+      end_target = color_list.value.last.stop
+
+      if color_list.value.last.stop && color_list.value.last.stop.numerator_units == ["px"]
+        new_end = color_list.value.last.stop.value
+        if start_point.value.first == end_point.value.first && start_point.value.last.value == 0
+          # this means top-to-bottom
+          end_point.value[1] = Sass::Script::Number.new(end_target.value)
+        elsif start_point.value.last == end_point.value.last && start_point.value.first.value == 0
+          # this implies left-to-right
+          end_point.value[0] = Sass::Script::Number.new(end_target.value)
+        end
+      end
+      end_point
     end
 
     # returns the end position of the gradient from the color stop
