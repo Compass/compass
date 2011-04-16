@@ -11,3 +11,20 @@
 .combined {
   @include grid-background;
 }
+
+$grid-background-total-columns: 15;
+$grid-background-offset: 11%;
+$grid-background-column-width: 5%;
+$grid-background-gutter-width: 1%;
+
+.percent-baseline {
+  @include baseline-grid-background;
+}
+
+.percent-columns {
+  @include column-grid-background;
+}
+
+.percent-combined {
+  @include grid-background;
+}

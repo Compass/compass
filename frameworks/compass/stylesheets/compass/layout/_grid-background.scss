@@ -56,12 +56,8 @@ $grid-background-force-fluid      : false                        !default;
     // $z represents the end of a gutter, equal to $g plus one gutter-width
     $z: $g + $gutter;
 
-    // make sure we are building towards 100%
-    @if unit($a) == "%" {
-      $a: $a + .001;
-      @if $i == ($total - 1) {
-        $z: 100%;
-      }
+    @if (unit($a) == "%") and ($i == ($total - 1)) {
+      $z: 100%;
     }
 
     // and we add this column/gutter pair to our grid
