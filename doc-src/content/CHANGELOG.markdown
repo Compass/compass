@@ -19,6 +19,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Added support for the new webkit gradient syntax that matches the css3 specification.
   Support for older webkit browsers remains enabled at this time.
   To disable it, set `$support-for-original-webkit-gradients` to false.
+* There is a new mixin for creating
+  [pure-css grid backgrounds](/reference/compass/layout/grid_background/)
+  for verifying grid alignment for both fixed and fluid grids.
 
 0.11.beta.6 (04/10/2011)
 ------------------------
