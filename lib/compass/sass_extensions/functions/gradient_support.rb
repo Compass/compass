@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::GradientSupport
 
-  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o).freeze
+  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg).freeze
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
@@ -72,6 +72,9 @@ module Compass::SassExtensions::Functions::GradientSupport
       true
     end
     def to_webkit(options = self.options)
+      Sass::Script::String.new("-webkit-#{to_s(options)}")
+    end
+    def to_owg(options = self.options)
       args = [
         grad_point(position_or_angle || _center_position),
         Sass::Script::String.new("0"),
@@ -81,7 +84,6 @@ module Compass::SassExtensions::Functions::GradientSupport
       ]
       args.each {|a| a.options = options}
       Sass::Script::String.new("-webkit-gradient(radial, #{args.join(', ')})")
-
     end
     def to_moz(options = self.options)
       Sass::Script::String.new("-moz-#{to_s(options)}")
@@ -139,6 +141,10 @@ module Compass::SassExtensions::Functions::GradientSupport
       true
     end
     def to_webkit(options = self.options)
+      Sass::Script::String.new("-webkit-#{to_s(options)}")
+    end
+    # Output the original webkit gradient syntax
+    def to_owg(options = self.options)
       args = []
       args << grad_point(position_or_angle || Sass::Script::String.new("top"))
       args << grad_point(opposite_position(position_or_angle || Sass::Script::String.new("top")))
