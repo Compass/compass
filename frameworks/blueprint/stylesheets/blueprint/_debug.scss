@@ -1,6 +1,10 @@
 @import "compass/layout/grid-background";
 @import "blueprint/grid";
 
+// Shows a background that can be used to check grid alignment.
+// By default this is a pure css version that only works in browsers
+// that support gradients and multiple backgrounds, but you can pass
+// an image url if you prefer.
 @mixin showgrid($image: false) {
   @if $image {
     background: image-url($image);
