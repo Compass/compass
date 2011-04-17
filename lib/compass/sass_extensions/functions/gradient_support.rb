@@ -1,3 +1,4 @@
+require 'bigdecimal'
 module Compass::SassExtensions::Functions::GradientSupport
 
   GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg).freeze
@@ -289,7 +290,7 @@ module Compass::SassExtensions::Functions::GradientSupport
         stop = pos.stop
         stop = stop.div(max).times(Sass::Script::Number.new(100,["%"])) if stop.numerator_units == max.numerator_units && max.numerator_units != ["%"]
         # Make sure the color stops are specified in the right order.
-        if last_value && stop.numerator_units == last_value.numerator_units && stop.denominator_units == last_value.denominator_units && stop.value < last_value.value
+        if last_value && stop.numerator_units == last_value.numerator_units && stop.denominator_units == last_value.denominator_units && BigDecimal.new(stop.value.to_s) < BigDecimal.new(last_value.value.to_s)
           raise Sass::SyntaxError.new("Color stops must be specified in increasing order. #{stop.value} came after #{last_value.value}.")
         end
         last_value = stop

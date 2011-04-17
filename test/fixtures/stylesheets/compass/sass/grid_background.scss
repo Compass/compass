@@ -28,3 +28,7 @@ $grid-background-gutter-width: 1%;
 .percent-combined {
   @include grid-background;
 }
+
+.forced-fluid {
+  @include column-grid-background(12, 2em, 1em, 1em, $grid-background-column-color, $grid-background-gutter-color, true);
+}
