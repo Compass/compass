@@ -14,6 +14,12 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.beta.8 (UNRELEASED)
+------------------------
+
+* Created an official API to add configuration options to compass.
+  [More information](/help/tutorials/extending/).
+
 0.11.beta.7 (04/16/2011)
 ------------------------
 * Added support for the new webkit gradient syntax that matches the css3 specification.

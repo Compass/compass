@@ -125,6 +125,7 @@ module Compass
         Compass::Frameworks.register_directory framework_dir
       end
 
+      # Finds all extensions within a directory and registers them.
       def discover(frameworks_dir)
         (self.framework_path ||= []) << frameworks_dir
         Compass::Frameworks.discover frameworks_dir

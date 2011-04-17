@@ -195,4 +195,44 @@ EXPECTED
     assert_equal "fonts", Compass.configuration.fonts_dir
     assert_equal "extensions", Compass.configuration.extensions_dir
   end
+
+  def test_custom_configuration_properties
+    # Add a configuration property to compass.
+    Compass::Configuration.add_configuration_property(:foobar, "this is a foobar") do
+      if environment == :production
+        "foo"
+      else
+        "bar"
+      end
+    end
+
+    contents = StringIO.new(<<-CONFIG)
+      foobar = "baz"
+    CONFIG
+
+    Compass.add_configuration(contents, "test_strip_trailing_directory_separators")
+
+    assert_equal "baz", Compass.configuration.foobar
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+# Set this to the root of your project when deployed:
+http_path = "/"
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+# this is a foobar
+foobar = "baz"
+EXPECTED
+    assert_equal expected_serialization, Compass.configuration.serialize
+    Compass.reset_configuration!
+    Compass.configuration.environment = :production
+    assert_equal "foo", Compass.configuration.foobar
+    Compass.configuration.environment = :development
+    assert_equal "bar", Compass.configuration.foobar
+  ensure
+    Compass::Configuration.remove_configuration_property :foobar
+  end
 end

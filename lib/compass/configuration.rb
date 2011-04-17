@@ -41,6 +41,40 @@ module Compass
       :sprite_engine
     ].flatten
 
+    # Registers a new configuration property.
+    # Extensions can use this to add new configuration options to compass.
+    #
+    # @param [Symbol] name The name of the property.
+    # @param [String] comment A comment for the property.
+    # @param [Proc] default A method to calculate the default value for the property.
+    #                       The proc is executed in the context of the project's configuration data.
+    def self.add_configuration_property(name, comment = nil, &default)
+      ATTRIBUTES << name
+      if comment.is_a?(String)
+        unless comment[0..0] == "#"
+          comment = "# #{comment}"
+        end
+        unless comment[-1..-1] == "\n"
+          comment = comment + "\n"
+        end
+        Data.class_eval <<-COMMENT
+          def comment_for_#{name}
+            #{comment.inspect}
+          end
+        COMMENT
+      end
+      Data.send(:define_method, :"default_#{name}", &default) if default
+      Data.inherited_accessor(name)
+      if name.to_s =~ /dir|path/
+        strip_trailing_separator(name)
+      end
+    end
+
+    # For testing purposes
+    def self.remove_configuration_property(name)
+      ATTRIBUTES.delete(name)
+    end
+
   end
 end
 

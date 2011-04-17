@@ -106,6 +106,10 @@ template directories are not at the top level, you can just do this instead:
     base_directory  = File.join(File.dirname(__FILE__), '..', 'compass')
     Compass::Frameworks.register('my_extension', :path => base_directory)
 
+### Adding Configuration Options to Compass
+
+For details on how to add new configuration options to compass [read this](/help/tutorials/extending/#adding-configuration-properties).
+
 Conventions to Follow
 ---------------------
 
