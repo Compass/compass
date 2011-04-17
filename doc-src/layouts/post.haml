@@ -1,0 +1,5 @@
+- render "blog" do
+  %h1= @item[:title]
+  %h2 By #{@item[:author]}
+  = yield
+  -#comments= render "partials/disqus_comments"

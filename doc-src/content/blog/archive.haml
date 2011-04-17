@@ -1,0 +1,14 @@
+---
+layout: blog
+---
+%h1 Compass Blog Archive
+
+- for post in blog_posts_in_order.reverse
+  .post-snippet
+    %h2
+      - time = blog_date(post)
+      %span.timestamp= time.strftime("%Y/%m/%d")
+      %a{:href => post.rep_named(:default).path}= post[:title]
+    %p= post[:intro] || post[:description]
+  
+    
