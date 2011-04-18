@@ -1,4 +1,3 @@
-require 'bigdecimal'
 module Compass::SassExtensions::Functions::GradientSupport
 
   GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg).freeze
