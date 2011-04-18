@@ -191,7 +191,6 @@ specifications. [Upgrade guide](/help/tutorials/upgrading/antares/). Summary of 
 ### Compass Utilities
 
 * A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
-* A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
 * A new module has been added to create readable text against an arbitrary background color based on the lightness of the background: [compass/utilities/color/contrast](/reference/compass/utilities/color/contrast/).
 * The comma-delimited-list has been renamed to delimited-list and
   generalized to accept a delimiter which defaults to a comma.
@@ -205,7 +204,7 @@ specifications. [Upgrade guide](/help/tutorials/upgrading/antares/). Summary of 
 ### Rails
 
 * In rails 3, there's no need for an initializer. Instead we use a
-  Railstie.
+  Railtie. If you have one, please remove it.
 * We now default to app/stylesheets for sass files and public/stylesheets for
   css files -- though they can still be changed after installation or on the
   command line during project initialization.
