@@ -39,12 +39,7 @@ module Compass
         check_for_sass_files!(new_compiler_instance)
         recompile
 
-        begin
-          require 'fssm'
-        rescue LoadError
-          $: << File.join(Compass.lib_directory, 'vendor', 'fssm')
-          retry
-        end
+        require 'fssm'
 
         if options[:poll]
           require "fssm/backends/polling"
