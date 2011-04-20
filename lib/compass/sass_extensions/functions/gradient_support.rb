@@ -348,10 +348,6 @@ module Compass::SassExtensions::Functions::GradientSupport
       svg = linear_svg(stops, x1, y1, x2, y2)
       inline_image_string(svg.gsub(/\s+/, ' '), 'image/svg+xml')
     end
-    
-    def angle?
-      position_or_angle.is_a?(Sass::Script::Number) && position_or_angle.numerator_units == ["deg"] && position_or_angle.denominator_units.empty?
-    end
 
     def radial_svg_gradient(color_stops, center)
       cx, cy = *grad_point(center).value
@@ -440,12 +436,15 @@ module Compass::SassExtensions::Functions::GradientSupport
         arg.all?{|a| color_stop?(a)} ? arg : nil
       end
     end
+    
+    def angle?
+      position_or_angle.is_a?(Sass::Script::Number) && position_or_angle.numerator_units == ["deg"] && position_or_angle.denominator_units.empty?
+    end
 
     def linear_svg(color_stops, x1, y1, x2, y2)
       transform = ''
       if angle?
-        deg = Float(position_or_angle.value)
-        transform = " gradientTransform = \"rotate(#{deg})\""
+        transform = " gradientTransform = \"rotate(#{position_or_angle.value})\""
       end
       gradient = %Q{<linearGradient id="grad" gradientUnits="userSpaceOnUse" x1="#{x1}" y1="#{y1}" x2="#{x2}" y2="#{y2}"#{transform}>#{color_stops_svg(color_stops)}</linearGradient>}
       svg(gradient)
