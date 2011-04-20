@@ -1,5 +1,7 @@
 source :rubygems
 
+gemspec
+
 gem "compass", :path => "."
 gem "cucumber", "~> 0.9.2"
 gem "rspec", "~>2.0.0"
@@ -11,6 +13,7 @@ gem "haml", "~> 3.1.0.alpha"
 gem "rcov"
 gem "rubyzip"
 gem "livereload"
+gem "rb-fsevent"
 
 gem "ruby-prof" unless RUBY_PLATFORM == "java"
 
