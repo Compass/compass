@@ -517,6 +517,25 @@ describe Compass::Sprites do
     CSS
   end
   
+  it "should not render corret sprite with css selectors via magic mixin" do
+    css = render <<-SCSS
+      @import "selectors/*.png";
+      a {
+        $disable-magic-sprite-selectors:true;
+        @include selectors-sprite(ten-by-ten)
+      }
+    SCSS
+    css.should == <<-CSS
+      .selectors-sprite, a {
+        background: url('/selectors-edfef809e2.png') no-repeat;
+      }
+      
+      a {
+        background-position: 0 0;
+      }
+    CSS
+  end
+  
   it "should raise error on filenames that are not valid sass syntax" do
     lambda do
       render <<-SCSS

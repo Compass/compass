@@ -20,12 +20,17 @@ $sprite-selectors: hover, target, active !default;
 // class or you can specify the `sprite-url` explicitly like this:
 //
 //     background: $map no-repeat;
+
+$disable-magic-sprite-selectors:false !default;
+
 @mixin sprite($map, $sprite, $dimensions: false, $offset-x: 0, $offset-y: 0) {
   @include sprite-background-position($map, $sprite, $offset-x, $offset-y);
   @if $dimensions {
     @include sprite-dimensions($map, $sprite);
   }
-  @include sprite-selectors($map, $sprite, $sprite);
+  @if not $disable-magic-sprite-selectors {
+    @include sprite-selectors($map, $sprite, $sprite);
+  }
 }
 
 // Include the selectors for the `$sprite` given the `$map` and the 
