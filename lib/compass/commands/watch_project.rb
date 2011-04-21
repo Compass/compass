@@ -36,10 +36,23 @@ module Compass
           exit 0
         end
 
+        unless Compass.sass_engine_options[:cache_store]
+          Compass.configuration.sass_options ||= {}
+          Compass.configuration.sass_options[:cache_store] =
+            Sass::CacheStores::Chain.new(
+                Sass::CacheStores::Memory.new,
+                Sass::CacheStores::Filesystem.new(
+                  Compass.sass_engine_options[:cache_location] ||
+                  Sass::Engine::DEFAULT_OPTIONS[:cache_location]
+                )
+            )
+        end
+
         check_for_sass_files!(new_compiler_instance)
         recompile
 
         require 'fssm'
+
 
         if options[:poll]
           require "fssm/backends/polling"
