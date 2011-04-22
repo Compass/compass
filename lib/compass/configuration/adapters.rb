@@ -55,10 +55,14 @@ module Compass
       def sass_load_paths
         load_paths = []
         load_paths << sass_path if sass_path
-        Compass::Frameworks::ALL.each do |framework|
-          load_paths << framework.stylesheets_directory if File.exists?(framework.stylesheets_directory)
+        Compass::Frameworks::ALL.each do |f|
+          load_paths << f.stylesheets_directory if File.directory?(f.stylesheets_directory)
         end
         load_paths += resolve_additional_import_paths
+        load_paths.map! do |p|
+          next p if p.respond_to?(:find_relative)
+          Sass::Importers::Filesystem.new(p.to_s)
+        end
         load_paths << Compass::Sprites.new
         load_paths
       end

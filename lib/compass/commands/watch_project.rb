@@ -2,6 +2,7 @@ require 'fileutils'
 require 'pathname'
 require 'compass/commands/base'
 require 'compass/commands/update_project'
+require 'sass/plugin'
 
 module Compass
   module Commands
@@ -33,16 +34,18 @@ module Compass
         GC.start
         sleep options.fetch(:gc_pause, 1)
         count = ObjectSpace.each_object(type) do |obj|
-          if @@runs > 2
-            if options.fetch(:verbose, true) && !@@object_id_tracker[type].include?(obj.object_id)
-              begin
-                puts obj.inspect
-              rescue
+          if options.fetch(:verbose, true)
+            if @@runs > 2
+              if !@@object_id_tracker[type].include?(obj.object_id)
+                begin
+                  puts obj.inspect
+                rescue
+                end
+                puts "#{obj.class.name}:#{obj.object_id}"
               end
-              puts "#{obj.class.name}:#{obj.object_id}"
             end
+            @@object_id_tracker[type] << obj.object_id
           end
-          @@object_id_tracker[type] << obj.object_id
         end
         puts "#{type}: #{count} instances."
       end
@@ -59,19 +62,6 @@ module Compass
         Signal.trap("INT") do
           puts ""
           exit 0
-        end
-
-        unless Compass.sass_engine_options[:cache_store]
-          @memory_cache = Sass::CacheStores::Memory.new
-          Compass.configuration.sass_options ||= {}
-          Sass::CacheStores::Chain.new(
-            @memory_cache,
-            Sass::CacheStores::Filesystem.new(
-              Compass.sass_engine_options[:cache_location] ||
-              Sass::Engine::DEFAULT_OPTIONS[:cache_location]
-            )
-          )
-
         end
 
         check_for_sass_files!(new_compiler_instance)
@@ -92,8 +82,10 @@ module Compass
 
         puts ">>> Compass is #{action} for changes. Press Ctrl-C to Stop."
 
+        begin
         FSSM.monitor do |monitor|
           Compass.configuration.sass_load_paths.each do |load_path|
+            load_path = load_path.root if load_path.respond_to?(:root)
             next unless load_path.is_a? String
             monitor.path load_path do |path|
               path.glob '**/*.s[ac]ss'
@@ -122,7 +114,12 @@ module Compass
           end
 
         end
-        
+      rescue FSSM::CallbackError => e
+        # FSSM catches exit? WTF.
+        if e.message =~ /exit/
+          exit
+        end
+      end
       end
 
       def remove_obsolete_css(base = nil, relative = nil)
@@ -143,7 +140,7 @@ module Compass
           begin
             puts ">>> Change detected to: #{relative}"
             compiler.run
-            # report_on_instances(Sass::Importers::Base, :verbose => false)
+            report_on_instances(Sass::Importers::Base, :verbose => false)
           rescue StandardError => e
             ::Compass::Exec::Helpers.report_error(e, options)
           end

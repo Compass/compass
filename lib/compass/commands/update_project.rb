@@ -59,10 +59,18 @@ module Compass
           compiler_opts
         end
 
-        Compass::Compiler.new(working_path,
+        @memory_store ||= Sass::CacheStores::Memory.new
+        @backing_store ||= compiler_opts[:cache_store]
+        @backing_store ||= Sass::CacheStores::Filesystem.new(determine_cache_location)
+        @cache_store ||= Sass::CacheStores::Chain.new(@memory_store, @backing_store)
+        @memory_store.reset!
+
+        Compass::Compiler.new(
+          working_path,
           Compass.configuration.sass_path,
           Compass.configuration.css_path,
-          @compiler_opts.merge(additional_options))
+          @compiler_opts.merge(:cache_store => @cache_store).merge(additional_options)
+        )
       end
 
       def explicit_sass_files
@@ -76,6 +84,9 @@ module Compass
         end
       end
 
+      def determine_cache_location
+        Compass.configuration.cache_path || Sass::Plugin.options[:cache_location] || File.join(working_path, ".sass-cache")
+      end
 
       class << self
         def option_parser(arguments)
