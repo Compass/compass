@@ -141,7 +141,7 @@ module Compass
         compiler = new_compiler_instance(:quiet => true)
         if file = compiler.out_of_date?
           begin
-            puts ">>> Change detected to: #{file}"
+            puts ">>> Change detected to: #{relative}"
             compiler.run
             # report_on_instances(Sass::Importers::Base, :verbose => false)
           rescue StandardError => e
