@@ -62,15 +62,16 @@ module Compass
         end
 
         unless Compass.sass_engine_options[:cache_store]
+          @memory_cache = Sass::CacheStores::Memory.new
           Compass.configuration.sass_options ||= {}
-          Compass.configuration.sass_options[:cache_store] =
-            Sass::CacheStores::Chain.new(
-                Sass::CacheStores::Memory.new,
-                Sass::CacheStores::Filesystem.new(
-                  Compass.sass_engine_options[:cache_location] ||
-                  Sass::Engine::DEFAULT_OPTIONS[:cache_location]
-                )
+          Sass::CacheStores::Chain.new(
+            @memory_cache,
+            Sass::CacheStores::Filesystem.new(
+              Compass.sass_engine_options[:cache_location] ||
+              Sass::Engine::DEFAULT_OPTIONS[:cache_location]
             )
+          )
+
         end
 
         check_for_sass_files!(new_compiler_instance)
@@ -136,6 +137,7 @@ module Compass
       end
 
       def recompile(base = nil, relative = nil)
+        @memory_cache.reset! if @memory_cache
         compiler = new_compiler_instance(:quiet => true)
         if file = compiler.out_of_date?
           begin
