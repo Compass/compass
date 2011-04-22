@@ -56,7 +56,7 @@ module Compass
                                :dry_run => options[:dry_run])
           compiler_opts[:quiet] = options[:quiet] if options[:quiet]
           compiler_opts[:time] = options[:time] if options[:time]
-          Sass::Engine.normalize_options(compiler_opts)
+          compiler_opts
         end
 
         Compass::Compiler.new(working_path,
