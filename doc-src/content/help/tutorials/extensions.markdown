@@ -71,6 +71,10 @@ you can use compass to generate an extension with the following command:
 
 This will create a few basic files and folders to get you started.
 
+If you prefer to use the scss syntax for your extension run the following command instead:
+
+    compass create my_extension --using compass/extension -x scss
+
 Advanced Layout Options
 -----------------------
 
