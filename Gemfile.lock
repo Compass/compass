@@ -7,8 +7,8 @@ GIT
 PATH
   remote: .
   specs:
-    compass (0.11.beta.7.fec367d)
-      chunky_png (~> 1.1.0)
+    compass (0.11.beta.7.613753e)
+      chunky_png (~> 1.1.1)
       fssm (>= 0.2.7)
       sass (>= 3.1.0.alpha.249)
 
@@ -48,7 +48,7 @@ GEM
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     builder (2.1.2)
-    chunky_png (1.1.0)
+    chunky_png (1.1.1)
     compass-validator (3.0.0)
     css_parser (1.0.1)
     cucumber (0.9.4)
