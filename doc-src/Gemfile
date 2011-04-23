@@ -9,7 +9,6 @@ gem 'serve', "1.0.0"
 gem 'nokogiri'
 gem 'coderay'
 gem 'sass', ">= 3.1.0.alpha.249"
-gem 'fssm', '0.1.2'
 gem 'haml', ">= 3.1.0.alpha.36"
 gem 'rake'
 gem 'compass', :path => ".."
@@ -18,4 +17,5 @@ gem 'css-slideshow', "0.2.0"
 gem 'json'
 gem 'css_parser', "1.0.1"
 gem 'ruby-prof'
+gem 'rb-fsevent'
 

@@ -24,11 +24,36 @@ module Compass
 
       end
     end
+    module MemoryDebugger
+      def report_on_instances(type, options = {})
+        @@runs ||= 0
+        @@runs += 1
+        @@object_id_tracker ||= {}
+        @@object_id_tracker[type] ||= []
+        GC.start
+        sleep options.fetch(:gc_pause, 1)
+        count = ObjectSpace.each_object(type) do |obj|
+          if @@runs > 2
+            if options.fetch(:verbose, true) && !@@object_id_tracker[type].include?(obj.object_id)
+              begin
+                puts obj.inspect
+              rescue
+              end
+              puts "#{obj.class.name}:#{obj.object_id}"
+            end
+          end
+          @@object_id_tracker[type] << obj.object_id
+        end
+        puts "#{type}: #{count} instances."
+      end
+    end
     class WatchProject < UpdateProject
 
       register :watch
 
       attr_accessor :last_update_time, :last_sass_files
+
+      include MemoryDebugger
 
       def perform
         Signal.trap("INT") do
@@ -36,10 +61,24 @@ module Compass
           exit 0
         end
 
+        unless Compass.sass_engine_options[:cache_store]
+          @memory_cache = Sass::CacheStores::Memory.new
+          Compass.configuration.sass_options ||= {}
+          Sass::CacheStores::Chain.new(
+            @memory_cache,
+            Sass::CacheStores::Filesystem.new(
+              Compass.sass_engine_options[:cache_location] ||
+              Sass::Engine::DEFAULT_OPTIONS[:cache_location]
+            )
+          )
+
+        end
+
         check_for_sass_files!(new_compiler_instance)
         recompile
 
         require 'fssm'
+
 
         if options[:poll]
           require "fssm/backends/polling"
@@ -98,11 +137,13 @@ module Compass
       end
 
       def recompile(base = nil, relative = nil)
+        @memory_cache.reset! if @memory_cache
         compiler = new_compiler_instance(:quiet => true)
         if file = compiler.out_of_date?
           begin
-            puts ">>> Change detected to: #{file}"
+            puts ">>> Change detected to: #{relative}"
             compiler.run
+            # report_on_instances(Sass::Importers::Base, :verbose => false)
           rescue StandardError => e
             ::Compass::Exec::Helpers.report_error(e, options)
           end

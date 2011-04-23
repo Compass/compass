@@ -33,82 +33,109 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
   end
 
-  class RadialGradient < Sass::Script::Literal
-    attr_accessor :position_or_angle, :shape_and_size, :color_stops
-    def children
-      [color_stops, position_or_angle, shape_and_size].compact
+  module Gradient
+
+    def self.included(base)
+      base.extend ClassMethods
     end
-    def initialize(position_or_angle, shape_and_size, color_stops)
-      unless color_stops.value.size >= 2
-        raise Sass::SyntaxError, "At least two color stops are required for a radial-gradient"
+
+    module ClassMethods
+      def standardized_prefix(prefix)
+        class_eval %Q{
+          def to_#{prefix}(options = self.options)
+            Sass::Script::String.new("-#{prefix}-\#{to_s(options)}")
+          end
+        }
       end
-      self.position_or_angle = position_or_angle
-      self.shape_and_size = shape_and_size
-      self.color_stops = color_stops
     end
+
     def inspect
       to_s
     end
+
+    def supports?(aspect)
+      GRADIENT_ASPECTS.include?(aspect)
+    end
+
+    def has_aspect?
+      true
+    end
+
+    def angle?(value)
+      value.is_a?(Sass::Script::Number) && value.numerator_units.size == 1 && value.numerator_units.first == "deg" && value.denominator_units.empty?
+    end
+
+  end
+
+  class RadialGradient < Sass::Script::Literal
+    include Gradient
+
+    attr_accessor :position, :shape_and_size, :color_stops
+
+    def children
+      [color_stops, position, shape_and_size].compact
+    end
+
+    def initialize(position, shape_and_size, color_stops)
+      unless color_stops.value.size >= 2
+        raise Sass::SyntaxError, "At least two color stops are required for a radial-gradient"
+      end
+      if angle?(position)
+        raise Sass::SyntaxError, "CSS no longer allows angles in radial-gradients."
+      end
+      self.position = position
+      self.shape_and_size = shape_and_size
+      self.color_stops = color_stops
+    end
+
     def to_s(options = self.options)
       s = "radial-gradient("
-      s << position_or_angle.to_s(options) << ", " if position_or_angle
+      s << position.to_s(options) << ", " if position
       s << shape_and_size.to_s(options) << ", " if shape_and_size
       s << color_stops.to_s(options)
       s << ")"
     end
-    def supports?(aspect)
-      if aspect == "svg"
-        if position_or_angle.nil? || is_position(position_or_angle).to_bool || is_position_list(position_or_angle).to_bool
-          true
-        else
-          Compass::Util.compass_warn("Warning: Angle-based gradients are not yet supported in SVG. Found: #{position_or_angle}")
-          false
-        end
-      else
-        GRADIENT_ASPECTS.include?(aspect)
-      end
-    end
-    def has_aspect?
-      true
-    end
-    def to_webkit(options = self.options)
-      Sass::Script::String.new("-webkit-#{to_s(options)}")
-    end
+    
+    standardized_prefix :webkit
+    standardized_prefix :moz
+    standardized_prefix :o
+    
     def to_owg(options = self.options)
       args = [
-        grad_point(position_or_angle || _center_position),
+        grad_point(position || _center_position),
         Sass::Script::String.new("0"),
-        grad_point(position_or_angle || _center_position),
+        grad_point(position || _center_position),
         grad_end_position(color_stops, Sass::Script::Bool.new(true)),
         grad_color_stops(color_stops)
       ]
       args.each {|a| a.options = options}
       Sass::Script::String.new("-webkit-gradient(radial, #{args.join(', ')})")
     end
-    def to_moz(options = self.options)
-      Sass::Script::String.new("-moz-#{to_s(options)}")
-    end
-    def to_o(options = self.options)
-      Sass::Script::String.new("-o-#{to_s(options)}")
-    end
+
     def to_svg(options = self.options)
       # XXX Add shape support if possible
-      radial_svg_gradient(color_stops, position_or_angle || _center_position)
+      radial_svg_gradient(color_stops, position || _center_position)
     end
+
     def to_pie(options = self.options)
       Compass::Logger.new.record(:warning, "PIE does not support radial-gradient.")
       Sass::Script::String.new("-pie-radial-gradient(unsupported)")
     end
+
     def to_css2(options = self.options)
       Sass::Script::String.new("")
     end
   end
 
   class LinearGradient < Sass::Script::Literal
+    include Gradient
+
     attr_accessor :color_stops, :position_or_angle
+
     def children
       [color_stops, position_or_angle].compact
     end
+
     def initialize(position_or_angle, color_stops)
       unless color_stops.value.size >= 2
         raise Sass::SyntaxError, "At least two color stops are required for a linear-gradient"
@@ -116,24 +143,18 @@ module Compass::SassExtensions::Functions::GradientSupport
       self.position_or_angle = position_or_angle
       self.color_stops = color_stops
     end
-    def inspect
-      to_s
-    end
+
     def to_s(options = self.options)
       s = "linear-gradient("
       s << position_or_angle.to_s(options) << ", " if position_or_angle
       s << color_stops.to_s(options)
       s << ")"
     end
-    def supports?(aspect)
-      GRADIENT_ASPECTS.include?(aspect)
-    end
-    def has_aspect?
-      true
-    end
-    def to_webkit(options = self.options)
-      Sass::Script::String.new("-webkit-#{to_s(options)}")
-    end
+
+    standardized_prefix :webkit
+    standardized_prefix :moz
+    standardized_prefix :o
+    
     # Output the original webkit gradient syntax
     def to_owg(options = self.options)
       args = []
@@ -143,20 +164,17 @@ module Compass::SassExtensions::Functions::GradientSupport
       args.each{|a| a.options = options}
       Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
     end
-    def to_moz(options = self.options)
-      Sass::Script::String.new("-moz-#{to_s(options)}")
-    end
-    def to_o(options = self.options)
-      Sass::Script::String.new("-o-#{to_s(options)}")
-    end
+
     def to_svg(options = self.options)
       linear_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("top"))
     end
+
     def to_pie(options = self.options)
       # PIE just uses the standard rep, but the property is prefixed so
       # the presence of this attribute helps flag when to render a special rule.
       Sass::Script::String.new to_s(options)
     end
+
     def to_css2(options = self.options)
       Sass::Script::String.new("")
     end
@@ -437,10 +455,6 @@ module Compass::SassExtensions::Functions::GradientSupport
       end
     end
     
-    def angle?
-      position_or_angle.is_a?(Sass::Script::Number) && position_or_angle.numerator_units == ["deg"] && position_or_angle.denominator_units.empty?
-    end
-
     def linear_svg(color_stops, x1, y1, x2, y2)
       transform = ''
       if angle?
