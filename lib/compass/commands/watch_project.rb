@@ -140,7 +140,7 @@ module Compass
           begin
             puts ">>> Change detected to: #{relative}"
             compiler.run
-            report_on_instances(Sass::Importers::Base, :verbose => false)
+            GC.start
           rescue StandardError => e
             ::Compass::Exec::Helpers.report_error(e, options)
           end
