@@ -138,7 +138,7 @@ module Compass
         compiler = new_compiler_instance(:quiet => true)
         if file = compiler.out_of_date?
           begin
-            puts ">>> Change detected to: #{relative}"
+            puts ">>> Change detected to: #{relative || compiler.relative_stylesheet_name(file)}"
             compiler.run
             GC.start
           rescue StandardError => e
