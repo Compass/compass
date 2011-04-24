@@ -87,10 +87,16 @@ class ConfigurationTest < Test::Unit::TestCase
 
     Compass.add_configuration(contents, "test_additional_import_paths")
 
-    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/home/chris/my_compass_project/../foo")
-    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/path/to/my/framework"), Compass.configuration.to_sass_engine_options[:load_paths].inspect
-    assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
-    assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
+    engine_opts = Compass.configuration.to_sass_engine_options
+
+    load_paths = load_paths_as_strings(engine_opts[:load_paths])
+
+    plugin_opts = Compass.configuration.to_sass_plugin_options
+
+    assert load_paths.include?("/home/chris/my_compass_project/../foo")
+    assert load_paths.include?("/path/to/my/framework"), load_paths.inspect
+    assert_equal "/home/chris/my_compass_project/css/framework", plugin_opts[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
+    assert_equal "/home/chris/my_compass_project/css/foo", plugin_opts[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
 
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
@@ -121,8 +127,10 @@ EXPECTED
 
     Compass.add_configuration(contents, "test_additional_import_paths")
 
-    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/home/chris/my_compass_project/../foo")
-    assert Compass.configuration.to_sass_engine_options[:load_paths].include?("/path/to/my/framework"), Compass.configuration.to_sass_engine_options[:load_paths].inspect
+    load_paths = load_paths_as_strings(Compass.configuration.to_sass_engine_options[:load_paths])
+
+    assert load_paths.include?("/home/chris/my_compass_project/../foo")
+    assert load_paths.include?("/path/to/my/framework"), load_paths.inspect
     assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
     assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
 
@@ -235,4 +243,17 @@ EXPECTED
   ensure
     Compass::Configuration.remove_configuration_property :foobar
   end
+
+  def load_paths_as_strings(load_paths)
+    load_paths.map do |path|
+      case path
+      when Sass::Importers::Filesystem
+        path.root
+      when String, Pathname
+        path.to_s
+      end
+    end.compact
+  end
+
+
 end
