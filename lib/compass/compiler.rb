@@ -57,7 +57,7 @@ module Compass
     end
 
     def needs_update?(css_filename, sass_filename)
-      staleness_checker.stylesheet_needs_update?(css_filename, relative_stylesheet_name(sass_filename), importer)
+      staleness_checker.stylesheet_needs_update?(css_filename, File.expand_path(sass_filename), importer)
     end
 
     # Determines if the configuration file is newer than any css file
