@@ -7,7 +7,7 @@ classnames:
 ---
 # Spriting with Compass
 
-Spriting has never been easier with Compass. You place the sprite images to be in a folder,
+Spriting has never been easier with Compass. You place the sprite images in a folder,
 import them into your stylesheet, and then you can use the sprite in your selectors in one
 of several convenient ways.
 
@@ -25,7 +25,6 @@ Each is an icon that is 32px square.
 ## Basic Usage
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
     
-    @import "compass/utilities/sprites";
     @import "icon/*.png";
     @include all-icon-sprites;
 

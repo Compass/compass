@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.0 (UNRELEASED)
+0.11.0 (04/24/2011)
 -------------------
 
 This changelog entry is aggregated across all the v0.11 beta releases.
@@ -39,6 +39,8 @@ If you're upgrading from a previous beta v0.11 beta release, you can read
 * Some blueprint color defaults now use color functions instead of color arithmetic.
   This may result in different output for those who have color customizations.
 * The deprecated & unused arguments to the `font-face` mixin have been removed.
+* Lemonade has been merged into compass. If you've been using Lemonade, you need to
+  upgrade your sprites to use the new [Compass Sprites](/help/tutorials/spriting/).
 
 #### Dependencies
 
