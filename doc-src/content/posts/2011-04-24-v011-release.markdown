@@ -8,6 +8,8 @@ The Compass team is proud to announce that v0.11 is released. With this release,
 
 In this post, we summarize the new features. For all the nitty gritty details, see the [CHANGELOG](/CHANGELOG/).
 
+Compass is Charityware. If you love this release, [please donate to the UMDF](http://umdf.org/compass) on our behalf and help find a cure for thousands of children suffering from mitochondrial disease.
+
 ## Sass 3.1
 
 This release required you to upgrade to Sass 3.1. This release brings a ton of great new features that Compass now uses and you can too!
