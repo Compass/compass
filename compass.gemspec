@@ -15,8 +15,8 @@ Gem::Specification.new do |gemspec|
   gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}
 
-  gemspec.add_dependency 'sass', '>= 3.1.0.alpha.249'
-  gemspec.add_dependency 'chunky_png', '~> 1.1.1'
+  gemspec.add_dependency 'sass', '~> 3.1'
+  gemspec.add_dependency 'chunky_png', '~> 1.1'
   gemspec.add_dependency 'fssm', '>= 0.2.7'
 
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
