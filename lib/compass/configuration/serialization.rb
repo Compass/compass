@@ -50,6 +50,7 @@ module Compass
             $stderr.puts "WARNING: #{prop} is code and cannot be written to a file. You'll need to copy it yourself."
           end
           if respond_to?("comment_for_#{prop}")
+            contents << "\n"
             contents << send("comment_for_#{prop}")
           end
           if block_given? && (to_emit = yield(prop, value))
