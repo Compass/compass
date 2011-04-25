@@ -2,7 +2,6 @@ source :rubygems
 
 gemspec
 
-#gem "compass", :path => "." #no idea but it fixed my rage - sdavis
 gem "cucumber", "~> 0.9.2"
 gem "rspec", "~>2.0.0"
 gem "rails", "~>3.0.0.rc"
@@ -17,7 +16,12 @@ gem "rb-fsevent"
 
 gem "ruby-prof" unless RUBY_PLATFORM == "java"
 
+
 gem 'autotest'
+gem 'autotest-fsevent'
 gem 'fakefs', :git => 'git://github.com/johnbintz/fakefs.git'
 gem 'mocha'
 gem 'timecop'
+
+
+
