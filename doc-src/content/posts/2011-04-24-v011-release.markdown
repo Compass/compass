@@ -104,7 +104,7 @@ Blueprint is 1.0 now and the Compass port is updated to match the changes there.
 
 ## New Website
 
-As you can see, we have a spiffy new website design from Compass Core team member [Brandon](http://brandonmathis.com). A testament to the separation of content and presentation, most of this redesign was done by throwing out our old stylesheets and building new ones. If you don't like the light text on dark background theme, you can turn on the lights by clicking the power button in the upper right hand corner of every page.
+As you can see, we have a spiffy new website design from Compass Core team member [Brandon](http://brandonmathis.com/). A testament to the separation of content and presentation, most of this redesign was done by throwing out our old stylesheets and building new ones. If you don't like the light text on dark background theme, you can turn on the lights by clicking the power button in the upper right hand corner of every page.
 
 ## Much, Much More
 
@@ -114,30 +114,26 @@ There's more features in this release than would fit into this post. Here's some
 * Compilation Callback support
 * Trigonometric functions
 
+Read the [CHANGELOG](/CHANGELOG/) for all the details.
+
 Additionally, expect a point release to follow shortly with support for:
 
 * Rails 3.1
 
 Lastly, Compass v0.11 will have point releases as needed to adapt to changes in browser support for the CSS3 module.
 
-Read the [CHANGELOG](/CHANGELOG/) for all the details.
+## Many Thanks
 
+Compass wouldn't be possible without Nathan Weizenbaum and his hard work on Sass. The latest Sass release
+provides a ton of great features that have made this Compass release possible.
 
+Compass is far to big for one person to manage it now. I'd like to thank the hard work of the Compass core team members:
 
+* [Eric Meyer](http://eric.oddbird.net/)
+* [Brandon Mathis](http://brandonmathis.com/)
+* [Scott Davis](https://github.com/jetviper21)
+* [Nico Hagenburger](http://www.hagenburger.net/)
 
+Additionally, there were commits from 10 other great folks in this release and there's been [contributions from 68 people](https://github.com/chriseppstein/compass/contributors) in total so far.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Lastly thanks to the hundreds, if not thousands, of users who have helped test this release and provided valuable feedback, bug reports, and documentation suggestions. Together, we are making a real stylesheet framework and simplifying the lives of web developers across the world.

@@ -23,7 +23,7 @@ module Compass
     def read_version
       require 'yaml'
       @version = YAML::load(File.read(scope('VERSION.yml')))
-      @version[:teeny] = @version[:patch]
+      @version[:teeny]  = @version[:patch]
       @version[:string] = "#{@version[:major]}.#{@version[:minor]}"
       @version[:string] << ".#{@version[:patch]}" if @version[:patch]
       @version[:string] << ".#{@version[:state]}" if @version[:state]
