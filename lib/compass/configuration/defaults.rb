@@ -30,7 +30,7 @@ module Compass
         if top_level.environment == :development
           :expanded
         else
-          :compact
+          :compressed
         end
       end
 
