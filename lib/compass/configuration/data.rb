@@ -125,6 +125,7 @@ module Compass
         Compass::Frameworks.register_directory framework_dir
       end
 
+      # Finds all extensions within a directory and registers them.
       def discover(frameworks_dir)
         (self.framework_path ||= []) << frameworks_dir
         Compass::Frameworks.discover frameworks_dir
@@ -133,6 +134,16 @@ module Compass
       def relative_assets?
         # the http_images_path is deprecated, but here for backwards compatibility.
         relative_assets || http_images_path == :relative
+      end
+
+      def run_callback(event, *args)
+        begin
+          send(:"run_#{event}", *args)
+        rescue NoMethodError => e
+          unless e.message =~ /run_#{event}/
+            raise
+          end
+        end
       end
 
       private

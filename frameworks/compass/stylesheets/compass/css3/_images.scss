@@ -1,4 +1,5 @@
 @import "shared";
+@import "compass/utilities/general/hacks";
 
 // Background property support for vendor prefixing within values.
 @mixin background(
@@ -16,14 +17,37 @@
   $backgrounds: compact($background-1, $background-2, $background-3, $background-4, $background-5,
                         $background-6, $background-7, $background-8, $background-9, $background-10);
   $mult-bgs: -compass-list-size($backgrounds) > 1;
-  $simple-background: if($mult-bgs or prefixed(-css2, $backgrounds), -css2(-compass-nth($backgrounds, last)), false);
-  @if not blank($simple-background)                                                       {       background:    $simple-background; }
-  @if $experimental-support-for-svg     and prefixed(-svg,    $backgrounds)               {       background:    -svg($backgrounds); }
-  @if $experimental-support-for-webkit  and prefixed(-webkit, $backgrounds)               {       background: -webkit($backgrounds); }
-  @if $experimental-support-for-mozilla and prefixed(-moz,    $backgrounds)               {       background:    -moz($backgrounds); }
-  @if $experimental-support-for-pie     and (prefixed(-pie,   $backgrounds) or $mult-bgs) {  -pie-background:    -pie($backgrounds); }
-                                                                                                  background:         $backgrounds;
+  $add-pie-bg: prefixed(-pie,   $backgrounds) or $mult-bgs;
+  @if $experimental-support-for-svg          and prefixed(-svg,    $backgrounds) {      background:    -svg($backgrounds); }
+  @if $support-for-original-webkit-gradients and prefixed(-owg,    $backgrounds) {      background:    -owg($backgrounds); }
+  @if $experimental-support-for-webkit       and prefixed(-webkit, $backgrounds) {      background: -webkit($backgrounds); }
+  @if $experimental-support-for-mozilla      and prefixed(-moz,    $backgrounds) {      background:    -moz($backgrounds); }
+  @if $experimental-support-for-opera        and prefixed(-o,      $backgrounds) {      background:      -o($backgrounds); }
+  @if $experimental-support-for-pie          and $add-pie-bg                     { -pie-background:    -pie($backgrounds); }
+                                                                                        background:         $backgrounds ;
 }
+
+@mixin background-with-css2-fallback(
+  $background-1,
+  $background-2: false,
+  $background-3: false,
+  $background-4: false,
+  $background-5: false,
+  $background-6: false,
+  $background-7: false,
+  $background-8: false,
+  $background-9: false,
+  $background-10: false
+) {
+  $backgrounds: compact($background-1, $background-2, $background-3, $background-4, $background-5,
+                        $background-6, $background-7, $background-8, $background-9, $background-10);
+  $mult-bgs: -compass-list-size($backgrounds) > 1;
+  $simple-background: if($mult-bgs or prefixed(-css2, $backgrounds), -css2(-compass-nth($backgrounds, last)), false);
+  @if not blank($simple-background) { background: $simple-background; }
+  @include background($background-1, $background-2, $background-3, $background-4, $background-5,
+                      $background-6, $background-7, $background-8, $background-9, $background-10);
+}
+
 
 // Background image property support for vendor prefixing within values.
 @mixin background-image(
@@ -39,12 +63,15 @@
   $image-10: false
 ) {
   $images: compact($image-1, $image-2, $image-3, $image-4, $image-5, $image-6, $image-7, $image-8, $image-9, $image-10);
+  $add-pie-bg: prefixed(-pie,   $images) or -compass-list-size($images) > 1;
 
-  @if $experimental-support-for-svg     and prefixed(-svg,    $images) { background-image:    -svg($images); background-size: 100%; }
-  @if $experimental-support-for-webkit  and prefixed(-webkit, $images) { background-image: -webkit($images); }
-  @if $experimental-support-for-mozilla and prefixed(-moz,    $images) { background-image:    -moz($images); }
-  @if $experimental-support-for-pie     and (prefixed(-pie,    $images) or -compass-list-size($images) > 1) { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
-                                                                         background-image:         $images ;
+  @if $experimental-support-for-svg          and prefixed(-svg,    $images) { background-image:    -svg($images); background-size: 100%; }
+  @if $support-for-original-webkit-gradients and prefixed(-owg,    $images) { background-image:    -owg($images); }
+  @if $experimental-support-for-webkit       and prefixed(-webkit, $images) { background-image: -webkit($images); }
+  @if $experimental-support-for-mozilla      and prefixed(-moz,    $images) { background-image:    -moz($images); }
+  @if $experimental-support-for-opera        and prefixed(-o,      $images) { background-image:      -o($images); }
+  @if $experimental-support-for-pie          and $add-pie-bg                { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
+                                                                              background-image:         $images ;
 }
 
 // Emit a IE-Specific filters that renders a simple linear gradient.
@@ -65,34 +92,42 @@
 
 // Border image property support for vendor prefixing properties and values.
 @mixin border-image($value) {
-  @if $experimental-support-for-mozilla {    -moz-border-image:    -moz(-compass-list($value)); }
-  @if $experimental-support-for-webkit  { -webkit-border-image: -webkit(-compass-list($value)); }
-  @if $experimental-support-for-svg     {         border-image:    -svg(-compass-list($value)); }
-                                                  border-image:                       $value;
+  @if $experimental-support-for-mozilla      {    -moz-border-image:    -moz(-compass-list($value)); }
+  @if $support-for-original-webkit-gradients { -webkit-border-image:    -owg(-compass-list($value)); }
+  @if $experimental-support-for-webkit       { -webkit-border-image: -webkit(-compass-list($value)); }
+  @if $experimental-support-for-opera        {      -o-border-image:      -o(-compass-list($value)); }
+  @if $experimental-support-for-svg          {         border-image:    -svg(-compass-list($value)); }
+                                                       border-image:                       $value;
 }
 
 // List style image property support for vendor prefixing within values.
 @mixin list-style-image($image) {
-  @if $experimental-support-for-mozilla and prefixed(-moz,    $image) { list-style-image:    -moz($image); }
-  @if $experimental-support-for-webkit  and prefixed(-webkit, $image) { list-style-image: -webkit($image); }
-  @if $experimental-support-for-svg     and prefixed(-svg,    $image) { list-style-image:    -svg($image); }
-                                                                        list-style-image:         $image ;
+  @if $experimental-support-for-mozilla      and prefixed(-moz,    $image) { list-style-image:    -moz($image); }
+  @if $support-for-original-webkit-gradients and prefixed(-owg,    $image) { list-style-image:    -owg($image); }
+  @if $experimental-support-for-webkit       and prefixed(-webkit, $image) { list-style-image: -webkit($image); }
+  @if $experimental-support-for-opera        and prefixed(-o,      $image) { list-style-image:      -o($image); }
+  @if $experimental-support-for-svg          and prefixed(-svg,    $image) { list-style-image:    -svg($image); }
+                                                                             list-style-image:         $image ;
 }
 
 // List style property support for vendor prefixing within values.
 @mixin list-style($value) {
   $value: -compass-list($value);
-  @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { list-style-image:    -moz($value); }
-  @if $experimental-support-for-webkit  and prefixed(-webkit, $value) { list-style-image: -webkit($value); }
-  @if $experimental-support-for-svg     and prefixed(-svg,    $value) { list-style-image:    -svg($value); }
-                                                                        list-style-image:         $value ;
+  @if $experimental-support-for-mozilla      and prefixed(-moz,    $value) { list-style-image:    -moz($value); }
+  @if $support-for-original-webkit-gradients and prefixed(-owg,    $value) { list-style-image:    -owg($value); }
+  @if $experimental-support-for-webkit       and prefixed(-webkit, $value) { list-style-image: -webkit($value); }
+  @if $experimental-support-for-opera        and prefixed(-o,      $value) { list-style-image:      -o($value); }
+  @if $experimental-support-for-svg          and prefixed(-svg,    $value) { list-style-image:    -svg($value); }
+                                                                             list-style-image:         $value ;
 }
 
 // content property support for vendor prefixing within values.
 @mixin content($value) {
   $value: -compass-list($value);
-  @if $experimental-support-for-mozilla and prefixed(-moz,    $value) { content:    -moz($value); }
-  @if $experimental-support-for-webkit  and prefixed(-webkit, $value) { content: -webkit($value); }
-  @if $experimental-support-for-svg     and prefixed(-svg,    $value) { content:    -svg($value); }
-                                                                        content:         $value ;
+  @if $experimental-support-for-mozilla      and prefixed(-moz,    $value) { content:    -moz($value); }
+  @if $support-for-original-webkit-gradients and prefixed(-owg,    $value) { content:    -owg($value); }
+  @if $experimental-support-for-webkit       and prefixed(-webkit, $value) { content: -webkit($value); }
+  @if $experimental-support-for-opera        and prefixed(-o,      $value) { content:      -o($value); }
+  @if $experimental-support-for-svg          and prefixed(-svg,    $value) { content:    -svg($value); }
+                                                                             content:         $value ;
 }

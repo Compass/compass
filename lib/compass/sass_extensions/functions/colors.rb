@@ -40,7 +40,7 @@ module Compass::SassExtensions::Functions::Colors
     alphastr = alpha.to_s(16).rjust(2, '0')
     Sass::Script::String.new("##{alphastr}#{color.send(:hex_str)[1..-1]}".upcase)
   end
-
+  
   private
   def scale_color_value(value, amount)
     if amount > 0

@@ -1,17 +1,30 @@
 .example
-  Click on the the following links to make them stretch.
-  Click <a href="#">here</a> to dismiss it.
-  #stretch-container
-    %ul
-      %li
-        %a#stretch-full(href="#stretch-full")
-          This element is fully stretched.
-      %li
-        %a#stretch-offset(href="#stretch-offset")
-          This element is stretched with a 1em offset on each side.
-      %li
-        %a#stretch-x(href="#stretch-x")
-          This element is stretched horizontally.
-      %li
-        %a#stretch-y(href="#stretch-y")
-          This element is stretched vertically.
+  %ul
+    %li.stretch-container
+      #stretch-full
+        This element is fully stretched.
+    %li.stretch-container
+      #stretch-offset
+        This element is stretched with a 1em offset on each side.
+    %li.stretch-container
+      #stretch-x
+        This
+        %br
+        element
+        %br
+        is
+        %br
+        stretched
+        %br
+        horizontally.
+    %li.stretch-container
+      #stretch-y
+        This
+        %br
+        element
+        %br
+        is
+        %br
+        stretched
+        %br
+        vertically.

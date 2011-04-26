@@ -193,7 +193,7 @@ end
 
 Then /^the following configuration properties are set in ([^ ]+):$/ do |config_file, table|
   
-  config = Compass::Configuration::Data.new_from_file(config_file)
+  config = Compass::Configuration::FileData.new_from_file(config_file)
   table.hashes.each do |hash|
    config.send(hash['property']).should == hash['value']
   end

@@ -76,6 +76,22 @@ Or for sass files:
     =linear-gradient($color-stops, $start: top, $image: false)
       +background-image($image, linear-gradient($start, $color-stops))
 
+<a name="typography"></a>
+## Typography Module
+
+With the addition of vertical-rhythms to the compass core, we have created a new
+[typography module][typography_module], and moved several items that were formerly
+listed as "utilities" into it. The moved modules are "links", "lists" and "text".
+These will all remain part of the basic compass include, but if you were including 
+them individually in your stylesheets, you will need to adjust the include paths
+as follows:
+
+* "compass/utilities/links" becomes "compass/typography/links"
+* "compass/utilities/lists" becomes "compass/typography/lists"
+* "compass/utilities/text" becomes "compass/typography/text"
+
+
 [new_transform]: /reference/compass/css3/transform/
 [old_transform]: /reference/compass/css3/transform-legacy/
 [image_stylesheet]: /reference/compass/css3/images/
+[typography_module]: /reference/compass/typography/

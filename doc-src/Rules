@@ -47,6 +47,16 @@ compile '/reference/*/' do
   layout item[:layout] ? item[:layout] : "main"
 end
 
+compile '/posts/*/' do
+  filter :erb
+  filter :rdiscount if item[:extension] == "markdown"
+  layout 'post'
+end
+
+compile "/blog/atom/" do
+  filter :haml, :attr_wrapper => '"'
+end
+
 compile '*' do
   if item[:extension] == "markdown"
     filter :rdiscount
@@ -54,6 +64,10 @@ compile '*' do
     filter :haml, :ugly => true
   end
   layout item[:layout] ? item[:layout] : "main"
+end
+
+route "/blog/atom/" do
+  "/blog/atom.xml"
 end
 
 route '/search-data/' do
@@ -87,6 +101,15 @@ end
 route '/stylesheets/*/' do
   # don't generate a directory like we do for HTML files
   SITE_ROOT+item.identifier.chop + '.css'
+end
+
+route '/posts/*/' do
+  if item.identifier =~ %r{^/posts/(\d{4})-(\d{2})-(\d{2})-(.*)/$}
+    "/blog/#{$1}/#{$2}/#{$3}/#{$4}/index.html"
+  else
+    puts "WARNING: malformed post name: #{item.identifier}"
+    nil
+  end
 end
 
 %w(markup stylesheet background).each do |ex_file|

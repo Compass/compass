@@ -37,14 +37,14 @@ module Compass::Exec::ProjectOptionsParser
     end
 
     opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment.',
-            '  One of: development, production (default)') do |env|
+            '  One of: development (default), production') do |env|
       self.options[:environment] = env
-            end
+    end
 
     opts.on('-s STYLE', '--output-style STYLE', [:nested, :expanded, :compact, :compressed], 'Select a CSS output mode.',
             '  One of: nested, expanded, compact, compressed') do |style|
       self.options[:output_style] = style
-            end
+    end
 
     opts.on('--relative-assets', :NONE, 'Make compass asset helpers generate relative urls to assets.') do
       self.options[:relative_assets] = true

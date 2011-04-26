@@ -141,9 +141,9 @@ module Compass
           end
         end
 
-        def method_missing(meth)
+        def method_missing(meth, *args, &block)
           if inherited_data
-            inherited_data.send(meth)
+            inherited_data.send(meth, *args, &block)
           else
             raise NoMethodError, meth.to_s
           end

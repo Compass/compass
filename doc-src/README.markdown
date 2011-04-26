@@ -49,7 +49,7 @@ If you are adding an asset (E.g. image, css, javascript) place the file(s) in th
 
 Running the following command will generate a new example:
 
-    bundle exec thor generate:example blueprint/grid/simple/
+    ./bin/thor generate:example blueprint/grid/simple/
 
 An example consists of three files:
 
@@ -74,7 +74,7 @@ After adding the example and adjusting the metadata, go to the reference page an
 
 Generate a reference file for a stylesheet:
 
-    bundle exec thor generate:reference ../frameworks/compass/stylesheets/_compass.sass
+    ./bin/thor generate:reference ../frameworks/compass/stylesheets/_compass.sass
 
 The item metadata (at the top of the file) provides some details about what stylesheet is being documented. For instance, here is the metadata for the blueprint color module item:
 
@@ -143,15 +143,7 @@ Go to your fork of Compass on github. Your compass fork will be available on htt
 
     $ git clone git@github.com:**yourusername**/compass.git
 
-### 3. Switch to the docs branch
-
-To work on the docs, you need to do a checkout of the docs branch
-
-    $ git checkout docs
-
-(A list branches can be accessed through `git branch` with no arguments)
-
-### 4. Don't forget: bundler!
+### 3. Don't forget: bundler!
 
 If you haven't yet done so, install bundler:
 
@@ -160,30 +152,28 @@ If you haven't yet done so, install bundler:
 Bundle the gems for this application:
 
     $ cd doc-src
-    $ bundle install
+    $ bundle install --binstubs
 
-### 6. Compile the docs
+### 4. Compile the docs
 
-To compile (and auto recompile) and preview the site in your browser: (make sure you run nanoc3/aco from the doc-src directory)
+To compile (and auto recompile) and preview the site in your browser: (make sure you run nanoc3 aco from the doc-src directory)
 
     $ cd doc-src
-    $ export RUBYLIB="../lib"
-    $ bundle exec nanoc3 aco
+    $ ./bin/nanoc3 aco
 
-Then open `http://localhost:3000/docs/` in your web browser.
+Then open `http://localhost:3000/index.html` in your web browser.
 
 aco stands for autocompiler; the site will recompile every time you request a new page.
 
-If you find `bundle exec nanoc3 aco` to be sluggish, try this alternative workflow:
+If you find `./bin/nanoc3 aco` to be sluggish, try this alternative workflow:
 
     $ cd doc-src
-    $ export RUBYLIB="../lib"
-    $ bundle exec serve 3000 .. &
-    $ bundle exec rake watch
+    $ ./bin/serve 3000 output &
+    $ ./bin/rake watch
 
 It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.org/tutorial/) on Nanoc.
 
-### 7. Commit your changes to your Fork
+### 5. Commit your changes to your Fork
 
     git commit -a
     git push
@@ -202,4 +192,4 @@ Then get the new changes with fetch:
 
 And merge them with your local docs branch:
 
-    git merge chris/docs
+    git merge chris

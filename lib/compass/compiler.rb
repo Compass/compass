@@ -3,15 +3,16 @@ module Compass
 
     include Actions
 
-    attr_accessor :working_path, :from, :to, :options
+    attr_accessor :working_path, :from, :to, :options, :staleness_checker, :importer
 
     def initialize(working_path, from, to, options)
       self.working_path = working_path
-      self.from, self.to = from, to
+      self.from, self.to = from.gsub('./', ''), to
       self.logger = options.delete(:logger)
       self.options = options
       self.options[:cache_location] ||= determine_cache_location
-      Compass.configure_sass_plugin!
+      options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
+      self.staleness_checker = Sass::Plugin::StalenessChecker.new(options)
     end
 
     def determine_cache_location
@@ -23,8 +24,16 @@ module Compass
       @sass_files = self.options[:sass_files] || Dir.glob(separate("#{from}/**/#{'[^_]' if exclude_partials}*.s[ac]ss"))
     end
 
+    def relative_stylesheet_name(sass_file)
+      sass_file[(from.length + 1)..-1]
+    end
+
     def stylesheet_name(sass_file)
-      sass_file[("#{from}/".length)..-6]
+      if sass_file.index(from) == 0
+        sass_file[(from.length + 1)..-6]
+      else
+        raise Compass::Error, "You must compile individual stylesheets from the project directory."
+      end
     end
 
     def css_files
@@ -42,9 +51,13 @@ module Compass
     # Returns the sass file that needs to be compiled, if any.
     def out_of_date?
       sass_files.zip(css_files).each do |sass_filename, css_filename|
-        return sass_filename if Sass::Plugin.send(:stylesheet_needs_update?, css_filename, sass_filename)
+        return sass_filename if needs_update?(css_filename, sass_filename)
       end
       false
+    end
+
+    def needs_update?(css_filename, sass_filename)
+      staleness_checker.stylesheet_needs_update?(css_filename, File.expand_path(sass_filename), importer)
     end
 
     # Determines if the configuration file is newer than any css file
@@ -92,7 +105,7 @@ module Compass
 
     def compile_if_required(sass_filename, css_filename)
       if should_compile?(sass_filename, css_filename)
-        compile sass_filename, css_filename, :time => options[:time]
+        compile sass_filename, css_filename
       else
         logger.record :unchanged, basename(sass_filename) unless options[:quiet]
       end
@@ -110,19 +123,20 @@ module Compass
     end
 
     # Compile one Sass file
-    def compile(sass_filename, css_filename, additional_options = {})
+    def compile(sass_filename, css_filename)
       start_time = end_time = nil
       css_content = logger.red do
         timed do
           engine(sass_filename, css_filename).render
         end
       end
-      duration = additional_options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
+      duration = options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
       write_file(css_filename, css_content, options.merge(:force => true, :extra => duration))
+      Compass.configuration.run_callback(:stylesheet_saved, css_filename)
     end
 
     def should_compile?(sass_filename, css_filename)
-      options[:force] || Sass::Plugin.send(:stylesheet_needs_update?, css_filename, sass_filename)
+      options[:force] || needs_update?(css_filename, sass_filename)
     end
 
     # A sass engine for compiling a single file.
@@ -136,7 +150,10 @@ module Compass
     # formatted to display in the browser (in development mode)
     # if there's an error.
     def handle_exception(sass_filename, css_filename, e)
-      logger.record :error, basename(sass_filename), "(Line #{e.sass_line}: #{e.message})"
+      formatted_error = "(Line #{e.sass_line}: #{e.message})"
+      file = basename(sass_filename)
+      logger.record :error, file, formatted_error
+      Compass.configuration.run_callback(:styesheet_error, sass_filename, formatted_error)
       write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
     end
 

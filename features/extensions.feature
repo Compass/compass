@@ -20,3 +20,10 @@ Feature: Extensions
     When I run: compass frameworks
     Then the list of frameworks includes "testing"
 
+  @listframeworks
+  Scenario: Shared extensions directory
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    And the "~/.compass/extensions" directory exists
+    And and I have a fake extension at ~/.compass/extensions/testing
+    When I run: compass frameworks
+    Then the list of frameworks includes "testing"

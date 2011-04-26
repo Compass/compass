@@ -9,7 +9,7 @@ classnames:
 The compass configuration file is a ruby file, which means that we can do some
 clever things if we want to. But don’t let it frighten you; it’s really quite
 easy to set up your project.
-
+<a name="basic-format"></a>
 ## Basic format
 
 Most configuration properties are a simple assignment to a configuration property.
@@ -35,11 +35,12 @@ There are two kinds of composite values:
   It is a comma delimited list of associations surrounded by curly brackets.
   An association is two values separated by `=>`. E.g. `{:foo => "aaa", :bar => "zzz"}`
 
+<a name="comments"></a>
 ## Comments
 
 Use the hash sign `#` to comment out everything from the hash sign to the end
 of the line.
-
+<a name="import-note-windows-users"></a>
 ## Import Note for Windows Users
 
 The backslash character (`\`) is a special character in a string delimited by
@@ -47,6 +48,7 @@ double quotes (`"`). If you are working with folders in your paths, you should
 either use **single quotes** to delimit your strings or escape your backslash
 by doubling it like `"some\\path"`.
 
+<a name="loading-compass-plugins"></a>
 ## Loading Compass Plugins
 
 Compass relies on the ruby `require` mechanism to load other libraries of code.
@@ -59,11 +61,13 @@ Example:
     require 'ninesixty'
     require 'susy'
 
+<a name="overriding-configuration-settings"></a>
 ## Overriding Configuration Settings
 
 When using the compass command line, configuration options that you set on the
 command line will override the corresponding settings in your configuration file.
 
+<a name="inspecting-configuration-settings-passed-via-the-command-line"></a>
 ## Inspecting Configuration Settings passed via the Command Line
 
 When using the compass command line, configuration options that you set on the
@@ -78,7 +82,7 @@ Then you can inspect the value like so:
 
 Values that are not set on the CLI will be `nil` even though they will have a default value
 later on.
-
+<a name="configuration-properties"></a>
 ## Configuration Properties
 
 <table>
@@ -217,13 +221,13 @@ later on.
       approach.
     </td>
   </tr>
-  <tr> 
-    <td style="vertical-align:top;"><code>disable_warnings</code> </td> 
-    <td style="vertical-align:top;">Boolean </td> 
+  <tr>
+    <td style="vertical-align:top;"><code>disable_warnings</code> </td>
+    <td style="vertical-align:top;">Boolean </td>
     <td style="vertical-align:top;">
       Set this to true to silence deprecation warnings.
-    </td> 
-  </tr> 
+    </td>
+  </tr>
   <tr>
     <td style="vertical-align:top;"><code>sass_options</code> </td>
     <td style="vertical-align:top;">Hash </td>
@@ -271,8 +275,14 @@ later on.
     <td style="vertical-align:top;">String </td>
     <td style="vertical-align:top;">The relative http path to font files on the web server.</td>
   </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sprite_engine</code> </td>
+    <td style="vertical-align:top;">Symbol </td>
+    <td style="vertical-align:top;">Defaults to <code>:chunky_png</code></td>
+  </tr>
 </table>
 
+<a name="configuration-functions"></a>
 ## Configuration Functions
 
 **`add_import_path`** – Call this function to add a path to the list of sass import
@@ -331,3 +341,36 @@ more than once. Example:
 
 This code will be called if the file is added, updated, or removed. Be sure to check for existence
 to avoid crashing the watcher in the case where the file has been removed.
+<a name="callbacks"></a>
+## Callbacks
+
+**`on_sprite_saved`** -- Pass this function a block of code that gets executed after a sprite is saved to disk. The block will be passed the filename. Can be invoked more then once. Example:
+
+    on_sprite_saved do |filename|
+      post_process(filename) if File.exists?(filename)
+    end
+
+**`on_sprite_generated`** -- Pass this function a block of code that gets executed after a sprite is generated but before its saved to disk. The block will be passed an instance of `ChunkyPNG::Image`. Can be invoked more then once. Example:
+
+    on_sprite_generated do |sprite_data|
+      sprite_data.metadata['Caption'] = "This Image is &copy; My Company 2011"
+    end
+
+**`on_stylesheet_saved`** -- Pass this function a block of code that gets executed after a stylesheet is processed. The block will be passed the filename. Can be invoked more then once. Example:
+
+    on_stylesheet_saved do |filename|
+      Growl.notify {
+         self.message "#{File.basename(filename)} updated!"
+         self.icon = '/path/to/success.jpg'
+       }
+    end
+
+**`on_stylesheet_error`** -- Pass this function a block of code that gets executed if a stylesheet has an error while processing. The block will be passed the filename and the error message. Can be invoked more then once. Example:
+
+    on_stylesheet_error do |filename, message|
+      Growl.notify {
+        self.message = "#{File.basename(filename)}: #{message}"
+        self.icon = '/path/to/fail.jpg'
+        sticky!
+      }
+    end

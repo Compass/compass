@@ -1,0 +1,24 @@
+- render "basic" do
+  #wrap
+    = render "partials/main-navigation"
+    #sub-nav
+      - p = previous_post
+      - n = next_post
+      - if p || n
+        %nav#docs-nav{:role => "navigation"}
+          - if p
+            %a{:href => p.rep_named(:default).path, :title => p[:title]} &laquo; Previous Post
+          - if n
+            %a{:href => n.rep_named(:default).path, :title => n[:title]} Next Post &raquo;
+    #page
+      #docs_panel
+        #theme_pref
+          %a{:href => "#", :rel => "theme", :title => "switch theme" } Q
+        #version
+          Version:
+          %a.number(href="/CHANGELOG/")= compass_version
+      = yield
+      #comments= render "partials/disqus_comments"
+    %footer(role="contentinfo")= render "partials/footer"
+  = @item[:content_for_javascripts]
+  = render "partials/analytics"

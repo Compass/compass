@@ -10,20 +10,35 @@ $experimental-support-for-svg: true
 .bg-shortcut-radial-gradient
   +background(#fff radial-gradient(center center, #ddd, #aaa 100px))
 
+.bg-linear-gradient-angle-svg
+  +background-image(linear-gradient(-45deg, blue, black))
+
+.bg-linear-gradient-angle2-svg
+  +background-image(linear-gradient(top left, blue, black))
+  
+.bg-all-gradient-types-with-simplification
+  +background-with-css2-fallback(image-url("4x6.png"), linear-gradient(top left, #ddd, #aaa), radial-gradient(center center, #ddd, #aaa 100px), #ffcc00)
+
 .bg-simple-image
   +background-image(url('foo.png'))
 
 .bg-linear-gradient
   +background-image(linear-gradient(top left, #ddd, #aaa))
 
+.bg-linear-gradient-pixel-stop-from-top
+  +background-image(linear-gradient(top, #ddd 10px, #aaa 40px))
+
+.bg-linear-gradient-pixel-stop-from-left
+  +background-image(linear-gradient(left, #ddd 10px, #aaa 40px))
+
 .bg-radial-gradient
   +background-image(radial-gradient(center center, #ddd, #aaa 100px))
 
 .bg-linear-gradient-with-angle
-  +background-image(linear-gradient(top left -45deg, #ddd, #aaa))
+  +background-image(linear-gradient(-45deg, #ddd, #aaa))
 
 .bg-radial-gradient-with-angle-and-shape
-  +background-image(radial-gradient(center center 45deg, ellipse cover, #ddd, #aaa 100px))
+  +background-image(radial-gradient(ellipse cover, #ddd, #aaa 100px))
 
 .bg-all-gradient-types
   +background-image(image-url("4x6.png"), linear-gradient(top left, #ddd, #aaa), radial-gradient(center center, #ddd, #aaa 100px))
@@ -102,7 +117,7 @@ $experimental-support-for-svg: false
 
 .linear-12
   +linear-gradient(color-stops(white, blue 33%, black 67%))
-
+  
 .radial-1
   // A default radial gradient:
      A centered gradient having the shape of the container (aka ellipse)

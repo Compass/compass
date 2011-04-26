@@ -1,5 +1,6 @@
 module Compass
   module Configuration
+    @callbacks_loaded = false
     # The helpers are available as methods on the Compass module. E.g. Compass.configuration
     module Helpers
       def configuration
@@ -34,11 +35,11 @@ module Compass
           config
         elsif config.respond_to?(:read)
           filename ||= config.to_s if config.is_a?(Pathname)
-          Compass::Configuration::Data.new_from_string(config.read, filename, defaults)
+          Compass::Configuration::FileData.new_from_string(config.read, filename, defaults)
         elsif config.is_a?(Hash)
           Compass::Configuration::Data.new(filename, config)
         elsif config.is_a?(String)
-          Compass::Configuration::Data.new_from_file(config, defaults)
+          Compass::Configuration::FileData.new_from_file(config, defaults)
         elsif config.is_a?(Symbol)
           Compass::AppIntegration.lookup(config).configuration
         else
@@ -64,6 +65,15 @@ module Compass
           unless Sass::Plugin.engine_options[:load_paths].include?(sass_dir)
             Sass::Plugin.add_template_location sass_dir, css_dir
           end
+        end
+        unless @callbacks_loaded
+          Sass::Plugin.on_updating_stylesheet do |sass_file, css_file|
+            Compass.configuration.run_callback(:stylesheet_saved, css_file)
+          end
+          Sass::Plugin.on_compilation_error do |e, filename, css|
+            Compass.configuration.run_callback(:stylesheet_error, filename, e.message)
+          end
+          @callbacks_loaded = true
         end
       end
 
@@ -92,7 +102,12 @@ module Compass
       end
 
       def discover_extensions!
-        if File.exists?(configuration.extensions_path)
+        Compass.shared_extension_paths.each do |extensions_path|
+          if File.directory?(extensions_path)
+            Compass::Frameworks.discover(extensions_path)
+          end
+        end
+        if File.directory?(configuration.extensions_path)
           Compass::Frameworks.discover(configuration.extensions_path)
         end
       end

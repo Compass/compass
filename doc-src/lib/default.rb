@@ -132,3 +132,7 @@ def compass_version
   "#{v[:major]}.#{v[:minor]}#{"."+v[:state] if v[:state]}.#{v[:build]}"
 end
 
+def long_compass_version
+  require 'compass/commands'
+  Compass::Commands::PrintVersion.long_output_string
+end

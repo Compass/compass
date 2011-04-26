@@ -1,17 +1,20 @@
-// Based on [Eric Meyer's reset](http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/)
+// Based on [Eric Meyer's reset 2.0](http://meyerweb.com/eric/tools/css/reset/index.html)
 // Global reset rules.
 // For more specific resets, use the reset mixins provided below
-//
-// *Please Note*: tables still need `cellspacing="0"` in the markup.
 @mixin global-reset {
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
-  del, dfn, em, font, img, ins, kbd, q, s, samp,
+  del, dfn, em, img, ins, kbd, q, s, samp,
   small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
   dl, dt, dd, ol, ul, li,
   fieldset, form, label, legend,
-  table, caption, tbody, tfoot, thead, tr, th, td {
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, 
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
     @include reset-box-model;
     @include reset-font; }
   body {
@@ -25,17 +28,26 @@
   q, blockquote {
     @include reset-quotation; }
   a img {
-    @include reset-image-anchor-border; } }
+    @include reset-image-anchor-border; }
+  @include reset-html5; }
 
 // Reset all elements within some selector scope. To reset the selector itself,
 // mixin the appropriate reset mixin for that element type as well. This could be
 // useful if you want to style a part of your page in a dramatically different way.
-//
-// *Please Note*: tables still need `cellspacing="0"` in the markup.
 @mixin nested-reset {
-  div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
-  pre, a, abbr, acronym, address, code, del, dfn, em, img,
-  dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
+  div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, 
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
     @include reset-box-model;
     @include reset-font; }
   table {
@@ -51,16 +63,12 @@
 @mixin reset-box-model {
   margin: 0;
   padding: 0;
-  border: 0;
-  outline: 0; }
+  border: 0; }
 
 // Reset the font and vertical alignment.
 @mixin reset-font {
-  font: {
-    weight: inherit;
-    style: inherit;
-    size: 100%;
-    family: inherit; };
+  font-size: 100%;
+  font: inherit;
   vertical-align: baseline; }
 
 // Resets the outline when focus.
@@ -70,9 +78,7 @@
 
 // Reset a body element.
 @mixin reset-body {
-  line-height: 1;
-  color: black;
-  background: white; }
+  line-height: 1; }
 
 // Reset the list style of an element.
 @mixin reset-list-style {
@@ -80,9 +86,8 @@
 
 // Reset a table
 @mixin reset-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  vertical-align: middle; }
+  border-collapse: collapse;
+  border-spacing: 0; }
 
 // Reset a table cell (`th`, `td`)
 @mixin reset-table-cell {
@@ -92,9 +97,10 @@
 
 // Reset a quotation (`q`, `blockquote`)
 @mixin reset-quotation {
-  quotes: "" "";
+  quotes: none;
   &:before, &:after {
-    content: ""; } }
+    content: ""; 
+    content: none; } }
 
 // Resets the border.
 @mixin reset-image-anchor-border {
@@ -105,8 +111,8 @@
 // so they are rendered correctly in browsers that don't recognize them
 // and reset in browsers that have default styles for them.
 @mixin reset-html5 {
-  article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
-    @include reset-box-model;
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section {
     display: block; } }
 
 // Resets the display of inline and block elements to their default display

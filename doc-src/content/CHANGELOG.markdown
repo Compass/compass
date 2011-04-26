@@ -7,88 +7,26 @@ layout: default
 COMPASS CHANGELOG
 =================
 
-Upgrading compass is really easy.
+Upgrading compass is pretty easy.
 Don't let all these details [scare you...](/help/tutorials/upgrading/im-scared/)
 
 The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.alpha.5 (future)
----------------------
+0.11.0 (04/24/2011)
+-------------------
 
-* Added optional support for IE8 with $legacy-support-for-ie8 which defaults to true.
-* Updated the opacity and filter-gradient mixins to make IE's hacky DirectX filters
-  optional based on Compass's legacy support settings.
-* Added the ability to piggy back on compass's watcher within your configuration file.
-  See the [configuration reference](/help/tutorials/configuration-reference/) for details.
-* The options passed to the CLI can now be inspected within the compass configuration file.
-  The CLI options will still override the values set within the config file, but they might
-  inform other values. For instance `compass compile -e production` will have the environment
-  parameter preset to `:production` so that you can set other values in the project accordingly.
-* New infrastructure for supporting experimental css3 functions that are prefixed but have the same
-  syntax across all browsers. It is now possible to configure which browsers support which
-  experimental functions outside of the compass release cycle. For details, see the
-  [cross browser helpers](/reference/compass/helpers/cross-browser/).
-* [Blueprint] Added a new sass function called span($n) to the grid module which replaces
-  the now **deprecated span mixin**. If you are using this mixin, please replace it with:
-  `width: span($n)`.
-* [Blueprint] Blueprint no longer adds `!important` to the widths of `input`, `textarea`,
-  and `select` form fields, so compass no longer defaults to using `!important` in those cases.
-  If you were relying on this behavior, you may need to adjust your stylesheets accordingly.
+This changelog entry is aggregated across all the v0.11 beta releases.
+If you're upgrading from a previous beta v0.11 beta release, you can read
+[the 0.11 beta release notes here](/CHANGELOG-v0-11-beta/).
 
+### !important
 
-0.11.alpha.4 (12/08/2010)
--------------------------
+#### Breaking Changes & Deprecations:
 
-* Add a `--time` option to the compile and watch commands. This will print out
-  the time spent compiling each sass file and a total at the end.
-* Upgrade FSSM, the internal library that monitors the filesystem events for compass.
-* Removed the command line options that were deprecated in v0.10.
-
-0.11.alpha.3 (12/05/2010)
--------------------------
-
-* Fix a bug in compass running under ruby 1.9.2 that was introduced in v0.11.alpha.2.
-
-0.11.alpha.2 (12/05/2010)
--------------------------
-
-* Merge with Lemonade. Compass now provides a full featured spriting solution.
-  See the [spriting tutorial](/help/tutorials/spriting/) for more information.
-* Compass now depends on Sass 3.1. You can install the preview release:
-  `gem install sass --pre`. Note: you must also upgrade your haml gem if you
-  use both in the same application.
-* A third argument is now available on the `image-url()` helper. When `true` or
-  `false`, it will enable/disable the cache buster for a single image url. Or when
-  a string, it will be the cache buster used.
-* Upgrade CSS3 PIE to 1.0-beta3.
-* Bug fixes.
-
-0.11.alpha.1 (11/22/2010)
--------------------------
-
-* Support for Sass 3.1 alpha version
-* CSS3 PIE module. [Docs](/reference/compass/css3/pie/).
-* The versioned modules in the last release have been removed. There is now
-  just a single module for each and the overloaded mixins will discern
-  deprecated usage and warn accordingly.
-* Allow erb processing of non all non-binary filetypes during extension installs.
-* Added a `background` mixin for css3 gradient support in the shorthand style.
-* Fix for gradients in opera with bordered elements.
-* The `multiple-text-shadows` and `multiple-box-shadows` mixins that were present in
-  v0.11.alpha.0 were removed because they were unnecessary. Just use the `text-shadow`
-  and `box-shadow` mixins.
-* The docs are [getting a make-over](http://beta.compass-style.org/) by Brandon :)
-
-0.11.alpha.0 (11/15/2010)
--------------------------
-
-Note: Compass does not currently support Sass 3.1 alphas.
-
-### Deprecations
-
-* Deprecated imports and APIs from v0.10 have been removed.
+* Deprecated imports and APIs from v0.10 have been removed. If you are upgrading
+  from v0.8, please upgrade to v0.10 before installing v0.11.
 * Changed defaults for the box-shadow and text-shadow mixins.
   Previously the horizontal and vertical offset were both 1, which
   expected a top left light source. They are now set to 0 which assumes
@@ -100,6 +38,31 @@ Note: Compass does not currently support Sass 3.1 alphas.
   and has been deprecated.
 * Some blueprint color defaults now use color functions instead of color arithmetic.
   This may result in different output for those who have color customizations.
+* The deprecated & unused arguments to the `font-face` mixin have been removed.
+* Lemonade has been merged into compass. If you've been using Lemonade, you need to
+  upgrade your sprites to use the new [Compass Sprites](/help/tutorials/spriting/).
+
+#### Dependencies
+
+* Compass now depends on Sass 3.1 which is a new stand-alone gem that has been separated
+  from Haml. **If you have Haml installed, you must upgrade it to 3.1 as well.**
+* Compass now depends on ChunkyPNG, a pure-ruby library for generating PNG files.
+* The FSSM library that used to be vendored is now upgraded and a normal gem dependency.
+  If you don't know what this means, then you don't need to care :)
+
+### New Sass Features
+
+Sass 3.1 brings a ton of great new features that Compass now uses and you can too!
+
+* Proper List Support. Space and Comma separated lists used to cause values to become strings when passing them to mixins. Now the values in lists are preserved as their original types.
+* Sass-based Functions. Define your own value functions and use them anywhere.
+* Keyword Style Argument passing to Functions and Mixins. It can be hard to understand what
+  the values being passed to a mixin or function are for, use keyword style arguments to
+  make it easier to understand what's going on.
+* `@media` bubbling. Use a media declaration anywhere and it will be bubbled to the top level
+  for you.
+
+For more information about the new Sass features, see the [Sass CHANGELOG](http://sass-lang.com/docs/yardoc/file.SASS_CHANGELOG.html).
 
 ### Blueprint
 
@@ -112,8 +75,26 @@ Note: Compass does not currently support Sass 3.1 alphas.
   * If for some reason you'd like to stay on the older version of blueprint you can run
     the following command in your project before you upgrade (or after temporarily downgrading):
     `compass unpack blueprint`
+* [Blueprint] Blueprint no longer adds `!important` to the widths of `input`, `textarea`,
+  and `select` form fields, so compass no longer defaults to using `!important` in those cases.
+  If you were relying on this behavior, you may need to adjust your stylesheets accordingly.
+* [Blueprint] Added a new sass function called span($n) to the grid module which replaces
+  the now **deprecated span mixin**. If you are using this mixin, please replace it with:
+  `width: span($n)`.
 
-### CSS3 v2.0
+### Spriting Support
+
+* Compass now has a world-class spriting system after merging with [Lemonade][lemonade].
+  See the [spriting tutorial](/help/tutorials/spriting/) for more information.
+* The [old sprite module](/reference/compass/utilities/sprites/sprite_img/) is still available
+  for working with hand-generated sprite maps.
+* The Sprite internals are abstracted allowing for different engines. By default
+  compass uses ChunkyPNG which only supports PNG files, so some users might prefer
+  ImageMagic which is available via a [plugin](#XXXLINKME).
+* [Magic Selectors](/help/tutorials/spriting/#magic-selectors) make it simple to define
+  sprites that work with user interaction pseudo classes like `:hover`, `:active`, etc.
+
+### CSS3 Module v2.0
 
 Our CSS3 module makes writing CSS3 today almost as easy as it will be when all
 the browsers officially support the new features. The second version of the
@@ -121,30 +102,39 @@ compass CSS module brings the API up to date with developments over the past
 6 to 9 months of browser changes and more closely matching the most recent CSS
 specifications. [Upgrade guide](/help/tutorials/upgrading/antares/). Summary of changes.
 
-* Support for multiple box shadows and text shadows
-* Support for 2d and 3d transforms
-* Opt-in SVG support for gradients in opera and IE9.
-  Set `$experimental-support-for-svg : true` in your
+* Support for multiple [box shadows](/reference/compass/css3/box_shadow/)
+  and multiple [text shadows](/reference/compass/css3/text-shadow/)
+* Support for [2d and 3d transforms](/reference/compass/css3/transform/)
+* Opt-in [SVG support](/reference/compass/support/#const-experimental-support-for-svg)
+  for gradients in opera and IE9. Set `$experimental-support-for-svg : true` in your
   stylesheet to enable it.
-* Fixed a radial gradient position bug.
 * To generate a simple linear gradient in IE6 & 7, you can now use
-  the `filter-gradient` mixin.
-* New `background-image` mixin with gradient support and allowing
-  up to 10 images.
-* Gradient support for the border-image property.
-* Gradient support for list-style-image property.
-* Gradient support for the content property.
+  the [filter-gradient mixin](/reference/compass/css3/images/#mixin-filter-gradient).
+* New [images module](/reference/compass/css3/images/) makes gradients simple for
+  all properties that support them using the CSS3 standard syntax.
+* Compass now has opt-in support for the CSS3 PIE library. [Docs](/reference/compass/css3/pie/).
+* Added optional support for IE8 with `$legacy-support-for-ie8` which defaults to true.
+* Updated the `opacity` and `filter-gradient` mixins to make IE's hacky DirectX filters
+  optional based on Compass's legacy support settings.
+* A new CSS3 mixin for [appearance](/reference/compass/css3/appearance/) was added.
+* The font-face mixin has been updated again with the [syntax recommendations
+  from font-spring](http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax).
+  The API has not changed.
+* Added support for the new webkit gradient syntax that matches the css3 specification.
+  Support for older webkit browsers remains enabled at this time.
+  To disable it, set `$support-for-original-webkit-gradients` to false.
 
-### Helpers
+### Helper Functions
 
 * `linear-gradient()` & `radial-gradient()` helpers now intercept standard css
   functions and parse them into Sass Literals. These work with new vendor helpers
-  (`-moz()`, `-webkit`, `-o`, `-ie`, and `-svg` (yes I know svg is not a vendor))
+  (`-moz()`, `-webkit`, `-o`, `-ie`, and `-svg` (yes, we know svg is not a vendor))
   to return specific representations of the linear & radial gradients. The
   `prefixed()` function will check a value to see if it has a certain
   vendor-specific representation.
-* New color helpers: `adjust-lightness`, `adjust-saturation`, `scale-lightness`, and `scale-saturation`
-  make it easier to construct apis that manipulate these color attributes.
+* New color helpers: `adjust-lightness`, `adjust-saturation`, `scale-lightness`,
+  and `scale-saturation` make it easier to construct apis that manipulate these
+  color attributes.
 * The `elements-of-type()` helper now returns html5 elements when the display is `block`
   and also will return only html5 elements for `elements-of-type(html5)`
 * Compass now provides several helper functions related to trigonometry.
@@ -155,29 +145,68 @@ specifications. [Upgrade guide](/help/tutorials/upgrading/antares/). Summary of 
   * `tan($number)` - Takes the tangent of the number.
   * `pi()` - Returns the value of π.
   If you provide a number with units of `deg` then it will return a unitless number
-  after converting to radians. Otherwise, it assumes the number is a radian length measure
-  and passes the units along to the result.
+  after converting to radians. Otherwise, it assumes the number is a radian length
+  measure and passes the units along to the result.
 * `ie-hex-str($color)` returns a #AARRGGBB formatted color suitable for
   passing to IE filters.
-* A new function `if()` that allows you to switch on a value without using `@if`.
-  Usage: `if($truth-value, $value-if-true, $value-if-false)`.
-* Compass has added a number of new helper functions for lists that begin with
-  `-compass`, helpers that begin with `-compass` should be considered "private" and
-  are not to be used by compass users. Sass 3.1 will have proper list support,
-  these are a work around until that time.
+* Compass has added a number of new helper functions that begin with
+  `-compass`, helpers that begin with `-compass` should be considered "private"
+  and are not to be used.
+* A third argument is now available on the `image-url()` helper. When `true` or
+  `false`, it will enable/disable the cache buster for a single image url. Or when
+  a string, will be the cache buster value that is used.
 
-### Configuration
+### Configuration Files
 
 * Added a new configuration property to disable sass warnings: `disable_warnings`
+* New infrastructure for supporting experimental css3 functions that are prefixed but have
+  the same syntax across all browsers. It is now possible to configure which browsers
+  support which experimental functions outside of the compass release cycle.
+  For details, see the [cross browser helpers](/reference/compass/helpers/cross-browser/).
+* The options passed to the CLI can now be inspected within the compass configuration file.
+  The CLI options will still override the values set within the config file, but they might
+  inform other values. For instance `compass compile -e production` will have the environment
+  parameter preset to `:production` so that you can set other values in the project accordingly.
+* Added the ability to piggy back on compass's watcher within your configuration file.
+  See the [configuration reference](/help/tutorials/configuration-reference/) for details.
+* You can now register callbacks for compilation events so that you can take
+  custom actions when they occur. For instance, you might want to notify
+  Growl when a stylesheet compilation error occurs.
 
-### Core Framework
+### New Compass Typography Module
+
+* Some text-based mixins have been moved from utilities to the new
+  typography module. The old imports are deprecated now.
+  Affected modules: `utilities/links`, `utilities/lists`, and `utilities/text` and
+  their sub-modules.
+* There is a new typography module:
+  [Vertical Rhythm](/reference/compass/typography/vertical_rhythm/).
+  This makes it easier to align the typography of your page to a common rhythm.
+
+### Compass Layout Module
 
 * New layout mixins for absolute positioning: stretch, stretch-x, stretch-y
+* There is a new mixin for creating
+  [pure-css grid backgrounds](/reference/compass/layout/grid_background/)
+  for verifying grid alignment for both fixed and fluid grids.
+
+### Compass Utilities
+
+* A new mixin `reset-float` is available in the [float module](/reference/compass/utilities/general/float/#mixin-reset-float) that makes it easier to reset the floats introduced from that module.
+* A new module has been added to create readable text against an arbitrary background color based on the lightness of the background: [compass/utilities/color/contrast](/reference/compass/utilities/color/contrast/).
+* The comma-delimited-list has been renamed to delimited-list and
+  generalized to accept a delimiter which defaults to a comma.
+  The old function continues to exist, but is deprecated.
+
+### Command Line
+
+* Add a `--time` option to the compile and watch commands. This will print out
+  the time spent compiling each sass file and a total at the end.
 
 ### Rails
 
 * In rails 3, there's no need for an initializer. Instead we use a
-  Railstie.
+  Railtie. If you have one, please remove it.
 * We now default to app/stylesheets for sass files and public/stylesheets for
   css files -- though they can still be changed after installation or on the
   command line during project initialization.
@@ -185,6 +214,20 @@ specifications. [Upgrade guide](/help/tutorials/upgrading/antares/). Summary of 
 * In a rails3 environment the compass configuration can now be
   changed without restarting the rails server process.
 
+### Extensions
+
+* Compass now allows ERB processing of non all non-binary filetypes during
+  extension installs.
+* Extensions that are installed into `~/.compass/extensions` will be automatically
+  available to all your compass projects.
+* Created an official API to add configuration options to compass.
+  [More information](/help/tutorials/extending/).
+
+### Miscellaneous
+
+* We have a new website design from [Brandon Mathis][brandon]
+* Compass now officially supports the following ruby interpreters:
+  jruby, ruby 1.8.7, ruby 1.9.2, ree, and rubinius.
 
 0.10.7 (UNRELEASED)
 -------------------
@@ -1046,6 +1089,8 @@ Almost definitely. Please let me know if you encounter any problems and I'll get
 [der-rich]: http://github.com/der-rich
 [adamstac]: http://github.com/adamstac
 [ttilley]: http://github.com/ttilley
-[inline-block-list]: http://compass-style.org/reference/compass/utilities/lists/inline-block-list/
+[inline-block-list]: http://compass-style.org/reference/compass/typography/lists/inline-block-list/
 [html5-reset]: http://compass-style.org/reference/compass/reset/utilities/#mixin-reset-html5
 [blueprint_10_change]: https://github.com/chriseppstein/compass/compare/a05e1ee7c0a1e4c0f0595a8bb812daa47872e476...864780969d872a93b1fd3b4f39f29dd9f0c3fe75
+[brandon]: http://brandonmathis.com/
+[lemonade]: http://www.hagenburger.net/BLOG/Lemonade-CSS-Sprites-for-Sass-Compass.html

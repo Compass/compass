@@ -48,6 +48,15 @@ module Compass
       $stdout.write(color(:clear))
     end
 
+    def yellow
+      $stderr.write(color(:yellow))
+      $stdout.write(color(:yellow))
+      yield
+    ensure
+      $stderr.write(color(:clear))
+      $stdout.write(color(:clear))
+    end
+
     def color(c)
       if Compass.configuration.color_output && c && COLORS.has_key?(c.to_sym)
         if defined?($boring) && $boring

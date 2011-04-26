@@ -1,8 +1,14 @@
 description "Generate a compass extension."
 
-file 'stylesheets/main.sass', :to => "stylesheets/_#{File.basename(options[:pattern_name]||options[:project_name]||'main')}.sass"
+unless options.include?(:preferred_syntax)
+  options[:preferred_syntax] = 'sass'
+end
+
 file 'templates/project/manifest.rb'
-file 'templates/project/screen.sass'
+file "stylesheets/main.sass", :to => "stylesheets/_#{File.basename(options[:pattern_name]||options[:project_name]||'main')}.#{options[:preferred_syntax]}"
+
+file "templates/project/screen.sass", :to => "templates/project/screen.#{options[:preferred_syntax]}"
+
 
 help %Q{
   To generate a compass extension:

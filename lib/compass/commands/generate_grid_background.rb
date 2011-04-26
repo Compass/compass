@@ -16,7 +16,10 @@ Description:
   By default, the image generated will be named "grid.png"
   and be found in the images directory.
 
-  This command requires that you have both ImageMagick and RMagick installed.
+  Unless you need to check layouts in legacy browsers, it's preferable
+  to use the pure CSS3-based grid background mixin:
+
+  http://compass-style.org/reference/compass/layout/grid_background/
 
 Examples:
 
@@ -75,6 +78,12 @@ Options:
           puts "Dimensions should be specified like: 30+10x20"
           puts "where 30 is the column width, 10 is the gutter width, and 20 is the (optional) height."
           return
+        end
+        logger.yellow do
+          $stderr.puts "Unless you need to check layouts in legacy browsers, it's preferable"
+          $stderr.puts "to use the pure CSS3-based grid background mixin:"
+          $stderr.puts
+          $stderr.puts "http://compass-style.org/reference/compass/layout/grid_background/"
         end
         column_width = $1.to_i
         gutter_width = $2.to_i

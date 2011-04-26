@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import "shared";
 
 // Cross-browser support for @font-face. Supports IE, Gecko, Webkit, Opera.
@@ -7,15 +6,26 @@
 // * $font-files is required using font-files('relative/location', 'format').
 //   for best results use this order: woff, opentype/truetype, svg
 // * $eot is required by IE, and is a relative location of the eot file.
+// * For android 2.2 Compatiblity, please ensure that your web page has
+//   a meta viewport tag.
+// * To support iOS < 4.2, an SVG file must be provided
+//
+// If you need to generate other formats check out the Font Squirrel
+// [font generator](http://www.fontsquirrel.com/fontface/generator)
 
-@mixin font-face($name, $font-files, $eot: false, $postscript: false, $style: false) {
-  @if $postscript or $style {
-    @warn "The $postscript and $style variables have been deprecated in favor of the Paul Irish smiley bulletproof technique.";
-  }
+@mixin font-face(
+  $name, 
+  $font-files, 
+  $eot: false
+) {
+  $iefont: unquote("#{$eot}?iefix");
   @font-face {
     font-family: quote($name);
-    @if $eot { src: font-url($eot); }
-    src: local("☺"), $font-files; 
+    @if $eot {
+      src: font-url($eot);
+      $font-files: font-url($iefont) unquote("format('eot')"), $font-files; 
+    }
+    src: $font-files; 
   }
 }
 

@@ -71,6 +71,10 @@ you can use compass to generate an extension with the following command:
 
 This will create a few basic files and folders to get you started.
 
+If you prefer to use the scss syntax for your extension run the following command instead:
+
+    compass create my_extension --using compass/extension -x scss
+
 Advanced Layout Options
 -----------------------
 
@@ -105,6 +109,10 @@ template directories are not at the top level, you can just do this instead:
     # path from the library file to where you're keeping your compass stuff.
     base_directory  = File.join(File.dirname(__FILE__), '..', 'compass')
     Compass::Frameworks.register('my_extension', :path => base_directory)
+
+### Adding Configuration Options to Compass
+
+For details on how to add new configuration options to compass [read this](/help/tutorials/extending/#adding-configuration-properties).
 
 Conventions to Follow
 ---------------------

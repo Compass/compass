@@ -13,3 +13,18 @@
 @mixin float($side: left) {
   display: inline;
   float: unquote($side); }
+
+// Resets floated elements back to their default of `float: none` and defaults
+// to `display: block` unless you pass `inline` as an argument
+//
+// Usage Example:
+//
+//     body.homepage
+//       #footer li
+//         +float-left
+//     body.signup
+//       #footer li
+//         +reset-float
+@mixin reset-float($display: block) {
+  float: none;
+  display: $display; }

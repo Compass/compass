@@ -1,0 +1,27 @@
+--- 
+title: Compass Reset (legacy)
+crumb: Reset (legacy)
+framework: compass
+stylesheet: compass/_reset-legacy.scss
+layout: core
+sidebar: true
+deprecated: true
+classnames:
+  - reference
+  - core
+  - reset
+meta_description: Adds a CSS Reset into your stylesheet.
+---
+- render 'reference' do
+  %p.warning
+    This import is deprecated. Please import
+    <a href="/reference/compass/reset/" class="better">reset</a> instead.
+  
+  :markdown
+    This module applies the [global reset](/reference/compass/reset/utilities-legacy/#mixin-global-reset)
+    to your stylesheet by simply importing it.
+    
+    **Note:** This module will place styles into your stylesheet by importing it. This
+    is not the standard behavior of a compass module but it optimizes the common use case.
+    If you want to control the reset, please use the mixins defined in the [reset
+    utilities module](/reference/compass/reset/utilities-legacy/)

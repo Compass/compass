@@ -1,5 +1,12 @@
 module Compass::SassExtensions::Functions::Constants
   if defined?(Sass::Script::List)
+    POSITIONS = /top|bottom|left|right|center/
+    def is_position(position)
+      Sass::Script::Bool.new(position.is_a?(Sass::Script::String) && !!(position.value =~ POSITIONS))
+    end
+    def is_position_list(position_list)
+      Sass::Script::Bool.new(position_list.is_a?(Sass::Script::List) && position_list.value.all?{|p| is_position(p).to_bool})
+    end
     # returns the opposite position of a side or corner.
     def opposite_position(position)
       position = unless position.is_a?(Sass::Script::List)
