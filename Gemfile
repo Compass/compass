@@ -12,12 +12,12 @@ gem "haml", "~> 3.1"
 gem "rcov"
 gem "rubyzip"
 gem "livereload"
-gem "rb-fsevent"
+gem "rb-fsevent" if RUBY_PLATFORM =~ /darwin/
 
 gem "ruby-prof" unless RUBY_PLATFORM == "java"
 
 gem 'autotest'
-gem 'autotest-fsevent'
+gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
 gem 'fakefs', :git => 'git://github.com/johnbintz/fakefs.git'
 gem 'mocha'
 gem 'timecop'
