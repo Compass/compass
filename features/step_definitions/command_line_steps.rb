@@ -3,7 +3,7 @@ $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), '../../test')))
 require 'test_helper'
 
 require 'compass/exec'
-
+include Compass::TestCaseHelper
 include Compass::CommandLineHelper
 include Compass::IoHelper
 include Compass::RailsHelper
