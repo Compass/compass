@@ -22,7 +22,16 @@ require 'compass'
 
 require 'test/unit'
 
-require 'test_case_helper'
-require 'io_helper'
-require 'rails_helper'
-require 'command_line_helper'
+
+%w(command_line diff io rails test_case).each do |helper|
+  require "helpers/#{helper}"
+end
+
+
+class Test::Unit::TestCase
+  include Compass::Diff
+  include Compass::TestCaseHelper
+  include Compass::IoHelper
+  extend Compass::TestCaseHelper::ClassMethods
+  
+end 

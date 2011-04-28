@@ -5,7 +5,6 @@ require 'compass/exec'
 require 'timeout'
 
 class RailsIntegrationTest < Test::Unit::TestCase
-  include Compass::TestCaseHelper
   include Compass::CommandLineHelper
   include Compass::IoHelper
   include Compass::RailsHelper

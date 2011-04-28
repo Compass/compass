@@ -5,18 +5,14 @@ require 'compass/logger'
 require 'sass/plugin'
 
 class CompassTest < Test::Unit::TestCase
-  include Compass::TestCaseHelper
+
   def setup
     Compass.reset_configuration!
   end
 
   def teardown
-    teardown_fixtures :blueprint, :empty, :compass, :image_urls, :relative
-  end
-
-  def teardown_fixtures(*project_names)
-    project_names.each do |project_name|
-      FileUtils.rm_rf tempfile_path(project_name)
+    [:blueprint, :empty, :compass, :image_urls, :relative].each do |project_name|
+      ::FileUtils.rm_rf tempfile_path(project_name)
     end
   end
 
@@ -117,7 +113,11 @@ private
       expected_lines = expected_lines.split("\n").reject{|l| l=~/\A\Z/}
       expected_lines.zip(actual_lines).each_with_index do |pair, line|
         message = "template: #{name}\nline:     #{line + 1}"
-        assert_equal(pair.first, pair.last, message)
+        if pair.first == pair.last
+          assert(true)
+        else
+          assert false, diff_as_string(pair.first.inspect, pair.last.inspect)
+        end
       end
       if expected_lines.size < actual_lines.size
         assert(false, "#{actual_lines.size - expected_lines.size} Trailing lines found in #{actual_result_file}.css: #{actual_lines[expected_lines.size..-1].join('\n')}")

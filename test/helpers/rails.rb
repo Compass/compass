@@ -12,6 +12,7 @@ module Compass
     # by manipulating the load path.
     def generate_rails_app(name)
       if pid = fork
+        puts "HELP I FORKED"
         Process.wait(pid)
         if $?.exitstatus == 2
           raise LoadError, "Couldn't load rails"
