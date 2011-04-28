@@ -281,13 +281,4 @@ EXPECTED
     end.compact
   end
   
-  def assert_correct(before, after)
-    if before == after
-      assert(true)
-    else
-      assert false, diff_as_string(before.inspect, after.inspect)
-    end
-  end
-
-
 end

@@ -9,6 +9,15 @@ module Compass
         File.join(File.expand_path('../../', __FILE__), path)
       end
     end
+    
+    def assert_correct(before, after)
+      if before == after
+        assert(true)
+      else
+        assert false, diff_as_string(before.inspect, after.inspect)
+      end
+    end
+    
     module ClassMethods
 
       def it(name, &block)

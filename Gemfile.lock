@@ -7,7 +7,7 @@ GIT
 PATH
   remote: .
   specs:
-    compass (0.11.1.f1061c4)
+    compass (0.11.1.f4f9d7b)
       chunky_png (~> 1.1)
       fssm (>= 0.2.7)
       sass (~> 3.1)
@@ -71,6 +71,7 @@ GEM
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
+    haml (3.1.1)
     i18n (0.5.0)
     json (1.4.6)
     livereload (1.6)
@@ -119,11 +120,7 @@ GEM
     ruby-json (1.1.2)
     ruby-prof (0.10.5)
     rubyzip (0.9.4)
-<<<<<<< HEAD
-    sass (3.1.1)
-=======
     sass (3.1.0)
->>>>>>> f3ea546150ded6fb0ee1ca91cde4c0349f088ddd
     sys-uname (0.8.5)
     term-ansicolor (1.0.5)
     thor (0.14.6)
@@ -144,10 +141,7 @@ DEPENDENCIES
   cucumber (~> 0.9.2)
   diff-lcs (~> 1.1.2)
   fakefs!
-<<<<<<< HEAD
-=======
   haml (~> 3.1)
->>>>>>> f3ea546150ded6fb0ee1ca91cde4c0349f088ddd
   livereload
   mocha
   rails (~> 3.0.0.rc)
@@ -156,8 +150,5 @@ DEPENDENCIES
   rspec (~> 2.0.0)
   ruby-prof
   rubyzip
-<<<<<<< HEAD
-=======
   sass (= 3.1)
->>>>>>> f3ea546150ded6fb0ee1ca91cde4c0349f088ddd
   timecop
