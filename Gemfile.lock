@@ -7,10 +7,10 @@ GIT
 PATH
   remote: .
   specs:
-    compass (0.11.0)
-      chunky_png (~> 1.1.1)
+    compass (0.11.1.ef013a2)
+      chunky_png (~> 1.1)
       fssm (>= 0.2.7)
-      sass (>= 3.1.0.alpha.249)
+      sass (~> 3.1)
 
 GEM
   remote: http://rubygems.org/
@@ -118,7 +118,7 @@ GEM
     ruby-json (1.1.2)
     ruby-prof (0.10.5)
     rubyzip (0.9.4)
-    sass (3.1.0.alpha.263)
+    sass (3.1.1)
     term-ansicolor (1.0.5)
     thor (0.14.6)
     timecop (0.3.5)
@@ -145,5 +145,5 @@ DEPENDENCIES
   rspec (~> 2.0.0)
   ruby-prof
   rubyzip
-  sass (= 3.1.0.alpha.263)
+  sass (~> 3.1)
   timecop
