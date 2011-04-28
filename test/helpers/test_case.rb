@@ -35,14 +35,12 @@ module Compass
       def setup(&block)
         define_method :setup do
           yield
-          super
         end
       end
 
       def after(&block)
         define_method :teardown do
           yield
-          super
         end
       end
 
