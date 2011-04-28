@@ -38,7 +38,6 @@ begin
     spec.rcov = true
   end
 
-  task :default => :spec
 rescue LoadError
   puts "Rspec (or a dependency) is not available. Try running bundler install"
 end
