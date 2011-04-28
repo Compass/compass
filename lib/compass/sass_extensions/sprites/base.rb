@@ -12,7 +12,7 @@ module Compass
           sprites = sprite_map.files.map do |sprite|
             sprite.gsub(Compass.configuration.images_path+"/", "")
           end
-          new(sprites, sprite_map.path, sprite_map.name, context, kwargs)
+          new(sprites, sprite_map, context, kwargs)
         end
         
         # Loads the sprite engine
@@ -24,17 +24,18 @@ module Compass
         # We should do so only when the packing algorithm changes
         SPRITE_VERSION = "1"
 
-        attr_accessor :image_names, :path, :name, :options
+        attr_accessor :image_names, :path, :name, :options, :map
         attr_accessor :images, :width, :height
 
 
-        def initialize(image_names, path, name, context, options)
+        def initialize(image_names, map, context, options)
           require_engine!
-          @image_names, @path, @name, @options = image_names, path, name, options
+          @image_names, @path, @name, @options = image_names, map.path, map.name, options
           @images = nil
           @width = nil
           @height = nil
           @evaluation_context = context
+          @map = map
           validate!
           compute_image_metadata!
         end

@@ -20,6 +20,10 @@ module Compass
     
     module ClassMethods
 
+      def let(method, &block)
+        define_method method, &block
+      end
+
       def it(name, &block)
         test(name, &block)
       end

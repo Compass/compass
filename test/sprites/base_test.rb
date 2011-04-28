@@ -12,7 +12,7 @@ class SpritesBaseTest < Test::Unit::TestCase
     Compass.configure_sass_plugin!
     options = Compass.sass_engine_options.extend Compass::SassExtensions::Functions::Sprites::VariableReader
     @map = Compass::SpriteMap.new("selectors/*.png", options)
-    @base = Compass::SassExtensions::Sprites::Base.new(@map.sprite_names.map{|n| "selectors/#{n}.png"}, @map.path, 'selectors', @map.sass_engine, @map.options)
+    @base = Compass::SassExtensions::Sprites::Base.new(@map.sprite_names.map{|n| "selectors/#{n}.png"}, @map, @map.sass_engine, @map.options)
   end
 
   def teardown
