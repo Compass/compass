@@ -6,4 +6,5 @@ javascripts_dir = "assets/javascripts"
 # Set this to the root of your project when deployed:
 http_path = "/"
 # To enable relative paths to assets via compass helper functions. Uncomment:
+output_style = :compact
 relative_assets = true

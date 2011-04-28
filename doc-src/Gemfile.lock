@@ -8,7 +8,7 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.11.1.63cae60)
+    compass (0.11.1.26f44fd)
       chunky_png (~> 1.1)
       fssm (>= 0.2.7)
       sass (~> 3.1)
@@ -16,7 +16,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (3.0.5)
+    activesupport (3.0.7)
     chunky_png (1.1.1)
     coderay (0.9.7)
     compass-susy-plugin (0.9.beta.3)
@@ -26,7 +26,7 @@ GEM
       compass (>= 0.10.0.rc3)
     css_parser (1.0.1)
     fssm (0.2.7)
-    haml (3.1.0.alpha.147)
+    haml (3.1.0)
     i18n (0.4.2)
     json (1.5.1)
     mime-types (1.16)
@@ -43,7 +43,7 @@ GEM
       rack (~> 1.2.1)
       tzinfo (~> 0.3.23)
     thor (0.14.6)
-    tzinfo (0.3.25)
+    tzinfo (0.3.26)
 
 PLATFORMS
   ruby
@@ -54,7 +54,7 @@ DEPENDENCIES
   compass-susy-plugin (>= 0.7.0.pre8)
   css-slideshow (= 0.2.0)
   css_parser (= 1.0.1)
-  haml (>= 3.1.0.alpha.36)
+  haml (>= 3.1)
   json
   mime-types
   nanoc3!
@@ -64,6 +64,6 @@ DEPENDENCIES
   rb-fsevent
   rdiscount
   ruby-prof
-  sass (>= 3.1.0.alpha.249)
+  sass (>= 3.1)
   serve (= 1.0.0)
   thor

@@ -3,9 +3,12 @@ require 'compass'
 require 'stringio'
 
 class ConfigurationTest < Test::Unit::TestCase
-  include Compass::IoHelper
 
-  def setup
+  setup do
+    Compass.reset_configuration!
+  end
+  
+  after do
     Compass.reset_configuration!
   end
 
@@ -15,17 +18,22 @@ class ConfigurationTest < Test::Unit::TestCase
       # Require any additional compass plugins here.
 
       project_type = :stand_alone
+      
       # Set this to the root of your project when deployed:
       http_path = "/"
       css_dir = "css"
       sass_dir = "sass"
       images_dir = "img"
       javascripts_dir = "js"
+      
       output_style = :nested
+      
       # To enable relative paths to assets via compass helper functions. Uncomment:
       # relative_assets = true
+      
       # To disable debugging comments that display the original location of your selectors. Uncomment:
       # line_comments = false
+      
       
       # If you prefer the indented syntax, you might want to regenerate this
       # project again passing --syntax sass, or you can uncomment this:
@@ -43,7 +51,7 @@ class ConfigurationTest < Test::Unit::TestCase
 
     expected_lines = contents.string.split("\n").map{|l|l.strip}
     actual_lines = Compass.configuration.serialize.split("\n").map{|l|l.strip}
-    assert_equal expected_lines, actual_lines
+    assert_correct expected_lines, actual_lines
   end
 
   def test_serialization_warns_with_asset_host_set
@@ -101,19 +109,23 @@ class ConfigurationTest < Test::Unit::TestCase
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
+
 # Set this to the root of your project when deployed:
 http_path = "/"
 css_dir = "css"
+
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
+
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
 additional_import_paths = ["../foo", "/path/to/my/framework"]
+
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
 EXPECTED
     assert_equal "/", Compass.configuration.http_path
-    assert_equal expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
+    assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
   end
 
   def test_config_with_pathname
@@ -137,19 +149,23 @@ EXPECTED
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
+
 # Set this to the root of your project when deployed:
 http_path = "/"
 css_dir = "css"
+
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
+
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
 additional_import_paths = ["../foo", "/path/to/my/framework"]
+
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
 EXPECTED
     assert_equal "/", Compass.configuration.http_path
-    assert_equal expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
+    assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
   end
 
     def test_sass_options
@@ -164,18 +180,22 @@ EXPECTED
 
       expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
+
 # Set this to the root of your project when deployed:
-http_path = "/"
+http_path = \"/\"
+
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
+
 # To enable relative paths to assets via compass helper functions. Uncomment:
-# relative_assets = true
-sass_options = {:foo=>"bar"}
+# relative_assets = true\nsass_options = {:foo=>\"bar\"}
+
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
+
 EXPECTED
 
-      assert_equal expected_serialization, Compass.configuration.serialize
+      assert_correct(expected_serialization, Compass.configuration.serialize)
     end
 
   def test_strip_trailing_directory_separators
@@ -223,18 +243,24 @@ EXPECTED
     assert_equal "baz", Compass.configuration.foobar
     expected_serialization = <<EXPECTED
 # Require any additional compass plugins here.
+
 # Set this to the root of your project when deployed:
 http_path = "/"
+
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
+
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
+
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
+
+
 # this is a foobar
 foobar = "baz"
 EXPECTED
-    assert_equal expected_serialization, Compass.configuration.serialize
+    assert_correct(expected_serialization, Compass.configuration.serialize)
     Compass.reset_configuration!
     Compass.configuration.environment = :production
     assert_equal "foo", Compass.configuration.foobar
@@ -254,6 +280,5 @@ EXPECTED
       end
     end.compact
   end
-
-
+  
 end
