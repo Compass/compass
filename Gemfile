@@ -21,11 +21,5 @@ gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
 gem 'fakefs', :git => 'git://github.com/johnbintz/fakefs.git'
 gem 'mocha'
 gem 'timecop'
-<<<<<<< HEAD
 gem 'diff-lcs', '~> 1.1.2'
 
-
-
-
-=======
->>>>>>> f3ea546150ded6fb0ee1ca91cde4c0349f088ddd
