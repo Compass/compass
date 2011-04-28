@@ -26,3 +26,5 @@ attic
 devbin
 .rvmrc
 *.rbc
+vendor/ruby
+vendor
