@@ -9,12 +9,10 @@ gem "compass-validator", "3.0.0"
 gem "css_parser", "~> 1.0.1"
 gem "sass", "~>3.1"
 gem "haml", "~> 3.1"
-gem "rcov"
+gem "rcov", :platform => :mri
 gem "rubyzip"
 gem "livereload"
-gem "rb-fsevent" if RUBY_PLATFORM =~ /darwin/
-
-gem "ruby-prof" unless RUBY_PLATFORM == "java"
+gem "ruby-prof", :platform => :mri
 
 gem 'autotest'
 gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
@@ -22,4 +20,8 @@ gem 'fakefs', :git => 'git://github.com/johnbintz/fakefs.git'
 gem 'mocha'
 gem 'timecop'
 gem 'diff-lcs', '~> 1.1.2'
+
+group :mac do
+  gem "rb-fsevent"
+end
 
