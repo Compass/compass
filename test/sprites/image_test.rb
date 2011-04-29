@@ -17,6 +17,7 @@ class SpritesImageTest < Test::Unit::TestCase
   let(:sprite_filename) { 'squares/ten-by-ten.png' }
   let(:sprite_path) { File.join(@images_src_path, sprite_filename) }
   let(:sprite_name) { File.basename(sprite_filename, '.png') }
+  
   def parent
     map = Compass::SpriteMap.new("selectors/*.png", options)
     @parent ||= Compass::SassExtensions::Sprites::Base.new(map.sprite_names.map{|n| "selectors/#{n}.png"}, map, map.sass_engine, map.options)
