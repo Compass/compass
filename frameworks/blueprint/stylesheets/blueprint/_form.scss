@@ -59,7 +59,7 @@
     background-color:#fff;
     border: 1px solid $unfocused-border-color;
     &:focus {
-      border: 1px solid $focus-border-color;
+      border-color: $focus-border-color;
     }
   }
   select { background-color:#fff; border-width:1px; border-style:solid; }
