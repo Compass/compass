@@ -57,6 +57,10 @@ compile "/blog/atom/" do
   filter :haml, :attr_wrapper => '"'
 end
 
+compile 'sitemap' do
+  filter :erb
+end
+
 compile '*' do
   if item[:extension] == "markdown"
     filter :rdiscount
@@ -64,6 +68,10 @@ compile '*' do
     filter :haml, :ugly => true
   end
   layout item[:layout] ? item[:layout] : "main"
+end
+
+route 'sitemap' do
+  item.identifier.chop + '.xml'
 end
 
 route "/blog/atom/" do
