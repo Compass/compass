@@ -21,6 +21,12 @@ After do
   end
 end
 
+Given "ruby supports fork" do
+  if RUBY_PLATFORM == "java"
+    pending
+  end
+end
+
 # Given Preconditions
 Given %r{^I am using the existing project in ([^\s]+)$} do |project|
   tmp_project = "tmp_#{File.basename(project)}"

@@ -69,6 +69,7 @@ Feature: Command Line
     And the command exits with a non-zero error code
 
   Scenario: Initializing a rails project
+    Given ruby supports fork
     Given I'm in a newly created rails project: my_rails_project
     When I initialize a project using: compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets/compiled
     Then a config file config/compass.rb is reported created
@@ -179,6 +180,7 @@ Feature: Command Line
     And a css file tmp/layout.css is reported overwritten
 
   Scenario: Watching a project for changes
+    Given ruby supports fork
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
     And I run in a separate process: compass watch 
