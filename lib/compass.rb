@@ -15,7 +15,13 @@ module Compass
     File.expand_path(File.join(File.dirname(__FILE__)))
   end
   def shared_extension_paths
-    [File.expand_path("~/.compass/extensions")]
+    @shared_extension_paths ||= begin
+      if ENV["HOME"] && File.directory?(ENV["HOME"])
+        [File.expand_path("~/.compass/extensions")]
+      else
+        []
+      end
+    end
   end
   module_function :base_directory, :lib_directory, :shared_extension_paths
   extend QuickCache
