@@ -3,13 +3,7 @@ html {
   padding: 0;
   border: 0; }
 
-.bp-reset-element, body, h1, h2, h3, h4, h5, h6, article, aside, dialog, figure, footer, header, hgroup, nav, section, blockquote, q, th, td, caption, table,
-div, span, object, iframe, p,
-pre, a, abbr, acronym, address,
-code, del, dfn, em, img,
-dl, dt, dd, ol, ul, li, fieldset,
-form, label, legend,
-caption, tbody, tfoot, thead, tr {
+.bp-reset-element, body, h1, h2, h3, h4, h5, h6, article, aside, dialog, figure, footer, header, hgroup, nav, section, blockquote, q, th, td, caption, table, div, span, object, iframe, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
   margin: 0;
   padding: 0;
   border: 0;

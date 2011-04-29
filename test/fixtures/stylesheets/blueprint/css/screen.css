@@ -759,7 +759,7 @@ textarea {
   border: 1px solid #bbbbbb; }
   input.text:focus, input.title:focus, input[type=email]:focus, input[type=text]:focus, input[type=password]:focus,
   textarea:focus {
-    border: 1px solid #666666; }
+    border-color: #666666; }
 
 select {
   background-color: #fff;

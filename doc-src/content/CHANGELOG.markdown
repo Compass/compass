@@ -25,6 +25,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Fix absolute path detection on windows.
 * Fix the mime type returned for inline svg images.
 * Allow multiple transitions in the CSS3 `transition` mixin.
+* The Blueprint `:focus` styles no longer clobbers cascade-based overrides unnecessarily.
 
 0.11.3 (06/11/2011)
 -------------------
