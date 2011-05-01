@@ -14,6 +14,17 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.2 (05/01/2011)
+-------------------
+
+* Added support for -ms gradients in background-image and background properties
+* Give a better error if Sass::Script::Functions.declare does not exist.
+
+0.11.1 (04/25/2011)
+-------------------
+
+* This release fixed some Gem dependency issues with Sass.
+
 0.11.0 (04/24/2011)
 -------------------
 
