@@ -40,12 +40,12 @@ module Compass
 
     def revision_from_git
       if File.exists?(scope('.git/HEAD'))
-        rev = File.read(scope('.git/HEAD')).strip
-        if rev =~ /^ref: (.*)$/
-          rev = File.read(scope(".git/#{$1}")).strip
+        Dir.chdir scope(".") do
+          `git rev-parse HEAD`
         end
       end
     end
+
   end
   extend Compass::Version
   def self.const_missing(const)
