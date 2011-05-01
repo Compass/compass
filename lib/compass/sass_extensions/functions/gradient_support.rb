@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::GradientSupport
 
-  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg).freeze
+  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg ms).freeze
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
@@ -102,6 +102,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     standardized_prefix :webkit
     standardized_prefix :moz
     standardized_prefix :o
+    standardized_prefix :ms
     
     def to_owg(options = self.options)
       args = [
@@ -157,6 +158,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     standardized_prefix :webkit
     standardized_prefix :moz
     standardized_prefix :o
+    standardized_prefix :ms
     
     # Output the original webkit gradient syntax
     def to_owg(options = self.options)
