@@ -138,11 +138,17 @@ module Compass::SassExtensions::Functions::Urls
   def cache_busted_path(path, real_path)
     cache_buster = compute_cache_buster(path, real_path)
     if cache_buster.nil?
-      path
-    elsif cache_buster =~ %r{/}
-      cache_buster
+      return path
+    elsif cache_buster.is_a?(String)
+      cache_buster = {:query => cache_buster}
     else
-      "%s?%s" % [path, cache_buster]
+      path = cache_buster[:path] if cache_buster[:path]
+    end
+    
+    if cache_buster[:query]
+      "%s?%s" % [path, cache_buster[:query]]
+    else
+      path
     end
   end
 
