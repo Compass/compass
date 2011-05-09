@@ -8,7 +8,7 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.11.1.9f3ca16)
+    compass (0.11.1.93b89a2)
       chunky_png (~> 1.1)
       fssm (>= 0.2.7)
       sass (~> 3.1)
@@ -18,7 +18,7 @@ GEM
   specs:
     activesupport (3.0.7)
     builder (2.1.2)
-    chunky_png (1.1.1)
+    chunky_png (1.2.0)
     coderay (0.9.7)
     compass-susy-plugin (0.9.beta.3)
       compass (>= 0.11.beta.3)
