@@ -7,7 +7,7 @@ author: eric
 It's easy! Follow these two simple steps:
 
 1. Use Compass/Sass.
-2. Use Django.
+2. Use Django. 
 
 That's it. Compass works great as a stand-alone tool. Run "compass --watch" on the command line or use [compass.app](http://compass.handlino.com/) to compile your stylesheets, and then commit the CSS to your Django project, just like you always have. Done.
 
@@ -27,10 +27,8 @@ The disadvantage to our approach is that you are committing generated code to th
 
 And I, as the designer/front-end developer, keep full control of the css-generation process without needing to touch the server. If I want to update the gems and make some changes, I can do that. I make the change, I commit the change, and it just works. For everyone. That's important to me. It removes all the pretense of dark magic that can come with Sass/Compass. I'm writing CSS. I'm committing CSS. Compass, Sass and all their plugins are just tools towards that end.
 
-Of course, you'll want to commit the Sass as well, especially if you have multiple front-end developers on the team. That way the source is available for anyone who needs to update it, even though it's not needed by the server. You might also want a way of documenting the latest gems that should be used to compile it. That's easy enough to add in a comment or doc of it's own.
+Of course, you'll want to commit the Sass as well, especially if you have multiple front-end developers on the team. That way the source is available for anyone who needs to update it, even though it's not needed by the server. You might also want a way of documenting the latest gems that should be used to compile it. That's easy enough to add in a comment or doc of it's own. 
 
 ## Just Tools.
 
-I want to say that again because I think it is the most important and most often forgotten rule of using a css pre-processor. Compass and Sass are simply tools for writing CSS. They are not a new styling language. They are not magic. They make writing css easier - and that is all. The css output is the only thing that matters.
-
-_This was written in collaboration with [Carl Meyer](http://stackoverflow.com/users/3207/carl-meyer), in response to a [question on stack overflow](http://stackoverflow.com/questions/5900208/best-method-for-adding-compass-to-a-django-project)_
+I want to say that again because I think it is the most important and most often forgotten rule of using a css pre-processor. **Compass and Sass are simply tools for writing CSS. They are not a new styling language. They are not magic. They make writing css easier - and that is all. The css output is the only thing that matters.**
