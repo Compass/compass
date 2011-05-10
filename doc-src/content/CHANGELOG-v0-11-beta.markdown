@@ -10,6 +10,7 @@ layout: article
 
 * Created an official API to add configuration options to compass.
   [More information](/help/tutorials/extending/).
+* Enhanced cache busting by allowing path manipulation
 
 0.11.beta.7 (04/16/2011)
 ------------------------
