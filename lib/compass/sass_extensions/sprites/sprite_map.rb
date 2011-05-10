@@ -74,6 +74,7 @@ $#{name}-position: 0% !default;
 $#{name}-spacing: 0 !default;
 $#{name}-repeat: no-repeat !default;
 $#{name}-prefix: '' !default;
+$#{name}-clean-up-sprites: true !default;
 
 #{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\");" : generate_overrides }
 

@@ -15,14 +15,15 @@ $sprite-selectors: hover, target, active !default;
   background-position: sprite-position($map, $sprite, $offset-x, $offset-y);  
 }
 
+
+// Determines if you want to include magic selectors in your sprites
+$disable-magic-sprite-selectors:false !default;
+
 // Include the position and (optionally) dimensions of this `$sprite`
 // in the given sprite `$map`. The sprite url should come from either a base
 // class or you can specify the `sprite-url` explicitly like this:
 //
 //     background: $map no-repeat;
-
-$disable-magic-sprite-selectors:false !default;
-
 @mixin sprite($map, $sprite, $dimensions: false, $offset-x: 0, $offset-y: 0) {
   @include sprite-background-position($map, $sprite, $offset-x, $offset-y);
   @if $dimensions {

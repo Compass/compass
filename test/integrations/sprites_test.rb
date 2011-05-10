@@ -9,8 +9,8 @@ class SpritesTest < Test::Unit::TestCase
   
   def setup
     Compass.reset_configuration!
-    @images_src_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images-tmp')
+    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images')
+    @images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images-tmp')
     ::FileUtils.cp_r @images_src_path, @images_tmp_path
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")

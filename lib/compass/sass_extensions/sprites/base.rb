@@ -118,9 +118,18 @@ module Compass
         # Generate a sprite image if necessary
         def generate
           if generation_required?
+            if options["#{@map.name}_clean_up_sprites"]
+              cleanup_old_sprites
+            end
             sprite_data = construct_sprite
             save!(sprite_data)
             Compass.configuration.run_callback(:sprite_generated, sprite_data)
+          end
+        end
+        
+        def cleanup_old_sprites
+          Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
+            FileUtils.rm file
           end
         end
         

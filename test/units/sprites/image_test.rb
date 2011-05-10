@@ -5,7 +5,7 @@ class SpritesImageTest < Test::Unit::TestCase
 
 
   def setup
-    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images')
+    @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
     @repeat = 'no-repeat'

@@ -3,8 +3,8 @@ require 'test_helper'
 class SpritesBaseTest < Test::Unit::TestCase
   
   def setup
-    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images-tmp')
+    @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
+    @images_tmp_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images-tmp')
     FileUtils.cp_r @images_src_path, @images_tmp_path
     config = Compass::Configuration::Data.new('config')
     config.images_path = @images_tmp_path
@@ -81,7 +81,7 @@ class SpritesBaseTest < Test::Unit::TestCase
     file_to_remove = File.join(@images_tmp_path, 'selectors', 'ten-by-ten.png')
     FileUtils.rm file_to_remove
     assert !File.exists?(file_to_remove), "Failed to remove sprite file"
-    @options["remove_old_sprites"] = true
+    @options["selectors_clean_up_sprites"] = true
     setup_map
     @base.generate
     assert !File.exists?(file), "Sprite file did not get removed"
