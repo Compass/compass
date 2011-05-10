@@ -6,13 +6,13 @@ module Compass
         
         # Initialize a new aprite object from a relative file path
         # the path is relative to the <tt>images_path</tt> confguration option
-        def self.from_uri(uri, context, kwargs)
+        def self.from_uri(uri, context, kwargs, cleanup = Sass::Script::Bool.new(true))
           sprite_map = ::Compass::SpriteMap.new(uri.value, {})
 
           sprites = sprite_map.files.map do |sprite|
             sprite.gsub(Compass.configuration.images_path+"/", "")
           end
-          new(sprites, sprite_map, context, kwargs)
+          new(sprites, sprite_map, context, cleanup, kwargs)
         end
         
         # Loads the sprite engine
@@ -24,13 +24,13 @@ module Compass
         # We should do so only when the packing algorithm changes
         SPRITE_VERSION = "1"
 
-        attr_accessor :image_names, :path, :name, :options, :map
+        attr_accessor :image_names, :path, :name, :options, :map, :cleanup
         attr_accessor :images, :width, :height
 
 
-        def initialize(image_names, map, context, options)
+        def initialize(image_names, map, context, cleanup, options)
           require_engine!
-          @image_names, @path, @name, @options = image_names, map.path, map.name, options
+          @image_names, @path, @name, @options, @cleanup = image_names, map.path, map.name, options, cleanup
           @images = nil
           @width = nil
           @height = nil
@@ -118,7 +118,7 @@ module Compass
         # Generate a sprite image if necessary
         def generate
           if generation_required?
-            if options["#{@map.name}_clean_up_sprites"]
+            if @cleanup.value
               cleanup_old_sprites
             end
             sprite_data = construct_sprite

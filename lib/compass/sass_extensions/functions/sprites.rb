@@ -19,11 +19,11 @@ module Compass::SassExtensions::Functions::Sprites
   #
   # The sprite map object will generate the sprite map image, if necessary,
   # the first time it is converted to a url. Simply constructing it has no side-effects.
-  def sprite_map(glob, kwargs = {})
+  def sprite_map(glob, cleanup, kwargs = {})
     kwargs.extend VariableReader
-    Compass::SassExtensions::Sprites::Base.from_uri(glob, self, kwargs)
-  end
-  Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
+    Compass::SassExtensions::Sprites::Base.from_uri(glob, self, kwargs, cleanup)
+  end 
+  Sass::Script::Functions.declare :sprite_map, [:glob, :cleanup], :var_kwargs => true
 
   # Returns the image and background position for use in a single shorthand property:
   #

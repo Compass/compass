@@ -24,7 +24,11 @@ class SpritesTest < Test::Unit::TestCase
 
 
   def map_location(file)
-    Dir.glob(File.join(@images_tmp_path, file)).first
+    map_files(file).first
+  end
+  
+  def map_files(glob)
+    Dir.glob(File.join(@images_tmp_path, glob))
   end
 
   def image_size(file)
@@ -255,7 +259,7 @@ class SpritesTest < Test::Unit::TestCase
 
   it "should use position adjustments in functions" do
     css = render <<-SCSS
-      $squares: sprite-map("squares/*.png", $position: 100%);
+      $squares: sprite-map("squares/*.png", true, $position: 100%);
       .squares-sprite {
         background: $squares no-repeat;
       }
@@ -407,7 +411,7 @@ class SpritesTest < Test::Unit::TestCase
   it "should work even if @import is missing" do
     css = render <<-SCSS
       .squares {
-        background: sprite(sprite-map("squares/*.png"), twenty-by-twenty) no-repeat;
+        background: sprite(sprite-map("squares/*.png", true), twenty-by-twenty) no-repeat;
       }
     SCSS
     assert_correct css, <<-CSS
@@ -545,6 +549,33 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -128px;
       }
     CSS
+  end
+  
+  it "should generate a sprite and remove the old file" do
+    FileUtils.touch File.join(@images_tmp_path, "selectors-cc8834Fdd.png")
+    assert_equal 1, map_files('selectors-*.png').size
+    css = render <<-SCSS
+      @import "selectors/*.png";
+      a {
+        $disable-magic-sprite-selectors:true;
+        @include selectors-sprite(ten-by-ten)
+      }
+    SCSS
+    assert_equal 1, map_files('selectors-*.png').size, "File was not removed"
+  end
+  
+  it "should generate a sprite and NOT remove the old file" do
+    FileUtils.touch File.join(@images_tmp_path, "selectors-cc8834Ftest.png")
+    assert_equal 1, map_files('selectors-*.png').size
+    css = render <<-SCSS
+      $selectors-clean-up: false;
+      @import "selectors/*.png";
+      a {
+        $disable-magic-sprite-selectors:true;
+        @include selectors-sprite(ten-by-ten)
+      }
+    SCSS
+    assert_equal 2, map_files('selectors-*.png').size, "File was removed"
   end
 
 end

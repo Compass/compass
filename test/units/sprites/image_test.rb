@@ -20,7 +20,7 @@ class SpritesImageTest < Test::Unit::TestCase
   
   def parent
     map = Compass::SpriteMap.new("selectors/*.png", options)
-    @parent ||= Compass::SassExtensions::Sprites::Base.new(map.sprite_names.map{|n| "selectors/#{n}.png"}, map, map.sass_engine, map.options)
+    @parent ||= Compass::SassExtensions::Sprites::Base.new(map.sprite_names.map{|n| "selectors/#{n}.png"}, map, map.sass_engine, Sass::Script::Bool.new(true), map.options)
   end
   
   let(:options) do
