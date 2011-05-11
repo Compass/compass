@@ -14,6 +14,13 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.3 (PENDING)
+-------------------
+* Sprites will now by default remove any old versions of the sprite a new variable has been created to override this.
+* Nested sprites are now supported using globs `@import 'nested/**/*.png';`.
+* Fixed a bug that was causing sprite variable options to not get passed to the image classes.
+* Sass Colors will no longer cause an error if you use them as sprite names.
+
 0.11.2 (05/01/2011)
 -------------------
 
