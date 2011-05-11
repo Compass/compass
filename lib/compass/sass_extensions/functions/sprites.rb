@@ -34,7 +34,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
   def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
-    sprite = convert_sprite(sprite)
+    sprite = convert_sprite_name(sprite)
     verify_map(map)
     unless sprite.is_a?(Sass::Script::String)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
@@ -57,7 +57,7 @@ module Compass::SassExtensions::Functions::Sprites
 
   # Returns the path to the original image file for the sprite with the given name
   def sprite_file(map, sprite)
-    sprite = convert_sprite(sprite)
+    sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite")
     verify_sprite(sprite)
     if image = map.image_for(sprite.value)
@@ -70,7 +70,7 @@ module Compass::SassExtensions::Functions::Sprites
 
   # Returns voolean if sprite has a parent
   def sprite_does_not_have_parent(map, sprite)
-    sprite = convert_sprite(sprite)
+    sprite = convert_sprite_name(sprite)
     verify_map map
     verify_sprite sprite
     Sass::Script::Bool.new map.image_for(sprite.value).parent.nil?
@@ -80,7 +80,7 @@ module Compass::SassExtensions::Functions::Sprites
 
   # Returns boolean if sprite has the selector
   def sprite_has_selector(map, sprite, selector)
-    sprite = convert_sprite(sprite)
+    sprite = convert_sprite_name(sprite)
     verify_map map
     verify_sprite sprite
     unless VALID_SELECTORS.include?(selector.value)
@@ -122,7 +122,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background-position: 3px -36px;
   def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
-    sprite = convert_sprite(sprite)
+    sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
     unless sprite && sprite.is_a?(Sass::Script::String)
       raise Sass::SyntaxError, %Q(The second argument to sprite-position must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
@@ -152,9 +152,9 @@ module Compass::SassExtensions::Functions::Sprites
 
 protected
 
-  def convert_sprite(sprite)
+  def convert_sprite_name(sprite)
     if sprite.is_a?(Sass::Script::Color)
-      return Sass::Script::String.new(sprite.to_s)
+      return Sass::Script::String.new(Sass::Script::Color::HTML4_COLORS_REVERSE[sprite.rgb])
     end
     sprite
   end
