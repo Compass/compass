@@ -7,7 +7,7 @@ module Compass
         [$1, $3, $4]
       end
     end
-
+    
     def self.discover_sprites(uri)
       self.load_map(uri, {}).files
     end

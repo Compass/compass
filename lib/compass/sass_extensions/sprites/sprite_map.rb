@@ -25,7 +25,7 @@ module Compass
     
     # Returns the Glob of image files for this sprite
     def files
-      @files ||= Dir[File.join(Compass.configuration.images_path, uri)].sort
+      @files ||= Dir[File.join(Compass.configuration.images_path, uri).gsub('/*', '/**/*')].sort
     end
 
     # Returns an Array of image names without the file extension
@@ -50,7 +50,18 @@ module Compass
     end
     
     def ensure_path_and_name!
-      @path, @name = Compass::Sprites.path_and_name(uri)
+      @path ||= get_path
+      @name ||= get_name
+    end  
+    
+    def get_name
+      _, name = Compass::Sprites.path_and_name(uri)
+      name
+    end
+    
+    def get_path
+      path, _ = Compass::Sprites.path_and_name(uri)
+      path
     end
     
     def key(uri, options)
@@ -130,7 +141,7 @@ $#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
         SCSS
       end.join
 
-      content += "\n$#{name}-sprites: sprite-map(\"#{uri}\",\n$cleanup: $#{name}-clean-up,\n"
+      content += "\n$#{name}-sprites: sprite-map(\"#{uri}\", \n$cleanup: $#{name}-clean-up,\n"
       content += sprite_names.map do |sprite_name| 
 %Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
   $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,

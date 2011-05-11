@@ -587,5 +587,21 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert !css.empty?
   end
+  
+  it "should generate a sprite from nested folders" do
+    css = render <<-SCSS
+      @import "nested/*.png";
+      @include all-nested-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .nested-sprite, .nested-ten-by-ten {
+        background: url('/nested-55a8935544.png') no-repeat;
+      }
+      
+      .nested-ten-by-ten {
+        background-position: 0 0;
+      }
+    CSS
+  end
 
 end
