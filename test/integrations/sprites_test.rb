@@ -590,7 +590,7 @@ class SpritesTest < Test::Unit::TestCase
   
   it "should generate a sprite from nested folders" do
     css = render <<-SCSS
-      @import "nested/*.png";
+      @import "nested/**/*.png";
       @include all-nested-sprites;
     SCSS
     assert_correct css, <<-CSS

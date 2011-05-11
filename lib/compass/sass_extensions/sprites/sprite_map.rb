@@ -25,7 +25,7 @@ module Compass
     
     # Returns the Glob of image files for this sprite
     def files
-      @files ||= Dir[File.join(Compass.configuration.images_path, uri).gsub('/*', '/**/*')].sort
+      @files ||= Dir[File.join(Compass.configuration.images_path, uri)].sort
     end
 
     # Returns an Array of image names without the file extension
