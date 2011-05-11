@@ -577,5 +577,15 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_equal 2, map_files('selectors-*.png').size, "File was removed"
   end
+  
+  it "should generate a sprite if the sprite is a colorname" do
+    css = render <<-SCSS
+      @import "colors/*.png";
+      a {
+        @include colors-sprite(blue);
+      }
+    SCSS
+    assert !css.empty?
+  end
 
 end
