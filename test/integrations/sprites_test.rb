@@ -9,8 +9,8 @@ class SpritesTest < Test::Unit::TestCase
   
   def setup
     Compass.reset_configuration!
-    @images_src_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images-tmp')
+    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images')
+    @images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images-tmp')
     ::FileUtils.cp_r @images_src_path, @images_tmp_path
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
@@ -24,7 +24,11 @@ class SpritesTest < Test::Unit::TestCase
 
 
   def map_location(file)
-    Dir.glob(File.join(@images_tmp_path, file)).first
+    map_files(file).first
+  end
+  
+  def map_files(glob)
+    Dir.glob(File.join(@images_tmp_path, glob))
   end
 
   def image_size(file)
@@ -543,6 +547,59 @@ class SpritesTest < Test::Unit::TestCase
       
       .ko-starbg26x27 {
         background-position: 0 -128px;
+      }
+    CSS
+  end
+  
+  it "should generate a sprite and remove the old file" do
+    FileUtils.touch File.join(@images_tmp_path, "selectors-cc8834Fdd.png")
+    assert_equal 1, map_files('selectors-*.png').size
+    css = render <<-SCSS
+      @import "selectors/*.png";
+      a {
+        $disable-magic-sprite-selectors:true;
+        @include selectors-sprite(ten-by-ten)
+      }
+    SCSS
+    assert_equal 1, map_files('selectors-*.png').size, "File was not removed"
+  end
+  
+  it "should generate a sprite and NOT remove the old file" do
+    FileUtils.touch File.join(@images_tmp_path, "selectors-cc8834Ftest.png")
+    assert_equal 1, map_files('selectors-*.png').size
+    css = render <<-SCSS
+      $selectors-clean-up: false;
+      @import "selectors/*.png";
+      a {
+        $disable-magic-sprite-selectors:true;
+        @include selectors-sprite(ten-by-ten)
+      }
+    SCSS
+    assert_equal 2, map_files('selectors-*.png').size, "File was removed"
+  end
+  
+  it "should generate a sprite if the sprite is a colorname" do
+    css = render <<-SCSS
+      @import "colors/*.png";
+      a {
+        @include colors-sprite(blue);
+      }
+    SCSS
+    assert !css.empty?
+  end
+  
+  it "should generate a sprite from nested folders" do
+    css = render <<-SCSS
+      @import "nested/**/*.png";
+      @include all-nested-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .nested-sprite, .nested-ten-by-ten {
+        background: url('/nested-55a8935544.png') no-repeat;
+      }
+      
+      .nested-ten-by-ten {
+        background-position: 0 0;
       }
     CSS
   end

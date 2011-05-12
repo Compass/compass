@@ -3,11 +3,11 @@ module Compass
     attr_accessor :name, :path
     
     def self.path_and_name(uri)
-      if uri =~ %r{((.+/)?(.+))/(.+?)\.png}
-        [$1, $3, $4]
+      if uri =~ %r{((.+/)?([^\*.]+))/(.+?)\.png}
+        [$1, $3]
       end
     end
-
+    
     def self.discover_sprites(uri)
       self.load_map(uri, {}).files
     end

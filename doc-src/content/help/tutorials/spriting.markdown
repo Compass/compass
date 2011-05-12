@@ -182,6 +182,7 @@ the sprites were contained within a folder called `icon`.
   included in each sprite's CSS output. Can be `true` or `false`. Defaults to `false`.
 * `$<map>-sprite-base-class` -- The base class for these sprites. Defaults to `.<map>-sprite`.
   E.g. `$icon-sprite-base-class: ".action-icon"`
+* `$<map>-clean-up` -- Whether or not to removed the old sprite file when a new one is created. Defaults to true
 
 ### Options per Sprite
 

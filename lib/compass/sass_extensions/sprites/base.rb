@@ -8,7 +8,6 @@ module Compass
         # the path is relative to the <tt>images_path</tt> confguration option
         def self.from_uri(uri, context, kwargs)
           sprite_map = ::Compass::SpriteMap.new(uri.value, {})
-
           sprites = sprite_map.files.map do |sprite|
             sprite.gsub(Compass.configuration.images_path+"/", "")
           end
@@ -24,18 +23,22 @@ module Compass
         # We should do so only when the packing algorithm changes
         SPRITE_VERSION = "1"
 
-        attr_accessor :image_names, :path, :name, :options, :map
+        attr_accessor :image_names, :path, :name, :map, :kwargs
         attr_accessor :images, :width, :height
 
 
-        def initialize(image_names, map, context, options)
+        def initialize(sprites, sprite_map, context, kwargs)
           require_engine!
-          @image_names, @path, @name, @options = image_names, map.path, map.name, options
+          @image_names = sprites
+          @path = sprite_map.path
+          @name = sprite_map.name
+          @kwargs = kwargs
+          @kwargs['cleanup'] ||= Sass::Script::Bool.new(true)
           @images = nil
           @width = nil
           @height = nil
           @evaluation_context = context
-          @map = map
+          @map = sprite_map
           validate!
           compute_image_metadata!
         end
@@ -58,7 +61,7 @@ module Compass
         # Creates the Sprite::Image objects for each image and calculates the width
         def init_images
           @images = image_names.collect do |relative_file|
-            image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, options)
+            image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, kwargs)
             @width = [ @width, image.width + image.offset ].max
             image
           end
@@ -118,9 +121,18 @@ module Compass
         # Generate a sprite image if necessary
         def generate
           if generation_required?
+            if kwargs.get_var('cleanup').value
+              cleanup_old_sprites
+            end
             sprite_data = construct_sprite
             save!(sprite_data)
             Compass.configuration.run_callback(:sprite_generated, sprite_data)
+          end
+        end
+        
+        def cleanup_old_sprites
+          Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
+            FileUtils.rm file
           end
         end
         
@@ -174,7 +186,7 @@ module Compass
           to_s
         end
 
-        def to_s(options = self.options)
+        def to_s(kwargs = self.kwargs)
           sprite_url(self).value
         end
 
