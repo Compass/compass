@@ -34,6 +34,15 @@ module Compass
     def to_s
       content_for_images
     end
+    
+    def hash
+      self.class.name.hash
+    end
+	
+    def eql?(other)
+      other.class == self.class
+    end
+    
 
     
     def key(uri, options={})
