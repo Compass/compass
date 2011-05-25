@@ -153,7 +153,7 @@ module Compass
       formatted_error = "(Line #{e.sass_line}: #{e.message})"
       file = basename(sass_filename)
       logger.record :error, file, formatted_error
-      Compass.configuration.run_callback(:styesheet_error, sass_filename, formatted_error)
+      Compass.configuration.run_callback(:stylesheet_error, sass_filename, formatted_error)
       write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
     end
 
