@@ -37,6 +37,7 @@ module Compass
       end
 
       def check_for_sass_files!(compiler)
+        compiler.clean! if compiler.new_config?
         if compiler.sass_files.empty? && !dry_run?
           message = "Nothing to compile. If you're trying to start a new project, you have left off the directory argument.\n"
           message << "Run \"compass -h\" to get help."
