@@ -29,7 +29,8 @@
   ul { list-style: none; margin-bottom: 1em;}
   h2 { line-height: 1.3em; margin-top: 0; padding-top: 3px;}
 }
-em { font-style: italic; }
+em     { font-style: italic; }
+strong { font-weight: bold;  }
 
 #page > article {
   ul ul { padding-left: 1em; }
