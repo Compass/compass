@@ -24,7 +24,7 @@ module Compass
         msg = "#{basename(dir)} already exists and is not a directory."
         raise Compass::FilesystemConflict.new(msg)
       else
-        logger.record :directory, separate("#{basename(dir)}/")
+        logger.record(:directory, separate("#{basename(dir)}/")) unless options[:quiet]
         FileUtils.mkdir_p(dir) unless options[:dry_run]
       end
     end
@@ -38,16 +38,16 @@ module Compass
       if File.exists?(file_name)
         existing_contents = IO.read(file_name)
         if existing_contents == contents
-          logger.record :identical, basename(file_name), extra
+          logger.record(:identical, basename(file_name), extra) unless options[:quiet]
           skip_write = true
         elsif options[:force]
-          logger.record :overwrite, basename(file_name), extra
+          logger.record(:overwrite, basename(file_name), extra) unless options[:quiet]
         else
           msg = "File #{basename(file_name)} already exists. Run with --force to force overwrite."
           raise Compass::FilesystemConflict.new(msg)
         end
       else
-        logger.record :create, basename(file_name), extra
+        logger.record(:create, basename(file_name), extra) unless options[:quiet]
       end
       if skip_write
         FileUtils.touch file_name unless options[:dry_run]
@@ -68,7 +68,7 @@ module Compass
     def remove(file_name)
       if File.exists?(file_name)
         File.unlink file_name
-        logger.record :remove, basename(file_name)
+        logger.record(:remove, basename(file_name)) unless options[:quiet]
       end
     end
 
