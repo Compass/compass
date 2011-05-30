@@ -17,6 +17,7 @@ module Compass
     # create a directory and all the directories necessary to reach it.
     def directory(dir, options = nil)
       options ||= self.options if self.respond_to?(:options)
+      options ||= {}
       if File.exists?(dir) && File.directory?(dir)
           # logger.record :exists, basename(dir) unless options[:quiet]
       elsif File.exists?(dir)
