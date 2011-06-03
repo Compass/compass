@@ -47,7 +47,7 @@ module Compass
     end
   
     def to_s
-      ""
+      self.class.name
     end
 
     def hash
