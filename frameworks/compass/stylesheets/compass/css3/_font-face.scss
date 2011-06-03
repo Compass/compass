@@ -12,7 +12,10 @@
 //
 // If you need to generate other formats check out the Font Squirrel
 // [font generator](http://www.fontsquirrel.com/fontface/generator)
-
+//
+// Example:
+//
+//     +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "this.eot")
 @mixin font-face(
   $name, 
   $font-files, 
@@ -28,16 +31,3 @@
     src: $font-files; 
   }
 }
-
-// EXAMPLE
-// +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "this.eot")
-//
-// will generate:
-//
-//   @font-face { 
-//     font-family: 'this name'; 
-//     src: url('fonts/this.eot'); 
-//     src: local("☺"),
-//       url('fonts/this.otf') format('woff'), 
-//       url('fonts/this.woff') format('opentype'); 
-//   }
