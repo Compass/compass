@@ -27,6 +27,7 @@ module Compass
         if @added_import_paths
           self.additional_import_paths ||= []
           self.additional_import_paths += @added_import_paths
+          self.additional_import_paths.uniq!
         end
         issue_deprecation_warnings
       end
