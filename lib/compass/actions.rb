@@ -4,7 +4,7 @@ module Compass
     attr_writer :logger
 
     def logger
-      @logger ||= Logger.new
+      @logger ||= ::Compass::Logger.new
     end
 
     # copy/process a template in the compass template directory to the project directory.
