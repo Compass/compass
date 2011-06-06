@@ -1,5 +1,5 @@
 require 'digest/md5'
-require 'compass/sass_extensions/sprites/sprite_map'
+require 'compass/sprite_importer'
 require 'compass/sass_extensions/sprites/image'
 require 'compass/sass_extensions/sprites/base'
 require 'compass/sass_extensions/sprites/engines'

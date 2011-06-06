@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fakefs/spec_helpers'
 require 'timecop'
 
-describe Compass::SpriteMap do
+describe Compass::SpriteImporter do
   include FakeFS::SpecHelpers
 
   let(:sprite_map) { self.class.describes.new(uri, options) }

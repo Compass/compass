@@ -1,12 +1,12 @@
 module Compass
-  class SpriteMap < Sass::Importers::Base
+  class SpriteImporter < Sass::Importers::Base
     attr_accessor :uri, :options
     VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
     SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
     
     def self.load(uri, options)
       Compass.quick_cache "Sprite_map:#{uri}#{options.inspect}", 5 do
-        klass = Compass::SpriteMap.new
+        klass = Compass::SpriteImporter.new
         klass.uri, klass.options = uri, options
         klass
       end

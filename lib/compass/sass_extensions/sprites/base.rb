@@ -4,14 +4,14 @@ module Compass
       class Base < Sass::Script::Literal
         
         
-        # Initialize a new aprite object from a relative file path
+        # Initialize a new sprite object from a relative file path
         # the path is relative to the <tt>images_path</tt> confguration option
         def self.from_uri(uri, context, kwargs)
-          sprite_map = ::Compass::SpriteMap.new(:uri => uri.value, :options => {})
-          sprites = sprite_map.files.map do |sprite|
+          importer = ::Compass::SpriteImporter.new(:uri => uri.value, :options => {})
+          sprites = importer.files.map do |sprite|
             sprite.gsub(Compass.configuration.images_path+"/", "")
           end
-          new(sprites, sprite_map, context, kwargs)
+          new(sprites, importer.path, importer.name, context, kwargs)
         end
         
         # Loads the sprite engine
@@ -23,22 +23,21 @@ module Compass
         # We should do so only when the packing algorithm changes
         SPRITE_VERSION = "1"
 
-        attr_accessor :image_names, :path, :name, :map, :kwargs
+        attr_accessor :image_names, :path, :name, :kwargs
         attr_accessor :images, :width, :height
 
 
-        def initialize(sprites, sprite_map, context, kwargs)
+        def initialize(sprites, path, name, context, kwargs)
           require_engine!
           @image_names = sprites
-          @path = sprite_map.path
-          @name = sprite_map.name
+          @path = path
+          @name = name
           @kwargs = kwargs
           @kwargs['cleanup'] ||= Sass::Script::Bool.new(true)
           @images = nil
           @width = nil
           @height = nil
           @evaluation_context = context
-          @map = sprite_map
           validate!
           compute_image_metadata!
         end
