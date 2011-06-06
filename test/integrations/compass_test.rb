@@ -30,14 +30,16 @@ class CompassTest < Test::Unit::TestCase
 
   # no project with errors exists to test aginst - leep of FAITH!
   # *chriseppstein flogs himself*
-  # def test_on_stylesheet_error_callback
-  #     error = false
-  #     file = nil
-  #     Compass.configuration.on_stylesheet_error {|filename, message| file = filename; error = true }
-  #     within_project(:error) { } #requires a block but we don't need to pass anything - sdavis
-  #     assert error, "Project did not throw a compile error"
-  #     assert file.is_a?(String), "Filename was not a string"
-  #   end
+  def test_on_stylesheet_error_callback
+      error = false
+      file = nil
+      before_compile = Proc.new do |config|
+        config.on_stylesheet_error {|filename, message| file = filename; error = true }
+      end
+      within_project(:error, before_compile) rescue nil;
+      assert error, "Project did not throw a compile error"
+      assert file.is_a?(String), "Filename was not a string"
+    end
 
   def test_empty_project
     # With no sass files, we should have no css files.

@@ -16,7 +16,7 @@ class SpritesBaseTest < Test::Unit::TestCase
   end
   
   def setup_map
-    @map = Compass::SpriteMap.new("selectors/*.png", @options)
+    @map = Compass::SpriteMap.new(:uri => "selectors/*.png", :options => @options)
     @base = Compass::SassExtensions::Sprites::Base.new(@map.sprite_names.map{|n| "selectors/#{n}.png"}, @map, @map.sass_engine, @map.options)
   end
 

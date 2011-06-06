@@ -33,6 +33,7 @@ module Compass
       def perform
         compiler = new_compiler_instance
         check_for_sass_files!(compiler)
+        compiler.clean! if compiler.new_config?
         compiler.run
       end
 

@@ -1,14 +1,63 @@
 module Compass
-  class SpriteMap
-    attr_reader :uri, :options
+  class SpriteMap < Sass::Importers::Base
+    attr_accessor :uri, :options
     VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
-
-    def find_relative(*args)
-      nil
+    SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
+    
+    def self.load(uri, options)
+      Compass.quick_cache "Sprite_map:#{uri}#{options.inspect}", 5 do
+        klass = Compass::SpriteMap.new
+        klass.uri, klass.options = uri, options
+        klass
+      end
     end
-
-    def initialize(uri, options)
+    
+    def initialize(options ={})
+      @uri, @options = '', {}
+      options.each do |key, value|
+        send("#{key}=", value)
+      end
+    end
+    
+    def find(uri, options)
       @uri, @options = uri, options
+      if uri =~ SPRITE_IMPORTER_REGEX
+        return sass_engine
+      end
+    end
+    
+    def find_relative(uri, base, options)
+      @uri, @options = uri, options
+      find(File.join(base, uri), options)
+    end
+    
+    def to_s
+      content_for_images
+    end
+    
+    def hash
+      self.class.name.hash
+    end
+	
+    def eql?(other)
+      other.class == self.class
+    end
+    
+
+    
+    def key(uri, options={})
+      @uri, @options = uri, options
+      [self.class.name + ":" + File.dirname(File.expand_path(uri)), File.basename(uri)]
+    end
+    
+    def self.path_and_name(uri)
+      Compass.quick_cache "Sprite_map_name:#{uri}", 5 do
+        if uri =~ SPRITE_IMPORTER_REGEX
+          [$1, $3]
+        else
+          [nil, nil]
+        end
+      end
     end
 
     # Name of this spite
@@ -50,27 +99,8 @@ module Compass
     end
     
     def ensure_path_and_name!
-      @path ||= get_path
-      @name ||= get_name
-    end  
-    
-    def get_name
-      _, name = Compass::Sprites.path_and_name(uri)
-      name
-    end
-    
-    def get_path
-      path, _ = Compass::Sprites.path_and_name(uri)
-      path
-    end
-    
-    def key(uri, options)
-      Compass::Sprites.key(uri)
-    end
-
-    def mtime(uri, options)
-      Compass::Sprites.mtime(uri, options)
-    end
+      @path, @name = self.class.path_and_name(uri)
+    end 
 
     # Generates the Sass for this sprite file
     def content_for_images(skip_overrides = false)

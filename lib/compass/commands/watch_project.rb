@@ -135,7 +135,7 @@ module Compass
 
       def recompile(base = nil, relative = nil)
         @memory_cache.reset! if @memory_cache
-        compiler = new_compiler_instance(:quiet => true)
+        compiler = new_compiler_instance(:quiet => true, :loud => [:identical, :overwrite, :create])
         if file = compiler.out_of_date?
           begin
             puts ">>> Change detected to: #{relative || compiler.relative_stylesheet_name(file)}"

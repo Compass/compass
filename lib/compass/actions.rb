@@ -4,7 +4,7 @@ module Compass
     attr_writer :logger
 
     def logger
-      @logger ||= Logger.new
+      @logger ||= ::Compass::Logger.new
     end
 
     # copy/process a template in the compass template directory to the project directory.
@@ -17,13 +17,14 @@ module Compass
     # create a directory and all the directories necessary to reach it.
     def directory(dir, options = nil)
       options ||= self.options if self.respond_to?(:options)
+      options ||= {}
       if File.exists?(dir) && File.directory?(dir)
-          # logger.record :exists, basename(dir) unless options[:quiet]
+          # do nothing
       elsif File.exists?(dir)
         msg = "#{basename(dir)} already exists and is not a directory."
         raise Compass::FilesystemConflict.new(msg)
       else
-        logger.record :directory, separate("#{basename(dir)}/")
+        log_action :directory, separate("#{basename(dir)}/"), options
         FileUtils.mkdir_p(dir) unless options[:dry_run]
       end
     end
@@ -33,20 +34,19 @@ module Compass
       options ||= self.options if self.respond_to?(:options)
       skip_write = options[:dry_run]
       contents = process_erb(contents, options[:erb]) if options[:erb]
-      extra = options[:extra] || ""
       if File.exists?(file_name)
         existing_contents = IO.read(file_name)
         if existing_contents == contents
-          logger.record :identical, basename(file_name), extra
+          log_action :identical, basename(file_name), options
           skip_write = true
         elsif options[:force]
-          logger.record :overwrite, basename(file_name), extra
+          log_action :overwrite, basename(file_name), options
         else
           msg = "File #{basename(file_name)} already exists. Run with --force to force overwrite."
           raise Compass::FilesystemConflict.new(msg)
         end
       else
-        logger.record :create, basename(file_name), extra
+        log_action :create, basename(file_name), options
       end
       if skip_write
         FileUtils.touch file_name unless options[:dry_run]
@@ -67,7 +67,7 @@ module Compass
     def remove(file_name)
       if File.exists?(file_name)
         File.unlink file_name
-        logger.record :remove, basename(file_name)
+        log_action :remove, basename(file_name), options
       end
     end
 
@@ -93,6 +93,15 @@ module Compass
     # Removes the trailing separator, if any, from a path.
     def strip_trailing_separator(path)
       (path[-1..-1] == File::SEPARATOR) ? path[0..-2] : path
+    end
+
+    def log_action(action, file, options)
+      quiet = !!options[:quiet]
+      quiet = false if options[:loud] && options[:loud] == true
+      quiet = false if options[:loud] && options[:loud].is_a?(Array) && options[:loud].include?(action)
+      unless quiet
+        logger.record(action, file, options[:extra].to_s)
+      end
     end
 
   end

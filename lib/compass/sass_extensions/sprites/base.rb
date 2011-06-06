@@ -7,7 +7,7 @@ module Compass
         # Initialize a new aprite object from a relative file path
         # the path is relative to the <tt>images_path</tt> confguration option
         def self.from_uri(uri, context, kwargs)
-          sprite_map = ::Compass::SpriteMap.new(uri.value, {})
+          sprite_map = ::Compass::SpriteMap.new(:uri => uri.value, :options => {})
           sprites = sprite_map.files.map do |sprite|
             sprite.gsub(Compass.configuration.images_path+"/", "")
           end
