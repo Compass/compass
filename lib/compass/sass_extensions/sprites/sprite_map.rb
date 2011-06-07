@@ -1,7 +1,7 @@
 module Compass
   module SassExtensions
     module Sprites
-      class Base < Sass::Script::Literal
+      class SpriteMap < Sass::Script::Literal
         
         
         # Initialize a new sprite object from a relative file path

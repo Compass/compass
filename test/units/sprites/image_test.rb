@@ -20,7 +20,7 @@ class SpritesImageTest < Test::Unit::TestCase
   
   def parent
     importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => options)
-    @parent ||= Compass::SassExtensions::Sprites::Base.new(importer.sprite_names.map{|n| "selectors/#{n}.png"}, importer.path, importer.name, importer.sass_engine, importer.options)
+    @parent ||= Compass::SassExtensions::Sprites::SpriteMap.new(importer.sprite_names.map{|n| "selectors/#{n}.png"}, importer.path, importer.name, importer.sass_engine, importer.options)
   end
   
   let(:options) do

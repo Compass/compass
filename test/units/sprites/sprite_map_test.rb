@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SpritesBaseTest < Test::Unit::TestCase
+class SpriteMapTest < Test::Unit::TestCase
   
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
@@ -17,7 +17,7 @@ class SpritesBaseTest < Test::Unit::TestCase
   
   def setup_map
     @importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => @options)
-    @base = Compass::SassExtensions::Sprites::Base.new(@importer.sprite_names.map{|n| "selectors/#{n}.png"}, @importer.path, @importer.name, @importer.sass_engine, @importer.options)
+    @base = Compass::SassExtensions::Sprites::SpriteMap.new(@importer.sprite_names.map{|n| "selectors/#{n}.png"}, @importer.path, @importer.name, @importer.sass_engine, @importer.options)
   end
 
   def teardown
