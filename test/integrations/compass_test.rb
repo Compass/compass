@@ -57,7 +57,7 @@ class CompassTest < Test::Unit::TestCase
         assert_no_errors css_file, :blueprint
       end
       each_sass_file do |sass_file|
-        assert_renders_correctly sass_file
+        assert_renders_correctly sass_file, :ignore_charset => true
       end
     end
   end
