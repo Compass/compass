@@ -1,184 +1,213 @@
 module Compass
-  class SpriteMap < Sass::Importers::Base
-    attr_accessor :uri, :options
-    VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
-    SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
-    
-    def self.load(uri, options)
-      Compass.quick_cache "Sprite_map:#{uri}#{options.inspect}", 5 do
-        klass = Compass::SpriteMap.new
-        klass.uri, klass.options = uri, options
-        klass
-      end
-    end
-    
-    def initialize(options ={})
-      @uri, @options = '', {}
-      options.each do |key, value|
-        send("#{key}=", value)
-      end
-    end
-    
-    def find(uri, options)
-      @uri, @options = uri, options
-      if uri =~ SPRITE_IMPORTER_REGEX
-        return sass_engine
-      end
-    end
-    
-    def find_relative(uri, base, options)
-      @uri, @options = uri, options
-      find(File.join(base, uri), options)
-    end
-    
-    def to_s
-      content_for_images
-    end
-    
-    def hash
-      self.class.name.hash
-    end
-	
-    def eql?(other)
-      other.class == self.class
-    end
-    
-
-    
-    def key(uri, options={})
-      @uri, @options = uri, options
-      [self.class.name + ":" + File.dirname(File.expand_path(uri)), File.basename(uri)]
-    end
-    
-    def self.path_and_name(uri)
-      Compass.quick_cache "Sprite_map_name:#{uri}", 5 do
-        if uri =~ SPRITE_IMPORTER_REGEX
-          [$1, $3]
-        else
-          [nil, nil]
+  module SassExtensions
+    module Sprites
+      class SpriteMap < Sass::Script::Literal
+        
+        
+        # Initialize a new sprite object from a relative file path
+        # the path is relative to the <tt>images_path</tt> confguration option
+        def self.from_uri(uri, context, kwargs)
+          importer = ::Compass::SpriteImporter.new(:uri => uri.value, :options => {})
+          sprites = importer.files.map do |sprite|
+            sprite.gsub(Compass.configuration.images_path+"/", "")
+          end
+          new(sprites, importer.path, importer.name, context, kwargs)
         end
-      end
-    end
-
-    # Name of this spite
-    def name
-      ensure_path_and_name!
-      @name
-    end
-
-    # The on-disk location of this sprite
-    def path
-      ensure_path_and_name!
-      @path
-    end
-    
-    # Returns the Glob of image files for this sprite
-    def files
-      @files ||= Dir[File.join(Compass.configuration.images_path, uri)].sort
-    end
-
-    # Returns an Array of image names without the file extension
-    def sprite_names
-      @sprite_names ||= files.collect do |file|
-        filename = File.basename(file, '.png')
-        unless VAILD_FILE_NAME =~ filename
-          raise Compass::Error, "Sprite file names must be legal css identifiers. Please rename #{File.basename(file)}"
+        
+        # Loads the sprite engine
+        def require_engine!
+          self.class.send(:include, eval("::Compass::SassExtensions::Sprites::#{modulize}Engine"))
         end
-        filename
+      
+        # Changing this string will invalidate all previously generated sprite images.
+        # We should do so only when the packing algorithm changes
+        SPRITE_VERSION = "1"
+
+        attr_accessor :image_names, :path, :name, :kwargs
+        attr_accessor :images, :width, :height
+
+
+        def initialize(sprites, path, name, context, kwargs)
+          require_engine!
+          @image_names = sprites
+          @path = path
+          @name = name
+          @kwargs = kwargs
+          @kwargs['cleanup'] ||= Sass::Script::Bool.new(true)
+          @images = nil
+          @width = nil
+          @height = nil
+          @evaluation_context = context
+          validate!
+          compute_image_metadata!
+        end
+
+        # Calculate the size of the sprite
+        def size
+          [width, height]
+        end
+      
+        # Calculates the overal image dimensions
+        # collects image sizes and input parameters for each sprite
+        # Calculates the height
+        def compute_image_metadata!
+          @width = 0
+          init_images
+          compute_image_positions!
+          @height = @images.last.top + @images.last.height
+        end
+        
+        # Creates the Sprite::Image objects for each image and calculates the width
+        def init_images
+          @images = image_names.collect do |relative_file|
+            image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, kwargs)
+            @width = [ @width, image.width + image.offset ].max
+            image
+          end
+        end
+        
+        # Calculates the overal image dimensions
+        # collects image sizes and input parameters for each sprite
+        def compute_image_positions!
+          @images.each_with_index do |image, index|
+            image.left = image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100) : image.position.value
+            next if index == 0
+            last_image = @images[index-1]
+            image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
+          end
+        end
+        
+        # Fetches the Sprite::Image object for the supplied name
+        def image_for(name)
+          @images.detect { |img| img.name == name}
+        end
+        
+        # Returns true if the image name has a hover selector image
+        def has_hover?(name)
+          !image_for("#{name}_hover").nil?
+        end
+        
+        # Returns true if the image name has a target selector image
+        def has_target?(name)
+          !image_for("#{name}_target").nil?
+        end
+        
+        # Returns true if the image name has an active selector image
+        def has_active?(name)
+          !image_for("#{name}_active").nil?
+        end
+        
+        # Return and array of image names that make up this sprite
+        def sprite_names
+          image_names.map { |f| File.basename(f, '.png') }
+        end
+
+
+        # Validates that the sprite_names are valid sass
+        def validate!
+          for sprite_name in sprite_names
+            unless sprite_name =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
+              raise Sass::SyntaxError, "#{sprite_name} must be a legal css identifier"
+            end
+          end
+        end
+
+        # The on-the-disk filename of the sprite
+        def filename
+          File.join(Compass.configuration.images_path, "#{path}-#{uniqueness_hash}.png")
+        end
+
+        # Generate a sprite image if necessary
+        def generate
+          if generation_required?
+            if kwargs.get_var('cleanup').value
+              cleanup_old_sprites
+            end
+            sprite_data = construct_sprite
+            save!(sprite_data)
+            Compass.configuration.run_callback(:sprite_generated, sprite_data)
+          end
+        end
+        
+        def cleanup_old_sprites
+          Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
+            FileUtils.rm file
+          end
+        end
+        
+        # Does this sprite need to be generated
+        def generation_required?
+          !File.exists?(filename) || outdated?
+        end
+
+        # Returns the uniqueness hash for this sprite object
+        def uniqueness_hash
+          @uniqueness_hash ||= begin
+            sum = Digest::MD5.new
+            sum << SPRITE_VERSION
+            sum << path
+            images.each do |image|
+              [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|
+                sum << image.send(attr).to_s
+              end
+            end
+            sum.hexdigest[0...10]
+          end
+          @uniqueness_hash
+        end
+
+        # Saves the sprite engine
+        def save!(output_png)
+          saved = output_png.save filename
+          Compass.configuration.run_callback(:sprite_saved, filename)
+          saved
+        end
+
+        # All the full-path filenames involved in this sprite
+        def image_filenames
+          @images.map(&:file)
+        end
+
+        # Checks whether this sprite is outdated
+        def outdated?
+          if File.exists?(filename)
+            return @images.map(&:mtime).any? { |imtime| imtime.to_i > self.mtime.to_i }
+          end
+          true
+        end
+
+        # Mtime of the sprite file
+        def mtime
+          @mtime ||= File.mtime(filename)
+        end
+
+        def inspect
+          to_s
+        end
+
+        def to_s(kwargs = self.kwargs)
+          sprite_url(self).value
+        end
+
+        def respond_to?(meth)
+          super || @evaluation_context.respond_to?(meth)
+        end
+
+        def method_missing(meth, *args, &block)
+          if @evaluation_context.respond_to?(meth)
+            @evaluation_context.send(meth, *args, &block)
+          else
+            super
+          end
+        end
+        
+        private 
+        
+        def modulize
+          @modulize ||= Compass::configuration.sprite_engine.to_s.scan(/([^_.]+)/).flatten.map {|chunk| "#{chunk[0].chr.upcase}#{chunk[1..-1]}" }.join
+        end
+        
       end
-    end
-    
-    # Returns the sass options for this sprite
-    def sass_options
-      @sass_options ||= options.merge(:filename => name, :syntax => :scss, :importer => self)
-    end
-    
-    # Returns a Sass::Engine for this sprite object
-    def sass_engine
-      Sass::Engine.new(content_for_images, sass_options)
-    end
-    
-    def ensure_path_and_name!
-      @path, @name = self.class.path_and_name(uri)
-    end 
-
-    # Generates the Sass for this sprite file
-    def content_for_images(skip_overrides = false)
-      <<-SCSS
-@import "compass/utilities/sprites/base";
-
-// General Sprite Defaults
-// You can override them before you import this file.
-$#{name}-sprite-base-class: ".#{name}-sprite" !default;
-$#{name}-sprite-dimensions: false !default;
-$#{name}-position: 0% !default;
-$#{name}-spacing: 0 !default;
-$#{name}-repeat: no-repeat !default;
-$#{name}-prefix: '' !default;
-$#{name}-clean-up: true !default;
-
-#{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\", $cleanup: $#{name}-clean-up);" : generate_overrides }
-
-// All sprites should extend this class
-// The #{name}-sprite mixin will do so for you.
-\#{$#{name}-sprite-base-class} {
-  background: $#{name}-sprites no-repeat;
-}
-
-// Use this to set the dimensions of an element
-// based on the size of the original image.
-@mixin #{name}-sprite-dimensions($name) {
-  @include sprite-dimensions($#{name}-sprites, $name)
-}
-
-// Move the background position to display the sprite.
-@mixin #{name}-sprite-position($name, $offset-x: 0, $offset-y: 0) {
-  @include sprite-background-position($#{name}-sprites, $name, $offset-x, $offset-y)
-}
-
-// Extends the sprite base class and set the background position for the desired sprite.
-// It will also apply the image dimensions if $dimensions is true.
-@mixin #{name}-sprite($name, $dimensions: $#{name}-sprite-dimensions, $offset-x: 0, $offset-y: 0) {
-  @extend \#{$#{name}-sprite-base-class};
-  @include sprite($#{name}-sprites, $name, $dimensions, $offset-x, $offset-y)
-}
-
-@mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
-  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions, $prefix)
-}
-
-// Generates a class for each sprited image.
-@mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
-  @include #{name}-sprites(#{sprite_names.join(" ")}, $dimensions, $prefix);
-}
-SCSS
-    end
-    
-    # Generates the override defaults for this Sprite
-    # <tt>$#{name}-#{sprite_name}-position </tt>
-    # <tt> $#{name}-#{sprite_name}-spacing </tt>
-    # <tt> #{name}-#{sprite_name}-repeat: </tt>
-    def generate_overrides
-      content = <<-TXT
-// These variables control the generated sprite output
-// You can override them selectively before you import this file.
-      TXT
-      sprite_names.map do |sprite_name| 
-        content += <<-SCSS
-$#{name}-#{sprite_name}-position: $#{name}-position !default;
-$#{name}-#{sprite_name}-spacing: $#{name}-spacing !default;
-$#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
-        SCSS
-      end.join
-
-      content += "\n$#{name}-sprites: sprite-map(\"#{uri}\", \n$cleanup: $#{name}-clean-up,\n"
-      content += sprite_names.map do |sprite_name| 
-%Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
-  $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
-  $#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}
-      end.join(",\n")
-      content += ");"
     end
   end
 end
-

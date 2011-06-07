@@ -10,7 +10,7 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  # Creates a Compass::SassExtensions::Sprites::Base object. A sprite map, when used in a property is the same
+  # Creates a Compass::SassExtensions::Sprites::SpriteMap object. A sprite map, when used in a property is the same
   # as calling sprite-url. So the following background properties are equivalent:
   #
   #     $icons: sprite-map("icons/*.png");
@@ -21,7 +21,7 @@ module Compass::SassExtensions::Functions::Sprites
   # the first time it is converted to a url. Simply constructing it has no side-effects.
   def sprite_map(glob, kwargs = {})
     kwargs.extend VariableReader
-    Compass::SassExtensions::Sprites::Base.from_uri(glob, self, kwargs)
+    Compass::SassExtensions::Sprites::SpriteMap.from_uri(glob, self, kwargs)
   end 
   Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
 
@@ -160,7 +160,7 @@ protected
   end
 
   def verify_map(map, error = "sprite")
-    unless map.is_a?(Compass::SassExtensions::Sprites::Base)
+    unless map.is_a?(Compass::SassExtensions::Sprites::SpriteMap)
       missing_sprite!(error)
     end
   end

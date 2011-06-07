@@ -23,7 +23,7 @@ module Compass
         plugin_opts[:cache_location] = cache_path unless cache_path.nil?
         plugin_opts.merge!(sass_options || {})
         plugin_opts[:load_paths] ||= []
-        plugin_opts[:load_paths] << Compass::SpriteMap.new
+        plugin_opts[:load_paths] << Compass::SpriteImporter.new
         plugin_opts
       end
 
@@ -63,7 +63,7 @@ module Compass
           next p if p.respond_to?(:find_relative)
           Sass::Importers::Filesystem.new(p.to_s)
         end
-        load_paths << Compass::SpriteMap.new
+        load_paths << Compass::SpriteImporter.new
         load_paths
       end
     end

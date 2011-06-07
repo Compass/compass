@@ -11,7 +11,7 @@ describe Compass::SassExtensions::Sprites::Base do
     Compass.configure_sass_plugin!
     #fix this eww
     options = Compass.sass_engine_options.extend Compass::SassExtensions::Functions::Sprites::VariableReader
-    @map = Compass::SpriteMap.new("selectors/*.png", options)
+    @map = Compass::SpriteImporter.new("selectors/*.png", options)
     @base = Compass::SassExtensions::Sprites::Base.new(@map.sprite_names.map{|n| "selectors/#{n}.png"}, @map.path, 'selectors', @map.sass_engine, @map.options)
   end
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SpritesBaseTest < Test::Unit::TestCase
+class SpriteMapTest < Test::Unit::TestCase
   
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
@@ -16,8 +16,8 @@ class SpritesBaseTest < Test::Unit::TestCase
   end
   
   def setup_map
-    @map = Compass::SpriteMap.new(:uri => "selectors/*.png", :options => @options)
-    @base = Compass::SassExtensions::Sprites::Base.new(@map.sprite_names.map{|n| "selectors/#{n}.png"}, @map, @map.sass_engine, @map.options)
+    @importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => @options)
+    @base = Compass::SassExtensions::Sprites::SpriteMap.new(@importer.sprite_names.map{|n| "selectors/#{n}.png"}, @importer.path, @importer.name, @importer.sass_engine, @importer.options)
   end
 
   def teardown
@@ -29,7 +29,7 @@ class SpritesBaseTest < Test::Unit::TestCase
   end
   
   it "should have the sprite names" do
-    assert_equal @map.sprite_names, @base.sprite_names
+    assert_equal @importer.sprite_names, @base.sprite_names
   end
   
   it 'should have image filenames' do
