@@ -43,7 +43,12 @@ module Compass
       other.class == self.class
     end
     
-
+    def mtime(uri, options)
+      @uri, @options = uri, options
+      files.sort.inject(Time.at(0)) do |max_time, file|
+        (t = File.mtime(file)) > max_time ? t : max_time
+      end
+    end
     
     def key(uri, options={})
       @uri, @options = uri, options
