@@ -5,11 +5,9 @@ module Compass
     SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
     
     def self.load(uri, options)
-      Compass.quick_cache "Sprite_map:#{uri}#{options.inspect}", 5 do
-        klass = Compass::SpriteImporter.new
-        klass.uri, klass.options = uri, options
-        klass
-      end
+      klass = Compass::SpriteImporter.new
+      klass.uri, klass.options = uri, options
+      klass
     end
     
     def initialize(options ={})
@@ -77,7 +75,7 @@ module Compass
     
     # Returns the Glob of image files for this sprite
     def files
-      @files ||= Dir[File.join(Compass.configuration.images_path, uri)].sort
+      Dir[File.join(Compass.configuration.images_path, uri)].sort
     end
 
     # Returns an Array of image names without the file extension
