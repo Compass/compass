@@ -3,6 +3,7 @@ module Compass
     attr_accessor :uri, :options
     VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
     SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
+    VALID_EXTENSIONS = ['.png']
     
     def self.load(uri, options)
       klass = Compass::SpriteImporter.new
@@ -89,6 +90,14 @@ module Compass
       end
     end
     
+    def validate_sprites!
+      files.each do |file|
+        unless VALID_EXTENSIONS.include? File.extname(file)
+          raise Compass::Error, "Invalid sprite extension only: #{VALID_EXTENSIONS.join(',')} images are allowed"
+        end
+      end
+    end
+    
     # Returns the sass options for this sprite
     def sass_options
       @sass_options ||= options.merge(:filename => name, :syntax => :scss, :importer => self)
@@ -96,6 +105,7 @@ module Compass
     
     # Returns a Sass::Engine for this sprite object
     def sass_engine
+      validate_sprites!
       Sass::Engine.new(content_for_images, sass_options)
     end
     
