@@ -100,7 +100,7 @@ module Compass
     
     # Returns the sass options for this sprite
     def sass_options
-      @sass_options ||= options.merge(:filename => name, :syntax => :scss, :importer => self)
+      options.merge(:filename => name, :syntax => :scss, :importer => self)
     end
     
     # Returns a Sass::Engine for this sprite object
