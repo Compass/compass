@@ -56,12 +56,10 @@ module Compass
     end
     
     def self.path_and_name(uri)
-      Compass.quick_cache "Sprite_map_name:#{uri}", 5 do
-        if uri =~ SPRITE_IMPORTER_REGEX
-          [$1, $3]
-        else
-          [nil, nil]
-        end
+      if uri =~ SPRITE_IMPORTER_REGEX
+        [$1, $3]
+      else
+        raise Compass::Error "invalid sprite path"
       end
     end
 
