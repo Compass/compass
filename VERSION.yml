@@ -1,5 +1,7 @@
 --- 
 :major: 0
 :minor: 11
-:build: 1
+:patch: 3
+:state: rc
+:build: 0
 :name: Antares

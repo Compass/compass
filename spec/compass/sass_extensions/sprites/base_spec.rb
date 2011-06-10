@@ -27,7 +27,7 @@ describe Compass::SassExtensions::Sprites::Base do
   its(:generation_required?) { should be_true }
   its(:uniqueness_hash) { should == 'ef52c5c63a'}
   its(:outdated?) { should be_true }
-  its(:filename) { should == File.join(@images_tmp_path, "#{@base.path}-#{@base.uniqueness_hash}.png")}
+  its(:filename) { should == File.join(@images_tmp_path, "#{@base.path}-s#{@base.uniqueness_hash}.png")}
   
   it "should return the 'ten-by-ten' image" do
     subject.image_for('ten-by-ten').name.should == 'ten-by-ten'
