@@ -114,7 +114,7 @@ module Compass
 
         # The on-the-disk filename of the sprite
         def filename
-          File.join(Compass.configuration.images_path, "#{path}-#{uniqueness_hash}.png")
+          File.join(Compass.configuration.images_path, "#{path}-s#{uniqueness_hash}.png")
         end
 
         # Generate a sprite image if necessary

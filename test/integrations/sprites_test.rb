@@ -59,7 +59,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/squares-s161c60ad78.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -70,8 +70,8 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -10px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 30]
-    assert_equal image_md5('squares-*.png'), 'fcc93d7b279c2ad6898fbca49cbd01e1'
+    assert_equal image_size('squares-s*.png'), [20, 30]
+    assert_equal image_md5('squares-s*.png'), 'fcc93d7b279c2ad6898fbca49cbd01e1'
   end
 
   it "should generate sprite classes with dimensions" do
@@ -82,7 +82,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/squares-s161c60ad78.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -97,7 +97,7 @@ class SpritesTest < Test::Unit::TestCase
         width: 20px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 30]
+    assert_equal image_size('squares-s*.png'), [20, 30]
   end
 
   it "should provide sprite mixin" do
@@ -114,7 +114,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .cubicle, .large-cube {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/squares-s161c60ad78.png') no-repeat;
       }
       
       .cubicle {
@@ -127,7 +127,7 @@ class SpritesTest < Test::Unit::TestCase
         width: 20px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 30]
+    assert_equal image_size('squares-s*.png'), [20, 30]
   end
 
   # CUSTOMIZATIONS:
@@ -139,10 +139,10 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .circles {
-        background: url('/squares-161c60ad78.png') no-repeat;
+        background: url('/squares-s161c60ad78.png') no-repeat;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 30]
+    assert_equal image_size('squares-s*.png'), [20, 30]
   end
 
   it "should calculate the spacing between images but not before first image" do
@@ -153,7 +153,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-89450808af.png') no-repeat;
+        background: url('/squares-s89450808af.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -164,7 +164,7 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -43px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 63]
+    assert_equal image_size('squares-s*.png'), [20, 63]
   end
 
   it "should calculate the spacing between images" do
@@ -175,7 +175,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-673837183a.png') no-repeat;
+        background: url('/squares-s673837183a.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -186,7 +186,7 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -43px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 63]
+    assert_equal image_size('squares-s*.png'), [20, 63]
   end
 
   it "should calculate the maximum spacing between images" do
@@ -198,7 +198,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-1cd84c9068.png') no-repeat;
+        background: url('/squares-s1cd84c9068.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -209,7 +209,7 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -54px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 74]
+    assert_equal image_size('squares-s*.png'), [20, 74]
   end
 
   it "should calculate the maximum spacing between images in reversed order" do
@@ -221,7 +221,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-f25b7090ca.png') no-repeat;
+        background: url('/squares-sf25b7090ca.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -232,7 +232,7 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -54px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 74]
+    assert_equal image_size('squares-s*.png'), [20, 74]
   end
 
   it "should calculate the default spacing between images" do
@@ -243,7 +243,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-d66bf24bab.png') no-repeat;
+        background: url('/squares-sd66bf24bab.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -254,7 +254,7 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -32px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 52]
+    assert_equal image_size('squares-s*.png'), [20, 52]
   end
 
   it "should use position adjustments in functions" do
@@ -278,7 +278,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite {
-        background: url('/squares-8e490168dd.png') no-repeat;
+        background: url('/squares-s8e490168dd.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -293,8 +293,8 @@ class SpritesTest < Test::Unit::TestCase
         background-position: -3px -8px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 30]
-    assert_equal image_md5('squares-*.png'), '652b67f5e9092520d6f26caae7e18012'
+    assert_equal image_size('squares-s*.png'), [20, 30]
+    assert_equal image_md5('squares-s*.png'), '652b67f5e9092520d6f26caae7e18012'
   end
 
   it "should use position adjustments in mixins" do
@@ -316,7 +316,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .adjusted-percentage, .adjusted-px-1, .adjusted-px-2 {
-        background: url('/squares-8e490168dd.png') no-repeat;
+        background: url('/squares-s8e490168dd.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -331,8 +331,8 @@ class SpritesTest < Test::Unit::TestCase
         background-position: -3px -8px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 30]
-    assert_equal image_md5('squares-*.png'), '652b67f5e9092520d6f26caae7e18012'
+    assert_equal image_size('squares-s*.png'), [20, 30]
+    assert_equal image_md5('squares-s*.png'), '652b67f5e9092520d6f26caae7e18012'
   end
 
   it "should repeat the image" do
@@ -343,7 +343,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-a5550fd132.png') no-repeat;
+        background: url('/squares-sa5550fd132.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -354,8 +354,8 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -10px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [20, 30]
-    assert_equal image_md5('squares-*.png'), '94abae8440f1b58617f52920b70aaed2'
+    assert_equal image_size('squares-s*.png'), [20, 30]
+    assert_equal image_md5('squares-s*.png'), '94abae8440f1b58617f52920b70aaed2'
   end
 
   it "should allow the position of a sprite to be specified in absolute pixels" do
@@ -367,7 +367,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-89a274044e.png') no-repeat;
+        background: url('/squares-s89a274044e.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -378,8 +378,8 @@ class SpritesTest < Test::Unit::TestCase
         background-position: -10px -10px;
       }
     CSS
-    assert_equal image_size('squares-*.png'), [30, 30]
-    assert_equal image_md5('squares-*.png'), '2fb19ef9c83018c93c6f147af3a56cb2'
+    assert_equal image_size('squares-s*.png'), [30, 30]
+    assert_equal image_md5('squares-s*.png'), '2fb19ef9c83018c93c6f147af3a56cb2'
   end
 
   it "should provide a nice errors for lemonade's old users" do
@@ -416,7 +416,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares {
-        background: url('/squares-145869726f.png') 0 -10px no-repeat;
+        background: url('/squares-s145869726f.png') 0 -10px no-repeat;
       }
     CSS
   end
@@ -432,10 +432,10 @@ class SpritesTest < Test::Unit::TestCase
         @include sprite-background-position($squares-sprites, "ten-by-ten");
       }
     SCSS
-    assert_equal image_size('squares-*.png'), [20, 40]
+    assert_equal image_size('squares-s*.png'), [20, 40]
     assert_correct css, <<-CSS
       .squares-sprite {
-        background: url('/squares-e3c68372d9.png') no-repeat;
+        background: url('/squares-se3c68372d9.png') no-repeat;
       }
       
       .foo {
@@ -455,7 +455,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, .selectors-ten-by-ten {
-        background: url('/selectors-edfef809e2.png') no-repeat;
+        background: url('/selectors-sedfef809e2.png') no-repeat;
       }
       
       .selectors-ten-by-ten {
@@ -482,7 +482,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-edfef809e2.png') no-repeat;
+        background: url('/selectors-sedfef809e2.png') no-repeat;
       }
       
       a {
@@ -510,7 +510,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-edfef809e2.png') no-repeat;
+        background: url('/selectors-sedfef809e2.png') no-repeat;
       }
       
       a {
@@ -538,7 +538,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .ko-sprite, .ko-default_background, .ko-starbg26x27 {
-        background: url('/ko-cc3f80660d.png') no-repeat;
+        background: url('/ko-scc3f80660d.png') no-repeat;
       }
       
       .ko-default_background {
@@ -552,8 +552,8 @@ class SpritesTest < Test::Unit::TestCase
   end
   
   it "should generate a sprite and remove the old file" do
-    FileUtils.touch File.join(@images_tmp_path, "selectors-cc8834Fdd.png")
-    assert_equal 1, map_files('selectors-*.png').size
+    FileUtils.touch File.join(@images_tmp_path, "selectors-scc8834Fdd.png")
+    assert_equal 1, map_files('selectors-s*.png').size
     css = render <<-SCSS
       @import "selectors/*.png";
       a {
@@ -561,12 +561,12 @@ class SpritesTest < Test::Unit::TestCase
         @include selectors-sprite(ten-by-ten)
       }
     SCSS
-    assert_equal 1, map_files('selectors-*.png').size, "File was not removed"
+    assert_equal 1, map_files('selectors-s*.png').size, "File was not removed"
   end
   
   it "should generate a sprite and NOT remove the old file" do
-    FileUtils.touch File.join(@images_tmp_path, "selectors-cc8834Ftest.png")
-    assert_equal 1, map_files('selectors-*.png').size
+    FileUtils.touch File.join(@images_tmp_path, "selectors-scc8834Ftest.png")
+    assert_equal 1, map_files('selectors-s*.png').size
     css = render <<-SCSS
       $selectors-clean-up: false;
       @import "selectors/*.png";
@@ -575,7 +575,7 @@ class SpritesTest < Test::Unit::TestCase
         @include selectors-sprite(ten-by-ten)
       }
     SCSS
-    assert_equal 2, map_files('selectors-*.png').size, "File was removed"
+    assert_equal 2, map_files('selectors-s*.png').size, "File was removed"
   end
   
   it "should generate a sprite if the sprite is a colorname" do
@@ -595,7 +595,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .nested-sprite, .nested-ten-by-ten {
-        background: url('/nested-55a8935544.png') no-repeat;
+        background: url('/nested-s55a8935544.png') no-repeat;
       }
       
       .nested-ten-by-ten {
