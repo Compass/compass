@@ -1,7 +1,7 @@
 ---
 title: Application Integration
 layout: tutorial
-crumb: Appliction Integration
+crumb: Application Integration
 classnames:
   - tutorial
 ---
