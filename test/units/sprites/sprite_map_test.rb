@@ -49,7 +49,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
 
   it 'should have correct filename' do
-    assert_equal File.join(@images_tmp_path, "#{@base.path}-#{@base.uniqueness_hash}.png"), @base.filename
+    assert_equal File.join(@images_tmp_path, "#{@base.path}-s#{@base.uniqueness_hash}.png"), @base.filename
   end
   
   it "should return the 'ten-by-ten' image" do
