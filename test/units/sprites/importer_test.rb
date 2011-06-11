@@ -9,6 +9,10 @@ class ImporterTest < Test::Unit::TestCase
     Compass.add_configuration(file, "sprite_config")
     @importer = Compass::SpriteImporter.new(:uri => URI, :options => options)
   end
+
+  def teardown
+    Compass.reset_configuration!
+  end
   
   def options
     {:foo => 'bar'}
@@ -46,21 +50,17 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal 'bar', @importer.sass_options[:foo]
   end
   
-  test "should fail givin bad sprite extensions" do
+  test "should fail given bad sprite extensions" do
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
     importer = Compass::SpriteImporter.new(:uri => 'bad_extensions/*.jpg', :options => options)
     begin
       importer.sass_engine
-      assert false, "Somthing happened an invalid sprite file made it past validation"
+      assert false, "An invalid sprite file made it past validation."
     rescue Compass::Error => e
       assert e.message.include?('.png')
     end
-  end
-  
-  def taredown
-    Compass.reset_configuration!
   end
   
 end
