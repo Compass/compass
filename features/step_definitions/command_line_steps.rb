@@ -76,7 +76,7 @@ When /^I run in a separate process: compass ([^\s]+) ?(.+)?$/ do |command, args|
         file.puts $stdout.string
       end
       open('/tmp/last_error.compass_test.txt', 'w') do |file|
-        file.puts @stderr.string
+        file.puts $stderr.string
       end
       exit!
     end
