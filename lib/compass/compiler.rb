@@ -3,16 +3,19 @@ module Compass
 
     include Actions
 
-    attr_accessor :working_path, :from, :to, :options, :staleness_checker, :importer
+    attr_accessor :working_path, :from, :to, :options, :sass_options, :staleness_checker, :importer
 
     def initialize(working_path, from, to, options)
       self.working_path = working_path
       self.from, self.to = from.gsub('./', ''), to
       self.logger = options.delete(:logger)
+      sass_opts = options.delete(:sass) || {}
       self.options = options
-      self.options[:cache_location] ||= determine_cache_location
-      options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
-      self.staleness_checker = Sass::Plugin::StalenessChecker.new(options)
+      self.sass_options = options.dup
+      self.sass_options.update(sass_opts)
+      self.sass_options[:cache_location] ||= determine_cache_location
+      self.sass_options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
+      self.staleness_checker = Sass::Plugin::StalenessChecker.new(sass_options)
     end
 
     def determine_cache_location
@@ -142,7 +145,7 @@ module Compass
     # A sass engine for compiling a single file.
     def engine(sass_filename, css_filename)
       syntax = (sass_filename =~ /\.(s[ac]ss)$/) && $1.to_sym || :sass
-      opts = options.merge :filename => sass_filename, :css_filename => css_filename, :syntax => syntax
+      opts = sass_options.merge(:filename => sass_filename, :css_filename => css_filename, :syntax => syntax)
       Sass::Engine.new(open(sass_filename).read, opts)
     end
 
