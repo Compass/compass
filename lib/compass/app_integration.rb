@@ -1,4 +1,4 @@
-%w(stand_alone rails merb).each do |lib|
+%w(stand_alone rails merb word_press).each do |lib|
   require "compass/app_integration/#{lib}"
 end
 
