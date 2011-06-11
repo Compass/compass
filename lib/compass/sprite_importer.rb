@@ -31,7 +31,7 @@ module Compass
     end
     
     def to_s
-      content_for_images
+      self.class.name
     end
     
     def hash
