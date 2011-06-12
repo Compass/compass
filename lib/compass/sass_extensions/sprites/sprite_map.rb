@@ -3,7 +3,7 @@ module Compass
     module Sprites
       class SpriteMap < Sass::Script::Literal
         attr_accessor :image_names, :path, :name, :map, :kwargs
-        attr_accessor :images, :width, :height
+        attr_accessor :images, :width, :height, :engine
 
         include SpriteMethods
         include ImageMethods
@@ -20,7 +20,6 @@ module Compass
         end
 
         def initialize(sprites, path, name, context, kwargs)
-          require_engine!
           @image_names = sprites
           @path = path
           @name = name
@@ -29,14 +28,10 @@ module Compass
           @images = nil
           @width = nil
           @height = nil
+          @engine = nil
           @evaluation_context = context
           validate!
           compute_image_metadata!
-        end
-
-        # Loads the sprite engine
-        def require_engine!
-          self.class.send(:include, eval("::Compass::SassExtensions::Sprites::#{modulize}Engine"))
         end
 
         def inspect
