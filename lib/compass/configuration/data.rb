@@ -71,8 +71,10 @@ module Compass
       end
 
       # When called with a block, defines the cache buster strategy to be used.
-      # The block must return nil or a string that can be appended to a url as a query parameter.
-      # The returned string must not include the starting '?'.
+      # If the block returns nil or a string, then it is appended to the url as a query parameter.
+      # In this case, the returned string must not include the starting '?'.
+      # The block may also return a hash with :path and/or :query values and it
+      # will replace the original path and query string with the busted values returned.
       # The block will be passed the root-relative url of the asset.
       # If the block accepts two arguments, it will also be passed a File object
       # that points to the asset on disk -- which may or may not exist.

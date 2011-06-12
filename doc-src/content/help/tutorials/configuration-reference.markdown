@@ -308,9 +308,12 @@ the asset host configuration is ignored.
 ---
 
 **`asset_cache_buster`** – Pass this function a block of code that defines the
-cache buster strategy to be used. The block must return nil or a string that can
-be appended to a url as a query parameter. The returned string must not include
-the starting `?`. The block will be passed the root-relative url of the asset.
+cache buster strategy to be used. The block must return nil, a string or a hash.
+If the returned value is a hash the values of :path and/or :query is used to generate
+a cache busted path to the asset. If a string value is returned, it is added as a query string.
+The returned values for query strings must not include the starting `?`.
+
+The block will be passed the root-relative url of the asset.
 If the block accepts two arguments, it will also be passed a path
 that points to the asset on disk — which may or may not exist.
 
@@ -321,6 +324,18 @@ that points to the asset on disk — which may or may not exist.
         File.mtime(real_path).strftime("%s")
       else
         "v=#{deploy_version}"
+      end
+    end
+
+Busting the cache via path:
+
+    asset_cache_buster do |path, real_path|
+      if File.exists?(real_path)
+        pathname = Pathname.new(path)
+        modified_time = File.mtime(real_path).strftime("%s")
+        new_path = "%s/%s-%s%s" % [pathname.dirname, pathname.basename(pathname.extname), modified_time, pathname.extname]
+
+        {:path => new_path, :query => nil}
       end
     end
 
