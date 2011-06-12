@@ -75,9 +75,9 @@ module Compass
     end
 
     def clean!
-      FileUtils.rm_rf options[:cache_location]
+      remove options[:cache_location]
       css_files.each do |css_file|
-        FileUtils.rm_f css_file
+        remove css_file
       end
     end
 

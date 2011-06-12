@@ -116,8 +116,28 @@ Then /^a directory ([^ ]+) is (not )?created$/ do |directory, negated|
   File.directory?(directory).should == !negated
 end
  
+Then /an? \w+ file ([^ ]+) is (not )?removed/ do |filename, negated|
+  File.exists?(filename).should == !!negated
+end
+
 Then /an? \w+ file ([^ ]+) is (not )?created/ do |filename, negated|
   File.exists?(filename).should == !negated
+end
+
+Then "the following files are reported removed:" do |table|
+  table.rows.each do |css_file|
+    Then %Q{a css file #{css_file.first} is reported removed}
+  end
+end
+
+Then "the following files are removed:" do |table|
+  table.rows.each do |css_file|
+    Then %Q{a css file #{css_file.first} is removed}
+  end
+end
+
+Then /an? \w+ file ([^ ]+) is reported removed/ do |filename|
+  @last_result.should =~ /remove.*#{Regexp.escape(filename)}/
 end
 
 Then /an? \w+ file ([^ ]+) is reported created/ do |filename|

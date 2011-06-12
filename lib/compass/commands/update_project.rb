@@ -54,6 +54,7 @@ module Compass
           compiler_opts = {:sass => Compass.sass_engine_options}
           compiler_opts.merge!(options)
           compiler_opts[:sass_files] = explicit_sass_files
+          compiler_opts[:cache_location] = determine_cache_location
           compiler_opts
         end
 

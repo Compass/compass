@@ -13,6 +13,7 @@ module Compass::Exec
     def run!
       begin
         perform!
+        return 0
       rescue Exception => e
         raise e if e.is_a? SystemExit
         if e.is_a?(::Compass::Error) || e.is_a?(OptionParser::ParseError)
@@ -22,7 +23,6 @@ module Compass::Exec
         end
         return 1
       end
-      return 0
     end
     
     protected

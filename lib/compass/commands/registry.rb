@@ -16,8 +16,10 @@ module Compass::Commands
         matching.first
       elsif name =~ /^-/
         nil
-      else
+      elsif matching.size > 1
         raise Compass::Error, "Ambiguous abbreviation '#{name}'. Did you mean one of: #{matching.join(", ")}"
+      else
+        raise Compass::Error, "Command not found: #{name}"
       end
     end
     def abbreviation?(name)
