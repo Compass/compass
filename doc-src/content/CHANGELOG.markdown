@@ -30,6 +30,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   images work better with proxies, but will require some web server
   configuration. [Docs](/help/tutorials/configuration-reference/#asset-cache-buster)
 * Numerous small bug fixes to sprites.
+* Sprite Engines are now classes see [Docs](/help/tutorials/extending) for more information
+* Sprite classes have bee re-factored into modules for readability
+* Sprites will no longer cause `undefined method 'find' for #<Compass::SpriteMap` when adding or removing sprite files
 
 0.11.2 (06/10/2011)
 -------------------
