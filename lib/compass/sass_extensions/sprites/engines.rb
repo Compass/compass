@@ -2,9 +2,10 @@ module Compass
   module SassExtensions
     module Sprites
       class Engine
-        attr_accessor :width, :height, :images
+        attr_accessor :width, :height, :images, :canvas
         def initialize(width, height, images)
           @width, @height, @images = width, height, images
+          @canvas = nil
         end
         
         def construct_sprite
