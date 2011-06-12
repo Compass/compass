@@ -145,6 +145,7 @@ Feature: Command Line
   Scenario: Basic help
     When I run: compass help
     Then I should see the following "primary" commands:
+      | clean   |
       | compile |
       | create  |
       | init    |
@@ -178,6 +179,27 @@ Feature: Command Line
     And I add some sass to sass/layout.sass
     And I run: compass compile
     And a css file tmp/layout.css is reported overwritten
+
+  Scenario: Cleaning a project
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass compile
+    And I run: compass clean
+    Then the following files are reported removed:
+      | .sass-cache/                |
+      | tmp/border_radius.css       |
+      | tmp/box.css                 |
+      | tmp/box_shadow.css          |
+      | tmp/columns.css             |
+      | tmp/fonts.css               |
+      | images/flag-s03c3b29b35.png |
+    And the following files are removed:
+      | .sass-cache/                |
+      | tmp/border_radius.css       |
+      | tmp/box.css                 |
+      | tmp/box_shadow.css          |
+      | tmp/columns.css             |
+      | tmp/fonts.css               |
+      | images/flag-s03c3b29b35.png |
 
   Scenario: Watching a project for changes
     Given ruby supports fork
@@ -218,7 +240,6 @@ Feature: Command Line
       | sass_dir | sass       |
       | css_dir  | assets/css |
 
-  @now
   Scenario Outline: Print out a configuration value
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass config -p <property>
