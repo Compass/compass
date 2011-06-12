@@ -34,7 +34,7 @@ And you'll get the following CSS output:
     .icon-delete,
     .icon-edit,
     .icon-new,
-    .icon-save   { background: url('/images/icon-34fe0604ab.png') no-repeat; }
+    .icon-save   { background: url('/images/icon-s34fe0604ab.png') no-repeat; }
     
     .icon-delete { background-position: 0 0; }
     .icon-edit   { background-position: 0 -32px; }
@@ -74,7 +74,7 @@ And your stylesheet will compile to:
     .actions .new,
     .actions .edit,
     .actions .save,
-    .actions .delete { background: url('/images/icon-34fe0604ab.png') no-repeat; }
+    .actions .delete { background: url('/images/icon-s34fe0604ab.png') no-repeat; }
     
     .actions .new    { background-position: 0 -64px; }
     .actions .edit   { background-position: 0 -32px; }
@@ -122,7 +122,7 @@ Now in our sass file we add:
 And your stylesheet will compile to:
 
     .selectors-sprite, a {
-      background: url('/selectors-edfef809e2.png') no-repeat;
+      background: url('/selectors-sedfef809e2.png') no-repeat;
     }
 
     a {
@@ -141,7 +141,7 @@ And your stylesheet will compile to:
 Alternatively you can use the `@include all-selectors-sprites;` after the import and get the following output:
 
     .selectors-sprite, .selectors-ten-by-ten {
-      background: url('/selectors-edfef809e2.png') no-repeat;
+      background: url('/selectors-sedfef809e2.png') no-repeat;
     }
 
     .selectors-ten-by-ten {
