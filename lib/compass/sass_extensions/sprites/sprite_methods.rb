@@ -66,8 +66,8 @@ module Compass
               cleanup_old_sprites
             end
             engine.construct_sprite
+            Compass.configuration.run_callback(:sprite_generated, engine.canvas)
             save!
-            Compass.configuration.run_callback(:sprite_generated, sprite_data)
           end
         end
         
