@@ -5,7 +5,10 @@
 }
 
 .pie-clearfix {
-    @include pie-clearfix;
+    @include legacy-pie-clearfix;
+}
+.simple-pie-clearfix {
+  @include pie-clearfix;
 }
 
 p.light { @include contrasted(#B0201E); }

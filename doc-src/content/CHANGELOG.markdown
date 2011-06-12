@@ -19,6 +19,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 **Note:** Due to some internal changes to compass you may have issue with your sass cache. Run `compass clean` to clear your cache.
 
+* The `pie-clearfix` mixin has been updated. If you have to
+  support Firefox < 3.5, please update your stylesheets
+  to use `legacy-pie-clearfix` instead.
 * Added a new command: `compass clean` which removes any generated
   css files and clears the sass cache.
 * Enable IE 10 support for flexible box with the -ms prefix.
@@ -32,7 +35,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Numerous small bug fixes to sprites.
 * Sprite Engines are now classes see [Docs](/help/tutorials/extending) for more information
 * Sprite classes have bee re-factored into modules for readability
-* Sprites will no longer cause `undefined method 'find' for #<Compass::SpriteMap` when adding or removing sprite files
+* Sprites will no longer cause `undefined method 'find' for #<Compass::SpriteMap>` when adding or removing sprite files
 
 0.11.2 (06/10/2011)
 -------------------
