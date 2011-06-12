@@ -15,6 +15,14 @@ module Compass
           init_images
           compute_image_positions!
           @height = @images.last.top + @images.last.height
+          init_engine
+        end
+        
+        def init_engine
+          @engine = eval("::Compass::SassExtensions::Sprites::#{modulize}Engine.new(nil, nil, nil)")
+          @engine.width = @width
+          @engine.height = @height
+          @engine.images = @images
         end
         
         # Creates the Sprite::Image objects for each image and calculates the width
@@ -57,8 +65,8 @@ module Compass
             if kwargs.get_var('cleanup').value
               cleanup_old_sprites
             end
-            sprite_data = construct_sprite
-            save!(sprite_data)
+            engine.construct_sprite
+            save!
             Compass.configuration.run_callback(:sprite_generated, sprite_data)
           end
         end
@@ -91,8 +99,8 @@ module Compass
         end
 
         # Saves the sprite engine
-        def save!(output_png)
-          saved = output_png.save filename
+        def save!
+          saved = engine.save(filename)
           Compass.configuration.run_callback(:sprite_saved, filename)
           saved
         end
