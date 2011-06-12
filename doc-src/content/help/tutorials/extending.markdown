@@ -14,11 +14,9 @@ The sprite engine is the work horse of sprite generation it's the interface for 
 
 ### Requirements
 
-A sprite engine requires only one method and that is `construct_sprite` which must return an object that responds to `save(filepath)`
+A sprite engine requires two methods `construct_sprite`, and `save(filename)`
 
-Once inside this method you have access to `images` which is a collection of [Compass::SassExtensions::Sprites::Image](http://rdoc.info/github/chriseppstein/compass/dda7c9/Compass/SassExtensions/Sprites/Image)
-
-Since the Engine module extends base you also have access to all methods in [Compass::SassExtensions::Sprites::Base](http://rdoc.info/github/chriseppstein/compass/dda7c9/Compass/SassExtensions/Sprites/Base)
+Once inside the class you have access to `images` which is a collection of [Compass::SassExtensions::Sprites::Image](http://rdoc.info/github/chriseppstein/compass/dda7c9/Compass/SassExtensions/Sprites/Image)
 
 ### Configuration 
 
@@ -26,7 +24,7 @@ To enable your sprite engine from the config file set
     
     sprite_engine = :<engine name>
 
-The example below will load `Compass::SassExtension::Sprites::ChunkyPngEngine`
+The example below will load `Compass::SassExtension::Sprites::ChunkyPngEngine.new(width, height, images)`
 
     sprite_engine = :chunky_png
 
@@ -35,13 +33,16 @@ The example below will load `Compass::SassExtension::Sprites::ChunkyPngEngine`
     module Compass
       module SassExtensions
         module Sprites
-          module <engine name>Engine
+          class ChunkyPngEngine < Compass::SassExtensions::Sprites::Engine
 
-            # Returns an object
             def construct_sprite
-              #must return a image object that responds to save(filename)
+              #do something
+            end    
+        
+            def save(filename)
+              #save file
             end
-
+        
           end
         end
       end
