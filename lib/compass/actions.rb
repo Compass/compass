@@ -65,7 +65,10 @@ module Compass
     end
 
     def remove(file_name)
-      if File.exists?(file_name)
+      if File.directory?(file_name)
+        FileUtils.rm_rf file_name
+        log_action :remove, basename(file_name)+"/", options
+      elsif File.exists?(file_name)
         File.unlink file_name
         log_action :remove, basename(file_name), options
       end
