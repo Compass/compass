@@ -71,7 +71,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
     assert_equal image_size('squares-s*.png'), [20, 30]
-    assert_equal image_md5('squares-s*.png'), 'fcc93d7b279c2ad6898fbca49cbd01e1'
+    assert_equal image_md5('squares-s*.png'), '7349a0f4e88ea80abddcf6ac2486abe3'
   end
 
   it "should generate sprite classes with dimensions" do
@@ -294,7 +294,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
     assert_equal image_size('squares-s*.png'), [20, 30]
-    assert_equal image_md5('squares-s*.png'), '652b67f5e9092520d6f26caae7e18012'
+    assert_equal image_md5('squares-s*.png'), '9cc7ce48cfaf304381c2d08adefd2fb6'
   end
 
   it "should use position adjustments in mixins" do
@@ -332,7 +332,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
     assert_equal image_size('squares-s*.png'), [20, 30]
-    assert_equal image_md5('squares-s*.png'), '652b67f5e9092520d6f26caae7e18012'
+    assert_equal image_md5('squares-s*.png'), '9cc7ce48cfaf304381c2d08adefd2fb6'
   end
 
   it "should repeat the image" do
@@ -355,7 +355,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
     assert_equal image_size('squares-s*.png'), [20, 30]
-    assert_equal image_md5('squares-s*.png'), '94abae8440f1b58617f52920b70aaed2'
+    assert_equal image_md5('squares-s*.png'), 'a77a2fd43f04d791722b706aa7c9f1c1'
   end
 
   it "should allow the position of a sprite to be specified in absolute pixels" do
@@ -379,7 +379,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
     assert_equal image_size('squares-s*.png'), [30, 30]
-    assert_equal image_md5('squares-s*.png'), '2fb19ef9c83018c93c6f147af3a56cb2'
+    assert_equal image_md5('squares-s*.png'), '9856ced9e8211b6b28ff782019a0d905'
   end
 
   it "should provide a nice errors for lemonade's old users" do
