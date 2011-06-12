@@ -38,7 +38,8 @@ module Compass
       :color_output,
       :preferred_syntax,
       :disable_warnings,
-      :sprite_engine
+      :sprite_engine,
+      :chunky_png_options
     ].flatten
 
     # Registers a new configuration property.
