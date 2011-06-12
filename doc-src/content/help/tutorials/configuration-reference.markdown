@@ -280,6 +280,13 @@ later on.
     <td style="vertical-align:top;">Symbol </td>
     <td style="vertical-align:top;">Defaults to <code>:chunky_png</code></td>
   </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>chunky_png_options</code></td>
+    <td style="vertical-align:top;">Hash </td>
+    <td style="vertical-align:top;">
+      Defaults to <code>{:compression => Zlib::BEST_COMPRESSION}</code>. See the chunky_png <a href='https://github.com/wvanbergen/chunky_png/wiki/Constraints' _target='blank'>wiki</a> for more information
+    </td>
+  </tr>
 </table>
 
 <a name="configuration-functions"></a>
