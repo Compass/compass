@@ -307,6 +307,7 @@ the asset host configuration is ignored.
 
 ---
 
+<a name="asset-cache-buster"></a>
 **`asset_cache_buster`** – Pass this function a block of code that defines the
 cache buster strategy to be used. The block must return nil, a string or a hash.
 If the returned value is a hash the values of :path and/or :query is used to generate
