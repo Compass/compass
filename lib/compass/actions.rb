@@ -57,6 +57,8 @@ module Compass
           file.write(contents)
         end
       end
+    rescue Errno::EACCES
+      false
     end
 
     def process_erb(contents, ctx = nil)
