@@ -35,3 +35,16 @@ class Test::Unit::TestCase
   extend Compass::TestCaseHelper::ClassMethods
   
 end 
+
+module SpriteHelper
+  URI = "selectors/*.png"
+  
+  def test_sprite_map(options)
+    importer = Compass::SpriteImporter.new
+    path, name = Compass::SpriteImporter.path_and_name(URI)
+    sprite_names = Compass::SpriteImporter.sprite_names(URI)
+    sass_engine = Compass::SpriteImporter.sass_engine(URI, name, importer, options)
+    Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map{|n| "selectors/#{n}.png"}, path, name, sass_engine, options)
+  end
+  
+end

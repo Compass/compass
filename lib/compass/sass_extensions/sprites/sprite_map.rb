@@ -12,11 +12,13 @@ module Compass
         # Initialize a new sprite object from a relative file path
         # the path is relative to the <tt>images_path</tt> confguration option
         def self.from_uri(uri, context, kwargs)
-          importer = ::Compass::SpriteImporter.new(:uri => uri.value, :options => {})
-          sprites = importer.files.map do |sprite|
-            sprite.gsub(Compass.configuration.images_path+"/", "")
+          uri = uri.value
+          name, path = Compass::SpriteImporter.path_and_name(uri)
+          files = Compass::SpriteImporter.files(uri)
+          sprites = files.map do |sprite|
+            sprite.gsub("#{Compass.configuration.images_path}/", "")
           end
-          new(sprites, importer.path, importer.name, context, kwargs)
+          new(sprites, path, name, context, kwargs)
         end
 
         def initialize(sprites, path, name, context, kwargs)

@@ -1,9 +1,9 @@
 require 'test_helper'
 require 'mocha'
 require 'ostruct'
+
 class SpritesImageTest < Test::Unit::TestCase
-
-
+  include SpriteHelper
   def setup
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
@@ -18,12 +18,8 @@ class SpritesImageTest < Test::Unit::TestCase
   let(:sprite_path) { File.join(@images_src_path, sprite_filename) }
   let(:sprite_name) { File.basename(sprite_filename, '.png') }
   
-  def parent
-    importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => options)
-    @parent ||= Compass::SassExtensions::Sprites::SpriteMap.new(importer.sprite_names.map{|n| "selectors/#{n}.png"}, importer.path, importer.name, importer.sass_engine, importer.options)
-  end
   
-  let(:options) do
+  def options
     options = {:offset => @offset}
     options.stubs(:get_var).with(anything).returns(nil)
     ::OpenStruct.any_instance.stubs(:unitless?).returns(true)
@@ -38,7 +34,7 @@ class SpritesImageTest < Test::Unit::TestCase
   let(:digest) { Digest::MD5.file(sprite_path).hexdigest }
 
 
-  let(:image) { Compass::SassExtensions::Sprites::Image.new(parent, File.join(sprite_filename), options)}
+  let(:image) { Compass::SassExtensions::Sprites::Image.new(test_sprite_map(options), File.join(sprite_filename), options)}
 
   test 'initialize' do
     assert_equal sprite_name, image.name

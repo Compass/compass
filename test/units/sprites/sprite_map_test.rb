@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class SpriteMapTest < Test::Unit::TestCase
+  include SpriteHelper
   
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
@@ -12,16 +13,12 @@ class SpriteMapTest < Test::Unit::TestCase
     Compass.add_configuration(config)
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true)}
-    setup_map
-  end
-  
-  def setup_map
-    @importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => @options)
-    @base = Compass::SassExtensions::Sprites::SpriteMap.new(@importer.sprite_names.map{|n| "selectors/#{n}.png"}, @importer.path, @importer.name, @importer.sass_engine, @importer.options)
+    @base = test_sprite_map(@options)
   end
 
   def teardown
     FileUtils.rm_r @images_tmp_path
+    @base = nil
   end
   
   it "should have the correct size" do
@@ -29,7 +26,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   it "should have the sprite names" do
-    assert_equal @importer.sprite_names, @base.sprite_names
+    assert_equal Compass::SpriteImporter.sprite_names(URI), @base.sprite_names
   end
   
   it 'should have image filenames' do
@@ -82,7 +79,7 @@ class SpriteMapTest < Test::Unit::TestCase
     file_to_remove = File.join(@images_tmp_path, 'selectors', 'ten-by-ten.png')
     FileUtils.rm file_to_remove
     assert !File.exists?(file_to_remove), "Failed to remove sprite file"
-    setup_map
+    @base = test_sprite_map(@options)
     @base.generate
     assert !File.exists?(file), "Sprite file did not get removed"
   end
