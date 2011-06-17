@@ -1,4 +1,5 @@
-/* used to prevent long urls and text from breaking layouts */
+// used to prevent long urls and text from breaking layouts
+// idea from http://perishablepress.com/press/2010/06/01/wrapping-content/
 @mixin force-wrap {
   white-space: pre;           /* CSS 2.0 */
   white-space: pre-wrap;      /* CSS 2.1 */
