@@ -34,7 +34,7 @@ class SpritesImageTest < Test::Unit::TestCase
   let(:digest) { Digest::MD5.file(sprite_path).hexdigest }
 
 
-  let(:image) { Compass::SassExtensions::Sprites::Image.new(test_sprite_map(options), File.join(sprite_filename), options)}
+  let(:image) { Compass::SassExtensions::Sprites::Image.new(sprite_map_test(options), File.join(sprite_filename), options)}
 
   test 'initialize' do
     assert_equal sprite_name, image.name

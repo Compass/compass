@@ -39,7 +39,7 @@ end
 module SpriteHelper
   URI = "selectors/*.png"
   
-  def test_sprite_map(options)
+  def sprite_map_test(options)
     importer = Compass::SpriteImporter.new
     path, name = Compass::SpriteImporter.path_and_name(URI)
     sprite_names = Compass::SpriteImporter.sprite_names(URI)

@@ -43,7 +43,7 @@ class ImporterTest < Test::Unit::TestCase
   end
   
   test "sass options should contain options" do
-    opts = Compass::SpriteImporter.sass_options(name, @importer, options)
+    opts = Compass::SpriteImporter.sass_options('foo', @importer, options)
     assert_equal 'bar', opts[:foo]
   end
   

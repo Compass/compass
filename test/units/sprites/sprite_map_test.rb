@@ -13,7 +13,7 @@ class SpriteMapTest < Test::Unit::TestCase
     Compass.add_configuration(config)
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true)}
-    @base = test_sprite_map(@options)
+    @base = sprite_map_test(@options)
   end
 
   def teardown
@@ -79,7 +79,7 @@ class SpriteMapTest < Test::Unit::TestCase
     file_to_remove = File.join(@images_tmp_path, 'selectors', 'ten-by-ten.png')
     FileUtils.rm file_to_remove
     assert !File.exists?(file_to_remove), "Failed to remove sprite file"
-    @base = test_sprite_map(@options)
+    @base = sprite_map_test(@options)
     @base.generate
     assert !File.exists?(file), "Sprite file did not get removed"
   end
