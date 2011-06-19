@@ -38,7 +38,7 @@ module Compass
         # collects image sizes and input parameters for each sprite
         def compute_image_positions!
           @images.each_with_index do |image, index|
-            image.left = image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100) : image.position.value
+            image.left = image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100.0) : image.position.value
             next if index == 0
             last_image = @images[index-1]
             image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
