@@ -21,6 +21,17 @@ module Compass
         def default_javascripts_dir
           File.join("app", "assets", "javascripts")
         end
+
+        # Everything is now overlaid and served from the assets path
+
+        def default_http_assets_path
+          "#{top_level.http_path}assets"
+        end
+
+        alias default_http_images_path default_http_assets_path
+        alias default_http_javascripts_path default_http_assets_path
+        alias default_http_fonts_path default_http_assets_path
+        alias default_http_stylesheets_path default_http_assets_path
       end
 
       module ConfigurationDefaults
