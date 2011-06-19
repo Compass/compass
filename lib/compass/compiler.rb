@@ -6,7 +6,7 @@ module Compass
     attr_accessor :working_path, :from, :to, :options, :sass_options, :staleness_checker, :importer
 
     def initialize(working_path, from, to, options)
-      self.working_path = working_path
+      self.working_path = working_path.to_s
       self.from, self.to = from.gsub('./', ''), to
       self.logger = options.delete(:logger)
       sass_opts = options.delete(:sass) || {}

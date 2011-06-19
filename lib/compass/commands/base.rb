@@ -10,7 +10,7 @@ module Compass
       attr_accessor :working_path, :options
 
       def initialize(working_path, options)
-        self.working_path = working_path
+        self.working_path = working_path.to_s
         self.options = options
       end
       
