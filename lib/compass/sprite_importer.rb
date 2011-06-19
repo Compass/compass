@@ -65,7 +65,7 @@ module Compass
       if uri =~ SPRITE_IMPORTER_REGEX
         [$1, $3]
       else
-        raise Compass::Error "invalid sprite path"
+        raise Compass::Error, "invalid sprite path"
       end
     end
 
