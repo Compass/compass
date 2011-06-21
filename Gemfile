@@ -21,6 +21,8 @@ gem 'mocha'
 gem 'timecop'
 gem 'diff-lcs', '~> 1.1.2'
 
+gem 'rake', '0.8.7'
+
 group :mac do
   gem "rb-fsevent"
 end
