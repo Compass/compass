@@ -43,6 +43,29 @@ module Compass
         alias default_http_javascripts_path default_http_assets_path
         alias default_http_fonts_path default_http_assets_path
         alias default_http_stylesheets_path default_http_assets_path
+
+        # Use Sprockets to figure out paths to assets:
+
+        def asset_paths
+          @asset_paths ||= Sprockets::Helpers::RailsHelper::AssetPaths.new ::Rails.application.config.action_controller, nil
+        end
+
+        # These use the sprockets helpers:
+        def http_font_path source
+          asset_paths.compute_public_path(source, 'fonts')
+        end
+
+        def http_image_path source
+          asset_paths.compute_public_path(source, 'images')
+        end
+
+        def http_javascript_path source
+          asset_paths.compute_public_path(source, 'javascripts')
+        end
+
+        def http_stylesheet_path source
+          asset_paths.compute_public_path(source, 'stylesheets')
+        end
       end
 
       module ConfigurationDefaults

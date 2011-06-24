@@ -1,17 +1,24 @@
 module Compass::SassExtensions::Functions::Urls
 
   def stylesheet_url(path, only_path = Sass::Script::Bool.new(false))
-    # Compute the path to the stylesheet, either root relative or stylesheet relative
-    # or nil if the http_images_path is not set in the configuration.
-    http_stylesheets_path = if relative?
-      compute_relative_path(Compass.configuration.css_path)
-    elsif Compass.configuration.http_stylesheets_path
-      Compass.configuration.http_stylesheets_path
+    path = path.value # get to the string value of the literal.
+
+    if Compass.configuration.respond_to? :http_stylesheet_path
+      path = Compass.configuration.http_stylesheet_path path
     else
-      Compass.configuration.http_root_relative(Compass.configuration.css_dir)
+      # Compute the path to the stylesheet, either root relative or stylesheet relative
+      # or nil if the http_images_path is not set in the configuration.
+      http_stylesheets_path = if relative?
+        compute_relative_path(Compass.configuration.css_path)
+      elsif Compass.configuration.http_stylesheets_path
+        Compass.configuration.http_stylesheets_path
+      else
+        Compass.configuration.http_root_relative(Compass.configuration.css_dir)
+      end
+
+      path = "#{http_stylesheets_path}/#{path}"
     end
 
-    path = "#{http_stylesheets_path}/#{path.value}"
     if only_path.to_bool
       Sass::Script::String.new(clean_path(path))
     else
@@ -24,20 +31,24 @@ module Compass::SassExtensions::Functions::Urls
   def font_url(path, only_path = Sass::Script::Bool.new(false))
     path = path.value # get to the string value of the literal.
 
-    # Short curcuit if they have provided an absolute url.
-    if absolute_path?(path)
-      return Sass::Script::String.new("url(#{path})")
+    if Compass.configuration.respond_to? :http_font_path
+      path = Compass.configuration.http_font_path path
+    else
+      # Short curcuit if they have provided an absolute url.
+      if absolute_path?(path)
+        return Sass::Script::String.new("url(#{path})")
+      end
+
+      # Compute the path to the font file, either root relative or stylesheet relative
+      # or nil if the http_fonts_path cannot be determined from the configuration.
+      http_fonts_path = if relative?
+        compute_relative_path(Compass.configuration.fonts_path)
+      else
+        Compass.configuration.http_fonts_path
+      end
+
+      path = "#{http_fonts_path}/#{path}"
     end
-
-    # Compute the path to the font file, either root relative or stylesheet relative
-    # or nil if the http_fonts_path cannot be determined from the configuration.
-    http_fonts_path = if relative?
-                        compute_relative_path(Compass.configuration.fonts_path)
-                      else
-                        Compass.configuration.http_fonts_path
-                      end
-
-    path = "#{http_fonts_path}/#{path}"
 
     if only_path.to_bool
       Sass::Script::String.new(clean_path(path))
@@ -51,54 +62,58 @@ module Compass::SassExtensions::Functions::Urls
   def image_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(true))
     path = path.value # get to the string value of the literal.
 
-    if path =~ %r{^#{Regexp.escape(Compass.configuration.http_images_path)}/(.*)}
-      # Treat root relative urls (without a protocol) like normal if they start with
-      # the images path.
-      path = $1
-    elsif absolute_path?(path)
-      # Short curcuit if they have provided an absolute url.
-      return Sass::Script::String.new("url(#{path})")
-    end
-
-    # Compute the path to the image, either root relative or stylesheet relative
-    # or nil if the http_images_path is not set in the configuration.
-    http_images_path = if relative?
-      compute_relative_path(Compass.configuration.images_path)
-    elsif Compass.configuration.http_images_path
-      Compass.configuration.http_images_path
+    if Compass.configuration.respond_to? :http_image_path
+      path = Compass.configuration.http_image_path path
     else
-      Compass.configuration.http_root_relative(Compass.configuration.images_dir)
-    end
+      if path =~ %r{^#{Regexp.escape(Compass.configuration.http_images_path)}/(.*)}
+        # Treat root relative urls (without a protocol) like normal if they start with
+        # the images path.
+        path = $1
+      elsif absolute_path?(path)
+        # Short curcuit if they have provided an absolute url.
+        return Sass::Script::String.new("url(#{path})")
+      end
 
-    # Compute the real path to the image on the file stystem if the images_dir is set.
-    real_path = if Compass.configuration.images_dir
-      File.join(Compass.configuration.project_path, Compass.configuration.images_dir, path)
-    end
-
-    # prepend the path to the image if there's one
-    if http_images_path
-      http_images_path = "#{http_images_path}/" unless http_images_path[-1..-1] == "/"
-      path = "#{http_images_path}#{path}"
-    end
-
-    # Compute the asset host unless in relative mode.
-    asset_host = if !relative? && Compass.configuration.asset_host
-      Compass.configuration.asset_host.call(path)
-    end
-
-    # Compute and append the cache buster if there is one.
-    if cache_buster.to_bool
-      if cache_buster.is_a?(Sass::Script::String)
-        path += "?#{cache_buster.value}"
+      # Compute the path to the image, either root relative or stylesheet relative
+      # or nil if the http_images_path is not set in the configuration.
+      http_images_path = if relative?
+        compute_relative_path(Compass.configuration.images_path)
+      elsif Compass.configuration.http_images_path
+        Compass.configuration.http_images_path
       else
-        if buster = compute_cache_buster(path, real_path)
-          path += "?#{buster}"
+        Compass.configuration.http_root_relative(Compass.configuration.images_dir)
+      end
+
+      # Compute the real path to the image on the file stystem if the images_dir is set.
+      real_path = if Compass.configuration.images_dir
+        File.join(Compass.configuration.project_path, Compass.configuration.images_dir, path)
+      end
+
+      # prepend the path to the image if there's one
+      if http_images_path
+        http_images_path = "#{http_images_path}/" unless http_images_path[-1..-1] == "/"
+        path = "#{http_images_path}#{path}"
+      end
+
+      # Compute the asset host unless in relative mode.
+      asset_host = if !relative? && Compass.configuration.asset_host
+        Compass.configuration.asset_host.call(path)
+      end
+
+      # Compute and append the cache buster if there is one.
+      if cache_buster.to_bool
+        if cache_buster.is_a?(Sass::Script::String)
+          path += "?#{cache_buster.value}"
+        else
+          if buster = compute_cache_buster(path, real_path)
+            path += "?#{buster}"
+          end
         end
       end
-    end
 
-    # prepend the asset host if there is one.
-    path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
+      # prepend the asset host if there is one.
+      path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
+    end
 
     if only_path.to_bool
       Sass::Script::String.new(clean_path(path))
