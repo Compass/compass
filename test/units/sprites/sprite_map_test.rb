@@ -7,9 +7,12 @@ class SpriteMapTest < Test::Unit::TestCase
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     @images_tmp_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images-tmp')
+    @images_tmp_output_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images-tmp-output')
     FileUtils.cp_r @images_src_path, @images_tmp_path
+    Dir.mkdir @images_tmp_output_path
     config = Compass::Configuration::Data.new('config')
     config.images_path = @images_tmp_path
+    config.output_images_path = @images_tmp_path
     Compass.add_configuration(config)
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
@@ -18,6 +21,7 @@ class SpriteMapTest < Test::Unit::TestCase
 
   def teardown
     FileUtils.rm_r @images_tmp_path
+    FileUtils.rm_r @images_tmp_output_path
     @base = nil
   end
   
@@ -68,6 +72,19 @@ class SpriteMapTest < Test::Unit::TestCase
   it "should generate sprite" do
     @base.generate
     assert File.exists?(@base.filename)
+    assert !@base.generation_required?
+    assert !@base.outdated?
+  end
+
+  it "should generate sprite in output folder" do
+    config = Compass::Configuration::Data.new('config')
+    config.images_path = @images_tmp_path
+    config.output_images_path = @images_tmp_output_path
+    Compass.add_configuration(config)
+    Compass.configure_sass_plugin!
+    @base.generate
+    assert File.exists?(@base.filename)
+    assert Regexp.new(Regexp.escape(@images_tmp_output_path)) =~ @base.filename
     assert !@base.generation_required?
     assert !@base.outdated?
   end

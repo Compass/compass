@@ -6,6 +6,10 @@ module Compass
         "."
       end
 
+      def default_output_path
+        top_level.project_path
+      end
+
       def default_project_type
         :stand_alone
       end
@@ -121,6 +125,18 @@ module Compass
         http_root_relative top_level.http_javascripts_dir
       end
 
+
+      def default_output_images_dir
+        top_level.images_dir || "images"
+      end
+
+      def default_output_images_path
+        if (op = top_level.output_path) && (dir = top_level.output_images_dir)
+          Compass.projectize(dir, op)
+        end
+      end
+
+
       def default_cache
         true
       end
@@ -136,7 +152,7 @@ module Compass
       def default_chunky_png_options
         {:compression => Zlib::BEST_COMPRESSION}
       end
-      
+
       # helper functions
 
       def http_join(*segments)
