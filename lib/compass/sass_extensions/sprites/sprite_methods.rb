@@ -14,7 +14,6 @@ module Compass
           @width = 0
           init_images
           compute_image_positions!
-          @height = @images.last.top + @images.last.height
           init_engine
         end
         
@@ -29,19 +28,7 @@ module Compass
         def init_images
           @images = image_names.collect do |relative_file|
             image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, kwargs)
-            @width = [ @width, image.width + image.offset ].max
             image
-          end
-        end
-        
-        # Calculates the overal image dimensions
-        # collects image sizes and input parameters for each sprite
-        def compute_image_positions!
-          @images.each_with_index do |image, index|
-            image.left = image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100.0) : image.position.value
-            next if index == 0
-            last_image = @images[index-1]
-            image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
           end
         end
         

@@ -7,6 +7,7 @@ module Compass
 
         include SpriteMethods
         include ImageMethods
+        include LayoutMethods
 
 
         # Initialize a new sprite object from a relative file path
@@ -27,6 +28,7 @@ module Compass
           @name = name
           @kwargs = kwargs
           @kwargs['cleanup'] ||= Sass::Script::Bool.new(true)
+          @kwargs['layout'] ||= Sass::Script::String.new('vertical')
           @images = nil
           @width = nil
           @height = nil

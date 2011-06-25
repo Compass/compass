@@ -9,6 +9,7 @@ module Compass
 end
 
 require 'compass/sass_extensions/sprites/image'
+require 'compass/sass_extensions/sprites/layout_methods'
 require 'compass/sass_extensions/sprites/sprite_methods'
 require 'compass/sass_extensions/sprites/image_methods'
 require 'compass/sass_extensions/sprites/sprite_map'
