@@ -104,8 +104,9 @@ $#{name}-spacing: 0 !default;
 $#{name}-repeat: no-repeat !default;
 $#{name}-prefix: '' !default;
 $#{name}-clean-up: true !default;
+$#{name}-layout:vertical !default;
 
-#{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\", $cleanup: $#{name}-clean-up);" : generate_overrides(uri, name) }
+#{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\", $layout: $#{name}-layout, $cleanup: $#{name}-clean-up);" : generate_overrides(uri, name) }
 
 // All sprites should extend this class
 // The #{name}-sprite mixin will do so for you.
@@ -160,7 +161,7 @@ $#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
         SCSS
       end.join
 
-      content += "\n$#{name}-sprites: sprite-map(\"#{uri}\", \n$cleanup: $#{name}-clean-up,\n"
+      content += "\n$#{name}-sprites: sprite-map(\"#{uri}\", \n$layout: $#{name}-layout, \n$cleanup: $#{name}-clean-up,\n"
       content += sprites.map do |sprite_name| 
 %Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
   $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,

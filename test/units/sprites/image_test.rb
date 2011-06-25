@@ -26,6 +26,7 @@ class SpritesImageTest < Test::Unit::TestCase
     options.stubs(:get_var).with("#{sprite_name}-repeat").returns(::OpenStruct.new(:value => @repeat))
     options.stubs(:get_var).with("#{sprite_name}-spacing").returns(::OpenStruct.new(:value => @spacing))
     options.stubs(:get_var).with("#{sprite_name}-position").returns(::OpenStruct.new(:value => @position))
+    options.stubs(:get_var).with("layout").returns(::OpenStruct.new(:value => 'vertical'))
     options
   end
   

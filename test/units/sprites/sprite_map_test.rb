@@ -12,7 +12,7 @@ class SpriteMapTest < Test::Unit::TestCase
     config.images_path = @images_tmp_path
     Compass.add_configuration(config)
     Compass.configure_sass_plugin!
-    @options = {'cleanup' => Sass::Script::Bool.new(true)}
+    @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
     @base = sprite_map_test(@options)
   end
 
@@ -83,5 +83,37 @@ class SpriteMapTest < Test::Unit::TestCase
     @base.generate
     assert !File.exists?(file), "Sprite file did not get removed"
   end
+
+  it "should have a vertical layout" do
+    assert_equal [0, 10, 20, 30], @base.images.map(&:top)
+    assert_equal [0, 0, 0, 0], @base.images.map(&:left)
+  end
+
+
+  # Horizontal tests
+  def horizontal
+    opts = @options.merge("layout" => Sass::Script::String.new('horizontal'))
+    sprite_map_test(opts)
+  end
+  
+  it "should have a horizontal layout" do
+    base = horizontal
+    assert_equal 10, base.height
+    assert_equal 40, base.width
+  end
+  
+  it "should layout images horizontaly" do
+    base = horizontal
+    assert_equal [0, 10, 20, 30], base.images.map(&:left)
+    assert_equal [0, 0, 0, 0], base.images.map(&:top)
+  end
+  
+  it "should generate a horrizontal sprite" do
+    base = horizontal
+    base.generate
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
+  
   
 end
