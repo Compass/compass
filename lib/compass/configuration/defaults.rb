@@ -133,6 +133,10 @@ module Compass
         :chunky_png
       end
       
+      def default_chunky_png_options
+        {:compression => Zlib::BEST_COMPRESSION}
+      end
+      
       # helper functions
 
       def http_join(*segments)

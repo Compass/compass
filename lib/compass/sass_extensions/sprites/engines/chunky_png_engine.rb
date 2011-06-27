@@ -33,10 +33,11 @@ module Compass
           if canvas.nil?
             construct_sprite
           end
-          canvas.save(filename, :best_compression)
+          
+          canvas.save(filename,  Compass.configuration.chunky_png_options)
         end
         
       end
     end
   end
-end
+end  
