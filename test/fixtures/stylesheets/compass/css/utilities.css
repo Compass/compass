@@ -12,6 +12,13 @@
     overflow: hidden;
     visibility: hidden; }
 
+.simple-pie-clearfix {
+  *zoom: 1; }
+  .simple-pie-clearfix:after {
+    content: "";
+    display: table;
+    clear: both; }
+
 p.light {
   background-color: #b0201e;
   color: black; }

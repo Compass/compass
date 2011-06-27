@@ -73,6 +73,17 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
+  def test_busted_image_urls
+    within_project('busted_image_urls') do |proj|
+      each_css_file(proj.css_path) do |css_file|
+        assert_no_errors css_file, 'busted_image_urls'
+      end
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file
+      end
+    end
+  end
+
   def test_image_urls
     within_project('image_urls') do |proj|
       each_css_file(proj.css_path) do |css_file|

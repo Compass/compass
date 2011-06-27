@@ -14,6 +14,29 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.3 (06/11/2011)
+-------------------
+
+**Note:** Due to some internal changes to compass you may have issue with your sass cache. Run `compass clean` to clear your cache.
+
+* The `pie-clearfix` mixin has been updated. If you have to
+  support Firefox < 3.5, please update your stylesheets
+  to use `legacy-pie-clearfix` instead.
+* Added a new command: `compass clean` which removes any generated
+  css files and clears the sass cache.
+* Enable IE 10 support for flexible box with the -ms prefix.
+* A small change to how generated sprites are named for better
+  rails 3.1 compatibility.
+* Fixes for the compass --quiet mode.
+* It is now possible to generate cache buster urls that manipulate
+  the path of the image instead of the query string. This makes
+  images work better with proxies, but will require some web server
+  configuration. [Docs](/help/tutorials/configuration-reference/#asset-cache-buster)
+* Numerous small bug fixes to sprites.
+* Sprite Engines are now classes see [Docs](/help/tutorials/extending) for more information
+* Sprite classes have bee re-factored into modules for readability
+* Sprites will no longer cause `undefined method 'find' for #<Compass::SpriteMap>` when adding or removing sprite files
+
 0.11.2 (06/10/2011)
 -------------------
 * Sprites will now by default remove any old versions of the sprite. A new configuration

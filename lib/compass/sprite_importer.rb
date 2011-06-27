@@ -4,7 +4,14 @@ module Compass
     VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
     SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
     VALID_EXTENSIONS = ['.png']
-    
+
+    # finds all sprite files
+    def self.find_all_sprite_map_files(path)
+      hex = "[0-9a-f]"
+      glob = "*-{,s}#{hex*10}{#{VALID_EXTENSIONS.join(",")}}"
+      Dir.glob(File.join(path, "**", glob))
+    end
+
     def self.load(uri, options)
       klass = Compass::SpriteImporter.new
       klass.uri, klass.options = uri, options
@@ -31,7 +38,7 @@ module Compass
     end
     
     def to_s
-      content_for_images
+      self.class.name
     end
     
     def hash

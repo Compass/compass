@@ -4,4 +4,4 @@ rvm:
   - jruby
   - rbx
   - ree
-script: "bundle exec rake test"
+script: "bundle exec rake test features"
