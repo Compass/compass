@@ -604,7 +604,7 @@ class SpritesTest < Test::Unit::TestCase
     CSS
   end
     
-  it "should calculate corret sprite demsions when givin spacing via issue#253" do
+  it "should create horizontal sprite" do
     css = render <<-SCSS
       $squares-layout:horizontal;
       @import "squares/*.png";
