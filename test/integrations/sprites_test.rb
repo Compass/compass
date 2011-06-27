@@ -603,5 +603,33 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
+    
+  it "should calculate corret sprite demsions when givin spacing via issue#253" do
+    css = render <<-SCSS
+      $squares-layout:horizontal;
+      @import "squares/*.png";
+      .foo {
+        @include sprite-background-position($squares-sprites, "twenty-by-twenty");
+      }
+      .bar {
+        @include sprite-background-position($squares-sprites, "ten-by-ten");
+      }
+    SCSS
+    assert_equal [30, 20], image_size('squares-s*.png')
+    other_css = <<-CSS
+      .squares-sprite {
+        background: url('/squares-s161c60ad78.png') no-repeat;
+      }
+
+      .foo {
+        background-position: -10px 0;
+      }
+
+      .bar {
+        background-position: 0 0;
+      }
+    CSS
+    assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+  end
 
 end

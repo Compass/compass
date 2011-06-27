@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class SpriteMapTest < Test::Unit::TestCase
+  include SpriteHelper
   
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
@@ -11,17 +12,13 @@ class SpriteMapTest < Test::Unit::TestCase
     config.images_path = @images_tmp_path
     Compass.add_configuration(config)
     Compass.configure_sass_plugin!
-    @options = {'cleanup' => Sass::Script::Bool.new(true)}
-    setup_map
-  end
-  
-  def setup_map
-    @importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => @options)
-    @base = Compass::SassExtensions::Sprites::SpriteMap.new(@importer.sprite_names.map{|n| "selectors/#{n}.png"}, @importer.path, @importer.name, @importer.sass_engine, @importer.options)
+    @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
+    @base = sprite_map_test(@options)
   end
 
   def teardown
     FileUtils.rm_r @images_tmp_path
+    @base = nil
   end
   
   it "should have the correct size" do
@@ -29,7 +26,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   it "should have the sprite names" do
-    assert_equal @importer.sprite_names, @base.sprite_names
+    assert_equal Compass::SpriteImporter.sprite_names(URI), @base.sprite_names
   end
   
   it 'should have image filenames' do
@@ -82,9 +79,41 @@ class SpriteMapTest < Test::Unit::TestCase
     file_to_remove = File.join(@images_tmp_path, 'selectors', 'ten-by-ten.png')
     FileUtils.rm file_to_remove
     assert !File.exists?(file_to_remove), "Failed to remove sprite file"
-    setup_map
+    @base = sprite_map_test(@options)
     @base.generate
     assert !File.exists?(file), "Sprite file did not get removed"
   end
+
+  it "should have a vertical layout" do
+    assert_equal [0, 10, 20, 30], @base.images.map(&:top)
+    assert_equal [0, 0, 0, 0], @base.images.map(&:left)
+  end
+
+
+  # Horizontal tests
+  def horizontal
+    opts = @options.merge("layout" => Sass::Script::String.new('horizontal'))
+    sprite_map_test(opts)
+  end
+  
+  it "should have a horizontal layout" do
+    base = horizontal
+    assert_equal 10, base.height
+    assert_equal 40, base.width
+  end
+  
+  it "should layout images horizontaly" do
+    base = horizontal
+    assert_equal [0, 10, 20, 30], base.images.map(&:left)
+    assert_equal [0, 0, 0, 0], base.images.map(&:top)
+  end
+  
+  it "should generate a horrizontal sprite" do
+    base = horizontal
+    base.generate
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
+  
   
 end

@@ -52,7 +52,7 @@ module Compass
 
       def check_for_double_boot!
         if booted?
-          Compass::Util.compass_warn("Warning: Compass was booted twice. If you're using Rails 3, Compass has a Railtie now; please remove your compass intializer.")
+          Compass::Util.compass_warn("Warning: Compass was booted twice. Compass has a Railtie now; please remove your initializer.")
         else
           booted!
         end
