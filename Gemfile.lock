@@ -7,7 +7,7 @@ GIT
 PATH
   remote: .
   specs:
-    compass (0.11.3.b352e8b)
+    compass (0.11.3.rails.0.642d0b2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
