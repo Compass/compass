@@ -6,10 +6,7 @@
 //         A number between 0 and 1, where 0 is transparent and 1 is opaque.
 
 @mixin opacity($opacity) {
-  @if $legacy-support-for-ie8 {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})";
-  }
-  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
     filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
   }
   opacity: $opacity;
