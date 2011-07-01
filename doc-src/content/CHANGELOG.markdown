@@ -22,6 +22,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Vertical rhythm now has a minimum padding that defaults to 2px.
   This makes some edge cases look better.
 * New mixin `force-wrap` prevents URLs and long lines of text from breaking layouts.
+* Fix absolute path detection on windows.
 
 0.11.3 (06/11/2011)
 -------------------
