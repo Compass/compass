@@ -38,8 +38,8 @@ module Compass
       end
 
       def absolute_path?(path)
-        # This is only going to work on unix, gonna need a better implementation.
-        path.index(File::SEPARATOR) == 0
+        # Pretty basic implementation
+        path.index(File::SEPARATOR) == 0 || path.index(':') == 1
       end
 
       def to_sass_engine_options
