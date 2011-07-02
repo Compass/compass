@@ -22,7 +22,7 @@ what changed to your stylesheets:
 1. $ cd my_compass_project
 2. $ compass compile --force
 3. $ cp -r stylesheets stylesheets.backup
-4. $ gem install compass --pre # you might need to type sudo first if you're on mac or linux.
+4. $ gem install compass # you might need to type sudo first if you're on mac or linux.
 5. $ compass compile --force
 6. Take note of any deprecation warnings printed in red during the compile.
 7. If you have textmate and installed the `mate` command line tool:<br>

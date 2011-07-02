@@ -14,6 +14,14 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.4 (UNRELEASED)
+-------------------
+
+* Vertical rhythm now supports absolute units like pixels.
+  Set `$relative-font-sizing` to `false` to enable.
+* Vertical rhythm now has a minimum padding that defaults to 2px.
+  This makes some edge cases look better.
+
 0.11.3 (06/11/2011)
 -------------------
 

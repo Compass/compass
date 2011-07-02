@@ -147,6 +147,7 @@ DEPENDENCIES
   livereload
   mocha
   rails (~> 3.0.0.rc)
+  rake (= 0.8.7)
   rb-fsevent
   rcov
   rspec (~> 2.0.0)

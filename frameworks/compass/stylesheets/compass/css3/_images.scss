@@ -83,10 +83,7 @@
 @mixin filter-gradient($start-color, $end-color, $orientation: vertical) {
   @include has-layout;
   $gradient-type: if($orientation == vertical, 0, 1);
-  @if $legacy-support-for-ie8 {
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(gradientType=#{$gradient-type}, startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}')";
-  }
-  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
     filter: progid:DXImageTransform.Microsoft.gradient(gradientType=#{$gradient-type}, startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}');
   }
 }
