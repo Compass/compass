@@ -13,6 +13,10 @@ $ie-font-ratio: 16px / 100%;
 // Set to false if you want to use absolute pixes in sizing your typography.
 $relative-font-sizing: true !default;
 
+// Ensure there is at least this many pixels
+// of vertical padding above and below the text.
+$min-line-padding: 2px;
+
 // $base-font-size but in your output unit of choice.
 // Defaults to 1em when `$relative-font-sizing`
 $font-unit: if($relative-font-sizing, 1em, $base-font-size) !default;
@@ -63,7 +67,7 @@ $base-half-leader: $base-leader / 2;
 // font size should use up. Does not have to be an integer, but it defaults
 // to the smallest integer that is large enough to fit the font.
 // Use $from_size to adjust from a non-base font-size.
-@mixin adjust-font-size-to($to-size, $lines: ceil($to-size / $base-line-height), $from-size: $base-font-size) {
+@mixin adjust-font-size-to($to-size, $lines: lines-for-font-size($to-size), $from-size: $base-font-size) {
   @if $relative-font-sizing and $from-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to adjust-font-size-to";
   }
@@ -88,6 +92,14 @@ $base-half-leader: $base-leader / 2;
   }
   $rhythm: $font-unit * $lines * $base-line-height / $font-size;
   @return $rhythm;
+}
+
+@function lines-for-font-size($font-size) {
+  $lines: ceil($font-size / $base-line-height);
+  @if $lines * $base-line-height - $font-size < $min-line-padding * 2 {
+    $lines: $lines + 1;
+  }
+  @return $lines;
 }
 
 // Apply leading whitespace
