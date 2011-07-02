@@ -518,6 +518,33 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
+
+  it "should render corret sprite with css selectors via magic mixin with the correct offsets" do
+    css = render <<-SCSS
+      @import "selectors/*.png";
+      a {
+        @include selectors-sprite(ten-by-ten, false, 5, -5)
+      }
+    SCSS
+    assert_correct css, <<-CSS
+      .selectors-sprite, a {
+        background: url('/selectors-sedfef809e2.png') no-repeat;
+      }
+      
+      a {
+        background-position: 5px -5px;
+      }
+      a:hover, a.ten-by-ten_hover, a.ten-by-ten-hover {
+        background-position: 5px -25px;
+      }
+      a:target, a.ten-by-ten_target, a.ten-by-ten-target {
+        background-position: 5px -35px;
+      }
+      a:active, a.ten-by-ten_active, a.ten-by-ten-active {
+        background-position: 5px -15px;
+      }
+    CSS
+  end
   
   it "should raise error on filenames that are not valid sass syntax" do
     assert_raise(Compass::Error) do
