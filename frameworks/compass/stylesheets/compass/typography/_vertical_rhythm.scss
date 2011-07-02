@@ -104,26 +104,38 @@ $base-half-leader: $base-leader / 2;
 
 // Apply leading whitespace
 @mixin leader($lines: 1, $font-size: $base-font-size, $property: margin) {
-  #{$property}-top: rhythm($lines, $font-size);
+  $leader: rhythm($lines, $font-size);
+  @if unit($leader) == px {
+    $leader: floor($leader)
+  }
+  #{$property}-top: $leader;
 }
 
+// Apply leading whitespace as padding
 @mixin padding-leader($lines: 1, $font-size: $base-font-size) {
   @include leader($lines, $font-size, padding);
 }
 
+// Apply leading whitespace as margin
 @mixin margin-leader($lines: 1, $font-size: $base-font-size) {
   @include leader($lines, $font-size, margin);
 }
 
 // Apply trailing whitespace
 @mixin trailer($lines: 1, $font-size: $base-font-size, $property: margin) {
-  #{$property}-bottom: rhythm($lines, $font-size);
+  $leader: rhythm($lines, $font-size);
+  @if unit($leader) == px {
+    $leader: ceil($leader)
+  }
+  #{$property}-bottom: $leader;
 }
 
+// Apply trailing whitespace as padding
 @mixin padding-trailer($lines: 1, $font-size: $base-font-size) {
   @include trailer($lines, $font-size, padding);
 }
 
+// Apply trailing whitespace as margin
 @mixin margin-trailer($lines: 1, $font-size: $base-font-size) {
   @include trailer($lines, $font-size, margin);
 }
