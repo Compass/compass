@@ -15,7 +15,7 @@
 //
 // Example:
 //
-//     +font-face("this name", font-files("this.woff", "woff", "this.otf", "opentype"), "this.eot")
+//     @include font-face("this name", font-files("this.woff", woff, "this.otf", opentype), "this.eot")
 @mixin font-face(
   $name, 
   $font-files, 
