@@ -53,6 +53,13 @@ Given /^I should clean up the directory: (\w+)$/ do |directory|
   @cleanup_directories << directory
 end
 
+Given %r{^the project has a file named "([^"]*)" containing:$} do |arg1, string|
+  File.open(arg1, "w") do |f|
+    f << string
+  end
+end
+
+
 # When Actions are performed
 When /^I create a project using: compass create ([^\s]+) ?(.+)?$/ do |dir, args|
   @cleanup_directories << dir

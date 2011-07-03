@@ -22,6 +22,14 @@ module Compass
         raise StandardError.new("Not Implemented")
       end
 
+      def successful?
+        !@failed
+      end
+
+      def failed!
+        @failed = true
+      end
+
       protected
 
       def framework

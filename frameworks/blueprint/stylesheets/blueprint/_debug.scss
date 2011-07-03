@@ -1,5 +1,5 @@
 @import "compass/layout/grid-background";
-@import "blueprint/grid";
+@import "grid", "typography";
 
 // Shows a background that can be used to check grid alignment.
 // By default this is a pure css version that only works in browsers
@@ -14,7 +14,7 @@
       $total    : $blueprint-grid-columns,
       $column   : $blueprint-grid-width,
       $gutter   : $blueprint-grid-margin,
-      $baseline : 20px
+      $baseline : $blueprint-font-size * 1.5
     );
   }
 }

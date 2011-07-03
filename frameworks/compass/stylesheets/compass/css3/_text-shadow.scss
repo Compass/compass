@@ -9,6 +9,8 @@ $default-text-shadow-v-offset: 0px  !default;
 $default-text-shadow-blur:     1px  !default;
 
 // Provides cross-browser text shadows when one or more shadows are needed.
+// Each shadow argument should adhere to the standard css3 syntax for the
+// text-shadow property.
 @mixin text-shadow(
   $shadow-1 : default,
   $shadow-2 : false,
