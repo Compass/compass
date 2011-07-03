@@ -27,11 +27,30 @@ $blueprint-grid-width: 30px !default;
 // The amount of margin between columns
 $blueprint-grid-margin: 10px !default;
 
+// Directly set the outer width
+$blueprint-grid-outer-width: false !default;
+
 // The width of a column including the margin. With default settings this is `40px`.
-$blueprint-grid-outer-width: $blueprint-grid-width + $blueprint-grid-margin;
+// Can be overwritten using the blueprint-grid-outer-width() variable
+@function blueprint-grid-outer-width() {
+  @if $blueprint-grid-outer-width {
+    @return $blueprint-grid-outer-width;
+  } @else {
+    @return $blueprint-grid-width + $blueprint-grid-margin; 
+  }
+}
+
+// Directly set the container size
+$blueprint-container-size: false !default;
 
 // The width of the container. With default settings this is `950px`.
-$blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns - $blueprint-grid-margin;
+@function blueprint-container-size() {
+  @if $blueprint-container-size {
+    @return $blueprint-container-size;
+  } @else {
+    @return blueprint-grid-outer-width() * $blueprint-grid-columns - $blueprint-grid-margin;
+  }
+}
 
 // Generates presentational class names that you can use
 // in your html to layout your pages.
@@ -94,7 +113,7 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
 // If you use this mixin without the class and want to support ie6
 // you must set text-align left on your container element in an IE stylesheet.
 @mixin container {
-  width: $blueprint-container-size;
+  width: blueprint-container-size();
   margin: 0 auto;
   @include clearfix; }
 
@@ -150,12 +169,12 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
 // Mixin to a column to append n empty columns to the right
 // by adding right padding to the column.
 @mixin append($n) {
-  padding-right: $blueprint-grid-outer-width * $n; }
+  padding-right: blueprint-grid-outer-width() * $n; }
 
 // Mixin to a column to append n empty columns to the left
 // by adding left padding to the column.
 @mixin prepend($n) {
-  padding-left: $blueprint-grid-outer-width * $n; }
+  padding-left: blueprint-grid-outer-width() * $n; }
 
 // Adds trailing margin.
 @mixin append-bottom($amount: 1.5em) {
@@ -183,9 +202,9 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
 // to reduce the amount of generated CSS.
 @mixin pull-margins($n, $last: false) {
   @if $last {
-    margin-left: -$blueprint-grid-outer-width * $n + $blueprint-grid-margin; }
+    margin-left: blueprint-grid-outer-width() * -$n + $blueprint-grid-margin; }
   @else {
-    margin-left: -$blueprint-grid-outer-width * $n; } }
+    margin-left: blueprint-grid-outer-width() * -$n; } }
 
 // Moves a column `n` columns to the left.
 //
@@ -220,7 +239,7 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
   position: relative; }
 
 @mixin push-margins($n) {
-  margin: 0 (-$blueprint-grid-outer-width * $n) 1.5em $blueprint-grid-outer-width * $n; }
+  margin: 0 (blueprint-grid-outer-width() * -$n) 1.5em blueprint-grid-outer-width() * $n; }
 
 // mixin to a column to push it n columns to the right
 @mixin push($n) {
