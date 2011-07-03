@@ -23,6 +23,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   This makes some edge cases look better.
 * New mixin `force-wrap` prevents URLs and long lines of text from breaking layouts.
 * Fix absolute path detection on windows.
+* Fix the mime type returned for inline svg images.
+* Allow multiple transitions in the CSS3 `transition` mixin.
 
 0.11.3 (06/11/2011)
 -------------------
