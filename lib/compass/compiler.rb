@@ -7,7 +7,7 @@ module Compass
 
     def initialize(working_path, from, to, options)
       self.working_path = working_path.to_s
-      self.from, self.to = from.gsub('./', ''), to
+      self.from, self.to = File.expand_path(from), to
       self.logger = options.delete(:logger)
       sass_opts = options.delete(:sass) || {}
       self.options = options
