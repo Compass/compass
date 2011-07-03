@@ -28,3 +28,4 @@ devbin
 *.rbc
 vendor/ruby
 vendor
+Gemfile.lock
