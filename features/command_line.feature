@@ -63,6 +63,15 @@ Feature: Command Line
     And I am told that I can place stylesheets in the sass subdirectory
     And I am told how to compile my sass stylesheets
 
+  Scenario: Compiling a project with errors
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    And the project has a file named "sass/error.scss" containing:
+      """
+        .broken {
+      """
+    When I run: compass compile
+    Then the command exits with a non-zero error code
+
   Scenario: Creating a bare project with a framework
     When I create a project using: compass create bare_project --using blueprint --bare
     Then an error message is printed out: A bare project cannot be created when a framework is specified.
