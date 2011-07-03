@@ -84,7 +84,7 @@ module Compass
     def run
       if new_config?
         # Wipe out the cache and force compilation if the configuration has changed.
-        remove options[:cache_location]
+        remove options[:cache_location] if options[:cache_location]
         options[:force] = true
       end
 
