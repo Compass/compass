@@ -103,7 +103,7 @@ $default-transition-delay: false !default;
     @include single-transition(
       if($transition-1, $transition-1, $default-transition-property),
       if($transition-2, $transition-2, $default-transition-duration),
-      if($transition-3, $transition-3, $default-transition-funciton),
+      if($transition-3, $transition-3, $default-transition-function),
       if($transition-4, $transition-4, $default-transition-delay)
     );
   }
