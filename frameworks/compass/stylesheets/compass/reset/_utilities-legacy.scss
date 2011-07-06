@@ -105,7 +105,7 @@
 // so they are rendered correctly in browsers that don't recognize them
 // and reset in browsers that have default styles for them.
 @mixin reset-html5 {
-  article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  #{elements-of-type(html5-block)} {
     @include reset-box-model;
     display: block; } }
 

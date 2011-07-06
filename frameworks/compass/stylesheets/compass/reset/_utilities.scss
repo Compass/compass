@@ -107,12 +107,11 @@
   border: none; }
 
 // Unrecognized elements are displayed inline.
-// This reset provides a basic reset for html5 elements
+// This reset provides a basic reset for block html5 elements
 // so they are rendered correctly in browsers that don't recognize them
 // and reset in browsers that have default styles for them.
 @mixin reset-html5 {
-  article, aside, details, figcaption, figure, 
-  footer, header, hgroup, menu, nav, section {
+  #{elements-of-type(html5-block)} {
     display: block; } }
 
 // Resets the display of inline and block elements to their default display
