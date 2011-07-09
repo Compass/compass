@@ -68,7 +68,7 @@ $base-half-leader: $base-leader / 2;
 // to the smallest integer that is large enough to fit the font.
 // Use $from_size to adjust from a non-base font-size.
 @mixin adjust-font-size-to($to-size, $lines: lines-for-font-size($to-size), $from-size: $base-font-size) {
-  @if $relative-font-sizing and $from-size != $base-font-size {
+  @if not $relative-font-sizing and $from-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to adjust-font-size-to";
   }
   font-size: $font-unit * $to-size / $from-size;
@@ -76,7 +76,7 @@ $base-half-leader: $base-leader / 2;
 }
 
 @mixin adjust-leading-to($lines, $font-size: $base-font-size) {
-  @if $relative-font-sizing and $font-size != $base-font-size {
+  @if not $relative-font-sizing and $font-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to adjust-leading-to";
   }
   line-height: $font-unit * $lines * $base-line-height / $font-size;
@@ -87,7 +87,7 @@ $base-half-leader: $base-leader / 2;
   $lines: 1,
   $font-size: $base-font-size
 ) {
-  @if $relative-font-sizing and $font-size != $base-font-size {
+  @if not $relative-font-sizing and $font-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to the rhythm function";
   }
   $rhythm: $font-unit * $lines * $base-line-height / $font-size;
@@ -151,7 +151,7 @@ $base-half-leader: $base-leader / 2;
 
 // Apply a border width to any side without destroying the vertical rhythm
 @mixin apply-side-rhythm-border($side, $width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
-  @if $relative-font-sizing and $font-size != $base-font-size {
+  @if not $relative-font-sizing and $font-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to apply-side-rhythm-border";
   }
   border-#{$side}: {
@@ -163,7 +163,7 @@ $base-half-leader: $base-leader / 2;
 
 // Aplly rhythm borders equally to all sides
 @mixin rhythm-borders($width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
-  @if $relative-font-sizing and $font-size != $base-font-size {
+  @if not $relative-font-sizing and $font-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to rhythm-borders";
   }
   border: {
