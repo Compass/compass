@@ -1,12 +1,12 @@
 module Compass::SassExtensions::Functions::Display
   DEFAULT_DISPLAY = {
-    :block => %w{address blockquote center dir div dd dl dt fieldset form
-                 frameset h1 h2 h3 h4 h5 h6 hr isindex menu noframes
-                 noscript ol p pre ul
-                 article aside dialog figure footer header hgroup nav section},
-    :inline => %w{a abbr acronym b basefont bdo big br cite code dfn em
-                  font i img input kbd label q s samp select small span
-                  strike strong sub sup textarea tt u var},
+    :block => %w{address article aside blockquote center dir div dd details dl dt fieldset
+                  figcaption figure form footer frameset h1 h2 h3 h4 h5 h6 hr header hgroup
+                  isindex menu nav noframes noscript ol p pre section summary ul},
+    :inline => %w{a abbr acronym audio b basefont bdo big br canvas cite code command
+                  datalist dfn em embed font i img input keygen kbd label mark meter output
+                  progress q rp rt ruby s samp select small span strike strong sub
+                  sup textarea time tt u var video wbr},
     :table => %w{table},
     :"list-item" => %w{li},
     :"table-row-group" => %w{tbody},
@@ -14,7 +14,11 @@ module Compass::SassExtensions::Functions::Display
     :"table-footer-group" => %w{tfoot},
     :"table-row" => %w{tr},
     :"table-cell" => %w{th td},
-    :html5 => %w{article aside dialog figure footer header hgroup nav section}
+    # :html5 => %w{article aside audio canvas command datalist details embed figcaption figure
+                  # footer header hgroup keygen mark menu meter nav output progress ra rt ruby
+                  # section summary time video wbr},
+    :"html5-block" => %w{article aside details figcaption figure footer header hgroup menu nav section summary},
+    # :"html5-inline" => %w{audio canvas command datalist embed keygen mark meter output progress rp rt ruby time video wbr},
   }
 
   # returns a comma delimited string for all the

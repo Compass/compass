@@ -3,7 +3,7 @@ html {
   padding: 0;
   border: 0; }
 
-.bp-reset-element, body, h1, h2, h3, h4, h5, h6, article, aside, dialog, figure, footer, header, hgroup, nav, section, blockquote, q, th, td, caption, table, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing dialog, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing nav, body.testing section, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table, div, span, object, iframe, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
+.bp-reset-element, body, h1, h2, h3, h4, h5, h6, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, blockquote, q, th, td, caption, table, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table, div, span, object, iframe, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
   margin: 0;
   padding: 0;
   border: 0;
@@ -13,7 +13,7 @@ html {
   font-family: inherit;
   vertical-align: baseline; }
 
-article, aside, dialog, figure, footer, header, hgroup, nav, section {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block; }
 
 blockquote, q {
@@ -35,7 +35,7 @@ table {
 a img {
   border: none; }
 
-body.testing .bp-reset-element, body.testing body, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing dialog, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing nav, body.testing section, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing dialog, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing nav, body.testing section, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table,
+body.testing .bp-reset-element, body.testing body, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table,
 body.testing div, body.testing span, body.testing object, body.testing iframe, body.testing p,
 body.testing pre, body.testing a, body.testing abbr, body.testing acronym, body.testing address,
 body.testing code, body.testing del, body.testing dfn, body.testing em, body.testing img,
@@ -50,7 +50,7 @@ body.testing caption, body.testing tbody, body.testing tfoot, body.testing thead
   font-size: 100%;
   font-family: inherit;
   vertical-align: baseline; }
-body.testing article, body.testing aside, body.testing dialog, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing nav, body.testing section {
+body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary {
   display: block; }
 body.testing blockquote, body.testing q {
   quotes: "" ""; }
