@@ -14,6 +14,15 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.5 (07/10/2011)
+-------------------
+
+* Updated the list of elements returned by the `elements-of-type()` helper.
+  It now understands `html5-block` and `html5-inline` and other types now
+  return html5 elements in them by default.
+* Fix warning logic in vertical-rhythms module.
+* Fix typo in the css3/transition module.
+
 0.11.4 (07/03/2011)
 -------------------
 

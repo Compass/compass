@@ -17,7 +17,7 @@
   form, label, legend,
   caption, tbody, tfoot, thead, tr { @include blueprint-basic-reset;                           }
   #{headers(all)}                  { @include blueprint-basic-reset(bp-reset-element);         }
-  #{elements-of-type(html5)}       { @include blueprint-reset-html5-element(bp-reset-element); }
+  #{elements-of-type(html5-block)} { @include blueprint-reset-html5-element(bp-reset-element); }
   blockquote, q                    { @include blueprint-reset-quotation(bp-reset-element);     }
   th, td, caption                  { @include blueprint-reset-table-cell(bp-reset-element);    }
   table                            { @include blueprint-reset-table(bp-reset-element);         }
