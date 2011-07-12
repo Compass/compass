@@ -31,7 +31,7 @@ class ImporterTest < Test::Unit::TestCase
   end
   
   test "should return all the sprite names" do
-    assert_equal ["ten-by-ten", "ten-by-ten_active", "ten-by-ten_hover", "ten-by-ten_target"], @importer.sprite_names
+    assert_equal ["ten-by-ten_active", "ten-by-ten_target", "ten-by-ten_hover", "ten-by-ten"], @importer.sprite_names
   end
   
   test "should have correct mtime" do

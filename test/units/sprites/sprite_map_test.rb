@@ -33,7 +33,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   it 'should have image filenames' do
-    assert_equal Dir["#{@images_tmp_path}/selectors/*.png"].sort, @base.image_filenames
+    assert_equal Dir["#{@images_tmp_path}/selectors/*.png"].sort {|a, b| File.size(a) <=> File.size(b) }, @base.image_filenames
   end
   
   it 'should need generation' do
@@ -41,7 +41,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   test 'uniqueness_hash' do
-    assert_equal 'ef52c5c63a', @base.uniqueness_hash
+    assert_equal 'efb793a4de', @base.uniqueness_hash
   end
   
   it 'should be outdated' do
