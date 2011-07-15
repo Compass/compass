@@ -26,8 +26,8 @@
   $name, 
   $font-files, 
   $eot: false,
-  $weight: normal,
-  $style: normal
+  $weight: false,
+  $style: false
 ) {
   $iefont: unquote("#{$eot}?iefix");
   @font-face {
@@ -37,8 +37,12 @@
       $font-files: font-url($iefont) unquote("format('eot')"), $font-files; 
     }
     src: $font-files;
-    font-weight: $weight;
-    font-style: $style;
+    @if $weight {
+      font-weight: $weight;
+    }
+    @if $style {
+      font-style: $style;
+    }
   }
 }
 
