@@ -215,7 +215,7 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
     And I run in a separate process: compass watch 
-    And I wait 1 second
+    And I wait 3 seconds
     And I touch sass/layout.sass
     And I wait 2 seconds
     And I shutdown the other process
