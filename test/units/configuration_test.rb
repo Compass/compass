@@ -101,11 +101,31 @@ class ConfigurationTest < Test::Unit::TestCase
 
     plugin_opts = Compass.configuration.to_sass_plugin_options
 
-    assert load_paths.include?("/home/chris/foo"), load_paths.inspect
+    assert load_paths.include?("/home/chris/my_compass_project/../foo")
     assert load_paths.include?("/path/to/my/framework"), load_paths.inspect
     assert_equal "/home/chris/my_compass_project/css/framework", plugin_opts[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
     assert_equal "/home/chris/my_compass_project/css/foo", plugin_opts[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
+
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+project_path = "/home/chris/my_compass_project"
+
+# Set this to the root of your project when deployed:
+http_path = "/"
+css_dir = "css"
+
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+additional_import_paths = ["../foo", "/path/to/my/framework"]
+
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+EXPECTED
     assert_equal "/", Compass.configuration.http_path
+    assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
   end
 
   def test_config_with_pathname
@@ -121,11 +141,31 @@ class ConfigurationTest < Test::Unit::TestCase
 
     load_paths = load_paths_as_strings(Compass.configuration.to_sass_engine_options[:load_paths])
 
-    assert load_paths.include?("/home/chris/foo"), load_paths.inspect
+    assert load_paths.include?("/home/chris/my_compass_project/../foo")
     assert load_paths.include?("/path/to/my/framework"), load_paths.inspect
     assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
     assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
+
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+project_path = "/home/chris/my_compass_project"
+
+# Set this to the root of your project when deployed:
+http_path = "/"
+css_dir = "css"
+
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+additional_import_paths = ["../foo", "/path/to/my/framework"]
+
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+EXPECTED
     assert_equal "/", Compass.configuration.http_path
+    assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
   end
 
     def test_sass_options
@@ -137,6 +177,25 @@ class ConfigurationTest < Test::Unit::TestCase
 
       assert_equal 'bar', Compass.configuration.to_sass_engine_options[:foo]
       assert_equal 'bar', Compass.configuration.to_sass_plugin_options[:foo]
+
+      expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+
+# Set this to the root of your project when deployed:
+http_path = \"/\"
+
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true\nsass_options = {:foo=>\"bar\"}
+
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+
+EXPECTED
+
+      assert_correct(expected_serialization, Compass.configuration.serialize)
     end
 
   def test_strip_trailing_directory_separators
@@ -182,6 +241,26 @@ class ConfigurationTest < Test::Unit::TestCase
     Compass.add_configuration(contents, "test_strip_trailing_directory_separators")
 
     assert_equal "baz", Compass.configuration.foobar
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+
+# Set this to the root of your project when deployed:
+http_path = "/"
+
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+
+
+# this is a foobar
+foobar = "baz"
+EXPECTED
+    assert_correct(expected_serialization, Compass.configuration.serialize)
     Compass.reset_configuration!
     Compass.configuration.environment = :production
     assert_equal "foo", Compass.configuration.foobar
