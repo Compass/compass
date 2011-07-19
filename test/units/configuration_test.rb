@@ -19,7 +19,6 @@ class ConfigurationTest < Test::Unit::TestCase
 
       project_type = :stand_alone
       
-      # Set this to the root of your project when deployed:
       http_path = "/"
       css_dir = "css"
       sass_dir = "sass"
@@ -101,7 +100,7 @@ class ConfigurationTest < Test::Unit::TestCase
 
     plugin_opts = Compass.configuration.to_sass_plugin_options
 
-    assert load_paths.include?("/home/chris/my_compass_project/../foo")
+    assert load_paths.include?("/home/chris/foo"), "Expected to find /home/chris/foo in #{load_paths.inspect}"
     assert load_paths.include?("/path/to/my/framework"), load_paths.inspect
     assert_equal "/home/chris/my_compass_project/css/framework", plugin_opts[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
     assert_equal "/home/chris/my_compass_project/css/foo", plugin_opts[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
@@ -110,7 +109,6 @@ class ConfigurationTest < Test::Unit::TestCase
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
 
-# Set this to the root of your project when deployed:
 http_path = "/"
 css_dir = "css"
 
@@ -141,7 +139,7 @@ EXPECTED
 
     load_paths = load_paths_as_strings(Compass.configuration.to_sass_engine_options[:load_paths])
 
-    assert load_paths.include?("/home/chris/my_compass_project/../foo")
+    assert load_paths.include?("/home/chris/foo"), "Expected to find /home/chris/foo in #{load_paths.inspect}"
     assert load_paths.include?("/path/to/my/framework"), load_paths.inspect
     assert_equal "/home/chris/my_compass_project/css/framework", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/path/to/my/framework"}[1]
     assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
@@ -150,7 +148,6 @@ EXPECTED
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
 
-# Set this to the root of your project when deployed:
 http_path = "/"
 css_dir = "css"
 
