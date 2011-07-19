@@ -10,7 +10,7 @@ module Compass
         :stand_alone
       end
 
-      def http_path_without_default
+      def default_http_path
         "/"
       end
 
