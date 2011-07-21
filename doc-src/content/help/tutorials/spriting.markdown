@@ -52,6 +52,14 @@ simple naming convention for your sprites so that you they are easy to remember 
 should never have to care what the is name of the generated sprite map, nor where a sprite
 is located within it.
 
+<a name="layout-control"></a>
+## Layout Control
+
+If you prefer horizontal sprites to the `vertical` default just set the magic variable `$<sprite>-layout` variable.
+
+    $icon-layout:horizontal;
+    @import "icon/*.png";
+
 <a name="selector-control"></a>
 ## Selector Control
 
