@@ -134,20 +134,12 @@ end
 Then "the following files are reported removed:" do |table|
   table.rows.each do |css_file|
     #need to find a better way but this works for now
-    if css_file.first.include?('flag-s')
-      css_file[0] = Dir[css_file.first].sort.first
-      puts css_file[0] = Dir[css_file.first].sort.first
-    end
     Then %Q{a css file #{css_file.first} is reported removed}
   end
 end
 
 Then "the following files are removed:" do |table|
   table.rows.each do |css_file|
-    #need to find a better way but this works for now
-    if css_file.first.include?('flag-s')
-      css_file[0] = Dir[css_file.first].sort.first
-    end
     Then %Q{a css file #{css_file.first} is removed}
   end
 end
