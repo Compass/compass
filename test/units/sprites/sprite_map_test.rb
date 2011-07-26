@@ -115,5 +115,11 @@ class SpriteMapTest < Test::Unit::TestCase
     FileUtils.rm base.filename
   end
   
+  it "should generate vertical sprites in decending order" do
+    sizes = @base.images.map{|image| File.size(image.file) }
+    assert_equal sizes.min, File.size(@base.images.first.file)
+    assert_equal sizes.max, File.size(@base.images.last.file)
+  end
+  
   
 end

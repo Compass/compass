@@ -80,7 +80,7 @@ module Compass
       end
     end
     
-    # Returns the sass _options for this sprite
+    # Returns the sass_options for this sprite
     def self.sass_options(name, importer, options)
       options.merge!(:filename => name, :syntax => :scss, :importer => importer)
     end
