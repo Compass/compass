@@ -1,6 +1,28 @@
 module Compass
   module AppIntegration
     module Rails
+
+      module ConfigurationDefaultsWithAssetPipeline
+        # These methods overwrite the old rails defaults
+        # when rails 3.1 is detected.
+
+        def default_sass_dir
+          File.join("app", "assets", "stylesheets")
+        end
+
+        def default_images_dir
+          File.join("app", "assets", "images")
+        end
+
+        def default_fonts_dir
+          File.join("app", "assets", "fonts")
+        end
+
+        def default_javascripts_dir
+          File.join("app", "assets", "javascripts")
+        end
+      end
+
       module ConfigurationDefaults
 
         def project_type_without_default
@@ -8,11 +30,7 @@ module Compass
         end
 
         def default_sass_dir
-          if Sass::Util.ap_geq?('3.1.0.beta')
-            File.join("app", "assets", "stylesheets")
-          else
-            File.join("app", "stylesheets")
-          end
+          File.join("app", "stylesheets")
         end
 
         def default_css_dir
@@ -28,11 +46,7 @@ module Compass
         end
 
         def default_javascripts_dir
-          if Sass::Util.ap_geq?('3.1.0.beta')
-            File.join("app", "assets", "javascripts")
-          else
-            File.join("public", "javascripts")
-          end
+          File.join("public", "javascripts")
         end
 
         def default_http_images_path

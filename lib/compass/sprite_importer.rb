@@ -132,13 +132,13 @@ $#{name}-layout:vertical !default;
   @include sprite($#{name}-sprites, $name, $dimensions, $offset-x, $offset-y)
 }
 
-@mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
-  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions, $prefix)
+@mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites), $offset-x: 0, $offset-y: 0) {
+  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y)
 }
 
 // Generates a class for each sprited image.
-@mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
-  @include #{name}-sprites(#{sprite_names(uri).join(" ")}, $dimensions, $prefix);
+@mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites), $offset-x: 0, $offset-y: 0) {
+  @include #{name}-sprites(#{sprite_names(uri).join(" ")}, $dimensions, $prefix, $offset-x, $offset-y);
 }
 SCSS
     end

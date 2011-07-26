@@ -448,7 +448,7 @@ class SpritesTest < Test::Unit::TestCase
     CSS
   end
 
-  it "should render corret sprite with css selectors via issue#248" do
+  it "should render correct sprite with css selectors via issue#248" do
     css = render <<-SCSS
       @import "selectors/*.png";
       @include all-selectors-sprites;
@@ -472,8 +472,33 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
+  
+  it "should honor offsets when rendering selectors via issue#449" do
+    css = render <<-SCSS
+      @import "selectors/*.png";
+      @include all-selectors-sprites($offset-x: 20px, $offset-y: 20px);
+    SCSS
+    assert_correct css, <<-CSS
+      .selectors-sprite, .selectors-ten-by-ten {
+        background: url('/selectors-sedfef809e2.png') no-repeat;
+      }
+      
+      .selectors-ten-by-ten {
+        background-position: 20px 20px;
+      }
+      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
+        background-position: 20px 0;
+      }
+      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
+        background-position: 20px -10px;
+      }
+      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
+        background-position: 20px 10px;
+      }
+    CSS
+  end
 
-  it "should render corret sprite with css selectors via magic mixin" do
+  it "should render correct sprite with css selectors via magic mixin" do
     css = render <<-SCSS
       @import "selectors/*.png";
       a {
@@ -499,6 +524,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
+
   
   it "should not render corret sprite with css selectors via magic mixin" do
     css = render <<-SCSS

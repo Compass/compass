@@ -24,8 +24,10 @@ module Compass
       end
 
       def configuration
-        Compass::Configuration::Data.new('rails').
-          extend(ConfigurationDefaults)
+        config = Compass::Configuration::Data.new('rails')
+        config.extend(ConfigurationDefaults)
+        config.extend(ConfigurationDefaultsWithAssetPipeline) if Sass::Util.ap_geq?('3.1.0.beta')
+        config
       end
 
       def env
@@ -48,12 +50,17 @@ module Compass
         end
       end
 
-      def initialize!(config = nil)
+      def check_for_double_boot!
         if booted?
           Compass::Util.compass_warn("Warning: Compass was booted twice. Compass has a Railtie now; please remove your initializer.")
         else
           booted!
         end
+      end
+
+      # Rails 2.x projects use this in their compass initializer.
+      def initialize!(config = nil)
+        check_for_double_boot!
         config ||= Compass.detect_configuration_file(root)
         Compass.add_project_configuration(config, :project_type => :rails)
         Compass.discover_extensions!
