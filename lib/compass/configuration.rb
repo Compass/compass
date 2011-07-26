@@ -24,6 +24,7 @@ module Compass
       attributes_for_directory(:fonts),
       attributes_for_directory(:extensions, nil),
       # Compilation options
+      :sprite_search_path,
       :output_style,
       :environment,
       :relative_assets,
