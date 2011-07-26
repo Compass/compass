@@ -89,7 +89,7 @@ module Compass
         top_level.images_dir
       end
       
-      def default_sprite_search_path
+      def default_sprite_load_path
         [top_level.images_path]
       end
 

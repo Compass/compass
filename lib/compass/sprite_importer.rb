@@ -66,7 +66,7 @@ module Compass
     
     # Returns the Glob of image files for the uri
     def self.files(uri)
-      Compass.configuration.sprite_search_path.each do |folder|
+      Compass.configuration.sprite_load_path.each do |folder|
         files = Dir[File.join(folder, uri)].sort
         next if files.empty?
         return files
