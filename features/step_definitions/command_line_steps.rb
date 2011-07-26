@@ -53,6 +53,13 @@ Given /^I should clean up the directory: (\w+)$/ do |directory|
   @cleanup_directories << directory
 end
 
+Given %r{^the project has a file named "([^"]*)" containing:$} do |arg1, string|
+  File.open(arg1, "w") do |f|
+    f << string
+  end
+end
+
+
 # When Actions are performed
 When /^I create a project using: compass create ([^\s]+) ?(.+)?$/ do |dir, args|
   @cleanup_directories << dir
@@ -126,6 +133,7 @@ end
 
 Then "the following files are reported removed:" do |table|
   table.rows.each do |css_file|
+    #need to find a better way but this works for now
     Then %Q{a css file #{css_file.first} is reported removed}
   end
 end

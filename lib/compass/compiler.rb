@@ -6,8 +6,8 @@ module Compass
     attr_accessor :working_path, :from, :to, :options, :sass_options, :staleness_checker, :importer
 
     def initialize(working_path, from, to, options)
-      self.working_path = working_path
-      self.from, self.to = from.gsub('./', ''), to
+      self.working_path = working_path.to_s
+      self.from, self.to = File.expand_path(from), to
       self.logger = options.delete(:logger)
       sass_opts = options.delete(:sass) || {}
       self.options = options
@@ -82,9 +82,10 @@ module Compass
     end
 
     def run
+      failure_count = 0
       if new_config?
         # Wipe out the cache and force compilation if the configuration has changed.
-        remove options[:cache_location]
+        remove options[:cache_location] if options[:cache_location]
         options[:force] = true
       end
 
@@ -97,6 +98,7 @@ module Compass
           begin
             compile_if_required sass_filename, css_filename
           rescue Sass::SyntaxError => e
+            failure_count += 1
             handle_exception(sass_filename, css_filename, e)
           end
         end
@@ -104,6 +106,7 @@ module Compass
       if options[:time]
         puts "Compilation took #{(result.__duration * 1000).round / 1000.0}s"
       end
+      return failure_count
     end
 
     def compile_if_required(sass_filename, css_filename)

@@ -66,7 +66,11 @@ module Compass
     
     # Returns the Glob of image files for the uri
     def self.files(uri)
-      Dir[File.join(Compass.configuration.images_path, uri)].sort
+      Compass.configuration.sprite_search_path.each do |folder|
+        files = Dir[File.join(folder, uri)].sort
+        next if files.empty?
+        return files
+      end
     end
 
     # Returns an Array of image names without the file extension
@@ -80,7 +84,7 @@ module Compass
       end
     end
     
-    # Returns the sass _options for this sprite
+    # Returns the sass_options for this sprite
     def self.sass_options(name, importer, options)
       options.merge!(:filename => name, :syntax => :scss, :importer => importer)
     end
@@ -132,13 +136,13 @@ $#{name}-layout:vertical !default;
   @include sprite($#{name}-sprites, $name, $dimensions, $offset-x, $offset-y)
 }
 
-@mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
-  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions, $prefix)
+@mixin #{name}-sprites($sprite-names, $dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites), $offset-x: 0, $offset-y: 0) {
+  @include sprites($#{name}-sprites, $sprite-names, $#{name}-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y)
 }
 
 // Generates a class for each sprited image.
-@mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
-  @include #{name}-sprites(#{sprite_names(uri).join(" ")}, $dimensions, $prefix);
+@mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites), $offset-x: 0, $offset-y: 0) {
+  @include #{name}-sprites(#{sprite_names(uri).join(" ")}, $dimensions, $prefix, $offset-x, $offset-y);
 }
 SCSS
     end

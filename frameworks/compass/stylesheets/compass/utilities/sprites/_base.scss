@@ -30,18 +30,18 @@ $disable-magic-sprite-selectors:false !default;
     @include sprite-dimensions($map, $sprite);
   }
   @if not $disable-magic-sprite-selectors {
-    @include sprite-selectors($map, $sprite, $sprite);
+    @include sprite-selectors($map, $sprite, $sprite, $offset-x, $offset-y);
   }
 }
 
 // Include the selectors for the `$sprite` given the `$map` and the 
 // `$full-sprite-name`
 // @private
-@mixin sprite-selectors($map, $sprite-name, $full-sprite-name) {
+@mixin sprite-selectors($map, $sprite-name, $full-sprite-name, $offset-x: 0, $offset-y: 0) {
   @each $selector in $sprite-selectors {
     @if sprite_has_selector($map, $sprite-name, $selector) {
       &:#{$selector}, &.#{$full-sprite-name}_#{$selector}, &.#{$full-sprite-name}-#{$selector} {
-          @include sprite-background-position($map, "#{$sprite-name}_#{$selector}");
+          @include sprite-background-position($map, "#{$sprite-name}_#{$selector}", $offset-x, $offset-y);
       }
     }
   }
@@ -53,13 +53,13 @@ $disable-magic-sprite-selectors:false !default;
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
-@mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false, $prefix: sprite-map-name($map)) {
+@mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0) {
   @each $sprite-name in $sprite-names {
     @if sprite_does_not_have_parent($map, $sprite-name) {
       $full-sprite-name: "#{$prefix}-#{$sprite-name}";
       .#{$full-sprite-name} {
         @if $base-class { @extend #{$base-class}; }
-        @include sprite($map, $sprite-name, $dimensions);
+        @include sprite($map, $sprite-name, $dimensions, $offset-x, $offset-y);
       }
     }
   }

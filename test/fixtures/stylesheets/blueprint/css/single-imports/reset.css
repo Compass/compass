@@ -3,7 +3,7 @@ html {
   padding: 0;
   border: 0; }
 
-.bp-reset-element, body, h1, h2, h3, h4, h5, h6, article, aside, dialog, figure, footer, header, hgroup, nav, section, blockquote, q, th, td, caption, table,
+.bp-reset-element, body, h1, h2, h3, h4, h5, h6, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, blockquote, q, th, td, caption, table,
 div, span, object, iframe, p,
 pre, a, abbr, acronym, address,
 code, del, dfn, em, img,
@@ -19,7 +19,7 @@ caption, tbody, tfoot, thead, tr {
   font-family: inherit;
   vertical-align: baseline; }
 
-article, aside, dialog, figure, footer, header, hgroup, nav, section {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block; }
 
 blockquote, q {

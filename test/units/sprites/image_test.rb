@@ -5,7 +5,7 @@ require 'ostruct'
 class SpritesImageTest < Test::Unit::TestCase
   include SpriteHelper
   def setup
-    @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
+    create_sprite_temp
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
     @repeat = 'no-repeat'

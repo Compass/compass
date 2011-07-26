@@ -63,6 +63,15 @@ Feature: Command Line
     And I am told that I can place stylesheets in the sass subdirectory
     And I am told how to compile my sass stylesheets
 
+  Scenario: Compiling a project with errors
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    And the project has a file named "sass/error.scss" containing:
+      """
+        .broken {
+      """
+    When I run: compass compile
+    Then the command exits with a non-zero error code
+
   Scenario: Creating a bare project with a framework
     When I create a project using: compass create bare_project --using blueprint --bare
     Then an error message is printed out: A bare project cannot be created when a framework is specified.
@@ -191,7 +200,7 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s03c3b29b35.png |
+      | images/flag-s8c3c755a68.png |
     And the following files are removed:
       | .sass-cache/                |
       | tmp/border_radius.css       |
@@ -199,14 +208,14 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s03c3b29b35.png |
+      | images/flag-s8c3c755a68.png |
 
   Scenario: Watching a project for changes
     Given ruby supports fork
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
     And I run in a separate process: compass watch 
-    And I wait 1 second
+    And I wait 3 seconds
     And I touch sass/layout.sass
     And I wait 2 seconds
     And I shutdown the other process

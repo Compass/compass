@@ -14,6 +14,30 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.11.5 (07/10/2011)
+-------------------
+
+* Updated the list of elements returned by the `elements-of-type()` helper.
+  It now understands `html5-block` and `html5-inline` and other types now
+  return html5 elements in them by default.
+* Fix warning logic in vertical-rhythms module.
+* Fix typo in the css3/transition module.
+
+0.11.4 (07/03/2011)
+-------------------
+
+* Vertical rhythm now supports absolute units like pixels.
+  Set `$relative-font-sizing` to `false` to enable.
+* Vertical rhythm now has a minimum padding that defaults to 2px.
+  This makes some edge cases look better.
+* New mixin `force-wrap` prevents URLs and long lines of text from breaking layouts.
+* Fix absolute path detection on windows.
+* Fix the mime type returned for inline svg images.
+* Allow multiple transitions in the CSS3 `transition` mixin.
+* The Blueprint `:focus` styles no longer clobbers cascade-based overrides unnecessarily.
+* The Blueprint grid-background vertical rhythm is now based off of $blueprint-font-size,
+  rather than a static value of 20px
+
 0.11.3 (06/11/2011)
 -------------------
 

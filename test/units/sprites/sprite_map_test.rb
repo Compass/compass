@@ -10,6 +10,7 @@ class SpriteMapTest < Test::Unit::TestCase
     FileUtils.cp_r @images_src_path, @images_tmp_path
     config = Compass::Configuration::Data.new('config')
     config.images_path = @images_tmp_path
+    config.sprite_search_path = [@images_tmp_path]
     Compass.add_configuration(config)
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
@@ -113,6 +114,12 @@ class SpriteMapTest < Test::Unit::TestCase
     base.generate
     assert File.exists?(base.filename)
     FileUtils.rm base.filename
+  end
+  
+  it "should generate vertical sprites in decending order" do
+    sizes = @base.images.map{|image| File.size(image.file) }
+    assert_equal sizes.min, File.size(@base.images.first.file)
+    assert_equal sizes.max, File.size(@base.images.last.file)
   end
   
   
