@@ -18,6 +18,27 @@ class ImporterTest < Test::Unit::TestCase
     {:foo => 'bar'}
   end
   
+  test "should use search path to find sprites" do
+    Compass.reset_configuration!
+    uri = 'foo/*.png'
+    other_folder = File.join(@images_tmp_path, '../other-temp')
+    FileUtils.mkdir_p other_folder
+    FileUtils.mkdir_p File.join(other_folder, 'foo')
+    %w(my bar).each do |file|
+      FileUtils.touch(File.join(other_folder, "foo/#{file}.png"))
+    end
+    config = Compass::Configuration::Data.new('config')
+    config.images_path = @images_tmp_path
+    config.sprite_search_path = [@images_tmp_path, other_folder]
+    Compass.add_configuration(config, "sprite_config")
+    importer = Compass::SpriteImporter.new
+    assert_equal 2, Compass.configuration.sprite_search_path.compact.size
+    assert Compass.configuration.sprite_search_path.include?(other_folder)
+    assert_equal ["bar", "my"], Compass::SpriteImporter.sprite_names(uri)
+    
+    FileUtils.rm_rf other_folder
+  end
+  
   test "name should return the sprite name" do
     assert_equal 'selectors', Compass::SpriteImporter.sprite_name(URI)
   end

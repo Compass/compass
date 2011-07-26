@@ -10,6 +10,7 @@ class SpriteMapTest < Test::Unit::TestCase
     FileUtils.cp_r @images_src_path, @images_tmp_path
     config = Compass::Configuration::Data.new('config')
     config.images_path = @images_tmp_path
+    config.sprite_search_path = [@images_tmp_path]
     Compass.add_configuration(config)
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
