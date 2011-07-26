@@ -1,10 +1,12 @@
 module Compass
   module Configuration
 
-    def self.attributes_for_directory(dir_name, http_dir_name = dir_name)
+    def self.attributes_for_directory(dir_name, http_dir_name = dir_name, output = false)
       [
         "#{dir_name}_dir",
         "#{dir_name}_path",
+        ("output_#{dir_name}_dir" if output),
+        ("output_#{dir_name}_path" if output),
         ("http_#{http_dir_name}_dir" if http_dir_name),
         ("http_#{http_dir_name}_path" if http_dir_name)
       ].compact.map{|a| a.to_sym}
@@ -15,11 +17,12 @@ module Compass
       :project_type,
       # Where is the project?
       :project_path,
+      :output_path,
       :http_path,
       # Where are the various bits of the project
       attributes_for_directory(:css, :stylesheets),
       attributes_for_directory(:sass, nil),
-      attributes_for_directory(:images),
+      attributes_for_directory(:images, :images, true),
       attributes_for_directory(:javascripts),
       attributes_for_directory(:fonts),
       attributes_for_directory(:extensions, nil),
