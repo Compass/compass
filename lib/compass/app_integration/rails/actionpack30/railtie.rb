@@ -40,10 +40,7 @@ module Compass
     initializer "compass.initialize_rails" do |app|
       # Configure compass for use within rails, and provide the project configuration
       # that came via the rails boot process.
-      Compass::AppIntegration::Rails.check_for_double_boot!
-      Compass.discover_extensions!
-      Compass.configure_sass_plugin!
-      Compass.handle_configuration_change!
+      Compass::AppIntegration::Rails.initialize!(app.config.compass)
     end
   end
 end
