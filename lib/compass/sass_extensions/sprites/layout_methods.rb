@@ -16,7 +16,7 @@ module Compass
             calculate_horizontal_positions
             calculate_width
           else
-            @images.sort! {|a,b| b.size <=> b.size} #put small images first
+            @images.sort! {|a,b| b.size <=> a.size}
             calculate_width
             calulate_vertical_postions
             calculate_height
