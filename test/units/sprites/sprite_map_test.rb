@@ -121,5 +121,22 @@ class SpriteMapTest < Test::Unit::TestCase
     assert_equal sizes.max, File.size(@base.images.last.file)
   end
   
+  test "should get correct relative_name" do
+    Compass.reset_configuration!
+    uri = 'foo/*.png'
+    other_folder = File.join(@images_tmp_path, '../other-temp')
+    FileUtils.mkdir_p other_folder
+    FileUtils.mkdir_p File.join(other_folder, 'foo')
+    %w(my bar).each do |file|
+      FileUtils.touch(File.join(other_folder, "foo/#{file}.png"))
+    end
+    config = Compass::Configuration::Data.new('config')
+    config.images_path = @images_tmp_path
+    config.sprite_load_path = [@images_tmp_path, other_folder]
+    Compass.add_configuration(config, "sprite_config")
+    assert_equal 'foo/my.png', Compass::SassExtensions::Sprites::SpriteMap.relative_name(File.join(other_folder, 'foo/my.png'))
+    FileUtils.rm_rf other_folder
+  end
+  
   
 end

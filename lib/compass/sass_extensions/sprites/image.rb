@@ -17,12 +17,25 @@ module Compass
         
         # The Full path to the image
         def file
-          File.join(Compass.configuration.images_path, relative_file)
+          @file ||= find_file
+        end
+        
+        def find_file
+          Compass.configuration.sprite_load_path.each do |path|
+            f = File.join(path, relative_file)
+            if File.exists?(f)
+              return f
+            end
+          end
         end
         
         # Width of the image
         def width
           dimensions.first
+        end
+        
+        def size
+          @size ||= File.size(file)
         end
         
         # Height of the image

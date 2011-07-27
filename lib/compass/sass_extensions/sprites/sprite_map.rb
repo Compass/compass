@@ -23,7 +23,9 @@ module Compass
         end
         
         def self.relative_name(sprite)
+          sprite = File.expand_path(sprite)
           Compass.configuration.sprite_load_path.each do |path|
+            path = File.expand_path(path)
             if sprite.include?(path)
               return sprite.gsub("#{path}/", "")
             end
