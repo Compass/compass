@@ -17,9 +17,17 @@ module Compass
           name, path = Compass::SpriteImporter.path_and_name(uri)
           files = Compass::SpriteImporter.files(uri)
           sprites = files.map do |sprite|
-            sprite.gsub("#{Compass.configuration.images_path}/", "")
+            relative_name(sprite)
           end
           new(sprites, path, name, context, kwargs)
+        end
+        
+        def self.relative_name(sprite)
+          Compass.configuration.sprite_load_path.each do |path|
+            if sprite.include?(path)
+              return sprite.gsub("#{path}/", "")
+            end
+          end
         end
 
         def initialize(sprites, path, name, context, kwargs)
