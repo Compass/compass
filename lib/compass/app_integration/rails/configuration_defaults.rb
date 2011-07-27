@@ -50,19 +50,21 @@ module Compass
         end
 
         def default_http_images_path
-          "#{top_level.http_path}images"
+          # Relies on the fact that this will be loaded after the "normal"
+          # defaults, so that method_missing finds http_root_relative
+          http_root_relative "images"
         end
 
         def default_http_javascripts_path
-          "#{top_level.http_path}javascripts"
+          http_root_relative "javascripts"
         end
 
         def default_http_fonts_path
-          "#{top_level.http_path}fonts"
+          http_root_relative "fonts"
         end
 
         def default_http_stylesheets_path
-          "#{top_level.http_path}stylesheets"
+          http_root_relative "stylesheets"
         end
 
         def default_extensions_dir
