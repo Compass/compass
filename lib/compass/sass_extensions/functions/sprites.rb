@@ -61,7 +61,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, "sprite")
     verify_sprite(sprite)
     if image = map.image_for(sprite.value)
-      Sass::Script::String.new(image.relative_file)
+      Sass::Script::String.new(image.file)
     else
       missing_image!(map, sprite)
     end
