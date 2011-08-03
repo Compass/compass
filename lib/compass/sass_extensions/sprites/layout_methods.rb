@@ -4,6 +4,11 @@ module Compass
       module LayoutMethods
         HORIZONTAL = 'horizontal'
         DIAGONAL = 'diagonal'
+        SMART = 'smart'
+        
+        def smart?
+          @kwargs.get_var('layout').value == SMART
+        end
         
         def horizontal?
           @kwargs.get_var('layout').value == HORIZONTAL
@@ -17,6 +22,10 @@ module Compass
         # collects image sizes and input parameters for each sprite
         def compute_image_positions!
           case @kwargs.get_var('layout').value
+          when SMART
+            require 'compass/sass_extensions/sprites/image_row'
+            require 'compass/sass_extensions/sprites/row_fitter'
+            calculate_smart_positions
           when DIAGONAL
             calculate_diagonal_dimensions
             calculate_diagonal_positions
@@ -31,6 +40,23 @@ module Compass
             @height = height_for_vertical_layout
           end
         end
+        
+        def calculate_smart_positions
+          fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images)
+          current_y = 0
+          fitter.fit!.each do |row|
+            current_x = 0
+            row.images.each_with_index do |image, index|
+              image.left = current_x
+              image.top = current_y
+              current_x += image.width
+            end
+            current_y += row.height
+          end
+          @width = fitter.width
+          @height = fitter.height
+        end
+        
         
         def calculate_diagonal_dimensions
           @width = @images.map {|image| image.width}.inject(0) {|width, sum| sum + width}
