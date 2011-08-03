@@ -23,8 +23,6 @@ module Compass
         def compute_image_positions!
           case @kwargs.get_var('layout').value
           when SMART
-            require 'compass/sass_extensions/sprites/image_row'
-            require 'compass/sass_extensions/sprites/row_fitter'
             calculate_smart_positions
           when DIAGONAL
             calculate_diagonal_dimensions
