@@ -88,7 +88,22 @@ class SpriteMapTest < Test::Unit::TestCase
     assert_equal [0, 10, 20, 30], @base.images.map(&:top)
     assert_equal [0, 0, 0, 0], @base.images.map(&:left)
   end
+  
 
+  def diagonal
+    opts = @options.merge("layout" => Sass::Script::String.new('diagonal'))
+    sprite_map_test(opts)
+  end
+  
+  it "should generate a diagonal sprite" do
+    base = diagonal
+    base.generate
+    assert_equal 40, base.width
+    assert_equal 40, base.height
+    assert_equal [[0,0], [10,10], [20,20], [30,30]], base.images.map {|i| [i.top, i.left]}
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
 
   # Horizontal tests
   def horizontal
@@ -114,7 +129,7 @@ class SpriteMapTest < Test::Unit::TestCase
     assert File.exists?(base.filename)
     FileUtils.rm base.filename
   end
-  
+    
   it "should generate vertical sprites in decending order" do
     sizes = @base.images.map{|image| File.size(image.file) }
     assert_equal sizes.min, File.size(@base.images.first.file)
