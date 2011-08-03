@@ -3,23 +3,52 @@ module Compass
     module Sprites
       module LayoutMethods
         HORIZONTAL = 'horizontal'
+        DIAGONAL = 'diagonal'
         
         def horizontal?
           @kwargs.get_var('layout').value == HORIZONTAL
         end
         
+        def diagonal?
+          @kwargs.get_var('layout').value == DIAGONAL
+        end
+        
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
         def compute_image_positions!
-          if horizontal?
-            calculate_height
+          case @kwargs.get_var('layout').value
+          when DIAGONAL
+            calculate_diagonal_dimensions
+            calculate_diagonal_positions
+          when HORIZONTAL
+            @height = height_for_horizontal_layout
             calculate_horizontal_positions
-            calculate_width
+            @width = width_for_horizontal_layout
           else
             @images.sort! {|a,b| b.size <=> a.size}
-            calculate_width
+            @width = width_for_vertical_layout
             calulate_vertical_postions
-            calculate_height
+            @height = height_for_vertical_layout
+          end
+        end
+        
+        def calculate_diagonal_dimensions
+          @width = @images.map {|image| image.width}.inject(0) {|width, sum| sum + width}
+          @height = @images.map {|image| image.height}.inject(0) {|height, sum| sum + height}
+        end
+        
+        def calculate_diagonal_positions
+          previous = nil
+          @images.each_with_index do |image, index|
+            if previous.nil?
+              previous = image
+              image.top = 0
+              image.left = 0
+              next
+            end
+            image.top = previous.top + previous.height
+            image.left = previous.left + previous.width
+            previous = image
           end
         end
         
@@ -41,20 +70,6 @@ module Compass
           end
         end
         
-        
-        def calculate_dimensions!
-          calculate_width
-          calculate_height
-        end
-        
-        def calculate_height
-          @height = if horizontal?
-            height_for_horizontal_layout
-          else
-            height_for_vertical_layout
-          end
-        end
-        
         def height_for_vertical_layout
           last = @images.last
           last.top + last.height
@@ -62,14 +77,6 @@ module Compass
         
         def height_for_horizontal_layout
           @height = @images.map {|image| image.height + image.spacing}.max
-        end
-        
-        def calculate_width
-          @width = if horizontal?
-            width_for_horizontal_layout
-          else
-            width_for_vertical_layout
-          end
         end
         
         def width_for_horizontal_layout
