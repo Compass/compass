@@ -55,11 +55,20 @@ is located within it.
 <a name="layout-control"></a>
 ## Layout Control
 
-If you prefer horizontal sprites to the `vertical` default just set the magic variable `$<sprite>-layout` variable.
+Set the `$<sprite>-layout` variable to the preferred layout method.
+
+* vertical - default
+* horizontal - lays images out side by side
+* diagonal - lays images out corner to corner none of the spacing of padding options are taken into account
+
+Example:
 
     $icon-layout:horizontal;
     @import "icon/*.png";
-
+    
+    $dropcap-layout:diagonal
+    @import "dropcap/*.png";
+    
 <a name="selector-control"></a>
 ## Selector Control
 
