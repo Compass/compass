@@ -5,19 +5,16 @@ class SpriteMapTest < Test::Unit::TestCase
   
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
-    @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images-tmp')
-    FileUtils.cp_r @images_src_path, @images_tmp_path
-    config = Compass::Configuration::Data.new('config')
-    config.images_path = @images_tmp_path
-    Compass.add_configuration(config)
+    create_sprite_temp
+    file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
+    Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
     @base = sprite_map_test(@options)
   end
 
   def teardown
-    FileUtils.rm_r @images_tmp_path
+    clean_up_sprites
     @base = nil
   end
   
@@ -89,6 +86,25 @@ class SpriteMapTest < Test::Unit::TestCase
     assert_equal [0, 0, 0, 0], @base.images.map(&:left)
   end
   
+  def smart
+    options = @options.merge("layout" => Sass::Script::String.new('smart'))
+    importer = Compass::SpriteImporter.new
+    uri = "image_row/*.png"
+    path, name = Compass::SpriteImporter.path_and_name(uri)
+    sprite_names = Compass::SpriteImporter.sprite_names(uri)
+    sass_engine = Compass::SpriteImporter.sass_engine(uri, name, importer, options)
+    Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map {|n| "image_row/#{n}.png"}, path, name, sass_engine, options)
+  end
+  
+  it "should have a smart layout" do
+    base = smart
+    base.generate
+    assert_equal 400, base.width
+    assert_equal 60, base.height
+    assert_equal [[0, 0], [20, 120], [20, 20], [20, 0], [20, 160]], base.images.map {|i| [i.top, i.left]}
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
 
   def diagonal
     opts = @options.merge("layout" => Sass::Script::String.new('diagonal'))
