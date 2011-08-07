@@ -3,7 +3,7 @@ $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), '../../test')))
 require 'test_helper'
 
 require 'compass/exec'
-
+include Compass::TestCaseHelper
 include Compass::CommandLineHelper
 include Compass::IoHelper
 include Compass::RailsHelper
@@ -18,6 +18,12 @@ After do
   Dir.chdir @original_working_directory
   @cleanup_directories.each do |dir|
     FileUtils.rm_rf dir
+  end
+end
+
+Given "ruby supports fork" do
+  if RUBY_PLATFORM == "java"
+    pending
   end
 end
 
@@ -47,6 +53,13 @@ Given /^I should clean up the directory: (\w+)$/ do |directory|
   @cleanup_directories << directory
 end
 
+Given %r{^the project has a file named "([^"]*)" containing:$} do |arg1, string|
+  File.open(arg1, "w") do |f|
+    f << string
+  end
+end
+
+
 # When Actions are performed
 When /^I create a project using: compass create ([^\s]+) ?(.+)?$/ do |dir, args|
   @cleanup_directories << dir
@@ -70,7 +83,7 @@ When /^I run in a separate process: compass ([^\s]+) ?(.+)?$/ do |command, args|
         file.puts $stdout.string
       end
       open('/tmp/last_error.compass_test.txt', 'w') do |file|
-        file.puts @stderr.string
+        file.puts $stderr.string
       end
       exit!
     end
@@ -110,8 +123,29 @@ Then /^a directory ([^ ]+) is (not )?created$/ do |directory, negated|
   File.directory?(directory).should == !negated
 end
  
+Then /an? \w+ file ([^ ]+) is (not )?removed/ do |filename, negated|
+  File.exists?(filename).should == !!negated
+end
+
 Then /an? \w+ file ([^ ]+) is (not )?created/ do |filename, negated|
   File.exists?(filename).should == !negated
+end
+
+Then "the following files are reported removed:" do |table|
+  table.rows.each do |css_file|
+    #need to find a better way but this works for now
+    Then %Q{a css file #{css_file.first} is reported removed}
+  end
+end
+
+Then "the following files are removed:" do |table|
+  table.rows.each do |css_file|
+    Then %Q{a css file #{css_file.first} is removed}
+  end
+end
+
+Then /an? \w+ file ([^ ]+) is reported removed/ do |filename|
+  @last_result.should =~ /remove.*#{Regexp.escape(filename)}/
 end
 
 Then /an? \w+ file ([^ ]+) is reported created/ do |filename|

@@ -23,7 +23,7 @@ module Compass
         plugin_opts[:cache_location] = cache_path unless cache_path.nil?
         plugin_opts.merge!(sass_options || {})
         plugin_opts[:load_paths] ||= []
-        plugin_opts[:load_paths] << Compass::Sprites.new
+        plugin_opts[:load_paths] << Compass::SpriteImporter.new
         plugin_opts
       end
 
@@ -38,8 +38,8 @@ module Compass
       end
 
       def absolute_path?(path)
-        # This is only going to work on unix, gonna need a better implementation.
-        path.index(File::SEPARATOR) == 0
+        # Pretty basic implementation
+        path.index(File::SEPARATOR) == 0 || path.index(':') == 1
       end
 
       def to_sass_engine_options
@@ -55,11 +55,15 @@ module Compass
       def sass_load_paths
         load_paths = []
         load_paths << sass_path if sass_path
-        Compass::Frameworks::ALL.each do |framework|
-          load_paths << framework.stylesheets_directory if File.exists?(framework.stylesheets_directory)
+        Compass::Frameworks::ALL.each do |f|
+          load_paths << f.stylesheets_directory if File.directory?(f.stylesheets_directory)
         end
         load_paths += resolve_additional_import_paths
-        load_paths << Compass::Sprites.new
+        load_paths.map! do |p|
+          next p if p.respond_to?(:find_relative)
+          Sass::Importers::Filesystem.new(p.to_s)
+        end
+        load_paths << Compass::SpriteImporter.new
         load_paths
       end
     end

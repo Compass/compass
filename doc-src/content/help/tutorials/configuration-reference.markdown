@@ -9,7 +9,7 @@ classnames:
 The compass configuration file is a ruby file, which means that we can do some
 clever things if we want to. But don’t let it frighten you; it’s really quite
 easy to set up your project.
-
+<a name="basic-format"></a>
 ## Basic format
 
 Most configuration properties are a simple assignment to a configuration property.
@@ -35,11 +35,12 @@ There are two kinds of composite values:
   It is a comma delimited list of associations surrounded by curly brackets.
   An association is two values separated by `=>`. E.g. `{:foo => "aaa", :bar => "zzz"}`
 
+<a name="comments"></a>
 ## Comments
 
 Use the hash sign `#` to comment out everything from the hash sign to the end
 of the line.
-
+<a name="import-note-windows-users"></a>
 ## Import Note for Windows Users
 
 The backslash character (`\`) is a special character in a string delimited by
@@ -47,6 +48,7 @@ double quotes (`"`). If you are working with folders in your paths, you should
 either use **single quotes** to delimit your strings or escape your backslash
 by doubling it like `"some\\path"`.
 
+<a name="loading-compass-plugins"></a>
 ## Loading Compass Plugins
 
 Compass relies on the ruby `require` mechanism to load other libraries of code.
@@ -59,11 +61,13 @@ Example:
     require 'ninesixty'
     require 'susy'
 
+<a name="overriding-configuration-settings"></a>
 ## Overriding Configuration Settings
 
 When using the compass command line, configuration options that you set on the
 command line will override the corresponding settings in your configuration file.
 
+<a name="inspecting-configuration-settings-passed-via-the-command-line"></a>
 ## Inspecting Configuration Settings passed via the Command Line
 
 When using the compass command line, configuration options that you set on the
@@ -78,7 +82,7 @@ Then you can inspect the value like so:
 
 Values that are not set on the CLI will be `nil` even though they will have a default value
 later on.
-
+<a name="configuration-properties"></a>
 ## Configuration Properties
 
 <table>
@@ -271,8 +275,21 @@ later on.
     <td style="vertical-align:top;">String </td>
     <td style="vertical-align:top;">The relative http path to font files on the web server.</td>
   </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sprite_engine</code> </td>
+    <td style="vertical-align:top;">Symbol </td>
+    <td style="vertical-align:top;">Defaults to <code>:chunky_png</code></td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>chunky_png_options</code></td>
+    <td style="vertical-align:top;">Hash </td>
+    <td style="vertical-align:top;">
+      Defaults to <code>{:compression => Zlib::BEST_COMPRESSION}</code>. See the chunky_png <a href='https://github.com/wvanbergen/chunky_png/wiki/Constraints' _target='blank'>wiki</a> for more information
+    </td>
+  </tr>
 </table>
 
+<a name="configuration-functions"></a>
 ## Configuration Functions
 
 **`add_import_path`** – Call this function to add a path to the list of sass import
@@ -297,10 +314,14 @@ the asset host configuration is ignored.
 
 ---
 
+<a name="asset-cache-buster"></a>
 **`asset_cache_buster`** – Pass this function a block of code that defines the
-cache buster strategy to be used. The block must return nil or a string that can
-be appended to a url as a query parameter. The returned string must not include
-the starting `?`. The block will be passed the root-relative url of the asset.
+cache buster strategy to be used. The block must return nil, a string or a hash.
+If the returned value is a hash the values of :path and/or :query is used to generate
+a cache busted path to the asset. If a string value is returned, it is added as a query string.
+The returned values for query strings must not include the starting `?`.
+
+The block will be passed the root-relative url of the asset.
 If the block accepts two arguments, it will also be passed a path
 that points to the asset on disk — which may or may not exist.
 
@@ -311,6 +332,18 @@ that points to the asset on disk — which may or may not exist.
         File.mtime(real_path).strftime("%s")
       else
         "v=#{deploy_version}"
+      end
+    end
+
+Busting the cache via path:
+
+    asset_cache_buster do |path, real_path|
+      if File.exists?(real_path)
+        pathname = Pathname.new(path)
+        modified_time = File.mtime(real_path).strftime("%s")
+        new_path = "%s/%s-%s%s" % [pathname.dirname, pathname.basename(pathname.extname), modified_time, pathname.extname]
+
+        {:path => new_path, :query => nil}
       end
     end
 
@@ -331,7 +364,7 @@ more than once. Example:
 
 This code will be called if the file is added, updated, or removed. Be sure to check for existence
 to avoid crashing the watcher in the case where the file has been removed.
-
+<a name="callbacks"></a>
 ## Callbacks
 
 **`on_sprite_saved`** -- Pass this function a block of code that gets executed after a sprite is saved to disk. The block will be passed the filename. Can be invoked more then once. Example:

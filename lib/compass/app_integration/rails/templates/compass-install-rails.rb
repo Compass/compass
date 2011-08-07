@@ -47,18 +47,18 @@ css_framework = ask("What CSS Framework install do you want to use with Compass?
 
 # sass storage prompt
 sass_dir = ask("Where would you like to keep your sass files within your project? (default: 'app/stylesheets')")
-sass_dir = "app/stylesheets" if sass_dir.blank?
+sass_dir = "app/stylesheets" if Compass::Util.blank?(sass_dir)
 
 # compiled css storage prompt
 css_dir = ask("Where would you like Compass to store your compiled css files? (default: 'public/stylesheets/compiled')")
-css_dir = "public/stylesheets/compiled" if css_dir.blank?
+css_dir = "public/stylesheets/compiled" if Compass::Util.blank?(css_dir)
 
 # use sudo for gem commands?
 use_sudo = nil
 if sudo_is_an_option? # dont give them the option if they are on a system that can't use sudo (aka windows)
   use_sudo = yes?("Use sudo for the gem commands? (the default for your system is #{sudo_is_an_option? ? 'yes' : 'no'})")
 end
-use_sudo = sudo_is_an_option? if use_sudo.blank?
+use_sudo = sudo_is_an_option? if Compass::Util.blank?(use_sudo)
 
 # define dependencies
 gem "haml", :version => ">=3.0.0"
@@ -71,7 +71,7 @@ rake "gems:unpack GEM=compass --trace"
 
 # build out compass command
 compass_command = "compass init rails . --css-dir=#{css_dir} --sass-dir=#{sass_dir} "
-compass_command << "--using #{css_framework} " unless css_framework.blank?
+compass_command << "--using #{css_framework} " unless Compass::Util.blank?(css_framework)
 
 # integrate it!
 run "haml --rails ."

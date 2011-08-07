@@ -5,6 +5,7 @@ include Nanoc3::Helpers::LinkTo
 include Nanoc3::Helpers::Capturing
 include Nanoc3::Helpers::Rendering
 include Nanoc3::Helpers::Breadcrumbs
+include Nanoc3::Helpers::XMLSitemap
 
 def body_class(item)
   classes = [""]
@@ -129,7 +130,7 @@ end
 
 def compass_version
   v = Compass.version
-  "#{v[:major]}.#{v[:minor]}#{"."+v[:state] if v[:state]}.#{v[:build]}"
+  "#{v[:major]}.#{v[:minor]}#{"."+v[:state] if v[:state]}.#{v[:build] || v[:patch]}"
 end
 
 def long_compass_version

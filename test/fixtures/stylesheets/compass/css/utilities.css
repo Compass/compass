@@ -12,15 +12,25 @@
     overflow: hidden;
     visibility: hidden; }
 
+.simple-pie-clearfix {
+  *zoom: 1; }
+  .simple-pie-clearfix:after {
+    content: "";
+    display: table;
+    clear: both; }
+
 p.light {
   background-color: #b0201e;
   color: black; }
+
 p.dark {
   background-color: #5f1210;
   color: white; }
+
 p.light-with-args {
   background-color: #b0201e;
   color: green; }
+
 p.dark-with-args {
   background-color: #5f1210;
   color: blue; }

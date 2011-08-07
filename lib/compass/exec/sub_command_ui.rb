@@ -12,7 +12,7 @@ module Compass::Exec
 
     def run!
       begin
-        perform!
+        return perform!
       rescue Exception => e
         raise e if e.is_a? SystemExit
         if e.is_a?(::Compass::Error) || e.is_a?(OptionParser::ParseError)
@@ -22,7 +22,6 @@ module Compass::Exec
         end
         return 1
       end
-      return 0
     end
     
     protected
@@ -40,7 +39,9 @@ module Compass::Exec
       else
         command_class.parse!(args)
       end
-      command_class.new(Dir.getwd, @options).execute
+      cmd = command_class.new(Dir.getwd, @options)
+      cmd.execute
+      cmd.successful? ? 0 : 1
     rescue OptionParser::ParseError => e
       puts "Error: #{e.message}"
       puts command_class.usage if command_class.respond_to?(:usage)

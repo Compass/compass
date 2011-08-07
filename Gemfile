@@ -1,17 +1,23 @@
 source :rubygems
 
-gem "compass", :path => "."
+gemspec
+
 gem "cucumber", "~> 0.9.2"
 gem "rspec", "~>2.0.0"
 gem "rails", "~>3.0.0.rc"
-gem "compass-validator", "3.0.0"
+gem "compass-validator", "3.0.1"
 gem "css_parser", "~> 1.0.1"
-gem "sass", "3.1.0.alpha.249"
-gem "haml", "~> 3.1.0.alpha"
-gem "rcov"
+gem "sass", "~> 3.1"
+gem "haml", "~> 3.1"
+gem "rcov", :platform => :mri
 gem "rubyzip"
 gem "livereload"
-gem "chunky_png", "~> 0.12.0"
+gem "ruby-prof", :platform => :mri
 
-gem "ruby-prof" unless RUBY_PLATFORM == "java"
+gem 'mocha'
+gem 'timecop'
+gem 'diff-lcs', '~> 1.1.2'
 
+gem 'rake', '0.8.7'
+
+#Warning becarful adding OS dependant gems to this file it will cause issues on the CI server

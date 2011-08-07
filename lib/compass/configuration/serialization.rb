@@ -27,6 +27,7 @@ module Compass
         if @added_import_paths
           self.additional_import_paths ||= []
           self.additional_import_paths += @added_import_paths
+          self.additional_import_paths.uniq!
         end
         issue_deprecation_warnings
       end
@@ -50,6 +51,7 @@ module Compass
             $stderr.puts "WARNING: #{prop} is code and cannot be written to a file. You'll need to copy it yourself."
           end
           if respond_to?("comment_for_#{prop}")
+            contents << "\n"
             contents << send("comment_for_#{prop}")
           end
           if block_given? && (to_emit = yield(prop, value))

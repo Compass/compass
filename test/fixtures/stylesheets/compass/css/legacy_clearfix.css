@@ -15,3 +15,12 @@
     visibility: hidden; }
   .pie-clearfix {
     display: block; }
+
+.simplified-pie-clearfix {
+  display: inline-block; }
+  .simplified-pie-clearfix:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .simplified-pie-clearfix {
+    display: block; }

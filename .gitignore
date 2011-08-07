@@ -25,3 +25,7 @@ doc-src/.bundle
 attic
 devbin
 .rvmrc
+*.rbc
+vendor/ruby
+vendor
+Gemfile.lock

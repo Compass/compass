@@ -57,6 +57,9 @@ Options:
         def long_output_string
           lines = []
           lines << "Compass #{::Compass.version[:string]}"
+          if name = ::Compass.version[:name]
+            lines.last << " (#{name})"
+          end
           lines << "Copyright (c) 2008-#{Time.now.year} Chris Eppstein"
           lines << "Released under the MIT License."
           lines << "Compass is charityware."

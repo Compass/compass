@@ -63,12 +63,22 @@ Feature: Command Line
     And I am told that I can place stylesheets in the sass subdirectory
     And I am told how to compile my sass stylesheets
 
+  Scenario: Compiling a project with errors
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    And the project has a file named "sass/error.scss" containing:
+      """
+        .broken {
+      """
+    When I run: compass compile
+    Then the command exits with a non-zero error code
+
   Scenario: Creating a bare project with a framework
     When I create a project using: compass create bare_project --using blueprint --bare
     Then an error message is printed out: A bare project cannot be created when a framework is specified.
     And the command exits with a non-zero error code
 
   Scenario: Initializing a rails project
+    Given ruby supports fork
     Given I'm in a newly created rails project: my_rails_project
     When I initialize a project using: compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets/compiled
     Then a config file config/compass.rb is reported created
@@ -144,6 +154,7 @@ Feature: Command Line
   Scenario: Basic help
     When I run: compass help
     Then I should see the following "primary" commands:
+      | clean   |
       | compile |
       | create  |
       | init    |
@@ -178,11 +189,33 @@ Feature: Command Line
     And I run: compass compile
     And a css file tmp/layout.css is reported overwritten
 
+  Scenario: Cleaning a project
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass compile
+    And I run: compass clean
+    Then the following files are reported removed:
+      | .sass-cache/                |
+      | tmp/border_radius.css       |
+      | tmp/box.css                 |
+      | tmp/box_shadow.css          |
+      | tmp/columns.css             |
+      | tmp/fonts.css               |
+      | images/flag-s8c3c755a68.png |
+    And the following files are removed:
+      | .sass-cache/                |
+      | tmp/border_radius.css       |
+      | tmp/box.css                 |
+      | tmp/box_shadow.css          |
+      | tmp/columns.css             |
+      | tmp/fonts.css               |
+      | images/flag-s8c3c755a68.png |
+
   Scenario: Watching a project for changes
+    Given ruby supports fork
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
     And I run in a separate process: compass watch 
-    And I wait 1 second
+    And I wait 3 seconds
     And I touch sass/layout.sass
     And I wait 2 seconds
     And I shutdown the other process
@@ -216,7 +249,6 @@ Feature: Command Line
       | sass_dir | sass       |
       | css_dir  | assets/css |
 
-  @now
   Scenario Outline: Print out a configuration value
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass config -p <property>

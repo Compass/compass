@@ -33,7 +33,9 @@ module Compass
       def perform
         compiler = new_compiler_instance
         check_for_sass_files!(compiler)
-        compiler.run
+        compiler.clean! if compiler.new_config?
+        error_count = compiler.run
+        failed! if error_count > 0
       end
 
       def check_for_sass_files!(compiler)
@@ -49,17 +51,26 @@ module Compass
       end
 
       def new_compiler_instance(additional_options = {})
-        compiler_opts = Compass.sass_engine_options
-        compiler_opts.merge!(:force => options[:force],
-                             :sass_files => explicit_sass_files,
-                             :dry_run => options[:dry_run])
-        compiler_opts[:quiet] = options[:quiet] if options[:quiet]
-        compiler_opts[:time] = options[:time] if options[:time]
-        compiler_opts.merge!(additional_options)
-        Compass::Compiler.new(working_path,
+        @compiler_opts ||= begin
+          compiler_opts = {:sass => Compass.sass_engine_options}
+          compiler_opts.merge!(options)
+          compiler_opts[:sass_files] = explicit_sass_files
+          compiler_opts[:cache_location] = determine_cache_location
+          compiler_opts
+        end
+
+        @memory_store ||= Sass::CacheStores::Memory.new
+        @backing_store ||= compiler_opts[:cache_store]
+        @backing_store ||= Sass::CacheStores::Filesystem.new(determine_cache_location)
+        @cache_store ||= Sass::CacheStores::Chain.new(@memory_store, @backing_store)
+        @memory_store.reset!
+
+        Compass::Compiler.new(
+          working_path,
           Compass.configuration.sass_path,
           Compass.configuration.css_path,
-          compiler_opts)
+          @compiler_opts.merge(:cache_store => @cache_store).merge(additional_options)
+        )
       end
 
       def explicit_sass_files
@@ -73,6 +84,9 @@ module Compass
         end
       end
 
+      def determine_cache_location
+        Compass.configuration.cache_path || Sass::Plugin.options[:cache_location] || File.join(working_path, ".sass-cache")
+      end
 
       class << self
         def option_parser(arguments)

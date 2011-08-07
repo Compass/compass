@@ -30,7 +30,7 @@ form.bp textarea {
   border: 1px solid #bbbbbb; }
   form.bp input.text:focus, form.bp input.title:focus, form.bp input[type=email]:focus, form.bp input[type=text]:focus, form.bp input[type=password]:focus,
   form.bp textarea:focus {
-    border: 1px solid #666666; }
+    border-color: #666666; }
 form.bp select {
   background-color: #fff;
   border-width: 1px;

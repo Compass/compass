@@ -1,0 +1,34 @@
+@import "compass/layout/grid-background";
+
+.baseline {
+  @include baseline-grid-background;
+}
+
+.columns {
+  @include column-grid-background;
+}
+
+.combined {
+  @include grid-background;
+}
+
+$grid-background-total-columns: 15;
+$grid-background-offset: 11%;
+$grid-background-column-width: 5%;
+$grid-background-gutter-width: 1%;
+
+.percent-baseline {
+  @include baseline-grid-background;
+}
+
+.percent-columns {
+  @include column-grid-background;
+}
+
+.percent-combined {
+  @include grid-background;
+}
+
+.forced-fluid {
+  @include column-grid-background(12, 2em, 1em, 1em, $grid-background-column-color, $grid-background-gutter-color, true);
+}

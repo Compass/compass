@@ -1,14 +1,22 @@
 module Compass::SassExtensions::Functions::ImageSize
   # Returns the width of the image relative to the images directory
   def image_width(image_file)
-    image_path = real_path(image_file)
+    image_path = if File.exists?(image_file.value)
+      image_file.value
+    else
+      real_path(image_file)
+    end
     width = ImageProperties.new(image_path).size.first
     Sass::Script::Number.new(width,["px"])
   end
 
   # Returns the height of the image relative to the images directory
   def image_height(image_file)
-    image_path = real_path(image_file)
+    image_path = if File.exists?(image_file.value)
+      image_file.value
+    else
+      real_path(image_file)
+    end
     height = ImageProperties.new(image_path).size.last
     Sass::Script::Number.new(height, ["px"])
   end
