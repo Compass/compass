@@ -81,7 +81,7 @@ module Compass
             image.top = image.position.unit_str == '%' ? (@height - image.height) * (image.position.value / 100.0) : image.position.value
             next if index == 0
             last_image = @images[index-1]
-            image.left = last_image.left + last_image.width + [image.offset, last_image.offset].max
+            image.left = last_image.left + last_image.width + [image.spacing, last_image.spacing].max
           end
         end
         

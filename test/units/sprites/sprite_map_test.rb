@@ -86,6 +86,16 @@ class SpriteMapTest < Test::Unit::TestCase
     assert_equal [0, 0, 0, 0], @base.images.map(&:left)
   end
   
+  it "should have a vertical layout with spacing" do
+    base = sprite_map_test(@options.merge({"spacing" => Sass::Script::Number.new(10, ['px'])}))
+    assert_equal [0, 20, 40, 60], base.images.map(&:top)
+  end
+  
+  it "should layout vertical with position" do
+    base = sprite_map_test("ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
+    assert_equal [0, 10, 0, 0], base.images.map(&:left)
+  end
+  
   def smart
     options = @options.merge("layout" => Sass::Script::String.new('smart'))
     importer = Compass::SpriteImporter.new
@@ -122,8 +132,9 @@ class SpriteMapTest < Test::Unit::TestCase
   end
 
   # Horizontal tests
-  def horizontal
+  def horizontal(options= {})
     opts = @options.merge("layout" => Sass::Script::String.new('horizontal'))
+    opts.merge!(options)
     sprite_map_test(opts)
   end
   
@@ -137,6 +148,17 @@ class SpriteMapTest < Test::Unit::TestCase
     base = horizontal
     assert_equal [0, 10, 20, 30], base.images.map(&:left)
     assert_equal [0, 0, 0, 0], base.images.map(&:top)
+  end
+  
+  it "should layout horizontaly with spacing" do
+    base = horizontal("spacing" => Sass::Script::Number.new(10, ['px']))
+    assert_equal [0, 20, 40, 60], base.images.map(&:left)
+    assert_equal [0, 0, 0, 0], base.images.map(&:top)
+  end
+  
+  it "should layout horizontaly with position" do
+    base = horizontal("ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
+    assert_equal [0, 10, 0, 0], base.images.map(&:top)
   end
   
   it "should generate a horrizontal sprite" do
