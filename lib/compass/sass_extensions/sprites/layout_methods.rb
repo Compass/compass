@@ -100,11 +100,11 @@ module Compass
         end
         
         def height_for_horizontal_layout
-          @height = @images.map {|image| image.height + image.spacing}.max
+          @height = @images.map {|image| image.height + image.offset}.max
         end
         
         def width_for_horizontal_layout
-          @images.inject(0) { |sum, image| sum += (image.width + image.offset) }
+          @images.inject(0) { |sum, image| sum += (image.width + image.spacing) }
         end
         
         def width_for_vertical_layout

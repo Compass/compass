@@ -154,6 +154,7 @@ class SpriteMapTest < Test::Unit::TestCase
     base = horizontal("spacing" => Sass::Script::Number.new(10, ['px']))
     assert_equal [0, 20, 40, 60], base.images.map(&:left)
     assert_equal [0, 0, 0, 0], base.images.map(&:top)
+    assert_equal 80, base.width
   end
   
   it "should layout horizontaly with position" do
