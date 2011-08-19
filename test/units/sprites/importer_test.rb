@@ -29,11 +29,11 @@ class ImporterTest < Test::Unit::TestCase
     end
     config = Compass::Configuration::Data.new('config')
     config.images_path = @images_tmp_path
-    config.sprite_search_path = [@images_tmp_path, other_folder]
+    config.sprite_load_path = [@images_tmp_path, other_folder]
     Compass.add_configuration(config, "sprite_config")
     importer = Compass::SpriteImporter.new
-    assert_equal 2, Compass.configuration.sprite_search_path.compact.size
-    assert Compass.configuration.sprite_search_path.include?(other_folder)
+    assert_equal 2, Compass.configuration.sprite_load_path.compact.size
+    assert Compass.configuration.sprite_load_path.include?(other_folder)
     assert_equal ["bar", "my"], Compass::SpriteImporter.sprite_names(uri)
     
     FileUtils.rm_rf other_folder

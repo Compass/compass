@@ -14,6 +14,14 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.0 pending
+-------------------
+* Added support for diagonal, horizontal, and smart sprite layout
+* Fixed a bug with spacing in horizontal layout
+* Changed the descriptions of the sin, cos, and tan to be more descriptive
+* Fixed trig functions via issue #498 
+* Fixed the default `http_path` in rails
+* Sprites can now have a `sprite_seach_path` that is an array of directories that contain source images for sprites handy for using sprites in extensions of gems
 0.11.5 (07/10/2011)
 -------------------
 
