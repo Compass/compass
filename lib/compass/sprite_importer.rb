@@ -7,7 +7,7 @@ module Compass
     # finds all sprite files
     def self.find_all_sprite_map_files(path)
       hex = "[0-9a-f]"
-      glob = "*-{,s}#{hex*10}{#{VALID_EXTENSIONS.join(",")}}"
+      glob = "*-s#{hex*10}{#{VALID_EXTENSIONS.join(",")}}"
       Dir.glob(File.join(path, "**", glob))
     end
     
