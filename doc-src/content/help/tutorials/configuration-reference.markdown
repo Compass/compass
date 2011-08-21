@@ -170,9 +170,31 @@ later on.
   </tr>
   <tr>
     <td style="vertical-align:top;"><code>http_images_path</code> </td>
-    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">String</td>
     <td style="vertical-align:top;">The full http path to images on the web server.
       Defaults to <code>http_path + "/" + images_dir</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>generated_images_dir</code> </td>
+    <td style="vertical-align:top;">String</td>
+    <td style="vertical-align:top;">The directory where generated images are kept.
+      It is relative to the <code>project_path</code>.
+      Defaults to the value of <code>images_dir</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>generated_images_path</code> </td>
+    <td style="vertical-align:top;">String</td>
+    <td style="vertical-align:top;">The full path to where generated images are kept.
+      Defaults to the value of <code>&lt;project_path&gt;/&lt;generated_images_dir&gt;</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_generated_images_path</code> </td>
+    <td style="vertical-align:top;">String</td>
+    <td style="vertical-align:top;">The full http path to generated images on
+      the web server. Defaults to <code>http_path + "/" + generated_images_dir</code>.
     </td>
   </tr>
   <tr>

@@ -2,7 +2,7 @@ module Compass::SassExtensions::Functions::Urls
 
   def stylesheet_url(path, only_path = Sass::Script::Bool.new(false))
     # Compute the path to the stylesheet, either root relative or stylesheet relative
-    # or nil if the http_images_path is not set in the configuration.
+    # or nil if the http_stylesheets_path is not set in the configuration.
     http_stylesheets_path = if relative?
       compute_relative_path(Compass.configuration.css_path)
     elsif Compass.configuration.http_stylesheets_path
@@ -107,6 +107,61 @@ module Compass::SassExtensions::Functions::Urls
   Sass::Script::Functions.declare :image_url, [:path]
   Sass::Script::Functions.declare :image_url, [:path, :only_path]
   Sass::Script::Functions.declare :image_url, [:path, :only_path, :cache_buster]
+
+  def generated_image_url(path, cache_buster = Sass::Script::Bool.new(false))
+    path = path.value # get to the string value of the literal.
+
+    if path =~ %r{^#{Regexp.escape(Compass.configuration.http_generated_images_path)}/(.*)}
+      # Treat root relative urls (without a protocol) like normal if they start with
+      # the generated_images path.
+      path = $1
+    elsif absolute_path?(path)
+      # Short curcuit if they have provided an absolute url.
+      return Sass::Script::String.new("url(#{path})")
+    end
+
+    # Compute the path to the image, either root relative or stylesheet relative
+    # or nil if the http_generated_images_path is not set in the configuration.
+    http_generated_images_path = if relative?
+      compute_relative_path(Compass.configuration.generated_images_path)
+    elsif Compass.configuration.http_generated_images_path
+      Compass.configuration.http_generated_images_path
+    else
+      Compass.configuration.http_root_relative(Compass.configuration.generated_images_dir)
+    end
+
+    # Compute the real path to the image on the file stystem if the generated_images_dir is set.
+    real_path = if Compass.configuration.generated_images_dir
+      File.join(Compass.configuration.project_path, Compass.configuration.generated_images_dir, path)
+    end
+
+    # prepend the path to the image if there's one
+    if http_generated_images_path
+      http_generated_images_path = "#{http_generated_images_path}/" unless http_generated_images_path[-1..-1] == "/"
+      path = "#{http_generated_images_path}#{path}"
+    end
+
+    # Compute the asset host unless in relative mode.
+    asset_host = if !relative? && Compass.configuration.asset_host
+      Compass.configuration.asset_host.call(path)
+    end
+
+    # Compute and append the cache buster if there is one.
+    if cache_buster.to_bool
+      if cache_buster.is_a?(Sass::Script::String)
+        path += "?#{cache_buster.value}"
+      else
+        path = cache_busted_path(path, real_path)
+      end
+    end
+
+    # prepend the asset host if there is one.
+    path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
+
+    clean_url(path)
+  end
+  Sass::Script::Functions.declare :generated_image_url, [:path]
+  Sass::Script::Functions.declare :generated_image_url, [:path, :cache_buster]
 
   private
 

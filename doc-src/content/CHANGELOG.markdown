@@ -14,14 +14,22 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.12.0 pending
+0.12.0 (UNRELEASED)
 -------------------
 * Added support for diagonal, horizontal, and smart sprite layout
 * Fixed a bug with spacing in horizontal layout
 * Changed the descriptions of the sin, cos, and tan to be more descriptive
 * Fixed trig functions via issue #498 
 * Fixed the default `http_path` in rails
-* Sprites can now have a `sprite_seach_path` that is an array of directories that contain source images for sprites handy for using sprites in extensions of gems
+* Sprites can now have a `sprite_seach_path` that is an array of directories that
+  contain source images for sprites handy for using sprites in extensions of gems
+* Added a new set of configuration properties for generated images.
+  `generated_images_dir`, `generated_images_path`, `http_generated_images_dir`,
+  and `http_generated_images_path` can now be set to control where generated
+  images are written and how they are served. Added a corresponding
+  `generated-image-url()` helper function. These should rarely be needed and
+  will default to your corresponding image directories and paths.
+
 0.11.5 (07/10/2011)
 -------------------
 

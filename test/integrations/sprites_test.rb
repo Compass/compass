@@ -11,6 +11,7 @@ class SpritesTest < Test::Unit::TestCase
     Compass.reset_configuration!
     @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images')
     @images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images-tmp')
+    @generated_images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'generated-images-tmp')
     ::FileUtils.cp_r @images_src_path, @images_tmp_path
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
@@ -20,6 +21,7 @@ class SpritesTest < Test::Unit::TestCase
   def teardown
     Compass.reset_configuration!
     ::FileUtils.rm_r @images_tmp_path
+    ::FileUtils.rm_rf @generated_images_tmp_path
   end
 
 
@@ -72,6 +74,35 @@ class SpritesTest < Test::Unit::TestCase
     CSS
     assert_equal image_size('squares-s*.png'), [20, 30]
     assert_equal image_md5('squares-s*.png'), '7349a0f4e88ea80abddcf6ac2486abe3'
+  end
+
+  it "should output and serve sprite files using the generated images directory" do
+    Compass.reset_configuration!
+    file = StringIO.new(<<-CONFIG)
+      images_path = #{@images_tmp_path.inspect}
+      generated_images_path = #{@generated_images_tmp_path.inspect}
+      http_generated_images_path = "/images/generated"
+    CONFIG
+    Compass.add_configuration(file, "sprite_config")
+    Compass.configure_sass_plugin!
+    css = render <<-SCSS
+      @import "squares/*.png";
+      @include all-squares-sprites;
+    SCSS
+    assert_not_nil Dir.glob("#{@generated_images_tmp_path}/squares-s*.png").first
+    assert_correct <<-CSS, css
+      .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
+        background: url('/images/generated/squares-s161c60ad78.png') no-repeat;
+      }
+      
+      .squares-ten-by-ten {
+        background-position: 0 0;
+      }
+      
+      .squares-twenty-by-twenty {
+        background-position: 0 -10px;
+      }
+    CSS
   end
 
   it "should generate sprite classes with dimensions" do

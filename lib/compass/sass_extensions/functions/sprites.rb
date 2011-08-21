@@ -96,9 +96,7 @@ module Compass::SassExtensions::Functions::Sprites
   def sprite_url(map)
     verify_map(map, "sprite-url")
     map.generate
-    image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"),
-              Sass::Script::Bool.new(false),
-              Sass::Script::Bool.new(false))
+    generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
   end
   Sass::Script::Functions.declare :sprite_url, [:map]
 
