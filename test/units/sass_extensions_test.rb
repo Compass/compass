@@ -98,6 +98,20 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "true", evaluate("prefixed(-css2, css2-fallback(css3, css2))")
   end
 
+  %w(stylesheet_url font_url image_url generated_image_url).each do |helper|
+    class_eval %Q{
+      def test_#{helper}_helper_defers_to_existing_helper
+        c = Class.new do
+          def #{helper}(*args)
+            :original
+          end
+        end
+        c.send(:include, Compass::SassExtensions::Functions::Urls)
+        assert_equal :original, c.new.#{helper}("logo.png")
+      end
+    }
+  end
+
 protected
   def evaluate(value)
     Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s
