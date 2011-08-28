@@ -31,6 +31,45 @@ class Rails::Railtie::Configuration
       end
       data.project_type = :rails # Forcing this makes sure all the rails defaults will be loaded.
       Compass.add_project_configuration(data)
+      Compass.configuration.on_sprite_saved do |filename|
+        # This is a huge hack based on reading through the sprockets internals.
+        # Sprockets needs an API for adding assets during precompilation.
+        # At a minimum sprockets should provide this API:
+        #
+        #     #filename is a path in the asset source directory
+        #     Rails.application.assets.new_asset!(filename)
+        #
+        #     # logical_path is how devs refer to it, data is the contents of it.
+        #     Rails.application.assets.new_asset!(logical_path, data)
+        #
+        # I would also like to select one of the above calls based on whether
+        # the user is precompiling or not:
+        #
+        #     Rails.application.assets.precompiling? #=> true or false
+        #
+        # But even the above is not an ideal API. The issue is that compass sprites need to
+        # avoid generation if the sprite file is already generated (which can be quite time
+        # consuming). To do this, compass has it's own uniqueness hash based on the user's
+        # inputs instead of being based on the file contents. So if we could provide our own
+        # hash or some metadata that is opaque to sprockets that could be read from the
+        # asset's attributes, we could avoid cluttering the assets directory with generated
+        # sprites and always just use the logical_path + data version of the api.
+        if Rails.application.config.action_controller.perform_caching
+          asset         = Rails.application.assets.find_asset(filename)
+          pathname      = Pathname.new(filename)
+          logical_path  = filename[(Compass.configuration.generated_images_path.length+1)..-1]
+          # Force the asset into the cache so find_asset will find it.
+          cached_assets = Rails.application.assets.instance_variable_get("@assets")
+          cached_assets[logical_path] = cached_assets[filename] = asset
+          if File.directory?(Rails.application.assets.static_root)
+            # Copy the asset into the static root so the browsers will find it.
+            asset_attributes = Rails.application.assets.attributes_for(logical_path)
+            digest_path      = asset_attributes.path_with_fingerprint(asset.digest)
+            static_path      = Rails.application.assets.static_root.join(digest_path)
+            asset.write_to(static_path)
+          end
+        end
+      end
       data
     end
     @compass
