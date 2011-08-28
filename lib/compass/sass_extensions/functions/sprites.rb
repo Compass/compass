@@ -145,7 +145,7 @@ module Compass::SassExtensions::Functions::Sprites
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y]
 
   def sprite_image(*args)
-    raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://compass-style.org/help/tutorials/spriting/ for more information.)
   end
 
 protected
