@@ -26,7 +26,7 @@ module Compass
       def configuration
         config = Compass::Configuration::Data.new('rails')
         config.extend(ConfigurationDefaults)
-        config.extend(ConfigurationDefaultsWithAssetPipeline) if Sass::Util.ap_geq?('3.1.0.beta')
+        config.extend(ConfigurationDefaultsWithAssetPipeline) if Sass::Util.ap_geq?('3.1.0') || Sass::Util.ap_geq?('3.1.0.rc') || Sass::Util.ap_geq?('3.1.0.beta')
         config
       end
 
