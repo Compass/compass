@@ -30,6 +30,10 @@ module Compass
           "#{top_level.http_path}"
         end
 
+        def default_http_generated_images_path
+          "#{top_level.http_path}"
+        end
+
         def default_http_javascripts_path
           "#{top_level.http_path}"
         end
