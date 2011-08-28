@@ -53,7 +53,7 @@ module Compass
               cleanup_old_sprites
             end
             engine.construct_sprite
-            Compass.configuration.run_callback(:sprite_generated, engine.canvas)
+            Compass.configuration.run_sprite_generated(engine.canvas)
             save!
           end
         end
@@ -89,7 +89,7 @@ module Compass
         def save!
           FileUtils.mkdir_p(File.dirname(filename))
           saved = engine.save(filename)
-          Compass.configuration.run_callback(:sprite_saved, filename)
+          Compass.configuration.run_sprite_saved(filename)
           saved
         end
 

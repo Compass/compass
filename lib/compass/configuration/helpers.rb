@@ -68,10 +68,10 @@ module Compass
         end
         unless @callbacks_loaded
           Sass::Plugin.on_updating_stylesheet do |sass_file, css_file|
-            Compass.configuration.run_callback(:stylesheet_saved, css_file)
+            Compass.configuration.run_stylesheet_saved(css_file)
           end
           Sass::Plugin.on_compilation_error do |e, filename, css|
-            Compass.configuration.run_callback(:stylesheet_error, filename, e.message)
+            Compass.configuration.run_stylesheet_error(filename, e.message)
           end
           @callbacks_loaded = true
         end

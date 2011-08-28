@@ -61,6 +61,19 @@ module Compass
           inherited_writer(*attributes)
         end
 
+        def chained_method(method)
+          line = __LINE__ + 1
+          class_eval %Q{
+            alias_method :_chained_#{method}, method
+            def #{method}(*args, &block)
+              _chained_#{method}(*args, &block)
+              if inherited_data
+                inherited_data.#{method}(*args, &block)
+              end
+            end
+          }, __FILE__, line
+        end
+
         
       end
 
