@@ -33,7 +33,7 @@ module Compass
       chained_method :run_sprite_saved
 
       # on_sprite_generated
-      # yields 'ChunkyPNG::Image'
+      # yields the canvas from the current image engine (default is `ChunkyPNG::Image`)
       # usage: on_sprite_generated {|sprite_data| do_something(sprite_data) }
       define_callback :sprite_generated
       chained_method :run_sprite_generated
