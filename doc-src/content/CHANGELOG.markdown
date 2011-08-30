@@ -23,7 +23,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Fixed trig functions via issue #498 
 * Fixed the default `http_path` in rails
 * Sprites can now have a `sprite_search_path` that is an array of directories that
-  contain source images for sprites handy for using sprites in extensions of gems
+  contain source images for sprites handy for using sprites in extensions or gems
 * Added a new set of configuration properties for generated images.
   `generated_images_dir`, `generated_images_path`, `http_generated_images_dir`,
   and `http_generated_images_path` can now be set to control where generated
