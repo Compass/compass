@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.12.0.alpha.0 (8/30/2011)
+0.12.alpha.0 (8/30/2011)
 --------------------------
 * Support for the rails 3.1 asset pipeline
 * Added support for diagonal, horizontal, and smart sprite layout
