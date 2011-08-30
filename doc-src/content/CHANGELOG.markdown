@@ -22,7 +22,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Changed the descriptions of the sin, cos, and tan to be more descriptive
 * Fixed trig functions via issue #498 
 * Fixed the default `http_path` in rails
-* Sprites can now have a `sprite_seach_path` that is an array of directories that
+* Sprites can now have a `sprite_search_path` that is an array of directories that
   contain source images for sprites handy for using sprites in extensions of gems
 * Added a new set of configuration properties for generated images.
   `generated_images_dir`, `generated_images_path`, `http_generated_images_dir`,
