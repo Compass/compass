@@ -1,71 +1,71 @@
-GIT
-  remote: git://github.com/chriseppstein/nanoc.git
-  revision: 4eee0e60c5121b90498caa88605d416521553378
-  specs:
-    nanoc3 (3.2.0a3)
-      cri (>= 1.0.0)
-
 PATH
   remote: ..
   specs:
-    compass (0.11.1.93b89a2)
-      chunky_png (~> 1.1)
+    compass (0.12.alpha.0.374aed6)
+      chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (3.0.7)
-    builder (2.1.2)
-    chunky_png (1.2.0)
-    coderay (0.9.7)
-    compass-susy-plugin (0.9.beta.3)
-      compass (>= 0.11.beta.3)
-    cri (1.0.1)
+    activesupport (3.0.10)
+    adsf (1.0.1)
+      rack (>= 1.0.0)
+    builder (3.0.0)
+    chunky_png (1.2.1)
+    coderay (0.9.8)
+    compass-susy-plugin (0.9)
+      compass (>= 0.11.1)
+    compass-theme (0.0.1)
+      compass (~> 0.11)
+      compass-susy-plugin (>= 0.7.0.pre8)
+      css-slideshow (= 0.2.0)
+    cri (2.0.2)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
     css_parser (1.0.1)
     fssm (0.2.7)
-    haml (3.1.0)
+    haml (3.1.2)
     i18n (0.4.2)
-    json (1.5.1)
+    json (1.5.4)
     mime-types (1.16)
-    nokogiri (1.4.4)
-    rack (1.2.2)
-    rake (0.8.7)
-    rb-fsevent (0.4.0)
+    nanoc3 (3.2.1)
+      cri (~> 2.0)
+    nokogiri (1.5.0)
+    rack (1.2.3)
+    rake (0.9.2)
+    rb-fsevent (0.4.3.1)
     rdiscount (1.6.8)
-    ruby-prof (0.9.2)
-    sass (3.1.0)
+    ruby-prof (0.10.8)
+    sass (3.1.7)
     serve (1.0.0)
       activesupport (~> 3.0.1)
       i18n (~> 0.4.1)
       rack (~> 1.2.1)
       tzinfo (~> 0.3.23)
     thor (0.14.6)
-    tzinfo (0.3.26)
+    tzinfo (0.3.29)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  adsf
   builder
   coderay
   compass!
-  compass-susy-plugin (>= 0.7.0.pre8)
-  css-slideshow (= 0.2.0)
+  compass-theme (~> 0.0.1)
   css_parser (= 1.0.1)
-  haml (>= 3.1)
+  haml
   json
   mime-types
-  nanoc3!
+  nanoc3
   nokogiri
   rack
   rake
   rb-fsevent
   rdiscount
   ruby-prof
-  sass (>= 3.1)
   serve (= 1.0.0)
   thor
