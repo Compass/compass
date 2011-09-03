@@ -57,8 +57,8 @@ module Compass
         
         
         def calculate_diagonal_dimensions
-          @width = @images.map {|image| image.width}.inject(0) {|width, sum| sum + width}
-          @height = @images.map {|image| image.height}.inject(0) {|height, sum| sum + height}
+          @width = @images.inject(0) {|sum, img| sum + img.width}
+          @height = @images.inject(0) {|sum, img| sum + img.height}
         end
         
         def calculate_diagonal_positions
@@ -66,11 +66,11 @@ module Compass
           @images.each_with_index do |image, index|
             if previous.nil?
               previous = image
-              image.top = 0
+              image.top = @height - image.height
               image.left = 0
               next
             end
-            image.top = previous.top + previous.height
+            image.top = previous.top - image.height
             image.left = previous.left + previous.width
             previous = image
           end
