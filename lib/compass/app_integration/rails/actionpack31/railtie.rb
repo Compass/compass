@@ -61,13 +61,11 @@ class Rails::Railtie::Configuration
           # Force the asset into the cache so find_asset will find it.
           cached_assets = Rails.application.assets.instance_variable_get("@assets")
           cached_assets[logical_path] = cached_assets[filename] = asset
-          if File.directory?(Rails.application.assets.static_root)
-            # Copy the asset into the static root so the browsers will find it.
-            asset_attributes = Rails.application.assets.attributes_for(logical_path)
-            digest_path      = asset_attributes.path_with_fingerprint(asset.digest)
-            static_path      = Rails.application.assets.static_root.join(digest_path)
-            asset.write_to(static_path)
-          end
+
+          target = Pathname.new(File.join(Rails.public_path, Rails.application.config.assets.prefix))
+          asset = Rails.application.assets.find_asset(logical_path)
+          filename = target.join(asset.digest_path)
+          asset.write_to(filename)
         end
       end
       data
