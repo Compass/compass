@@ -7,21 +7,25 @@ module Compass
         SMART = 'smart'
         
         def smart?
-          @kwargs.get_var('layout').value == SMART
+          layout == SMART
         end
         
         def horizontal?
-          @kwargs.get_var('layout').value == HORIZONTAL
+          layout == HORIZONTAL
         end
         
         def diagonal?
-          @kwargs.get_var('layout').value == DIAGONAL
+          layout == DIAGONAL
+        end
+        
+        def layout
+          @layout ||= @kwargs.get_var('layout').value
         end
         
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
         def compute_image_positions!
-          case @kwargs.get_var('layout').value
+          case layout
           when SMART
             calculate_smart_positions
           when DIAGONAL
