@@ -5,7 +5,18 @@ crumb: Sprite layouts
 classnames:
   - tutorial
 ---
-# Sprite layouts
+# Sprite Tutorial
+<%= sprite_tutorial_links %>
+
+## Sprite Layouts
+
+Example:
+
+    $icon-layout:horizontal;
+    @import "icon/*.png";
+    
+    $dropcap-layout:diagonal
+    @import "dropcap/*.png";
 
 ## Vertical
 
