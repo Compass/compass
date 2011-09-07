@@ -64,10 +64,10 @@ Alternatively you can use the `@include all-selectors-sprites;` after the import
     }
     
 ## Disabling
-  To disable this feature set `$disable-magic-sprite-selectors` to false before calling the sprite mixin
+  To disable this feature set `$disable-magic-sprite-selectors` to true before calling the sprite mixin
   
     a {
-      $disable-magic-sprite-selectors:false;
+      $disable-magic-sprite-selectors:true;
       @include selectors-sprite(ten-by-ten)
     }
   
