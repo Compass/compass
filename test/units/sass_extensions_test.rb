@@ -98,6 +98,14 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "true", evaluate("prefixed(-css2, css2-fallback(css3, css2))")
   end
 
+  def test_font_files
+    assert_equal '', evaluate('font_files()')
+    assert_equal "url(/font/name.woff) format('woff'), url(/fonts/name.ttf) format('truetype'), url(/fonts/name.svg#fontpath) format('svg')", evaluate("font-files('/font/name.woff', woff, '/fonts/name.ttf', truetype, '/fonts/name.svg#fontpath', svg)")
+    assert_raises Sass::SyntaxError do
+      evaluate("font-files('/font/name.woff')")
+    end
+  end
+
   %w(stylesheet_url font_url image_url generated_image_url).each do |helper|
     class_eval %Q{
       def test_#{helper}_helper_defers_to_existing_helper
