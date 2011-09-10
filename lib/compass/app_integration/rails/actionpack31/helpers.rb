@@ -9,7 +9,7 @@ module Compass::RailsImageFuctionPatch
   private
   
   def image_path(image_file)
-    if file = Rails.application.assets.find_asset(image_file)
+    if file = ::Rails.application.assets.find_asset(image_file)
       return file
     end
     super(image_file)
