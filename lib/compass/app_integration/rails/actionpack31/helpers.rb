@@ -5,7 +5,7 @@ module Sass::Script::Functions
 end
 
 
-module Compass::RailsImageFuctionPatch
+module Compass::RailsImageFunctionPatch
   private
   
   def image_path(image_file)
@@ -17,7 +17,7 @@ module Compass::RailsImageFuctionPatch
 end
 
 module Sass::Script::Functions
-  include Compass::RailsImageFuctionPatch
+  include Compass::RailsImageFunctionPatch
 end
 
 # Wierd that this has to be re-included to pick up sub-modules. Ruby bug?
