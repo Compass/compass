@@ -45,8 +45,7 @@ module Compass::SassExtensions::Functions::ImageSize
 private
 
   def image_demensions(image_file)
-    @image_demensions ||= {}
-    @image_demensions[image_file.value] ||= ImageProperties.new(image_path(image_file.value)).size
+    ImageProperties.new(image_path(image_file.value)).size
   end
   
   def image_path(image_file)
