@@ -88,8 +88,19 @@ $default-skew-x      : 5deg                  !default;
 // The default y-angle for skewing
 $default-skew-y      : 5deg                  !default;
 
+// The default 2D supporting browsers list
+$default-support2d-moz: true;
+$default-support2d-webkit: true;
+$default-support2d-o: true;
+$default-support2d-ms: true;
+$default-support2d-khtml: false;
+
 // The default 3D supporting browsers list
-$default-supporting3d-browsers: -moz, -webkit, -o, -ms, not -khtml, official;
+$default-support3d-moz: false;
+$default-support3d-webkit: true;
+$default-support3d-o: false;
+$default-support3d-ms: false;
+$default-support3d-khtml: false;
 
 
 // **Transform-origin**
@@ -107,11 +118,11 @@ $default-supporting3d-browsers: -moz, -webkit, -o, -ms, not -khtml, official;
   $only3d: $only3d or -compass-list-size(-compass-list($origin)) > 2;
   @if $only3d {
     @include experimental(transform-origin, $origin,
-      $default-supporting3d-browsers
+      $default-support3d-moz, $default-support3d-webkit, $default-support3d-o, $default-support3d-ms, $default-support3d-khtml, official
     );
   } @else {
     @include experimental(transform-origin, $origin,
-      -moz, -webkit, -o, -ms, not -khtml, official
+      $default-support2d-moz, $default-support2d-webkit, $default-support2d-o, $default-support2d-ms, $default-support2d-khtml, official
     );
   }
 }
@@ -150,11 +161,11 @@ $default-supporting3d-browsers: -moz, -webkit, -o, -ms, not -khtml, official;
 ) {
   @if $only3d {
     @include experimental(transform, $transform,
-      $default-supporting3d-browsers
+      $default-support3d-moz, $default-support3d-webkit, $default-support3d-o, $default-support3d-ms, $default-support3d-khtml, official
     );
   } @else {
     @include experimental(transform, $transform,
-      -moz, -webkit, -o, -ms, not -khtml, official
+      $default-support2d-moz, $default-support2d-webkit, $default-support2d-o, $default-support2d-ms, $default-support2d-khtml, official
     );
   }
 }
@@ -182,7 +193,7 @@ $default-supporting3d-browsers: -moz, -webkit, -o, -ms, not -khtml, official;
 // values from 500 to 1000 are more-or-less "normal" - a good starting-point.
 @mixin perspective($p) {
   @include experimental(perspective, $p,
-    $default-supporting3d-browsers
+    $default-support3d-moz, $default-support3d-webkit, $default-support3d-o, $default-support3d-ms, $default-support3d-khtml, official
   );
 }
 
@@ -193,7 +204,7 @@ $default-supporting3d-browsers: -moz, -webkit, -o, -ms, not -khtml, official;
 // where the two arguments represent x/y coordinates
 @mixin perspective-origin($origin: 50%) {
   @include experimental(perspective-origin, $origin,
-    $default-supporting3d-browsers
+    $default-support3d-moz, $default-support3d-webkit, $default-support3d-o, $default-support3d-ms, $default-support3d-khtml, official
   );
 }
 
@@ -205,7 +216,7 @@ $default-supporting3d-browsers: -moz, -webkit, -o, -ms, not -khtml, official;
 // browsers default to `flat`, mixin defaults to `preserve-3d`
 @mixin transform-style($style: preserve-3d) {
   @include experimental(transform-style, $style,
-    $default-supporting3d-browsers
+    $default-support3d-moz, $default-support3d-webkit, $default-support3d-o, $default-support3d-ms, $default-support3d-khtml, official
   );
 }
 
@@ -217,7 +228,7 @@ $default-supporting3d-browsers: -moz, -webkit, -o, -ms, not -khtml, official;
 // browsers default to visible, mixin defaults to hidden
 @mixin backface-visibility($visibility: hidden) {
   @include experimental(backface-visibility, $visibility,
-    $default-supporting3d-browsers
+    $default-support3d-moz, $default-support3d-webkit, $default-support3d-o, $default-support3d-ms, $default-support3d-khtml, official
   );
 }
 
