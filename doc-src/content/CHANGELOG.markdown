@@ -31,6 +31,12 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   `generated-image-url()` helper function. These should rarely be needed and
   will default to your corresponding image directories and paths.
 
+0.11.6 (UNRELEASED)
+-------------------
+
+* Added `user-select` mixin to control the selection model and granularity of an element.
+  It accepts one argument (`$select`) from the following options: `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+
 0.11.5 (07/10/2011)
 -------------------
 

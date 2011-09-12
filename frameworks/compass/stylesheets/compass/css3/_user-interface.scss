@@ -1,0 +1,24 @@
+@import "shared";
+
+// User Interface ------------------------------------------------------------
+// This file can be expanded to handle all the user interface properties as
+// they become available in browsers:
+// http://www.w3.org/TR/2000/WD-css3-userint-20000216
+
+// User Select ---------------------------------------------------------------
+// This property controls the selection model and granularity of an element.
+//
+// @param $select
+//   [ none | text | toggle | element | elements | all | inherit ]
+
+@mixin user-select($select) {
+  $select: unquote($select);
+  // Mozilla needs prefix on both the -moz-property and the -moz-value
+  @include experimental(user-select, -moz-#{$select},
+    -moz, not -webkit, not -o, not -ms, not -khtml, not official
+  );
+  // others do not
+  @include experimental(user-select, $select,
+    not -moz, -webkit, not -o, not -ms, -khtml, official
+  );
+}
