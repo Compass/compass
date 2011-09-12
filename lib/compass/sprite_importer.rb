@@ -12,29 +12,14 @@ module Compass
       Dir.glob(File.join(path, "**", glob))
     end
 
-    def self.load(uri, options)
-      klass = Compass::SpriteImporter.new
-      klass.uri, klass.options = uri, options
-      klass
-    end
-    
-    def initialize(options ={})
-      @uri, @options = '', {}
-      options.each do |key, value|
-        send("#{key}=", value)
-      end
-    end
-    
     def find(uri, options)
-      @uri, @options = uri, options
       if uri =~ SPRITE_IMPORTER_REGEX
-        return sass_engine
+        return sass_engine(uri, options)
       end
     end
     
     def find_relative(uri, base, options)
-      @uri, @options = uri, options
-      find(File.join(base, uri), options)
+      nil
     end
     
     def to_s
@@ -50,45 +35,31 @@ module Compass
     end
     
     def mtime(uri, options)
-      @uri, @options = uri, options
-      files.sort.inject(Time.at(0)) do |max_time, file|
+      files(uri).sort.inject(Time.at(0)) do |max_time, file|
         (t = File.mtime(file)) > max_time ? t : max_time
       end
     end
     
-    def key(uri, options={})
-      @uri, @options = uri, options
+    def key(uri, options)
       [self.class.name + ":" + File.dirname(File.expand_path(uri)), File.basename(uri)]
     end
-    
-    def self.path_and_name(uri)
+
+    def path_and_name(uri)
       if uri =~ SPRITE_IMPORTER_REGEX
         [$1, $3]
       else
         raise Compass::Error "invalid sprite path"
       end
     end
-
-    # Name of this spite
-    def name
-      ensure_path_and_name!
-      @name
-    end
-
-    # The on-disk location of this sprite
-    def path
-      ensure_path_and_name!
-      @path
-    end
     
     # Returns the Glob of image files for this sprite
-    def files
+    def files(uri)
       Dir[File.join(Compass.configuration.images_path, uri)].sort
     end
 
     # Returns an Array of image names without the file extension
-    def sprite_names
-      files.collect do |file|
+    def sprite_names(uri)
+      files(uri).collect do |file|
         filename = File.basename(file, '.png')
         unless VAILD_FILE_NAME =~ filename
           raise Compass::Error, "Sprite file names must be legal css identifiers. Please rename #{File.basename(file)}"
@@ -97,31 +68,24 @@ module Compass
       end
     end
     
-    def validate_sprites!
-      files.each do |file|
+    def validate_sprites!(uri)
+      files(uri).each do |file|
         unless VALID_EXTENSIONS.include? File.extname(file)
           raise Compass::Error, "Invalid sprite extension only: #{VALID_EXTENSIONS.join(',')} images are allowed"
         end
       end
     end
     
-    # Returns the sass options for this sprite
-    def sass_options
-      options.merge(:filename => name, :syntax => :scss, :importer => self)
-    end
-    
     # Returns a Sass::Engine for this sprite object
-    def sass_engine
-      validate_sprites!
-      Sass::Engine.new(content_for_images, sass_options)
+    def sass_engine(uri, options)
+      validate_sprites!(uri)
+      Sass::Engine.new(content_for_images(uri), options.merge(:filename => uri, :syntax => :scss, :importer => self))
     end
-    
-    def ensure_path_and_name!
-      @path, @name = self.class.path_and_name(uri)
-    end 
 
     # Generates the Sass for this sprite file
-    def content_for_images(skip_overrides = false)
+    def content_for_images(uri, skip_overrides = false)
+      path, name = path_and_name(uri)
+
       <<-SCSS
 @import "compass/utilities/sprites/base";
 
@@ -135,7 +99,7 @@ $#{name}-repeat: no-repeat !default;
 $#{name}-prefix: '' !default;
 $#{name}-clean-up: true !default;
 
-#{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\", $cleanup: $#{name}-clean-up);" : generate_overrides }
+#{skip_overrides ? "$#{name}-sprites: sprite-map(\"#{uri}\", $cleanup: $#{name}-clean-up);" : generate_overrides(uri, name) }
 
 // All sprites should extend this class
 // The #{name}-sprite mixin will do so for you.
@@ -167,7 +131,7 @@ $#{name}-clean-up: true !default;
 
 // Generates a class for each sprited image.
 @mixin all-#{name}-sprites($dimensions: $#{name}-sprite-dimensions, $prefix: sprite-map-name($#{name}-sprites)) {
-  @include #{name}-sprites(#{sprite_names.join(" ")}, $dimensions, $prefix);
+  @include #{name}-sprites(#{sprite_names(uri).join(" ")}, $dimensions, $prefix);
 }
 SCSS
     end
@@ -176,12 +140,12 @@ SCSS
     # <tt>$#{name}-#{sprite_name}-position </tt>
     # <tt> $#{name}-#{sprite_name}-spacing </tt>
     # <tt> #{name}-#{sprite_name}-repeat: </tt>
-    def generate_overrides
+    def generate_overrides(uri, name)
       content = <<-TXT
 // These variables control the generated sprite output
 // You can override them selectively before you import this file.
       TXT
-      sprite_names.map do |sprite_name| 
+      sprite_names(uri).map do |sprite_name| 
         content += <<-SCSS
 $#{name}-#{sprite_name}-position: $#{name}-position !default;
 $#{name}-#{sprite_name}-spacing: $#{name}-spacing !default;
@@ -190,7 +154,7 @@ $#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
       end.join
 
       content += "\n$#{name}-sprites: sprite-map(\"#{uri}\", \n$cleanup: $#{name}-clean-up,\n"
-      content += sprite_names.map do |sprite_name| 
+      content += sprite_names(uri).map do |sprite_name| 
 %Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
   $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
   $#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}

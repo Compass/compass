@@ -7,7 +7,7 @@ class ImporterTest < Test::Unit::TestCase
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
-    @importer = Compass::SpriteImporter.new(:uri => URI, :options => options)
+    @importer = Compass::SpriteImporter.new
   end
 
   def teardown
@@ -18,20 +18,12 @@ class ImporterTest < Test::Unit::TestCase
     {:foo => 'bar'}
   end
   
-  test "load should return an instance of SpriteImporter" do
-    assert Compass::SpriteImporter.load(URI, options).is_a?(Compass::SpriteImporter)
-  end
-  
-  test "name should return the sprite name" do
-    assert_equal 'selectors', @importer.name
-  end
-  
-  test "path should return the sprite path" do
-    assert_equal 'selectors', @importer.path
+  test "name should return the sprite path and name" do
+    assert_equal ['selectors', 'selectors'], @importer.path_and_name(URI)
   end
   
   test "should return all the sprite names" do
-    assert_equal ["ten-by-ten", "ten-by-ten_active", "ten-by-ten_hover", "ten-by-ten_target"], @importer.sprite_names
+    assert_equal ["ten-by-ten", "ten-by-ten_active", "ten-by-ten_hover", "ten-by-ten_target"], @importer.sprite_names(URI)
   end
   
   test "should have correct mtime" do
@@ -46,17 +38,13 @@ class ImporterTest < Test::Unit::TestCase
     assert @importer.find(URI, {}).is_a?(Sass::Engine)
   end
   
-  test "sass options should contain options" do
-    assert_equal 'bar', @importer.sass_options[:foo]
-  end
-  
   test "should fail given bad sprite extensions" do
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
-    importer = Compass::SpriteImporter.new(:uri => 'bad_extensions/*.jpg', :options => options)
+    importer = Compass::SpriteImporter.new
     begin
-      importer.sass_engine
+      importer.sass_engine('bad_extensions/*.jpg', options)
       assert false, "An invalid sprite file made it past validation."
     rescue Compass::Error => e
       assert e.message.include?('.png')
