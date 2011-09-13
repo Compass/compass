@@ -19,7 +19,7 @@ module Compass
     end
     
     def find_relative(uri, base, options)
-      find(File.join(base, uri), options)
+      nil
     end
     
     def to_s
@@ -85,13 +85,13 @@ module Compass
     end
     
     # Returns the sass_options for this sprite
-    def self.sass_options(name, importer, options)
-      options.merge!(:filename => name, :syntax => :scss, :importer => importer)
+    def self.sass_options(uri, importer, options)
+      options.merge!(:filename => uri, :syntax => :scss, :importer => importer)
     end
     
     # Returns a Sass::Engine for this sprite object
     def self.sass_engine(uri, name, importer, options)
-      Sass::Engine.new(content_for_images(uri, name, options[:skip_overrides]), sass_options(name, importer, options))
+      Sass::Engine.new(content_for_images(uri, name, options[:skip_overrides]), sass_options(uri, importer, options))
     end
 
     # Generates the Sass for this sprite file
