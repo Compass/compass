@@ -192,5 +192,11 @@ class SpriteMapTest < Test::Unit::TestCase
     FileUtils.rm_rf other_folder
   end
   
+  test "should create map for nested" do
+    base = Compass::SassExtensions::Sprites::SpriteMap.from_uri OpenStruct.new(:value => 'nested/squares/*.png'), @base.instance_variable_get(:@evaluation_context), @options
+    assert_equal 'squares', base.name
+    assert_equal 'nested/squares', base.path
+  end
+  
   
 end
