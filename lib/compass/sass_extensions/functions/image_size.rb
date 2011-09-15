@@ -47,11 +47,13 @@ private
   def image_demensions(image_file)
     options[:compass] ||= {}
     options[:compass][:image_dimensions] ||= {}
-    options[:compass][:image_dimensions][image_file.value] = ImageProperties.new(image_path(image_file.value)).size
+    options[:compass][:image_dimensions][image_file.value] = ImageProperties.new(image_path_for_size(image_file.value)).size
   end
   
-  def image_path(image_file)
-    return image_file if File.exists?(image_file)
+  def image_path_for_size(image_file)
+    if File.exists?(image_file)
+      return image_file 
+    end
     real_path(image_file)
   end
 
