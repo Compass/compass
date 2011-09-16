@@ -137,6 +137,12 @@ class SassExtensionsTest < Test::Unit::TestCase
     }
   end
 
+  def test_inline_font_files
+    Compass.configuration.fonts_path = File.expand_path "../fixtures/fonts", File.dirname(__FILE__)
+    base64_string = File.read(File.join(Compass.configuration.fonts_path, "bgrove.base64.txt")).chomp
+    assert_equal "url('data:font/truetype;base64,#{base64_string}') format('truetype')", evaluate("inline_font_files('bgrove.ttf', truetype)")
+  end
+
 protected
   def evaluate(value)
     Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s
