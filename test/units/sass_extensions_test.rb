@@ -98,6 +98,31 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "true", evaluate("prefixed(-css2, css2-fallback(css3, css2))")
   end
 
+  def test_font_files
+    assert_equal '', evaluate('font_files()')
+    assert_equal "url(/font/name.woff) format('woff'), url(/fonts/name.ttf) format('truetype'), url(/fonts/name.svg#fontpath) format('svg')", evaluate("font-files('/font/name.woff', woff, '/fonts/name.ttf', truetype, '/fonts/name.svg#fontpath', svg)")
+
+    assert_equal "url(/font/with/right_ext.woff) format('woff')", evaluate("font_files('/font/with/right_ext.woff')")
+    assert_equal "url(/font/with/wrong_ext.woff) format('svg')", evaluate("font_files('/font/with/wrong_ext.woff', 'svg')")
+    assert_equal "url(/font/with/no_ext) format('opentype')", evaluate("font_files('/font/with/no_ext', 'otf')")
+    assert_equal "url(/font/with/weird.ext) format('truetype')", evaluate("font_files('/font/with/weird.ext', 'ttf')")
+
+    assert_equal "url(/font/with/right_ext.woff) format('woff'), url(/font/with/right_ext_also.otf) format('opentype')", evaluate("font_files('/font/with/right_ext.woff', '/font/with/right_ext_also.otf')")
+    assert_equal "url(/font/with/wrong_ext.woff) format('truetype'), url(/font/with/right_ext.otf) format('opentype')", evaluate("font_files('/font/with/wrong_ext.woff', 'ttf', '/font/with/right_ext.otf')")
+
+    assert_nothing_raised Sass::SyntaxError do
+      evaluate("font-files('/font/name.woff')")
+    end
+
+    assert_raises Sass::SyntaxError do
+      evaluate("font-files('/font/name.ext')")
+    end
+
+    assert_raises Sass::SyntaxError do
+      evaluate("font-files('/font/name.ext', 'nonsense')")
+    end
+  end
+
   %w(stylesheet_url font_url image_url generated_image_url).each do |helper|
     class_eval %Q{
       def test_#{helper}_helper_defers_to_existing_helper
