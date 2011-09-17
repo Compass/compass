@@ -2,7 +2,7 @@
 @mixin no-bullet {
   list-style-image : none;
   list-style-type  : none;
-  margin-left      : 0px;
+  margin-left      : 0;
 }
 
 // turns off the bullets for an entire list
