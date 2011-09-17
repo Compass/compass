@@ -14,8 +14,16 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.alpha.1 (UNRELEASED)
+-------------------------
+
+* font-files helper: Stop requiring font type when the type can be guessed from URL
+* inline-font-files: actually works now
+* Upgrade CSS3 Pie to 1.0beta5
+
+
 0.12.alpha.0 (8/30/2011)
---------------------------
+------------------------
 * Support for the rails 3.1 asset pipeline
 * Added support for diagonal, horizontal, and smart sprite layout
 * Fixed a bug with spacing in horizontal layout

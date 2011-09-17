@@ -149,7 +149,8 @@ $base-half-leader: $base-leader / 2;
   @include trailer($trailer, $font-size);
 }
 
-// Apply a border width to any side without destroying the vertical rhythm
+// Apply a border width to any side without destroying the vertical rhythm.
+// The available space ($lines) must be greater than the width of your border.
 @mixin apply-side-rhythm-border($side, $width: 1px, $lines: 1, $font-size: $base-font-size, $border-style: $default-rhythm-border-style) {
   @if not $relative-font-sizing and $font-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to apply-side-rhythm-border";
