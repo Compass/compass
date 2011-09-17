@@ -92,7 +92,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   it "should layout vertical with position" do
-    base = sprite_map_test("ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
+    base = sprite_map_test("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
     assert_equal [0, 10, 0, 0], base.images.map(&:left)
   end
   
@@ -158,7 +158,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   it "should layout horizontaly with position" do
-    base = horizontal("ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
+    base = horizontal("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
     assert_equal [0, 10, 0, 0], base.images.map(&:top)
   end
   
@@ -198,5 +198,10 @@ class SpriteMapTest < Test::Unit::TestCase
     assert_equal 'nested/squares', base.path
   end
   
+  test "should have correct position on ten-by-ten" do
+    percent = Sass::Script::Number.new(50, ['%'])
+    base = sprite_map_test(@options.merge('selectors_ten_by_ten_position' => percent))
+    assert_equal percent, base.image_for('ten-by-ten').position
+  end
   
 end

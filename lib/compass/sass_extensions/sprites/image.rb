@@ -49,27 +49,27 @@ module Compass
         end
 
         def get_var_file(var)
-          options.get_var "#{name}_#{var}"
+          options.get_var "#{base.name}_#{name}_#{var}"
         end
 
         # Value of <tt> $#{name}-repeat </tt> or <tt> $repeat </tt>
         def repeat
-          (get_var_file("repeat") || options.get_var("repeat") || Sass::Script::String.new("no-repeat")).value
+         @repeat ||= (get_var_file("repeat") || options.get_var("repeat") || Sass::Script::String.new("no-repeat")).value
         end
 
         # Value of <tt> $#{name}-position </tt> or <tt> $position </tt> defaults to <tt>0px</tt>
         def position
-          get_var_file("position") || options.get_var("position") || Sass::Script::Number.new(0, ["px"])
+          @position||= get_var_file("position") || options.get_var("position") || Sass::Script::Number.new(0, ["px"])
         end
         
         # Offset within the sprite
         def offset
-          (position.unitless? || position.unit_str == "px") ? position.value : 0
+          @offset ||= (position.unitless? || position.unit_str == "px") ? position.value : 0
         end
                
         # Spacing between this image and the next
         def spacing
-          (get_var_file("spacing") || options.get_var("spacing") || Sass::Script::Number.new(0, ['px'])).value
+          @spacing ||= (get_var_file("spacing") || options.get_var("spacing") || Sass::Script::Number.new(0, ['px'])).value
         end
 
         # MD5 hash of this file

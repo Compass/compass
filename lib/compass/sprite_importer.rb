@@ -167,9 +167,9 @@ $#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
 
       content += "\n$#{name}-sprites: sprite-map(\"#{uri}\", \n$layout: $#{name}-layout, \n$cleanup: $#{name}-clean-up,\n"
       content += sprites.map do |sprite_name| 
-%Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
-  $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
-  $#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}
+%Q{  $#{name}-#{sprite_name}-position: $#{name}-#{sprite_name}-position,
+  $#{name}-#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
+  $#{name}-#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}
       end.join(",\n")
       content += ");"
     end

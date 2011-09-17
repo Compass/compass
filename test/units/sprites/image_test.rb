@@ -52,7 +52,7 @@ class SpritesImageTest < Test::Unit::TestCase
   end
   
   test 'image type is "global"' do
-    image = test_image "ten_by_ten_repeat" => Sass::Script::String.new('global')
+    image = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('global')
     assert_equal 'global', image.repeat
   end
   
@@ -61,7 +61,7 @@ class SpritesImageTest < Test::Unit::TestCase
   end
 
   test 'image position' do
-    image = test_image "ten_by_ten_position" => Sass::Script::Number.new(100, ["px"])
+    image = test_image "selectors_ten_by_ten_position" => Sass::Script::Number.new(100, ["px"])
     assert_equal 100, image.position.value
   end
 
@@ -72,7 +72,7 @@ class SpritesImageTest < Test::Unit::TestCase
   end
   
   test 'offset' do
-    image = test_image "ten_by_ten_position" => Sass::Script::Number.new(100, ["px"])
+    image = test_image "selectors_ten_by_ten_position" => Sass::Script::Number.new(100, ["px"])
     assert_equal 100, image.offset
   end
 
