@@ -10,7 +10,13 @@ module Compass
         def_delegators :rows, :[]
 
         def initialize(images)
-          @images = images.sort {|a,b| a.height <=> b.height }
+          @images = images.sort do |a,b|
+            if a.height == b.height
+              b.width <=> a.width
+            else
+              a.height <=> b.height
+            end
+          end
           @rows = []
         end
 
