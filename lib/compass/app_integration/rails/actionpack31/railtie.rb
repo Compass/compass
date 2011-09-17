@@ -54,7 +54,7 @@ class Rails::Railtie::Configuration
         # hash or some metadata that is opaque to sprockets that could be read from the
         # asset's attributes, we could avoid cluttering the assets directory with generated
         # sprites and always just use the logical_path + data version of the api.
-        if Rails.application.config.action_controller.perform_caching
+        if Rails.application.config.assets.digests.try(:any?)
           asset         = Rails.application.assets.find_asset(filename)
           pathname      = Pathname.new(filename)
           logical_path  = filename[(Compass.configuration.generated_images_path.length+1)..-1]
