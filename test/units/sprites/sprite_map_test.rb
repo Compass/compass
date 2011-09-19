@@ -113,7 +113,7 @@ class SpriteMapTest < Test::Unit::TestCase
     base.generate
     assert_equal 400, base.width
     assert_equal 60, base.height
-    assert_equal [[0, 0], [20, 120], [20, 20], [20, 0], [20, 160]], base.images.map {|i| [i.top, i.left]}
+    assert_equal [[0, 0], [20, 120], [20, 0], [20, 100], [20, 160]], base.images.map {|i| [i.top, i.left]}
     assert File.exists?(base.filename)
     FileUtils.rm base.filename
   end
