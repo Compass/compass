@@ -2,15 +2,15 @@
 //
 // Easy mode using simple descendant li selectors:
 //
-//   ul.nav
-//     +inline-block-list
-//
+//   ul.nav {
+//     @import inline-block-list;
+//  }
 // Advanced mode:
 // If you need to target the list items using a different selector then use
 // +inline-block-list-container on your ul/ol and +inline-block-list-item on your li.
 // This may help when working on layouts involving nested lists. For example:
 //
-//   ul.nav
+//   ul.nav 
 //     +inline-block-list-container
 //     > li
 //       +inline-block-list-item
