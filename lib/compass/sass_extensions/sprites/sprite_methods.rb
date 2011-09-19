@@ -5,7 +5,7 @@ module Compass
         
         # Changing this string will invalidate all previously generated sprite images.
         # We should do so only when the packing algorithm changes
-        SPRITE_VERSION = "1"
+        SPRITE_VERSION = "2"
         
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
