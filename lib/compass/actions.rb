@@ -107,6 +107,5 @@ module Compass
         logger.record(action, file, options[:extra].to_s)
       end
     end
-
   end
 end

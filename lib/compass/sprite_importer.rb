@@ -91,7 +91,8 @@ module Compass
     
     # Returns a Sass::Engine for this sprite object
     def self.sass_engine(uri, name, importer, options)
-      Sass::Engine.new(content_for_images(uri, name, options[:skip_overrides]), sass_options(uri, importer, options))
+      content = content_for_images(uri, name, options[:skip_overrides])
+      Sass::Engine.new(content, sass_options(uri, importer, options))
     end
 
     # Generates the Sass for this sprite file
