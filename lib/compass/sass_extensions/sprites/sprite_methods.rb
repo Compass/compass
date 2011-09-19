@@ -82,6 +82,7 @@ module Compass
             sum = Digest::MD5.new
             sum << SPRITE_VERSION
             sum << path
+            sum << layout
             images.each do |image|
               [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|
                 sum << image.send(attr).to_s
