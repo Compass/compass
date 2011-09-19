@@ -49,6 +49,8 @@ class SpritesTest < Test::Unit::TestCase
     options[:line_comments] = false
     options[:style] = :expanded
     options[:syntax] = :scss
+    options[:compass] ||= {}
+    options[:compass][:logger] ||= Compass::NullLogger.new
     css = Sass::Engine.new(scss, options).render
     # reformat to fit result of heredoc:
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
