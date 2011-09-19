@@ -49,7 +49,9 @@ module SpriteHelper
     path, name = Compass::SpriteImporter.path_and_name(uri)
     sprite_names = Compass::SpriteImporter.sprite_names(uri)
     sass_engine = Compass::SpriteImporter.sass_engine(uri, name, importer, options)
-    Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map{|n| "selectors/#{n}.png"}, path, name, sass_engine, options)
+    map = Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map{|n| "selectors/#{n}.png"}, path, name, sass_engine, options)
+    map.options = {:compass => {:logger => Compass::NullLogger.new}}
+    map
   end
   
   def create_sprite_temp

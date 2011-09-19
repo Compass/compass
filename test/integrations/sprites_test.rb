@@ -63,7 +63,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s161c60ad78.png') no-repeat;
+        background: url('/squares-sbbc18e2129.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -94,7 +94,7 @@ class SpritesTest < Test::Unit::TestCase
     assert_not_nil Dir.glob("#{@generated_images_tmp_path}/squares-s*.png").first
     assert_correct <<-CSS, css
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/images/generated/squares-s161c60ad78.png') no-repeat;
+        background: url('/images/generated/squares-sbbc18e2129.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -115,7 +115,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s161c60ad78.png') no-repeat;
+        background: url('/squares-sbbc18e2129.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -147,7 +147,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .cubicle, .large-cube {
-        background: url('/squares-s161c60ad78.png') no-repeat;
+        background: url('/squares-sbbc18e2129.png') no-repeat;
       }
       
       .cubicle {
@@ -172,7 +172,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .circles {
-        background: url('/squares-s161c60ad78.png') no-repeat;
+        background: url('/squares-sbbc18e2129.png') no-repeat;
       }
     CSS
     assert_equal image_size('squares-s*.png'), [20, 30]
@@ -186,7 +186,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s89450808af.png') no-repeat;
+        background: url('/squares-s563a5e0855.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -208,7 +208,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s673837183a.png') no-repeat;
+        background: url('/squares-s4ea353fa6d.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -231,7 +231,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s1cd84c9068.png') no-repeat;
+        background: url('/squares-sf4771cb124.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -254,7 +254,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sf25b7090ca.png') no-repeat;
+        background: url('/squares-sc82d6f3cf4.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -276,7 +276,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sd66bf24bab.png') no-repeat;
+        background: url('/squares-s2f4aa65dcf.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -311,7 +311,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite {
-        background: url('/squares-s8e490168dd.png') no-repeat;
+        background: url('/squares-sce5dc30797.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -349,7 +349,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .adjusted-percentage, .adjusted-px-1, .adjusted-px-2 {
-        background: url('/squares-s8e490168dd.png') no-repeat;
+        background: url('/squares-sce5dc30797.png') no-repeat;
       }
       
       .adjusted-percentage {
@@ -376,7 +376,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sa5550fd132.png') no-repeat;
+        background: url('/squares-sbab486c25a.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -400,7 +400,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s89a274044e.png') no-repeat;
+        background: url('/squares-sb9d9a8ca6a.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -449,7 +449,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares {
-        background: url('/squares-s145869726f.png') 0 -10px no-repeat;
+        background: url('/squares-sd817b59156.png') 0 -10px no-repeat;
       }
     CSS
   end
@@ -468,7 +468,7 @@ class SpritesTest < Test::Unit::TestCase
     assert_equal image_size('squares-s*.png'), [20, 40]
     assert_correct css, <<-CSS
       .squares-sprite {
-        background: url('/squares-se3c68372d9.png') no-repeat;
+        background: url('/squares-s555875d730.png') no-repeat;
       }
       
       .foo {
@@ -488,7 +488,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, .selectors-ten-by-ten {
-        background: url('/selectors-sedfef809e2.png') no-repeat;
+        background: url('/selectors-s7e84acb3d2.png') no-repeat;
       }
       
       .selectors-ten-by-ten {
@@ -513,7 +513,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, .selectors-ten-by-ten {
-        background: url('/selectors-sedfef809e2.png') no-repeat;
+        background: url('/selectors-s7e84acb3d2.png') no-repeat;
       }
       
       .selectors-ten-by-ten {
@@ -540,7 +540,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-sedfef809e2.png') no-repeat;
+        background: url('/selectors-s7e84acb3d2.png') no-repeat;
       }
       
       a {
@@ -569,7 +569,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-sedfef809e2.png') no-repeat;
+        background: url('/selectors-s7e84acb3d2.png') no-repeat;
       }
       
       a {
@@ -587,7 +587,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-sedfef809e2.png') no-repeat;
+        background: url('/selectors-s7e84acb3d2.png') no-repeat;
       }
       
       a {
@@ -624,7 +624,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .ko-sprite, .ko-default_background, .ko-starbg26x27 {
-        background: url('/ko-scc3f80660d.png') no-repeat;
+        background: url('/ko-sd6b4d44430.png') no-repeat;
       }
       
       .ko-default_background {
@@ -681,7 +681,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .nested-sprite, .nested-ten-by-ten {
-        background: url('/nested-s55a8935544.png') no-repeat;
+        background: url('/nested-s7b93e0b6bf.png') no-repeat;
       }
       
       .nested-ten-by-ten {
@@ -704,7 +704,7 @@ class SpritesTest < Test::Unit::TestCase
     assert_equal [30, 20], image_size('squares-s*.png')
     other_css = <<-CSS
       .squares-sprite {
-        background: url('/squares-s161c60ad78.png') no-repeat;
+        background: url('/squares-s4bd95c5c56.png') no-repeat;
       }
 
       .foo {

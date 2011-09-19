@@ -35,7 +35,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   test 'uniqueness_hash' do
-    assert_equal 'ef52c5c63a', @base.uniqueness_hash
+    assert_equal '4c703bbc05', @base.uniqueness_hash
   end
   
   it 'should be outdated' do
@@ -103,7 +103,9 @@ class SpriteMapTest < Test::Unit::TestCase
     path, name = Compass::SpriteImporter.path_and_name(uri)
     sprite_names = Compass::SpriteImporter.sprite_names(uri)
     sass_engine = Compass::SpriteImporter.sass_engine(uri, name, importer, options)
-    Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map {|n| "image_row/#{n}.png"}, path, name, sass_engine, options)
+    map = Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map {|n| "image_row/#{n}.png"}, path, name, sass_engine, options)
+    map.options = {:compass => {:logger => Compass::NullLogger.new}}
+    map
   end
   
   it "should have a smart layout" do
