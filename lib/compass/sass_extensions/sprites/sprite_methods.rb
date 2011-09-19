@@ -47,7 +47,7 @@ module Compass
         end
 
         def relativize(path)
-          Pathname.new(path).relative_path_from(Pathname.new(Dir.pwd)).to_s
+          Pathname.new(path).relative_path_from(Pathname.new(Dir.pwd)).to_s rescue path
         end
 
         # Generate a sprite image if necessary
