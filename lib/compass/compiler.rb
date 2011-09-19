@@ -15,6 +15,8 @@ module Compass
       self.sass_options.update(sass_opts)
       self.sass_options[:cache_location] ||= determine_cache_location
       self.sass_options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
+      self.sass_options[:compass] ||= {}
+      self.sass_options[:compass][:logger] = self.logger
       self.staleness_checker = Sass::Plugin::StalenessChecker.new(sass_options)
     end
 

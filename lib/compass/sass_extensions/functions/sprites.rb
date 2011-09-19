@@ -68,7 +68,7 @@ module Compass::SassExtensions::Functions::Sprites
   end
   Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
 
-  # Returns voolean if sprite has a parent
+  # Returns boolean if sprite has a parent
   def sprite_does_not_have_parent(map, sprite)
     sprite = convert_sprite_name(sprite)
     verify_map map

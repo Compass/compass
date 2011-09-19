@@ -46,6 +46,10 @@ module Compass
           File.join(Compass.configuration.generated_images_path, "#{path}-s#{uniqueness_hash}.png")
         end
 
+        def relativize(path)
+          Pathname.new(path).relative_path_from(Pathname.new(Dir.pwd)).to_s
+        end
+
         # Generate a sprite image if necessary
         def generate
           if generation_required?
@@ -55,11 +59,14 @@ module Compass
             engine.construct_sprite
             Compass.configuration.run_sprite_generated(engine.canvas)
             save!
+          else
+            options[:compass][:logger].record(:unchanged, relativize(filename))
           end
         end
         
         def cleanup_old_sprites
           Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
+            options[:compass][:logger].record(:remove, relativize(file))
             FileUtils.rm file
           end
         end
@@ -89,6 +96,7 @@ module Compass
         def save!
           FileUtils.mkdir_p(File.dirname(filename))
           saved = engine.save(filename)
+          options[:compass][:logger].record(:create, relativize(filename))
           Compass.configuration.run_sprite_saved(filename)
           saved
         end
