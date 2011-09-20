@@ -68,6 +68,7 @@ module Compass
           Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
             options[:compass][:logger].record(:remove, relativize(file)) unless options[:quiet]
             FileUtils.rm file
+            Compass.configuration.run_sprite_removed(file)
           end
         end
         
