@@ -20,6 +20,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * font-files helper: Stop requiring font type when the type can be guessed from URL
 * inline-font-files: actually works now
 * Upgrade CSS3 Pie to 1.0beta5
+* log sprite generation and removal to the console
 
 
 0.12.alpha.0 (8/30/2011)

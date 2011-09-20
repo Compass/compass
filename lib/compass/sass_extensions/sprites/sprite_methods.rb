@@ -60,13 +60,13 @@ module Compass
             Compass.configuration.run_sprite_generated(engine.canvas)
             save!
           else
-            options[:compass][:logger].record(:unchanged, relativize(filename))
+            options[:compass][:logger].record(:unchanged, relativize(filename)) unless options[:quiet]
           end
         end
         
         def cleanup_old_sprites
           Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
-            options[:compass][:logger].record(:remove, relativize(file))
+            options[:compass][:logger].record(:remove, relativize(file)) unless options[:quiet]
             FileUtils.rm file
           end
         end
@@ -97,7 +97,7 @@ module Compass
         def save!
           FileUtils.mkdir_p(File.dirname(filename))
           saved = engine.save(filename)
-          options[:compass][:logger].record(:create, relativize(filename))
+          options[:compass][:logger].record(:create, relativize(filename)) unless options[:quiet]
           Compass.configuration.run_sprite_saved(filename)
           saved
         end
