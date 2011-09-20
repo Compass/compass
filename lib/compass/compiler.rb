@@ -17,6 +17,7 @@ module Compass
       self.sass_options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
       self.sass_options[:compass] ||= {}
       self.sass_options[:compass][:logger] = self.logger
+      self.sass_options[:compass][:environment] = Compass.configuration.environment
       self.staleness_checker = Sass::Plugin::StalenessChecker.new(sass_options)
     end
 
