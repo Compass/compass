@@ -120,6 +120,8 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background-position: 3px -36px;
   def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
+    assert_type offset_x, :Number
+    assert_type offset_y, :Number
     sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
     unless sprite && sprite.is_a?(Sass::Script::String)
