@@ -8,7 +8,7 @@ end
 module Compass::RailsImageFunctionPatch
   private
   
-  def image_path(image_file)
+  def image_path_for_size(image_file)
     if file = ::Rails.application.assets.find_asset(image_file)
       return file
     end
