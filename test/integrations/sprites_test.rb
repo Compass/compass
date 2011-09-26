@@ -604,4 +604,36 @@ class SpritesTest < Test::Unit::TestCase
     CSS
   end
 
+  it "should replace text with images and dimensions using sprites"
+    css = render <<-SCSS
+    @import "imgs/*.png";
+    $sprite: sprite-map("imgs/*.png");
+    .myImg { 
+      @include sprite-replace-text($sprite, myImg); 
+    }
+    .yourImg {
+      @include sprite-replace-text($sprite, yourImg);
+    }
+    SCSS
+    assert_correct css, <<-CSS
+    .myImg {
+      text-indent: -119988px; 
+      overflow: hidden; 
+      text-align: left; 
+      background: url('imgs/imgs-s3020e82f52.png') 0 0 no-repeat; 
+      display: block; 
+      width: 26px; //whatever the dimensions are
+      height: 26px;
+    }
+    .yourImg {
+      text-indent: -119988px; 
+      overflow: hidden; 
+      text-align: left; 
+      background: url('imgs/imgs-s3020e82f52.png') 0 -26px no-repeat; //shifted
+      display: block; 
+      width: 26px; //whatever the dimensions are
+      height: 26px;
+    }
+    CSS
+  end
 end
