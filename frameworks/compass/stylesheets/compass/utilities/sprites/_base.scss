@@ -72,7 +72,6 @@ $disable-magic-sprite-selectors:false !default;
 @mixin sprite-replace-text ($map, $img-name){    
     @include hide-text;
     background: sprite($map, $img-name) no-repeat;
-    display: block;
     width: image-width(sprite-file($map, $img-name));
     height: image-height(sprite-file($map, $img-name));
 }
