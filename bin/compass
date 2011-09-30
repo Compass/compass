@@ -36,5 +36,7 @@ if ARGV.delete("--profile")
   printer.print(STDERR, 0)
   exit exit_code
 else
-  exit runner.call
+  exit_code = runner.call
+  exit 1 if exit_code == nil
+  exit exit_code
 end
