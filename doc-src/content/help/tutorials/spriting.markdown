@@ -25,7 +25,7 @@ For this tutorial, let's imagine that in your project's image folder there are f
 * `images/icon/delete.png`
 
 Each is an icon that is 32px square.
-
+<a name="basic-usage"></a>
 ## Basic Usage
 
 ****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
@@ -58,6 +58,16 @@ by setting configuration variables before you import it. See the section below o
 simple naming convention for your sprites so that you they are easy to remember and use. You
 should never have to care what the is name of the generated sprite map, nor where a sprite
 is located within it.
+
+<a name='nested-folders'></a>    
+## Nested Folders    
+
+Sprites stored in nested folder will use the last folder name in the path as the sprite name
+
+Example:
+
+      @import "themes/orange/*.png";
+      @include all-orange-sprite;
     
 <a name="selector-control"></a>
 ## Selector Control
