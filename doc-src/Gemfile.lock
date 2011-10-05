@@ -1,10 +1,18 @@
 PATH
   remote: ..
   specs:
-    compass (0.12.alpha.0.374aed6)
+    compass (0.12.alpha.0.4fba960)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+
+PATH
+  remote: ../../compass-theme
+  specs:
+    compass-theme (0.0.1)
+      compass (~> 0.11)
+      compass-susy-plugin (>= 0.7.0.pre8)
+      css-slideshow (= 0.2.0)
 
 GEM
   remote: http://rubygems.org/
@@ -13,14 +21,10 @@ GEM
     adsf (1.0.1)
       rack (>= 1.0.0)
     builder (3.0.0)
-    chunky_png (1.2.1)
+    chunky_png (1.2.5)
     coderay (0.9.8)
     compass-susy-plugin (0.9)
       compass (>= 0.11.1)
-    compass-theme (0.0.1)
-      compass (~> 0.11)
-      compass-susy-plugin (>= 0.7.0.pre8)
-      css-slideshow (= 0.2.0)
     cri (2.0.2)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
@@ -38,7 +42,7 @@ GEM
     rb-fsevent (0.4.3.1)
     rdiscount (1.6.8)
     ruby-prof (0.10.8)
-    sass (3.1.7)
+    sass (3.1.8)
     serve (1.0.0)
       activesupport (~> 3.0.1)
       i18n (~> 0.4.1)
@@ -51,11 +55,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport (~> 3.0.10)
   adsf
   builder
   coderay
   compass!
-  compass-theme (~> 0.0.1)
+  compass-theme!
   css_parser (= 1.0.1)
   haml
   json

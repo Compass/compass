@@ -62,7 +62,7 @@ is located within it.
 <a name='nested-folders'></a>    
 ## Nested Folders    
 
-Sprites stored in nested folder will use the last folder name in the path as the sprite name
+Sprites stored in a nested folder will use the last folder name in the path as the sprite name.
 
 Example:
 
