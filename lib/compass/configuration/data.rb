@@ -38,6 +38,12 @@ module Compass
       define_callback :sprite_generated
       chained_method :run_sprite_generated
 
+      # on_sprite_removed
+      # yields the filename
+      # usage: on_sprite_removed {|filename| do_something(filename) }
+      define_callback :sprite_removed
+      chained_method :run_sprite_removed
+
       # on_stylesheet_saved
       # yields the filename
       # usage: on_stylesheet_saved {|filename| do_something(filename) }

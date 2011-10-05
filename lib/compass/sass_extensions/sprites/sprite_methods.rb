@@ -60,20 +60,21 @@ module Compass
             Compass.configuration.run_sprite_generated(engine.canvas)
             save!
           else
-            options[:compass][:logger].record(:unchanged, relativize(filename))
+            log :unchanged, filename
           end
         end
         
         def cleanup_old_sprites
           Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
-            options[:compass][:logger].record(:remove, relativize(file))
+            log :remove, file
             FileUtils.rm file
+            Compass.configuration.run_sprite_removed(file)
           end
         end
         
         # Does this sprite need to be generated
         def generation_required?
-          !File.exists?(filename) || outdated?
+          !File.exists?(filename) || outdated? ||  options[:force]
         end
 
         # Returns the uniqueness hash for this sprite object
@@ -97,7 +98,7 @@ module Compass
         def save!
           FileUtils.mkdir_p(File.dirname(filename))
           saved = engine.save(filename)
-          options[:compass][:logger].record(:create, relativize(filename))
+          log :create, filename
           Compass.configuration.run_sprite_saved(filename)
           saved
         end
@@ -125,6 +126,11 @@ module Compass
           [width, height]
         end
 
+        def log(action, filename, *extra)
+          if options[:compass] && options[:compass][:logger] && !options[:quiet]
+            options[:compass][:logger].record(action, relativize(filename), *extra)
+          end
+        end
       end
     end
   end
