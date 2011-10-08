@@ -2,11 +2,11 @@ module Compass
   module SassExtensions
     module Sprites
       module SpriteMethods
-        
+
         # Changing this string will invalidate all previously generated sprite images.
         # We should do so only when the packing algorithm changes
         SPRITE_VERSION = "1"
-        
+
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
         # Calculates the height
@@ -17,14 +17,14 @@ module Compass
           @height = @images.last.top + @images.last.height
           init_engine
         end
-        
+
         def init_engine
           @engine = eval("::Compass::SassExtensions::Sprites::#{modulize}Engine.new(nil, nil, nil)")
           @engine.width = @width
           @engine.height = @height
           @engine.images = @images
         end
-        
+
         # Creates the Sprite::Image objects for each image and calculates the width
         def init_images
           @images = image_names.collect do |relative_file|
@@ -33,7 +33,7 @@ module Compass
             image
           end
         end
-        
+
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
         def compute_image_positions!
@@ -44,7 +44,7 @@ module Compass
             image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max
           end
         end
-        
+
         # Validates that the sprite_names are valid sass
         def validate!
           for sprite_name in sprite_names
@@ -70,13 +70,13 @@ module Compass
             save!
           end
         end
-        
+
         def cleanup_old_sprites
           Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
             FileUtils.rm file
           end
         end
-        
+
         # Does this sprite need to be generated
         def generation_required?
           !File.exists?(filename) || outdated?
@@ -101,6 +101,7 @@ module Compass
         # Saves the sprite engine
         def save!
           saved = engine.save(filename)
+          @mtime = nil if saved
           Compass.configuration.run_callback(:sprite_saved, filename)
           saved
         end
@@ -113,7 +114,7 @@ module Compass
         # Checks whether this sprite is outdated
         def outdated?
           if File.exists?(filename)
-            return @images.map(&:mtime).any? { |imtime| imtime.to_i > self.mtime.to_i }
+            return @images.any? {|image| image.mtime.to_i > self.mtime.to_i }
           end
           true
         end
@@ -122,7 +123,7 @@ module Compass
         def mtime
           @mtime ||= File.mtime(filename)
         end
-        
+
        # Calculate the size of the sprite
         def size
           [width, height]
