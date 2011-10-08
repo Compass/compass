@@ -101,6 +101,7 @@ module Compass
         # Saves the sprite engine
         def save!
           saved = engine.save(filename)
+          @mtime = nil if saved
           Compass.configuration.run_callback(:sprite_saved, filename)
           saved
         end
