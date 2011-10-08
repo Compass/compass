@@ -100,6 +100,7 @@ module Compass
           saved = engine.save(filename)
           log :create, filename
           Compass.configuration.run_sprite_saved(filename)
+          @mtime = nil if saved
           saved
         end
 
