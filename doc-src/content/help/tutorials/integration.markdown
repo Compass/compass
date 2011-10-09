@@ -55,29 +55,31 @@ At the top of the Nanoc Rules file, load the Compass configuration, like this:
 
     require 'compass'
 
-    Compass.add_project_configuration 'compass/config.rb' # when using Compass 0.10
-    Compass.configuration.parse 'compass/config.rb'       # when using Compass < 0.10
+    Compass.add_project_configuration 'compass.rb' # when using Compass > 0.10
+    Compass.configuration.parse 'compass.rb'       # when using Compass < 0.10
 
 Your Compass configuration file (in compass/config.rb) could look like this (you may need to change the path to some directories depending on your directory structure):
 
-    http_path    = "/" 
-    project_path = "." 
-    css_dir      = "output/assets/style" 
-    sass_dir     = "content/assets/style" 
-    images_dir   = "output/assets/images"
-
-    # when using SCSS:
-    sass_options = {
-      :syntax => :scss
-    }
+    http_path = "/"
+    project_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+    css_dir = "output/stylesheets"
+    sass_dir = "content/stylesheets"
+    images_dir = "assets/images"
+    javascripts_dir = "assets/javascripts"
+    fonts_dir = "assets/fonts"
+    http_javascripts_dir = "javascripts"
+    http_stylesheets_dir = "stylesheets"
+    http_images_dir = "images"
+    http_fonts_dir = "fonts"
 
 
 To filter the stylesheets using Sass and Compass, call the sass filter with Sass engine options taken from Compass, like this:
 
-    filter :sass, Compass.sass_engine_options
+    compile '/stylesheets/*' do
+      filter :sass, sass_options.merge(:syntax => item[:extension].to_sym)
+    end
 
 
 ### Nanoc Projects using the formal approach
 
-* [nanoc Bootstrap](http://github.com/adamstac/nanoc-bootstrap) - a base nanoc project with support for Haml, Sass, Compass, jQuery and more.
-* [nanoc & Compass Example Project](http://github.com/ddfreyne/nanoc-bootstrap-compass)
+* [This Site](https://github.com/chriseppstein/compass/tree/master/doc-src)
