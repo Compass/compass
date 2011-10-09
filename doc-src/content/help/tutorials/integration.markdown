@@ -9,6 +9,13 @@ classnames:
 
 ## Ruby on Rails
 
+### Rails 3.1
+Just add compass to your Gemfile like so:
+    
+    gem 'compass'
+    
+Also checkout this [gist](https://gist.github.com/1184843)
+  
 ### Rails 3
     compass init rails /path/to/myrailsproject
 ### Rails 2.3
@@ -16,25 +23,25 @@ classnames:
     
 ## Sinatra
 
+    require 'compass'
     require 'sinatra'
     require 'haml'
-    require 'sass'
-    require 'compass'
 
     configure do
-      Compass.configuration do |config|
-        config.project_path = File.dirname(__FILE__)
-        config.sass_dir = 'views'
-      end
-
-      set :haml, { :format => :html5 }
-      set :sass, Compass.sass_engine_options
+      set :haml, {:format => :html5, :escape_html => true}
+      set :scss, {:style => :compact, :debug_info => false}
+      Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
     end
 
-    get '/screen.css' do
+    get '/stylesheets/:name.css' do
       content_type 'text/css', :charset => 'utf-8'
-      sass :screen
+      scss(:"stylesheets/#{params[:name]}" )
     end
+
+    get '/' do
+      haml :index
+    end
+
 
 If you keep your stylesheets in “views/stylesheets/” directory instead of just “views/”, remember to update sass_dir configuration accordingly.
 Check out this [sample compass-sinatra project](http://github.com/chriseppstein/compass-sinatra) to get up and running in no time!
