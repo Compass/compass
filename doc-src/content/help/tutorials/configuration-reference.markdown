@@ -309,6 +309,13 @@ later on.
       Defaults to <code>{:compression => Zlib::BEST_COMPRESSION}</code>. See the chunky_png <a href='https://github.com/wvanbergen/chunky_png/wiki/Constraints' _target='blank'>wiki</a> for more information
     </td>
   </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sprite_load_path</code></td>
+    <td style="vertical-align:top;">Array </td>
+    <td style="vertical-align:top;">
+      Defaults to <code> [images_path] </code>
+    </td>
+  </tr>
 </table>
 
 <a name="configuration-functions"></a>
