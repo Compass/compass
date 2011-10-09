@@ -112,7 +112,7 @@ module Compass
         # Checks whether this sprite is outdated
         def outdated?
           if File.exists?(filename)
-            return @images.map(&:mtime).any? { |imtime| imtime.to_i > self.mtime.to_i }
+            return @images.any? {|image| image.mtime.to_i > self.mtime.to_i }
           end
           true
         end
