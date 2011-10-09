@@ -143,7 +143,7 @@ later on.
     <td style="vertical-align:top;"><code>sass_dir</code> </td>
     <td style="vertical-align:top;">String </td>
     <td style="vertical-align:top;">The directory where the sass stylesheets are kept.
-      It is relative to the <code>project_path</code>. Defaults to <code>"src"</code>.
+      It is relative to the <code>project_path</code>. Defaults to <code>"sass"</code>.
     </td>
   </tr>
   <tr>
