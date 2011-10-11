@@ -73,15 +73,42 @@ $default-transition-delay: false !default;
 // Transition all-in-one shorthand
 
 @mixin single-transition(
-  $properties: $default-transition-property,
+  $property: $default-transition-property,
   $duration: $default-transition-duration,
   $function: $default-transition-function,
   $delay: $default-transition-delay
 ) {
-  @include transition-property($properties);
-  @include transition-duration($duration);
-  @if $function { @include transition-timing-function($function); }
-  @if $delay { @include transition-delay($delay); }
+  @if $property and $duration and $function {
+    // Shorthand (see https://github.com/chriseppstein/compass/issues/585)
+    @if $delay {
+      -webkit-transition: $property $duration $function;
+      -webkit-transition-delay: $delay;
+      @include experimental(transition, $property $duration $function $delay,
+        -moz,
+        not -webkit,
+        -o,
+        not -ms,
+        not -khtml,
+        official
+      );
+    }
+    @else {
+      @include experimental(transition, $property $duration $function,
+        -moz,
+        -webkit,
+        -o,
+        not -ms,
+        not -khtml,
+        official
+      );
+    }
+  }
+  @else {
+    @include transition-property($property);
+    @include transition-duration($duration);
+    @if $function { @include transition-timing-function($function); }
+    @if $delay { @include transition-delay($delay); }
+  }
 }
 
 @mixin transition(

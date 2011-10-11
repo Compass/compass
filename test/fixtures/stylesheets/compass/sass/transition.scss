@@ -1,0 +1,4 @@
+@import "compass/css3/transition";
+
+.single-transition-without-delay  { @include single-transition(all, 0.6s, ease-out); }
+.single-transition-with-delay     { @include single-transition(all, 0.6s, ease-out, 0.2s); }
