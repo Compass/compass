@@ -1,15 +1,8 @@
-GIT
-  remote: git://github.com/chriseppstein/nanoc.git
-  revision: 4eee0e60c5121b90498caa88605d416521553378
-  specs:
-    nanoc3 (3.2.0a3)
-      cri (>= 1.0.0)
-
 PATH
   remote: ..
   specs:
-    compass (0.11.1.93b89a2)
-      chunky_png (~> 1.1)
+    compass (0.11.5.38ccee8)
+      chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
 
@@ -18,11 +11,11 @@ GEM
   specs:
     activesupport (3.0.7)
     builder (2.1.2)
-    chunky_png (1.2.0)
+    chunky_png (1.2.5)
     coderay (0.9.7)
     compass-susy-plugin (0.9.beta.3)
       compass (>= 0.11.beta.3)
-    cri (1.0.1)
+    cri (2.0.2)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
     css_parser (1.0.1)
@@ -31,6 +24,8 @@ GEM
     i18n (0.4.2)
     json (1.5.1)
     mime-types (1.16)
+    nanoc3 (3.2.2)
+      cri (~> 2.0)
     nokogiri (1.4.4)
     rack (1.2.2)
     rake (0.8.7)
@@ -59,7 +54,7 @@ DEPENDENCIES
   haml (>= 3.1)
   json
   mime-types
-  nanoc3!
+  nanoc3
   nokogiri
   rack
   rake

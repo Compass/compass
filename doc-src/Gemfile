@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem 'nanoc3', :git => "git://github.com/chriseppstein/nanoc.git"
+gem 'nanoc3'
 gem 'rdiscount'
 gem 'thor'
 gem 'rack'
