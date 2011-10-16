@@ -1,8 +1,7 @@
 source :gemcutter
 
-#gem 'cri', '~> 1.0.1'
-gem 'adsf'
-gem 'nanoc3' #, :git => "git://github.com/chriseppstein/nanoc.git"
+gem 'nanoc3'
+gem 'asdf'
 gem 'rdiscount'
 gem 'thor'
 gem 'rack'
