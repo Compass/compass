@@ -64,3 +64,14 @@ $disable-magic-sprite-selectors:false !default;
     }
   }
 }
+
+// Similar to 'replace-text-with-dimensions' but with sprites
+// To use, create your sprite and then pass it in the `$map` param
+// The name of the image in the sprite folder should be `$img-name`
+
+@mixin sprite-replace-text ($map, $img-name){    
+    @include hide-text;
+    background: sprite($map, $img-name) no-repeat;
+    width: image-width(sprite-file($map, $img-name));
+    height: image-height(sprite-file($map, $img-name));
+}
