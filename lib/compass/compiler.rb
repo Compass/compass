@@ -32,7 +32,7 @@ module Compass
     end
 
     def stylesheet_name(sass_file)
-      if sass_file.index(from) == 0
+      if sass_file.gsub(/\\/, '/').index(from) == 0
         sass_file[(from.length + 1)..-6]
       else
         raise Compass::Error, "You must compile individual stylesheets from the project directory."
