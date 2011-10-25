@@ -62,6 +62,8 @@ is located within it.
 <a name='nested-folders'></a>    
 ## Nested Folders    
 
+****Note**: The use of `orange` is only for this example, "icon" represents the folder name that contains your sprites.
+
 Sprites stored in a nested folder will use the last folder name in the path as the sprite name.
 
 Example:
@@ -71,6 +73,8 @@ Example:
     
 <a name="selector-control"></a>
 ## Selector Control
+
+****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
 
 If you want control over what selectors are generated, it is easy to do. In this example,
 this is done by using the magic `icon-sprite` mixin. Note that the mixin's name is dependent
@@ -98,8 +102,34 @@ And your stylesheet will compile to:
     .actions .save   { background-position: 0 -96px; }
     .actions .delete { background-position: 0 0;     }
 
+<a name="sass_functions"></a>
+## Sass Functions
+
+****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
+
+Getting the image dimensions of a sprite
+
+You can get a unit value by using the magical dimension functions `<map>-sprite-height` and `<map>-sprite-width`
+If you are looking to just return the dimensions see the [docs](/reference/compass/utilities/sprites/base/#mixin-sprite-dimensions)
+
+Example:
+
+
+    @import "icon/*.png";
+    $box-padding: 5px;
+    $height: icon-sprite-height(some_icon);
+    $width: icon-sprite-width(some_icon);
+    
+    .somediv {
+      height:$height + $box-padding;
+      width:$width + $box-padding;
+    }
+  
+  
 <a name="magic-imports"></a>
 ## Magic Imports
+
+****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
 
 As noted above, compass will magically create sprite stylesheets for you. Some people like
 magic, some people are scared by it, and others are curious about how the magic works. If
