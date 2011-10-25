@@ -105,7 +105,7 @@ module Compass
 
     # Generates the Sass for this sprite file
     def self.content_for_images(uri, name, skip_overrides = false)
-      binder = Compass::Sprites::Binding.new(:name => name, :uri => uri, :skip_overrides => skip_overrides)
+      binder = Compass::Sprites::Binding.new(:name => name, :uri => uri, :skip_overrides => skip_overrides, :sprite_names => sprite_names(uri))
       CONTENT_TEMPLATE.result(binder.get_binding)
     end
   end
