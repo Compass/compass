@@ -39,11 +39,11 @@ $<%= name %>-layout:vertical !default;
   background: $<%= name %>-sprites no-repeat;
 }
 
-//sass functions to return the demensions of a sprite image as units
-<% [:width, :height].each do |demension| %>
-  @function <%= name %>-sprite-<%= demension %>($name) {
+//sass functions to return the dimensions of a sprite image as units
+<% [:width, :height].each do |dimension| %>
+  @function <%= name %>-sprite-<%= dimension %>($name) {
     $file: sprite_file($<%= name %>-sprites, $name);
-    @return image-<%= demension %>($file);
+    @return image-<%= dimension %>($file);
   }
 <% end %>
 
