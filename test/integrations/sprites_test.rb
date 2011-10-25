@@ -718,4 +718,27 @@ class SpritesTest < Test::Unit::TestCase
     assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
   end
 
+  it "should allow use of demension functions" do
+    css = render <<-SCSS
+      @import "squares/*.png";
+      $h: squares-sprite-height(twenty-by-twenty);
+      $w: squares-sprite-width(twenty-by-twenty);
+      .div {
+        height:$h + 1px;
+        width:$w + 2px;
+      }
+    SCSS
+    other_css = <<-CSS
+      .squares-sprite {
+        background: url('/squares-sbbc18e2129.png') no-repeat;
+      }
+      .div {
+        height:21px;
+        width:22px;
+      }
+    CSS
+    assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+  end
+
+
 end
