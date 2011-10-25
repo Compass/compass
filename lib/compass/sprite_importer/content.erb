@@ -1,0 +1,47 @@
+@import "compass/utilities/sprites/base";
+
+// General Sprite Defaults
+// You can override them before you import this file.
+$<%= name %>-sprite-base-class: ".<%= name %>-sprite" !default;
+$<%= name %>-sprite-dimensions: false !default;
+$<%= name %>-position: 0% !default;
+$<%= name %>-spacing: 0 !default;
+$<%= name %>-repeat: no-repeat !default;
+$<%= name %>-prefix: '' !default;
+$<%= name %>-clean-up: true !default;
+$<%= name %>-layout:vertical !default;
+
+#{skip_overrides ? "$<%= name %>-sprites: sprite-map(\"<%= uri %>\", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up);" : generate_overrides(uri, name) }
+
+// All sprites should extend this class
+// The <%= name %>-sprite mixin will do so for you.
+\#{$<%= name %>-sprite-base-class} {
+  background: $<%= name %>-sprites no-repeat;
+}
+
+// Use this to set the dimensions of an element
+// based on the size of the original image.
+@mixin <%= name %>-sprite-dimensions($name) {
+  @include sprite-dimensions($<%= name %>-sprites, $name)
+}
+
+// Move the background position to display the sprite.
+@mixin <%= name %>-sprite-position($name, $offset-x: 0, $offset-y: 0) {
+  @include sprite-background-position($<%= name %>-sprites, $name, $offset-x, $offset-y)
+}
+
+// Extends the sprite base class and set the background position for the desired sprite.
+// It will also apply the image dimensions if $dimensions is true.
+@mixin <%= name %>-sprite($name, $dimensions: $<%= name %>-sprite-dimensions, $offset-x: 0, $offset-y: 0) {
+  @extend \#{$<%= name %>-sprite-base-class};
+  @include sprite($<%= name %>-sprites, $name, $dimensions, $offset-x, $offset-y)
+}
+
+@mixin <%= name %>-sprites($sprite-names, $dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0) {
+  @include sprites($<%= name %>-sprites, $sprite-names, $<%= name %>-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y)
+}
+
+// Generates a class for each sprited image.
+@mixin all-<%= name %>-sprites($dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0) {
+  @include <%= name %>-sprites(#{sprite_names(uri).join(" ")}, $dimensions, $prefix, $offset-x, $offset-y);
+}
