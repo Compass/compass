@@ -137,6 +137,8 @@ module Compass
         def read_without_default(attribute)
           if set?(attribute)
             send("raw_#{attribute}")
+          elsif inherited_data.nil?
+            nil
           elsif inherited_data.respond_to?("#{attribute}_without_default")
             inherited_data.send("#{attribute}_without_default")
           elsif inherited_data.respond_to?(attribute)
