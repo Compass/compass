@@ -15,10 +15,10 @@ of several convenient ways.
 
 For this tutorial, let's imagine that in your project's image folder there are four icons:
 
-* `public/images/icon/new.png`
-* `public/images/icon/edit.png`
-* `public/images/icon/save.png`
-* `public/images/icon/delete.png`
+* `images/icon/new.png`
+* `images/icon/edit.png`
+* `images/icon/save.png`
+* `images/icon/delete.png`
 
 Each is an icon that is 32px square.
 
@@ -89,7 +89,7 @@ magic, some people are scared by it, and others are curious about how the magic 
 you would like to avoid the magic, you can use compass to generate an import for you. On the
 command line:
 
-    compass sprite "public/images/icon/*.png"
+    compass sprite "images/icon/*.png"
 
 This will create file using your project's preferred syntax, or you can specify the
 output filename using the `-f` option and the syntax will be inferred from the extension.
