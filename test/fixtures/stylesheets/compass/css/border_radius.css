@@ -1,5 +1,4 @@
 .simple {
-  -khtml-border-radius: 4px 4px;
   -webkit-border-radius: 4px / 4px;
   -moz-border-radius: 4px / 4px;
   -ms-border-radius: 4px / 4px;
@@ -7,7 +6,6 @@
   border-radius: 4px / 4px; }
 
 .compound {
-  -khtml-border-radius: 2px 3px;
   -webkit-border-radius: 2px 5px / 3px 6px;
   -moz-border-radius: 2px 5px / 3px 6px;
   -ms-border-radius: 2px 5px / 3px 6px;
@@ -15,7 +13,6 @@
   border-radius: 2px 5px / 3px 6px; }
 
 .crazy {
-  -khtml-border-radius: 1px 2px;
   -webkit-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
   -moz-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
   -ms-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;

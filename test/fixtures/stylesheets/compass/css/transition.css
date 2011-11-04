@@ -1,6 +1,5 @@
 .single-transition-without-delay {
   -webkit-transition: all 0.6s ease-out;
-  -khtml-transition: all 0.6s ease-out;
   -moz-transition: all 0.6s ease-out;
   transition: all 0.6s ease-out; }
 
