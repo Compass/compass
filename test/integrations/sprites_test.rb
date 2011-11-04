@@ -56,6 +56,10 @@ class SpritesTest < Test::Unit::TestCase
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
   end
   
+  def clean(string)
+    string.gsub("\n", '').gsub(' ', '')
+  end
+  
   it "should generate sprite classes" do
     css = render <<-SCSS
       @import "squares/*.png";
@@ -729,7 +733,7 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 0;
       }
     CSS
-    assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+    assert_correct clean(css), clean(other_css)
   end
 
   it "should allow use of demension functions" do
@@ -751,7 +755,7 @@ class SpritesTest < Test::Unit::TestCase
         width:22px;
       }
     CSS
-    assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+    assert_correct clean(css), clean(other_css)
   end
 
   it "should replace text with images and dimensions using sprites" do
@@ -788,7 +792,7 @@ class SpritesTest < Test::Unit::TestCase
         background-repeat:no-repeat;
         }
      CSS
-     assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+     assert_correct clean(css), clean(other_css)
    end
    
    it "should inline the sprite file" do
@@ -807,7 +811,7 @@ class SpritesTest < Test::Unit::TestCase
         background-position:0 -10px;
       }
     CSS
-    assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+    assert_correct clean(css), clean(other_css)
    end
 
 end
