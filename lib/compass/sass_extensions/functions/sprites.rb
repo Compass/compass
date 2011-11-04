@@ -153,10 +153,14 @@ module Compass::SassExtensions::Functions::Sprites
 protected
 
   def convert_sprite_name(sprite)
-    if sprite.is_a?(Sass::Script::Color)
-      return Sass::Script::String.new(Sass::Script::Color::HTML4_COLORS_REVERSE[sprite.rgb])
+    case sprite
+      when Sass::Script::Color
+        Sass::Script::String.new(Sass::Script::Color::HTML4_COLORS_REVERSE[sprite.rgb])
+      when Sass::Script::Bool
+        Sass::Script::String.new(sprite.to_s)
+      else
+        sprite
     end
-    sprite
   end
 
   def verify_map(map, error = "sprite")

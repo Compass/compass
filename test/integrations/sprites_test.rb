@@ -664,6 +664,20 @@ class SpritesTest < Test::Unit::TestCase
     assert_equal 2, map_files('selectors-s*.png').size, "File was removed"
   end
   
+  it "should generate a sprite if the sprite is a bool" do
+    css = render <<-SCSS
+      @import "bool/*.png";
+      a {
+        @include bool-sprite(false);
+      }
+      a {
+        @include bool-sprite(true);
+      }
+    SCSS
+    assert !css.empty?
+  end
+  
+  
   it "should generate a sprite if the sprite is a colorname" do
     css = render <<-SCSS
       @import "colors/*.png";
