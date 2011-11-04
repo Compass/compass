@@ -774,7 +774,9 @@ class SpritesTest < Test::Unit::TestCase
         text-align:left;
         background-position:0 0;
         background-image:url('/colors-s58671cb5bb.png');
-        background-repeat:no-repeat;}
+        background-repeat:no-repeat;
+      }
+      
       .yellow { 
         text-indent:-119988px;
         overflow:hidden;
@@ -787,6 +789,25 @@ class SpritesTest < Test::Unit::TestCase
         }
      CSS
      assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+   end
+   
+   it "should inline the sprite file" do
+     css = render <<-SCSS
+      $colors-inline:true;
+      @import "colors/*.png";
+      @include all-colors-sprites;
+     SCSS
+    other_css = <<-CSS
+      .colors-sprite, .colors-blue, .colors-yellow {
+        background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAUCAAAAACRhfOKAAAAHElEQVR42mM5wQADLP8JMRlIUIvE/IdgctLTNgCHDhEQVD4ceAAAAABJRU5ErkJggg==');
+      }
+      .colors-blue { 
+        background-position:0 0;
+      }.colors-yellow {
+        background-position:0 -10px;
+      }
+    CSS
+    assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
    end
 
 end

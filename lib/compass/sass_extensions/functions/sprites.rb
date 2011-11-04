@@ -9,6 +9,23 @@ module Compass::SassExtensions::Functions::Sprites
       self[variable_name.to_s.gsub(/-/,"_")]
     end
   end
+  # Returns the system path of the sprite file
+  def sprite_path(map)
+    Sass::Script::String.new(map.name_and_hash)
+  end
+  Sass::Script::Functions.declare :sprite_path, [:map]
+
+  # Returns the sprite file as an inline image
+  #    @include "icon/*.png";
+  #     #{$icon-sprite-base-class} {
+  #       background-image: inline-sprite($icon-sprites);
+  #      }
+  def inline_sprite(map)
+    verify_map(map, "sprite-url")
+    map.generate
+    inline_image(sprite_path(map))
+  end
+  Sass::Script::Functions.declare :inline_sprite, [:map]
 
   # Creates a Compass::SassExtensions::Sprites::SpriteMap object. A sprite map, when used in a property is the same
   # as calling sprite-url. So the following background properties are equivalent:

@@ -40,10 +40,14 @@ module Compass
             end
           end
         end
+        
+        def name_and_hash
+          "#{path}-s#{uniqueness_hash}.png"
+        end
 
         # The on-the-disk filename of the sprite
         def filename
-          File.join(Compass.configuration.generated_images_path, "#{path}-s#{uniqueness_hash}.png")
+          File.join(Compass.configuration.generated_images_path, name_and_hash)
         end
 
         def relativize(path)
