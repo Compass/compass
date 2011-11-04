@@ -754,5 +754,39 @@ class SpritesTest < Test::Unit::TestCase
     assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
   end
 
+  it "should replace text with images and dimensions using sprites" do
+     css = render <<-SCSS
+     @import "colors/*.png";
+     .blue { 
+       @include sprite-replace-text($colors-sprites, blue); 
+     }
+     .yellow {
+       @include sprite-replace-text-with-dimensions($colors-sprites, yellow);
+     }
+     SCSS
+     other_css = <<-CSS
+      .colors-sprite { 
+        background:url('/colors-s58671cb5bb.png') no-repeat;
+      }
+      .blue { 
+        text-indent:-119988px;
+        overflow:hidden;
+        text-align:left;
+        background-position:0 0;
+        background-image:url('/colors-s58671cb5bb.png');
+        background-repeat:no-repeat;}
+      .yellow { 
+        text-indent:-119988px;
+        overflow:hidden;
+        text-align:left;
+        background-position:0 -10px;
+        height:10px;
+        width:10px;
+        background-image:url('/colors-s58671cb5bb.png');
+        background-repeat:no-repeat;
+        }
+     CSS
+     assert_correct css.gsub("\n", '').gsub(' ', ''), other_css.gsub("\n", '').gsub(' ', '')
+   end
 
 end
