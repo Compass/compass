@@ -13,11 +13,17 @@ module Compass
         options = arguments.last.is_a?(Hash) ? arguments.pop : {}
         self.path = path = options[:path] || arguments.shift
         @name = name
-        @templates_directory = options[:templates_directory] || File.join(path, 'templates')
-        @stylesheets_directory = options[:stylesheets_directory] || File.join(path, 'stylesheets')
+        @templates_directory = options[:templates_directory]
+        @templates_directory ||= File.join(path, 'templates') if path
+        @stylesheets_directory = options[:stylesheets_directory]
+        @stylesheets_directory ||= File.join(path, 'stylesheets') if path
       end
       def template_directories
-        Dir.glob(File.join(templates_directory, "*")).map{|f| File.basename(f)}
+        if templates_directory
+          Dir.glob(File.join(templates_directory, "*")).map{|f| File.basename(f)}
+        else
+          []
+        end
       end
       def manifest_file(pattern)
         File.join(templates_directory, pattern.to_s, "manifest.rb")
@@ -76,7 +82,7 @@ module Compass
     def template_exists?(template)
       framework_name, template = template.split(%r{/}, 2)
       template ||= "project"
-      if framework = self[framework_name]
+      if (framework = self[framework_name]) && framework.templates_directory
         return File.directory?(File.join(framework.templates_directory, template))
       end
       false
