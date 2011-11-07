@@ -28,3 +28,9 @@ Feature: Extensions
     And and I have a fake extension at ~/.compass/extensions/testing
     When I run: compass frameworks
     Then the list of frameworks includes "testing"
+
+  @listframeworks
+  Scenario: Frameworks without templates
+    Given I am using the existing project in test/fixtures/stylesheets/uses_only_stylesheets_ext
+    When I run: compass frameworks
+    Then the list of frameworks includes "only_stylesheets"
