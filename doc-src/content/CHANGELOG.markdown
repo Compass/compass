@@ -26,6 +26,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Removed `-khtml` prefixes by default you can still enable them but setting `$experimental-support-for-khtml:true;`
 * Improved rails 3.1 integration
 * `true` and `false` are now valid sprite names
+* Removed deprecated forms of the box-shadow, text-shadow, and transform
+  mixins.
 
 0.12.alpha.0 (8/30/2011)
 ------------------------

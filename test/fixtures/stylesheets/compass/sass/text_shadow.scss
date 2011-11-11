@@ -1,6 +1,5 @@
 @import "compass/css3/text-shadow";
 
-.legacy-text-shadow { @include text-shadow(#777, 5px, 5px, 10px); }
 .single-text-shadow { @include single-text-shadow;}
 .default-text-shadow { @include text-shadow;}
 .multiple-text-shadows-with-default { @include text-shadow(default, 2px 2px 5px #222);}
