@@ -45,9 +45,8 @@ Then you can include this file in all other stylesheets:
     // etc.
 
 It is important to define any compass/framework constants that you want to override
-in base.scss first, before @import-ing the framework files. See [Overriding
-Constants][3] , for an example of where the number of grid columns for blueprint
-is overridden/set to 32.  Note that you can refer to `_base.scss` without the
+in base.scss first, before @import-ing the framework files. See [Working with 
+Configurable Variables][3], for a specific example.  Note that you can refer to `_base.scss` without the
 leading underscore and without the extension, since it is a [partial][1].
 
 ## Write your own Custom Mixins
@@ -110,6 +109,6 @@ selectors and let the document cascade work to your advantage.
 
 [1]: http://sass-lang.com/yardoc/file.SASS_REFERENCE.html#partials
 [2]: http://groups.google.com/group/compass-users/browse_frm/thread/0ed216d409476f88
-[3]: http://wiki.github.com/chriseppstein/compass/overriding-constants
+[3]: http://compass-style.org/help/tutorials/configurable-variables/
 [4]: http://c2.com/cgi/wiki?DontRepeatYourself
 [5]: http://chriseppstein.github.com/blog/2009/09/20/why-stylesheet-abstraction-matters/
