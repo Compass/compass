@@ -23,7 +23,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * log sprite generation and removal to the console
 * Added a new helper function `compass-env()` that returns the current compass environment (development, production)
 * Added the ability to inline a sprite image by setting `$<map>-inline:true` before you call `@import`
-* Removed `-khtml` prefixes by default you can still enable them but setting `$experimental-support-for-khtml:true;`
+* Removed `-khtml` prefixes by default you can still enable them by setting `$experimental-support-for-khtml:true;`
 * Improved rails 3.1 integration
 * `true` and `false` are now valid sprite names
 * Removed deprecated forms of the box-shadow, text-shadow, and transform
