@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.12.alpha.1 (UNRELEASED)
+0.12.alpha.1 (11/14/2011)
 -------------------------
 
 * font-files helper: Stop requiring font type when the type can be guessed from URL
