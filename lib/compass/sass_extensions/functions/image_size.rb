@@ -15,6 +15,7 @@ module Compass::SassExtensions::Functions::ImageSize
 
   class ImageProperties
     def initialize(file)
+      file = file.to_path if file.kind_of? Sprockets::StaticAsset
       @file = file
       @file_type = File.extname(@file)[1..-1]
     end
