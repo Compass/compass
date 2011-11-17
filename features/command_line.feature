@@ -200,7 +200,7 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s8f1e8fdb9b.png |
+      | images/flag-s4798b5a210.png |
     And the following files are removed:
       | .sass-cache/                |
       | tmp/border_radius.css       |
@@ -208,7 +208,7 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s8f1e8fdb9b.png |
+      | images/flag-s4798b5a210.png |
 
   Scenario: Watching a project for changes
     Given ruby supports fork
