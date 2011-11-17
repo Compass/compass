@@ -36,7 +36,13 @@ module Compass
             calculate_horizontal_positions
             @width = width_for_horizontal_layout
           else
-            @images.sort! {|a,b| b.size <=> a.size}
+            @images.sort! do |a,b| 
+              if (b.size <=> a.size) === 0
+                a.name <=> b.name
+              else
+                b.size <=> a.size
+              end
+            end
             @width = width_for_vertical_layout
             calulate_vertical_postions
             @height = height_for_vertical_layout
