@@ -1,6 +1,6 @@
 # Compass
 
-Build Status: [![Build Status](https://secure.travis-ci.org/chriseppstein/compass.png)]
+Build Status: ![Build Status](https://secure.travis-ci.org/chriseppstein/compass.png)
 
 A [Sass][sass]-based CSS Meta-Framework that allows you to mix and match any of the following CSS frameworks:
 
