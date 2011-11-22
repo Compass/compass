@@ -2,9 +2,10 @@ module Compass::SassExtensions::Functions
 end
 
 %w(
-  selectors enumerate urls display
+  selectors    enumerate  urls      display
   inline_image image_size constants gradient_support
-  font_files lists colors trig sprites cross_browser_support
+  font_files   lists      colors    trig
+  sprites      env        cross_browser_support
 ).each do |func|
   require "compass/sass_extensions/functions/#{func}"
 end
@@ -24,6 +25,7 @@ module Sass::Script::Functions
   include Compass::SassExtensions::Functions::Trig
   include Compass::SassExtensions::Functions::Sprites
   include Compass::SassExtensions::Functions::CrossBrowserSupport
+  include Compass::SassExtensions::Functions::Env
 end
 
 # Wierd that this has to be re-included to pick up sub-modules. Ruby bug?

@@ -14,10 +14,43 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.alpha.1 (11/14/2011)
+-------------------------
+
+* font-files helper: Stop requiring font type when the type can be guessed from URL
+* inline-font-files: actually works now
+* Upgrade CSS3 Pie to 1.0beta5
+* log sprite generation and removal to the console
+* Added a new helper function `compass-env()` that returns the current compass environment (development, production)
+* Added the ability to inline a sprite image by setting `$<map>-inline:true` before you call `@import`
+* Removed `-khtml` prefixes by default you can still enable them by setting `$experimental-support-for-khtml:true;`
+* Improved rails 3.1 integration
+* `true` and `false` are now valid sprite names
+* Removed deprecated forms of the box-shadow, text-shadow, and transform
+  mixins.
+
+0.12.alpha.0 (8/30/2011)
+------------------------
+* Support for the rails 3.1 asset pipeline
+* Added support for diagonal, horizontal, and smart sprite layout
+* Fixed a bug with spacing in horizontal layout
+* Changed the descriptions of the sin, cos, and tan to be more descriptive
+* Fixed trig functions via issue #498 
+* Fixed the default `http_path` in rails
+* Sprites can now have a `sprite_search_path` that is an array of directories that
+  contain source images for sprites handy for using sprites in extensions or gems
+* Added a new set of configuration properties for generated images.
+  `generated_images_dir`, `generated_images_path`, `http_generated_images_dir`,
+  and `http_generated_images_path` can now be set to control where generated
+  images are written and how they are served. Added a corresponding
+  `generated-image-url()` helper function. These should rarely be needed and
+  will default to your corresponding image directories and paths.
+
 0.11.6 (UNRELEASED)
 -------------------
 
-* Added `user-select` mixin to control the selection model and granularity of an element. It accepts one argument (`$select`) from the following options: `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+* Added `user-select` mixin to control the selection model and granularity of an element.
+  It accepts one argument (`$select`) from the following options: `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
 
 0.11.5 (07/10/2011)
 -------------------

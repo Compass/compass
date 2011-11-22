@@ -15,6 +15,9 @@ module Compass
       self.sass_options.update(sass_opts)
       self.sass_options[:cache_location] ||= determine_cache_location
       self.sass_options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
+      self.sass_options[:compass] ||= {}
+      self.sass_options[:compass][:logger] = self.logger
+      self.sass_options[:compass][:environment] = Compass.configuration.environment
       self.staleness_checker = Sass::Plugin::StalenessChecker.new(sass_options)
     end
 
@@ -138,7 +141,7 @@ module Compass
       end
       duration = options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
       write_file(css_filename, css_content, options.merge(:force => true, :extra => duration))
-      Compass.configuration.run_callback(:stylesheet_saved, css_filename)
+      Compass.configuration.run_stylesheet_saved(css_filename)
     end
 
     def should_compile?(sass_filename, css_filename)
@@ -159,7 +162,7 @@ module Compass
       formatted_error = "(Line #{e.sass_line}: #{e.message})"
       file = basename(sass_filename)
       logger.record :error, file, formatted_error
-      Compass.configuration.run_callback(:stylesheet_error, sass_filename, formatted_error)
+      Compass.configuration.run_stylesheet_error(sass_filename, formatted_error)
       write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
     end
 

@@ -20,10 +20,12 @@ module Compass
       attributes_for_directory(:css, :stylesheets),
       attributes_for_directory(:sass, nil),
       attributes_for_directory(:images),
+      attributes_for_directory(:generated_images),
       attributes_for_directory(:javascripts),
       attributes_for_directory(:fonts),
       attributes_for_directory(:extensions, nil),
       # Compilation options
+      :sprite_load_path,
       :output_style,
       :environment,
       :relative_assets,

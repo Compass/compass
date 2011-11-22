@@ -1,27 +1,21 @@
 require 'test_helper'
 
 class SpriteMapTest < Test::Unit::TestCase
+  include SpriteHelper
   
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
-    @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images-tmp')
-    FileUtils.cp_r @images_src_path, @images_tmp_path
-    config = Compass::Configuration::Data.new('config')
-    config.images_path = @images_tmp_path
-    Compass.add_configuration(config)
+    create_sprite_temp
+    file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
+    Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
-    @options = {'cleanup' => Sass::Script::Bool.new(true)}
-    setup_map
-  end
-  
-  def setup_map
-    @importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => @options)
-    @base = Compass::SassExtensions::Sprites::SpriteMap.new(@importer.sprite_names.map{|n| "selectors/#{n}.png"}, @importer.path, @importer.name, @importer.sass_engine, @importer.options)
+    @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
+    @base = sprite_map_test(@options)
   end
 
   def teardown
-    FileUtils.rm_r @images_tmp_path
+    clean_up_sprites
+    @base = nil
   end
   
   it "should have the correct size" do
@@ -29,7 +23,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   it "should have the sprite names" do
-    assert_equal @importer.sprite_names, @base.sprite_names
+    assert_equal Compass::SpriteImporter.sprite_names(URI), @base.sprite_names
   end
   
   it 'should have image filenames' do
@@ -41,7 +35,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   test 'uniqueness_hash' do
-    assert_equal 'ef52c5c63a', @base.uniqueness_hash
+    assert_equal '4c703bbc05', @base.uniqueness_hash
   end
   
   it 'should be outdated' do
@@ -82,9 +76,134 @@ class SpriteMapTest < Test::Unit::TestCase
     file_to_remove = File.join(@images_tmp_path, 'selectors', 'ten-by-ten.png')
     FileUtils.rm file_to_remove
     assert !File.exists?(file_to_remove), "Failed to remove sprite file"
-    setup_map
+    @base = sprite_map_test(@options)
     @base.generate
     assert !File.exists?(file), "Sprite file did not get removed"
+  end
+
+  it "should have a vertical layout" do
+    assert_equal [0, 10, 20, 30], @base.images.map(&:top)
+    assert_equal [0, 0, 0, 0], @base.images.map(&:left)
+  end
+  
+  it "should have a vertical layout with spacing" do
+    base = sprite_map_test(@options.merge({"spacing" => Sass::Script::Number.new(10, ['px'])}))
+    assert_equal [0, 20, 40, 60], base.images.map(&:top)
+  end
+  
+  it "should layout vertical with position" do
+    base = sprite_map_test("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
+    assert_equal [0, 10, 0, 0], base.images.map(&:left)
+  end
+  
+  def smart
+    options = @options.merge("layout" => Sass::Script::String.new('smart'))
+    importer = Compass::SpriteImporter.new
+    uri = "image_row/*.png"
+    path, name = Compass::SpriteImporter.path_and_name(uri)
+    sprite_names = Compass::SpriteImporter.sprite_names(uri)
+    sass_engine = Compass::SpriteImporter.sass_engine(uri, name, importer, options)
+    map = Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map {|n| "image_row/#{n}.png"}, path, name, sass_engine, options)
+    map.options = {:compass => {:logger => Compass::NullLogger.new}}
+    map
+  end
+  
+  it "should have a smart layout" do
+    base = smart
+    base.generate
+    assert_equal 400, base.width
+    assert_equal 60, base.height
+    assert_equal [[0, 0], [20, 120], [20, 0], [20, 100], [20, 160]], base.images.map {|i| [i.top, i.left]}
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
+
+  def diagonal
+    opts = @options.merge("layout" => Sass::Script::String.new('diagonal'))
+    sprite_map_test(opts)
+  end
+  
+  it "should generate a diagonal sprite" do
+    base = diagonal
+    base.generate
+    assert_equal 40, base.width
+    assert_equal 40, base.height
+    assert_equal [[30, 0], [20, 10], [10, 20], [0, 30]], base.images.map {|i| [i.top, i.left]}
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
+
+  # Horizontal tests
+  def horizontal(options= {})
+    opts = @options.merge("layout" => Sass::Script::String.new('horizontal'))
+    opts.merge!(options)
+    sprite_map_test(opts)
+  end
+  
+  it "should have a horizontal layout" do
+    base = horizontal
+    assert_equal 10, base.height
+    assert_equal 40, base.width
+  end
+  
+  it "should layout images horizontaly" do
+    base = horizontal
+    assert_equal [0, 10, 20, 30], base.images.map(&:left)
+    assert_equal [0, 0, 0, 0], base.images.map(&:top)
+  end
+  
+  it "should layout horizontaly with spacing" do
+    base = horizontal("spacing" => Sass::Script::Number.new(10, ['px']))
+    assert_equal [0, 20, 40, 60], base.images.map(&:left)
+    assert_equal [0, 0, 0, 0], base.images.map(&:top)
+    assert_equal 80, base.width
+  end
+  
+  it "should layout horizontaly with position" do
+    base = horizontal("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
+    assert_equal [0, 10, 0, 0], base.images.map(&:top)
+  end
+  
+  it "should generate a horrizontal sprite" do
+    base = horizontal
+    base.generate
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
+    
+  it "should generate vertical sprites in decending order" do
+    sizes = @base.images.map{|image| File.size(image.file) }
+    assert_equal sizes.min, File.size(@base.images.first.file)
+    assert_equal sizes.max, File.size(@base.images.last.file)
+  end
+  
+  test "should get correct relative_name" do
+    Compass.reset_configuration!
+    uri = 'foo/*.png'
+    other_folder = File.join(@images_tmp_path, '../other-temp')
+    FileUtils.mkdir_p other_folder
+    FileUtils.mkdir_p File.join(other_folder, 'foo')
+    %w(my bar).each do |file|
+      FileUtils.touch(File.join(other_folder, "foo/#{file}.png"))
+    end
+    config = Compass::Configuration::Data.new('config')
+    config.images_path = @images_tmp_path
+    config.sprite_load_path = [@images_tmp_path, other_folder]
+    Compass.add_configuration(config, "sprite_config")
+    assert_equal 'foo/my.png', Compass::SassExtensions::Sprites::SpriteMap.relative_name(File.join(other_folder, 'foo/my.png'))
+    FileUtils.rm_rf other_folder
+  end
+  
+  test "should create map for nested" do
+    base = Compass::SassExtensions::Sprites::SpriteMap.from_uri OpenStruct.new(:value => 'nested/squares/*.png'), @base.instance_variable_get(:@evaluation_context), @options
+    assert_equal 'squares', base.name
+    assert_equal 'nested/squares', base.path
+  end
+  
+  test "should have correct position on ten-by-ten" do
+    percent = Sass::Script::Number.new(50, ['%'])
+    base = sprite_map_test(@options.merge('selectors_ten_by_ten_position' => percent))
+    assert_equal percent, base.image_for('ten-by-ten').position
   end
   
 end

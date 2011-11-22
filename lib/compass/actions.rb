@@ -65,6 +65,7 @@ module Compass
     end
 
     def remove(file_name)
+      file_name ||= ''
       if File.directory?(file_name)
         FileUtils.rm_rf file_name
         log_action :remove, basename(file_name)+"/", options
@@ -106,6 +107,5 @@ module Compass
         logger.record(action, file, options[:extra].to_s)
       end
     end
-
   end
 end

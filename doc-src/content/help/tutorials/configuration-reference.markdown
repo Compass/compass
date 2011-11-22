@@ -143,7 +143,7 @@ later on.
     <td style="vertical-align:top;"><code>sass_dir</code> </td>
     <td style="vertical-align:top;">String </td>
     <td style="vertical-align:top;">The directory where the sass stylesheets are kept.
-      It is relative to the <code>project_path</code>. Defaults to <code>"src"</code>.
+      It is relative to the <code>project_path</code>. Defaults to <code>"sass"</code>.
     </td>
   </tr>
   <tr>
@@ -170,9 +170,31 @@ later on.
   </tr>
   <tr>
     <td style="vertical-align:top;"><code>http_images_path</code> </td>
-    <td style="vertical-align:top;">String </td>
+    <td style="vertical-align:top;">String</td>
     <td style="vertical-align:top;">The full http path to images on the web server.
       Defaults to <code>http_path + "/" + images_dir</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>generated_images_dir</code> </td>
+    <td style="vertical-align:top;">String</td>
+    <td style="vertical-align:top;">The directory where generated images are kept.
+      It is relative to the <code>project_path</code>.
+      Defaults to the value of <code>images_dir</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>generated_images_path</code> </td>
+    <td style="vertical-align:top;">String</td>
+    <td style="vertical-align:top;">The full path to where generated images are kept.
+      Defaults to the value of <code>&lt;project_path&gt;/&lt;generated_images_dir&gt;</code>.
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>http_generated_images_path</code> </td>
+    <td style="vertical-align:top;">String</td>
+    <td style="vertical-align:top;">The full http path to generated images on
+      the web server. Defaults to <code>http_path + "/" + generated_images_dir</code>.
     </td>
   </tr>
   <tr>
@@ -285,6 +307,13 @@ later on.
     <td style="vertical-align:top;">Hash </td>
     <td style="vertical-align:top;">
       Defaults to <code>{:compression => Zlib::BEST_COMPRESSION}</code>. See the chunky_png <a href='https://github.com/wvanbergen/chunky_png/wiki/Constraints' _target='blank'>wiki</a> for more information
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>sprite_load_path</code></td>
+    <td style="vertical-align:top;">Array </td>
+    <td style="vertical-align:top;">
+      Defaults to <code> [images_path] </code>
     </td>
   </tr>
 </table>

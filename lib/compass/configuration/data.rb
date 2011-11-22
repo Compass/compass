@@ -18,11 +18,43 @@ module Compass
     class Data
 
       attr_reader :name
+      extend Sass::Callbacks
+
 
       include Compass::Configuration::Inheritance
       include Compass::Configuration::Serialization
       include Compass::Configuration::Adapters
       extend  Compass::Configuration::Paths
+
+      # on_sprite_saved
+      # yields the filename
+      # usage: on_sprite_saved {|filename| do_something(filename) }
+      define_callback :sprite_saved
+      chained_method :run_sprite_saved
+
+      # on_sprite_generated
+      # yields 'ChunkyPNG::Image'
+      # usage: on_sprite_generated {|sprite_data| do_something(sprite_data) }
+      define_callback :sprite_generated
+      chained_method :run_sprite_generated
+
+      # on_sprite_removed
+      # yields the filename
+      # usage: on_sprite_removed {|filename| do_something(filename) }
+      define_callback :sprite_removed
+      chained_method :run_sprite_removed
+
+      # on_stylesheet_saved
+      # yields the filename
+      # usage: on_stylesheet_saved {|filename| do_something(filename) }
+      define_callback :stylesheet_saved
+      chained_method :run_stylesheet_saved
+
+      # on_stylesheet_error
+      # yields the filename & message
+      # usage: on_stylesheet_error {|filename, message| do_something(filename, message) }
+      define_callback :stylesheet_error
+      chained_method :run_stylesheet_error
 
       inherited_accessor *ATTRIBUTES
       inherited_accessor :required_libraries, :loaded_frameworks, :framework_path #XXX we should make these arrays add up cumulatively.
@@ -136,16 +168,6 @@ module Compass
       def relative_assets?
         # the http_images_path is deprecated, but here for backwards compatibility.
         relative_assets || http_images_path == :relative
-      end
-
-      def run_callback(event, *args)
-        begin
-          send(:"run_#{event}", *args)
-        rescue NoMethodError => e
-          unless e.message =~ /run_#{event}/
-            raise
-          end
-        end
       end
 
       private

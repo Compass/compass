@@ -1,6 +1,7 @@
 # All files in the 'lib' directory will be loaded
 # before nanoc starts compiling.
-
+require 'erb'
+require 'active_support/inflector'
 include Nanoc3::Helpers::LinkTo
 include Nanoc3::Helpers::Capturing
 include Nanoc3::Helpers::Rendering
@@ -136,4 +137,17 @@ end
 def long_compass_version
   require 'compass/commands'
   Compass::Commands::PrintVersion.long_output_string
+end
+
+
+def sprite_tutorial_links(index=false)
+  string = <<-ERB
+<% unless index %>
+  * [Sprite Tutorial Index](/help/tutorials/spriting/)
+<% end %>
+<% Dir["./content/help/tutorials/spriting/**/*.markdown"].sort.each do |file| %>
+  * [<%= File.basename(file, '.markdown').gsub('-', ' ').titleize %>](/help/tutorials/spriting/<%= File.basename(file, '.markdown') %>)
+<% end %>
+  ERB
+  ::ERB.new(string).result(binding)
 end

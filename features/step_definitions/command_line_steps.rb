@@ -135,6 +135,7 @@ end
 
 Then "the following files are reported removed:" do |table|
   table.rows.each do |css_file|
+    #need to find a better way but this works for now
     Then %Q{a css file #{css_file.first} is reported removed}
   end
 end

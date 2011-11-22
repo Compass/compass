@@ -61,6 +61,19 @@ module Compass
           inherited_writer(*attributes)
         end
 
+        def chained_method(method)
+          line = __LINE__ + 1
+          class_eval %Q{
+            alias_method :_chained_#{method}, method
+            def #{method}(*args, &block)
+              _chained_#{method}(*args, &block)
+              if inherited_data
+                inherited_data.#{method}(*args, &block)
+              end
+            end
+          }, __FILE__, line
+        end
+
         
       end
 
@@ -124,6 +137,8 @@ module Compass
         def read_without_default(attribute)
           if set?(attribute)
             send("raw_#{attribute}")
+          elsif inherited_data.nil?
+            nil
           elsif inherited_data.respond_to?("#{attribute}_without_default")
             inherited_data.send("#{attribute}_without_default")
           elsif inherited_data.respond_to?(attribute)

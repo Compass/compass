@@ -13,7 +13,7 @@ as we can for you to contribute changes to compass -- So if there's something he
 seems harder than it aught to be, please let us know.
 
 If you find a bug **in this document**, you are bound to contribute a fix. Stop reading now
-if you do not wish to abide by this rool.
+if you do not wish to abide by this rule.
 
 **Step 1**: If you do not have a github account, create one.
 

@@ -1,5 +1,6 @@
 --- 
 :major: 0
-:minor: 11
-:patch: 5
-:name: Antares
+:minor: 12
+:state: alpha
+:build: 1
+:name: Alnilam
