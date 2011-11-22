@@ -5,11 +5,11 @@
 // the implementations are identical except for the property
 // prefix.
 @mixin experimental($property, $value,
-  $webkit   : $experimental-support-for-webkit,
-  $khtml    : $experimental-support-for-khtml,
   $moz      : $experimental-support-for-mozilla,
-  $ms       : $experimental-support-for-microsoft,
+  $webkit   : $experimental-support-for-webkit,
   $o        : $experimental-support-for-opera,
+  $ms       : $experimental-support-for-microsoft,
+  $khtml    : $experimental-support-for-khtml,
   $official : true
 ) {
   @if $webkit  and $experimental-support-for-webkit    { -webkit-#{$property} : $value; }
@@ -22,11 +22,11 @@
 
 // Same as experimental(), but for cases when the property is the same and the value is vendorized
 @mixin experimental-value($property, $value,
-  $webkit   : $experimental-support-for-webkit,
-  $khtml    : $experimental-support-for-khtml,
   $moz      : $experimental-support-for-mozilla,
-  $ms       : $experimental-support-for-microsoft,
+  $webkit   : $experimental-support-for-webkit,
   $o        : $experimental-support-for-opera,
+  $ms       : $experimental-support-for-microsoft,
+  $khtml    : $experimental-support-for-khtml,
   $official : true
 ) {
   @if $webkit  and $experimental-support-for-webkit    { #{$property} : -webkit-#{$value}; }
