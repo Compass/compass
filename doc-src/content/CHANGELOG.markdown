@@ -14,6 +14,11 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.alpha.2 (11/28/2011)
+-------------------------
+
+* Bug fixes for Rails 2.x applications.
+
 0.12.alpha.1 (11/14/2011)
 -------------------------
 
