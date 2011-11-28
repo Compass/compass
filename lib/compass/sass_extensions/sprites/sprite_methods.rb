@@ -1,3 +1,5 @@
+require 'rational'
+
 module Compass
   module SassExtensions
     module Sprites
@@ -27,11 +29,15 @@ module Compass
         
         # Creates the Sprite::Image objects for each image and calculates the width
         def init_images
+          repeated_widths = []
           @images = image_names.collect do |relative_file|
             image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, kwargs)
+            repeated_widths << image.width if image.repeat == 'repeat-x'
             @width = [ @width, image.width + image.offset ].max
             image
           end
+          lcm = repeated_widths.inject {|l, w| l.lcm(w)}
+          @width += @width % lcm if lcm
         end
         
         # Calculates the overal image dimensions
