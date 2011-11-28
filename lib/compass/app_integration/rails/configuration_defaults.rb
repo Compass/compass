@@ -79,6 +79,12 @@ module Compass
           http_root_relative "images"
         end
 
+        def default_http_generated_images_path
+          # Relies on the fact that this will be loaded after the "normal"
+          # defaults, so that method_missing finds http_root_relative
+          http_root_relative "images"
+        end
+
         def default_http_javascripts_path
           http_root_relative "javascripts"
         end
