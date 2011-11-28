@@ -11,7 +11,7 @@ unless defined?(Compass::RAILS_LOADED)
     else
       require 'compass/app_integration/rails/actionpack2x'
     end
-  rescue LoadError, NameError
-    $stderr.puts "Compass could not access the rails environment."
+  rescue LoadError, NameError => e
+    $stderr.puts "Compass could not access the rails environment: #{e}"
   end
 end
