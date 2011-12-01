@@ -136,13 +136,13 @@ end
 Then "the following files are reported removed:" do |table|
   table.rows.each do |css_file|
     #need to find a better way but this works for now
-    Then %Q{a css file #{css_file.first} is reported removed}
+    step %Q{a css file #{css_file.first} is reported removed}
   end
 end
 
 Then "the following files are removed:" do |table|
   table.rows.each do |css_file|
-    Then %Q{a css file #{css_file.first} is removed}
+    step %Q{a css file #{css_file.first} is removed}
   end
 end
 
@@ -258,7 +258,7 @@ end
 Then /^I should see the following "([^"]+)" commands:$/ do |kind, table|
 
 
-  Then %Q{I should be shown a list of "#{kind}" commands}
+  step %Q{I should be shown a list of "#{kind}" commands}
 
   commands = @last_command_list.map{|c| c =~ /^\s+\* ([^ ]+)\s+- [A-Z].+$/; [$1]}
   table.diff!(commands)
