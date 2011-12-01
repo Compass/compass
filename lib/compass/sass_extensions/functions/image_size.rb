@@ -1,13 +1,13 @@
 module Compass::SassExtensions::Functions::ImageSize
   # Returns the width of the image relative to the images directory
   def image_width(image_file)
-    width, _ = image_demensions(image_file)
+    width, _ = image_dimensions(image_file)
     Sass::Script::Number.new(width,["px"])
   end
   
   # Returns the height of the image relative to the images directory
   def image_height(image_file)
-    _, height = image_demensions(image_file)
+    _, height = image_dimensions(image_file)
     Sass::Script::Number.new(height, ["px"])
   end
 
@@ -44,7 +44,7 @@ module Compass::SassExtensions::Functions::ImageSize
 
 private
 
-  def image_demensions(image_file)
+  def image_dimensions(image_file)
     options[:compass] ||= {}
     options[:compass][:image_dimensions] ||= {}
     options[:compass][:image_dimensions][image_file.value] = ImageProperties.new(image_path_for_size(image_file.value)).size
