@@ -125,7 +125,7 @@ should attempt to adhere to unless there's a good reason not to do so.
    pieces for faster load times when they're not using everything.
 3. Use partials (files starting with an underscore) for stylesheets that are meant
    to be imported. If you do not Sass will generate css
-   files for your libaries in some configurations.
+   files for your libraries in some configurations.
 4. Provide a project template. If you do not, your project should only be
    providing widgets or page designs, etc.
 
