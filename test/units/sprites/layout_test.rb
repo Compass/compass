@@ -58,6 +58,7 @@ class LayoutTest < Test::Unit::TestCase
     map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
     assert_equal 6, map.width
     assert_equal [0, 4, 7, 9, 14, 4, 4], map.images.map(&:top)
+    assert_equal [0, 0, 0, 0, 0, 0, 3], map.images.map(&:left)
   end
 
   test 'repeat-x layout multi image' do
