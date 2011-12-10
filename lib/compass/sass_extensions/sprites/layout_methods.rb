@@ -52,9 +52,33 @@ module Compass
             @width = width_for_vertical_layout
             calulate_vertical_postions
             @height = height_for_vertical_layout
+            if @images.any?(&:repeat_x?)
+              calculate_repeat_extra_width!
+              tile_images_that_repeat
+             end
           end
         end
 
+        def tile_images_that_repeat
+          @images.map {|img| img if img.repeat_x?}.compact.each do |image|
+            x = image.left - (image.left / image.width).ceil * image.width
+              while x < @width do
+                begin
+                  img = image.dup
+                  img.top = image.top
+                  img.left = x.to_i
+                  @images << img
+                  x += image.width 
+                end
+              end
+            end
+        end
+
+        def calculate_repeat_extra_width!
+          m = @images.inject(1) {|m,img| img.repeat_x? ? m.lcm(img.width) : m}
+          remainder = @width % m
+          @width += (m - remainder) unless remainder.zero?
+        end
         
         def calculate_smart_positions
           fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images)
@@ -104,7 +128,7 @@ module Compass
         
         def calulate_vertical_postions
           @images.each_with_index do |image, index|
-            image.left = image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100.0) : image.position.value
+            image.left = (image.position.unit_str == "%" ? (@width - image.width) * (image.position.value / 100.0) : image.position.value).to_i
             next if index == 0
             last_image = @images[index-1]
             image.top = last_image.top + last_image.height + [image.spacing,  last_image.spacing].max

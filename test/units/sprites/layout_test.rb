@@ -5,6 +5,7 @@ class LayoutTest < Test::Unit::TestCase
 
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
+    clean_up_sprites
     create_sprite_temp
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
@@ -48,6 +49,21 @@ class LayoutTest < Test::Unit::TestCase
     opts.merge!(options)
 
     sprite_map_test(opts)
+  end
+
+  # REPEAT_X
+
+  test 'repeat-x layout single image' do
+    opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x')}
+    map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
+    assert_equal 6, map.width
+    assert_equal [0, 4, 7, 9, 14, 4, 4], map.images.map(&:top)
+  end
+
+  test 'repeat-x layout multi image' do
+    opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x'), "repeat_x_four_repeat" => Sass::Script::String.new('repeat-x')}
+    map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
+    assert_equal 12, map.width
   end
 
   # VERTICAL LAYOUT

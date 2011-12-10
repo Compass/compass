@@ -23,6 +23,12 @@ require 'compass'
 require 'test/unit'
 
 
+class String
+  def name
+    to_s
+  end
+end
+
 %w(command_line diff io rails test_case).each do |helper|
   require "helpers/#{helper}"
 end
@@ -60,8 +66,9 @@ module SpriteHelper
   end
 
   def clean_up_sprites
-     init_sprite_helper
-    ::FileUtils.rm_r @images_tmp_path
+    init_sprite_helper
+    ::FileUtils.rm_r @images_tmp_path   
+  rescue Errno::ENOENT => e  
   end
   
 end

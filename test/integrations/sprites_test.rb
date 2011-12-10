@@ -380,7 +380,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s13833277b3.png') no-repeat;
+        background: url('/squares-s65c43cd573.png') no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -628,7 +628,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .ko-sprite, .ko-default_background, .ko-starbg26x27 {
-        background: url('/ko-sd6b4d44430.png') no-repeat;
+        background: url('/ko-sd46dfbab4f.png') no-repeat;
       }
       
       .ko-default_background {
