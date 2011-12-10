@@ -82,24 +82,4 @@ class SpritesImageTest < Test::Unit::TestCase
     assert_equal 0, img.offset
   end
 
-
-  test 'gets name for sprite in search path' do
-    Compass.reset_configuration!
-    uri = 'foo/*.png'
-    other_folder = File.join(@images_tmp_path, '../other-temp')
-    FileUtils.mkdir_p other_folder
-    FileUtils.mkdir_p File.join(other_folder, 'foo')
-    %w(my bar).each do |file|
-      FileUtils.touch(File.join(other_folder, "foo/#{file}.png"))
-    end
-    config = Compass::Configuration::Data.new('config')
-    config.images_path = @images_tmp_path
-    config.sprite_load_path = [@images_tmp_path, other_folder]
-    Compass.add_configuration(config, "sprite_config")
-    image = Compass::SassExtensions::Sprites::Image.new(test_map, "foo/my.png", {})
-    assert_equal File.join(other_folder, 'foo/my.png'), image.file
-    assert_equal 0, image.size
-    FileUtils.rm_rf other_folder
-  end
-
 end
