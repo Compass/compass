@@ -16,8 +16,19 @@ gem "ruby-prof", :platform => :mri_18
 
 gem 'mocha'
 gem 'timecop'
+
+gem 'guard'
+gem 'guard-test'
+gem 'guard-cucumber'
+
 gem 'diff-lcs', '~> 1.1.2'
 
 gem 'rake', '~> 0.9.2'
 
 #Warning becarful adding OS dependant gems to this file it will cause issues on the CI server
+
+
+unless ENV["CI"]
+  gem 'rb-fsevent'
+  gem 'growl_notify'
+end
