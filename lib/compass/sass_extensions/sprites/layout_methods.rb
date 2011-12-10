@@ -75,6 +75,7 @@ module Compass
         end
 
         def calculate_repeat_extra_width!
+          require 'rational' #for ruby 1.8.7
           m = @images.inject(1) {|m,img| img.repeat_x? ? m.lcm(img.width) : m}
           remainder = @width % m
           @width += (m - remainder) unless remainder.zero?
