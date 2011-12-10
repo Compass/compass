@@ -50,23 +50,23 @@ class LayoutTest < Test::Unit::TestCase
     sprite_map_test(opts)
   end
 
-  # REPEAT-X
-
   # VERTICAL LAYOUT
 
   it "should have a vertical layout" do
-    assert_equal [0, 10, 20, 30], vertical.images.map(&:top)
-    assert_equal [0, 0, 0, 0], vertical.images.map(&:left)
+    vert = vertical
+    assert_equal [0, 10, 20, 30], vert.images.map(&:top)
+    assert_equal [0, 0, 0, 0], vert.images.map(&:left)
+    assert vert.vertical?
   end
   
   it "should have a vertical layout with spacing" do
-    base = sprite_map_test(@options.merge({"spacing" => Sass::Script::Number.new(10, ['px'])}))
-    assert_equal [0, 20, 40, 60], base.images.map(&:top)
+    vert = sprite_map_test(@options.merge({"spacing" => Sass::Script::Number.new(10, ['px'])}))
+    assert_equal [0, 20, 40, 60], vert.images.map(&:top)
   end
   
   it "should layout vertical with position" do
-    base = sprite_map_test("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
-    assert_equal [0, 10, 0, 0], base.images.map(&:left)
+    vert = sprite_map_test("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
+    assert_equal [0, 10, 0, 0], vert.images.map(&:left)
   end
 
   it "should generate vertical sprites in decending order" do
@@ -80,6 +80,7 @@ class LayoutTest < Test::Unit::TestCase
   it "should have a smart layout" do
     base = smart
     base.generate
+    assert base.smart?
     assert_equal 400, base.width
     assert_equal 60, base.height
     assert_equal [[0, 0], [20, 120], [20, 0], [20, 100], [20, 160]], base.images.map {|i| [i.top, i.left]}
@@ -92,6 +93,7 @@ class LayoutTest < Test::Unit::TestCase
   it "should generate a diagonal sprite" do
     base = diagonal
     base.generate
+    assert base.diagonal?
     assert_equal 40, base.width
     assert_equal 40, base.height
     assert_equal [[30, 0], [20, 10], [10, 20], [0, 30]], base.images.map {|i| [i.top, i.left]}
@@ -103,6 +105,7 @@ class LayoutTest < Test::Unit::TestCase
   
   it "should have a horizontal layout" do
     base = horizontal
+    assert base.horizontal?
     assert_equal 10, base.height
     assert_equal 40, base.width
   end
@@ -110,7 +113,7 @@ class LayoutTest < Test::Unit::TestCase
   it "should layout images horizontaly" do
     base = horizontal
     assert_equal [0, 10, 20, 30], base.images.map(&:left)
-    assert_equal [0, 0, 0, 0], base.images.map(&:top)
+    assert_equal [0, 0, 0, 0],  base.images.map(&:top)
   end
   
   it "should layout horizontaly with spacing" do

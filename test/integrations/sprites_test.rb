@@ -374,13 +374,13 @@ class SpritesTest < Test::Unit::TestCase
 
   it "should repeat the image" do
     css = render <<-SCSS
-      $squares-repeat: repeat;
+      $squares-repeat: repeat-x;
       @import "squares/*.png";
       @include all-squares-sprites;
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sbab486c25a.png') no-repeat;
+        background: url('/squares-s13833277b3.png') no-repeat;
       }
       
       .squares-ten-by-ten {

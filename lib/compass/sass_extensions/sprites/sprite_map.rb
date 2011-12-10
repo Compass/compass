@@ -49,7 +49,14 @@ module Compass
         end
 
         def inspect
-          to_s
+          puts 'images'
+          @images.each do |img|
+            puts img.file
+          end
+          puts "options"
+          @kwargs.each do |k,v|
+            puts "#{k}:#{v}"
+          end
         end
 
         def to_s(kwargs = self.kwargs)

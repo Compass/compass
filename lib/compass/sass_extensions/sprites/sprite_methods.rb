@@ -27,8 +27,7 @@ module Compass
         # Creates the Sprite::Image objects for each image and calculates the width
         def init_images
           @images = image_names.collect do |relative_file|
-            image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, kwargs)
-            image
+            Image.new(self, relative_file, kwargs)
           end
         end
         

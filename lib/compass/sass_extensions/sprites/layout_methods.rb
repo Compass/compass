@@ -5,6 +5,7 @@ module Compass
         HORIZONTAL = 'horizontal'
         DIAGONAL = 'diagonal'
         SMART = 'smart'
+        VERTICAL = 'vertical'
         
         def smart?
           layout == SMART
@@ -16,6 +17,10 @@ module Compass
         
         def diagonal?
           layout == DIAGONAL
+        end
+
+        def vertical?
+          layout == VERTICAL
         end
         
         def layout
@@ -43,11 +48,13 @@ module Compass
                 b.size <=> a.size
               end
             end
+
             @width = width_for_vertical_layout
             calulate_vertical_postions
             @height = height_for_vertical_layout
           end
         end
+
         
         def calculate_smart_positions
           fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images)

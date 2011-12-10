@@ -123,10 +123,9 @@ class SpriteMapTest < Test::Unit::TestCase
     config.images_path = @images_tmp_path
     config.sprite_load_path = [@images_tmp_path, other_folder]
     Compass.add_configuration(config, "sprite_config")
-    image = Compass::SassExtensions::Sprites::Image.new(@basegit status, "foo/my.png", {})
+    image = Compass::SassExtensions::Sprites::Image.new(@base, "foo/my.png", {})
     assert_equal File.join(other_folder, 'foo/my.png'), image.file
     assert_equal 0, image.size
-    FileUtils.rm_rf other_folder
   end
   
 end

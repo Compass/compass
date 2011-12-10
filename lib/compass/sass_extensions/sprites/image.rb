@@ -6,6 +6,11 @@ module Compass
         TARGET = %r{[_-]target$}
         HOVER = %r{[_-]hover$}
         PARENT = %r{(.+)[-_](.+)$}
+
+        REPEAT_X = 'repeat-x'
+        NO_REPEAT = 'no-repeat'
+
+        VALID_REPEATS = [REPEAT_X, NO_REPEAT]
         
         attr_reader :relative_file, :options, :base
         attr_accessor :top, :left
@@ -53,8 +58,23 @@ module Compass
         end
 
         # Value of <tt> $#{name}-repeat </tt> or <tt> $repeat </tt>
-        def repeat
-         @repeat ||= (get_var_file("repeat") || options.get_var("repeat") || Sass::Script::String.new("no-repeat")).value
+        def repeat 
+          @repeat ||= begin 
+            rep = (get_var_file("repeat") || options.get_var("repeat") || Sass::Script::String.new(NO_REPEAT)).value
+            unless VALID_REPEATS.include? rep
+              raise SpriteException, "Invalid option for repeat \"#{rep}\" - valid options are #{VALID_REPEATS.join(', ')}"
+            end
+
+            rep
+          end
+        end
+
+        def repeat_x?
+          repeat == REPEAT_X
+        end
+
+        def no_repeat?
+          repeat == NO_REPEAT
         end
 
         # Value of <tt> $#{name}-position </tt> or <tt> $position </tt> defaults to <tt>0px</tt>

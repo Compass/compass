@@ -4,8 +4,13 @@ require 'ostruct'
 
 class SpritesImageTest < Test::Unit::TestCase
   include SpriteHelper
+
   def setup
     create_sprite_temp
+  end
+
+  def teardown
+    clean_up_sprites
   end
 
   SPRITE_FILENAME =  'selectors/ten-by-ten.png'
@@ -51,13 +56,22 @@ class SpritesImageTest < Test::Unit::TestCase
     assert_nil test_image.parent
   end
   
-  test 'image type is "global"' do
-    image = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('global')
-    assert_equal 'global', image.repeat
+  test 'image type is "global" should raise exception' do
+    assert_raise ::Compass::SpriteException do
+      image = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('global')
+      image.repeat
+    end
   end
   
   test 'image type is "no-repeat"' do
-    assert_equal 'no-repeat', test_image.repeat
+    img = test_image
+    assert_equal 'no-repeat', img.repeat
+    assert img.no_repeat?
+  end
+
+  test 'image repeat-x' do
+    img = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('repeat-x')
+    assert img.repeat_x?
   end
 
   test 'image position' do
