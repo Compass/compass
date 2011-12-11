@@ -42,10 +42,11 @@ Given %r{^I am in the parent directory$} do
 end
 
 Given %r{^I'm in a newly created rails project: (.+)$} do |project_name|
-  @cleanup_directories << project_name
+  dir = File.join(Dir.pwd, project_name)
+  @cleanup_directories << dir
   begin
-    generate_rails_app project_name
-    Dir.chdir project_name
+    generate_rails_app project_name, Dir.pwd
+    Dir.chdir dir
   rescue LoadError
     pending "Missing Ruby-on-rails gems: sudo gem install rails"
   end

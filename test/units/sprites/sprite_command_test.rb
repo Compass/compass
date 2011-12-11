@@ -1,6 +1,10 @@
 require 'test_helper'
-
+require 'compass/exec'
 class SpriteCommandTest < Test::Unit::TestCase
+  include Compass::TestCaseHelper
+  include Compass::CommandLineHelper
+  include Compass::IoHelper
+  
   attr_reader :test_dir
   include SpriteHelper
   def setup
@@ -27,7 +31,7 @@ class SpriteCommandTest < Test::Unit::TestCase
   def run_compass_with_options(options)
     output = 'foo'
     ::Dir.chdir @test_dir
-    %x{compass #{options.join(' ')}}
+    compass *options
   end
 
   def options_to_cli(options)

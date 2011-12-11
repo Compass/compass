@@ -15,7 +15,7 @@ Feature: Extensions
   @listframeworks
   Scenario: Extensions directory for rails projects
     Given ruby supports fork
-    And I'm in a newly created rails project: my_rails_project
+    And I'm in a newly created rails project: extension_test_rails_project
     And I run: compass init rails
     And the "vendor/plugins/compass_extensions" directory exists
     And and I have a fake extension at vendor/plugins/compass_extensions/testing
