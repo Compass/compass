@@ -72,7 +72,7 @@ module Compass
         end
         
         def cleanup_old_sprites
-          Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
+          Dir[File.join(Compass.configuration.images_path, "#{path}-s*.png")].each do |file|
             FileUtils.rm file
           end
         end
