@@ -14,6 +14,14 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.alpha.3 (UNRELEASED)
+-------------------------
+
+* The `$round-to-nearest-half-line` config variable was added. When
+  true, the vertical rhythm module will round line heights to the
+  nearest half-line to avoid awkwardly large gaps between lines of text.
+  Defaults to false.
+
 0.12.alpha.2 (11/28/2011)
 -------------------------
 
