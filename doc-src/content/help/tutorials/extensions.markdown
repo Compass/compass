@@ -174,9 +174,12 @@ You may also see some real manifest files here:
 
 ### Manifest Declarations
 
+
 **Easy Mode:** If you just have some basic files and nothing fancy going on, simply place this line in your manifest:
 
     discover :all
+
+If the file is missing `discover :all` is the default
 
 This will cause compass to find all the files in your template and use the files' extension to determine where they should go. Alternatively, you can request that compass only discover files of a certain type. For example, the following will only discover javascript and image assets, you could then declare other file types on your own.
 
