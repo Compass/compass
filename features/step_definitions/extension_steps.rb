@@ -16,6 +16,13 @@ Given /^and I have a fake extension at (.*)$/ do |directory|
   end
 end
 
+Given /^I have a fake extension without manifest file at (.*)$/ do |directory|
+  directory.gsub!('~', ENV["HOME"]) if directory.include?('~/')
+  FileUtils.mkdir_p File.join(directory, 'templates', 'project')
+  FileUtils.touch   File.join(directory, 'templates', 'project', 'screen.scss')
+  FileUtils.touch   File.join(directory, 'templates', 'project', 'app.js')
+end
+
 Then /^the list of frameworks includes "([^\"]*)"$/ do |framework|
   @last_result.split("\n").map{|f| f.gsub(/(^\s+[*-]\s+)|(\s+$)/,'')}.should include(framework)
 end

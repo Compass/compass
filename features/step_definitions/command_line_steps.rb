@@ -181,6 +181,11 @@ Then /I am told how to conditionally link "([^"]+)" to ([^ ]+) for media "([^"]+
   @last_result.should =~ %r{<!--\[if #{condition}\]>\s+<link href="#{stylesheet}" media="#{media}" rel="stylesheet" type="text/css" />\s+<!\[endif\]-->}mi
 end
 
+Then /I am told how to link to ([^ ]+) without media/ do |stylesheet|
+  @last_result.should =~ %r{<link href="#{stylesheet}" rel="stylesheet" type="text/css" />}
+end
+
+
 Then /^an error message is printed out: (.+)$/ do |error_message|
   @last_error.should =~ Regexp.new(Regexp.escape(error_message))
 end
