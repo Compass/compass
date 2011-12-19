@@ -12,3 +12,5 @@ $base-line-height: 16px;
 
 .borders { @include h-borders(1px,1); }
 .large-borders { @include adjust-font-size-to(24px,3); @include h-borders(6px,1,24px); }
+
+.reset { @include reset-baseline; }

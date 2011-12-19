@@ -59,6 +59,11 @@ $base-half-leader: $base-leader / 2;
   }
 }
 
+// resets the baseline to 1 leading unit
+@mixin reset-baseline {
+  @include adjust-leading-to(1, if($relative-font-sizing, $base-font-size, $base-font-size));
+}
+
 // Show a background image that can be used to debug your alignments.
 // include the $img argument if you would rather use your own image than the
 // Compass default gradient image.
