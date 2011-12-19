@@ -22,6 +22,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   nearest half-line to avoid awkwardly large gaps between lines of text.
   Defaults to false.
 
+* Added `reset-baseline` to the vertical rhythm module so you can force the baseline to reset.
+
 0.12.alpha.2 (11/28/2011)
 -------------------------
 
