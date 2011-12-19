@@ -32,6 +32,17 @@ Feature: Command Line
     And I am told how to link to /stylesheets/print.css for media "print"
     And I am told how to conditionally link "lt IE 8" to /stylesheets/ie.css for media "screen, projection"
 
+  Scenario: Install a project with extension without manifest file
+    When I have a fake extension without manifest file at ~/.compass/extensions/without_manifest_file
+    When I create a project using: compass create without_manifest_project --using without_manifest_file 
+    Then a directory without_manifest_project is created
+    And a configuration file without_manifest_project/config.rb is created
+    And a sass file without_manifest_project/sass/screen.scss is created
+    And a css file without_manifest_project/stylesheets/screen.css is created
+    And a javascript file without_manifest_project/javascripts/app.js is created
+    And I am told how to link to /stylesheets/screen.css without media
+
+
   Scenario: Install a project with specific directories
     When I create a project using: compass create custom_project --using blueprint --sass-dir sass --css-dir css --images-dir assets/imgs
     Then a directory custom_project/ is created
