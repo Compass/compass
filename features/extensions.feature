@@ -13,16 +13,6 @@ Feature: Extensions
     Then the list of frameworks includes "testing"
 
   @listframeworks
-  Scenario: Extensions directory for rails projects
-    Given ruby supports fork
-    And I'm in a newly created rails project: extension_test_rails_project
-    And I run: compass init rails
-    And the "vendor/plugins/compass_extensions" directory exists
-    And and I have a fake extension at vendor/plugins/compass_extensions/testing
-    When I run: compass frameworks
-    Then the list of frameworks includes "testing"
-
-  @listframeworks
   Scenario: Shared extensions directory
     Given the "~/.compass/extensions" directory exists
     And and I have a fake extension at ~/.compass/extensions/testing
