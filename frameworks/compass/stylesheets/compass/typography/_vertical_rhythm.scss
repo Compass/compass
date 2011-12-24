@@ -22,7 +22,7 @@ $round-to-nearest-half-line: false !default;
 
 // Ensure there is at least this many pixels
 // of vertical padding above and below the text.
-$min-line-padding: 2px;
+$min-line-padding: 2px !default;
 
 // $base-font-size but in your output unit of choice.
 // Defaults to 1em when `$relative-font-sizing`
