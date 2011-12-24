@@ -152,6 +152,10 @@ class SassExtensionsTest < Test::Unit::TestCase
     Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(object)
   end
   
+  def test_reject
+    assert_equal "b d", evaluate("reject(a b c d, a, c)")
+    assert_equal "a b c d", evaluate("reject(a b c d, e)")
+  end
 
 protected
   def evaluate(value)
