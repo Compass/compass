@@ -95,6 +95,11 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "true", evaluate("prefixed(-css2, css2-fallback(css3, css2))")
   end
 
+  def test_reject
+    assert_equal "b d", evaluate("reject(a b c d, a, c)")
+    assert_equal "a b c d", evaluate("reject(a b c d, e)")
+  end
+
 protected
   def evaluate(value)
     Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s

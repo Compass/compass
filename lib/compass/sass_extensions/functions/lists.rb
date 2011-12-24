@@ -76,7 +76,7 @@ module Compass::SassExtensions::Functions::Lists
 
   # removes the given values from the list.
   def reject(list, *values)
-    Sass::Script::List.new(list.values.reject{|v| values.any?{|o| v == o}}, list.separator)
+    Sass::Script::List.new(list.value.reject{|v| values.any?{|o| v == o}}, list.separator)
   end
 
   # returns the first value of a space delimited list.
