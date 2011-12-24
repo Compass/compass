@@ -14,10 +14,18 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.6 (UNRELEASED)
+0.11.6 (12/23/2011)
 -------------------
 
-* Added `user-select` mixin to control the selection model and granularity of an element. It accepts one argument (`$select`) from the following options: `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+* Added `user-select` mixin to control the selection model and granularity of an element.
+  It accepts one argument (`$select`) from the following options:
+  `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+* The border-image property now takes a keyword called `fill` to
+  indicate that the image should also fill the element. If you pass the
+  `fill` keyword to the `border-image` mixin it will only be output in the
+  standard (non-prefixed) versions of the property.
+* Don't use the deprecated callback method `on_updating_stylesheet` in Sass if
+  the new version is available.
 
 0.11.5 (07/10/2011)
 -------------------
