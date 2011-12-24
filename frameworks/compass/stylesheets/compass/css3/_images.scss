@@ -91,12 +91,12 @@
 
 // Border image property support for vendor prefixing properties and values.
 @mixin border-image($value) {
-  @if $experimental-support-for-mozilla      {    -moz-border-image:    -moz(-compass-list($value)); }
-  @if $support-for-original-webkit-gradients { -webkit-border-image:    -owg(-compass-list($value)); }
-  @if $experimental-support-for-webkit       { -webkit-border-image: -webkit(-compass-list($value)); }
-  @if $experimental-support-for-opera        {      -o-border-image:      -o(-compass-list($value)); }
-  @if $experimental-support-for-svg          {         border-image:    -svg(-compass-list($value)); }
-                                                       border-image:                       $value;
+  @if $experimental-support-for-mozilla      {    -moz-border-image:    -moz(reject(-compass-list($value), fill)); }
+  @if $support-for-original-webkit-gradients { -webkit-border-image:    -owg(reject(-compass-list($value), fill)); }
+  @if $experimental-support-for-webkit       { -webkit-border-image: -webkit(reject(-compass-list($value), fill)); }
+  @if $experimental-support-for-opera        {      -o-border-image:      -o(reject(-compass-list($value), fill)); }
+  @if $experimental-support-for-svg          {         border-image:    -svg(reject(-compass-list($value), fill)); }
+                                                       border-image:                              $value;
 }
 
 // List style image property support for vendor prefixing within values.
