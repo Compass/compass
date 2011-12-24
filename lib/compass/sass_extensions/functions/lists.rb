@@ -74,6 +74,11 @@ module Compass::SassExtensions::Functions::Lists
     Sass::Script::List.new list.values[start_index..end_index], list.separator
   end
 
+  # removes the given values from the list.
+  def reject(list, *values)
+    Sass::Script::List.new(list.values.reject{|v| values.any?{|o| v == o}}, list.separator)
+  end
+
   # returns the first value of a space delimited list.
   def first_value_of(list)
     if list.is_a?(Sass::Script::String)
