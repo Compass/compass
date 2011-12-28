@@ -60,7 +60,7 @@ def import_paths
                         File.dirname(@item[:stylesheet])),
               @item[:stylesheet]["/"] ? File.dirname(@item[:stylesheet]) : ""]
   end
-  
+
   paths += Compass::Frameworks::ALL.inject([]) {|m, f| m << f.stylesheets_directory}.map!{|p|[p, '']}
   paths
 end
@@ -181,6 +181,12 @@ def all_functions
     next all_functions unless item[:stylesheet]
     all_functions += functions(item).map{|f| [item, f] }
   end
+end
+
+# Sass Only Functions from 3.1.10 (Brainy Betty)
+# Not as elegant, but does the trick.
+def sass_functions
+  [:rgb, :rgba, :hsl, :hsla, :red, :green, :blue, :hue, :saturation, :lightness, :alpha, :opacity, :opacify, :fade_in, :transparentize, :fade_out, :lighten, :darken, :saturate, :desaturate, :adjust_hue, :adjust_color, :scale_color, :change_color, :mix, :grayscale, :complement, :invert, :unquote, :quote, :type_of, :unit, :unitless, :comparable, :percentage, :round, :ceil, :floor, :abs, :length, :nth, :join, :append, :zip, :index, :if]
 end
 
 def example_items
