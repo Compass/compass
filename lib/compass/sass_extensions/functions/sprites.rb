@@ -9,6 +9,13 @@ module Compass::SassExtensions::Functions::Sprites
       self[variable_name.to_s.gsub(/-/,"_")]
     end
   end
+
+  #Returns a list of all sprite names
+  def sprite_names(map)
+    Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
+  end
+  Sass::Script::Functions.declare :sprite_names, [:map]
+
   # Returns the system path of the sprite file
   def sprite_path(map)
     Sass::Script::String.new(map.name_and_hash)
