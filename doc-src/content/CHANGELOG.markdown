@@ -21,6 +21,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Removed -ms prefix from box-sizing
 * Added sprite_names sass function
 * Added -ms prefix to transitions
+* Added support for `--debug-info` and `--no-debug-info` to compass compile
 
 0.12.alpha.3 (12/23/2011)
 -------------------------
