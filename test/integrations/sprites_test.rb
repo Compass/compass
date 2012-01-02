@@ -807,11 +807,37 @@ class SpritesTest < Test::Unit::TestCase
       }
       .colors-blue { 
         background-position:0 0;
-      }.colors-yellow {
+      }
+      .colors-yellow {
         background-position:0 -10px;
       }
     CSS
     assert_correct clean(css), clean(other_css)
    end
+
+  it "should have a sprite_name function that returns the names of the sprites in a sass list" do
+    css = render <<-SCSS
+      $colors-inline:true;
+      @import "colors/*.png";
+      @each $color in sprite_names($colors-sprites) {
+        .\#{$color} {
+          width:0px;
+        }
+      }
+    SCSS
+    other_css = <<-CSS
+      .colors-sprite {
+        background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAUCAAAAACRhfOKAAAAHElEQVR42mM5wQADLP8JMRlIUIvE/IdgctLTNgCHDhEQVD4ceAAAAABJRU5ErkJggg==');
+      }
+      .blue { 
+        width:0px;
+      }
+      .yellow {
+        width:0px;
+      }
+    CSS
+    assert_correct clean(css), clean(other_css)
+
+  end
 
 end

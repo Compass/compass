@@ -17,12 +17,20 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 0.12.alpha.3 (UNRELEASED)
 -------------------------
 
+* Removed -ms prefix from box-sizing
+* Added sprite_names sass function
+* Added -ms prefix to transitions
+* Added support for `--debug-info` and `--no-debug-info` to compass compile
+
+0.12.alpha.3 (12/23/2011)
+-------------------------
+
 * The `$round-to-nearest-half-line` config variable was added. When
   true, the vertical rhythm module will round line heights to the
   nearest half-line to avoid awkwardly large gaps between lines of text.
   Defaults to false.
-
 * Added `reset-baseline` to the vertical rhythm module so you can force the baseline to reset.
+* Merges in the stable changes between 0.11.5 and 0.11.6.
 
 0.12.alpha.2 (11/28/2011)
 -------------------------
@@ -61,11 +69,18 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   `generated-image-url()` helper function. These should rarely be needed and
   will default to your corresponding image directories and paths.
 
-0.11.6 (UNRELEASED)
+0.11.6 (12/23/2011)
 -------------------
 
 * Added `user-select` mixin to control the selection model and granularity of an element.
-  It accepts one argument (`$select`) from the following options: `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+  It accepts one argument (`$select`) from the following options:
+  `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+* The border-image property now takes a keyword called `fill` to
+  indicate that the image should also fill the element. If you pass the
+  `fill` keyword to the `border-image` mixin it will only be output in the
+  standard (non-prefixed) versions of the property.
+* Don't use the deprecated callback method `on_updating_stylesheet` in Sass if
+  the new version is available.
 
 0.11.5 (07/10/2011)
 -------------------

@@ -30,7 +30,7 @@ $default-transition-delay: false !default;
 
 @mixin transition-property($properties: $default-transition-property) {
   @include experimental(transition-property, unquote($properties),
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -42,7 +42,7 @@ $default-transition-delay: false !default;
 @mixin transition-duration($duration: $default-transition-duration) {
   @if type-of($duration) == string { $duration: unquote($duration); }
   @include experimental(transition-duration, $duration,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -54,7 +54,7 @@ $default-transition-delay: false !default;
 
 @mixin transition-timing-function($function: $default-transition-function) {
   @include experimental(transition-timing-function, unquote($function),
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -66,7 +66,7 @@ $default-transition-delay: false !default;
 @mixin transition-delay($delay: $default-transition-delay) {
   @if type-of($delay) == string { $delay: unquote($delay); }
   @include experimental(transition-delay, $delay,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -87,7 +87,7 @@ $default-transition-delay: false !default;
         -moz,
         not -webkit,
         -o,
-        not -ms,
+        -ms,
         not -khtml,
         official
       );
@@ -97,7 +97,7 @@ $default-transition-delay: false !default;
         -moz,
         -webkit,
         -o,
-        not -ms,
+        -ms,
         not -khtml,
         official
       );
@@ -128,6 +128,6 @@ $default-transition-delay: false !default;
   }
   $transition : compact($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10);
   @include experimental(transition, $transition,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
