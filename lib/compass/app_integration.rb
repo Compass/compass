@@ -5,10 +5,26 @@ end
 module Compass
   module AppIntegration
     module Helpers
-      def lookup(project_type)
-        eval "Compass::AppIntegration::#{camelize(project_type)}"
-      rescue NameError
-        raise Compass::Error, "No application integration exists for #{project_type}"
+      attr_accessor :project_types
+      DEAFULT_PROJECT_TYPES = {
+        :merb => "Compass::AppIntegration::Merb", 
+        :stand_alone => "Compass::AppIntegration::StandAlone"
+      }
+
+      def init
+        @project_types ||= DEAFULT_PROJECT_TYPES
+      end
+
+      def lookup(type)
+        unless @project_types[type].nil?
+          eval @project_types[type]
+        else
+          raise Compass::Error, "No application integration exists for #{type}"
+        end
+      end
+
+      def register(type, klass)
+        @project_types[type] = klass
       end
 
       protected
@@ -20,5 +36,6 @@ module Compass
 
     end
     extend Helpers
+    init
   end
 end

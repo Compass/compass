@@ -80,13 +80,6 @@ module Compass
         end
       end
 
-      def configure_rails!(app)
-        return unless app.config.respond_to?(:sass)
-        app.config.compass.to_sass_engine_options.each do |key, value|
-          app.config.sass.send(:"#{key}=", value)
-        end
-      end
-
       def sass_engine_options
         configuration.to_sass_engine_options
       end
