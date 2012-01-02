@@ -26,7 +26,7 @@ module Compass
       def configuration
         config = Compass::Configuration::Data.new('rails')
         config.extend(ConfigurationDefaults)
-        config.extend(ConfigurationDefaultsWithAssetPipeline) if Sass::Util.ap_geq?('3.1.0') || Sass::Util.ap_geq?('3.1.0.rc') || Sass::Util.ap_geq?('3.1.0.beta')
+        config.extend(ConfigurationDefaultsWithAssetPipeline) if (Sass::Util.ap_geq?('3.1.0') || Sass::Util.ap_geq?('3.1.0.rc') || Sass::Util.ap_geq?('3.1.0.beta')) && assets_pipeline_enabled?
         config
       end
 
@@ -62,6 +62,11 @@ module Compass
         unless Sass::Util.ap_geq?('3.1.0.beta')
           defined?(Sass::Plugin) && !Sass::Plugin.options[:never_update]
         end
+      end
+
+      def assets_pipeline_enabled?
+        rails_config = ::Rails.application.config
+        rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
       end
 
       def rails_compilation_enabled?
