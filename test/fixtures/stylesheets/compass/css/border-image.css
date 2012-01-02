@@ -1,5 +1,5 @@
 .simple {
-  -webkit-border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, "stretch";
-  -moz-border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, "stretch";
-  -o-border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, "stretch";
-  border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, "stretch"; }
+  -webkit-border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, stretch;
+  -moz-border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, stretch;
+  -o-border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, stretch;
+  border-image: url('/images/100x150.jpeg?busted=true'), 100%, 1, 0, stretch; }
