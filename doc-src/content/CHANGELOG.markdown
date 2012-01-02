@@ -14,6 +14,14 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.alpha.3 (UNRELEASED)
+-------------------------
+
+* Added css3 `border-image` support
+* Removed -ms prefix from box-sizing
+* Added sprite_names sass function
+* Added -ms prefix to transitions
+
 0.12.alpha.3 (12/23/2011)
 -------------------------
 
