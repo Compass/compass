@@ -12,3 +12,17 @@
   -ms-transition: all 0.6s ease-out 0.2s;
   -o-transition: all 0.6s ease-out 0.2s;
   transition: all 0.6s ease-out 0.2s; }
+
+.transition-duration-string {
+  -webkit-transition-duration: 0.2s, 0.5s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.5s, 0.2s;
+  -ms-transition-duration: 0.2s, 0.5s, 0.2s;
+  -o-transition-duration: 0.2s, 0.5s, 0.2s;
+  transition-duration: 0.2s, 0.5s, 0.2s; }
+
+.transition-duration-list {
+  -webkit-transition-duration: 0.2s, 0.5s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.5s, 0.2s;
+  -ms-transition-duration: 0.2s, 0.5s, 0.2s;
+  -o-transition-duration: 0.2s, 0.5s, 0.2s;
+  transition-duration: 0.2s, 0.5s, 0.2s; }
