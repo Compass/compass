@@ -1,0 +1,15 @@
+@import "shared";
+//border-image: source slice width outset repeat
+// defaults none 100% 1 0 stretch via http://www.w3schools.com/cssref/css3_pr_border-image.asp
+
+@mixin border-image($source, $slice:100%, $width:1, $outset:0, $repeat:'stretch') {
+  $value: (image_url($source), $slice, $width, $outset, $repeat);
+  @include experimental(border-image, $value,
+    -moz,
+    -webkit,
+    -o,
+    not -ms,
+    not -khtml,
+    official
+  );
+  }
