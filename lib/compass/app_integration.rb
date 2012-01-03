@@ -7,7 +7,6 @@ module Compass
     module Helpers
       attr_accessor :project_types
       DEAFULT_PROJECT_TYPES = {
-        :merb => "Compass::AppIntegration::Merb", 
         :stand_alone => "Compass::AppIntegration::StandAlone"
       }
 
@@ -25,13 +24,6 @@ module Compass
 
       def register(type, klass)
         @project_types[type] = klass
-      end
-
-      protected
-
-      # Stolen from ActiveSupport
-      def camelize(s)
-        s.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
       end
 
     end
