@@ -67,7 +67,6 @@ module Compass
           if options.include?(:debug_info) && options[:debug_info]
             compiler_opts[:sass][:debug_info] = options.delete(:debug_info)
           end
-          puts compiler_opts.inspect
           compiler_opts
         end
 
