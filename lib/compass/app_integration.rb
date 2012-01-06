@@ -1,6 +1,4 @@
-%w(stand_alone merb).each do |lib|
-  require "compass/app_integration/#{lib}"
-end
+require "compass/app_integration/stand_alone"
 
 module Compass
   module AppIntegration
