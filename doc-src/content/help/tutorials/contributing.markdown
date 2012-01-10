@@ -10,7 +10,7 @@ Contributing Stylesheets to Compass
 
 Thank you for your interest in contributing to Compass. Our goal is to make it as easy
 as we can for you to contribute changes to compass -- So if there's something here that
-seems harder than it aught to be, please let us know.
+seems harder than it ought to be, please let us know.
 
 If you find a bug **in this document**, you are bound to contribute a fix. Stop reading now
 if you do not wish to abide by this rule.
