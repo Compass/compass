@@ -12,6 +12,7 @@ module Compass
       sass_opts = options.delete(:sass) || {}
       self.options = options
       self.sass_options = options.dup
+      self.sass_options.delete(:quiet)
       self.sass_options.update(sass_opts)
       self.sass_options[:cache_location] ||= determine_cache_location
       self.sass_options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
