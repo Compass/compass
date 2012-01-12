@@ -21,6 +21,10 @@ fallback_load_path(File.join(File.dirname(__FILE__), '..', 'lib')) do
   require 'compass/exec'
 end
 
+if defined?(Bundler)
+  Bundler.require :default, :assets
+end
+
 runner = Proc.new do
   Compass::Exec::SubCommandUI.new(ARGV).run!
 end
