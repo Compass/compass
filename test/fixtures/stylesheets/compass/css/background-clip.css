@@ -1,0 +1,4 @@
+.background-clip {
+  -moz-background-clip: border;
+  -webkit-background-clip: border;
+  background-clip: border-box; }
