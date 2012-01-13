@@ -37,7 +37,7 @@ $default-background-clip: padding-box !default;
     not -webkit,
     not -o,
     not -ms,
-    not -khtml,
+    -khtml,
     official
   );
 }
