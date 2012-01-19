@@ -35,8 +35,8 @@ $default-background-clip: padding-box !default;
   @include experimental(background-clip, $clip,
     not -moz,
     not -webkit,
-    -o,
-    -ms,
+    not -o,
+    not -ms,
     -khtml,
     official
   );
