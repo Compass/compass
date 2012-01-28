@@ -22,7 +22,7 @@ fallback_load_path(File.join(File.dirname(__FILE__), '..', 'lib')) do
 end
 
 if defined?(Bundler)
-  Bundler.require :default, :assets
+  Bundler.require :assets
 end
 
 runner = Proc.new do
