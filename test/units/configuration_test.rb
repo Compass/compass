@@ -68,6 +68,84 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_equal "WARNING: asset_host is code and cannot be written to a file. You'll need to copy it yourself.\n", warning
   end
 
+  class TestData < Compass::Configuration::Data
+    def initialize
+      super(:test)
+    end
+    inherited_array :stuff
+  end
+
+  def test_inherited_array_can_clobber
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.stuff = [:b]
+    data2.inherit_from!(data1)
+    assert_equal [:b], data2.stuff.to_a
+  end
+
+  def test_inherited_array_can_append
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.stuff << :b
+    data2.inherit_from!(data1)
+    assert_equal [:b, :a], data2.stuff.to_a
+  end
+
+  def test_inherited_array_can_remove
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.stuff >> :a
+    data2.inherit_from!(data1)
+    assert_equal [], data2.stuff.to_a
+  end
+
+  def test_inherited_array_combined_augmentations
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.stuff >> :a
+    data2.stuff << :b
+    data2.inherit_from!(data1)
+    assert_equal [:b], data2.stuff.to_a
+  end
+
+  def test_inherited_array_long_methods
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.remove_from_stuff(:a)
+    data2.add_to_stuff(:b)
+    data2.inherit_from!(data1)
+    assert_equal [:b], data2.stuff.to_a
+  end
+
+  def test_inherited_array_augmentations_can_be_clobbered
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.stuff >> :a
+    data2.stuff << :b
+    data2.stuff = [:c]
+    data2.inherit_from!(data1)
+    assert_equal [:c], data2.stuff.to_a
+  end
+
+  def test_inherited_array_augmentations_after_clobbering
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.stuff >> :a
+    data2.stuff << :b
+    data2.stuff = [:c, :d]
+    data2.stuff << :e
+    data2.stuff >> :c
+    data2.inherit_from!(data1)
+    assert_equal [:d, :e], data2.stuff.to_a
+  end
+
   def test_serialization_warns_with_asset_cache_buster_set
     contents = StringIO.new(<<-CONFIG)
       asset_cache_buster do |path|
@@ -77,12 +155,36 @@ class ConfigurationTest < Test::Unit::TestCase
 
     Compass.add_configuration(contents, "test_serialization_warns_with_asset_cache_buster_set")
 
+    assert_kind_of Proc, Compass.configuration.asset_cache_buster_without_default
+    assert_equal "http://example.com", Compass.configuration.asset_cache_buster_without_default.call("whatever")
     warning = capture_warning do
       Compass.configuration.serialize
     end
     assert_equal "WARNING: asset_cache_buster is code and cannot be written to a file. You'll need to copy it yourself.\n", warning
   end
 
+  def test_inherited_arrays_augmentations_serialize
+    inherited = TestData.new
+    inherited.stuff << :a
+    d = TestData.new
+    d.stuff << :b
+    d.stuff >> :c
+    assert_equal <<CONFIG, d.serialize_property(:stuff, d.stuff)
+stuff << :b
+stuff >> :c
+CONFIG
+  end
+  def test_inherited_arrays_clobbering_with_augmentations_serialize
+    inherited = TestData.new
+    inherited.stuff << :a
+    d = TestData.new
+    d.stuff << :b
+    d.stuff = [:c, :d]
+    d.stuff << :e
+    assert_equal <<CONFIG, d.serialize_property(:stuff, d.stuff)
+stuff = [:c, :d, :e]
+CONFIG
+  end
   def test_additional_import_paths
     contents = StringIO.new(<<-CONFIG)
       http_path = "/"
@@ -190,6 +292,36 @@ http_path = \"/\"
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
 
+EXPECTED
+
+      assert_correct(expected_serialization, Compass.configuration.serialize)
+    end
+
+    def test_sprite_load_path_clobbers
+      contents = StringIO.new(<<-CONFIG)
+        sprite_load_path = ["/Users/chris/Projects/my_compass_project/images/sprites"]
+      CONFIG
+
+      Compass.add_configuration(contents, "test_sass_options")
+
+      assert_equal ["/Users/chris/Projects/my_compass_project/images/sprites"], Compass.configuration.sprite_load_path.to_a
+
+      expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+
+# Set this to the root of your project when deployed:
+http_path = "/"
+
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+
+sprite_load_path = ["/Users/chris/Projects/my_compass_project/images/sprites"]
 EXPECTED
 
       assert_correct(expected_serialization, Compass.configuration.serialize)

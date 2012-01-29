@@ -57,9 +57,10 @@ module Compass
       chained_method :run_stylesheet_error
 
       inherited_accessor *ATTRIBUTES
-      inherited_accessor :required_libraries, :loaded_frameworks, :framework_path #XXX we should make these arrays add up cumulatively.
 
       strip_trailing_separator *ATTRIBUTES.select{|a| a.to_s =~ /dir|path/}
+
+      inherited_array *ARRAY_ATTRIBUTES
 
       def initialize(name, attr_hash = nil)
         raise "I need a name!" unless name
@@ -91,7 +92,9 @@ module Compass
       # The block will be passed the root-relative url of the asset.
       # When called without a block, returns the block that was previously set.
       def asset_host(&block)
+        @set_attributes ||= {}
         if block_given?
+          @set_attributes[:asset_host] = true
           @asset_host = block
         else
           if @asset_host
@@ -116,16 +119,19 @@ module Compass
       #
       #     asset_cache_buster :none
       def asset_cache_buster(simple = nil, &block)
+        @set_attributes ||= {}
         if block_given?
+          @set_attributes[:asset_cache_buster] = true
           @asset_cache_buster = block
         elsif !simple.nil?
           if simple == :none
+            @set_attributes[:asset_cache_buster] = true
             @asset_cache_buster = Proc.new {|_,_| nil}
           else
             raise ArgumentError, "Unexpected argument: #{simple.inspect}"
           end
         else
-          if @asset_cache_buster
+          if set?(:asset_cache_buster)
             @asset_cache_buster
           elsif inherited_data.respond_to?(:asset_cache_buster)
             inherited_data.asset_cache_buster
@@ -173,7 +179,7 @@ module Compass
       private
 
       def assert_valid_keys!(attr_hash)
-        illegal_attrs = attr_hash.keys - ATTRIBUTES
+        illegal_attrs = attr_hash.keys - ATTRIBUTES - ARRAY_ATTRIBUTES
         if illegal_attrs.size == 1
           raise Error, "#{illegal_attrs.first.inspect} is not a valid configuration attribute."
         elsif illegal_attrs.size > 0

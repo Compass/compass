@@ -25,7 +25,6 @@ module Compass
       attributes_for_directory(:fonts),
       attributes_for_directory(:extensions, nil),
       # Compilation options
-      :sprite_load_path,
       :output_style,
       :environment,
       :relative_assets,
@@ -44,6 +43,12 @@ module Compass
       :chunky_png_options
     ].flatten
 
+    ARRAY_ATTRIBUTES = [
+      :sprite_load_path,
+      :required_libraries,
+      :loaded_frameworks,
+      :framework_path
+    ]
     # Registers a new configuration property.
     # Extensions can use this to add new configuration options to compass.
     #
