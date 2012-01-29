@@ -69,6 +69,11 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   `generated-image-url()` helper function. These should rarely be needed and
   will default to your corresponding image directories and paths.
 
+0.11.7 (UNRELEASED)
+-------------------
+
+* Update to font-face mixin to make it work on IE8.
+
 0.11.6 (12/23/2011)
 -------------------
 
