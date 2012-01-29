@@ -14,13 +14,23 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.12.alpha.3 (UNRELEASED)
+0.12.rc.0 (UNRELEASED)
 -------------------------
+
+### Stylesheet Changes
 
 * Removed -ms prefix from box-sizing
 * Added sprite_names sass function
 * Added -ms prefix to transitions
-* Added support for `--debug-info` and `--no-debug-info` to compass compile
+
+### Command Line
+
+* Added support for `--debug-info` and `--no-debug-info` to the compass compile command
+
+### Rails Integration
+
+Rails projects must now use the [`compass-rails`](https://github.com/compass/compass-rails)
+gem to integrate with compass. Please read the [README](https://github.com/Compass/compass-rails/blob/master/README.md) for upgrade instructions. More information in this [blog post](/blog/2012/01/29/compass-and-rails-integration/).
 
 0.12.alpha.3 (12/23/2011)
 -------------------------
