@@ -93,15 +93,6 @@ module Compass
         options = args.last.is_a?(Hash) ? args.pop : {}
         configuration_file_path = args.shift || detect_configuration_file
         
-        # TODO make this better i don't think it belongs here but it gets the job done
-        # This will allow compass to boot rails and load the config if its configured in the application.rb file via railtie
-        # if File.exists?(projectize('config/boot.rb')) && configuration_file_path.nil?
-        #   require 'rails'
-        #   require projectize('config/application.rb')
-        #   options[:project_type] = :rails
-        # end
-
-        
         raise ArgumentError, "Too many arguments" if args.any?
         if data = configuration_for(configuration_file_path, nil, configuration_for(options[:defaults]))
           if data.raw_project_type
