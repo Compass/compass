@@ -50,7 +50,7 @@ module Compass
 
       def initialize!(config = nil)
         if booted?
-          Compass::Util.compass_warn("Warning: Compass was booted twice. Compass has a Railtie now; please remove your intializer.")
+          Compass::Util.compass_warn("Warning: Compass was booted twice. Compass has a Railtie now; please remove your initializer.")
         else
           booted!
         end
