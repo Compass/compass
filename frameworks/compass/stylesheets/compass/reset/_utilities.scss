@@ -11,8 +11,8 @@
   dl, dt, dd, ol, ul, li,
   fieldset, form, label, legend,
   table, caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed, 
-  figure, figcaption, footer, header, hgroup, 
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
     @include reset-box-model;
@@ -29,6 +29,8 @@
     @include reset-quotation; }
   a img {
     @include reset-image-anchor-border; }
+  button, button::-moz-focus-inner {
+    @include reset-button; }
   @include reset-html5; }
 
 // Reset all elements within some selector scope. To reset the selector itself,
@@ -44,8 +46,8 @@
   dl, dt, dd, ol, ul, li,
   fieldset, form, label, legend,
   table, caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed, 
-  figure, figcaption, footer, header, hgroup, 
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
     @include reset-box-model;
@@ -99,7 +101,7 @@
 @mixin reset-quotation {
   quotes: none;
   &:before, &:after {
-    content: ""; 
+    content: "";
     content: none; } }
 
 // Resets the border.
@@ -138,3 +140,10 @@
       display: block !important; }
     @else {
       display: block; } } }
+
+// Resets a button element for all browsers
+@mixin reset-button {
+  border: 0;
+  padding: 0;
+  overflow: visible;
+  display: inline; }
