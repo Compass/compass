@@ -255,7 +255,7 @@ later on.
     <td style="vertical-align:top;">Hash </td>
     <td style="vertical-align:top;">These options are passed directly to the
       Sass compiler. For more details on the format of sass options, please read the
-      <a href="http://sass-lang.com/yardoc/SASS_REFERENCE.md.html#options">sass options documentation</a>.
+      <a href="http://sass-lang.com/docs/yardoc/SASS_REFERENCE.md.html#options">sass options documentation</a>.
     </td>
   </tr>
   <tr>

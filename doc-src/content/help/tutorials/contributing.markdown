@@ -202,7 +202,7 @@ will result:
 4. Compass frameworks are not special. If compass can do it, so should an extension
    be able.
 5. Sass is awesome -- Compass should make sass more accessible and
-   demonstrate how to use Sass to it's fullest potential.
+   demonstrate how to use Sass to its fullest potential.
 6. Developing across browsers is hard and will always be hard. It takes
    a community to get it right.
 7. By default, Compass supports as many browsers as it can. Where it can't
