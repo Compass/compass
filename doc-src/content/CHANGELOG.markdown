@@ -70,7 +70,7 @@ gem to integrate with compass. Please read the [README](https://github.com/Compa
 * Changed the descriptions of the sin, cos, and tan to be more descriptive
 * Fixed trig functions via issue #498 
 * Fixed the default `http_path` in rails
-* Sprites can now have a `sprite_search_path` that is an array of directories that
+* Sprites can now have a `sprite_load_path` that is an array of directories that
   contain source images for sprites handy for using sprites in extensions or gems
 * Added a new set of configuration properties for generated images.
   `generated_images_dir`, `generated_images_path`, `http_generated_images_dir`,
