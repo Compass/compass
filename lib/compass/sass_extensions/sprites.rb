@@ -2,7 +2,6 @@ require 'digest/md5'
 require 'compass/sprite_importer'
 
 module Compass
-  class SpriteException < Exception; end
   module SassExtensions
     module Sprites
     end

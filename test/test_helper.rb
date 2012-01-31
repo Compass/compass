@@ -46,8 +46,8 @@ module SpriteHelper
   URI = "selectors/*.png"
   
   def init_sprite_helper
-    @images_src_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images-tmp')
+    @images_src_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public', 'images')
+    @images_tmp_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public', 'images-tmp')
   end
   
   def sprite_map_test(options, uri = URI)

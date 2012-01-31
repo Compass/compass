@@ -30,6 +30,9 @@ body_id: install
     %option{:value => "rails"} rails
     %option{:value => "other"} other
   project
+  %span.creating
+    named
+    %input#project_name(placeholder="<myproject>")
   with
   %select#framework
     %option{:value => "compass"} compass's
@@ -48,14 +51,14 @@ body_id: install
     %option{:value => "customized"} customize my project's
   directory structure<span id="directories" style="display:none;">
   using
-  %input#sassdir(value="sass")
+  %input#sassdir(placeholder="sass")
   for the sass source directory,
-  %input#cssdir(value="css")
+  %input#cssdir(placeholder="css")
   for the css output directory,
-  %input#jsdir(value="javascripts")
+  %input#jsdir(placeholder="javascripts")
   for the javascripts directory,
   and
-  %input#imagesdir(value="images")
+  %input#imagesdir(placeholder="images")
   for the images directory</span></span>.
 
 %h4 Thanks. Now run the following steps in your terminal:

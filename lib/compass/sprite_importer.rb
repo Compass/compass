@@ -74,11 +74,14 @@ module Compass
     
     # Returns the Glob of image files for the uri
     def self.files(uri)
-      Compass.configuration.sprite_load_path.each do |folder|
+      Compass.configuration.sprite_load_path.compact.each do |folder|
         files = Dir[File.join(folder, uri)].sort
         next if files.empty?
         return files
       end
+
+      path = Compass.configuration.sprite_load_path.to_a.join(', ')
+      raise Compass::SpriteException, %Q{No files were found in the load path matching "#{uri}". Your current load paths are: #{path}}
     end
 
     # Returns an Array of image names without the file extension

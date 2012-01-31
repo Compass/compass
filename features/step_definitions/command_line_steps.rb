@@ -6,7 +6,6 @@ require 'compass/exec'
 include Compass::TestCaseHelper
 include Compass::CommandLineHelper
 include Compass::IoHelper
-include Compass::RailsHelper
 
 Before do
   Compass.reset_configuration!
@@ -39,17 +38,6 @@ end
 
 Given %r{^I am in the parent directory$} do
   Dir.chdir ".."
-end
-
-Given %r{^I'm in a newly created rails project: (.+)$} do |project_name|
-  dir = File.join(Dir.pwd, project_name)
-  @cleanup_directories << dir
-  begin
-    generate_rails_app project_name, Dir.pwd
-    Dir.chdir dir
-  rescue LoadError
-    pending "Missing Ruby-on-rails gems: sudo gem install rails"
-  end
 end
 
 Given /^I should clean up the directory: (\w+)$/ do |directory|

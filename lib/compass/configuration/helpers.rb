@@ -84,13 +84,6 @@ module Compass
         end
       end
 
-      def configure_rails!(app)
-        return unless app.config.respond_to?(:sass)
-        app.config.compass.to_sass_engine_options.each do |key, value|
-          app.config.sass.send(:"#{key}=", value)
-        end
-      end
-
       def sass_engine_options
         configuration.to_sass_engine_options
       end
@@ -99,18 +92,9 @@ module Compass
       def add_project_configuration(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         configuration_file_path = args.shift || detect_configuration_file
-        
-        # TODO make this better i don't think it belongs here but it gets the job done
-        # This will allow compass to boot rails and load the config if its configured in the application.rb file via railtie
-        # if File.exists?(projectize('config/boot.rb')) && configuration_file_path.nil?
-        #   require 'rails'
-        #   require projectize('config/application.rb')
-        #   options[:project_type] = :rails
-        # end
 
-        
         raise ArgumentError, "Too many arguments" if args.any?
-        if data = configuration_for(configuration_file_path, nil, configuration_for(options[:defaults]))
+        if AppIntegration.default? && data = configuration_for(configuration_file_path, nil, configuration_for(options[:defaults]))
           if data.raw_project_type
             add_configuration(data.raw_project_type.to_sym)
           elsif options[:project_type]
@@ -118,10 +102,12 @@ module Compass
           else
             add_configuration(:stand_alone)
           end
-
-          add_configuration(data)
+          
+          
+          add_configuration(data)  
+          
         else
-          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)
+          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)  
         end
       end
 
