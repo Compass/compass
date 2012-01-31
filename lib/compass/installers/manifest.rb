@@ -141,11 +141,16 @@ module Compass
       # evaluated in a Manifest instance context
       def parse(manifest_file)
         with_manifest(manifest_file) do
-          open(manifest_file) do |f|
-            eval(f.read, instance_binding, manifest_file)
-          end
-        end
-      end
+          if File.exists?(manifest_file)
+            open(manifest_file) do |f| 
+              eval(f.read, instance_binding, manifest_file)
+            end 
+          else
+              eval("discover :all", instance_binding, manifest_file)
+          end 
+        end 
+      end 
+
 
       def instance_binding
         binding
