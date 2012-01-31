@@ -4,15 +4,38 @@ function showInstallCommand() {
     var notes = [];
     var project_name = "&lt;myproject>";
     var can_be_bare = true;
-    commands.push("$ gem install compass");
+    var in_working_dir = false;
+    var use_bundler = false;
+    if ($("#app-type").val() != "rails") {
+      commands.push("$ gem install compass");
+    }
     if (cmd == "init") {
         commands.push("$ cd " + project_name);
+        in_working_dir = true
         project_name = ".";
+        $(".creating").hide();
+    } else {
+        $(".creating").show();
+        if ($("#project_name").val() != "")
+          project_name = $("#project_name").val();
+    }
+    if ($("#app-type").val() == "rails") {
+        notes.push("<p class='note warning'>Rails 2.3 and 3.0 users require additional installation steps. For full rails installation and upgrade instructions please refer to the compass-rails <a href='https://github.com/Compass/compass-rails/blob/master/README.md'>README</a>.</p>");
+        use_bundler = true;
     }
     if ($("#app-type").val() == "rails") {
         if (cmd == "create") {
             commands.push("$ rails new " + project_name);
+            commands.push("$ cd " + project_name);
+            in_working_dir = true
+            project_name = ".";
         }
+        commands.push("> Edit Gemfile and add this:");
+        commands.push("   group :assets do");
+        commands.push("     gem 'compass-rails'");
+        commands.push("     # Add any compass extensions here");
+        commands.push("   end");
+        commands.push("$ bundle");
         cmd = "init rails";
         can_be_bare = false;
     } else if ($("#app-type").val() == "other") {
@@ -28,9 +51,12 @@ function showInstallCommand() {
     var framework = $("#framework").val();
     var create_command;
     if (cmd == "install") {
-        create_command = "$ compass install " + framework + " " + project_name;
+        create_command = "$ compass install " + framework;
     } else {
-        create_command = "$ compass " + cmd + " " + project_name;
+        create_command = "$ compass " + cmd;
+    }
+    if (!in_working_dir) {
+      create_command = create_command + " " + project_name;
     }
     if (framework != "compass" && framework != "bare" && cmd != "install") {
         create_command = create_command + " --using " + framework;
@@ -46,13 +72,19 @@ function showInstallCommand() {
     }
     if ($("#options").val() == "customized") {
         $("#directories").show();
-        create_command = create_command +
-                         " --sass-dir \"" + $("#sassdir").val() + "\"" +
-                         " --css-dir \"" + $("#cssdir").val() + "\"" +
-                         " --javascripts-dir \"" + $("#jsdir").val() + "\"" +
-                         " --images-dir \"" + $("#imagesdir").val() + "\"";
+        if ($("#sassdir").val() != "")
+          create_command += " --sass-dir \"" + $("#sassdir").val() + "\"";
+        if ($("#cssdir").val() != "")
+          create_command += " --css-dir \"" +  $("#cssdir").val() + "\"";
+        if ($("#jsdir").val() != "")
+          create_command += " --javascripts-dir \"" + $("#jsdir").val() + "\"";
+        if ($("#imagesdir").val() != "")
+          create_command += " --images-dir \"" + $("#imagesdir").val() + "\"";
     } else {
       $("#directories").hide();
+    }
+    if (use_bundler) {
+      create_command = "$ bundle exec " + create_command.replace(/\$ /,'');
     }
     commands.push(create_command);
     var instructions = "<pre><code>" + commands.join("\n") + "</code></pre>";
