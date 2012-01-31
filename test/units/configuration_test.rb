@@ -93,6 +93,18 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_equal [:b, :a], data2.stuff.to_a
   end
 
+  def test_inherited_array_can_append_2
+    data1 = TestData.new
+    data1.stuff = [:a]
+    data2 = TestData.new
+    data2.stuff << :b
+    data2.inherit_from!(data1)
+    data3 = TestData.new
+    data3.stuff << :c
+    data3.inherit_from!(data2)
+    assert_equal [:c, :b, :a], data3.stuff.to_a
+  end
+
   def test_inherited_array_can_remove
     data1 = TestData.new
     data1.stuff = [:a]
