@@ -24,7 +24,7 @@ module Compass
         eval(contents, bind, filename)
         local_vars_set = eval("local_variables", bind)
         local_vars_set.each do |local_var|
-          if (ATTRIBUTES+ARRAY_ATTRIBUTES).include?(local_var)
+          if (ATTRIBUTES+ARRAY_ATTRIBUTES).include?(local_var.to_sym)
             value = eval(local_var.to_s, bind)
             value = value.to_s if value.is_a?(Pathname)
             self.send("#{local_var}=", value)
