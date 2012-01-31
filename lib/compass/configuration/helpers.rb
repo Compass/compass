@@ -92,7 +92,7 @@ module Compass
       def add_project_configuration(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         configuration_file_path = args.shift || detect_configuration_file
-        
+
         raise ArgumentError, "Too many arguments" if args.any?
         if data = configuration_for(configuration_file_path, nil, configuration_for(options[:defaults]))
           if data.raw_project_type
@@ -103,9 +103,11 @@ module Compass
             add_configuration(:stand_alone)
           end
 
-          add_configuration(data)
+          unless AppIntegration.any?
+            add_configuration(data)
+          end
         else
-          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)
+          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)  
         end
       end
 
