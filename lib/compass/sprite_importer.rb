@@ -79,6 +79,9 @@ module Compass
         next if files.empty?
         return files
       end
+
+      path = Compass.configuration.sprite_load_path.to_a.join(', ')
+      raise Compass::SpriteException, %Q{No files were found in the load path matching "#{uri}". Your current load paths are: #{path}}
     end
 
     # Returns an Array of image names without the file extension
