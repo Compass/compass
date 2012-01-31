@@ -11,7 +11,8 @@ class SpriteCommandTest < Test::Unit::TestCase
     @before_dir = ::Dir.pwd
     create_temp_cli_dir
     create_sprite_temp
-    File.open(File.join(@test_dir, 'config.rb'), 'w') do |f|
+    @config_file = File.join(@test_dir, 'config.rb')
+    File.open(@config_file, 'w') do |f|
       f << config_data
     end
   end

@@ -9,15 +9,15 @@ module Compass
       }
 
       def init
-        @project_types ||= DEAFULT_PROJECT_TYPES
+        @project_types ||= DEAFULT_PROJECT_TYPES.dup
       end
 
       def project_types
         @project_types
       end
 
-      def any?
-        @project_types == DEAFULT_PROJECT_TYPES
+      def default?
+        @project_types.keys === DEAFULT_PROJECT_TYPES.keys
       end
 
       def lookup(type)
