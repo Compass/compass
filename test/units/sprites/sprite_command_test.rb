@@ -19,7 +19,7 @@ class SpriteCommandTest < Test::Unit::TestCase
   
   def config_data
     return <<-CONFIG
-      images_path = #{@images_tmp_path.inspect}
+      images_path = "#{@images_tmp_path}"
     CONFIG
   end
 
