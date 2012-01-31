@@ -129,7 +129,11 @@ module Compass
                 if #{attr}_set?                                    #  if sprite_load_paths_set?
                   @#{attr}                                         #    Array(@#{attr})
                 else                                               #  else
-                  value = Array(read(#{attr.inspect}))             #    value = Array(read(:sprite_load_paths))
+                  value = if inherited_data                        #    value = Array(read(:sprite_load_paths))
+                    Array(inherited_data.#{attr})
+                  else
+                    Array(read(#{attr.inspect}))
+                  end
                   value -= Array(@removed_from_#{attr})            #    value -= Array(@removed_from_sprite_load_paths)
                   Array(@added_to_#{attr}) + value                 #    Array(@added_to_sprite_load_paths) + value
                 end                                                #  end
