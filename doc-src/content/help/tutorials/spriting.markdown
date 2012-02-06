@@ -52,14 +52,14 @@ You can now apply the `icon-XXX` classes to your markup as needed.
 
 Let's go over what happened there. The import statement told compass to [generate a
 stylesheet that is customized for your sprites](https://gist.github.com/729507). This
-stylesheet is [magic](/help/tutorials/spriting/magic-imports), it is not written to disk, and it can be customized
+stylesheet is [magic](#magic-imports), it is not written to disk, and it can be customized
 by setting configuration variables before you import it. See the section below on
-[Customization Options](/help/tutorials/spriting/customization). The goal of this stylesheet is to provide a
+[Customization Options](#customization). The goal of this stylesheet is to provide a
 simple naming convention for your sprites so that you they are easy to remember and use. You
 should never have to care what the is name of the generated sprite map, nor where a sprite
 is located within it.
 
-<a name='nested-folders'></a>    
+<a name='nested-folders' id='nested-folders'></a>    
 ## Nested Folders    
 
 ****Note**: The use of `orange` is only for this example, "icon" represents the folder name that contains your sprites.
@@ -71,7 +71,7 @@ Example:
       @import "themes/orange/*.png";
       @include all-orange-sprite;
     
-<a name="selector-control"></a>
+<a name="selector-control" id="selector-control"></a>
 ## Selector Control
 
 ****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
@@ -102,7 +102,7 @@ And your stylesheet will compile to:
     .actions .save   { background-position: 0 -96px; }
     .actions .delete { background-position: 0 0;     }
 
-<a name="sass_functions"></a>
+<a name="sass_functions" id="sass_functions"></a>
 ## Sass Functions
 
 ****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
@@ -126,7 +126,7 @@ Example:
     }
   
   
-<a name="magic-imports"></a>
+<a name="magic-imports" id="magic-imports"></a>
 ## Magic Imports
 
 ****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
@@ -148,7 +148,7 @@ might want to avoid it. For instance, if your sprite map has more than about 20 
 sprites, you may find that hand crafting the import will speed up compilation times. See
 the section on [performance considerations](#performance) for more details.
 
-<a name="performance"></a>
+<a name="performance" id="performance"></a>
 ## Performance Considerations
 
 Reading PNG files and assembling new images and saving them to disk might have a non-trivial
