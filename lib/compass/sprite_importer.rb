@@ -140,7 +140,8 @@ $#{name}-clean-up: true !default;
 // All sprites should extend this class
 // The #{name}-sprite mixin will do so for you.
 \#{$#{name}-sprite-base-class} {
-  background: $#{name}-sprites no-repeat;
+  background-image: $#{name}-sprites;
+  background-repeat: no-repeat;
 }
 
 // Use this to set the dimensions of an element
