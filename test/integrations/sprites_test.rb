@@ -67,7 +67,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sbbc18e2129.png') no-repeat;
+        background-image: url('/squares-sbbc18e2129.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -98,7 +99,8 @@ class SpritesTest < Test::Unit::TestCase
     assert_not_nil Dir.glob("#{@generated_images_tmp_path}/squares-s*.png").first
     assert_correct <<-CSS, css
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/images/generated/squares-sbbc18e2129.png') no-repeat;
+        background-image: url('/images/generated/squares-sbbc18e2129.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -119,7 +121,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sbbc18e2129.png') no-repeat;
+        background-image: url('/squares-sbbc18e2129.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -151,7 +154,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .cubicle, .large-cube {
-        background: url('/squares-sbbc18e2129.png') no-repeat;
+        background-image: url('/squares-sbbc18e2129.png');
+        background-repeat: no-repeat;
       }
       
       .cubicle {
@@ -176,7 +180,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .circles {
-        background: url('/squares-sbbc18e2129.png') no-repeat;
+        background-image: url('/squares-sbbc18e2129.png');
+        background-repeat: no-repeat;
       }
     CSS
     assert_equal image_size('squares-s*.png'), [20, 30]
@@ -190,7 +195,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s563a5e0855.png') no-repeat;
+        background-image: url('/squares-s563a5e0855.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -212,7 +218,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s4ea353fa6d.png') no-repeat;
+        background-image: url('/squares-s4ea353fa6d.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -235,7 +242,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sf4771cb124.png') no-repeat;
+        background-image: url('/squares-sf4771cb124.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -258,7 +266,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sc82d6f3cf4.png') no-repeat;
+        background-image: url('/squares-sc82d6f3cf4.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -280,7 +289,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s2f4aa65dcf.png') no-repeat;
+        background-image: url('/squares-s2f4aa65dcf.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -298,7 +308,8 @@ class SpritesTest < Test::Unit::TestCase
     css = render <<-SCSS
       $squares: sprite-map("squares/*.png", $position: 100%);
       .squares-sprite {
-        background: $squares no-repeat;
+        background-image: $squares;
+        background-repeat: no-repeat;
       }
 
       .adjusted-percentage {
@@ -315,7 +326,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite {
-        background: url('/squares-sce5dc30797.png') no-repeat;
+        background-image: url('/squares-sce5dc30797.png');
+        background-repeat: no-repeat;
       }
       
       .adjusted-percentage {
@@ -353,7 +365,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .adjusted-percentage, .adjusted-px-1, .adjusted-px-2 {
-        background: url('/squares-sce5dc30797.png') no-repeat;
+        background-image: url('/squares-sce5dc30797.png');
+        background-repeat: no-repeat;
       }
       
       .adjusted-percentage {
@@ -380,7 +393,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-s65c43cd573.png') no-repeat;
+        background-image: url('/squares-s65c43cd573.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -404,7 +418,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
-        background: url('/squares-sb9d9a8ca6a.png') no-repeat;
+        background-image: url('/squares-sb9d9a8ca6a.png');
+        background-repeat: no-repeat;
       }
       
       .squares-ten-by-ten {
@@ -423,14 +438,16 @@ class SpritesTest < Test::Unit::TestCase
     assert_raise(Sass::SyntaxError) do
       render <<-SCSS
         .squares {
-          background: sprite-url("squares/*.png") no-repeat;
+          background-image: sprite-url("squares/*.png");
+          background-repeat: no-repeat;
         }
       SCSS
     end
     assert_raise(Sass::SyntaxError) do
       css = render <<-SCSS
         .squares {
-          background: sprite-image("squares/twenty-by-twenty.png") no-repeat;
+          background-image: sprite-image("squares/twenty-by-twenty.png");
+          background-repeat: no-repeat;
         }
       SCSS
     end
@@ -439,7 +456,8 @@ class SpritesTest < Test::Unit::TestCase
         @import "squares/*.png";
 
         .squares {
-          background: sprite-position("squares/twenty-by-twenty.png") no-repeat;
+          background-image: sprite-position("squares/twenty-by-twenty.png");
+          background-repeat: no-repeat;
         }
       SCSS
     end
@@ -448,12 +466,15 @@ class SpritesTest < Test::Unit::TestCase
   it "should work even if @import is missing" do
     css = render <<-SCSS
       .squares {
-        background: sprite(sprite-map("squares/*.png"), twenty-by-twenty) no-repeat;
+        background-image: sprite(sprite-map("squares/*.png"), twenty-by-twenty);
+        background-repeat: no-repeat;
       }
     SCSS
     assert_correct css, <<-CSS
       .squares {
-        background: url('/squares-sd817b59156.png') 0 -10px no-repeat;
+        background-image: url('/squares-sd817b59156.png');
+        background-position: 0 -10px;
+        background-repeat: no-repeat;
       }
     CSS
   end
@@ -472,7 +493,8 @@ class SpritesTest < Test::Unit::TestCase
     assert_equal image_size('squares-s*.png'), [20, 40]
     assert_correct css, <<-CSS
       .squares-sprite {
-        background: url('/squares-s555875d730.png') no-repeat;
+        background-image: url('/squares-s555875d730.png');
+        background-repeat: no-repeat;
       }
       
       .foo {
@@ -492,7 +514,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, .selectors-ten-by-ten {
-        background: url('/selectors-s7e84acb3d2.png') no-repeat;
+        background-image: url('/selectors-s7e84acb3d2.png');
+        background-repeat: no-repeat;
       }
       
       .selectors-ten-by-ten {
@@ -517,7 +540,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, .selectors-ten-by-ten {
-        background: url('/selectors-s7e84acb3d2.png') no-repeat;
+        background-image: url('/selectors-s7e84acb3d2.png');
+        background-repeat: no-repeat;
       }
       
       .selectors-ten-by-ten {
@@ -544,7 +568,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-s7e84acb3d2.png') no-repeat;
+        background-image: url('/selectors-s7e84acb3d2.png');
+        background-repeat: no-repeat;
       }
       
       a {
@@ -573,7 +598,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-s7e84acb3d2.png') no-repeat;
+        background-image: url('/selectors-s7e84acb3d2.png')
+        background-repeat: no-repeat;
       }
       
       a {
@@ -591,7 +617,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .selectors-sprite, a {
-        background: url('/selectors-s7e84acb3d2.png') no-repeat;
+        background-image: url('/selectors-s7e84acb3d2.png')
+        background-repeat: no-repeat;
       }
       
       a {
@@ -628,7 +655,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .ko-sprite, .ko-default_background, .ko-starbg26x27 {
-        background: url('/ko-sd46dfbab4f.png') no-repeat;
+        background-image: url('/ko-sd46dfbab4f.png')
+        background-repeat: no-repeat;
       }
       
       .ko-default_background {
@@ -699,7 +727,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_correct css, <<-CSS
       .nested-sprite, .nested-ten-by-ten {
-        background: url('/nested-s7b93e0b6bf.png') no-repeat;
+        background-image: url('/nested-s7b93e0b6bf.png');
+        background-repeat: no-repeat;
       }
       
       .nested-ten-by-ten {
@@ -722,7 +751,8 @@ class SpritesTest < Test::Unit::TestCase
     assert_equal [30, 20], image_size('squares-s*.png')
     other_css = <<-CSS
       .squares-sprite {
-        background: url('/squares-s4bd95c5c56.png') no-repeat;
+        background-image: url('/squares-s4bd95c5c56.png');
+        background-repeat: no-repeat;
       }
 
       .foo {
@@ -748,7 +778,8 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     other_css = <<-CSS
       .squares-sprite {
-        background: url('/squares-sbbc18e2129.png') no-repeat;
+        background-image: url('/squares-sbbc18e2129.png');
+        background-repeat: no-repeat;
       }
       .div {
         height:21px;
@@ -770,7 +801,8 @@ class SpritesTest < Test::Unit::TestCase
      SCSS
      other_css = <<-CSS
       .colors-sprite { 
-        background:url('/colors-s58671cb5bb.png') no-repeat;
+        background-image:url('/colors-s58671cb5bb.png');
+        background-repeat: no-repeat;
       }
       .blue { 
         text-indent:-119988px;
