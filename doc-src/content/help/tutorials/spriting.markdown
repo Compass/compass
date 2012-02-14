@@ -54,7 +54,7 @@ Let's go over what happened there. The import statement told compass to [generat
 stylesheet that is customized for your sprites](https://gist.github.com/729507). This
 stylesheet is [magic](#magic-imports), it is not written to disk, and it can be customized
 by setting configuration variables before you import it. See the section below on
-[Customization Options](#customization). The goal of this stylesheet is to provide a
+[Customization Options](customization-options). The goal of this stylesheet is to provide a
 simple naming convention for your sprites so that you they are easy to remember and use. You
 should never have to care what the is name of the generated sprite map, nor where a sprite
 is located within it.
