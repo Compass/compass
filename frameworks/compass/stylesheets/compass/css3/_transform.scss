@@ -2,14 +2,14 @@
 
 // @doc off
 // Note ----------------------------------------------------------------------
-// Safari is the only browser that currently supports 3D transforms.
-// Because of that it can be important to control whether a given 2D transform
-// uses the full range of experimental browser prefixes, or only the 3D list.
+// Safari, Chrome, and Firefox all support 3D transforms. However,
+// only in the most recent builds. You should also provide fallback 2d support for
+// Opera and IE. IE10 is slated to have 3d enabled, but is currently unreleased.
 // To make that easy, all 2D transforms include an browser-targeting toggle ($only3d)
 // to switch between the two support lists. The toggle defaults to 'false' (2D),
 // and also accepts 'true' (3D). Currently the lists are as follows:
 // 2D: Mozilla, Webkit, Opera, Official
-// 3D: Webkit, Official **(Only Safari Supports 3D perspective)**
+// 3D: Webkit, Firefox.
 
 // Available Transforms ------------------------------------------------------
 // - Scale (2d and 3d)
