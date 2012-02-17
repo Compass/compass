@@ -1,8 +1,10 @@
 Given /^the "([^\"]*)" directory exists$/ do |directory|
+  directory.gsub!('~', ENV["HOME"]) if directory.include?('~/')
   FileUtils.mkdir_p directory
 end
 
 Given /^and I have a fake extension at (.*)$/ do |directory|
+  directory.gsub!('~', ENV["HOME"]) if directory.include?('~/')
   FileUtils.mkdir_p File.join(directory, 'stylesheets')
   FileUtils.mkdir_p File.join(directory, 'templates/project')
   open(File.join(directory, 'templates/project/manifest.rb'),"w") do |f|

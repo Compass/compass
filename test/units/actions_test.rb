@@ -13,7 +13,7 @@ class ActionsTest < Test::Unit::TestCase
   end
   
   # When log4r is included, it sometimes breaks the Actions
-  def test_quiet_option
+  test "test_quiet_option" do
     b = BaseActionExtender.new
     b.logger = ""
     b.options[:quiet] = true

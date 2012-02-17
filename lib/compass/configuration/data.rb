@@ -18,16 +18,49 @@ module Compass
     class Data
 
       attr_reader :name
+      extend Sass::Callbacks
+
 
       include Compass::Configuration::Inheritance
       include Compass::Configuration::Serialization
       include Compass::Configuration::Adapters
       extend  Compass::Configuration::Paths
 
+      # on_sprite_saved
+      # yields the filename
+      # usage: on_sprite_saved {|filename| do_something(filename) }
+      define_callback :sprite_saved
+      chained_method :run_sprite_saved
+
+      # on_sprite_generated
+      # yields 'ChunkyPNG::Image'
+      # usage: on_sprite_generated {|sprite_data| do_something(sprite_data) }
+      define_callback :sprite_generated
+      chained_method :run_sprite_generated
+
+      # on_sprite_removed
+      # yields the filename
+      # usage: on_sprite_removed {|filename| do_something(filename) }
+      define_callback :sprite_removed
+      chained_method :run_sprite_removed
+
+      # on_stylesheet_saved
+      # yields the filename
+      # usage: on_stylesheet_saved {|filename| do_something(filename) }
+      define_callback :stylesheet_saved
+      chained_method :run_stylesheet_saved
+
+      # on_stylesheet_error
+      # yields the filename & message
+      # usage: on_stylesheet_error {|filename, message| do_something(filename, message) }
+      define_callback :stylesheet_error
+      chained_method :run_stylesheet_error
+
       inherited_accessor *ATTRIBUTES
-      inherited_accessor :required_libraries, :loaded_frameworks, :framework_path #XXX we should make these arrays add up cumulatively.
 
       strip_trailing_separator *ATTRIBUTES.select{|a| a.to_s =~ /dir|path/}
+
+      inherited_array *ARRAY_ATTRIBUTES
 
       def initialize(name, attr_hash = nil)
         raise "I need a name!" unless name
@@ -59,7 +92,9 @@ module Compass
       # The block will be passed the root-relative url of the asset.
       # When called without a block, returns the block that was previously set.
       def asset_host(&block)
+        @set_attributes ||= {}
         if block_given?
+          @set_attributes[:asset_host] = true
           @asset_host = block
         else
           if @asset_host
@@ -84,16 +119,19 @@ module Compass
       #
       #     asset_cache_buster :none
       def asset_cache_buster(simple = nil, &block)
+        @set_attributes ||= {}
         if block_given?
+          @set_attributes[:asset_cache_buster] = true
           @asset_cache_buster = block
         elsif !simple.nil?
           if simple == :none
+            @set_attributes[:asset_cache_buster] = true
             @asset_cache_buster = Proc.new {|_,_| nil}
           else
             raise ArgumentError, "Unexpected argument: #{simple.inspect}"
           end
         else
-          if @asset_cache_buster
+          if set?(:asset_cache_buster)
             @asset_cache_buster
           elsif inherited_data.respond_to?(:asset_cache_buster)
             inherited_data.asset_cache_buster
@@ -138,20 +176,10 @@ module Compass
         relative_assets || http_images_path == :relative
       end
 
-      def run_callback(event, *args)
-        begin
-          send(:"run_#{event}", *args)
-        rescue NoMethodError => e
-          unless e.message =~ /run_#{event}/
-            raise
-          end
-        end
-      end
-
       private
 
       def assert_valid_keys!(attr_hash)
-        illegal_attrs = attr_hash.keys - ATTRIBUTES
+        illegal_attrs = attr_hash.keys - ATTRIBUTES - ARRAY_ATTRIBUTES
         if illegal_attrs.size == 1
           raise Error, "#{illegal_attrs.first.inspect} is not a valid configuration attribute."
         elsif illegal_attrs.size > 0

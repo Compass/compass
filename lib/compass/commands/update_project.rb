@@ -17,6 +17,14 @@ module Compass
         opts.on("--time", "Display compilation times.") do
           self.options[:time] = true
         end
+
+        opts.on("--debug-info", "Turns on sass's debuging information") do
+          self.options[:debug_info]= true
+        end
+
+        opts.on("--no-debug-info", "Turns on sass's debuging information") do
+          self.options[:debug_info]= false
+        end
         super
       end
     end
@@ -56,6 +64,9 @@ module Compass
           compiler_opts.merge!(options)
           compiler_opts[:sass_files] = explicit_sass_files
           compiler_opts[:cache_location] = determine_cache_location
+          if options.include?(:debug_info) && options[:debug_info]
+            compiler_opts[:sass][:debug_info] = options.delete(:debug_info)
+          end
           compiler_opts
         end
 

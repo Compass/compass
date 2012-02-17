@@ -21,6 +21,10 @@ fallback_load_path(File.join(File.dirname(__FILE__), '..', 'lib')) do
   require 'compass/exec'
 end
 
+if defined?(Bundler)
+  Bundler.require :assets
+end
+
 runner = Proc.new do
   Compass::Exec::SubCommandUI.new(ARGV).run!
 end
@@ -36,5 +40,5 @@ if ARGV.delete("--profile")
   printer.print(STDERR, 0)
   exit exit_code
 else
-  exit runner.call
+  exit runner.call || 1
 end

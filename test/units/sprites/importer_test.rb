@@ -68,6 +68,12 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal 'bar', opts[:foo]
   end
   
+  test "verify that the sass_engine passes the correct filename" do
+    importer = Compass::SpriteImporter.new
+    engine = Compass::SpriteImporter.sass_engine(URI, 'foo', importer, options)
+    assert_equal engine.options[:filename], URI
+  end
+  
   test "should fail given bad sprite extensions" do
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")

@@ -1,0 +1,8 @@
+@import "compass/css3/background-clip";
+
+.background-clip { @include background-clip('border-box'); }
+
+.background-clip-khtml { 
+  $experimental-support-for-khtml:true;
+  @include background-clip('border-box');
+}

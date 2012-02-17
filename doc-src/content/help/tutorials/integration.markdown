@@ -9,6 +9,13 @@ classnames:
 
 ## Ruby on Rails
 
+### Rails 3.1
+Just add compass to your Gemfile like so:
+    
+    gem 'compass'
+    
+Also checkout this [gist](https://gist.github.com/1184843)
+  
 ### Rails 3
     compass init rails /path/to/myrailsproject
 ### Rails 2.3
@@ -16,25 +23,25 @@ classnames:
     
 ## Sinatra
 
+    require 'compass'
     require 'sinatra'
     require 'haml'
-    require 'sass'
-    require 'compass'
 
     configure do
-      Compass.configuration do |config|
-        config.project_path = File.dirname(__FILE__)
-        config.sass_dir = 'views'
-      end
-
-      set :haml, { :format => :html5 }
-      set :sass, Compass.sass_engine_options
+      set :haml, {:format => :html5, :escape_html => true}
+      set :scss, {:style => :compact, :debug_info => false}
+      Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
     end
 
-    get '/screen.css' do
+    get '/stylesheets/:name.css' do
       content_type 'text/css', :charset => 'utf-8'
-      sass :screen
+      scss(:"stylesheets/#{params[:name]}" )
     end
+
+    get '/' do
+      haml :index
+    end
+
 
 If you keep your stylesheets in “views/stylesheets/” directory instead of just “views/”, remember to update sass_dir configuration accordingly.
 Check out this [sample compass-sinatra project](http://github.com/chriseppstein/compass-sinatra) to get up and running in no time!
@@ -55,29 +62,31 @@ At the top of the Nanoc Rules file, load the Compass configuration, like this:
 
     require 'compass'
 
-    Compass.add_project_configuration 'compass/config.rb' # when using Compass 0.10
-    Compass.configuration.parse 'compass/config.rb'       # when using Compass < 0.10
+    Compass.add_project_configuration 'compass.rb' # when using Compass > 0.10
+    Compass.configuration.parse 'compass.rb'       # when using Compass < 0.10
 
 Your Compass configuration file (in compass/config.rb) could look like this (you may need to change the path to some directories depending on your directory structure):
 
-    http_path    = "/" 
-    project_path = "." 
-    css_dir      = "output/assets/style" 
-    sass_dir     = "content/assets/style" 
-    images_dir   = "output/assets/images"
-
-    # when using SCSS:
-    sass_options = {
-      :syntax => :scss
-    }
+    http_path = "/"
+    project_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+    css_dir = "output/stylesheets"
+    sass_dir = "content/stylesheets"
+    images_dir = "assets/images"
+    javascripts_dir = "assets/javascripts"
+    fonts_dir = "assets/fonts"
+    http_javascripts_dir = "javascripts"
+    http_stylesheets_dir = "stylesheets"
+    http_images_dir = "images"
+    http_fonts_dir = "fonts"
 
 
 To filter the stylesheets using Sass and Compass, call the sass filter with Sass engine options taken from Compass, like this:
 
-    filter :sass, Compass.sass_engine_options
+    compile '/stylesheets/*' do
+      filter :sass, sass_options.merge(:syntax => item[:extension].to_sym)
+    end
 
 
 ### Nanoc Projects using the formal approach
 
-* [nanoc Bootstrap](http://github.com/adamstac/nanoc-bootstrap) - a base nanoc project with support for Haml, Sass, Compass, jQuery and more.
-* [nanoc & Compass Example Project](http://github.com/ddfreyne/nanoc-bootstrap-compass)
+* [This Site](https://github.com/chriseppstein/compass/tree/master/doc-src)

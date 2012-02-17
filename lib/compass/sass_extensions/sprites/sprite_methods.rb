@@ -5,7 +5,7 @@ module Compass
         
         # Changing this string will invalidate all previously generated sprite images.
         # We should do so only when the packing algorithm changes
-        SPRITE_VERSION = "1"
+        SPRITE_VERSION = "2"
         
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
@@ -27,8 +27,7 @@ module Compass
         # Creates the Sprite::Image objects for each image and calculates the width
         def init_images
           @images = image_names.collect do |relative_file|
-            image = Compass::SassExtensions::Sprites::Image.new(self, relative_file, kwargs)
-            image
+            Image.new(self, relative_file, kwargs)
           end
         end
         
@@ -40,10 +39,18 @@ module Compass
             end
           end
         end
+        
+        def name_and_hash
+          "#{path}-s#{uniqueness_hash}.png"
+        end
 
         # The on-the-disk filename of the sprite
         def filename
-          File.join(Compass.configuration.images_path, "#{path}-s#{uniqueness_hash}.png")
+          File.join(Compass.configuration.generated_images_path, name_and_hash)
+        end
+
+        def relativize(path)
+          Pathname.new(path).relative_path_from(Pathname.new(Dir.pwd)).to_s rescue path
         end
 
         # Generate a sprite image if necessary
@@ -53,20 +60,24 @@ module Compass
               cleanup_old_sprites
             end
             engine.construct_sprite
-            Compass.configuration.run_callback(:sprite_generated, engine.canvas)
+            Compass.configuration.run_sprite_generated(engine.canvas)
             save!
+          else
+            log :unchanged, filename
           end
         end
         
         def cleanup_old_sprites
-          Dir[File.join(Compass.configuration.images_path, "#{path}-*.png")].each do |file|
+          Dir[File.join(Compass.configuration.images_path, "#{path}-s*.png")].each do |file|
+            log :remove, file
             FileUtils.rm file
+            Compass.configuration.run_sprite_removed(file)
           end
         end
         
         # Does this sprite need to be generated
         def generation_required?
-          !File.exists?(filename) || outdated?
+          !File.exists?(filename) || outdated? ||  options[:force]
         end
 
         # Returns the uniqueness hash for this sprite object
@@ -75,6 +86,7 @@ module Compass
             sum = Digest::MD5.new
             sum << SPRITE_VERSION
             sum << path
+            sum << layout
             images.each do |image|
               [:relative_file, :height, :width, :repeat, :spacing, :position, :digest].each do |attr|
                 sum << image.send(attr).to_s
@@ -87,8 +99,11 @@ module Compass
 
         # Saves the sprite engine
         def save!
+          FileUtils.mkdir_p(File.dirname(filename))
           saved = engine.save(filename)
-          Compass.configuration.run_callback(:sprite_saved, filename)
+          log :create, filename
+          Compass.configuration.run_sprite_saved(filename)
+          @mtime = nil if saved
           saved
         end
 
@@ -100,7 +115,7 @@ module Compass
         # Checks whether this sprite is outdated
         def outdated?
           if File.exists?(filename)
-            return @images.map(&:mtime).any? { |imtime| imtime.to_i > self.mtime.to_i }
+            return @images.any? {|image| image.mtime.to_i > self.mtime.to_i }
           end
           true
         end
@@ -115,6 +130,11 @@ module Compass
           [width, height]
         end
 
+        def log(action, filename, *extra)
+          if options[:compass] && options[:compass][:logger] && !options[:quiet]
+            options[:compass][:logger].record(action, relativize(filename), *extra)
+          end
+        end
       end
     end
   end

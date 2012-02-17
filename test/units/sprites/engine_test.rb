@@ -1,13 +1,18 @@
 require 'test_helper'
 
 class EngineTest < Test::Unit::TestCase
-  
+  include SpriteHelper
   def setup
+    create_sprite_temp
     sprite_filename = 'squares/ten-by-ten.png'
     @images = [
        Compass::SassExtensions::Sprites::Image.new(nil, File.join(sprite_filename), {}) 
       ]
     @engine = Compass::SassExtensions::Sprites::Engine.new(100, 100, @images)
+  end
+
+  def taredown
+    clean_up_sprites
   end
   
   

@@ -23,6 +23,12 @@ require 'compass'
 require 'test/unit'
 
 
+class String
+  def name
+    to_s
+  end
+end
+
 %w(command_line diff io rails test_case).each do |helper|
   require "helpers/#{helper}"
 end
@@ -40,16 +46,18 @@ module SpriteHelper
   URI = "selectors/*.png"
   
   def init_sprite_helper
-    @images_src_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.dirname(__FILE__), 'fixtures', 'sprites', 'public', 'images-tmp')
+    @images_src_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public', 'images')
+    @images_tmp_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public', 'images-tmp')
   end
   
-  def sprite_map_test(options)
+  def sprite_map_test(options, uri = URI)
     importer = Compass::SpriteImporter.new
-    path, name = Compass::SpriteImporter.path_and_name(URI)
-    sprite_names = Compass::SpriteImporter.sprite_names(URI)
-    sass_engine = Compass::SpriteImporter.sass_engine(URI, name, importer, options)
-    Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map{|n| "selectors/#{n}.png"}, path, name, sass_engine, options)
+    path, name = Compass::SpriteImporter.path_and_name(uri)
+    sprite_names = Compass::SpriteImporter.sprite_names(uri)
+    sass_engine = Compass::SpriteImporter.sass_engine(uri, name, importer, options)
+    map = Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map{|n| uri.gsub('*', n)}, path, name, sass_engine, options)
+    map.options = {:compass => {:logger => Compass::NullLogger.new}}
+    map
   end
   
   def create_sprite_temp
@@ -58,8 +66,9 @@ module SpriteHelper
   end
 
   def clean_up_sprites
-     init_sprite_helper
-    ::FileUtils.rm_r @images_tmp_path
+    init_sprite_helper
+    ::FileUtils.rm_r @images_tmp_path   
+  rescue Errno::ENOENT => e  
   end
   
 end

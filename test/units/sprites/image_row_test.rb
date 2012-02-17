@@ -3,6 +3,7 @@ require 'test_helper'
 class ImageRowTest < Test::Unit::TestCase
   include SpriteHelper
   def setup
+    clean_up_sprites
     create_sprite_temp
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")

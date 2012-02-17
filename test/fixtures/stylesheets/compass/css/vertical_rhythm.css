@@ -40,3 +40,6 @@ html > body {
   border-bottom-style: solid;
   border-bottom-width: 0.25em;
   padding-bottom: 0.417em; }
+
+.reset {
+  line-height: 1.143em; }

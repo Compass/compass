@@ -81,6 +81,7 @@ module Compass
         action = FSSM::Backends::Default.to_s == "FSSM::Backends::Polling" ? "polling" : "watching"
 
         puts ">>> Compass is #{action} for changes. Press Ctrl-C to Stop."
+        $stdout.flush
 
         begin
         FSSM.monitor do |monitor|
@@ -100,14 +101,17 @@ module Compass
               path.glob glob
               path.update do |base, relative|
                 puts ">>> Change detected to: #{relative}"
+                $stdout.flush
                 callback.call(base, relative)
               end
               path.create do |base, relative|
                 puts ">>> New file detected: #{relative}"
+                $stdout.flush
                 callback.call(base, relative)
               end
               path.delete do |base, relative|
                 puts ">>> File Removed: #{relative}"
+                $stdout.flush
                 callback.call(base, relative)
               end
             end
@@ -138,7 +142,8 @@ module Compass
         compiler = new_compiler_instance(:quiet => true, :loud => [:identical, :overwrite, :create])
         if file = compiler.out_of_date?
           begin
-            puts ">>> Change detected to: #{relative || compiler.relative_stylesheet_name(file)}"
+            puts ">>> Change detected at "+Time.now.strftime("%T")+" to: #{relative || compiler.relative_stylesheet_name(file)}"
+            $stdout.flush
             compiler.run
             GC.start
           rescue StandardError => e

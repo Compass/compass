@@ -6,10 +6,11 @@ require 'compass/exec'
 include Compass::TestCaseHelper
 include Compass::CommandLineHelper
 include Compass::IoHelper
-include Compass::RailsHelper
 
 Before do
   Compass.reset_configuration!
+  Compass::Frameworks::ALL.clear
+  Compass::Frameworks.discover :defaults
   @cleanup_directories = []
   @original_working_directory = Dir.pwd
 end
@@ -37,16 +38,6 @@ end
 
 Given %r{^I am in the parent directory$} do
   Dir.chdir ".."
-end
-
-Given %r{^I'm in a newly created rails project: (.+)$} do |project_name|
-  @cleanup_directories << project_name
-  begin
-    generate_rails_app project_name
-    Dir.chdir project_name
-  rescue LoadError
-    pending "Missing Ruby-on-rails gems: sudo gem install rails"
-  end
 end
 
 Given /^I should clean up the directory: (\w+)$/ do |directory|
@@ -134,13 +125,13 @@ end
 Then "the following files are reported removed:" do |table|
   table.rows.each do |css_file|
     #need to find a better way but this works for now
-    Then %Q{a css file #{css_file.first} is reported removed}
+    step %Q{a css file #{css_file.first} is reported removed}
   end
 end
 
 Then "the following files are removed:" do |table|
   table.rows.each do |css_file|
-    Then %Q{a css file #{css_file.first} is removed}
+    step %Q{a css file #{css_file.first} is removed}
   end
 end
 
@@ -256,7 +247,7 @@ end
 Then /^I should see the following "([^"]+)" commands:$/ do |kind, table|
 
 
-  Then %Q{I should be shown a list of "#{kind}" commands}
+  step %Q{I should be shown a list of "#{kind}" commands}
 
   commands = @last_command_list.map{|c| c =~ /^\s+\* ([^ ]+)\s+- [A-Z].+$/; [$1]}
   table.diff!(commands)

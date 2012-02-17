@@ -7,7 +7,7 @@ ul.horizontal {
   ul.horizontal li {
     list-style-image: none;
     list-style-type: none;
-    margin-left: 0px;
+    margin-left: 0;
     white-space: nowrap;
     display: inline;
     float: left;
@@ -29,7 +29,7 @@ ul.wide-horizontal {
   ul.wide-horizontal li {
     list-style-image: none;
     list-style-type: none;
-    margin-left: 0px;
+    margin-left: 0;
     white-space: nowrap;
     display: inline;
     float: left;
@@ -51,7 +51,7 @@ ul.right-horizontal {
   ul.right-horizontal li {
     list-style-image: none;
     list-style-type: none;
-    margin-left: 0px;
+    margin-left: 0;
     white-space: nowrap;
     display: inline;
     float: right;
@@ -73,7 +73,7 @@ ul.no-padding {
   ul.no-padding li {
     list-style-image: none;
     list-style-type: none;
-    margin-left: 0px;
+    margin-left: 0;
     white-space: nowrap;
     display: inline;
     float: left; }
@@ -87,7 +87,7 @@ ul.inline-block {
   ul.inline-block li {
     list-style-image: none;
     list-style-type: none;
-    margin-left: 0px;
+    margin-left: 0;
     display: -moz-inline-box;
     -moz-box-orient: vertical;
     display: inline-block;
@@ -106,7 +106,7 @@ ul.wide-inline-block {
   ul.wide-inline-block li {
     list-style-image: none;
     list-style-type: none;
-    margin-left: 0px;
+    margin-left: 0;
     display: -moz-inline-box;
     -moz-box-orient: vertical;
     display: inline-block;
@@ -143,7 +143,7 @@ ul.no-bullets {
   ul.no-bullets li {
     list-style-image: none;
     list-style-type: none;
-    margin-left: 0px; }
+    margin-left: 0; }
 
 ul.pretty {
   margin-left: 0; }

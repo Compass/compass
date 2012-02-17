@@ -19,7 +19,7 @@ module Compass::SassExtensions::Functions::Trig
   private
   def trig(operation, number)
     if number.numerator_units == ["deg"] && number.denominator_units == []
-      Sass::Script::Number.new(Math.send(operation, (number.value * Math::PI / 180)))
+      Sass::Script::Number.new(Math.send(operation, Math::PI * number.value / 180))
     else
       Sass::Script::Number.new(Math.send(operation, number.value), number.numerator_units, number.denominator_units)
     end
