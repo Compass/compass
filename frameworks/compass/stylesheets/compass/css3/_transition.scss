@@ -23,7 +23,7 @@ $default-transition-function: false !default;
 
 $default-transition-delay: false !default;
 
-$transitionable-prefixed-properties: background-size, box-flex, box-shadow, font-size-adjust, transform, transform-origin !default;
+$transitionable-prefixed-properties: transform, transform-origin !default;
 
 // One or more properties to transition
 //
