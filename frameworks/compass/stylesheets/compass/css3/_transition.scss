@@ -166,6 +166,7 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
 
   $webkit-transition: false;
   $moz-transition: false;
+  $ms-transition: false;
   $o-transition: false;
 
   @each $single-transition in $raw-transition {
@@ -187,16 +188,19 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
 
       $webkit-transition: array-push($webkit-transition, string-join(-webkit-#{$property}, $single-transition-suffix), true);
       $moz-transition: array-push($moz-transition, string-join(-moz-#{$property}, $single-transition-suffix), true);
+      $ms-transition: array-push($ms-transition, string-join(-ms-#{$property}, $single-transition-suffix), true);
       $o-transition: array-push($o-transition, string-join(-o-#{$property}, $single-transition-suffix), true);
     } @else {
       $webkit-transition: array-push($webkit-transition, $single-transition, true);
       $moz-transition: array-push($moz-transition, $single-transition, true);
+      $ms-transition: array-push($ms-transition, $single-transition, true);
       $o-transition: array-push($o-transition, $single-transition, true);
     }
   }
 
   -webkit-transition: $webkit-transition;
   -moz-transition: $moz-transition;
+  -ms-transition: $ms-transition;
   -o-transition: $o-transition;
 
   @include experimental(transition, $transition,
