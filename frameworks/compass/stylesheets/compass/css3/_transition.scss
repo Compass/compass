@@ -23,15 +23,15 @@ $default-transition-function: false !default;
 
 $default-transition-delay: false !default;
 
+$transitionable-prefixed-properties: transform, transform-origin !default;
+
 // One or more properties to transition
 //
 // * for multiple, use a comma-delimited list
 // * also accepts "all" or "none"
 
 @mixin transition-property($properties: $default-transition-property) {
-  @include experimental(transition-property, unquote($properties),
-    -moz, -webkit, -o, -ms, not -khtml, official
-  );
+  @include prefix-friendly-transition(unquote($properties));
 }
 
 // One or more durations in seconds
@@ -126,8 +126,84 @@ $default-transition-delay: false !default;
   @if $transition-1 == default {
     $transition-1 : -compass-space-list(compact($default-transition-property, $default-transition-duration, $default-transition-function, $default-transition-delay));
   }
+
   $transition : compact($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10);
+  @include prefix-friendly-transition($transition);
+}
+
+@function array-push($array, $object, $comma: false) {
+  @if $comma {
+    @if $array {
+      $array: $array, $object;
+    } @else {
+      $array: $object;
+    }
+  } @else {
+    @if $array {
+      $array: $array $object;
+    } @else {
+      $array: $object;
+    }
+  }
+
+  @return $array;
+}
+
+@function string-join($existing, $addition) {
+  @if $existing {
+    @if $addition {
+      $existing: $existing $addition;
+    }
+  } @else {
+    $existing: $addition;
+  }
+
+  @return $existing;
+}
+
+@mixin prefix-friendly-transition($transition) {
+  $raw-transition: -compass-space-list($transition);
+
+  $webkit-transition: false;
+  $moz-transition: false;
+  $ms-transition: false;
+  $o-transition: false;
+
+  @each $single-transition in $raw-transition {
+    $property: nth($single-transition, 1);
+    $match: false;
+
+    @each $prefixed-property in $transitionable-prefixed-properties {
+      @if $property == $prefixed-property {
+        $match: true;
+      }
+    }
+
+    @if $match {
+      $single-transition-suffix: false;
+
+      @for $i from 2 through length($single-transition) {
+        $single-transition-suffix: array-push($single-transition-suffix, nth($single-transition, $i));
+      }
+
+      $webkit-transition: array-push($webkit-transition, string-join(-webkit-#{$property}, $single-transition-suffix), true);
+      $moz-transition: array-push($moz-transition, string-join(-moz-#{$property}, $single-transition-suffix), true);
+      $ms-transition: array-push($ms-transition, string-join(-ms-#{$property}, $single-transition-suffix), true);
+      $o-transition: array-push($o-transition, string-join(-o-#{$property}, $single-transition-suffix), true);
+    } @else {
+      $webkit-transition: array-push($webkit-transition, $single-transition, true);
+      $moz-transition: array-push($moz-transition, $single-transition, true);
+      $ms-transition: array-push($ms-transition, $single-transition, true);
+      $o-transition: array-push($o-transition, $single-transition, true);
+    }
+  }
+
+  -webkit-transition: $webkit-transition;
+  -moz-transition: $moz-transition;
+  -ms-transition: $ms-transition;
+  -o-transition: $o-transition;
+
   @include experimental(transition, $transition,
-    -moz, -webkit, -o, -ms, not -khtml, official
+    not -moz, not -webkit, not -o, not -ms, not -khtml, official
   );
 }
