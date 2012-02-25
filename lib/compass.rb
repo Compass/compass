@@ -33,3 +33,9 @@ end
 
 # for rails upgrade warnings in 0.12
 require 'compass/app_integration/rails'
+
+# append compass stylesheets to Sass load path by default
+Sass::Engine::DEFAULT_OPTIONS[:load_paths].tap do |load_paths|
+  load_paths << File.expand_path "../../frameworks/compass/stylesheets", __FILE__
+  load_paths << File.expand_path "../../frameworks/blueprint/stylesheets", __FILE__
+end
