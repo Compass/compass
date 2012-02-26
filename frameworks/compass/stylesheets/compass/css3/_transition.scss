@@ -32,26 +32,40 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
 
 @mixin transition-property($properties: $default-transition-property) {
   @if type-of($properties) == string { $properties: unquote($properties); }
+  $raw-properties: -compass-space-list($properties);
 
-  $match: false;
+  $webkit-transition-property: false;
+  $moz-transition-property: false;
+  $ms-transition-property: false;
+  $o-transition-property: false;
 
-  @each $prefixed-property in $transitionable-prefixed-properties {
-    @if $properties == $prefixed-property {
-      $match: true;
+  @each $property in $raw-properties {
+    $match: false;
+
+    @each $prefixed-property in $transitionable-prefixed-properties {
+      @if $property == $prefixed-property {
+        $match: true;
+      }
+    }
+
+    @if $match {
+      $webkit-transition-property: array-push($webkit-transition-property, -webkit-#{$property}, true);
+      $moz-transition-property: array-push($moz-transition-property, -moz-#{$property}, true);
+      $ms-transition-property: array-push($ms-transition-property, -ms-#{$property}, true);
+      $o-transition-property: array-push($o-transition-property, -o-#{$property}, true);
+    } @else {
+      $webkit-transition-property: array-push($webkit-transition-property, $property, true);
+      $moz-transition-property: array-push($moz-transition-property, $property, true);
+      $ms-transition-property: array-push($ms-transition-property, $property, true);
+      $o-transition-property: array-push($o-transition-property, $property, true);
     }
   }
 
-  @if $match {
-    @if $experimental-support-for-webkit    { -webkit-transition-property: -webkit-#{$properties}; }
-    @if $experimental-support-for-mozilla   { -moz-transition-property: -moz-#{$properties}; }
-    @if $experimental-support-for-microsoft { -ms-transition-property: -ms-#{$properties}; }
-    @if $experimental-support-for-opera     { -o-transition-property: -o-#{$properties}; }
-    transition-property: $properties;
-  } @else {
-    @include experimental(transition-property, $properties,
-      -moz, -webkit, -o, -ms, not -khtml, official
-    );
-  }
+  @if $experimental-support-for-webkit    { -webkit-transition-property: $webkit-transition-property; }
+  @if $experimental-support-for-mozilla   { -moz-transition-property: $moz-transition-property; }
+  @if $experimental-support-for-microsoft { -ms-transition-property: $ms-transition-property; }
+  @if $experimental-support-for-opera     { -o-transition-property: $o-transition-property; }
+  transition-property: $properties;
 }
 
 // One or more durations in seconds
