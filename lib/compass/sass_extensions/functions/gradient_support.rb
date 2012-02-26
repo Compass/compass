@@ -8,6 +8,11 @@ module Compass::SassExtensions::Functions::GradientSupport
       [color, stop].compact
     end
     def initialize(color, stop = nil)
+      self.options = {}
+      if color.is_a?(Sass::Script::String) && color.value == 'transparent'
+        color = Sass::Script::Color.new([0,0,0,0])
+        color.options = {}
+      end
       unless Sass::Script::Color === color || Sass::Script::Funcall === color
         raise Sass::SyntaxError, "Expected a color. Got: #{color}"
       end
@@ -141,7 +146,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
     def initialize(position_or_angle, color_stops)
-      unless color_stops.value.size >= 2
+      unless color_stops.value && color_stops.value.size >= 2
         raise Sass::SyntaxError, "At least two color stops are required for a linear-gradient"
       end
       self.position_or_angle = position_or_angle
@@ -234,6 +239,8 @@ module Compass::SassExtensions::Functions::GradientSupport
           ColorStop.new(arg)
         when Sass::Script::List
           ColorStop.new(*arg.value)
+        when Sass::Script::String
+          ColorStop.new(arg)
         else
           raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
         end
