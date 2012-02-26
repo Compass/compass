@@ -206,18 +206,6 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
   @return $array;
 }
 
-@function string-join($existing, $addition) {
-  @if $existing {
-    @if $addition {
-      $existing: $existing $addition;
-    }
-  } @else {
-    $existing: $addition;
-  }
-
-  @return $existing;
-}
-
 @mixin prefix-friendly-transition($transition) {
   $raw-transition: -compass-space-list($transition);
 
@@ -243,10 +231,10 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
         $single-transition-suffix: array-push($single-transition-suffix, nth($single-transition, $i));
       }
 
-      $webkit-transition: array-push($webkit-transition, string-join(-webkit-#{$property}, $single-transition-suffix), true);
-      $moz-transition: array-push($moz-transition, string-join(-moz-#{$property}, $single-transition-suffix), true);
-      $ms-transition: array-push($ms-transition, string-join(-ms-#{$property}, $single-transition-suffix), true);
-      $o-transition: array-push($o-transition, string-join(-o-#{$property}, $single-transition-suffix), true);
+      $webkit-transition: array-push($webkit-transition, compact(join(-webkit-#{$property}, $single-transition-suffix)), true);
+      $moz-transition: array-push($moz-transition, compact(join(-moz-#{$property}, $single-transition-suffix)), true);
+      $ms-transition: array-push($ms-transition, compact(join(-ms-#{$property}, $single-transition-suffix)), true);
+      $o-transition: array-push($o-transition, compact(join(-o-#{$property}, $single-transition-suffix)), true);
     } @else {
       $webkit-transition: array-push($webkit-transition, $single-transition, true);
       $moz-transition: array-push($moz-transition, $single-transition, true);
