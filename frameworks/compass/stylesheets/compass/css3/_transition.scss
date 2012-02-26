@@ -34,10 +34,10 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
   @if type-of($properties) == string { $properties: unquote($properties); }
   $raw-properties: ($properties);
 
-  $webkit-transition-property: false;
-  $moz-transition-property: false;
-  $ms-transition-property: false;
-  $o-transition-property: false;
+  $webkit-transition-property: compact(false);
+  $moz-transition-property: compact(false);
+  $ms-transition-property: compact(false);
+  $o-transition-property: compact(false);
 
   @each $property in $raw-properties {
     $match: false;
@@ -49,15 +49,15 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
     }
 
     @if $match {
-      $webkit-transition-property: array-push($webkit-transition-property, -webkit-#{$property}, true);
-      $moz-transition-property: array-push($moz-transition-property, -moz-#{$property}, true);
-      $ms-transition-property: array-push($ms-transition-property, -ms-#{$property}, true);
-      $o-transition-property: array-push($o-transition-property, -o-#{$property}, true);
+      $webkit-transition-property: append($webkit-transition-property, -webkit-#{$property}, comma);
+      $moz-transition-property: append($moz-transition-property, -moz-#{$property}, comma);
+      $ms-transition-property: append($ms-transition-property, -ms-#{$property}, comma);
+      $o-transition-property: append($o-transition-property, -o-#{$property}, comma);
     } @else {
-      $webkit-transition-property: array-push($webkit-transition-property, $property, true);
-      $moz-transition-property: array-push($moz-transition-property, $property, true);
-      $ms-transition-property: array-push($ms-transition-property, $property, true);
-      $o-transition-property: array-push($o-transition-property, $property, true);
+      $webkit-transition-property: append($webkit-transition-property, $property, comma);
+      $moz-transition-property: append($moz-transition-property, $property, comma);
+      $ms-transition-property: append($ms-transition-property, $property, comma);
+      $o-transition-property: append($o-transition-property, $property, comma);
     }
   }
 
@@ -188,31 +188,13 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
   @include prefix-friendly-transition($transition);
 }
 
-@function array-push($array, $object, $comma: false) {
-  @if $comma {
-    @if $array {
-      $array: $array, $object;
-    } @else {
-      $array: $object;
-    }
-  } @else {
-    @if $array {
-      $array: $array $object;
-    } @else {
-      $array: $object;
-    }
-  }
-
-  @return $array;
-}
-
 @mixin prefix-friendly-transition($transition) {
   $raw-transition: ($transition);
 
-  $webkit-transition: false;
-  $moz-transition: false;
-  $ms-transition: false;
-  $o-transition: false;
+  $webkit-transition: compact(false);
+  $moz-transition: compact(false);
+  $ms-transition: compact(false);
+  $o-transition: compact(false);
 
   @each $single-transition in $raw-transition {
     $property: nth($single-transition, 1);
@@ -225,21 +207,21 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
     }
 
     @if $match {
-      $single-transition-suffix: false;
+      $single-transition-suffix: compact(false);
 
       @for $i from 2 through length($single-transition) {
-        $single-transition-suffix: array-push($single-transition-suffix, nth($single-transition, $i));
+        $single-transition-suffix: append($single-transition-suffix, nth($single-transition, $i), space);
       }
 
-      $webkit-transition: array-push($webkit-transition, compact(join(-webkit-#{$property}, $single-transition-suffix)), true);
-      $moz-transition: array-push($moz-transition, compact(join(-moz-#{$property}, $single-transition-suffix)), true);
-      $ms-transition: array-push($ms-transition, compact(join(-ms-#{$property}, $single-transition-suffix)), true);
-      $o-transition: array-push($o-transition, compact(join(-o-#{$property}, $single-transition-suffix)), true);
+      $webkit-transition: append($webkit-transition, compact(join(-webkit-#{$property}, $single-transition-suffix)), comma);
+      $moz-transition: append($moz-transition, compact(join(-moz-#{$property}, $single-transition-suffix)), comma);
+      $ms-transition: append($ms-transition, compact(join(-ms-#{$property}, $single-transition-suffix)), comma);
+      $o-transition: append($o-transition, compact(join(-o-#{$property}, $single-transition-suffix)), comma);
     } @else {
-      $webkit-transition: array-push($webkit-transition, $single-transition, true);
-      $moz-transition: array-push($moz-transition, $single-transition, true);
-      $ms-transition: array-push($ms-transition, $single-transition, true);
-      $o-transition: array-push($o-transition, $single-transition, true);
+      $webkit-transition: append($webkit-transition, $single-transition, comma);
+      $moz-transition: append($moz-transition, $single-transition, comma);
+      $ms-transition: append($ms-transition, $single-transition, comma);
+      $o-transition: append($o-transition, $single-transition, comma);
     }
   }
 
