@@ -7,3 +7,4 @@
 .single-transform-transition-without-delay  { @include single-transition(transform, 0.6s, ease-out); }
 .single-transform-transition-with-delay     { @include single-transition(transform, 0.6s, ease-out, 0.2s); }
 .transition-property { @include transition-property(transform); }
+.multiple-transition-properties { @include transition-property((opacity, transform, left)); }

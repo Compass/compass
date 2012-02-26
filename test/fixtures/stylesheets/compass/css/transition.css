@@ -48,3 +48,10 @@
   -ms-transition-property: -ms-transform;
   -o-transition-property: -o-transform;
   transition-property: transform; }
+
+.multiple-transition-properties {
+  -webkit-transition-property: opacity, -webkit-transform, left;
+  -moz-transition-property: opacity, -moz-transform, left;
+  -ms-transition-property: opacity, -ms-transform, left;
+  -o-transition-property: opacity, -o-transform, left;
+  transition-property: opacity, transform, left; }
