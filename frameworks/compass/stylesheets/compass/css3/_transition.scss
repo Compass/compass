@@ -23,7 +23,7 @@ $default-transition-function: false !default;
 
 $default-transition-delay: false !default;
 
-$transitionable-prefixed-properties: transform, transform-origin !default;
+$transitionable-prefixed-values: transform, transform-origin !default;
 
 // One or more properties to transition
 //
@@ -32,40 +32,7 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
 
 @mixin transition-property($properties: $default-transition-property) {
   @if type-of($properties) == string { $properties: unquote($properties); }
-  $raw-properties: ($properties);
-
-  $webkit-transition-property: compact(false);
-  $moz-transition-property: compact(false);
-  $ms-transition-property: compact(false);
-  $o-transition-property: compact(false);
-
-  @each $property in $raw-properties {
-    $match: false;
-
-    @each $prefixed-property in $transitionable-prefixed-properties {
-      @if $property == $prefixed-property {
-        $match: true;
-      }
-    }
-
-    @if $match {
-      $webkit-transition-property: append($webkit-transition-property, -webkit-#{$property}, comma);
-      $moz-transition-property: append($moz-transition-property, -moz-#{$property}, comma);
-      $ms-transition-property: append($ms-transition-property, -ms-#{$property}, comma);
-      $o-transition-property: append($o-transition-property, -o-#{$property}, comma);
-    } @else {
-      $webkit-transition-property: append($webkit-transition-property, $property, comma);
-      $moz-transition-property: append($moz-transition-property, $property, comma);
-      $ms-transition-property: append($ms-transition-property, $property, comma);
-      $o-transition-property: append($o-transition-property, $property, comma);
-    }
-  }
-
-  @if $experimental-support-for-webkit    { -webkit-transition-property: $webkit-transition-property; }
-  @if $experimental-support-for-mozilla   { -moz-transition-property: $moz-transition-property; }
-  @if $experimental-support-for-microsoft { -ms-transition-property: $ms-transition-property; }
-  @if $experimental-support-for-opera     { -o-transition-property: $o-transition-property; }
-  transition-property: $properties;
+  @include build-prefix-values(transition-property, $properties);
 }
 
 // One or more durations in seconds
@@ -112,60 +79,7 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
   $function: $default-transition-function,
   $delay: $default-transition-delay
 ) {
-  $match: false;
-
-  @each $prefixed-property in $transitionable-prefixed-properties {
-    @if $property == $prefixed-property {
-      $match: true;
-    }
-  }
-
-  @if $property and $duration and $function {
-    // Shorthand (see https://github.com/chriseppstein/compass/issues/585)
-    @if $delay {
-      @if $match {
-        @if $experimental-support-for-webkit    { -webkit-transition: -webkit-#{$property} $duration $function; -webkit-transition-delay: $delay; }
-        @if $experimental-support-for-mozilla   { -moz-transition: -moz-#{$property} $duration $function $delay; }
-        @if $experimental-support-for-microsoft { -ms-transition: -ms-#{$property} $duration $function $delay; }
-        @if $experimental-support-for-opera     { -o-transition: -o-#{$property} $duration $function $delay; }
-        transition: $property $duration $function $delay;
-      } @else {
-        @if $experimental-support-for-webkit    { -webkit-transition: $property $duration $function; -webkit-transition-delay: $delay; }
-        @include experimental(transition, $property $duration $function $delay,
-          -moz,
-          not -webkit,
-          -o,
-          -ms,
-          not -khtml,
-          official
-        );
-      }
-    }
-    @else {
-      @if $match {
-        @if $experimental-support-for-webkit    { -webkit-transition: -webkit-#{$property} $duration $function; }
-        @if $experimental-support-for-mozilla   { -moz-transition: -moz-#{$property} $duration $function; }
-        @if $experimental-support-for-microsoft { -ms-transition: -ms-#{$property} $duration $function; }
-        @if $experimental-support-for-opera     { -o-transition: -o-#{$property} $duration $function; }
-        transition: $property $duration $function;
-      } @else {
-        @include experimental(transition, $property $duration $function,
-          -moz,
-          -webkit,
-          -o,
-          -ms,
-          not -khtml,
-          official
-        );
-      }
-    }
-  }
-  @else {
-    @include transition-property($property);
-    @include transition-duration($duration);
-    @if $function { @include transition-timing-function($function); }
-    @if $delay { @include transition-delay($delay); }
-  }
+  @include build-prefix-values(transition, compact($property $duration $function, false), $delay);
 }
 
 @mixin transition(
@@ -185,49 +99,56 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
   }
 
   $transition : compact($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10);
-  @include prefix-friendly-transition($transition);
+  @include build-prefix-values(transition, $transition);
 }
 
-@mixin prefix-friendly-transition($transition) {
-  $raw-transition: ($transition);
+@mixin build-prefix-values($property, $values, $delay: false) {
+  $raw-values: ($values);
+  $index: compact(false);
 
-  $webkit-transition: compact(false);
-  $moz-transition: compact(false);
-  $ms-transition: compact(false);
-  $o-transition: compact(false);
+  $webkit-value: compact(false);
+  $moz-value: compact(false);
+  $ms-value: compact(false);
+  $o-value: compact(false);
 
-  @each $single-transition in $raw-transition {
-    $property: nth($single-transition, 1);
+  @each $value in $raw-values {
+    $value: compact(join($value, false));
     $match: false;
 
-    @each $prefixed-property in $transitionable-prefixed-properties {
-      @if $property == $prefixed-property {
+    @each $prefixed-value in $transitionable-prefixed-values {
+      @if index($value, $prefixed-value) {
+        $index: index($value, $prefixed-value);
         $match: true;
       }
     }
 
     @if $match {
-      $single-transition-suffix: compact(false);
+      $value-prefix: nth($value, $index);
+      $value-suffix: compact(false);
 
-      @for $i from 2 through length($single-transition) {
-        $single-transition-suffix: append($single-transition-suffix, nth($single-transition, $i), space);
+      @for $i from 2 through length($value) {
+        $value-suffix: append($value-suffix, nth($value, $i), space);
       }
 
-      $webkit-transition: append($webkit-transition, compact(join(-webkit-#{$property}, $single-transition-suffix)), comma);
-      $moz-transition: append($moz-transition, compact(join(-moz-#{$property}, $single-transition-suffix)), comma);
-      $ms-transition: append($ms-transition, compact(join(-ms-#{$property}, $single-transition-suffix)), comma);
-      $o-transition: append($o-transition, compact(join(-o-#{$property}, $single-transition-suffix)), comma);
+      $non-webkit-suffix: compact(append($value-suffix, $delay, space));
+
+      $webkit-value: append($webkit-value, compact(join(-webkit-#{$value-prefix}, $value-suffix)), comma);
+      $moz-value: append($moz-value, compact(join(-moz-#{$value-prefix}, $non-webkit-suffix)), comma);
+      $ms-value: append($ms-value, compact(join(-ms-#{$value-prefix}, $non-webkit-suffix)), comma);
+      $o-value: append($o-value, compact(join(-o-#{$value-prefix}, $non-webkit-suffix)), comma);
     } @else {
-      $webkit-transition: append($webkit-transition, $single-transition, comma);
-      $moz-transition: append($moz-transition, $single-transition, comma);
-      $ms-transition: append($ms-transition, $single-transition, comma);
-      $o-transition: append($o-transition, $single-transition, comma);
+      $non-webkit-value: compact(append($value, $delay, space));
+
+      $webkit-value: append($webkit-value, $value, comma);
+      $moz-value: append($moz-value, $non-webkit-value, comma);
+      $ms-value: append($ms-value, $non-webkit-value, comma);
+      $o-value: append($o-value, $non-webkit-value, comma);
     }
   }
 
-  @if $experimental-support-for-webkit    { -webkit-transition: $webkit-transition; }
-  @if $experimental-support-for-mozilla   { -moz-transition: $moz-transition; }
-  @if $experimental-support-for-microsoft { -ms-transition: $ms-transition; }
-  @if $experimental-support-for-opera     { -o-transition: $o-transition; }
-  transition: $transition;
+  @if $experimental-support-for-webkit    { -webkit-#{$property} : $webkit-value; @if $delay { -webkit-#{$property}-delay : $delay; } }
+  @if $experimental-support-for-mozilla   {    -moz-#{$property} :    $moz-value; }
+  @if $experimental-support-for-microsoft {     -ms-#{$property} :     $ms-value; }
+  @if $experimental-support-for-opera     {      -o-#{$property} :      $o-value; }
+                                                    #{$property} :      compact($values $delay);
 }
