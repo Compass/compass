@@ -46,9 +46,7 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
     @if $experimental-support-for-mozilla   { -moz-transition-property: -moz-#{$properties}; }
     @if $experimental-support-for-microsoft { -ms-transition-property: -ms-#{$properties}; }
     @if $experimental-support-for-opera     { -o-transition-property: -o-#{$properties}; }
-    @include experimental(transition-property, $properties,
-      not -moz, not -webkit, not -o, not -ms, not -khtml, official
-    );
+    transition-property: $properties;
   } @else {
     @include experimental(transition-property, $properties,
       -moz, -webkit, -o, -ms, not -khtml, official
@@ -116,9 +114,7 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
         @if $experimental-support-for-mozilla   { -moz-transition: -moz-#{$property} $duration $function $delay; }
         @if $experimental-support-for-microsoft { -ms-transition: -ms-#{$property} $duration $function $delay; }
         @if $experimental-support-for-opera     { -o-transition: -o-#{$property} $duration $function $delay; }
-        @include experimental(transition, $property $duration $function $delay,
-          not -moz, not -webkit, not -o, not -ms, not -khtml, official
-        );
+        transition: $property $duration $function $delay;
       } @else {
         @if $experimental-support-for-webkit    { -webkit-transition: $property $duration $function; -webkit-transition-delay: $delay; }
         @include experimental(transition, $property $duration $function $delay,
@@ -137,9 +133,7 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
         @if $experimental-support-for-mozilla   { -moz-transition: -moz-#{$property} $duration $function; }
         @if $experimental-support-for-microsoft { -ms-transition: -ms-#{$property} $duration $function; }
         @if $experimental-support-for-opera     { -o-transition: -o-#{$property} $duration $function; }
-        @include experimental(transition, $property $duration $function,
-          not -moz, not -webkit, not -o, not -ms, not -khtml, official
-        );
+        transition: $property $duration $function;
       } @else {
         @include experimental(transition, $property $duration $function,
           -moz,
@@ -251,8 +245,5 @@ $transitionable-prefixed-properties: transform, transform-origin !default;
   @if $experimental-support-for-mozilla   { -moz-transition: $moz-transition; }
   @if $experimental-support-for-microsoft { -ms-transition: $ms-transition; }
   @if $experimental-support-for-opera     { -o-transition: $o-transition; }
-
-  @include experimental(transition, $transition,
-    not -moz, not -webkit, not -o, not -ms, not -khtml, official
-  );
+  transition: $transition;
 }
