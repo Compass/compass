@@ -42,6 +42,13 @@
   -o-transition: -o-transform 0.6s ease-out 0.2s;
   transition: transform 0.6s ease-out 0.2s; }
 
+.transform-transition {
+  -webkit-transition: -webkit-transform 0.6s ease-out;
+  -moz-transition: -moz-transform 0.6s ease-out;
+  -ms-transition: -ms-transform 0.6s ease-out;
+  -o-transition: -o-transform 0.6s ease-out;
+  transition: transform 0.6s ease-out; }
+
 .multiple-transitions {
   -webkit-transition: -webkit-transform 0.6s ease-out, opacity 0.2s ease-in;
   -moz-transition: -moz-transform 0.6s ease-out, opacity 0.2s ease-in;
