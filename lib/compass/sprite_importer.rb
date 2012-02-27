@@ -87,11 +87,7 @@ module Compass
     # Returns an Array of image names without the file extension
     def self.sprite_names(uri)
       files(uri).collect do |file|
-        filename = File.basename(file, '.png')
-        unless VAILD_FILE_NAME =~ filename
-          raise Compass::Error, "Sprite file names must be legal css identifiers. Please rename #{File.basename(file)}"
-        end
-        filename
+        File.basename(file, '.png')
       end
     end
     
