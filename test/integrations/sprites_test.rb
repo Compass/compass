@@ -457,7 +457,23 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
-  
+
+  it "should import sprites with numeric filenames via #738" do
+    css = render <<-SCSS
+      @import "numeric/*.png";
+      @include all-numeric-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .numeric-sprite, .numeric-200 {
+        background: url('/numeric-saa92d65a89.png') no-repeat;
+      }
+      
+      .numeric-200 {
+        background-position: 0 0;
+      }
+    CSS
+  end
+ 
   it "should calculate corret sprite demsions when givin spacing via issue#253" do
     css = render <<-SCSS
       $squares-spacing: 10px;
