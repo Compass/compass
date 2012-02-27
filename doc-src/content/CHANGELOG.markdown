@@ -18,6 +18,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 -------------------
 
 * Fix a bug in gradients that used the transparent keyword
+* Add filesize to the `compass stats` output.
 
 0.11.7 (01/05/2012)
 -------------------
