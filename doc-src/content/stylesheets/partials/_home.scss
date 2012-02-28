@@ -4,7 +4,8 @@ body#home {
   h1#logo {
     $logo: 'compass-logo.png';
     background: image-url($logo) no-repeat;
-    text-indent: -9999px;
+    text-indent: 100%;
+    white-space: nowrap;
     overflow: hidden;
     width: image-width($logo);
     height: image-height($logo)/2;

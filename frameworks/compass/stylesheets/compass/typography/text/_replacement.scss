@@ -26,9 +26,7 @@
 
 // Hides text in an element so you can see the background.
 @mixin hide-text {
-  $approximate_em_value: 12px / 1em;
-  $wider_than_any_screen: -9999em;
-  text-indent: $wider_than_any_screen * $approximate_em_value;
-  overflow: hidden;
-  text-align: left;
+  text-indent: 100%; // Indent just enough to push an element out of view
+  white-space: nowrap; // Makes sure the lines don't wrap back into view
+  overflow: hidden; // hides overflow
 }
