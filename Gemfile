@@ -18,7 +18,6 @@ gem 'autotest'
 gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
 gem 'fakefs', :git => 'git://github.com/johnbintz/fakefs.git'
 gem 'mocha'
-gem 'timecop'
 gem 'diff-lcs', '~> 1.1.2'
 
 gem 'rake', '0.8.7'
