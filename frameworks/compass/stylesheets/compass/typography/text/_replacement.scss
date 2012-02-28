@@ -26,7 +26,7 @@
 
 // Hides text in an element so you can see the background.
 @mixin hide-text {
-  text-indent: 100%; // Indent just enough to push an element out of view
+  text-indent: 150%; // Indent just enough to push an element out of view
   white-space: nowrap; // Makes sure the lines don't wrap back into view
   overflow: hidden; // hides overflow
 }
