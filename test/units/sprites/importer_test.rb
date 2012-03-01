@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'timecop'
+
 class ImporterTest < Test::Unit::TestCase
   include SpriteHelper
   

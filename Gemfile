@@ -10,9 +10,7 @@ gem "css_parser", "~> 1.0.1"
 gem "sass", "~> 3.1"
 gem "haml", "~> 3.1"
 gem "rubyzip"
-gem "livereload"
-gem 'mocha'
-gem 'timecop'
+gem 'mocha' 
 
 
 gem 'diff-lcs', '~> 1.1.2'
