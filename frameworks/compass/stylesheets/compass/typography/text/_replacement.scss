@@ -25,10 +25,9 @@
 }
 
 // Hides text in an element so you can see the background.
+// Kellum Method improves performance. http://bit.ly/Aazp14
 @mixin hide-text {
-  $approximate_em_value: 12px / 1em;
-  $wider_than_any_screen: -9999em;
-  text-indent: $wider_than_any_screen * $approximate_em_value;
-  overflow: hidden;
-  text-align: left;
+ text-indent: 100%;
+ white-space: nowrap;
+ overflow: hidden;
 }
