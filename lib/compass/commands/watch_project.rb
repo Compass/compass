@@ -138,7 +138,7 @@ module Compass
         compiler = new_compiler_instance(:quiet => true, :loud => [:identical, :overwrite, :create])
         if file = compiler.out_of_date?
           begin
-            puts ">>> Change detected at "+Time.now.strftime("%T")+" to: #{relative || compiler.relative_stylesheet_name(file)}
+            puts ">>> Change detected at "+Time.now.strftime("%T")+" to: #{relative || compiler.relative_stylesheet_name(file)}"
             compiler.run
             GC.start
           rescue StandardError => e
