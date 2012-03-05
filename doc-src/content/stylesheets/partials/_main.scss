@@ -38,7 +38,9 @@ footer {
   margin-top: 1.5em;
 }
 h2 a.help {
-  text-indent: -9999px;
+  text-indent: 150%;
+  white-space: nowrap;
+  overflow: hidden;
   display: inline-block;
   position: relative;
   text-decoration: none;
