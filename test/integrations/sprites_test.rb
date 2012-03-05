@@ -773,18 +773,18 @@ class SpritesTest < Test::Unit::TestCase
         background:url('/colors-s58671cb5bb.png') no-repeat;
       }
       .blue { 
-        text-indent:-119988px;
-        overflow:hidden;
-        text-align:left;
+        font: 0/0 serif;
+        text-shadow: none;
+        color: transparent;
         background-position:0 0;
         background-image:url('/colors-s58671cb5bb.png');
         background-repeat:no-repeat;
       }
       
       .yellow { 
-        text-indent:-119988px;
-        overflow:hidden;
-        text-align:left;
+        font: 0/0 serif;
+        text-shadow: none;
+        color: transparent;
         background-position:0 -10px;
         height:10px;
         width:10px;
