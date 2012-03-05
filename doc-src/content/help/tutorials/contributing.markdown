@@ -89,12 +89,12 @@ If the tests fail, fix the tests or the stylesheets accordingly. If the tests, d
 fail, that means this aspect was not well enough tested. Please [add or augment
 a test](#writing-tests).
 
-You're done. Please [submit your changes](#patches)
+You're done. Please [submit your changes](#patches).
 
 <h2 id="stylesheet-changes">Making Stylesheet Changes</h2>
 
 It is a good idea to discuss new features ideas with the compass users and developers
-before building something. Please don't by shy; send an email to the [compass mailing
+before building something. Please don't be shy; send an email to the [compass mailing
 list](http://groups.google.com/group/compass-users).
 
 Many feature ideas are good but not obviously a good fit for the compass core library.
@@ -112,7 +112,7 @@ making extensions.][extensions]
 **Step 6**: Documentation - Add or update the reference documentation. Add
 an example of using the feature. See the [doc readme for details][documentation].
 
-You're done. Please [submit your changes](#patches)
+You're done. Please [submit your changes](#patches).
 
 <h2 id="ruby-changes">Making Ruby Changes</h2>
 

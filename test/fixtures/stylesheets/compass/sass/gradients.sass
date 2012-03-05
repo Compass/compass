@@ -31,8 +31,13 @@ $experimental-support-for-svg: true
 .bg-linear-gradient-pixel-stop-from-left
   +background-image(linear-gradient(left, #ddd 10px, #aaa 40px))
 
+.transparent-in-linear-gradient
+  +background-image(#fff linear-gradient(top left, transparent, #aaa))
+
+.transparent-in-linear-gradient
+  +background-image(radial-gradient(center center, #ddd, transparent 100px))
+
 .bg-radial-gradient
-  +background-image(radial-gradient(center center, #ddd, #aaa 100px))
 
 .bg-linear-gradient-with-angle
   +background-image(linear-gradient(-45deg, #ddd, #aaa))
@@ -231,3 +236,4 @@ $experimental-support-for-svg: true
 
 .ie-alpha-filter
   +filter-gradient(rgba(#fff, 1), rgba(#fff, 0))
+

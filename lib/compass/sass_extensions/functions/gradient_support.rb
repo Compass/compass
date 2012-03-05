@@ -8,7 +8,9 @@ module Compass::SassExtensions::Functions::GradientSupport
       [color, stop].compact
     end
     def initialize(color, stop = nil)
-      unless Sass::Script::Color === color || Sass::Script::Funcall === color
+      unless Sass::Script::Color === color ||
+             Sass::Script::Funcall === color ||
+             (Sass::Script::String === color && color.value == "transparent")
         raise Sass::SyntaxError, "Expected a color. Got: #{color}"
       end
       if stop && !stop.is_a?(Sass::Script::Number)
@@ -19,8 +21,16 @@ module Compass::SassExtensions::Functions::GradientSupport
     def inspect
       to_s
     end
+    def self.color_to_s(c)
+      if c.is_a?(Sass::Script::String)
+        c.value.dup
+      else
+        c.inspect.dup
+      end
+    end
+
     def to_s(options = self.options)
-      s = color.inspect.dup
+      s = self.class.color_to_s(color)
       if stop
         s << " "
         if stop.unitless?
@@ -227,13 +237,14 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     def color_stops(*args)
       Sass::Script::List.new(args.map do |arg|
-        case arg
-        when ColorStop
+        if ColorStop === arg
           arg
-        when Sass::Script::Color
+        elsif Sass::Script::Color === arg
           ColorStop.new(arg)
-        when Sass::Script::List
+        elsif Sass::Script::List === arg
           ColorStop.new(*arg.value)
+        elsif Sass::Script::String === arg && arg.value == "transparent"
+          ColorStop.new(arg)
         else
           raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
         end
@@ -288,7 +299,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     # returns color-stop() calls for use in webkit.
     def grad_color_stops(color_list)
       stops = color_stops_in_percentages(color_list).map do |stop, color|
-        "color-stop(#{stop.inspect}, #{color.inspect})"
+        "color-stop(#{stop.inspect}, #{ColorStop.color_to_s(color)})"
       end
       Sass::Script::String.new(stops.join(", "))
     end

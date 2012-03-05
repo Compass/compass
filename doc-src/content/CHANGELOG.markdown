@@ -79,7 +79,13 @@ gem to integrate with compass. Please read the [README](https://github.com/Compa
   `generated-image-url()` helper function. These should rarely be needed and
   will default to your corresponding image directories and paths.
 
-0.11.7 (UNRELEASED)
+0.11.8 (02/26/2012)
+-------------------
+
+* Fix a bug in gradients that used the transparent keyword
+* Add filesize to the `compass stats` output.
+
+0.11.7 (01/05/2012)
 -------------------
 
 * Update to font-face mixin to make it work on IE8.

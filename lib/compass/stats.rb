@@ -29,6 +29,7 @@ module Compass
     class CssFile
       attr_accessor :path, :css
       attr_accessor :selector_count, :prop_count
+      attr_accessor :file_size
       def initialize(path)
         require 'css_parser'
         self.path = path
@@ -44,6 +45,7 @@ module Compass
         contents.inject(0){|m,c| m + 1 }
       end
       def analyze!
+        self.file_size = File.size(path)
         css.each_selector do |selector, declarations, specificity|
           sels = selector.split(/,/).size
           props = declarations.split(/;/).size
@@ -55,6 +57,8 @@ module Compass
     class SassFile
       attr_accessor :path
       attr_reader :visitor
+      attr_accessor :file_size
+
       def initialize(path)
         self.path = path
       end
@@ -72,6 +76,7 @@ module Compass
         @visitor
       end
       def analyze!
+        self.file_size = File.size(path)
         visit_tree!
       end
       def lines
