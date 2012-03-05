@@ -102,10 +102,7 @@ module Compass
           else
             add_configuration(:stand_alone)
           end
-          
-          
-          add_configuration(data)  
-          
+          add_configuration(data)
         else
           add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)  
         end
