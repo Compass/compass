@@ -19,6 +19,14 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 ### Stylesheet Changes
 
+* Improved hide-text mixin for better performance and accessibility.
+
+
+0.12.rc.0 (UNRELEASED)
+-------------------------
+
+### Stylesheet Changes
+
 * Removed -ms prefix from box-sizing
 * Added sprite_names sass function
 * Added -ms prefix to transitions
