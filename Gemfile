@@ -12,7 +12,7 @@ gem "haml", "~> 3.1"
 gem "rcov", :platform => :mri_18
 gem "rubyzip"
 gem "livereload"
-gem "ruby-prof", :platform => :mri
+gem "ruby-prof", :platform => :mri_18
 
 gem 'autotest'
 gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
