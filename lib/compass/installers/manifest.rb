@@ -49,7 +49,7 @@ module Compass
       type :stylesheet, :plural => :stylesheets, :extensions => %w(scss sass)
       type :image,      :plural => :images,      :extensions => %w(png gif jpg jpeg tiff gif)
       type :javascript, :plural => :javascripts, :extensions => %w(js)
-      type :font,       :plural => :fonts,       :extensions => %w(otf woff ttf)
+      type :font,       :plural => :fonts,       :extensions => %w(eot otf woff ttf)
       type :html,       :plural => :html,        :extensions => %w(html haml)
       type :file,       :plural => :files
       type :directory,  :plural => :directories
