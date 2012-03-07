@@ -63,6 +63,7 @@ end
 
 compile '*' do
   if item[:extension] == "markdown"
+    filter :erb
     filter :rdiscount
   elsif item[:extension] == "haml"
     filter :haml, :ugly => true

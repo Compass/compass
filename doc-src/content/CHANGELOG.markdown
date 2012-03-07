@@ -14,6 +14,79 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.rc.0 (UNRELEASED)
+-------------------------
+
+### Stylesheet Changes
+
+* Improved hide-text mixin for better performance and accessibility.
+
+
+0.12.rc.0 (UNRELEASED)
+-------------------------
+
+### Stylesheet Changes
+
+* Removed -ms prefix from box-sizing
+* Added sprite_names sass function
+* Added -ms prefix to transitions
+
+### Command Line
+
+* Added support for `--debug-info` and `--no-debug-info` to the compass compile command
+
+### Rails Integration
+
+Rails projects must now use the [`compass-rails`](https://github.com/compass/compass-rails)
+gem to integrate with compass. Please read the [README](https://github.com/Compass/compass-rails/blob/master/README.md) for upgrade instructions. More information in this [blog post](/blog/2012/01/29/compass-and-rails-integration/).
+
+0.12.alpha.3 (12/23/2011)
+-------------------------
+
+* The `$round-to-nearest-half-line` config variable was added. When
+  true, the vertical rhythm module will round line heights to the
+  nearest half-line to avoid awkwardly large gaps between lines of text.
+  Defaults to false.
+* Added `reset-baseline` to the vertical rhythm module so you can force the baseline to reset.
+* Merges in the stable changes between 0.11.5 and 0.11.6.
+
+0.12.alpha.2 (11/28/2011)
+-------------------------
+
+* Bug fixes for Rails 2.x applications.
+
+0.12.alpha.1 (11/14/2011)
+-------------------------
+
+* font-files helper: Stop requiring font type when the type can be guessed from URL
+* inline-font-files: actually works now
+* Upgrade CSS3 Pie to 1.0beta5
+* log sprite generation and removal to the console
+* Added a new helper function `compass-env()` that returns the current compass environment (development, production)
+* Added the ability to inline a sprite image by setting `$<map>-inline:true` before you call `@import`
+* Removed `-khtml` prefixes by default you can still enable them by setting `$experimental-support-for-khtml:true;`
+* Improved rails 3.1 integration
+* `true` and `false` are now valid sprite names
+* Removed deprecated forms of the box-shadow, text-shadow, and transform
+  mixins.
+
+0.12.alpha.0 (8/30/2011)
+------------------------
+* Support for the rails 3.1 asset pipeline
+* Added support for diagonal, horizontal, and smart sprite layout
+* Fixed a bug with spacing in horizontal layout
+* Changed the descriptions of the sin, cos, and tan to be more descriptive
+* Fixed trig functions via issue #498 
+* Fixed the default `http_path` in rails
+* Sprites can now have a `sprite_load_path` that is an array of directories that
+  contain source images for sprites handy for using sprites in extensions or gems
+* Added a new set of configuration properties for generated images.
+  `generated_images_dir`, `generated_images_path`, `http_generated_images_dir`,
+  and `http_generated_images_path` can now be set to control where generated
+  images are written and how they are served. Added a corresponding
+  `generated-image-url()` helper function. These should rarely be needed and
+  will default to your corresponding image directories and paths.
+
 0.11.8 (02/26/2012)
 -------------------
 

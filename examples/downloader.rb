@@ -9,8 +9,9 @@ def fetch(uri_str, limit = 10)
 
   url = URI.parse(uri_str)
   http = Net::HTTP.new(url.host, url.port)
-  http.open_timeout = 2
+  http.open_timeout = 10
   http.read_timeout = 30
+  http.use_ssl = true
   response = http.start do |http|
      puts "getting #{url.path}"
      http.request_get(url.path)
@@ -25,7 +26,7 @@ def fetch(uri_str, limit = 10)
 end
 
 def install_from_github(user, project, ext_name, branch = "master", working_directory = Dir.pwd)
-  download_link = "http://github.com/#{user}/#{project}/zipball/#{branch}"
+  download_link = "https://github.com/#{user}/#{project}/zipball/#{branch}"
   extdir = File.join(working_directory,'extensions')
   
   if !File.exists?("#{extdir}/#{ext_name}")

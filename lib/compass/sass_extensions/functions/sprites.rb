@@ -10,6 +10,30 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
+  #Returns a list of all sprite names
+  def sprite_names(map)
+    Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
+  end
+  Sass::Script::Functions.declare :sprite_names, [:map]
+
+  # Returns the system path of the sprite file
+  def sprite_path(map)
+    Sass::Script::String.new(map.name_and_hash)
+  end
+  Sass::Script::Functions.declare :sprite_path, [:map]
+
+  # Returns the sprite file as an inline image
+  #    @include "icon/*.png";
+  #     #{$icon-sprite-base-class} {
+  #       background-image: inline-sprite($icon-sprites);
+  #      }
+  def inline_sprite(map)
+    verify_map(map, "sprite-url")
+    map.generate
+    inline_image(sprite_path(map))
+  end
+  Sass::Script::Functions.declare :inline_sprite, [:map]
+
   # Creates a Compass::SassExtensions::Sprites::SpriteMap object. A sprite map, when used in a property is the same
   # as calling sprite-url. So the following background properties are equivalent:
   #
@@ -22,7 +46,7 @@ module Compass::SassExtensions::Functions::Sprites
   def sprite_map(glob, kwargs = {})
     kwargs.extend VariableReader
     Compass::SassExtensions::Sprites::SpriteMap.from_uri(glob, self, kwargs)
-  end 
+  end
   Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
 
   # Returns the image and background position for use in a single shorthand property:
@@ -34,7 +58,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
   def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
-    sprite = convert_sprite_name(sprite)
+    sprite = convert_sprite_name(sprite)    
     verify_map(map)
     unless sprite.is_a?(Sass::Script::String)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
@@ -61,14 +85,14 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, "sprite")
     verify_sprite(sprite)
     if image = map.image_for(sprite.value)
-      Sass::Script::String.new(image.relative_file)
+      Sass::Script::String.new(image.file)
     else
       missing_image!(map, sprite)
     end
   end
   Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
 
-  # Returns voolean if sprite has a parent
+  # Returns boolean if sprite has a parent
   def sprite_does_not_have_parent(map, sprite)
     sprite = convert_sprite_name(sprite)
     verify_map map
@@ -96,9 +120,7 @@ module Compass::SassExtensions::Functions::Sprites
   def sprite_url(map)
     verify_map(map, "sprite-url")
     map.generate
-    image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"),
-              Sass::Script::Bool.new(false),
-              Sass::Script::Bool.new(false))
+    generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
   end
   Sass::Script::Functions.declare :sprite_url, [:map]
 
@@ -122,6 +144,8 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background-position: 3px -36px;
   def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
+    assert_type offset_x, :Number
+    assert_type offset_y, :Number
     sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
     unless sprite && sprite.is_a?(Sass::Script::String)
@@ -147,16 +171,20 @@ module Compass::SassExtensions::Functions::Sprites
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y]
 
   def sprite_image(*args)
-    raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
+    raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://compass-style.org/help/tutorials/spriting/ for more information.)
   end
 
 protected
 
   def convert_sprite_name(sprite)
-    if sprite.is_a?(Sass::Script::Color)
-      return Sass::Script::String.new(Sass::Script::Color::HTML4_COLORS_REVERSE[sprite.rgb])
+    case sprite
+      when Sass::Script::Color
+        Sass::Script::String.new(Sass::Script::Color::HTML4_COLORS_REVERSE[sprite.rgb])
+      when Sass::Script::Bool
+        Sass::Script::String.new(sprite.to_s)
+      else
+        sprite
     end
-    sprite
   end
 
   def verify_map(map, error = "sprite")

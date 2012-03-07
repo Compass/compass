@@ -16,17 +16,24 @@ module Compass
         end
       end
 
+      def get_binding
+        binding
+      end
       def parse_string(contents, filename)
-        bind = binding
+        bind = get_binding
         eval(contents, bind, filename)
-        ATTRIBUTES.each do |prop|
-          value = eval(prop.to_s, bind) rescue nil
-          value = value.to_s if value.is_a?(Pathname)
-          self.send("#{prop}=", value) unless value.nil?
+        local_vars_set = eval("local_variables", bind)
+        local_vars_set.each do |local_var|
+          if (ATTRIBUTES+ARRAY_ATTRIBUTES).include?(local_var.to_sym)
+            value = eval(local_var.to_s, bind)
+            value = value.to_s if value.is_a?(Pathname)
+            self.send("#{local_var}=", value)
+          end
         end
         if @added_import_paths
           self.additional_import_paths ||= []
           self.additional_import_paths += @added_import_paths
+          self.additional_import_paths.uniq!
         end
         issue_deprecation_warnings
       end
@@ -44,7 +51,7 @@ module Compass
         end
         contents << "# Require any additional compass plugins here.\n"
         contents << "\n" if (required_libraries || []).any?
-        ATTRIBUTES.each do |prop|
+        (ATTRIBUTES + ARRAY_ATTRIBUTES).each do |prop|
           value = send("#{prop}_without_default")
           if value.is_a?(Proc)
             $stderr.puts "WARNING: #{prop} is code and cannot be written to a file. You'll need to copy it yourself."
@@ -63,7 +70,11 @@ module Compass
       end
 
       def serialize_property(prop, value)
-        %Q(#{prop} = #{value.inspect}\n)
+        if value.respond_to?(:serialize_to_config)
+          value.serialize_to_config(prop) + "\n"
+        else
+          %Q(#{prop} = #{value.inspect}\n)
+        end
       end
 
       def issue_deprecation_warnings

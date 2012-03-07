@@ -15,9 +15,14 @@ $ie-font-ratio: 16px / 100%;
 // Set to false if you want to use absolute pixes in sizing your typography.
 $relative-font-sizing: true !default;
 
+// Allows the `adjust-font-size-to` mixin and the `lines-for-font-size` function
+// to round the line height to the nearest half line height instead of the
+// nearest integral line height to avoid large spacing between lines.
+$round-to-nearest-half-line: false !default;
+
 // Ensure there is at least this many pixels
 // of vertical padding above and below the text.
-$min-line-padding: 2px;
+$min-line-padding: 2px !default;
 
 // $base-font-size but in your output unit of choice.
 // Defaults to 1em when `$relative-font-sizing`
@@ -57,6 +62,11 @@ $base-half-leader: $base-leader / 2;
   html>body {
     font-size: $font-size;
   }
+}
+
+// resets the baseline to 1 leading unit
+@mixin reset-baseline {
+  @include adjust-leading-to(1, if($relative-font-sizing, $base-font-size, $base-font-size));
 }
 
 // Show a background image that can be used to debug your alignments.
@@ -103,9 +113,11 @@ $base-half-leader: $base-leader / 2;
 }
 
 @function lines-for-font-size($font-size) {
-  $lines: ceil($font-size / $base-line-height);
+  $lines: if($round-to-nearest-half-line,
+              ceil(2 * $font-size / $base-line-height) / 2,
+              ceil($font-size / $base-line-height));
   @if $lines * $base-line-height - $font-size < $min-line-padding * 2 {
-    $lines: $lines + 1;
+    $lines: $lines + if($round-to-nearest-half-line, 0.5, 1);
   }
   @return $lines;
 }

@@ -7,4 +7,5 @@ module Compass
 
   class MissingDependency < Error
   end
+  class SpriteException < Error; end
 end

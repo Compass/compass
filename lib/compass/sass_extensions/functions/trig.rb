@@ -24,4 +24,5 @@ module Compass::SassExtensions::Functions::Trig
       Sass::Script::Number.new(Math.send(operation, number.value), number.numerator_units, number.denominator_units)
     end
   end
+  
 end

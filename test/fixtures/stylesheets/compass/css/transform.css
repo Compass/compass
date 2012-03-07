@@ -1,8 +1,8 @@
 .apply-origin-2d {
-  -moz-transform-origin: 2px 5%;
   -webkit-transform-origin: 2px 5%;
-  -o-transform-origin: 2px 5%;
+  -moz-transform-origin: 2px 5%;
   -ms-transform-origin: 2px 5%;
+  -o-transform-origin: 2px 5%;
   transform-origin: 2px 5%; }
 
 .apply-origin-3d {
@@ -10,10 +10,10 @@
   transform-origin: 2px 5% 2in; }
 
 .transform-origin-2d {
-  -moz-transform-origin: 100px 100px;
   -webkit-transform-origin: 100px 100px;
-  -o-transform-origin: 100px 100px;
+  -moz-transform-origin: 100px 100px;
   -ms-transform-origin: 100px 100px;
+  -o-transform-origin: 100px 100px;
   transform-origin: 100px 100px; }
 
 .transform-origin-3d {
@@ -21,10 +21,10 @@
   transform-origin: 100px 100px 100px; }
 
 .transform-2d {
-  -moz-transform: rotateY(20deg);
   -webkit-transform: rotateY(20deg);
-  -o-transform: rotateY(20deg);
+  -moz-transform: rotateY(20deg);
   -ms-transform: rotateY(20deg);
+  -o-transform: rotateY(20deg);
   transform: rotateY(20deg); }
 
 .transform-3d {
@@ -48,10 +48,10 @@
   backface-visibility: hidden; }
 
 .scale {
-  -moz-transform: scale(30px, 50px);
   -webkit-transform: scale(30px, 50px);
-  -o-transform: scale(30px, 50px);
+  -moz-transform: scale(30px, 50px);
   -ms-transform: scale(30px, 50px);
+  -o-transform: scale(30px, 50px);
   transform: scale(30px, 50px); }
 
 .scale-3d {
@@ -59,10 +59,10 @@
   transform: scale(30px, 50px); }
 
 .scale-with-perspective {
-  -moz-transform: perspective(500) scale(30px, 50px);
   -webkit-transform: perspective(500) scale(30px, 50px);
-  -o-transform: perspective(500) scale(30px, 50px);
+  -moz-transform: perspective(500) scale(30px, 50px);
   -ms-transform: perspective(500) scale(30px, 50px);
+  -o-transform: perspective(500) scale(30px, 50px);
   transform: perspective(500) scale(30px, 50px); }
 
 .scale-3d-with-perspective {
@@ -70,10 +70,10 @@
   transform: perspective(500) scale(30px, 50px); }
 
 .scale-x {
-  -moz-transform: scaleX(30px);
   -webkit-transform: scaleX(30px);
-  -o-transform: scaleX(30px);
+  -moz-transform: scaleX(30px);
   -ms-transform: scaleX(30px);
+  -o-transform: scaleX(30px);
   transform: scaleX(30px); }
 
 .scale-x-3d {
@@ -81,10 +81,10 @@
   transform: scaleX(30px); }
 
 .scale-x-with-perspective {
-  -moz-transform: perspective(500) scaleX(30px);
   -webkit-transform: perspective(500) scaleX(30px);
-  -o-transform: perspective(500) scaleX(30px);
+  -moz-transform: perspective(500) scaleX(30px);
   -ms-transform: perspective(500) scaleX(30px);
+  -o-transform: perspective(500) scaleX(30px);
   transform: perspective(500) scaleX(30px); }
 
 .scale-x-3d-with-perspective {
@@ -92,10 +92,10 @@
   transform: perspective(500) scaleX(30px); }
 
 .scale-y {
-  -moz-transform: scaleY(50px);
   -webkit-transform: scaleY(50px);
-  -o-transform: scaleY(50px);
+  -moz-transform: scaleY(50px);
   -ms-transform: scaleY(50px);
+  -o-transform: scaleY(50px);
   transform: scaleY(50px); }
 
 .scale-y-3d {
@@ -103,10 +103,10 @@
   transform: scaleY(50px); }
 
 .scale-y-with-perspective {
-  -moz-transform: perspective(500) scaleY(50px);
   -webkit-transform: perspective(500) scaleY(50px);
-  -o-transform: perspective(500) scaleY(50px);
+  -moz-transform: perspective(500) scaleY(50px);
   -ms-transform: perspective(500) scaleY(50px);
+  -o-transform: perspective(500) scaleY(50px);
   transform: perspective(500) scaleY(50px); }
 
 .scale-y-3d-with-perspective {
@@ -130,31 +130,31 @@
   transform: perspective(500) scale3d(30px, 50px, 100px); }
 
 .rotate {
-  -moz-transform: perspective(500) rotate(25deg);
   -webkit-transform: perspective(500) rotate(25deg);
-  -o-transform: perspective(500) rotate(25deg);
+  -moz-transform: perspective(500) rotate(25deg);
   -ms-transform: perspective(500) rotate(25deg);
+  -o-transform: perspective(500) rotate(25deg);
   transform: perspective(500) rotate(25deg); }
 
 .rotate-with-perspective {
-  -moz-transform: perspective(500) rotate(25deg);
   -webkit-transform: perspective(500) rotate(25deg);
-  -o-transform: perspective(500) rotate(25deg);
+  -moz-transform: perspective(500) rotate(25deg);
   -ms-transform: perspective(500) rotate(25deg);
+  -o-transform: perspective(500) rotate(25deg);
   transform: perspective(500) rotate(25deg); }
 
 .rotate-z {
-  -moz-transform: rotate(25deg);
   -webkit-transform: rotate(25deg);
-  -o-transform: rotate(25deg);
+  -moz-transform: rotate(25deg);
   -ms-transform: rotate(25deg);
+  -o-transform: rotate(25deg);
   transform: rotate(25deg); }
 
 .rotate-z-with-perspective {
-  -moz-transform: perspective(500) rotate(25deg);
   -webkit-transform: perspective(500) rotate(25deg);
-  -o-transform: perspective(500) rotate(25deg);
+  -moz-transform: perspective(500) rotate(25deg);
   -ms-transform: perspective(500) rotate(25deg);
+  -o-transform: perspective(500) rotate(25deg);
   transform: perspective(500) rotate(25deg); }
 
 .rotate-x {
@@ -182,17 +182,17 @@
   transform: perspective(500) rotate3d(5, 2, 1, 75deg); }
 
 .translate {
-  -moz-transform: translate(20px, 30%);
   -webkit-transform: translate(20px, 30%);
-  -o-transform: translate(20px, 30%);
+  -moz-transform: translate(20px, 30%);
   -ms-transform: translate(20px, 30%);
+  -o-transform: translate(20px, 30%);
   transform: translate(20px, 30%); }
 
 .translate-with-perspective {
-  -moz-transform: perspective(500) translate(20px, 30%);
   -webkit-transform: perspective(500) translate(20px, 30%);
-  -o-transform: perspective(500) translate(20px, 30%);
+  -moz-transform: perspective(500) translate(20px, 30%);
   -ms-transform: perspective(500) translate(20px, 30%);
+  -o-transform: perspective(500) translate(20px, 30%);
   transform: perspective(500) translate(20px, 30%); }
 
 .translate-3d {
@@ -204,10 +204,10 @@
   transform: perspective(500) translate(20px, 30%); }
 
 .translate-x {
-  -moz-transform: translateX(30px);
   -webkit-transform: translateX(30px);
-  -o-transform: translateX(30px);
+  -moz-transform: translateX(30px);
   -ms-transform: translateX(30px);
+  -o-transform: translateX(30px);
   transform: translateX(30px); }
 
 .translate-x-3d {
@@ -215,10 +215,10 @@
   transform: translateX(30px); }
 
 .translate-x-with-perspective {
-  -moz-transform: perspective(500) translateX(30px);
   -webkit-transform: perspective(500) translateX(30px);
-  -o-transform: perspective(500) translateX(30px);
+  -moz-transform: perspective(500) translateX(30px);
   -ms-transform: perspective(500) translateX(30px);
+  -o-transform: perspective(500) translateX(30px);
   transform: perspective(500) translateX(30px); }
 
 .translate-x-3d-with-perspective {
@@ -226,10 +226,10 @@
   transform: perspective(500) translateX(30px); }
 
 .translate-y {
-  -moz-transform: translateY(30px);
   -webkit-transform: translateY(30px);
-  -o-transform: translateY(30px);
+  -moz-transform: translateY(30px);
   -ms-transform: translateY(30px);
+  -o-transform: translateY(30px);
   transform: translateY(30px); }
 
 .translate-y-3d {
@@ -237,10 +237,10 @@
   transform: translateY(30px); }
 
 .translate-y-with-perspective {
-  -moz-transform: perspective(500) translateY(30px);
   -webkit-transform: perspective(500) translateY(30px);
-  -o-transform: perspective(500) translateY(30px);
+  -moz-transform: perspective(500) translateY(30px);
   -ms-transform: perspective(500) translateY(30px);
+  -o-transform: perspective(500) translateY(30px);
   transform: perspective(500) translateY(30px); }
 
 .translate-y-3d-with-perspective {
@@ -264,10 +264,10 @@
   transform: perspective(500) translate3d(30px, 50px, 75px); }
 
 .skew {
-  -moz-transform: skew(20deg, 50deg);
   -webkit-transform: skew(20deg, 50deg);
-  -o-transform: skew(20deg, 50deg);
+  -moz-transform: skew(20deg, 50deg);
   -ms-transform: skew(20deg, 50deg);
+  -o-transform: skew(20deg, 50deg);
   transform: skew(20deg, 50deg); }
 
 .skew-3d {
@@ -275,10 +275,10 @@
   transform: skew(20deg, 50deg); }
 
 .skew-x {
-  -moz-transform: skewX(20deg);
   -webkit-transform: skewX(20deg);
-  -o-transform: skewX(20deg);
+  -moz-transform: skewX(20deg);
   -ms-transform: skewX(20deg);
+  -o-transform: skewX(20deg);
   transform: skewX(20deg); }
 
 .skew-x-3d {
@@ -286,10 +286,10 @@
   transform: skewX(20deg); }
 
 .skew-y {
-  -moz-transform: skewY(20deg);
   -webkit-transform: skewY(20deg);
-  -o-transform: skewY(20deg);
+  -moz-transform: skewY(20deg);
   -ms-transform: skewY(20deg);
+  -o-transform: skewY(20deg);
   transform: skewY(20deg); }
 
 .skew-y-3d {
@@ -297,37 +297,37 @@
   transform: skewY(20deg); }
 
 .create-transform-2d {
-  -moz-transform: perspective(500) scale(20px, 20px) rotateX(25deg) rotateY(25deg) rotate3d(false 50px) translateX(50px) translateZ(50deg) skew(50deg, 50%);
   -webkit-transform: perspective(500) scale(20px, 20px) rotateX(25deg) rotateY(25deg) rotate3d(false 50px) translateX(50px) translateZ(50deg) skew(50deg, 50%);
-  -o-transform: perspective(500) scale(20px, 20px) rotateX(25deg) rotateY(25deg) rotate3d(false 50px) translateX(50px) translateZ(50deg) skew(50deg, 50%);
+  -moz-transform: perspective(500) scale(20px, 20px) rotateX(25deg) rotateY(25deg) rotate3d(false 50px) translateX(50px) translateZ(50deg) skew(50deg, 50%);
   -ms-transform: perspective(500) scale(20px, 20px) rotateX(25deg) rotateY(25deg) rotate3d(false 50px) translateX(50px) translateZ(50deg) skew(50deg, 50%);
+  -o-transform: perspective(500) scale(20px, 20px) rotateX(25deg) rotateY(25deg) rotate3d(false 50px) translateX(50px) translateZ(50deg) skew(50deg, 50%);
   transform: perspective(500) scale(20px, 20px) rotateX(25deg) rotateY(25deg) rotate3d(false 50px) translateX(50px) translateZ(50deg) skew(50deg, 50%);
-  -moz-transform-origin: 50%;
   -webkit-transform-origin: 50%;
-  -o-transform-origin: 50%;
+  -moz-transform-origin: 50%;
   -ms-transform-origin: 50%;
+  -o-transform-origin: 50%;
   transform-origin: 50%; }
 
 .create-transform-3d {
-  -moz-transform: perspective(500) scale3d(20px, 20px, 20px) rotateX(25deg) rotateY(25deg) rotateZ(25deg) rotate3d(false 50px) translate3d(50px, 50px, 50deg) skew(50deg, 50%);
   -webkit-transform: perspective(500) scale3d(20px, 20px, 20px) rotateX(25deg) rotateY(25deg) rotateZ(25deg) rotate3d(false 50px) translate3d(50px, 50px, 50deg) skew(50deg, 50%);
-  -o-transform: perspective(500) scale3d(20px, 20px, 20px) rotateX(25deg) rotateY(25deg) rotateZ(25deg) rotate3d(false 50px) translate3d(50px, 50px, 50deg) skew(50deg, 50%);
+  -moz-transform: perspective(500) scale3d(20px, 20px, 20px) rotateX(25deg) rotateY(25deg) rotateZ(25deg) rotate3d(false 50px) translate3d(50px, 50px, 50deg) skew(50deg, 50%);
   -ms-transform: perspective(500) scale3d(20px, 20px, 20px) rotateX(25deg) rotateY(25deg) rotateZ(25deg) rotate3d(false 50px) translate3d(50px, 50px, 50deg) skew(50deg, 50%);
+  -o-transform: perspective(500) scale3d(20px, 20px, 20px) rotateX(25deg) rotateY(25deg) rotateZ(25deg) rotate3d(false 50px) translate3d(50px, 50px, 50deg) skew(50deg, 50%);
   transform: perspective(500) scale3d(20px, 20px, 20px) rotateX(25deg) rotateY(25deg) rotateZ(25deg) rotate3d(false 50px) translate3d(50px, 50px, 50deg) skew(50deg, 50%);
-  -moz-transform-origin: 50% 50%;
   -webkit-transform-origin: 50% 50%;
-  -o-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
   transform-origin: 50% 50%; }
 
 .simple-transform {
-  -moz-transform:  scale(25px, 25px) rotateZ(25deg) translate(10px, 10px) skew(30deg, 30deg);
   -webkit-transform:  scale(25px, 25px) rotateZ(25deg) translate(10px, 10px) skew(30deg, 30deg);
-  -o-transform:  scale(25px, 25px) rotateZ(25deg) translate(10px, 10px) skew(30deg, 30deg);
+  -moz-transform:  scale(25px, 25px) rotateZ(25deg) translate(10px, 10px) skew(30deg, 30deg);
   -ms-transform:  scale(25px, 25px) rotateZ(25deg) translate(10px, 10px) skew(30deg, 30deg);
+  -o-transform:  scale(25px, 25px) rotateZ(25deg) translate(10px, 10px) skew(30deg, 30deg);
   transform:  scale(25px, 25px) rotateZ(25deg) translate(10px, 10px) skew(30deg, 30deg);
-  -moz-transform-origin: 10% 10%;
   -webkit-transform-origin: 10% 10%;
-  -o-transform-origin: 10% 10%;
+  -moz-transform-origin: 10% 10%;
   -ms-transform-origin: 10% 10%;
+  -o-transform-origin: 10% 10%;
   transform-origin: 10% 10%; }

@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler'
 Bundler.setup
+require 'rake/dsl_definition' rescue nil
 require 'compass'
 
 # ----- Default: Testing ------
@@ -28,6 +29,16 @@ Rake::Task[:test].send(:add_comment, <<END)
 To run with an alternate version of Rails, make test/rails a symlink to that version.
 To run with an alternate version of Haml & Sass, make test/haml a symlink to that version.
 END
+
+Rake::TestTask.new :units do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  test_files = FileList['test/units/**/*_test.rb']
+  test_files.exclude('test/rails/*', 'test/haml/*')
+  t.test_files = test_files
+  t.verbose = true
+end
+
 
 desc "Compile Examples into HTML and CSS"
 task :examples do

@@ -1,24 +1,39 @@
-%w(stand_alone rails merb).each do |lib|
-  require "compass/app_integration/#{lib}"
-end
+require "compass/app_integration/stand_alone"
 
 module Compass
   module AppIntegration
     module Helpers
-      def lookup(project_type)
-        eval "Compass::AppIntegration::#{camelize(project_type)}"
-      rescue NameError
-        raise Compass::Error, "No application integration exists for #{project_type}"
+      #attr_accessor :project_types
+      DEAFULT_PROJECT_TYPES = {
+        :stand_alone => "Compass::AppIntegration::StandAlone"
+      }
+
+      def init
+        @project_types ||= DEAFULT_PROJECT_TYPES.dup
       end
 
-      protected
+      def project_types
+        @project_types
+      end
 
-      # Stolen from ActiveSupport
-      def camelize(s)
-        s.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+      def default?
+        @project_types.keys === DEAFULT_PROJECT_TYPES.keys
+      end
+
+      def lookup(type)
+        unless @project_types[type].nil?
+          eval @project_types[type]
+        else
+          raise Compass::Error, "No application integration exists for #{type}"
+        end
+      end
+
+      def register(type, klass)
+        @project_types[type] = klass
       end
 
     end
     extend Helpers
+    init
   end
 end

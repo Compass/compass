@@ -1,21 +1,19 @@
 module Compass::SassExtensions::Functions::ImageSize
   # Returns the width of the image relative to the images directory
   def image_width(image_file)
-    image_path = real_path(image_file)
-    width = ImageProperties.new(image_path).size.first
+    width, _ = image_dimensions(image_file)
     Sass::Script::Number.new(width,["px"])
   end
-
+  
   # Returns the height of the image relative to the images directory
   def image_height(image_file)
-    image_path = real_path(image_file)
-    height = ImageProperties.new(image_path).size.last
+    _, height = image_dimensions(image_file)
     Sass::Script::Number.new(height, ["px"])
   end
 
   class ImageProperties
     def initialize(file)
-      @file = file
+      @file = (file.respond_to?(:to_path) ? file.to_path : file)
       @file_type = File.extname(@file)[1..-1]
     end
 
@@ -45,13 +43,26 @@ module Compass::SassExtensions::Functions::ImageSize
   end
 
 private
+
+  def image_dimensions(image_file)
+    options[:compass] ||= {}
+    options[:compass][:image_dimensions] ||= {}
+    options[:compass][:image_dimensions][image_file.value] = ImageProperties.new(image_path_for_size(image_file.value)).size
+  end
+  
+  def image_path_for_size(image_file)
+    if File.exists?(image_file)
+      return image_file 
+    end
+    real_path(image_file)
+  end
+
   def real_path(image_file)
-    path = image_file.value
     # Compute the real path to the image on the file stystem if the images_dir is set.
     if Compass.configuration.images_path
-      File.join(Compass.configuration.images_path, path)
+      File.join(Compass.configuration.images_path, image_file)
     else
-      File.join(Compass.configuration.project_path, path)
+      File.join(Compass.configuration.project_path, image_file)
     end
   end
 

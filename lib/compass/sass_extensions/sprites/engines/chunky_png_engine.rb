@@ -13,19 +13,7 @@ module Compass
           @canvas = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
           images.each do |image|
             input_png  = ChunkyPNG::Image.from_file(image.file)
-            if image.repeat == "no-repeat"
-              canvas.replace! input_png, image.left, image.top
-            else
-              x = image.left - (image.left / image.width).ceil * image.width
-              while x < width do
-                begin
-                  canvas.replace! input_png, x, image.top
-                  x += image.width 
-                rescue ChunkyPNG::OutOfBounds
-                  break;
-                end
-              end
-            end
+            canvas.replace! input_png, image.left, image.top
           end
         end    
         

@@ -1,49 +1,46 @@
 require 'test_helper'
 require 'mocha'
 require 'ostruct'
-class SpritesImageTest < Test::Unit::TestCase
 
+class SpritesImageTest < Test::Unit::TestCase
+  include SpriteHelper
 
   def setup
-    @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
-    file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
-    Compass.add_configuration(file, "sprite_config")
-    @repeat = 'no-repeat'
-    @spacing = 0
-    @position = 100
-    @offset = 100
+    create_sprite_temp
   end
 
-  let(:sprite_filename) { 'squares/ten-by-ten.png' }
-  let(:sprite_path) { File.join(@images_src_path, sprite_filename) }
-  let(:sprite_name) { File.basename(sprite_filename, '.png') }
+  def teardown
+    clean_up_sprites
+  end
+
+  SPRITE_FILENAME =  'selectors/ten-by-ten.png'
   
-  def parent
-    importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => options)
-    @parent ||= Compass::SassExtensions::Sprites::SpriteMap.new(importer.sprite_names.map{|n| "selectors/#{n}.png"}, importer.path, importer.name, importer.sass_engine, importer.options)
+  def sprite_path 
+    File.join(@images_tmp_path, SPRITE_FILENAME)
   end
   
-  let(:options) do
-    options = {:offset => @offset}
-    options.stubs(:get_var).with(anything).returns(nil)
-    ::OpenStruct.any_instance.stubs(:unitless?).returns(true)
-    options.stubs(:get_var).with("#{sprite_name}-repeat").returns(::OpenStruct.new(:value => @repeat))
-    options.stubs(:get_var).with("#{sprite_name}-spacing").returns(::OpenStruct.new(:value => @spacing))
-    options.stubs(:get_var).with("#{sprite_name}-position").returns(::OpenStruct.new(:value => @position))
-    options
+  def sprite_name
+    File.basename(SPRITE_FILENAME, '.png')
   end
   
-
+  def digest
+    Digest::MD5.file(sprite_path).hexdigest
+  end
   
-  let(:digest) { Digest::MD5.file(sprite_path).hexdigest }
-
-
-  let(:image) { Compass::SassExtensions::Sprites::Image.new(parent, File.join(sprite_filename), options)}
+  def test_map(options ={})
+    options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}.merge(options)
+    map = sprite_map_test(options)
+  end
+  
+  def test_image(options ={})
+    test_map(options).images.first
+  end
 
   test 'initialize' do
+    image = test_image
     assert_equal sprite_name, image.name
     assert_equal sprite_path, image.file
-    assert_equal sprite_filename, image.relative_file
+    assert_equal SPRITE_FILENAME, image.relative_file
     assert_equal 10, image.width
     assert_equal 10, image.height
     assert_equal digest, image.digest
@@ -52,44 +49,49 @@ class SpritesImageTest < Test::Unit::TestCase
   end
 
   test 'hover' do
-    assert_equal 'ten-by-ten_hover', image.hover.name
+    assert_equal 'ten-by-ten_hover', test_image.hover.name
   end
 
   test 'no parent' do
-    assert_nil image.parent
+    assert_nil test_image.parent
   end
-
-  test 'image type is nil' do
-    @repeat = nil
-    assert_nil image.repeat
-  end
-
   
-  test 'image type is "global"' do
-    @repeat = 'global'
-    assert_equal @repeat, image.repeat
+  test 'image type is "global" should raise exception' do
+    assert_raise ::Compass::SpriteException do
+      image = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('global')
+      image.repeat
+    end
   end
   
   test 'image type is "no-repeat"' do
-    assert_equal 'no-repeat', image.repeat
+    img = test_image
+    assert_equal 'no-repeat', img.repeat
+    assert img.no_repeat?
+  end
+
+  test 'image repeat-x' do
+    img = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('repeat-x')
+    assert img.repeat_x?
   end
 
   test 'image position' do
-    assert_equal Sass::Script::Number.new(100, ["px"]).value, image.position.value
+    image = test_image "selectors_ten_by_ten_position" => Sass::Script::Number.new(100, ["px"])
+    assert_equal 100, image.position.value
   end
 
   test 'image spacing' do
     @spacing = 10
-    assert_equal @spacing, image.spacing
+    image = test_image "spacing" => Sass::Script::Number.new(100, ["px"])
+    assert_equal 100, image.spacing
   end
   
   test 'offset' do
-    assert_equal @offset, image.offset
+    image = test_image "selectors_ten_by_ten_position" => Sass::Script::Number.new(100, ["px"])
+    assert_equal 100, image.offset
   end
 
   test 'neither, uses 0' do
-    @offset = 0
-    img = image
+    img = test_image
     img.position.stubs(:unitless?).returns(false)
     assert_equal 0, img.offset
   end
