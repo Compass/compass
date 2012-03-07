@@ -42,7 +42,7 @@ private
     when /\.ttf$/i
       'font/truetype'
     when /\.woff$/i
-      'font/woff'
+      'application/x-font-woff'
     when /\.off$/i
       'font/openfont'
     when /\.([a-zA-Z]+)$/
