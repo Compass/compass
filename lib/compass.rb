@@ -16,7 +16,7 @@ module Compass
   end
   def shared_extension_paths
     @shared_extension_paths ||= begin
-      if ENV["HOME"] && File.directory?(ENV["HOME"])
+      if ENV["HOME"] && File.directory?(ENV["HOME"]) && ENV["HOME"].first == "/"
         [File.expand_path("~/.compass/extensions")]
       else
         []
