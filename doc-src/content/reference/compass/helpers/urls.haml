@@ -25,7 +25,7 @@ documented_functions:
 #stylesheet-url.helper
   %h3
     %a(href="#stylesheet-url")
-      stylesheet-url($path, $only-path: false)
+      stylesheet-url(<span class="arg">$path</span>, <span class="arg" data-default-value="false" title="Defaults to: false">$only-path</span>)
   .details
     %p
       Generates a path to an asset found relative to the project's css directory.
@@ -36,7 +36,7 @@ documented_functions:
 #font-url.helper
   %h3
     %a(href="#font-url")
-      font-url($path, $only-path: false)
+      font-url(<span class="arg">$path</span>, <span class="arg" data-default-value="false" title="Defaults to: false">$only-path</span>)
   .details
     %p
       Generates a path to an asset found relative to the project's font directory.
@@ -47,7 +47,7 @@ documented_functions:
 #image-url.helper
   %h3
     %a(href="#image-url")
-      image-url($path, $only-path: false, $cache-buster: true)
+      image-url(<span class="arg">$path</span>, <span class="arg" data-default-value="false" title="Defaults to: false">$only-path</span>, <span class="arg" data-default-value="true" title="Defaults to: true">$cache-buster</span>)
   .details
     %p
       Generates a path to an asset found relative to the project's images directory.
