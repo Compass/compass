@@ -64,7 +64,7 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "yes", evaluate("if(true, yes, no)")
   end
 
-  def test_trig_functions
+  def test_math_functions
     assert_equal "0.841px", evaluate("sin(1px)")
     assert_equal "0.0", evaluate("sin(pi())")
     assert_equal "1",   evaluate("sin(pi() / 2)")
@@ -79,6 +79,12 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "0.0", evaluate("tan(360deg)")
     assert evaluate("tan(pi()/2 - 0.0001)").to_f > 1000, evaluate("tan(pi()/2 - 0.0001)")
     assert evaluate("tan(pi()/2 + 0.0001)").to_f < -1000, evaluate("tan(pi()/2 - 0.0001)")
+    assert_equal "0.893px", evaluate("log(1)")
+    assert_equal "0.0", evaluate("log(1)")
+    assert_equal "1.0", evaluate("log(e())")
+    assert_equal "5px", evaluate("sqrt(25px)")
+    assert_equal "25px", evaluate("pow(5px, 2)")
+    assert_equal "148.413px", evaluate("pow(5px, e())")
   end
 
   def test_blank
