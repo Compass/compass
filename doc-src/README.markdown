@@ -101,7 +101,7 @@ So you want to help documenting Compass?
 
 Setting up the documentation for Compass is not super-easy, but it's pretty doable.
 
-The Compass docs live in the source code of Compass. Not directly in the Sass files though: the documentation is a combination of inline comments and source code read directly from the Sass files, and hand-maintained documentation and examples. There are two ways you can generate a static webiste, using [Serve](http://get-serve.com/) (with [Thin](http://code.macournoyer.com/thin/), to make it faster) or using [Nanoc](http://nanoc.stoneship.org/), both combined with some Ruby to read the Compass source.
+The Compass docs live in the source code of Compass. Not directly in the Sass files though: the documentation is a combination of inline comments and source code read directly from the Sass files, and hand-maintained documentation and examples. There are two ways you can generate a static webiste, using [Serve](http://get-serve.com/) and Nanoc (with Thin) or using only [Nanoc](http://nanoc.stoneship.org/), both combined with some Ruby to read the Compass source.
 
 The reasons for this setup are simple:
 
