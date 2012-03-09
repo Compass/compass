@@ -1,0 +1,2 @@
+serve: ./bin/serve 3000 output
+rake:  ./bin/rake watch

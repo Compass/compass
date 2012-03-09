@@ -1,5 +1,6 @@
 source :gemcutter
 
+gem 'foreman'
 gem 'nanoc3'
 gem 'thin'
 gem 'rdiscount'
