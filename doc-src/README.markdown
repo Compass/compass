@@ -159,11 +159,11 @@ Bundle the gems for this application:
 To compile (and auto recompile) and preview the site in your browser,
 make sure you're in the `doc-src` directory, then run:
 
-    $ foreman start
+    $ ./bin/foreman start
 
 Then open `http://localhost:3000/index.html` in your web browser.
 
-The command `foreman start` runs two processes:
+This command runs two processes:
 
     $ ./bin/serve 3000 output
     $ ./bin/rake watch
