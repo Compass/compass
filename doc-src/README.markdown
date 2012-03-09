@@ -101,7 +101,7 @@ So you want to help documenting Compass?
 
 Setting up the documentation for Compass is not super-easy, but it's pretty doable.
 
-The Compass docs live in the source code of Compass. Not directly in the Sass files though: the documentation is a combination of inline comments and source code read directly from the Sass files, and hand-maintained documentation and examples. We use [Nanoc](http://nanoc.stoneship.org/) to generate a static website, combined with some Ruby to read the Compass source.
+The Compass docs live in the source code of Compass. Not directly in the Sass files though: the documentation is a combination of inline comments and source code read directly from the Sass files, and hand-maintained documentation and examples. There are two ways you can generate a static webiste, using [Serve](http://get-serve.com/) (with [Thin](http://code.macournoyer.com/thin/), to make it faster) or using [Nanoc](http://nanoc.stoneship.org/), both combined with some Ruby to read the Compass source.
 
 The reasons for this setup are simple:
 
@@ -156,20 +156,25 @@ Bundle the gems for this application:
 
 ### 4. Compile the docs
 
-To compile (and auto recompile) and preview the site in your browser: (make sure you run nanoc3 aco from the doc-src directory)
+To compile (and auto recompile) and preview the site in your browser,
+make sure you're in the `doc-src` directory, then run:
 
-    $ cd doc-src
-    $ ./bin/nanoc3 aco
+    $ foreman start
 
 Then open `http://localhost:3000/index.html` in your web browser.
 
-aco stands for autocompiler; the site will recompile every time you request a new page.
+The command `foreman start` runs two processes:
 
-If you find `./bin/nanoc3 aco` to be sluggish, try this alternative workflow:
-
-    $ cd doc-src
-    $ ./bin/serve 3000 output &
+    $ ./bin/serve 3000 output
     $ ./bin/rake watch
+
+If you're interested, you can read more about [Foreman](https://github.com/ddollar/foreman).
+
+Alternatively, you can try this:
+
+    $ ./bin/nanoc3 aco
+
+`aco` stands for *autocompiler* -- the site will recompile every time you request a new page.
 
 It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.org/tutorial/) on Nanoc.
 
