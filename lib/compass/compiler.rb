@@ -160,8 +160,10 @@ module Compass
     # formatted to display in the browser (in development mode)
     # if there's an error.
     def handle_exception(sass_filename, css_filename, e)
-      formatted_error = "(Line #{e.sass_line}: #{e.message})"
+      exception_file = basename(e.sass_filename)
       file = basename(sass_filename)
+      exception_file = nil if exception_file == file
+      formatted_error = "(Line #{e.sass_line}#{ " of #{exception_file}" if exception_file}: #{e.message})"
       logger.record :error, file, formatted_error
       Compass.configuration.run_stylesheet_error(sass_filename, formatted_error)
       write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
