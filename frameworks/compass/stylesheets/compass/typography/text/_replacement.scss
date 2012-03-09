@@ -26,7 +26,8 @@
 
 // Hides text in an element so you can see the background.
 @mixin hide-text {
-  font: 0/0 serif;
-  text-shadow: none;
-  color: transparent;
+  // slightly wider than the box prevents issues with inline-block elements
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
 }
