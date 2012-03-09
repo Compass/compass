@@ -20,10 +20,6 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 ### Stylesheet Changes
 
 * Improved hide-text mixin for better performance and accessibility.
-  If you use `em` units on margins for elements that have hidden text,
-  you should use the `move-text-out-of-view` mixin instead or set
-  `$default-hide-text-method` to `move` to keep using the old method of
-  hiding text.
 
 
 0.12.rc.0 (UNRELEASED)

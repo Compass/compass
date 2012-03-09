@@ -1,11 +1,3 @@
-// Controls how text is hidden, can be one of:
-//
-// * squish - This method is more performant and robust but will cause issues if you
-//            use `em` units for margins on elements where the text is hidden.
-// * move - The compass legacy method. Preferred if you use
-//          margins with `em` units on elements where text-hiding occurs.
-$default-hide-text-method: squish;
-
 // Hides html text and replaces it with an image.
 // If you use this on an inline element, you will need to change the display to block or inline-block.
 // Also, if the size of the image differs significantly from the font size, you'll need to set the width and/or height.
@@ -15,8 +7,8 @@ $default-hide-text-method: squish;
 // * `img` -- the relative path from the project image directory to the image.
 // * `x` -- the x position of the background image.
 // * `y` -- the y position of the background image.
-@mixin replace-text($img, $x: 50%, $y: 50%, $hide-method: $default-hide-text-method) {
-  @include hide-text($hide-method);
+@mixin replace-text($img, $x: 50%, $y: 50%) {
+  @include hide-text;
   background: {
     image: image-url($img);
     repeat: no-repeat;
@@ -26,58 +18,15 @@ $default-hide-text-method: squish;
 
 // Like the `replace-text` mixin, but also sets the width
 // and height of the element according the dimensions of the image.
-@mixin replace-text-with-dimensions($img, $x: 50%, $y: 50%, $hide-method: $default-hide-text-method) {
-  @include replace-text($img, $x, $y, $hide-method);
+@mixin replace-text-with-dimensions($img, $x: 50%, $y: 50%) {
+  @include replace-text($img, $x, $y);
   width: image-width($img);
   height: image-height($img);
 }
 
 // Hides text in an element so you can see the background.
-// This mixin selects the `squish-text` mixin when the
-// `$default-hide-text-method` is set to `squish` and 
-// selects the `move-text-out-of-view` mixin when set to `move`.
-@mixin hide-text($method: $default-hide-text-method) {
-  @if $method == squish {
-    @include squish-text;
-  } @else if $method == move {
-    @include move-text-out-of-view;
-  } @else {
-    @warn "Unkown method: #{$default-hide-text-method}. Using move instead.";
-    @include move-text-out-of-view;
-  }
-}
-
-// Hides text visually by squishing into nothingness and making it transparent
-// in those browsers where it can't be squished. Almost all screen readers will
-// still read the hidden text.
-//
-// This works on both block and inline elements and will hide child elements as long
-// as they do not override `font`, `text-shadow`, or `color` with a higher specificity.
-//
-// This method may cause problems if you are using `em`-based margins. See
-// [this blog post](http://nicolasgallagher.com/another-css-image-replacement-technique/)
-// for more information.
-//
-// When `$default-hide-text-method` is set to `squish`, the `hide-text` mixin
-// will default to this method.
-@mixin squish-text {
+@mixin hide-text {
   font: 0/0 serif;
   text-shadow: none;
   color: transparent;
-}
-
-// Hides text visually by moving it off the screen and hiding the scrollbars.
-// Screen readers will still read the hidden text.
-//
-// This method will not work inline elements and may cause performance
-// issues when used with css animations.
-//
-// When `$default-hide-text-method` is set to `move`, the `hide-text` mixin
-// will default to this method.
-@mixin move-text-out-of-view {
-  $approximate_em_value: 12px / 1em;
-  $wider_than_any_screen: -9999em;
-  text-indent: $wider_than_any_screen * $approximate_em_value;
-  overflow: hidden;
-  text-align: left;
 }
