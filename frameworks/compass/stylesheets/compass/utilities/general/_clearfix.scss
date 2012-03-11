@@ -10,6 +10,9 @@
 // Recommendations include using this in conjunction with a width.
 // Credit: [quirksmode.org](http://www.quirksmode.org/blog/archives/2005/03/clearing_floats.html)
 @mixin clearfix {
+  @extend .__compass-clearfix;
+}
+.__compass-clearfix {
   overflow: hidden;
   @include has-layout;
 }
@@ -19,6 +22,9 @@
 // has the advantage of allowing positioned elements to hang
 // outside the bounds of the container at the expense of more tricky CSS.
 @mixin legacy-pie-clearfix {
+  @extend .__compass-legacy-pie-clearfix;
+}
+.__compass-legacy-pie-clearfix {
   &:after {
     content    : "\0020";
     display    : block;
@@ -35,6 +41,9 @@
 //
 // Adapted from: [A new micro clearfix hack](http://nicolasgallagher.com/micro-clearfix-hack/)
 @mixin pie-clearfix {
+  @extend .__compass-pie-clearfix;
+}
+.__compass-pie-clearfix {
   &:after {
     content: "";
     display: table;
