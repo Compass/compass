@@ -15,33 +15,33 @@ of several convenient ways.
 
 For this tutorial, let's imagine that in your project's image folder there are four icons:
 
-* `images/icon/new.png`
-* `images/icon/edit.png`
-* `images/icon/save.png`
-* `images/icon/delete.png`
+* `images/my-icons/new.png`
+* `images/my-icons/edit.png`
+* `images/my-icons/save.png`
+* `images/my-icons/delete.png`
 
 Each is an icon that is 32px square.
 
 ## Basic Usage
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
     
-    @import "icon/*.png";
-    @include all-icon-sprites;
+    @import "my-icons/*.png";
+    @include all-my-icons-sprites;
 
 And you'll get the following CSS output:
 
-    .icon-sprite,
-    .icon-delete,
-    .icon-edit,
-    .icon-new,
-    .icon-save   { background: url('/images/icon-s34fe0604ab.png') no-repeat; }
+    .my-icons-sprite,
+    .my-icons-delete,
+    .my-icons-edit,
+    .my-icons-new,
+    .my-icons-save   { background: url('/images/my-icons-s34fe0604ab.png') no-repeat; }
     
-    .icon-delete { background-position: 0 0; }
-    .icon-edit   { background-position: 0 -32px; }
-    .icon-new    { background-position: 0 -64px; }
-    .icon-save   { background-position: 0 -96px; }
+    .my-icons-delete { background-position: 0 0; }
+    .my-icons-edit   { background-position: 0 -32px; }
+    .my-icons-new    { background-position: 0 -64px; }
+    .my-icons-save   { background-position: 0 -96px; }
 
-You can now apply the `icon-XXX` classes to your markup as needed.
+You can now apply the `my-icons-XXX` classes to your markup as needed.
 
 Let's go over what happened there. The import statement told compass to [generate a
 stylesheet that is customized for your sprites](https://gist.github.com/729507). This
@@ -56,25 +56,25 @@ is located within it.
 ## Selector Control
 
 If you want control over what selectors are generated, it is easy to do. In this example,
-this is done by using the magic `icon-sprite` mixin. Note that the mixin's name is dependent
+this is done by using the magic `my-icons-sprite` mixin. Note that the mixin's name is dependent
 on the name of the folder in which you've placed your icons.
 
-    @import "icon/*.png";
+    @import "my-icons/*.png";
     
     .actions {
-      .new    { @include icon-sprite(new);    }
-      .edit   { @include icon-sprite(edit);   }
-      .save   { @include icon-sprite(save);   }
-      .delete { @include icon-sprite(delete); }
+      .new    { @include my-icons-sprite(new);    }
+      .edit   { @include my-icons-sprite(edit);   }
+      .save   { @include my-icons-sprite(save);   }
+      .delete { @include my-icons-sprite(delete); }
     }
 
 And your stylesheet will compile to:
 
-    .icon-sprite,
+    .my-icons-sprite,
     .actions .new,
     .actions .edit,
     .actions .save,
-    .actions .delete { background: url('/images/icon-s34fe0604ab.png') no-repeat; }
+    .actions .delete { background: url('/images/my-icons-s34fe0604ab.png') no-repeat; }
     
     .actions .new    { background-position: 0 -64px; }
     .actions .edit   { background-position: 0 -32px; }
@@ -89,7 +89,7 @@ magic, some people are scared by it, and others are curious about how the magic 
 you would like to avoid the magic, you can use compass to generate an import for you. On the
 command line:
 
-    compass sprite "images/icon/*.png"
+    compass sprite "images/my-icons/*.png"
 
 This will create file using your project's preferred syntax, or you can specify the
 output filename using the `-f` option and the syntax will be inferred from the extension.
@@ -106,23 +106,23 @@ the section on [performance considerations](#performance) for more details.
 
 If you want to add selectors for your sprites, it's easy todo by adding `_active` `_target` or `_hover` to the file name, In the example below we have a sprite directory that looks like:
 
-* `selectors/ten-by-ten.png`
-* `selectors/ten-by-ten_hover.png`
-* `selectors/ten-by-ten_active.png`
-* `selectors/ten-by-ten_target.png`
+* `my-selectors/ten-by-ten.png`
+* `my-selectors/ten-by-ten_hover.png`
+* `my-selectors/ten-by-ten_active.png`
+* `my-selectors/ten-by-ten_target.png`
     
 Now in our sass file we add:
 
-    @import "selectors/*.png";
+    @import "my-selectors/*.png";
     
     a {
-      @include selectors-sprite(ten-by-ten)
+      @include my-selectors-sprite(ten-by-ten)
     }
     
 And your stylesheet will compile to:
 
-    .selectors-sprite, a {
-      background: url('/selectors-sedfef809e2.png') no-repeat;
+    .my-selectors-sprite, a {
+      background: url('/my-selectors-sedfef809e2.png') no-repeat;
     }
 
     a {
@@ -138,22 +138,22 @@ And your stylesheet will compile to:
       background-position: 0 -10px;
     }
 
-Alternatively you can use the `@include all-selectors-sprites;` after the import and get the following output:
+Alternatively you can use the `@include all-my-selectors-sprites;` after the import and get the following output:
 
-    .selectors-sprite, .selectors-ten-by-ten {
+    .my-selectors-sprite, .my-selectors-ten-by-ten {
       background: url('/selectors-sedfef809e2.png') no-repeat;
     }
 
-    .selectors-ten-by-ten {
+    .my-selectors-ten-by-ten {
       background-position: 0 0;
     }
-    .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
+    .my-selectors-ten-by-ten:hover, .my-selectors-ten-by-ten.ten-by-ten_hover, .smy-electors-ten-by-ten.ten-by-ten-hover {
       background-position: 0 -20px;
     }
-    .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
+    .my-selectors-ten-by-ten:target, .my-selectors-ten-by-ten.ten-by-ten_target, .my-selectors-ten-by-ten.ten-by-ten-target {
       background-position: 0 -30px;
     }
-    .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
+    .my-selectors-ten-by-ten:active, .my-selectors-ten-by-ten.ten-by-ten_active, .my-selectors-ten-by-ten.ten-by-ten-active {
       background-position: 0 -10px;
     }
 
