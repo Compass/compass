@@ -30,16 +30,7 @@ module Compass
             Image.new(self, relative_file, kwargs)
           end
         end
-        
-        # Validates that the sprite_names are valid sass
-        def validate!
-          for sprite_name in sprite_names
-            unless sprite_name =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
-              raise Sass::SyntaxError, "#{sprite_name} must be a legal css identifier"
-            end
-          end
-        end
-        
+
         def name_and_hash
           "#{path}-s#{uniqueness_hash}.png"
         end

@@ -4,6 +4,7 @@ module Compass
       module ImageMethods
         # Fetches the Sprite::Image object for the supplied name
          def image_for(name)
+           name = name.to_s
            @images.detect { |img| img.name == name}
          end
 

@@ -60,9 +60,7 @@ module Compass::SassExtensions::Functions::Sprites
   def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
     sprite = convert_sprite_name(sprite)    
     verify_map(map)
-    unless sprite.is_a?(Sass::Script::String)
-      raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
-    end
+    verify_sprite(sprite)
     url = sprite_url(map)
     position = sprite_position(map, sprite, offset_x, offset_y)
     Sass::Script::List.new([url] + position.value, :space)
@@ -115,6 +113,13 @@ module Compass::SassExtensions::Functions::Sprites
   
   Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
 
+  # Determines if the CSS selector is valid
+  def sprite_has_valid_selector(selector)
+    unless selector.value =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
+      raise Sass::SyntaxError, "#{selector} must be a legal css identifier"
+    end
+    Sass::Script::Bool.new true
+  end
 
   # Returns a url to the sprite image.
   def sprite_url(map)
@@ -148,7 +153,7 @@ module Compass::SassExtensions::Functions::Sprites
     assert_type offset_y, :Number
     sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
-    unless sprite && sprite.is_a?(Sass::Script::String)
+    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite-position must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
     image = map.image_for(sprite.value)
@@ -194,7 +199,7 @@ protected
   end
 
   def verify_sprite(sprite)
-    unless sprite.is_a?(Sass::Script::String)
+    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
   end
