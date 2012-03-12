@@ -1,9 +1,9 @@
-body {
-  font-size: 87.5%;
-  line-height: 1.143em; }
+* html {
+  font-size: 87.5%; }
 
-html > body {
-  font-size: 14px; }
+html {
+  font-size: 14px;
+  line-height: 1.143em; }
 
 .small {
   font-size: 0.857em;

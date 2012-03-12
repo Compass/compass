@@ -14,6 +14,15 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.2 (UNRELEASED)
+-------------------
+
+* [Vertical Rhythm Module] Removed the `$ie-font-ratio` constatnt in
+  favor of a more clear `$browser-default-font-size` constant.
+* [Vertical Rhythm Module] The `establish-baseline` mixin now styles the
+  `<html>` element instead of the `<body>` element. This makes the
+  vertical rhythm module work better with `rem` based measurements.
+
 0.12.1 (03/14/2012)
 -------------------
 
