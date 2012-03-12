@@ -267,21 +267,20 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass stats
     Then I am told statistics for each file:
-      | Filename                  | Rules | Properties |    Mixins Defs | Mixins Used | CSS Selectors | CSS Properties |
-      | sass/border_radius.scss   |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/box.sass             |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/fonts.sass           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/gradients.sass       |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/image_size.sass      |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/images.scss          |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/layout.sass          |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/legacy_clearfix.scss |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/lists.scss           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/print.sass           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/reset.sass           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/utilities.scss       |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | ------------------------- | ----- | ---------- | -------------- | ----------- | ------------- | -------------- |
-      | Total.*                   |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
+      | Filename                  | Rules | Properties |    Mixins Defs | Mixins Used | Filesize | CSS Selectors | CSS Properties | CSS Filesize |
+      | sass/border_radius.scss   |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/box.sass             |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/fonts.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/gradients.sass       |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/image_size.sass      |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/images.scss          |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/layout.sass          |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/legacy_clearfix.scss |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/lists.scss           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/print.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/reset.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/utilities.scss       |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | Total.*                   |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
 
   @listframeworks
   Scenario: List frameworks registered with compass
