@@ -1,12 +1,12 @@
 ---
-title: "Compass v0.12 (Release Candidate) is Released"
+title: "Compass v0.12 is Released"
 description: "Compass 0.12: Flexible Sprites, Rails Integration"
 author: chris
 ---
 
-Compass 0.12 release candidate is out! Install it now:
+Compass 0.12 is out! Install it now:
 
-    $ (sudo) gem install compass --pre
+    $ (sudo) gem install compass
 
 This release is primarily to support the Rails Asset Pipeline which
 required major changes to the Compass internals. If you use rails
@@ -36,12 +36,14 @@ Additionally there are many new CSS3 improvements, bug fixes, and other
 small enhancements that you can read about in the
 [CHANGELOG](/CHANGELOG/).
 
-What's next for Compass? The Sass 3.2 release is coming soon and I'd
-very much like the 0.13 release of compass to take advantage of the
-great features that it offers. Additionally, we're working on an
-extension registry where you can post your compass extensions and
-discover new ones. Lastly, we'll be extracting blueprint to a
-compass extension as that project seems to have stagnated. I'd say
-we're getting pretty close to a 1.0 release!
+What's next for Compass? First, we've added [Anthony
+Short](/blog/2012/03/11/anthony-short-joins-the-compass-core-team/) to
+the team and we're really excited to see him come make our stylesheets
+even more awesome. The Sass 3.2 release is coming soon and the 0.13
+release of compass will take advantage of the great features that it
+offers. Additionally, we're working on an extension registry where you
+can post your compass extensions and discover new ones.  Lastly, we'll
+be extracting blueprint to a compass extension as that project seems to
+have stagnated. I'd say we're getting pretty close to a 1.0 release!
 
 [compass-rails]: /blog/2012/01/29/compass-and-rails-integration/
