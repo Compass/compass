@@ -21,6 +21,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 * Improved [hide-text mixin](/reference/compass/typography/text/replacement/#mixin-hide-text) for better performance and accessibility.
 * Added [squish-text mixin](/reference/compass/typography/text/replacement/#mixin-squish-text) to hide text on inline elements.
+* Fix the mime-type of embedded `woff` font files. Add support for Embedded OpenType fonts.
 
 
 0.12.rc.1 (02/02/2012)
