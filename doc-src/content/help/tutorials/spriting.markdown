@@ -19,10 +19,10 @@ of several convenient ways.
 
 For this tutorial, let's imagine that in your project's image folder there are four icons:
 
-* `images/icon/new.png`
-* `images/icon/edit.png`
-* `images/icon/save.png`
-* `images/icon/delete.png`
+* `images/my-icons/new.png`
+* `images/my-icons/edit.png`
+* `images/my-icons/save.png`
+* `images/my-icons/delete.png`
 
 Each is an icon that is 32px square.
 <a name="basic-usage"></a>
@@ -32,23 +32,23 @@ Each is an icon that is 32px square.
 
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
     
-    @import "icon/*.png";
-    @include all-icon-sprites;
+    @import "my-icons/*.png";
+    @include all-my-icons-sprites;
 
 And you'll get the following CSS output:
 
-    .icon-sprite,
-    .icon-delete,
-    .icon-edit,
-    .icon-new,
-    .icon-save   { background: url('/images/icon-s34fe0604ab.png') no-repeat; }
+    .my-icons-sprite,
+    .my-icons-delete,
+    .my-icons-edit,
+    .my-icons-new,
+    .my-icons-save   { background: url('/images/my-icons-s34fe0604ab.png') no-repeat; }
     
-    .icon-delete { background-position: 0 0; }
-    .icon-edit   { background-position: 0 -32px; }
-    .icon-new    { background-position: 0 -64px; }
-    .icon-save   { background-position: 0 -96px; }
+    .my-icons-delete { background-position: 0 0; }
+    .my-icons-edit   { background-position: 0 -32px; }
+    .my-icons-new    { background-position: 0 -64px; }
+    .my-icons-save   { background-position: 0 -96px; }
 
-You can now apply the `icon-XXX` classes to your markup as needed.
+You can now apply the `my-icons-XXX` classes to your markup as needed.
 
 Let's go over what happened there. The import statement told compass to [generate a
 stylesheet that is customized for your sprites](https://gist.github.com/729507). This
@@ -77,25 +77,25 @@ Example:
 ****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
 
 If you want control over what selectors are generated, it is easy to do. In this example,
-this is done by using the magic `icon-sprite` mixin. Note that the mixin's name is dependent
+this is done by using the magic `my-icons-sprite` mixin. Note that the mixin's name is dependent
 on the name of the folder in which you've placed your icons.
 
-    @import "icon/*.png";
+    @import "my-icons/*.png";
     
     .actions {
-      .new    { @include icon-sprite(new);    }
-      .edit   { @include icon-sprite(edit);   }
-      .save   { @include icon-sprite(save);   }
-      .delete { @include icon-sprite(delete); }
+      .new    { @include my-icons-sprite(new);    }
+      .edit   { @include my-icons-sprite(edit);   }
+      .save   { @include my-icons-sprite(save);   }
+      .delete { @include my-icons-sprite(delete); }
     }
 
 And your stylesheet will compile to:
 
-    .icon-sprite,
+    .my-icons-sprite,
     .actions .new,
     .actions .edit,
     .actions .save,
-    .actions .delete { background: url('/images/icon-s34fe0604ab.png') no-repeat; }
+    .actions .delete { background: url('/images/my-icons-s34fe0604ab.png') no-repeat; }
     
     .actions .new    { background-position: 0 -64px; }
     .actions .edit   { background-position: 0 -32px; }
@@ -136,7 +136,7 @@ magic, some people are scared by it, and others are curious about how the magic 
 you would like to avoid the magic, you can use compass to generate an import for you. On the
 command line:
 
-    compass sprite "images/icon/*.png"
+    compass sprite "images/my-icons/*.png"
 
 This will create file using your project's preferred syntax, or you can specify the
 output filename using the `-f` option and the syntax will be inferred from the extension.
