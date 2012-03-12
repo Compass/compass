@@ -278,15 +278,28 @@ Getting recent changes from the main repo:
 
 <h3 id="running-tests">Running Tests</h3>
 
-1. Install development dependencies:
+1. You must have Ruby installed on your system. After [setting up git](#setting-up-git),
+   change to the root directory of your git checkout of Compass.
+
+       cd compass
+
+2. Install the bundler Ruby gem.
+
+       gem install bundler
+
+   If installing to your system gems, you'll probably need to add `sudo` to the
+   front of that command. If you don't know what that means, you probably need
+   to add `sudo` to the front.
+
+3. Install development dependencies:
 
        bundle install --binstubs devbin
 
-2. Running core library and stylesheet tests:
+4. Running core library and stylesheet tests:
 
-       rake run_tests
+       bundle exec rake test features
 
-3. Running behavior tests
+5. Running behavior tests
 
        ./devbin/cucumber
 
