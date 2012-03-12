@@ -21,6 +21,8 @@ module Compass
       else
         []
       end
+    rescue ArgumentError # If HOME is relative
+      []
     end
   end
   module_function :base_directory, :lib_directory, :shared_extension_paths
