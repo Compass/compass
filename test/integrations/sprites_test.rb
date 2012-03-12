@@ -625,15 +625,22 @@ class SpritesTest < Test::Unit::TestCase
     CSS
   end
   
-  it "should raise error on filenames that are not valid sass syntax" do
-    assert_raise(Compass::Error) do
-      css = render <<-SCSS
-        @import "prefix/*.png";
-        a {
-          @include squares-sprite(20-by-20);
-        }
-      SCSS
-    end
+  it "should not raise error on filenames that are invalid classnames if the selector generation is not used" do
+    css = render <<-SCSS
+      @import "prefix/*.png";
+      a {
+        @include prefix-sprite("20-by-20");
+      }
+    SCSS
+    assert_correct <<-CSS, css
+      .prefix-sprite, a {
+        background: url('/prefix-s949dea513d.png') no-repeat;
+      }
+      
+      a {
+        background-position: 0 -10px;
+      }
+    CSS
   end
 
   it "should generate sprite with bad repeat-x dimensions" do
