@@ -7,7 +7,7 @@ gem "rspec", "~>2.0.0"
 gem "rails", "~> 3.1"
 gem "compass-validator", "3.0.1"
 gem "css_parser", "~> 1.0.1"
-gem "sass", "~> 3.1"
+gem "sass", "~> 3.2.0.alpha.93"
 gem "haml", "~> 3.1"
 gem "rubyzip"
 gem 'mocha'

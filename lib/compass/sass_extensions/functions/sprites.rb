@@ -184,7 +184,7 @@ protected
   def convert_sprite_name(sprite)
     case sprite
       when Sass::Script::Color
-        Sass::Script::String.new(Sass::Script::Color::HTML4_COLORS_REVERSE[sprite.rgb])
+        Sass::Script::String.new(Sass::Script::Color::COLOR_NAMES_REVERSE[sprite.rgb])
       when Sass::Script::Bool
         Sass::Script::String.new(sprite.to_s)
       else
