@@ -98,10 +98,7 @@ $base-half-leader: $base-leader / 2;
 // font should use up. It does not have to be an integer, but it defaults to the
 // smallest integer that is large enough to fit the font.
 @mixin adjust-leading-to($lines, $font-size: $base-font-size) {
-  @if not $relative-font-sizing and $font-size != $base-font-size {
-    @warn "$relative-font-sizing is false but a relative font size was passed to adjust-leading-to";
-  }
-  line-height: $font-unit * $lines * $base-line-height / $font-size;
+  line-height: rhythm($lines, $font-size);
 }
 
 // Calculate rhythm units.
