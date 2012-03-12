@@ -9,8 +9,8 @@ $base-line-height: 24px !default;
 // Set the default border style for rhythm borders.
 $default-rhythm-border-style: solid !default;
 
-// The IE font ratio is a fact of life. Deal with it.
-$ie-font-ratio: 16px / 100%;
+// The default font size in all browsers.
+$browser-default-font-size: 16px;
 
 // Set to false if you want to use absolute pixels in sizing your typography.
 $relative-font-sizing: true !default;
@@ -55,12 +55,15 @@ $base-half-leader: $base-leader / 2;
 
 // Establishes a font baseline for the given font-size.
 @mixin establish-baseline($font-size: $base-font-size) {
-  body {
-    font-size: $font-size / $ie-font-ratio;
-    @include adjust-leading-to(1, if($relative-font-sizing, $font-size, $base-font-size));
+  // IE 6 refuses to resize fonts set in pixels and it weirdly resizes fonts
+  // whose root is set in ems. So we set the root font size in percentages of
+  // the default font size.
+  * html {
+    font-size: 100% * ($font-size / $browser-default-font-size);
   }
-  html>body {
+  html {
     font-size: $font-size;
+    @include adjust-leading-to(1, if($relative-font-sizing, $font-size, $base-font-size));
   }
 }
 
