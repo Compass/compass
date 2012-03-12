@@ -14,16 +14,22 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.12.rc.0 (UNRELEASED)
--------------------------
+0.12.rc.2 (03/11/2012)
+----------------------
 
 ### Stylesheet Changes
 
-* Improved hide-text mixin for better performance and accessibility.
+* Improved [hide-text mixin](/reference/compass/typography/text/replacement/#mixin-hide-text) for better performance and accessibility.
+* Added [squish-text mixin](/reference/compass/typography/text/replacement/#mixin-squish-text) to hide text on inline elements.
 
 
-0.12.rc.0 (UNRELEASED)
--------------------------
+0.12.rc.1 (02/02/2012)
+----------------------
+
+Give warnings for users who upgrade without knowing about the compass-rails gem.
+
+0.12.rc.0 (01/31/2012)
+----------------------
 
 ### Stylesheet Changes
 
