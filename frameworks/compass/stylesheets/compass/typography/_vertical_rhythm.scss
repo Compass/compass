@@ -113,6 +113,10 @@ $base-half-leader: $base-leader / 2;
     @warn "$relative-font-sizing is false but a relative font size was passed to the rhythm function";
   }
   $rhythm: $font-unit * $lines * $base-line-height / $font-size;
+  // Round the pixels down to nearest integer.
+  @if unit($rhythm) == px {
+    $rhythm: floor($rhythm);
+  }
   @return $rhythm;
 }
 
@@ -129,40 +133,32 @@ $base-half-leader: $base-leader / 2;
 
 // Apply leading whitespace. The $property can be margin or padding.
 @mixin leader($lines: 1, $font-size: $base-font-size, $property: margin) {
-  $leader: rhythm($lines, $font-size);
-  @if unit($leader) == px {
-    $leader: floor($leader)
-  }
-  #{$property}-top: $leader;
+  #{$property}-top: rhythm($lines, $font-size);
 }
 
 // Apply leading whitespace as padding.
 @mixin padding-leader($lines: 1, $font-size: $base-font-size) {
-  @include leader($lines, $font-size, padding);
+  padding-top: rhythm($lines, $font-size);
 }
 
 // Apply leading whitespace as margin.
 @mixin margin-leader($lines: 1, $font-size: $base-font-size) {
-  @include leader($lines, $font-size, margin);
+  margin-top: rhythm($lines, $font-size);
 }
 
 // Apply trailing whitespace. The $property can be margin or padding.
 @mixin trailer($lines: 1, $font-size: $base-font-size, $property: margin) {
-  $leader: rhythm($lines, $font-size);
-  @if unit($leader) == px {
-    $leader: ceil($leader)
-  }
-  #{$property}-bottom: $leader;
+  #{$property}-bottom: rhythm($lines, $font-size);
 }
 
 // Apply trailing whitespace as padding.
 @mixin padding-trailer($lines: 1, $font-size: $base-font-size) {
-  @include trailer($lines, $font-size, padding);
+  padding-bottom: rhythm($lines, $font-size);
 }
 
 // Apply trailing whitespace as margin.
 @mixin margin-trailer($lines: 1, $font-size: $base-font-size) {
-  @include trailer($lines, $font-size, margin);
+  margin-bottom: rhythm($lines, $font-size);
 }
 
 // Shorthand mixin to apply whitespace for top and bottom margins and padding.
