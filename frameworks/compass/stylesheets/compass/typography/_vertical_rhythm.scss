@@ -193,7 +193,8 @@ $base-half-leader: $base-leader / 2;
   }
   border: {
     style: $border-style;
-    width: $font-unit * $width / $font-size; };
+    width: $font-unit * $width / $font-size;
+  };
   padding: $font-unit / $font-size * ($lines * $base-line-height - $width);
 }
 
