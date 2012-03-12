@@ -4,7 +4,7 @@ end
 %w(
   selectors enumerate urls display
   inline_image image_size constants gradient_support
-  font_files lists colors trig sprites cross_browser_support
+  font_files lists colors math sprites cross_browser_support
 ).each do |func|
   require "compass/sass_extensions/functions/#{func}"
 end
@@ -21,7 +21,7 @@ module Sass::Script::Functions
   include Compass::SassExtensions::Functions::Constants
   include Compass::SassExtensions::Functions::Lists
   include Compass::SassExtensions::Functions::Colors
-  include Compass::SassExtensions::Functions::Trig
+  include Compass::SassExtensions::Functions::Math
   include Compass::SassExtensions::Functions::Sprites
   include Compass::SassExtensions::Functions::CrossBrowserSupport
 end
