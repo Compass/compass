@@ -26,6 +26,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 ### Misc Changes
 * Fix the mime-type of embedded `woff` font files. Add support for Embedded OpenType fonts.
+* New math functions are now available: `e()`, `log($number[, $base = e()])`, `sqrt($number)`
+  and `pow($number, $exponent)`
 
 
 0.12.rc.1 (02/02/2012)
