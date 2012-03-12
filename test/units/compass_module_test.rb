@@ -30,7 +30,7 @@ class CompassModuleTest < Test::Unit::TestCase
 
   def test_shared_extension_paths_with_relative_home
     ENV["HOME"] = "."
-    assert_equal [], Compass.shared_extension_paths
+    assert_equal ["./.compass/extensions"], Compass.shared_extension_paths
   end
 
 end
