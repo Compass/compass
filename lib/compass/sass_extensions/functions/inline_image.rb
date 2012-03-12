@@ -39,6 +39,8 @@ private
       'image/svg+xml'
     when /\.otf$/i
       'font/opentype'
+    when /\.eot$/i
+      'application/vnd.ms-fontobject'
     when /\.ttf$/i
       'font/truetype'
     when /\.woff$/i
