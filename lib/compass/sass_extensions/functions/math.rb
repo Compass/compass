@@ -29,7 +29,9 @@ module Compass::SassExtensions::Functions::Math
     assert_type number, :Number
     assert_type base, :Number
     raise Sass::SyntaxError, "base to logarithm must be unitless." unless base.unitless?
-    Sass::Script::Number.new(Math.log(number.value, base.value), number.numerator_units, number.denominator_units)
+
+    result = Math.log(number.value, base.value) rescue Math.log(number.value) / Math.log(base.value)
+    Sass::Script::Number.new(result, number.numerator_units, number.denominator_units)
   end
   Sass::Script::Functions.declare :logarithm, [:number]
   Sass::Script::Functions.declare :logarithm, [:number, :base]
