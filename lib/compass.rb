@@ -17,7 +17,7 @@ module Compass
   def shared_extension_paths
     @shared_extension_paths ||= begin
       if ENV["HOME"] && File.directory?(ENV["HOME"])
-        [File.expand_path("~/.compass/extensions")]
+        [File.join(ENV["HOME"], ".compass", "extensions")]
       else
         []
       end
@@ -30,3 +30,6 @@ end
 %w(configuration frameworks app_integration actions compiler).each do |lib|
   require "compass/#{lib}"
 end
+
+# for rails upgrade warnings in 0.12
+require 'compass/app_integration/rails'

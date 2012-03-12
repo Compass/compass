@@ -4,7 +4,11 @@ module Compass
     module Comments
 
       def comment_for_http_path
-        "# Set this to the root of your project when deployed:\n"
+        unless top_level.http_path_without_default
+          "# Set this to the root of your project when deployed:\nhttp_path = #{top_level.http_path.to_s.inspect}\n"
+        else
+          ""
+        end
       end
 
       def comment_for_relative_assets

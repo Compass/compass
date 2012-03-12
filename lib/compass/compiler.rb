@@ -12,9 +12,13 @@ module Compass
       sass_opts = options.delete(:sass) || {}
       self.options = options
       self.sass_options = options.dup
+      self.sass_options.delete(:quiet)
       self.sass_options.update(sass_opts)
       self.sass_options[:cache_location] ||= determine_cache_location
       self.sass_options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
+      self.sass_options[:compass] ||= {}
+      self.sass_options[:compass][:logger] = self.logger
+      self.sass_options[:compass][:environment] = Compass.configuration.environment
       self.staleness_checker = Sass::Plugin::StalenessChecker.new(sass_options)
     end
 
@@ -33,7 +37,7 @@ module Compass
 
     def stylesheet_name(sass_file)
       if sass_file.index(from) == 0
-        sass_file[(from.length + 1)..-6]
+        sass_file[(from.length + 1)..-6].sub(/\.css$/,'')
       else
         raise Compass::Error, "You must compile individual stylesheets from the project directory."
       end
@@ -138,7 +142,7 @@ module Compass
       end
       duration = options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
       write_file(css_filename, css_content, options.merge(:force => true, :extra => duration))
-      Compass.configuration.run_callback(:stylesheet_saved, css_filename)
+      Compass.configuration.run_stylesheet_saved(css_filename)
     end
 
     def should_compile?(sass_filename, css_filename)
@@ -156,10 +160,12 @@ module Compass
     # formatted to display in the browser (in development mode)
     # if there's an error.
     def handle_exception(sass_filename, css_filename, e)
-      formatted_error = "(Line #{e.sass_line}: #{e.message})"
+      exception_file = basename(e.sass_filename)
       file = basename(sass_filename)
+      exception_file = nil if exception_file == file
+      formatted_error = "(Line #{e.sass_line}#{ " of #{exception_file}" if exception_file}: #{e.message})"
       logger.record :error, file, formatted_error
-      Compass.configuration.run_callback(:stylesheet_error, sass_filename, formatted_error)
+      Compass.configuration.run_stylesheet_error(sass_filename, formatted_error)
       write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
     end
 

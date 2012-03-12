@@ -30,7 +30,7 @@ module Compass
       def perform
         compiler = new_compiler_instance
         compiler.clean!
-        Compass::SpriteImporter.find_all_sprite_map_files(Compass.configuration.images_path).each do |sprite|
+        Compass::SpriteImporter.find_all_sprite_map_files(Compass.configuration.generated_images_path).each do |sprite|
           remove sprite
         end
       end

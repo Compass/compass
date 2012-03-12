@@ -7,6 +7,7 @@ module Compass::SassExtensions::Functions::Display
                   datalist dfn em embed font i img input keygen kbd label mark meter output
                   progress q rp rt ruby s samp select small span strike strong sub
                   sup textarea time tt u var video wbr},
+    :"inline-block" => %w{img},
     :table => %w{table},
     :"list-item" => %w{li},
     :"table-row-group" => %w{tbody},

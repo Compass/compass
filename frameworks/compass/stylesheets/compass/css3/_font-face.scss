@@ -6,6 +6,8 @@
 // * $font-files is required using font-files('relative/location', 'format').
 //   for best results use this order: woff, opentype/truetype, svg
 // * $eot is required by IE, and is a relative location of the eot file.
+// * $weight shows if the font is bold, defaults to normal
+// * $style defaults to normal, might be also italic
 // * For android 2.2 Compatiblity, please ensure that your web page has
 //   a meta viewport tag.
 // * To support iOS < 4.2, an SVG file must be provided
@@ -13,13 +15,20 @@
 // If you need to generate other formats check out the Font Squirrel
 // [font generator](http://www.fontsquirrel.com/fontface/generator)
 //
-// Example:
-//
-//     @include font-face("this name", font-files("this.woff", woff, "this.otf", opentype), "this.eot")
+
+// In order to refer to a specific style of the font in your stylesheets as 
+// e.g. "font-style: italic;",  you may add a couple of @font-face includes
+// containing the respective font files for each style and specying
+// respective the $style parameter.
+
+// Order of the includes matters, and it is: normal, bold, italic, bold+italic.
+
 @mixin font-face(
   $name, 
   $font-files, 
-  $eot: false
+  $eot: false,
+  $weight: false,
+  $style: false
 ) {
   $iefont: unquote("#{$eot}?#iefix");
   @font-face {
@@ -28,6 +37,12 @@
       src: font-url($eot);
       $font-files: font-url($iefont) unquote("format('eot')"), $font-files; 
     }
-    src: $font-files; 
+    src: $font-files;
+    @if $weight {
+      font-weight: $weight;
+    }
+    @if $style {
+      font-style: $style;
+    }
   }
 }

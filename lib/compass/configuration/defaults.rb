@@ -10,7 +10,7 @@ module Compass
         :stand_alone
       end
 
-      def http_path_without_default
+      def default_http_path
         "/"
       end
 
@@ -60,6 +60,14 @@ module Compass
         end
       end
 
+      def default_generated_images_path
+        if (pp = top_level.project_path) && (dir = top_level.generated_images_dir)
+          Compass.projectize(dir, pp)
+        else
+          top_level.images_path
+        end
+      end
+
       def default_javascripts_path
         if (pp = top_level.project_path) && (dir = top_level.javascripts_dir)
           Compass.projectize(dir, pp)
@@ -84,9 +92,20 @@ module Compass
         end
       end
 
+      def default_generated_images_dir
+        top_level.images_dir
+      end
+
+      def default_http_generated_images_dir
+        top_level.http_images_dir
+      end
 
       def default_http_images_dir
         top_level.images_dir
+      end
+      
+      def default_sprite_load_path
+        [top_level.images_path]
       end
 
       def default_http_images_path
@@ -99,6 +118,10 @@ module Compass
 
       def default_http_stylesheets_path
         http_root_relative top_level.http_stylesheets_dir
+      end
+
+      def default_http_generated_images_path
+        http_root_relative top_level.http_generated_images_dir
       end
 
       def default_http_fonts_dir

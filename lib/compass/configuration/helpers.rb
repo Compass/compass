@@ -68,16 +68,18 @@ module Compass
         end
         unless @callbacks_loaded
           on_saved = Proc.new do |sass_file, css_file|
-                       Compass.configuration.run_callback(:stylesheet_saved, css_file)
+                       Compass.configuration.run_stylesheet_saved(css_file)
                      end
           if Sass::Plugin.respond_to?(:on_updated_stylesheet)
             Sass::Plugin.on_updated_stylesheet(&on_saved)
           else
             Sass::Plugin.on_updating_stylesheet(&on_saved)
           end
+          
           Sass::Plugin.on_compilation_error do |e, filename, css|
-            Compass.configuration.run_callback(:stylesheet_error, filename, e.message)
+            Compass.configuration.run_stylesheet_error(filename, e.message)
           end
+          
           @callbacks_loaded = true
         end
       end
@@ -90,8 +92,9 @@ module Compass
       def add_project_configuration(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         configuration_file_path = args.shift || detect_configuration_file
+
         raise ArgumentError, "Too many arguments" if args.any?
-        if data = configuration_for(configuration_file_path, nil, configuration_for(options[:defaults]))
+        if AppIntegration.default? && data = configuration_for(configuration_file_path, nil, configuration_for(options[:defaults]))
           if data.raw_project_type
             add_configuration(data.raw_project_type.to_sym)
           elsif options[:project_type]
@@ -99,10 +102,9 @@ module Compass
           else
             add_configuration(:stand_alone)
           end
-
           add_configuration(data)
         else
-          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)
+          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)  
         end
       end
 

@@ -125,7 +125,7 @@ should attempt to adhere to unless there's a good reason not to do so.
    pieces for faster load times when they're not using everything.
 3. Use partials (files starting with an underscore) for stylesheets that are meant
    to be imported. If you do not Sass will generate css
-   files for your libaries in some configurations.
+   files for your libraries in some configurations.
 4. Provide a project template. If you do not, your project should only be
    providing widgets or page designs, etc.
 
@@ -174,9 +174,12 @@ You may also see some real manifest files here:
 
 ### Manifest Declarations
 
+
 **Easy Mode:** If you just have some basic files and nothing fancy going on, simply place this line in your manifest:
 
     discover :all
+
+If the file is missing `discover :all` is the default
 
 This will cause compass to find all the files in your template and use the files' extension to determine where they should go. Alternatively, you can request that compass only discover files of a certain type. For example, the following will only discover javascript and image assets, you could then declare other file types on your own.
 

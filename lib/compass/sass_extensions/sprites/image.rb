@@ -6,6 +6,11 @@ module Compass
         TARGET = %r{[_-]target$}
         HOVER = %r{[_-]hover$}
         PARENT = %r{(.+)[-_](.+)$}
+
+        REPEAT_X = 'repeat-x'
+        NO_REPEAT = 'no-repeat'
+
+        VALID_REPEATS = [REPEAT_X, NO_REPEAT]
         
         attr_reader :relative_file, :options, :base
         attr_accessor :top, :left
@@ -17,12 +22,25 @@ module Compass
         
         # The Full path to the image
         def file
-          File.join(Compass.configuration.images_path, relative_file)
+          @file ||= find_file
+        end
+        
+        def find_file
+          Compass.configuration.sprite_load_path.compact.each do |path|
+            f = File.join(path, relative_file)
+            if File.exists?(f)
+              return f
+            end
+          end
         end
         
         # Width of the image
         def width
           dimensions.first
+        end
+        
+        def size
+          @size ||= File.size(file)
         end
         
         # Height of the image
@@ -35,29 +53,43 @@ module Compass
           File.basename(relative_file, '.png')
         end
 
-        # Value of <tt> $#{name}-repeat </tt> or <tt> $repeat </tt>
-        def repeat
-          [ "#{name}-repeat", "repeat" ].each { |which|
-            if var = options.get_var(which)
-              return var.value
-            end
-          }
-          "no-repeat"
+        def get_var_file(var)
+          options.get_var "#{base.name}_#{name}_#{var}"
         end
 
-        # Value of <tt> $#{name}-position </tt> or <tt> $position </tt> defaults o <tt>0px</tt>
+        # Value of <tt> $#{name}-repeat </tt> or <tt> $repeat </tt>
+        def repeat 
+          @repeat ||= begin 
+            rep = (get_var_file("repeat") || options.get_var("repeat") || Sass::Script::String.new(NO_REPEAT)).value
+            unless VALID_REPEATS.include? rep
+              raise SpriteException, "Invalid option for repeat \"#{rep}\" - valid options are #{VALID_REPEATS.join(', ')}"
+            end
+
+            rep
+          end
+        end
+
+        def repeat_x?
+          repeat == REPEAT_X
+        end
+
+        def no_repeat?
+          repeat == NO_REPEAT
+        end
+
+        # Value of <tt> $#{name}-position </tt> or <tt> $position </tt> defaults to <tt>0px</tt>
         def position
-          options.get_var("#{name}-position") || options.get_var("position") || Sass::Script::Number.new(0, ["px"])
+          @position||= get_var_file("position") || options.get_var("position") || Sass::Script::Number.new(0, ["px"])
         end
         
         # Offset within the sprite
         def offset
-          (position.unitless? || position.unit_str == "px") ? position.value : 0
+          @offset ||= (position.unitless? || position.unit_str == "px") ? position.value : 0
         end
-        
+               
         # Spacing between this image and the next
         def spacing
-          (options.get_var("#{name}-spacing") || options.get_var("spacing") || Sass::Script::Number.new(0)).value
+          @spacing ||= (get_var_file("spacing") || options.get_var("spacing") || Sass::Script::Number.new(0, ['px'])).value
         end
 
         # MD5 hash of this file

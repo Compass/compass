@@ -26,9 +26,17 @@
 
 // Hides text in an element so you can see the background.
 @mixin hide-text {
-  $approximate_em_value: 12px / 1em;
-  $wider_than_any_screen: -9999em;
-  text-indent: $wider_than_any_screen * $approximate_em_value;
+  // slightly wider than the box prevents issues with inline-block elements
+  text-indent: 110%;
+  white-space: nowrap;
   overflow: hidden;
-  text-align: left;
+}
+
+// Hides text in an element by squishing the text into oblivion.
+// Use this if you need to hide text contained in an inline element
+// but still have it read by a screen reader.
+@mixin squish-text {
+  font: 0/0 serif;
+  text-shadow: none;
+  color: transparent;
 }

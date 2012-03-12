@@ -1,103 +1,103 @@
 .hbox {
-  display: -moz-box;
   display: -webkit-box;
+  display: -moz-box;
   display: -ms-box;
   display: box;
-  -moz-box-orient: horizontal;
   -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
   -ms-box-orient: horizontal;
   box-orient: horizontal;
-  -moz-box-align: stretch;
   -webkit-box-align: stretch;
+  -moz-box-align: stretch;
   -ms-box-align: stretch;
   box-align: stretch; }
   .hbox > * {
-    -moz-box-flex: 0;
     -webkit-box-flex: 0;
+    -moz-box-flex: 0;
     -ms-box-flex: 0;
     box-flex: 0; }
 
 .vbox {
-  display: -moz-box;
   display: -webkit-box;
+  display: -moz-box;
   display: -ms-box;
   display: box;
-  -moz-box-orient: vertical;
   -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
   -ms-box-orient: vertical;
   box-orient: vertical;
-  -moz-box-align: stretch;
   -webkit-box-align: stretch;
+  -moz-box-align: stretch;
   -ms-box-align: stretch;
   box-align: stretch; }
   .vbox > * {
-    -moz-box-flex: 0;
     -webkit-box-flex: 0;
+    -moz-box-flex: 0;
     -ms-box-flex: 0;
     box-flex: 0; }
 
 .spacer {
-  -moz-box-flex: 1;
   -webkit-box-flex: 1;
+  -moz-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1; }
 
 .reverse {
-  -moz-box-direction: reverse;
   -webkit-box-direction: reverse;
+  -moz-box-direction: reverse;
   -ms-box-direction: reverse;
   box-direction: reverse; }
 
 .box-flex-0 {
-  -moz-box-flex: 0;
   -webkit-box-flex: 0;
+  -moz-box-flex: 0;
   -ms-box-flex: 0;
   box-flex: 0; }
 
 .box-flex-1 {
-  -moz-box-flex: 1;
   -webkit-box-flex: 1;
+  -moz-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1; }
 
 .box-flex-2 {
-  -moz-box-flex: 2;
   -webkit-box-flex: 2;
+  -moz-box-flex: 2;
   -ms-box-flex: 2;
   box-flex: 2; }
 
 .box-flex-group-0 {
-  -moz-box-flex-group: 0;
   -webkit-box-flex-group: 0;
+  -moz-box-flex-group: 0;
   -ms-box-flex-group: 0;
   box-flex-group: 0; }
 
 .box-flex-group-1 {
-  -moz-box-flex-group: 1;
   -webkit-box-flex-group: 1;
+  -moz-box-flex-group: 1;
   -ms-box-flex-group: 1;
   box-flex-group: 1; }
 
 .box-flex-group-2 {
-  -moz-box-flex-group: 2;
   -webkit-box-flex-group: 2;
+  -moz-box-flex-group: 2;
   -ms-box-flex-group: 2;
   box-flex-group: 2; }
 
 .start {
-  -moz-box-pack: start;
   -webkit-box-pack: start;
+  -moz-box-pack: start;
   -ms-box-pack: start;
   box-pack: start; }
 
 .end {
-  -moz-box-pack: end;
   -webkit-box-pack: end;
+  -moz-box-pack: end;
   -ms-box-pack: end;
   box-pack: end; }
 
 .center {
-  -moz-box-pack: center;
   -webkit-box-pack: center;
+  -moz-box-pack: center;
   -ms-box-pack: center;
   box-pack: center; }

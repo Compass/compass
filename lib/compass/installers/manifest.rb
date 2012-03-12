@@ -49,7 +49,7 @@ module Compass
       type :stylesheet, :plural => :stylesheets, :extensions => %w(scss sass)
       type :image,      :plural => :images,      :extensions => %w(png gif jpg jpeg tiff gif)
       type :javascript, :plural => :javascripts, :extensions => %w(js)
-      type :font,       :plural => :fonts,       :extensions => %w(otf woff ttf)
+      type :font,       :plural => :fonts,       :extensions => %w(eot otf woff ttf)
       type :html,       :plural => :html,        :extensions => %w(html haml)
       type :file,       :plural => :files
       type :directory,  :plural => :directories
@@ -141,11 +141,16 @@ module Compass
       # evaluated in a Manifest instance context
       def parse(manifest_file)
         with_manifest(manifest_file) do
-          open(manifest_file) do |f|
-            eval(f.read, instance_binding, manifest_file)
-          end
-        end
-      end
+          if File.exists?(manifest_file)
+            open(manifest_file) do |f| 
+              eval(f.read, instance_binding, manifest_file)
+            end 
+          else
+              eval("discover :all", instance_binding, manifest_file)
+          end 
+        end 
+      end 
+
 
       def instance_binding
         binding

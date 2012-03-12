@@ -1,0 +1,12 @@
+@import "compass/css3/transition";
+
+.single-transition-without-delay  { @include single-transition(all, 0.6s, ease-out); }
+.single-transition-with-delay     { @include single-transition(all, 0.6s, ease-out, 0.2s); }
+.transition-duration-string { @include transition-duration("0.2s, 0.5s, 0.2s"); }
+.transition-duration-list { @include transition-duration((0.2s, 0.5s, 0.2s)); }
+.single-transform-transition-without-delay  { @include single-transition(transform, 0.6s, ease-out); }
+.single-transform-transition-with-delay     { @include single-transition(transform, 0.6s, ease-out, 0.2s); }
+.transform-transition { @include transition(transform 0.6s ease-out) }
+.multiple-transitions { @include transition(transform 0.6s ease-out, opacity 0.2s ease-in) }
+.transition-property { @include transition-property(transform); }
+.multiple-transition-properties { @include transition-property((opacity, transform, left)); }

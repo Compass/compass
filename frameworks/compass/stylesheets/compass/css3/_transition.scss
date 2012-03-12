@@ -23,15 +23,16 @@ $default-transition-function: false !default;
 
 $default-transition-delay: false !default;
 
+$transitionable-prefixed-values: transform, transform-origin !default;
+
 // One or more properties to transition
 //
 // * for multiple, use a comma-delimited list
 // * also accepts "all" or "none"
 
 @mixin transition-property($properties: $default-transition-property) {
-  @include experimental(transition-property, unquote($properties),
-    -moz, -webkit, -o, not -ms, not -khtml, official
-  );
+  @if type-of($properties) == string { $properties: unquote($properties); }
+  @include build-prefix-values(transition-property, $properties);
 }
 
 // One or more durations in seconds
@@ -42,7 +43,7 @@ $default-transition-delay: false !default;
 @mixin transition-duration($duration: $default-transition-duration) {
   @if type-of($duration) == string { $duration: unquote($duration); }
   @include experimental(transition-duration, $duration,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -54,7 +55,7 @@ $default-transition-delay: false !default;
 
 @mixin transition-timing-function($function: $default-transition-function) {
   @include experimental(transition-timing-function, unquote($function),
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -66,22 +67,19 @@ $default-transition-delay: false !default;
 @mixin transition-delay($delay: $default-transition-delay) {
   @if type-of($delay) == string { $delay: unquote($delay); }
   @include experimental(transition-delay, $delay,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
 // Transition all-in-one shorthand
 
 @mixin single-transition(
-  $properties: $default-transition-property,
+  $property: $default-transition-property,
   $duration: $default-transition-duration,
   $function: $default-transition-function,
   $delay: $default-transition-delay
 ) {
-  @include transition-property($properties);
-  @include transition-duration($duration);
-  @if $function { @include transition-timing-function($function); }
-  @if $delay { @include transition-delay($delay); }
+  @include build-prefix-values(transition, compact($property $duration $function, false), $delay);
 }
 
 @mixin transition(
@@ -96,24 +94,61 @@ $default-transition-delay: false !default;
   $transition-9 : false,
   $transition-10: false
 ) {
-  $legacy: (type-of($transition-1) == string and type-of(if($transition-2, $transition-2, 0)) == number and type-of(if($transition-3, $transition-3, '')) == string and type-of(if($transition-4, $transition-4, 0)) == number and ($transition-2 or $transition-3 or $transition-4));
-  @if $legacy {
-    @warn "Passing separate arguments for a single transition to transition is deprecated. " +
-          "Pass the values as a single space-separated list, or use the single-transition mixin.";
-    @include single-transition(
-      if($transition-1, $transition-1, $default-transition-property),
-      if($transition-2, $transition-2, $default-transition-duration),
-      if($transition-3, $transition-3, $default-transition-function),
-      if($transition-4, $transition-4, $default-transition-delay)
-    );
+  @if $transition-1 == default {
+    $transition-1 : (compact($default-transition-property, $default-transition-duration, $default-transition-function, $default-transition-delay));
   }
-  @else {
-    @if $transition-1 == default {
-      $transition-1 : -compass-space-list(compact($default-transition-property, $default-transition-duration, $default-transition-function, $default-transition-delay));
+
+  $transition : compact($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10);
+  @include build-prefix-values(transition, $transition);
+}
+
+@mixin build-prefix-values($property, $values, $delay: false) {
+  $raw-values: ($values);
+  $index: compact(false);
+
+  $webkit-value: compact(false);
+  $moz-value: compact(false);
+  $ms-value: compact(false);
+  $o-value: compact(false);
+
+  @each $value in $raw-values {
+    $value: compact(join($value, false));
+    $match: false;
+
+    @each $prefixed-value in $transitionable-prefixed-values {
+      @if index($value, $prefixed-value) {
+        $index: index($value, $prefixed-value);
+        $match: true;
+      }
     }
-    $transition : compact($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10);
-    @include experimental(transition, $transition,
-      -moz, -webkit, -o, not -ms, not -khtml, official
-    );
+
+    @if $match {
+      $value-prefix: nth($value, $index);
+      $value-suffix: compact(false);
+
+      @for $i from 2 through length($value) {
+        $value-suffix: append($value-suffix, nth($value, $i), space);
+      }
+
+      $non-webkit-suffix: compact(append($value-suffix, $delay, space));
+
+      $webkit-value: append($webkit-value, compact(join(-webkit-#{$value-prefix}, $value-suffix)), comma);
+      $moz-value: append($moz-value, compact(join(-moz-#{$value-prefix}, $non-webkit-suffix)), comma);
+      $ms-value: append($ms-value, compact(join(-ms-#{$value-prefix}, $non-webkit-suffix)), comma);
+      $o-value: append($o-value, compact(join(-o-#{$value-prefix}, $non-webkit-suffix)), comma);
+    } @else {
+      $non-webkit-value: compact(append($value, $delay, space));
+
+      $webkit-value: append($webkit-value, $value, comma);
+      $moz-value: append($moz-value, $non-webkit-value, comma);
+      $ms-value: append($ms-value, $non-webkit-value, comma);
+      $o-value: append($o-value, $non-webkit-value, comma);
+    }
   }
+
+  @if $experimental-support-for-webkit    { -webkit-#{$property} : $webkit-value; @if $delay { -webkit-#{$property}-delay : $delay; } }
+  @if $experimental-support-for-mozilla   {    -moz-#{$property} :    $moz-value; }
+  @if $experimental-support-for-microsoft {     -ms-#{$property} :     $ms-value; }
+  @if $experimental-support-for-opera     {      -o-#{$property} :      $o-value; }
+                                                    #{$property} :      compact($values $delay);
 }
