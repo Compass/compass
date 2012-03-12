@@ -21,6 +21,10 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 * Improved [hide-text mixin](/reference/compass/typography/text/replacement/#mixin-hide-text) for better performance and accessibility.
 * Added [squish-text mixin](/reference/compass/typography/text/replacement/#mixin-squish-text) to hide text on inline elements.
+* Compass css3 transitions module now correctly handled transitioning of
+  prefixed properties.
+
+### Misc Changes
 * Fix the mime-type of embedded `woff` font files. Add support for Embedded OpenType fonts.
 
 
