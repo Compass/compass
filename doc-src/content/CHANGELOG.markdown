@@ -14,6 +14,12 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.13.alpha.0 (UNRELEASED)
+-------------------------
+
+* Allow numeric sprite names when not using sprite selector generation
+  capability.
+
 0.12.rc.2 (03/11/2012)
 ----------------------
 
