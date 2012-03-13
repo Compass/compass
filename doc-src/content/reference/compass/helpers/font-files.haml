@@ -16,13 +16,10 @@ documented_functions:
 #font-files.helper
   %h3
     %a(href="#font-files")
-      font-files([<span class="arg">$font</span>, <span class="arg">$format</span>]*)
+      font-files([<span class="arg">$font</span>]*)
   .details
     %p
-      The <code>font-files</code> function takes any even number of arguments.
-      For each pair of arguments, the first is the path to the font file
-      relative to your project's font directory and the second is the format of
-      that font.
+      The <code>font-files</code> function takes a list of arguments containing the path to each font files relative to your project's font directory.
     %p
       This helper is used with the <a href="/reference/compass/css3/font_face/#mixin-font-face"><code>font-face</code> mixin</a>
       and is what makes it possible to pass any number of font files.
