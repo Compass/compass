@@ -5,7 +5,8 @@ module Compass::SassExtensions::Functions::FontFiles
     :opentype => 'opentype',
     :ttf => 'truetype',
     :truetype => 'truetype',
-    :svg => 'svg'
+    :svg => 'svg',
+    :eot => 'embedded-opentype'
   }
 
   def font_files(*args)
@@ -24,7 +25,8 @@ module Compass::SassExtensions::Functions::FontFiles
       if FONT_TYPES.key? type
         skip_next = true
       else
-        type = arg.to_s.split('.').last.gsub('"', '').to_sym
+        # let pass url like font.type?thing#stuff
+        type = arg.to_s.split('.').last.gsub(/(\?(.*))?(#(.*))?"/, '').to_sym
       end
 
       if FONT_TYPES.key? type
