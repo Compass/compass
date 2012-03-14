@@ -2,6 +2,7 @@ source :rubygems
 
 gemspec
 
+unless ENV['PKG']
 gem "cucumber", "~> 1.1.4"
 gem "rspec", "~>2.0.0"
 gem "rails", "~> 3.1"
@@ -25,4 +26,6 @@ unless ENV["CI"]
   gem 'guard'
   gem 'guard-test'
   gem 'guard-cucumber'
+  gem 'packager'
+end
 end
