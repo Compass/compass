@@ -7,7 +7,7 @@ Gem::Specification.new do |gemspec|
   gemspec.version = Compass::VERSION # Update VERSION.yml file to set this.
   gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintainance of CSS."
   gemspec.homepage = "http://compass-style.org"
-  gemspec.authors = ["Chris Eppstein", "Eric A. Meyer", "Brandon Mathis", "Nico Hagenburger", "Scott Davis"]
+  gemspec.authors = ["Chris Eppstein", "Scott Davis", "Eric A. Meyer", "Brandon Mathis", "Anthony Short", "Nico Hagenburger"]
   gemspec.email = "chris@eppsteins.net"
   #gemspec.default_executable = "compass" #deprecated
   gemspec.executables = %w(compass)

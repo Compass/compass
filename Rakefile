@@ -1,7 +1,16 @@
 require 'rubygems'
-require 'bundler'
-Bundler.setup
-require 'rake/dsl_definition' rescue nil
+if ENV["PKG"]
+  $: << File.expand_path(File.dirname(__FILE__))+"/lib"
+else
+  require 'bundler'
+  Bundler.setup 
+end
+
+begin
+  require 'rake/dsl_definition'
+rescue LoadError
+  #pass
+end
 require 'compass'
 
 # ----- Default: Testing ------
@@ -10,11 +19,16 @@ task :default => [:test, :features]
 
 require 'rake/testtask'
 require 'fileutils'
+
+begin
 require 'cucumber'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:features) do |t|
   t.cucumber_opts = "features --format progress"
+end
+rescue LoadError
+  $stderr.puts "cannot load cucumber"
 end
 
 Rake::TestTask.new :test do |t|
@@ -124,3 +138,20 @@ rescue LoadError => e
   puts "WARNING: #{e}"
 end
 
+begin
+  require 'packager/rake_task'
+  require 'compass/version'
+  # Building a package:
+  # 1. Get packager installed and make sure your system is setup correctly according to their docs.
+  # 2. Make sure you are actually using a universal binary that has been nametooled.
+  # 3. PKG=1 OFFICIAL=1 rake packager:pkg
+  Packager::RakeTask.new(:pkg) do |t|
+    t.package_name = "Compass"
+    t.version = Compass::VERSION
+    t.domain = "compass-style.org"
+    t.bin_files = ["compass"]
+    t.resource_files = FileList["frameworks/**/*"] + ["VERSION.yml", "LICENSE.markdown"]
+  end
+rescue LoadError => e
+  puts "WARNING: #{e}"
+end

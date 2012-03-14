@@ -1,11 +1,13 @@
 GIT
   remote: git://github.com/Compass/compass-theme.git
   revision: aae72f14a1c150dffe9612623136fabdfff2b84d
+PATH
+  remote: ..
   specs:
-    compass-theme (0.0.2)
-      compass (~> 0.11)
-      compass-susy-plugin (~> 0.7.0)
-      css-slideshow (= 0.2.0)
+    compass (0.12.0.6754be1)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
 
 PATH
   remote: ..
@@ -24,8 +26,8 @@ GEM
     builder (3.0.0)
     chunky_png (1.2.5)
     coderay (0.9.7)
-    compass-susy-plugin (0.7.0)
-      compass (>= 0.10.0)
+    compass-susy-plugin (0.9)
+      compass (>= 0.11.1)
     cri (2.0.2)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
@@ -43,7 +45,11 @@ GEM
     rb-fsevent (0.4.0)
     rdiscount (1.6.8)
     ruby-prof (0.10.8)
+<<<<<<< HEAD
     sass (3.2.0.alpha.93)
+=======
+    sass (3.1.15)
+>>>>>>> stable
     serve (1.0.0)
       activesupport (~> 3.0.1)
       i18n (~> 0.4.1)

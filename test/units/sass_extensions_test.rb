@@ -126,6 +126,18 @@ class SassExtensionsTest < Test::Unit::TestCase
       evaluate("font-files('/font/name.woff')")
     end
 
+    assert_nothing_raised Sass::SyntaxError do
+      evaluate("font-files('/font/name.svg#fontId')")
+    end
+
+    assert_nothing_raised Sass::SyntaxError do
+      evaluate("font-files('/font/name.eot?#iefix')")
+    end
+
+    assert_nothing_raised Sass::SyntaxError do
+      evaluate("font-files('/font/name.svg?mightbedynamic=something%20+escaped#fontId')")
+    end
+
     assert_raises Sass::SyntaxError do
       evaluate("font-files('/font/name.ext')")
     end
