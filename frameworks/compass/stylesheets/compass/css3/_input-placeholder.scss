@@ -15,10 +15,3 @@
 		&:-ms-input-placeholder { @content; }       // [2]
 	}
 }
-
-// Shortcut to set the color of html5 input placeholder text.
-@mixin input-placeholder-color($color) {
-	@include input-placeholder {
-		color: $color;
-	}
-}
