@@ -64,7 +64,8 @@ $base-half-leader: $base-leader / 2;
   }
 }
 
-// resets the baseline to 1 leading unit
+// Resets the line-height to 1 vertical rhythm unit. Does not work in all
+// circumstances.
 @mixin reset-baseline {
   @include adjust-leading-to(1, if($relative-font-sizing, $base-font-size, $base-font-size));
 }
