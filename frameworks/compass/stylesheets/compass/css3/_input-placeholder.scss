@@ -5,9 +5,9 @@
 // 1. Webkit and Gecko (Mozilla) already support placeholders (2012/Mar/13)
 // 2. Future-proofing for IE10: http://msdn.microsoft.com/library/ie/hh772745.aspx
 @mixin input-placeholder {
-	&::-webkit-input-placeholder { @content; }	// [1]
-	&:-moz-placeholder { @content; }						// [1]
-	&:-ms-input-placeholder { @content; }				// [2]
+	&::-webkit-input-placeholder { @content; }  // [1]
+	&:-moz-placeholder { @content; }            // [1]
+	&:-ms-input-placeholder { @content; }       // [2]
 }
 
 // Shortcut to set the color of html5 input placeholder text.
