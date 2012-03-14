@@ -14,6 +14,13 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.1 (03/14/2012)
+-------------------
+
+* Fixed a bug in font-files mime-type detection.
+* Code cleanup and better documentation for the vertical-rhythm module.
+* Add support for installing compass on Macs using a one-click installer.
+
 0.12.rc.2 (03/11/2012)
 ----------------------
 
