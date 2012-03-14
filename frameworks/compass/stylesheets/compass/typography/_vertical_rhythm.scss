@@ -67,8 +67,9 @@ $base-half-leader: $base-leader / 2;
   }
 }
 
-// resets the baseline to 1 leading unit
+// @deprecated Resets the baseline to 1 leading unit.
 @mixin reset-baseline {
+  @warn "This mixin has been deprecated and will be removed in the next version. Use adjust-leading-to(1) instead.";
   @include adjust-leading-to(1, if($relative-font-sizing, $base-font-size, $base-font-size));
 }
 
