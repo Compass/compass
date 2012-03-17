@@ -3,7 +3,7 @@
   text-align: center;
   line-height: 1.1em !important;
   @include opacity(0);
-  @include transition(opacity 1s ease-in 3s);
+  @include transition(opacity 1s ease-in 1.5s);
   &.visible {
     @include opacity(1);
   }
@@ -26,4 +26,17 @@
    a:not(.pagerankspam) { color: #222}
    img:hover { @include single-box-shadow(#222); }
  }
+ #home & {
+   float: right;
+   width: 380px;
+   margin-top: 11px;
+   .fusionimg {
+     margin: 6px 8px;
+     float: left;
+   }
+   .fusiontext {
+     padding-top: 6px;
+   }
+ }
 }
+
