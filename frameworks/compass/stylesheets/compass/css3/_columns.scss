@@ -1,30 +1,41 @@
 @import "shared";
 
+// Specify the shorthand `columns` property.
+//
+// Example:
+//
+//     @include columns(20em 2)
+@mixin columns($width-and-count) {
+  @include experimental(columns, $width-and-count,
+    -moz, -webkit, -o, -ms, not -khtml, official
+  );
+}
+
 // Specify the number of columns
 @mixin column-count($count) {
   @include experimental(column-count, $count,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
 // Specify the gap between columns e.g. `20px`
 @mixin column-gap($width) {
   @include experimental(column-gap, $width,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
 // Specify the width of columns e.g. `100px`
 @mixin column-width($width) {
   @include experimental(column-width, $width,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
 // Specify the width of the rule between columns e.g. `1px`
 @mixin column-rule-width($width) {
   @include experimental(rule-width, $width,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -32,7 +43,7 @@
 // This works like border-style.
 @mixin column-rule-style($style) {
   @include experimental(rule-style, unquote($style),
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -40,7 +51,7 @@
 // This works like border-color.
 @mixin column-rule-color($color) {
   @include experimental(rule-color, $color,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -55,6 +66,6 @@
 @mixin column-rule($width, $style: false, $color: false) {
   $full : -compass-space-list(compact($width, $style, $color));
   @include experimental(column-rule, $full,
-    -moz, -webkit, -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }

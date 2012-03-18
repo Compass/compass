@@ -1,5 +1,6 @@
 @import "compass/css3/columns";
 
+.columns            { @include columns(20em 5);               }
 .column-count       { @include column-count(5);               }
 .column-gap         { @include column-gap(10px);              }
 .column-width       { @include column-width(90px);            }
