@@ -3,7 +3,7 @@ html {
   padding: 0;
   border: 0; }
 
-.bp-reset-element, body, h1, h2, h3, h4, h5, h6, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, blockquote, q, th, td, caption, table, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table, div, span, object, iframe, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, blockquote, q, th, td, caption, table, body, div, span, object, iframe, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, tbody, tfoot, thead, tr, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
   border: 0;
@@ -18,7 +18,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 blockquote, q {
   quotes: "" ""; }
-  blockquote:before, blockquote:after, q:before, q:after {
+  blockquote:before, q:before, blockquote:after, q:after {
     content: ""; }
 
 th, td, caption {
@@ -33,37 +33,4 @@ table {
   vertical-align: middle; }
 
 a img {
-  border: none; }
-
-body.testing .bp-reset-element, body.testing body, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table, body.testing h1, body.testing h2, body.testing h3, body.testing h4, body.testing h5, body.testing h6, body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary, body.testing blockquote, body.testing q, body.testing th, body.testing td, body.testing caption, body.testing table,
-body.testing div, body.testing span, body.testing object, body.testing iframe, body.testing p,
-body.testing pre, body.testing a, body.testing abbr, body.testing acronym, body.testing address,
-body.testing code, body.testing del, body.testing dfn, body.testing em, body.testing img,
-body.testing dl, body.testing dt, body.testing dd, body.testing ol, body.testing ul, body.testing li, body.testing fieldset,
-body.testing form, body.testing label, body.testing legend,
-body.testing caption, body.testing tbody, body.testing tfoot, body.testing thead, body.testing tr {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline; }
-body.testing article, body.testing aside, body.testing details, body.testing figcaption, body.testing figure, body.testing footer, body.testing header, body.testing hgroup, body.testing menu, body.testing nav, body.testing section, body.testing summary {
-  display: block; }
-body.testing blockquote, body.testing q {
-  quotes: "" ""; }
-  body.testing blockquote:before, body.testing blockquote:after, body.testing q:before, body.testing q:after {
-    content: ""; }
-body.testing th, body.testing td, body.testing caption {
-  float: none !important;
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle; }
-body.testing table {
-  border-collapse: separate;
-  border-spacing: 0;
-  vertical-align: middle; }
-body.testing a img {
   border: none; }
