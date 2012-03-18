@@ -79,6 +79,7 @@ module Compass
       end
 
       def add_import_path(*paths)
+        paths.map!{|p| defined?(Pathname) && Pathname === p ? p.to_s : p}
         # The @added_import_paths variable works around an issue where
         # the additional_import_paths gets overwritten during parse
         @added_import_paths ||= []
