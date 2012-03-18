@@ -26,6 +26,13 @@ module Compass::Exec::GlobalOptionsParser
         ::Compass.configuration.discover Pathname.new(frameworks_dir).realpath
       end
 
+    opts.on('-I IMPORT_PATH',
+            "Makes files under the IMPORT_PATH folder findable by Sass's @import directive."
+      ) do |import_path|
+        require 'pathname'
+        ::Compass.configuration.add_import_path Pathname.new(import_path).realpath
+      end
+
     opts.on('-q', '--quiet', :NONE, 'Quiet mode.') do
       self.options[:quiet] = true
     end
