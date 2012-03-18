@@ -10,6 +10,7 @@
 @import "partials/typography";
 @import "partials/main";
 @import "partials/home";
+@import "partials/ads";
 
 html.dark { @include dark-theme; }
 html.light { @include light-theme; }

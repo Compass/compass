@@ -15,7 +15,7 @@ A [Sass][sass]-based CSS Meta-Framework that allows you to mix and match any of 
 ## Compass Provides
 
 1. A [command line tool][command_line_wiki] for managing your Sass projects.
-2. Simple integration with [Ruby-on-Rails][ruby_on_rails_wiki], [Merb][merb_wiki], [StaticMatic][static_matic_wiki], and even [non-ruby application servers][command_line_wiki].
+2. Simple integration with [Ruby-on-Rails][ruby_on_rails_wiki], [Merb][merb_wiki], [StaticMatic][staticmatic], and even [non-ruby application servers][command_line_wiki].
 3. Loads of Sass mixins to make building your website a snap.
 
 ## Quick Start
@@ -51,9 +51,9 @@ Released under a [slightly modified MIT License][license].
 [wiki]: http://github.com/chriseppstein/compass/wikis/home
 [ruby_on_rails_wiki]: http://wiki.github.com/chriseppstein/compass/ruby-on-rails-integration
 [merb_wiki]: http://wiki.github.com/chriseppstein/compass/merb-integration
-[static_matic_wiki]: http://wiki.github.com/chriseppstein/compass/staticmatic-integration
+[staticmatic]: https://github.com/mindeavor/staticmatic2
 [chris_eppstein]: http://chriseppstein.github.com
 [caring.com]: http://www.caring.com/ "Senior Care Resources"
 [license]: http://github.com/chriseppstein/compass/tree/master/LICENSE.markdown
 [susy_website]: http://www.oddbird.net/susy/
-[susy_wiki]: http://github.com/chriseppstein/compass/wikis/susy-documentation 
+[susy_wiki]: http://github.com/chriseppstein/compass/wikis/susy-documentation

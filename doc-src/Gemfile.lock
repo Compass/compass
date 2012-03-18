@@ -1,18 +1,16 @@
 GIT
   remote: git://github.com/Compass/compass-theme.git
-  revision: aae72f14a1c150dffe9612623136fabdfff2b84d
-PATH
-  remote: ..
+  revision: e870bc7c1d9124636280b974ccfc395eed097411
   specs:
-    compass (0.12.0.6754be1)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
+    compass-theme (0.0.2)
+      compass (~> 0.11)
+      compass-susy-plugin (~> 0.7.0)
+      css-slideshow (= 0.2.0)
 
 PATH
   remote: ..
   specs:
-    compass (0.13.alpha.0.dc8c9b6)
+    compass (0.13.alpha.0.48d532b)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.0.alpha.93)
@@ -20,43 +18,41 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (3.0.10)
+    activesupport (3.0.12)
     asdf (0.5.0)
       rack (~> 1.2.1)
     builder (3.0.0)
     chunky_png (1.2.5)
-    coderay (0.9.7)
-    compass-susy-plugin (0.9)
-      compass (>= 0.11.1)
-    cri (2.0.2)
+    coderay (1.0.5)
+    compass-susy-plugin (0.7.0)
+      compass (>= 0.10.0)
+    cri (2.2.1)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
     css_parser (1.0.1)
     fssm (0.2.8.1)
-    haml (3.1.2)
+    haml (3.1.4)
     i18n (0.4.2)
-    json (1.5.4)
-    mime-types (1.16)
-    nanoc3 (3.2.2)
-      cri (~> 2.0)
-    nokogiri (1.4.4)
-    rack (1.2.2)
-    rake (0.9.2)
-    rb-fsevent (0.4.0)
+    json (1.6.5)
+    mime-types (1.17.2)
+    nanoc (3.3.2)
+      cri (~> 2.2)
+    nanoc3 (3.3.0)
+      nanoc (>= 3.3.0)
+    nokogiri (1.5.2)
+    rack (1.2.5)
+    rake (0.9.2.2)
+    rb-fsevent (0.9.0)
     rdiscount (1.6.8)
     ruby-prof (0.10.8)
-<<<<<<< HEAD
-    sass (3.2.0.alpha.93)
-=======
-    sass (3.1.15)
->>>>>>> stable
+    sass (3.2.0.alpha.94)
     serve (1.0.0)
       activesupport (~> 3.0.1)
       i18n (~> 0.4.1)
       rack (~> 1.2.1)
       tzinfo (~> 0.3.23)
     thor (0.14.6)
-    tzinfo (0.3.29)
+    tzinfo (0.3.32)
 
 PLATFORMS
   ruby
