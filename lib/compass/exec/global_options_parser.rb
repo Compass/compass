@@ -41,7 +41,7 @@ module Compass::Exec::GlobalOptionsParser
       self.options[:trace] = true
     end
 
-    opts.on('--force', :NONE, 'Allows some failing commands to succeed instead.') do
+    opts.on('--force', :NONE, 'Allows compass to overwrite existing files.') do
       self.options[:force] = true
     end
 
