@@ -151,6 +151,7 @@ Feature: Command Line
       | watch   |
     And I should see the following "other" commands:
       | config      |
+      | extension   |
       | frameworks  |
       | grid-img    |
       | help        |
