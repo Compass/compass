@@ -22,8 +22,12 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [Vertical Rhythm Module] The `establish-baseline` mixin now styles the
   `<html>` element instead of the `<body>` element. This makes the
   vertical rhythm module work better with `rem` based measurements.
-* [CSS3] Add 3D transform support for Mozillia, IE, and Opera.
-* [CSS3] Add `-ms` support for css3 columns. Add support for the columns shorthand property.
+* [CSS3] Added 3D transform support for Mozillia, IE, and Opera.
+* [CSS3] Added `-ms` support for css3 columns. Add support for the columns shorthand property.
+* [CLI] Added a `-I` option for adding sass import paths via the CLI during compilation and project set up.
+* [Configuration] For better ruby and rails integration, the `add_import_path` command now accepts
+  [Sass::Importer](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#custom_importers) objects
+  and [Ruby Pathname](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html) objects.
 
 0.12.1 (03/14/2012)
 -------------------
