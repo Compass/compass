@@ -22,7 +22,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [Vertical Rhythm Module] The `establish-baseline` mixin now styles the
   `<html>` element instead of the `<body>` element. This makes the
   vertical rhythm module work better with `rem` based measurements.
-* [CSS3] Add 3D transform support for moz, ie, and opera.
+* [CSS3] Add 3D transform support for Mozillia, IE, and Opera.
+* [CSS3] Add `-ms` support for css3 columns. Add support for the columns shorthand property.
 
 0.12.1 (03/14/2012)
 -------------------
