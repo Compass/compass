@@ -2,3 +2,13 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none; }
+
+.input-placeholder::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+.input-placeholder:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+.input-placeholder:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
