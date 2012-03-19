@@ -6,8 +6,10 @@
   @if $legacy-support-for-ie {
     & { *display: inline; }
   }
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
+  @if $experimental-support-for-mozilla {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+  }
   display: inline-block;
   vertical-align: middle;
   @if $legacy-support-for-ie {
