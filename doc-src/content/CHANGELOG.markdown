@@ -18,6 +18,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 -------------------------
 
 * Allow numeric sprite names when not using sprite selector generation capability.
+* Add new mixin for styling [input
+  placeholders](/reference/compass/css3/user_interface/#mixin-input-placeholder).
 
 0.12.2 (UNRELEASED)
 -------------------
