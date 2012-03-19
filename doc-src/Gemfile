@@ -1,6 +1,7 @@
 source :gemcutter
 
-gem 'nanoc3'
+gem 'nanoc', "3.2.4"
+gem 'nanoc3', "3.2.4"
 gem 'asdf'
 gem 'rdiscount'
 gem 'thor'

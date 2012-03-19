@@ -10,7 +10,7 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.12.1.004f696)
+    compass (0.12.1.1aca960)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
@@ -26,7 +26,7 @@ GEM
     coderay (0.9.7)
     compass-susy-plugin (0.7.0)
       compass (>= 0.10.0)
-    cri (2.0.2)
+    cri (2.2.1)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
     css_parser (1.0.1)
@@ -35,7 +35,9 @@ GEM
     i18n (0.4.2)
     json (1.5.4)
     mime-types (1.16)
-    nanoc3 (3.2.2)
+    nanoc (3.2.4)
+      nanoc3 (>= 3.2.4)
+    nanoc3 (3.2.4)
       cri (~> 2.0)
     nokogiri (1.4.4)
     rack (1.2.2)
@@ -66,7 +68,8 @@ DEPENDENCIES
   haml
   json
   mime-types
-  nanoc3
+  nanoc (= 3.2.4)
+  nanoc3 (= 3.2.4)
   nokogiri
   rack
   rake
