@@ -15,3 +15,24 @@
     -moz, -webkit, not -o, not -ms, -khtml, official
   );
 }
+
+// Input Placeholder ---------------------------------------------------------
+// Style the html5 input placeholder in browsers that support it.
+// Requires that one or more style declarations be provided to the mixin using 
+// Sass’ `@content` feature. `@content` allows a Sass style block to be provided
+// to a mixin enclosed in braces: `@include mixin-name { //style block }`.
+// Internally, the mixin will replace each intance of the `@content` directive 
+// with the user-provided style block.
+// For more on @content, see https://gist.github.com/1884016
+//
+@mixin input-placeholder {
+	@if $experimental-support-for-webkit {
+		&::-webkit-input-placeholder { @content; }
+	}
+	@if $experimental-support-for-mozilla {
+		&:-moz-placeholder { @content; }
+	}
+	@if $experimental-support-for-microsoft {
+		&:-ms-input-placeholder { @content; }
+	}
+}
