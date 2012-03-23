@@ -12,5 +12,8 @@ module Compass::SassExtensions::Functions::Env
 
   alias :current_date :current_time
 
+  def current_source_file
+    Sass::Script::String.new(options[:filename].to_s)
+  end
 
 end
