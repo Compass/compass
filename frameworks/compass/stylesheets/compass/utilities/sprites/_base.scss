@@ -41,7 +41,7 @@ $disable-magic-sprite-selectors:false !default;
   @each $selector in $sprite-selectors {
     @if sprite_has_selector($map, $sprite-name, $selector) {
       @if sprite_has_valid_selector("#{$full-sprite-name}-#{$selector}") {
-        &:#{$selector}, &.#{$full-sprite-name}_#{$selector}, &.#{$full-sprite-name}-#{$selector} {
+        &:#{$selector}, &.#{$full-sprite-name}-#{$selector} {
             @include sprite-background-position($map, "#{$sprite-name}_#{$selector}", $offset-x, $offset-y);
         }
       }

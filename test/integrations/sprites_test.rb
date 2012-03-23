@@ -514,13 +514,13 @@ class SpritesTest < Test::Unit::TestCase
       .selectors-ten-by-ten {
         background-position: 0 0;
       }
-      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
+      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten-hover {
         background-position: 0 -20px;
       }
-      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
+      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten-target {
         background-position: 0 -30px;
       }
-      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
+      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten-active {
         background-position: 0 -10px;
       }
     CSS
@@ -539,13 +539,13 @@ class SpritesTest < Test::Unit::TestCase
       .selectors-ten-by-ten {
         background-position: 20px 20px;
       }
-      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
+      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten-hover {
         background-position: 20px 0;
       }
-      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
+      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten-target {
         background-position: 20px -10px;
       }
-      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
+      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten-active {
         background-position: 20px 10px;
       }
     CSS
@@ -566,13 +566,13 @@ class SpritesTest < Test::Unit::TestCase
       a {
         background-position: 0 0;
       }
-      a:hover, a.ten-by-ten_hover, a.ten-by-ten-hover {
+      a:hover, a.ten-by-ten-hover {
         background-position: 0 -20px;
       }
-      a:target, a.ten-by-ten_target, a.ten-by-ten-target {
+      a:target, a.ten-by-ten-target {
         background-position: 0 -30px;
       }
-      a:active, a.ten-by-ten_active, a.ten-by-ten-active {
+      a:active, a.ten-by-ten-active {
         background-position: 0 -10px;
       }
     CSS
@@ -613,13 +613,13 @@ class SpritesTest < Test::Unit::TestCase
       a {
         background-position: 5px -5px;
       }
-      a:hover, a.ten-by-ten_hover, a.ten-by-ten-hover {
+      a:hover, a.ten-by-ten-hover {
         background-position: 5px -25px;
       }
-      a:target, a.ten-by-ten_target, a.ten-by-ten-target {
+      a:target, a.ten-by-ten-target {
         background-position: 5px -35px;
       }
-      a:active, a.ten-by-ten_active, a.ten-by-ten-active {
+      a:active, a.ten-by-ten-active {
         background-position: 5px -15px;
       }
     CSS
