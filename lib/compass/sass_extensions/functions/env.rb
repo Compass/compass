@@ -16,4 +16,8 @@ module Compass::SassExtensions::Functions::Env
     Sass::Script::String.new(options[:filename].to_s)
   end
 
+  def current_output_file
+    Sass::Script::String.new(options[:css_filename].to_s)
+  end
+
 end

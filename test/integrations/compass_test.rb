@@ -138,7 +138,7 @@ private
   def assert_renders_correctly(*arguments)
     options = arguments.last.is_a?(Hash) ? arguments.pop : {}
     for name in arguments
-      actual_result_file = "#{tempfile_path(@current_project)}/#{name}.css"
+      @output_file = actual_result_file = "#{tempfile_path(@current_project)}/#{name}.css"
       expected_result_file = "#{result_path(@current_project)}/#{name}.css"
       @filename = expected_result_file.gsub('css', 'scss')
       actual_lines = File.read(actual_result_file)
@@ -224,6 +224,10 @@ private
 
   def filename
     @filename
+  end
+
+  def output_file
+    @output_file
   end
 
 end
