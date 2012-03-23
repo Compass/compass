@@ -20,7 +20,7 @@ gem 'rake', '~> 0.9.2'
 
 unless ENV["CI"]
   gem 'rb-fsevent'
-  gem 'growl_notify'
+  gem 'ruby_gntp'
   gem "ruby-prof", :platform => :mri_18
   gem "rcov", :platform => :mri_18
   gem 'guard'
