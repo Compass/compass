@@ -69,3 +69,10 @@
   -ms-transition-property: opacity, -ms-transform, left;
   -o-transition-property: opacity, -o-transform, left;
   transition-property: opacity, transform, left; }
+
+.default-transition {
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s; }

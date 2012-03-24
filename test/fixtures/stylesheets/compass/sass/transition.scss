@@ -10,3 +10,4 @@
 .multiple-transitions { @include transition(transform 0.6s ease-out, opacity 0.2s ease-in) }
 .transition-property { @include transition-property(transform); }
 .multiple-transition-properties { @include transition-property((opacity, transform, left)); }
+.default-transition { @include transition(); }

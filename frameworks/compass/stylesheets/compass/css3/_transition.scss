@@ -95,7 +95,7 @@ $transitionable-prefixed-values: transform, transform-origin !default;
   $transition-10: false
 ) {
   @if $transition-1 == default {
-    $transition-1 : (compact($default-transition-property, $default-transition-duration, $default-transition-function, $default-transition-delay));
+    $transition-1 : compact($default-transition-property $default-transition-duration $default-transition-function $default-transition-delay);
   }
 
   $transition : compact($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10);
