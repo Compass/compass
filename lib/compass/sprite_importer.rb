@@ -2,13 +2,13 @@ require 'erb'
 require 'compass/sprite_importer/binding'
 module Compass
   class SpriteImporter < Sass::Importers::Base
-    VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
+    VAILD_FILE_NAME       = /\A#{Sass::SCSS::RX::IDENT}\Z/
     SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
-    VALID_EXTENSIONS = ['.png']
+    VALID_EXTENSIONS      = ['.png']
     
-    TEMPLATE_FOLDER = File.join(File.expand_path('../', __FILE__), 'sprite_importer')
+    TEMPLATE_FOLDER       = File.join(File.expand_path('../', __FILE__), 'sprite_importer')
     CONTENT_TEMPLATE_FILE = File.join(TEMPLATE_FOLDER, 'content.erb')
-    CONTENT_TEMPLATE = ERB.new(File.read(CONTENT_TEMPLATE_FILE))
+    CONTENT_TEMPLATE      = ERB.new(File.read(CONTENT_TEMPLATE_FILE))
 
 
 

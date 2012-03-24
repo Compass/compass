@@ -863,4 +863,24 @@ class SpritesTest < Test::Unit::TestCase
 
   end
 
+  it "should respect global spacing" do
+    css = render <<-SCSS
+      $colors-spacing:5px;
+      @import "colors/*.png";
+      @include all-colors-sprites;
+    SCSS
+    other_css = <<-CSS
+      .colors-sprite, .colors-blue, .colors-yellow {
+        background: url('/colors-s747dec274e.png') no-repeat;
+      }
+      .colors-blue { 
+        background-position:0 0;
+      }
+      .colors-yellow {
+        background-position:0 -15px;
+      }
+    CSS
+    assert_correct clean(css), clean(other_css)
+  end
+
 end
