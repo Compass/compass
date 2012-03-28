@@ -1,0 +1,16 @@
+@import "shared";
+
+// Add and utilize CSS regions for Webkit + IE. Experimental implementation. Limit to those two vendor prefixes until more stable.
+// See http://css-tricks.com/content-folding/ and http://dev.w3.org/csswg/css3-regions/ for more info on use
+
+@mixin flow-into($target) {
+  @include experimental(flow-into, $target,
+    not -moz, -webkit, not -o, -ms, not -khtml, not official
+  );
+}
+
+@mixin flow-from($target) {
+  @include experimental(flow-from, $target,
+    not -moz, -webkit, not -o, -ms, not -khtml, not official
+  );
+}
