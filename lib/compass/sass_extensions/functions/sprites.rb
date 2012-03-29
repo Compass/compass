@@ -110,7 +110,7 @@ module Compass::SassExtensions::Functions::Sprites
     unless VALID_SELECTORS.include?(selector.value)
       raise Sass::SyntaxError, "Invalid Selctor did you mean one of: #{VALID_SELECTORS.join(', ')}"
     end
-    Sass::Script::Bool.new map.send(:"has_#{selector.value}?", sprite)
+    Sass::Script::Bool.new map.send(:"has_#{selector.value}?", sprite.value)
   end
   
   Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
