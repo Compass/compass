@@ -1,0 +1,7 @@
+.hyphen {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto; }

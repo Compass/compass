@@ -2,30 +2,28 @@ source :rubygems
 
 gemspec
 
-unless ENV['PKG']
-gem "cucumber", "~> 1.1.4"
+gem "cucumber", "~> 0.9.2"
 gem "rspec", "~>2.0.0"
-gem "rails", "~> 3.1"
+gem "rails", "~>3.0.0.rc"
 gem "compass-validator", "3.0.1"
 gem "css_parser", "~> 1.0.1"
-gem "sass", "~> 3.2.0.alpha.93"
+gem "sass", "~>3.1"
 gem "haml", "~> 3.1"
+gem "rcov", :platform => :mri
 gem "rubyzip"
+gem "livereload"
+gem "ruby-prof", :platform => :mri
+
+gem 'autotest'
+gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
+gem 'fakefs', :git => 'git://github.com/johnbintz/fakefs.git'
 gem 'mocha'
+gem 'timecop'
 gem 'diff-lcs', '~> 1.1.2'
-gem 'rake', '~> 0.9.2'
 
-# Warning becarful adding OS dependant gems above this line it will break the CI server please 
-# place them below so they are excluded
+gem 'rake', '0.8.7'
 
-unless ENV["CI"]
-  gem 'rb-fsevent'
-  gem 'ruby_gntp'
-  gem "ruby-prof", :platform => :mri_18
-  gem "rcov", :platform => :mri_18
-  gem 'guard'
-  gem 'guard-test'
-  gem 'guard-cucumber'
-  gem 'packager'
+group :mac do
+  gem "rb-fsevent"
 end
-end
+

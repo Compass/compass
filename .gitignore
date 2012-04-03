@@ -29,4 +29,3 @@ devbin
 vendor/ruby
 vendor
 Gemfile.lock
-*.pkg
