@@ -9,8 +9,7 @@ gem "compass-validator", "3.0.1"
 gem "css_parser", "~> 1.0.1"
 gem "sass", "~>3.1"
 gem "haml", "~> 3.1"
-#gem "rcov", :platform => :mri
-#gem "gherkin", :git => "git://github.com/RKelln/gherkin.git"
+gem "rcov", :platform => :mri
 gem "rubyzip"
 gem "livereload"
 gem "ruby-prof", :platform => :mri

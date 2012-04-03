@@ -45,7 +45,6 @@
   -webkit-column-rule: 1px solid blue;
   -o-column-rule: 1px solid blue;
   column-rule: 1px solid blue; }
-<<<<<<< HEAD
 
 .column-break-before {
   -webkit-column-break-before: always;
@@ -58,5 +57,3 @@
 .column-break-inside {
   -webkit-column-break-inside: auto;
   column-break-inside: auto; }
-=======
->>>>>>> parent of f2aca1e... column-break mixin added
