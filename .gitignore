@@ -29,3 +29,8 @@ devbin
 vendor/ruby
 vendor
 Gemfile.lock
+
+doc-src/Gemfile.lock
+.gitignore
+
+.gitignore

@@ -58,6 +58,7 @@
     -moz, -webkit, -o, not -ms, not -khtml, official
   );
 }
+<<<<<<< HEAD
 
  
 // Mixin for setting column breaks.
@@ -91,3 +92,5 @@
 @mixin column-break($type: 'before', $value: auto){
    @include experimental("column-break-#{$type}", $value, not -moz, -webkit, not -o, not -ms, not -khtml, official );
 }
+=======
+>>>>>>> parent of f2aca1e... column-break mixin added
