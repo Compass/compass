@@ -9,3 +9,6 @@
 .column-rule-color  { @include column-rule-color(blue);       }
 .column-rule        { @include column-rule(1px, solid, blue); }
 .column-rule-spaced { @include column-rule(1px solid blue);   }
+.column-break-before{ @include column-break('before', always);}
+.column-break-after { @include column-break('after', always); }
+.column-break-inside{ @include column-break('inside');        }

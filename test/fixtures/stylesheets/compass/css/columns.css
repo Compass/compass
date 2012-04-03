@@ -60,3 +60,15 @@
   -ms-column-rule: 1px solid blue;
   -o-column-rule: 1px solid blue;
   column-rule: 1px solid blue; }
+
+.column-break-before {
+  -webkit-column-break-before: always;
+  column-break-before: always; }
+
+.column-break-after {
+  -webkit-column-break-after: always;
+  column-break-after: always; }
+
+.column-break-inside {
+  -webkit-column-break-inside: auto;
+  column-break-inside: auto; }

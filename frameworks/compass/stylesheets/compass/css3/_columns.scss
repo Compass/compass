@@ -69,3 +69,36 @@
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
+
+ 
+// Mixin for setting column breaks.
+//
+// * legal values for '$type' : 'before', 'after', 'inside' 
+// * legal values for '$value' are dependent on '$type'
+//    * when '$type' = 'before', legal values are 'auto', 'always', 'avoid', 'left', 'right', 'page', 'column', 'avoid-page', 'avoid-column'
+//    * when '$type' = 'after', legal values are 'auto', 'always', 'avoid', 'left', 'right', 'page', 'column', 'avoid-page', 'avoid-column'
+//    * when '$type' = 'inside', legal values are 'auto', 'avoid', 'avoid-page', 'avoid-column'
+//  
+//  Examples: 
+//    h2.before {@include column-break('before', always);}
+//    h2.after {@include column-break('after', always); }
+//    h2.inside {@include column-break('inside'); }
+//
+//  Which generates: 
+//  h2.before {    
+//    -webkit-column-break-before: always;
+//    column-break-before: always;}
+//  
+//  h2.after {
+//    -webkit-column-break-after: always;
+//    column-break-after: always; }
+//
+//  h2.inside {
+//    -webkit-column-break-inside: auto;
+//    column-break-inside: auto;}
+ 
+ 
+ 
+@mixin column-break($type: 'before', $value: auto){
+   @include experimental("column-break-#{$type}", $value, not -moz, -webkit, not -o, not -ms, not -khtml, official );
+}
