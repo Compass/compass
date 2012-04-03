@@ -59,6 +59,7 @@
   );
 }
 
+ 
 // Mixin for setting column breaks.
 //
 // * legal values for '$type' : 'before', 'after', 'inside' 
@@ -84,9 +85,9 @@
 //  h2.inside {
 //    -webkit-column-break-inside: auto;
 //    column-break-inside: auto;}
-
-
-
+ 
+ 
+ 
 @mixin column-break($type: 'before', $value: auto){
    @include experimental("column-break-#{$type}", $value, not -moz, -webkit, not -o, not -ms, not -khtml, official );
 }
