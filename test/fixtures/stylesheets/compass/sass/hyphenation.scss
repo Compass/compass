@@ -1,0 +1,11 @@
+@import "compass/css3/hyphenation";
+
+.word-break {
+	@include word-break(keep-all);
+}
+.hyphens {
+	@include hyphens(manual);
+}
+.hyphenate {
+	@include hyphenation;
+}
