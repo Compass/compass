@@ -5,8 +5,8 @@
 //
 // There is no official list of accepted values, but you might check these source:
 //   Mozilla : https://developer.mozilla.org/en/CSS/-moz-appearance
-//   Webkit  : (unofficial) http://css-infos.net/property/-webkit-appearance
-
+//   Webkit  : http://developer.apple.com/library/safari/#documentation/appleapplications/reference/safaricssref/articles/standardcssproperties.html
+ 
 @mixin appearance($ap) {
   $ap: unquote($ap);
   @include experimental(appearance, $ap,
