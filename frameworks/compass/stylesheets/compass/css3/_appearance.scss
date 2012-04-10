@@ -1,9 +1,11 @@
 @import "shared";
 
-// Change the appearance for Mozilla, Webkit and the future
+// Change the appearance for Mozilla, Webkit and possibly the future.
+// The appearance property is currently not present in any newer CSS specification.
 //
-// @param $ap
-//   [ none | normal | icon | window | button | menu | field ]
+// There is no official list of accepted values, but you might check these source:
+//   Mozilla : https://developer.mozilla.org/en/CSS/-moz-appearance
+//   Webkit  : (unofficial) http://css-infos.net/property/-webkit-appearance
 
 @mixin appearance($ap) {
   $ap: unquote($ap);
