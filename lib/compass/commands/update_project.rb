@@ -22,7 +22,7 @@ module Compass
           self.options[:debug_info]= true
         end
 
-        opts.on("--no-debug-info", "Turns on sass's debuging information") do
+        opts.on("--no-debug-info", "Turns off sass's debuging information") do
           self.options[:debug_info]= false
         end
         super
