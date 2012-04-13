@@ -46,19 +46,31 @@
   $experimental-support-for-khtml: $khtml;
 }
 
+// Change the legacy-support-for-ie* settings in specific contexts.
+@mixin set-legacy-ie-support($ie6: false, $ie7: false, $ie8: false) {
+  $legacy-support-for-ie6: $ie6;
+  $legacy-support-for-ie7: $ie7;
+  $legacy-support-for-ie8: $ie8;
+}
+
 // This mixin allows you to change the experimental support settings for
 // child (@content) styles.
-@mixin with-only-support-for($moz: false, $webkit: false, $ms: false, $o: false, $khtml: false) {
+@mixin with-only-support-for($moz: false, $webkit: false, $ms: false, $o: false, $khtml: false, $legacy-ie: false) {
   // Capture the current state
   $original-moz: $experimental-support-for-mozilla;
   $original-webkit: $experimental-support-for-webkit;
   $original-o: $experimental-support-for-opera;
   $original-ms: $experimental-support-for-microsoft;
   $original-khtml: $experimental-support-for-khtml;
+  $original-ie6: $legacy-support-for-ie6;
+  $original-ie7: $legacy-support-for-ie7;
+  $original-ie8: $legacy-support-for-ie8;
   // Change support settings
   @include set-experimental-support($moz, $webkit, $ms, $o, $khtml);
+  @include set-legacy-ie-support($legacy-ie, $legacy-ie, $legacy-ie);
   // Apply styles
   @content;
   // Return to original support settings
+  @include set-legacy-ie-support($original-ie6, $original-ie7, $original-ie8);
   @include set-experimental-support($original-moz, $original-webkit, $original-ms, $original-o, $original-khtml);
 }
