@@ -55,14 +55,16 @@ $base-half-leader: $base-leader / 2;
 
 // Establishes a font baseline for the given font-size.
 @mixin establish-baseline($font-size: $base-font-size) {
-  // IE 6 refuses to resize fonts set in pixels and it weirdly resizes fonts
-  // whose root is set in ems. So we set the root font size in percentages of
-  // the default font size.
-  * html {
-    font-size: 100% * ($font-size / $browser-default-font-size);
+  $relative-size  : 100% * ($font-size / $browser-default-font-size);
+
+  @if $legacy-support-for-ie6 and (not $relative-font-sizing) {
+    // IE 6 refuses to resize fonts set in pixels and it weirdly resizes fonts
+    // whose root is set in ems. So we set the root font size in percentages of
+    // the default font size, even if we are using absolute sizes elsewhere.
+    * html { font-size: $relative-size; }
   }
   html {
-    font-size: $font-size;
+    font-size: if($relative-font-sizing,$relative-size,$font-size);
     @include adjust-leading-to(1, if($relative-font-sizing, $font-size, $base-font-size));
   }
 }
