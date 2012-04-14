@@ -41,7 +41,7 @@ $base-half-leader: $base-leader / 2;
 
 // True if a number has a relative unit.
 @function relative-unit($number) {
-  @return unit($number) == "%" or unit($number) == "em" or unit($number) == "rem"
+  @return unit($number) == "%" or unit($number) == "em" or unit($number) == "rem";
 }
 
 // True if a number has an absolute unit.
