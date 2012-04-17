@@ -20,6 +20,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Allow numeric sprite names when not using sprite selector generation capability.
 * Add new mixin for styling [input
   placeholders](/reference/compass/css3/user_interface/#mixin-input-placeholder).
+* Add [css animations module](/reference/compass/css3/animation/).
+* When `$relative-font-sizing` is true, vertical-rhythm font sizes are declared in relative units throughout the document, including `establish-baseline`. This ensures that user defaults set in the browser are respected.
 
 0.12.2 (UNRELEASED)
 -------------------
