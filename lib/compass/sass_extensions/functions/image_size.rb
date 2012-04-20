@@ -47,7 +47,8 @@ private
   def image_dimensions(image_file)
     options[:compass] ||= {}
     options[:compass][:image_dimensions] ||= {}
-    options[:compass][:image_dimensions][image_file.value] = ImageProperties.new(image_path_for_size(image_file.value)).size
+    path = image_path_for_size(image_file.value)
+    options[:compass][:image_dimensions][image_file.value] ||= ImageProperties.new(path).size
   end
   
   def image_path_for_size(image_file)
@@ -60,10 +61,12 @@ private
   def real_path(image_file)
     # Compute the real path to the image on the file stystem if the images_dir is set.
     if Compass.configuration.images_path
-      File.join(Compass.configuration.images_path, image_file)
-    else
-      File.join(Compass.configuration.project_path, image_file)
+      for possible_dir_path in Compass.configuration.images_path.map do
+        path = File.join(possible_dir_path, image_file)
+        return path if File.exists?(path)
+      end
     end
+    File.join(Compass.configuration.project_path, image_file)
   end
 
   class JPEG
