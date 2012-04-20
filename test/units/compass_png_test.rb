@@ -1,4 +1,5 @@
-require 'test_helper'
+require File.expand_path("../../test_helper", __FILE__)
+require 'compass/grid_builder'
 require 'fileutils'
 
 class CompassPngTest < Test::Unit::TestCase
