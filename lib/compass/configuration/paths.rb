@@ -9,12 +9,12 @@ module Compass::Configuration::Paths
         class_eval %Q{
           def #{attr}                                # def css_dir
             paths = #{attr}_with_trailing_separator  #   paths = css_dir_with_trailing_separator
-            paths.map do |path|
-              if path.to_s =~ TRAILING_SEPARATOR       #   if path =~ TRAILING_SEPARATOR
-                path[0..-($1.length+1)]         #     path = path[0..-($1.length+1)]
-              else
-                path
-              end
+            paths.map do |path|                      #   paths.map do |path| 
+              if path.to_s =~ TRAILING_SEPARATOR     #     if path =~ TRAILING_SEPARATOR
+                path[0..-($1.length+1)]              #       path = path[0..-($1.length+1)]
+              else                                   #     else
+                path                                 #       path
+              end                                    #     end
             end                                      #   end                                     #   path
           end                                        # end
         }
