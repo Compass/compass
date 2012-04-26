@@ -17,7 +17,9 @@
   time, mark, audio, video {
     @include reset-box-model;
     @include reset-font; }
-  body {
+  // Unlike Eric's original reset, we reset the html element to be compatible
+  // with the vertical rhythm mixins.
+  html {
     @include reset-body; }
   ol, ul {
     @include reset-list-style; }
