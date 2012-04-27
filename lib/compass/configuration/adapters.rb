@@ -13,8 +13,13 @@ module Compass
         Compass::Frameworks::ALL.each do |framework|
           locations << [framework.stylesheets_directory, File.join(css_path || css_dir || ".", framework.name)]
         end
+        load_paths = []
         resolve_additional_import_paths.each do |additional_path|
-          locations << [additional_path, File.join(css_path || css_dir || ".", File.basename(additional_path))]
+          if additional_path.is_a?(String)
+            locations << [additional_path, File.join(css_path || css_dir || ".", File.basename(additional_path))]
+          else
+            load_paths << additional_path
+          end
         end
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
@@ -23,13 +28,14 @@ module Compass
         plugin_opts[:cache_location] = cache_path unless cache_path.nil?
         plugin_opts.merge!(sass_options || {})
         plugin_opts[:load_paths] ||= []
+        plugin_opts[:load_paths] += load_paths
         plugin_opts[:load_paths] << Compass::SpriteImporter.new
         plugin_opts
       end
 
       def resolve_additional_import_paths
         (additional_import_paths || []).map do |path|
-          if project_path && !absolute_path?(path)
+          if path.is_a?(String) && project_path && !absolute_path?(path)
             File.join(project_path, path)
           else
             path

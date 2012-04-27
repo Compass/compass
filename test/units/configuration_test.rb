@@ -240,6 +240,21 @@ EXPECTED
     assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
   end
 
+  def test_additional_import_paths_can_be_importers
+    contents = StringIO.new(<<-CONFIG)
+      http_path = "/"
+      project_path = "/home/chris/my_compass_project"
+      css_dir = "css"
+      additional_import_paths = ["../foo"]
+      add_import_path Sass::Importers::Filesystem.new("/tmp/foo")
+    CONFIG
+
+    Compass.add_configuration(contents, "test_additional_import_paths")
+
+    assert Compass.configuration.sass_load_paths.find{|p| p.is_a?(Sass::Importers::Filesystem) && p.root == "/tmp/foo"}
+    assert Compass.configuration.to_sass_plugin_options[:load_paths].find{|p| p.is_a?(Sass::Importers::Filesystem) && p.root == "/tmp/foo"}
+  end
+
   def test_config_with_pathname
     contents = StringIO.new(<<-CONFIG)
       http_path = "/"

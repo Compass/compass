@@ -69,7 +69,11 @@ $base-half-leader: $base-leader / 2;
   }
 }
 
-// resets the baseline to 1 leading unit
+// Resets the line-height to 1 vertical rhythm unit.
+// Does not work on elements whose font-size is different from $base-font-size.
+//
+// @deprecated This mixin will be removed in the next release.
+// Please use the `adjust-leading-to` mixin instead.
 @mixin reset-baseline {
   @include adjust-leading-to(1, if($relative-font-sizing, $base-font-size, $base-font-size));
 }
@@ -109,12 +113,13 @@ $base-half-leader: $base-leader / 2;
 // Calculate rhythm units.
 @function rhythm(
   $lines: 1,
-  $font-size: $base-font-size
+  $font-size: $base-font-size,
+  $offset: 0
 ) {
   @if not $relative-font-sizing and $font-size != $base-font-size {
     @warn "$relative-font-sizing is false but a relative font size was passed to the rhythm function";
   }
-  $rhythm: $font-unit * $lines * $base-line-height / $font-size;
+  $rhythm: $font-unit * ($lines * $base-line-height - $offset) / $font-size;
   // Round the pixels down to nearest integer.
   @if unit($rhythm) == px {
     $rhythm: floor($rhythm);
@@ -181,7 +186,7 @@ $base-half-leader: $base-leader / 2;
     style: $border-style;
     width: $font-unit * $width / $font-size;
   };
-  padding-#{$side}: $font-unit / $font-size * ($lines * $base-line-height - $width);
+  padding-#{$side}: rhythm($lines, $font-size, $offset: $width);
 }
 
 // Apply borders and whitespace equally to all sides.
@@ -193,7 +198,7 @@ $base-half-leader: $base-leader / 2;
     style: $border-style;
     width: $font-unit * $width / $font-size;
   };
-  padding: $font-unit / $font-size * ($lines * $base-line-height - $width);
+  padding: rhythm($lines, $font-size, $offset: $width);
 }
 
 // Apply a leading border.
