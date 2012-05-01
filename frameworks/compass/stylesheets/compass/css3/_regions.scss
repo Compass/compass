@@ -16,7 +16,7 @@
 
 @mixin flow-from($target) {
   $target: unquote($target);
-  @include experimental(flow-from, $source,
+  @include experimental(flow-from, $target,
     not -moz, -webkit, not -o, -ms, not -khtml, not official
   );
 }
