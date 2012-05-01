@@ -24,6 +24,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   vertical rhythm module work better with `rem` based measurements.
 * [CSS3] Added 3D transform support for Mozillia, IE, and Opera.
 * [CSS3] Added `-ms` support for css3 columns. Add support for the columns shorthand property.
+* [CSS3] Added `-ms` and `-webkit` support for CSS Regions. [Docs](/reference/compass/css3/regions/)
 * [CLI] Added a `-I` option for adding sass import paths via the CLI during compilation and project set up.
 * [Configuration] For better ruby and rails integration, the `add_import_path` command now accepts
   [Sass::Importer](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#custom_importers) objects
