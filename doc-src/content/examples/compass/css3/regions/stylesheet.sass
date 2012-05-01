@@ -2,16 +2,12 @@
 
 .source   
   +flow-into(target)
-
-.target 
-  +flow-from(source)
-
-.source
   border: 10px solid green
   margin: 20px
   width: 200px
 
-.target
+.new-container 
+  +flow-from(target)
   border: 10px solid red
   margin: 20px
   width: 200px
