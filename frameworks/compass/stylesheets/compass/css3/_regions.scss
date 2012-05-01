@@ -8,12 +8,14 @@
 // [CSS-Tricks](http://css-tricks.com/content-folding/)
 
 @mixin flow-into($target) {
+  $target: unquote($target);
   @include experimental(flow-into, $target,
     not -moz, -webkit, not -o, -ms, not -khtml, not official
   );
 }
 
 @mixin flow-from($target) {
+  $target: unquote($target);
   @include experimental(flow-from, $source,
     not -moz, -webkit, not -o, -ms, not -khtml, not official
   );
