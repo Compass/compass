@@ -34,3 +34,23 @@ p.light-with-args {
 p.dark-with-args {
   background-color: #5f1210;
   color: blue; }
+
+th {
+  background-color: white; }
+  th.even, th:nth-child(2n) {
+    background-color: yellow; }
+
+tr.odd td, tr:nth-child(2n+1) td {
+  background-color: white; }
+  tr.odd td.even, tr.odd td:nth-child(2n), tr:nth-child(2n+1) td.even, tr:nth-child(2n+1) td:nth-child(2n) {
+    background-color: yellow; }
+
+tr.even td {
+  background-color: red; }
+  tr.even td.even, tr.even td:nth-child(2n) {
+    background-color: red; }
+
+tfoot th, tfoot td {
+  background-color: white; }
+  tfoot th.even, tfoot th:nth-child(2n), tfoot td.even, tfoot td:nth-child(2n) {
+    background-color: yellow; }

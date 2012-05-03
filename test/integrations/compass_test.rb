@@ -73,6 +73,28 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
+  def test_env_in_development
+    within_project('envtest', lambda {|c| c.environment = :development }) do |proj|
+      each_css_file(proj.css_path) do |css_file|
+        assert_no_errors css_file, 'envtest'
+      end
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file, :ignore_charset => true, :environment => "development"
+      end
+    end
+  end
+
+  def test_env_in_production
+    within_project('envtest', lambda {|c| c.environment = :production }) do |proj|
+      each_css_file(proj.css_path) do |css_file|
+        assert_no_errors css_file, 'envtest'
+      end
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file, :ignore_charset => true, :environment => "production"
+      end
+    end
+  end
+
   def test_busted_image_urls
     within_project('busted_image_urls') do |proj|
       each_css_file(proj.css_path) do |css_file|
@@ -125,11 +147,10 @@ private
       expected_lines.gsub!(/^@charset[^;]+;/,'') if options[:ignore_charset]
       expected_lines = expected_lines.split("\n").reject{|l| l=~/\A\Z/}
       expected_lines.zip(actual_lines).each_with_index do |pair, line|
-        message = "template: #{name}\nline:     #{line + 1}"
         if pair.first == pair.last
           assert(true)
         else
-          assert false, diff_as_string(pair.first.inspect, pair.last.inspect)
+          assert false, "Error in #{result_path(@current_project)}/#{name}.css:#{line + 1}\n"+diff_as_string(pair.first.inspect, pair.last.inspect)
         end
       end
       if expected_lines.size < actual_lines.size
@@ -151,6 +172,7 @@ private
 
     if Compass.configuration.sass_path && File.exists?(Compass.configuration.sass_path)
       compiler = Compass::Compiler.new *args
+      compiler.clean!
       compiler.run
     end
     yield Compass.configuration if block_given?

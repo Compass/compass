@@ -1,0 +1,71 @@
+.single-transition-without-delay {
+  -webkit-transition: all 0.6s ease-out;
+  -moz-transition: all 0.6s ease-out;
+  -ms-transition: all 0.6s ease-out;
+  -o-transition: all 0.6s ease-out;
+  transition: all 0.6s ease-out; }
+
+.single-transition-with-delay {
+  -webkit-transition: all 0.6s ease-out;
+  -webkit-transition-delay: 0.2s;
+  -moz-transition: all 0.6s ease-out 0.2s;
+  -ms-transition: all 0.6s ease-out 0.2s;
+  -o-transition: all 0.6s ease-out 0.2s;
+  transition: all 0.6s ease-out 0.2s; }
+
+.transition-duration-string {
+  -webkit-transition-duration: 0.2s, 0.5s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.5s, 0.2s;
+  -ms-transition-duration: 0.2s, 0.5s, 0.2s;
+  -o-transition-duration: 0.2s, 0.5s, 0.2s;
+  transition-duration: 0.2s, 0.5s, 0.2s; }
+
+.transition-duration-list {
+  -webkit-transition-duration: 0.2s, 0.5s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.5s, 0.2s;
+  -ms-transition-duration: 0.2s, 0.5s, 0.2s;
+  -o-transition-duration: 0.2s, 0.5s, 0.2s;
+  transition-duration: 0.2s, 0.5s, 0.2s; }
+
+.single-transform-transition-without-delay {
+  -webkit-transition: -webkit-transform 0.6s ease-out;
+  -moz-transition: -moz-transform 0.6s ease-out;
+  -ms-transition: -ms-transform 0.6s ease-out;
+  -o-transition: -o-transform 0.6s ease-out;
+  transition: transform 0.6s ease-out; }
+
+.single-transform-transition-with-delay {
+  -webkit-transition: -webkit-transform 0.6s ease-out;
+  -webkit-transition-delay: 0.2s;
+  -moz-transition: -moz-transform 0.6s ease-out 0.2s;
+  -ms-transition: -ms-transform 0.6s ease-out 0.2s;
+  -o-transition: -o-transform 0.6s ease-out 0.2s;
+  transition: transform 0.6s ease-out 0.2s; }
+
+.transform-transition {
+  -webkit-transition: -webkit-transform 0.6s ease-out;
+  -moz-transition: -moz-transform 0.6s ease-out;
+  -ms-transition: -ms-transform 0.6s ease-out;
+  -o-transition: -o-transform 0.6s ease-out;
+  transition: transform 0.6s ease-out; }
+
+.multiple-transitions {
+  -webkit-transition: -webkit-transform 0.6s ease-out, opacity 0.2s ease-in;
+  -moz-transition: -moz-transform 0.6s ease-out, opacity 0.2s ease-in;
+  -ms-transition: -ms-transform 0.6s ease-out, opacity 0.2s ease-in;
+  -o-transition: -o-transform 0.6s ease-out, opacity 0.2s ease-in;
+  transition: transform 0.6s ease-out, opacity 0.2s ease-in; }
+
+.transition-property {
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -ms-transition-property: -ms-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform; }
+
+.multiple-transition-properties {
+  -webkit-transition-property: opacity, -webkit-transform, left;
+  -moz-transition-property: opacity, -moz-transform, left;
+  -ms-transition-property: opacity, -ms-transform, left;
+  -o-transition-property: opacity, -o-transform, left;
+  transition-property: opacity, transform, left; }

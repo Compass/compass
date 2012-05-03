@@ -7,16 +7,29 @@ module Compass
 
         include SpriteMethods
         include ImageMethods
+        include LayoutMethods
 
 
         # Initialize a new sprite object from a relative file path
         # the path is relative to the <tt>images_path</tt> confguration option
         def self.from_uri(uri, context, kwargs)
-          importer = ::Compass::SpriteImporter.new(:uri => uri.value, :options => {})
-          sprites = importer.files.map do |sprite|
-            sprite.gsub(Compass.configuration.images_path+"/", "")
+          uri = uri.value
+          path, name = Compass::SpriteImporter.path_and_name(uri)
+          files = Compass::SpriteImporter.files(uri)
+          sprites = files.map do |sprite|
+            relative_name(sprite)
           end
-          new(sprites, importer.path, importer.name, context, kwargs)
+          new(sprites, path, name, context, kwargs)
+        end
+        
+        def self.relative_name(sprite)
+          sprite = File.expand_path(sprite)
+          Compass.configuration.sprite_load_path.each do |path|
+            path = File.expand_path(path)
+            if sprite.include?(path)
+              return sprite.gsub("#{path}/", "")
+            end
+          end
         end
 
         def initialize(sprites, path, name, context, kwargs)
@@ -25,6 +38,7 @@ module Compass
           @name = name
           @kwargs = kwargs
           @kwargs['cleanup'] ||= Sass::Script::Bool.new(true)
+          @kwargs['layout'] ||= Sass::Script::String.new('vertical')
           @images = nil
           @width = nil
           @height = nil
@@ -35,7 +49,14 @@ module Compass
         end
 
         def inspect
-          to_s
+          puts 'images'
+          @images.each do |img|
+            puts img.file
+          end
+          puts "options"
+          @kwargs.each do |k,v|
+            puts "#{k}:#{v}"
+          end
         end
 
         def to_s(kwargs = self.kwargs)

@@ -1,8 +1,8 @@
 --- 
-title: Compass Sprite Helpers
+title: CSS Sprite Helpers for Compass
 crumb: Sprites
 framework: compass
-meta_description: Helper functions for working with Sprite images.
+meta_description: Helper functions for working with CSS Sprite images.
 layout: core
 classnames:
   - reference
@@ -16,13 +16,13 @@ documented_functions:
   - "sprite-url"
   - "sprite-position"
 ---
-%h1 Compass Sprite Helpers
+%h1 <strong>CSS Sprite</strong> Helpers for Compass
 
 :markdown
-  These helpers make it easier to build and to work with sprites.
+  These helpers make it easier to build and to work with <em>css sprites</em>.
   
   While it is allowed to use these directly, to do so is considered "advanced usage".
-  It is recommended that you instead use the sprite mixins that are designed to work
+  It is recommended that you instead use the css sprite mixins that are designed to work
   with these functions.
   
   See the [Spriting Tutorial](/help/tutorials/spriting/) for more information.
@@ -33,31 +33,31 @@ documented_functions:
       sprite-map(<span class="arg">$glob</span>, <span class="arg">...</span>)
   .details
     :markdown
-      Generates a sprite map from the files matching the glob pattern. Uses the
+      Generates a css sprite map from the files matching the glob pattern. Uses the
       keyword-style arguments passed in to control the placement.
       
-      Only PNG files can be made into sprites at this time.
+      Only PNG files can be made into css sprites at this time.
       
       The `$glob` should be glob pattern relative to the images directory that specifies
-      what files will be in the sprite. For example:
+      what files will be in the css sprite. For example:
       
           $icons: sprite-map("icons/*.png");
           background: $icons;
       
-      This will generate a sprite map and return a reference to it. It's important to
+      This will generate a css sprite map and return a reference to it. It's important to
       capture this to a variable, because you will need to use it later when creating
-      sprites. In the above example you might end up with a new file named
+      css sprites. In the above example you might end up with a new file named
       `images/sprites/icons-a2ef041.png` and your css stylesheet will have:
       
           background: url('/images/sprites/icons-a2ef041.png?1234678') no-repeat;
       
       The exact image name is not something you should depend on as it may change based on the
       arguments you pass in. Instead, you can use the `sprite-url()` function to create a
-      reference to the sprite map without generating the image again. Alternatively, simply
+      reference to the css sprite map without generating the image again. Alternatively, simply
       using the sprite map variable in an property will have the same effect as calling
       `sprite-url()`.
       
-      For each sprite in the sprite map you can control the position, spacing, and whether or
+      For each sprite in the css sprite map you can control the position, spacing, and whether or
       not it repeats. You do this by passing arguments to this function that tell each sprite
       how to behave. For instance if there is a icons/new.png then you can control it like so:
       
@@ -91,8 +91,8 @@ documented_functions:
       sprite-map-name(<span class="arg">$map</span>)
   .details
     :markdown
-      Returns the name of a sprite map
-      The name is derived from the folder than contains the sprites.
+      Returns the name of a css sprite map
+      The name is derived from the folder than contains the css sprites.
 
 #sprite-file.helper
   %h3

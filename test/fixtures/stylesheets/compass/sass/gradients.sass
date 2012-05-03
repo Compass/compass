@@ -1,4 +1,4 @@
-@import compass/css3/images, compass/css3/gradient
+@import compass/css3/images
 
 $experimental-support-for-svg: true
 .bg-shortcut-simple-image
@@ -31,8 +31,13 @@ $experimental-support-for-svg: true
 .bg-linear-gradient-pixel-stop-from-left
   +background-image(linear-gradient(left, #ddd 10px, #aaa 40px))
 
+.transparent-in-linear-gradient
+  +background-image(#fff linear-gradient(top left, transparent, #aaa))
+
+.transparent-in-linear-gradient
+  +background-image(radial-gradient(center center, #ddd, transparent 100px))
+
 .bg-radial-gradient
-  +background-image(radial-gradient(center center, #ddd, #aaa 100px))
 
 .bg-linear-gradient-with-angle
   +background-image(linear-gradient(-45deg, #ddd, #aaa))
@@ -82,147 +87,6 @@ $experimental-support-for-svg: false
 .unknown-function-wrapper
   +background(foo(radial-gradient(#ddd, #aaa 100px)))
 
-.linear-1
-  +linear-gradient(color-stops(#dddddd, #aaaaaa))
-
-.linear-2
-  +linear-gradient(color-stops(#dddddd, #aaaaaa), left)
-
-.linear-3
-  +linear-gradient(color-stops(#dddddd, #aaaaaa), top left)
-
-.linear-4
-  +linear-gradient(color-stops(#dddddd, #aaaaaa), top right)
-
-.linear-5
-  +linear-gradient(color-stops(#dddddd, #cccccc, #aaaaaa))
-
-.linear-6
-  +linear-gradient(color-stops(#dddddd, #cccccc 20%, #aaaaaa))
-
-.linear-7
-  +linear-gradient(color-stops(#dddddd, #cccccc 20%, #eeeeee, #aaaaaa))
-
-.linear-8
-  +linear-gradient(color-stops(#dddddd 80%, #aaaaaa))
-
-.linear-9
-  +linear-gradient(color-stops(#dddddd, #aaaaaa 20%))
-
-.linear-10
-  +linear-gradient(color-stops(#dddddd 40%, #aaaaaa 50%))
-
-.linear-11
-  +linear-gradient(color-stops(#dddddd 40%, black, #aaaaaa 50%))
-
-.linear-12
-  +linear-gradient(color-stops(white, blue 33%, black 67%))
-  
-.radial-1
-  // A default radial gradient:
-     A centered gradient having the shape of the container (aka ellipse)
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px))
-
-.radial-2
-  // A centered gradient having the shape of the container (aka ellipse)
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px))
-
-.radial-3
-  // A centered gradient at the top having the shape of the container (aka ellipse)
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px), top center)
-
-.radial-4
-  // A centered gradient having a circular shape
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px))
-
-.radial-5
-  // A centered gradient at the top having a circular shape
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px), top center)
-
-.radial-6
-  // A centered circular gradient with color stops
-     The color stops must be absolute units
-  +radial-gradient(color-stops(#dddddd 20px, #aaaaaa 50px))
-
-.radial-7
-  // A centered elliptical gradient with color stops
-     The color stops must be relative units
-  +radial-gradient(color-stops(#dddddd 20%, #aaaaaa 50px))
-
-.alpha-linear
-  +linear-gradient(color-stops(rgba(255, 255, 255, 0) 40%, rgba(255, 127, 127, 0.5), rgba(255, 255, 255, 1) 50%))
-
-$experimental-support-for-svg: true
-.linear-svg-1
-  +linear-gradient(color-stops(#dddddd, #aaaaaa))
-
-.linear-svg-2
-  +linear-gradient(color-stops(#dddddd, #aaaaaa), left)
-
-.linear-svg-3
-  +linear-gradient(color-stops(#dddddd, #aaaaaa), top left)
-
-.linear-svg-4
-  +linear-gradient(color-stops(#dddddd, #aaaaaa), top right)
-
-.linear-svg-5
-  +linear-gradient(color-stops(#dddddd, #cccccc, #aaaaaa))
-
-.linear-svg-6
-  +linear-gradient(color-stops(#dddddd, #cccccc 20%, #aaaaaa))
-
-.linear-svg-7
-  +linear-gradient(color-stops(#dddddd, #cccccc 20%, #eeeeee, #aaaaaa))
-
-.linear-svg-8
-  +linear-gradient(color-stops(#dddddd 80%, #aaaaaa))
-
-.linear-svg-9
-  +linear-gradient(color-stops(#dddddd, #aaaaaa 20%))
-
-.linear-svg-10
-  +linear-gradient(color-stops(#dddddd 40%, #aaaaaa 50%))
-
-.linear-svg-11
-  +linear-gradient(color-stops(#dddddd 40%, black, #aaaaaa 50%))
-
-.linear-svg-12
-  +linear-gradient(color-stops(white, blue 33%, black 67%))
-
-.radial-svg-1
-  // A default radial gradient:
-     A centered gradient having the shape of the container (aka ellipse)
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px))
-
-.radial-svg-2
-  // A centered gradient having the shape of the container (aka ellipse)
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px))
-
-.radial-svg-3
-  // A centered gradient at the top having the shape of the container (aka ellipse)
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px), top center)
-
-.radial-svg-4
-  // A centered gradient having a circular shape
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px))
-
-.radial-svg-5
-  // A centered gradient at the top having a circular shape
-  +radial-gradient(color-stops(#dddddd, #aaaaaa 100px), top center)
-
-.radial-svg-6
-  // A centered circular gradient with color stops
-     The color stops must be absolute units
-  +radial-gradient(color-stops(#dddddd 20px, #aaaaaa 50px))
-
-.radial-svg-7
-  // A centered elliptical gradient with color stops
-     The color stops must be relative units
-  +radial-gradient(color-stops(#dddddd 20%, #aaaaaa 50px))
-
-.alpha-linear-svg
-  +linear-gradient(color-stops(rgba(255, 255, 255, 0) 40%, rgba(255, 127, 127, 0.5), rgba(255, 255, 255, 1) 50%))
-
 .ie-horizontal-filter
   +filter-gradient(white, black, horizontal)
 
@@ -231,3 +95,4 @@ $experimental-support-for-svg: true
 
 .ie-alpha-filter
   +filter-gradient(rgba(#fff, 1), rgba(#fff, 0))
+

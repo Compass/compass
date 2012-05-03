@@ -86,7 +86,9 @@ module Sass
         docstring.gsub(/@doc off(.*?)@doc on/m, '')
       end
       def docstring
-        value.gsub(PRE_COMMENT, '').gsub(POST_COMMENT, '')
+        v = value
+        v = v.join("\n") if v.respond_to?(:join)
+        v.gsub(PRE_COMMENT, '').gsub(POST_COMMENT, '')
       end
       def doc
         if value == "@doc off"

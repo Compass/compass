@@ -34,13 +34,16 @@ module Compass
         compiler = new_compiler_instance
         sass_files = sorted_sass_files(compiler)
         total_label = "Total (#{sass_files.size} files):"
-        rows       = [[           :-,           :-,           :-,            :-,            :-,              :-,               :- ],
-                      [   'Filename',      'Rules', 'Properties', 'Mixins Defs', 'Mixins Used', 'CSS Selectors', 'CSS Properties' ],
-                      [           :-,           :-,           :-,            :-,            :-,              :-,               :- ]]
-        maximums   =  [ total_label.length,      5,           10,            14,            11,              13,               14 ]
-        alignments =  [        :left,       :right,       :right,        :right,        :right,          :right,           :right ]
-        delimiters =  [ ['| ', ' |'],  [' ', ' |'],  [' ', ' |'],   [' ', ' |'],   [' ', ' |'],     [' ', ' |'],      [' ', ' |'] ]
-        totals     =  [ total_label,             0,            0,             0,             0,               0,                0 ]
+        rows       = [[           :-,           :-,           :-,            :-,            :-,          :-,              :-,               :-,             :- ],
+                      [   'Filename',      'Rules', 'Properties', 'Mixins Defs', 'Mixins Used',  'Filesize', 'CSS Selectors', 'CSS Properties', 'CSS Filesize' ],
+                      [           :-,           :-,           :-,            :-,            :-,          :-,              :-,               :-,             :- ]]
+        maximums   =  [ total_label.length,      5,           10,            14,            11,          13,              13,               14,             14 ]
+        alignments =  [        :left,       :right,       :right,        :right,        :right,      :right,          :right,           :right,         :right ]
+        delimiters =  [ ['| ', ' |'],  [' ', ' |'],  [' ', ' |'],   [' ', ' |'],   [' ', ' |'], [' ', ' |'],     [' ', ' |'],      [' ', ' |'],    [' ', ' |'] ]
+        formatters =  [          nil,          nil,          nil,           nil,           nil,         :kb,             nil,             nil,             :kb ]
+        totals     =  [ total_label,             0,            0,             0,             0,           0,               0,                0,              0 ]
+
+        columns = rows.first.size
 
         sass_files.each do |sass_file|
           css_file = compiler.corresponding_css_file(sass_file) unless sass_file[0..0] == '_'
@@ -53,12 +56,12 @@ module Compass
           end
           rows << row
         end
-        rows << [:-] * 7
+        rows << [:-] * columns
         rows << totals.map{|t| t.to_s}
-        rows << [:-] * 7
+        rows << [:-] * columns
         rows.each do |row|
           row.each_with_index do |col, i|
-            print pad(col, maximums[i], :align => alignments[i], :left => delimiters[i].first, :right => delimiters[i].last)
+            print pad(col, maximums[i], :align => alignments[i], :left => delimiters[i].first, :right => delimiters[i].last, :formatter => formatters[i])
           end
           print "\n"
         end
@@ -75,9 +78,21 @@ module Compass
         else
           filler = ' '
         end
+        c = send(:"format_#{options[:formatter]}", c) if options[:formatter]
         spaces = max - c.size
         filled = filler * [spaces,0].max
         "#{options[:left]}#{filled if options[:align] == :right}#{c}#{filled if options[:align] == :left}#{options[:right]}"
+      end
+
+      def format_kb(v)
+        return v unless v =~ /^\d+$/
+        v = Integer(v)
+        if v < 1024
+          "#{v} B"
+        else
+          v = v / 1024.0
+          "#{v.ceil} KB"
+        end
       end
 
       def sorted_sass_files(compiler)
@@ -100,7 +115,7 @@ module Compass
       def sass_columns(sass_file)
         sf = Compass::Stats::SassFile.new(sass_file)
         sf.analyze!
-        %w(rule_count prop_count mixin_def_count mixin_count).map do |t|
+        %w(rule_count prop_count mixin_def_count mixin_count file_size).map do |t|
           sf.send(t).to_s
         end
       end
@@ -109,11 +124,11 @@ module Compass
         if File.exists?(css_file)
           cf = Compass::Stats::CssFile.new(css_file)
           cf.analyze!
-          %w(selector_count prop_count).map do |t|
+          %w(selector_count prop_count file_size).map do |t|
             cf.send(t).to_s
           end
         else
-          return [ '--', '--' ]
+          return [ '--', '--' , '--']
         end
       rescue LoadError
         @missing_css_parser = true

@@ -10,10 +10,10 @@ Contributing Stylesheets to Compass
 
 Thank you for your interest in contributing to Compass. Our goal is to make it as easy
 as we can for you to contribute changes to compass -- So if there's something here that
-seems harder than it aught to be, please let us know.
+seems harder than it ought to be, please let us know.
 
 If you find a bug **in this document**, you are bound to contribute a fix. Stop reading now
-if you do not wish to abide by this rool.
+if you do not wish to abide by this rule.
 
 **Step 1**: If you do not have a github account, create one.
 
@@ -89,12 +89,12 @@ If the tests fail, fix the tests or the stylesheets accordingly. If the tests, d
 fail, that means this aspect was not well enough tested. Please [add or augment
 a test](#writing-tests).
 
-You're done. Please [submit your changes](#patches)
+You're done. Please [submit your changes](#patches).
 
 <h2 id="stylesheet-changes">Making Stylesheet Changes</h2>
 
 It is a good idea to discuss new features ideas with the compass users and developers
-before building something. Please don't by shy; send an email to the [compass mailing
+before building something. Please don't be shy; send an email to the [compass mailing
 list](http://groups.google.com/group/compass-users).
 
 Many feature ideas are good but not obviously a good fit for the compass core library.
@@ -112,7 +112,7 @@ making extensions.][extensions]
 **Step 6**: Documentation - Add or update the reference documentation. Add
 an example of using the feature. See the [doc readme for details][documentation].
 
-You're done. Please [submit your changes](#patches)
+You're done. Please [submit your changes](#patches).
 
 <h2 id="ruby-changes">Making Ruby Changes</h2>
 
@@ -202,7 +202,7 @@ will result:
 4. Compass frameworks are not special. If compass can do it, so should an extension
    be able.
 5. Sass is awesome -- Compass should make sass more accessible and
-   demonstrate how to use Sass to it's fullest potential.
+   demonstrate how to use Sass to its fullest potential.
 6. Developing across browsers is hard and will always be hard. It takes
    a community to get it right.
 7. By default, Compass supports as many browsers as it can. Where it can't
@@ -278,15 +278,28 @@ Getting recent changes from the main repo:
 
 <h3 id="running-tests">Running Tests</h3>
 
-1. Install development dependencies:
+1. You must have Ruby installed on your system. After [setting up git](#setting-up-git),
+   change to the root directory of your git checkout of Compass.
+
+       cd compass
+
+2. Install the bundler Ruby gem.
+
+       gem install bundler
+
+   If installing to your system gems, you'll probably need to add `sudo` to the
+   front of that command. If you don't know what that means, you probably need
+   to add `sudo` to the front.
+
+3. Install development dependencies:
 
        bundle install --binstubs devbin
 
-2. Running core library and stylesheet tests:
+4. Running core library and stylesheet tests:
 
-       rake run_tests
+       bundle exec rake test features
 
-3. Running behavior tests
+5. Running behavior tests
 
        ./devbin/cucumber
 

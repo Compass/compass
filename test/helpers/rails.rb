@@ -10,7 +10,7 @@ module Compass
     # Generate a rails application without polluting our current set of requires
     # with the rails libraries. This will allow testing against multiple versions of rails
     # by manipulating the load path.
-    def generate_rails_app(name)
+    def generate_rails_app(name, dir = nil)
       if pid = fork
         Process.wait(pid)
         if $?.exitstatus == 2
@@ -22,7 +22,16 @@ module Compass
         begin
           require 'action_pack/version'
           if ActionPack::VERSION::MAJOR >= 3
-            `rails new #{name}`
+            require 'rails/generators'
+            require 'rails/generators/rails/app/app_generator'
+            require 'mocha'
+            dir ||= File.join(File.expand_path('../../', __FILE__))
+            args = [File.join(dir, name), '-q', '-f', '--skip-bundle', '--skip-gemfile']
+            
+            #stub this so you can generate more apps
+            Rails::Generators::AppGenerator.any_instance.stubs(:valid_const?).returns(true)
+            Rails::Generators::AppGenerator.start(args, {:destination_root => dir})
+            
           else
             require 'rails/version'
             require 'rails_generator'

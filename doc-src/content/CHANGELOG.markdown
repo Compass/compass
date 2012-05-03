@@ -14,10 +14,138 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.11.6 (UNRELEASED)
+0.12.2 (UNRELEASED)
 -------------------
 
-* Added `user-select` mixin to control the selection model and granularity of an element. It accepts one argument (`$select`) from the following options: `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+* [Vertical Rhythm Module] Removed the `$ie-font-ratio` constatnt in
+  favor of a more clear `$browser-default-font-size` constant.
+* [Vertical Rhythm Module] The `establish-baseline` mixin now styles the
+  `<html>` element instead of the `<body>` element. This makes the
+  vertical rhythm module work better with `rem` based measurements.
+* [CSS3] Added 3D transform support for Mozillia, IE, and Opera.
+* [CSS3] Added `-ms` support for css3 columns. Add support for the columns shorthand property.
+* [CSS3] Added `-ms` and `-webkit` support for CSS Regions. [Docs](/reference/compass/css3/regions/)
+* [CLI] Added a `-I` option for adding sass import paths via the CLI during compilation and project set up.
+* [Configuration] For better ruby and rails integration, the `add_import_path` command now accepts
+  [Sass::Importer](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#custom_importers) objects
+  and [Ruby Pathname](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html) objects.
+
+0.12.1 (03/14/2012)
+-------------------
+
+* Fixed a bug in font-files mime-type detection.
+* Code cleanup and better documentation for the vertical-rhythm module.
+* Add support for installing compass on Macs using a [one-click installer](https://github.com/chriseppstein/compass/downloads).
+
+0.12.rc.2 (03/11/2012)
+----------------------
+
+### Stylesheet Changes
+
+* Improved [hide-text mixin](/reference/compass/typography/text/replacement/#mixin-hide-text) for better performance and accessibility.
+* Added [squish-text mixin](/reference/compass/typography/text/replacement/#mixin-squish-text) to hide text on inline elements.
+* Compass css3 transitions module now correctly handled transitioning of
+  prefixed properties.
+
+### Misc Changes
+* Fix the mime-type of embedded `woff` font files. Add support for Embedded OpenType fonts.
+* New math functions are now available: `e()`, `logarithm($number[, $base = e()])`, `square-root($number)`
+  and `pow($number, $exponent)`
+
+
+0.12.rc.1 (02/02/2012)
+----------------------
+
+Give warnings for users who upgrade without knowing about the compass-rails gem.
+
+0.12.rc.0 (01/31/2012)
+----------------------
+
+### Stylesheet Changes
+
+* Removed -ms prefix from box-sizing
+* Added sprite_names sass function
+* Added -ms prefix to transitions
+
+### Command Line
+
+* Added support for `--debug-info` and `--no-debug-info` to the compass compile command
+
+### Rails Integration
+
+Rails projects must now use the [`compass-rails`](https://github.com/compass/compass-rails)
+gem to integrate with compass. Please read the [README](https://github.com/Compass/compass-rails/blob/master/README.md) for upgrade instructions. More information in this [blog post](/blog/2012/01/29/compass-and-rails-integration/).
+
+0.12.alpha.3 (12/23/2011)
+-------------------------
+
+* The `$round-to-nearest-half-line` config variable was added. When
+  true, the vertical rhythm module will round line heights to the
+  nearest half-line to avoid awkwardly large gaps between lines of text.
+  Defaults to false.
+* Added `reset-baseline` to the vertical rhythm module so you can force the baseline to reset.
+* Merges in the stable changes between 0.11.5 and 0.11.6.
+
+0.12.alpha.2 (11/28/2011)
+-------------------------
+
+* Bug fixes for Rails 2.x applications.
+
+0.12.alpha.1 (11/14/2011)
+-------------------------
+
+* font-files helper: Stop requiring font type when the type can be guessed from URL
+* inline-font-files: actually works now
+* Upgrade CSS3 Pie to 1.0beta5
+* log sprite generation and removal to the console
+* Added a new helper function `compass-env()` that returns the current compass environment (development, production)
+* Added the ability to inline a sprite image by setting `$<map>-inline:true` before you call `@import`
+* Removed `-khtml` prefixes by default you can still enable them by setting `$experimental-support-for-khtml:true;`
+* Improved rails 3.1 integration
+* `true` and `false` are now valid sprite names
+* Removed deprecated forms of the box-shadow, text-shadow, and transform
+  mixins.
+
+0.12.alpha.0 (8/30/2011)
+------------------------
+* Support for the rails 3.1 asset pipeline
+* Added support for diagonal, horizontal, and smart sprite layout
+* Fixed a bug with spacing in horizontal layout
+* Changed the descriptions of the sin, cos, and tan to be more descriptive
+* Fixed trig functions via issue #498 
+* Fixed the default `http_path` in rails
+* Sprites can now have a `sprite_load_path` that is an array of directories that
+  contain source images for sprites handy for using sprites in extensions or gems
+* Added a new set of configuration properties for generated images.
+  `generated_images_dir`, `generated_images_path`, `http_generated_images_dir`,
+  and `http_generated_images_path` can now be set to control where generated
+  images are written and how they are served. Added a corresponding
+  `generated-image-url()` helper function. These should rarely be needed and
+  will default to your corresponding image directories and paths.
+
+0.11.8 (02/26/2012)
+-------------------
+
+* Fix a bug in gradients that used the transparent keyword
+* Add filesize to the `compass stats` output.
+
+0.11.7 (01/05/2012)
+-------------------
+
+* Update to font-face mixin to make it work on IE8.
+
+0.11.6 (12/23/2011)
+-------------------
+
+* Added `user-select` mixin to control the selection model and granularity of an element.
+  It accepts one argument (`$select`) from the following options:
+  `none` | `text` | `toggle` | `element` | `elements` | `all` | `inherit`.
+* The border-image property now takes a keyword called `fill` to
+  indicate that the image should also fill the element. If you pass the
+  `fill` keyword to the `border-image` mixin it will only be output in the
+  standard (non-prefixed) versions of the property.
+* Don't use the deprecated callback method `on_updating_stylesheet` in Sass if
+  the new version is available.
 
 0.11.5 (07/10/2011)
 -------------------

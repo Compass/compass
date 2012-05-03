@@ -30,3 +30,5 @@ vendor/ruby
 vendor
 Gemfile.lock
 .emacs.*
+*.pkg
+

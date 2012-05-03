@@ -14,8 +14,8 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-size: 100%;
   vertical-align: baseline; }
 
 body {
@@ -50,7 +50,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 body.registered a.registered-only, body.registered abbr.registered-only, body.registered acronym.registered-only, body.registered audio.registered-only, body.registered b.registered-only, body.registered basefont.registered-only, body.registered bdo.registered-only, body.registered big.registered-only, body.registered br.registered-only, body.registered canvas.registered-only, body.registered cite.registered-only, body.registered code.registered-only, body.registered command.registered-only, body.registered datalist.registered-only, body.registered dfn.registered-only, body.registered em.registered-only, body.registered embed.registered-only, body.registered font.registered-only, body.registered i.registered-only, body.registered img.registered-only, body.registered input.registered-only, body.registered keygen.registered-only, body.registered kbd.registered-only, body.registered label.registered-only, body.registered mark.registered-only, body.registered meter.registered-only, body.registered output.registered-only, body.registered progress.registered-only, body.registered q.registered-only, body.registered rp.registered-only, body.registered rt.registered-only, body.registered ruby.registered-only, body.registered s.registered-only, body.registered samp.registered-only, body.registered select.registered-only, body.registered small.registered-only, body.registered span.registered-only, body.registered strike.registered-only, body.registered strong.registered-only, body.registered sub.registered-only, body.registered sup.registered-only, body.registered textarea.registered-only, body.registered time.registered-only, body.registered tt.registered-only, body.registered u.registered-only, body.registered var.registered-only, body.registered video.registered-only, body.registered wbr.registered-only {
   display: inline; }
-
 body.registered address.registered-only, body.registered article.registered-only, body.registered aside.registered-only, body.registered blockquote.registered-only, body.registered center.registered-only, body.registered dir.registered-only, body.registered div.registered-only, body.registered dd.registered-only, body.registered details.registered-only, body.registered dl.registered-only, body.registered dt.registered-only, body.registered fieldset.registered-only, body.registered figcaption.registered-only, body.registered figure.registered-only, body.registered form.registered-only, body.registered footer.registered-only, body.registered frameset.registered-only, body.registered h1.registered-only, body.registered h2.registered-only, body.registered h3.registered-only, body.registered h4.registered-only, body.registered h5.registered-only, body.registered h6.registered-only, body.registered hr.registered-only, body.registered header.registered-only, body.registered hgroup.registered-only, body.registered isindex.registered-only, body.registered menu.registered-only, body.registered nav.registered-only, body.registered noframes.registered-only, body.registered noscript.registered-only, body.registered ol.registered-only, body.registered p.registered-only, body.registered pre.registered-only, body.registered section.registered-only, body.registered summary.registered-only, body.registered ul.registered-only {
   display: block; }
 

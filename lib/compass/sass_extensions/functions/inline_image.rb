@@ -12,7 +12,7 @@ module Compass::SassExtensions::Functions::InlineImage
     while args.size > 0
       path = args.shift.value
       real_path = File.join(Compass.configuration.fonts_path, path)
-      url = "url('data:#{compute_mime_type(path)};base64,#{data(real_path)}')"
+      url = inline_image_string(data(real_path), compute_mime_type(path))
       files << "#{url} format('#{args.shift}')"
     end
     Sass::Script::String.new(files.join(", "))
@@ -39,10 +39,12 @@ private
       'image/svg+xml'
     when /\.otf$/i
       'font/opentype'
+    when /\.eot$/i
+      'application/vnd.ms-fontobject'
     when /\.ttf$/i
       'font/truetype'
     when /\.woff$/i
-      'font/woff'
+      'application/x-font-woff'
     when /\.off$/i
       'font/openfont'
     when /\.([a-zA-Z]+)$/

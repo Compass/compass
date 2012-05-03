@@ -61,6 +61,114 @@ module Compass
           inherited_writer(*attributes)
         end
 
+        class ArrayProxy
+          def initialize(data, attr)
+            @data, @attr = data, attr
+          end
+          def to_ary
+            @data.send(:"read_inherited_#{@attr}_array")
+          end
+          def to_a
+            to_ary
+          end
+          def <<(v)
+            @data.send(:"add_to_#{@attr}", v)
+          end
+          def >>(v)
+            @data.send(:"remove_from_#{@attr}", v)
+          end
+          def serialize_to_config(prop)
+            if v = @data.raw(prop)
+              "#{prop} = #{v.inspect}"
+            else
+              s = ""
+              if added = @data.instance_variable_get("@added_to_#{@attr}")
+                added.each do |a|
+                  s << "#{prop} << #{a.inspect}\n"
+                end
+              end
+              if removed = @data.instance_variable_get("@removed_from_#{@attr}")
+                removed.each do |r|
+                  s << "#{prop} >> #{r.inspect}\n"
+                end
+              end
+              if s[-1..-1] == "\n"
+                s[0..-2]
+              else
+                s
+              end
+            end
+          end
+          def method_missing(m, *args, &block)
+            a = to_ary
+            if a.respond_to?(m)
+              a.send(m,*args, &block)
+            else
+              super
+            end
+          end
+        end
+
+        def inherited_array(*attributes)
+          inherited_reader(*attributes)
+          inherited_writer(*attributes)
+          attributes.each do |attr|
+            line = __LINE__ + 1
+            class_eval %Q{
+              def #{attr}                                          # def sprite_load_paths
+                ArrayProxy.new(self, #{attr.inspect})              #   ArrayProxy.new(self, :sprite_load_paths)
+              end                                                  # end
+              def #{attr}=(value)                                  # def sprite_load_paths=(value)
+                @set_attributes ||= {}                             #   @set_attributes ||= {}
+                @set_attributes[#{attr.inspect}] = true            #   @set_attributes[:sprite_load_paths] = true
+                @#{attr} = Array(value)                            #   @sprite_load_paths = Array(value)
+                @added_to_#{attr} = []                             #   @added_to_sprite_load_paths = []
+                @removed_from_#{attr} = []                         #   @removed_from_sprite_load_paths = []
+              end                                                  # end
+              def read_inherited_#{attr}_array                     # def read_inherited_sprite_load_paths_array
+                if #{attr}_set?                                    #  if sprite_load_paths_set?
+                  @#{attr}                                         #    Array(@#{attr})
+                else                                               #  else
+                  value = if inherited_data                        #    value = Array(read(:sprite_load_paths))
+                    Array(inherited_data.#{attr})
+                  else
+                    Array(read(#{attr.inspect}))
+                  end
+                  value -= Array(@removed_from_#{attr})            #    value -= Array(@removed_from_sprite_load_paths)
+                  Array(@added_to_#{attr}) + value                 #    Array(@added_to_sprite_load_paths) + value
+                end                                                #  end
+              end                                                  # end
+              def add_to_#{attr}(v)                                # def add_to_sprite_load_paths(v)
+                if #{attr}_set?                                    #   if sprite_load_paths_set?
+                  raw_#{attr} << v                                 #     raw_sprite_load_paths << v
+                else                                               #   else
+                  (@added_to_#{attr} ||= []) << v                  #     (@added_to_sprite_load_paths ||= []) << v
+                end                                                #   end
+              end                                                  # end
+              def remove_from_#{attr}(v)                           # def remove_from_sprite_load_paths(v)
+                if #{attr}_set?                                    #   if sprite_load_paths_set?
+                  raw_#{attr}.reject!{|e| e == v}                  #     raw_sprite_load_path.reject!{|e| e == v}s
+                else                                               #   else
+                  (@removed_from_#{attr} ||= []) << v              #     (@removed_from_sprite_load_paths ||= []) << v
+                end                                                #   end
+              end                                                  # end
+            }, __FILE__, line
+          end
+        end
+
+        def chained_method(method)
+          line = __LINE__ + 1
+          class_eval %Q{
+            alias_method :_chained_#{method}, method
+            def #{method}(*args, &block)
+              _chained_#{method}(*args, &block)
+              if inherited_data
+                inherited_data.#{method}(*args, &block)
+              end
+            end
+          }, __FILE__, line
+        end
+
         
       end
 
@@ -124,11 +232,19 @@ module Compass
         def read_without_default(attribute)
           if set?(attribute)
             send("raw_#{attribute}")
+          elsif inherited_data.nil?
+            nil
           elsif inherited_data.respond_to?("#{attribute}_without_default")
             inherited_data.send("#{attribute}_without_default")
           elsif inherited_data.respond_to?(attribute)
             inherited_data.send(attribute)
           end
+        end
+
+        # Reads the raw value that was set on this object.
+        # you generally should call raw_<attribute>() instead.
+        def raw(attribute)
+          instance_variable_get("@#{attribute}")
         end
 
         # Read a value that is either inherited or set on this instance, if we get to the bottom-most configuration instance,

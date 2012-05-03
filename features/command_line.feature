@@ -77,16 +77,6 @@ Feature: Command Line
     Then an error message is printed out: A bare project cannot be created when a framework is specified.
     And the command exits with a non-zero error code
 
-  Scenario: Initializing a rails project
-    Given ruby supports fork
-    Given I'm in a newly created rails project: my_rails_project
-    When I initialize a project using: compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets/compiled
-    Then a config file config/compass.rb is reported created
-    Then a config file config/compass.rb is created
-    And a sass file app/stylesheets/screen.scss is created
-    And a sass file app/stylesheets/print.scss is created
-    And a sass file app/stylesheets/ie.scss is created
-
   Scenario: Compiling an existing project.
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
@@ -161,6 +151,7 @@ Feature: Command Line
       | watch   |
     And I should see the following "other" commands:
       | config      |
+      | extension   |
       | frameworks  |
       | grid-img    |
       | help        |
@@ -200,7 +191,7 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s03c3b29b35.png |
+      | images/flag-s4798b5a210.png |
     And the following files are removed:
       | .sass-cache/                |
       | tmp/border_radius.css       |
@@ -208,7 +199,7 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s03c3b29b35.png |
+      | images/flag-s4798b5a210.png |
 
   Scenario: Watching a project for changes
     Given ruby supports fork
@@ -277,21 +268,20 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass stats
     Then I am told statistics for each file:
-      | Filename                  | Rules | Properties |    Mixins Defs | Mixins Used | CSS Selectors | CSS Properties |
-      | sass/border_radius.scss   |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/box.sass             |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/fonts.sass           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/gradients.sass       |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/image_size.sass      |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/images.scss          |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/layout.sass          |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/legacy_clearfix.scss |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/lists.scss           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/print.sass           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/reset.sass           |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | sass/utilities.scss       |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
-      | ------------------------- | ----- | ---------- | -------------- | ----------- | ------------- | -------------- |
-      | Total.*                   |   \d+ |        \d+ |            \d+ |         \d+ |           \d+ |            \d+ |
+      | Filename                  | Rules | Properties |    Mixins Defs | Mixins Used | Filesize | CSS Selectors | CSS Properties | CSS Filesize |
+      | sass/border_radius.scss   |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/box.sass             |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/fonts.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/gradients.sass       |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/image_size.sass      |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/images.scss          |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/layout.sass          |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/legacy_clearfix.scss |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/lists.scss           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/print.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/reset.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/utilities.scss       |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | Total.*                   |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
 
   @listframeworks
   Scenario: List frameworks registered with compass
