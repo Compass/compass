@@ -840,4 +840,27 @@ class SpritesTest < Test::Unit::TestCase
 
   end
 
+  it "should use the image position of the sprite in the sprite map" do
+    css = render <<-SCSS
+      $squares-position: 100%;
+      @import "squares/*.png";
+      .adjusted-ten {
+        @include squares-sprite("ten-by-ten", $offset-x: sprite-image-position($square-sprites, "ten-by-ten"));
+      }
+      .adjusted-twenty {
+        @include squares-sprite("twenty-by-twenty", $offset-x: sprite-image-position($square-sprites, "twenty-by-twenty"));
+      }
+    SCSS
+    other_css = <<-CSS
+      .adjusted-ten {
+        background-position: 100% 0;
+      }
+      .adjusted-twenty {
+        background-position: 100% -20px;
+      }
+
+    CSS
+    assert_correct clean(css), clean(other_css)
+  end
+
 end
