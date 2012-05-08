@@ -15,7 +15,7 @@
 ) {
   $images: compact($image-1, $image-2, $image-3, $image-4, $image-5, $image-6, $image-7, $image-8, $image-9, $image-10);
 
-  @if $experimental-support-for-svg     and prefixed(-svg,    $images) { background-image:    -svg($images); }
+  @if $experimental-support-for-svg     and prefixed(-svg,    $images) { background-image:    -svg($images); background-size: 100%; }
   @if $experimental-support-for-webkit  and prefixed(-webkit, $images) { background-image: -webkit($images); }
   @if $experimental-support-for-mozilla and prefixed(-moz,    $images) { background-image:    -moz($images); }
                                                                          background-image:         $images;
