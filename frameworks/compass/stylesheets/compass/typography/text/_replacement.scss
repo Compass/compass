@@ -27,7 +27,8 @@
 // Hides text in an element so you can see the background.
 @mixin hide-text {
   // slightly wider than the box prevents issues with inline-block elements
-  text-indent: 110%;
+  // minus because of wrong behaviour in IE7
+  text-indent: -9999px;
   white-space: nowrap;
   overflow: hidden;
 }
