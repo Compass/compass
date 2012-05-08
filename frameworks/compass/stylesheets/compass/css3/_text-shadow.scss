@@ -43,6 +43,7 @@ $default-text-shadow-blur:     1px  !default;
   @if $color == none {
     text-shadow: none;
   } @else {
+    text-shadow: $color $hoff $voff; // for browsers without spread distance (like IE)
     text-shadow: $color $hoff $voff $blur;
   }
 }
