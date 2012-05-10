@@ -5,6 +5,8 @@
     %meta{:charset => "utf-8"}/
     %meta{:content => "chrome=1", "http-equiv" => "X-UA-Compatible"}
     %meta(name="viewport" content="width=780")
+    - if ENV["BETA"]
+      %meta(name="robots" content="noindex")
     %link(rel="shortcut icon" type="image/png" href="/images/compass_icon.png")
     %link{:href=>"/blog/atom.xml", :rel=>"alternate", :title=>"Compass Blog", :type=>"application/atom+xml"}
     %title
