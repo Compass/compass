@@ -1,5 +1,7 @@
 --- 
 :major: 0
 :minor: 12
-:build: 1
+:build: 2
+:state: rc
+:iteration: 0
 :name: Alnilam
