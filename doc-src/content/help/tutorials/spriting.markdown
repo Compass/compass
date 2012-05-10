@@ -69,7 +69,7 @@ Sprites stored in a nested folder will use the last folder name in the path as t
 Example:
 
       @import "themes/orange/*.png";
-      @include all-orange-sprite;
+      @include all-orange-sprites;
     
 <a name="selector-control" id="selector-control"></a>
 ## Selector Control
