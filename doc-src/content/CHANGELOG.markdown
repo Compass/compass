@@ -29,6 +29,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [Configuration] For better ruby and rails integration, the `add_import_path` command now accepts
   [Sass::Importer](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#custom_importers) objects
   and [Ruby Pathname](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html) objects.
+* Reverted the [hide-text](/reference/compass/typography/text/replacement/#mixin-hide-text) mixin to the `-9999` method. If you prefer the [Kellum method](http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/) then you need to set `$hide-text-direction` to `right` in your stylesheets.
 
 0.12.1 (03/14/2012)
 -------------------
