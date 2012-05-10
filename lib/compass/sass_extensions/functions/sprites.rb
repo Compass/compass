@@ -176,10 +176,18 @@ module Compass::SassExtensions::Functions::Sprites
 
 protected
 
+  def reversed_color_names
+    if Sass::Script::Color.const_defined?(:HTML4_COLORS_REVERSE)
+      Sass::Script::Color::HTML4_COLORS_REVERSE
+    else
+      Sass::Script::Color::COLOR_NAMES_REVERSE
+    end
+  end
+
   def convert_sprite_name(sprite)
     case sprite
       when Sass::Script::Color
-        Sass::Script::String.new(Sass::Script::Color::HTML4_COLORS_REVERSE[sprite.rgb])
+        Sass::Script::String.new(reversed_color_names[sprite.rgb])
       when Sass::Script::Bool
         Sass::Script::String.new(sprite.to_s)
       else
