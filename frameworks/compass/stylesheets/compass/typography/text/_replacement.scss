@@ -7,10 +7,15 @@
 // * `img` -- the relative path from the project image directory to the image.
 // * `x` -- the x position of the background image.
 // * `y` -- the y position of the background image.
-@mixin replace-text($img, $x: 50%, $y: 50%) {
+@mixin replace-text($img, $x: 50%, $y: 50%, $inline: false) {
   @include hide-text;
   background: {
-    image: image-url($img);
+    @if $inline {
+      image: inline-image($img);
+    }
+    @else {
+      image: image-url($img);
+    }
     repeat: no-repeat;
     position: $x $y;
   };
