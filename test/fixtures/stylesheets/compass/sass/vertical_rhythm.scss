@@ -27,12 +27,11 @@
 // deprecated mixins:
 // * reset-baseline
 
-
 /* Original test styles */
-@import "compass/typography/vertical_rhythm";
-
 $base-font-size: 14px;
 $base-line-height: 16px;
+
+@import "compass/typography/vertical_rhythm";
 
 @include establish-baseline;
 
@@ -167,4 +166,3 @@ blockquote {
 .panel {
 	@include rhythm-borders;
 }
-
