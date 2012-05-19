@@ -21,21 +21,21 @@ html {
   margin-bottom: 1.333em; }
 
 .borders {
-  border-top-style: solid;
   border-top-width: 0.071em;
+  border-top-style: solid;
   padding-top: 1.071em;
-  border-bottom-style: solid;
   border-bottom-width: 0.071em;
+  border-bottom-style: solid;
   padding-bottom: 1.071em; }
 
 .large-borders {
   font-size: 1.714em;
   line-height: 2em;
-  border-top-style: solid;
   border-top-width: 0.25em;
+  border-top-style: solid;
   padding-top: 0.417em;
-  border-bottom-style: solid;
   border-bottom-width: 0.25em;
+  border-bottom-style: solid;
   padding-bottom: 0.417em; }
 
 .reset {
