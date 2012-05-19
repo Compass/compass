@@ -42,17 +42,17 @@ Project Commands
 <a name="create"/>
 ### Create a new compass project
 
-    compass create path/to/project [--using blueprint] [--sass-dir=sass ...] [--project-type=rails]
+    compass create path/to/project [--using &lt;framework&gt;] [--sass-dir=sass ...]
 
 <a name="init"/>
 ### Initialize an existing project to work with compass
 
-    compass init rails path/to/project [--using blueprint]
+    compass init rails path/to/project [--using &lt;framework&gt;]
 
 <a name="install"/>
 ### Install a pattern from an extension into a project
 
-    compass install blueprint/buttons [path/to/project]
+    compass install &lt;framework&gt;[/&lt;template&gt;] [path/to/project]
 
 <a name="compile"/>
 ### Compile the project's sass files into css

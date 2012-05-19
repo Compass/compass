@@ -176,9 +176,6 @@ will result:
         compass/            - The compass framework
           stylesheets/      - The compass libraries
           templates/        - The compass project templates and patterns
-        blueprint/
-          stylesheets/      - The blueprint libraries
-          templates/        - The blueprint project templates and patterns
       lib/
         compass.rb          - The main compass ruby library
         compass/

@@ -1,11 +1,8 @@
 - render "basic" do
   #wrap
     = render "partials/main-navigation"
-    #sub-nav
-      %nav#docs-nav{:role => "navigation"}
-        %a{:href => "/reference/blueprint/", :rel => "blueprint"} Blueprint
-        %a{:href => "/reference/compass/", :rel => "core"} Core
-      - if @item[:content_for_module_nav]
+    - if @item[:content_for_module_nav]
+      #sub-nav
         %nav#module-nav= @item[:content_for_module_nav]
     #page
       #docs_panel

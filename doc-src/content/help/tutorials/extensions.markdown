@@ -169,7 +169,7 @@ about the files in the template.
 
 You may also see some real manifest files here:
 
-* [blueprint](http://github.com/chriseppstein/compass/blob/master/frameworks/blueprint/templates/project/manifest.rb)
+* [compass](http://github.com/chriseppstein/compass/blob/master/frameworks/compass/templates/project/manifest.rb)
 * [compass-css-lightbox](http://github.com/ericam/compass-css-lightbox/blob/master/templates/project/manifest.rb)
 
 ### Manifest Declarations
