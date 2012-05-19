@@ -1,3 +1,10 @@
+// Indicates the direction you prefer to move your text
+// when hiding it.
+//
+// `left` is more robust, especially in older browsers.
+// `right` seems have better runtime performance.
+$hide-text-direction: left !default;
+
 // Hides html text and replaces it with an image.
 // If you use this on an inline element, you will need to change the display to block or inline-block.
 // Also, if the size of the image differs significantly from the font size, you'll need to set the width and/or height.
@@ -25,11 +32,24 @@
 }
 
 // Hides text in an element so you can see the background.
-@mixin hide-text {
-  // slightly wider than the box prevents issues with inline-block elements
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
+//
+// The direction indicates how the text should be moved out of view.
+//
+// See `$hide-text-direction` for more information and to set this globally
+// for your application.
+@mixin hide-text($direction: $hide-text-direction) {
+  @if $direction == left {
+    $approximate-em-value: 12px / 1em;
+    $wider-than-any-screen: -9999em;
+    text-indent: $wider-than-any-screen * $approximate-em-value;
+    overflow: hidden;
+    text-align: left;
+  } @else {
+    // slightly wider than the box prevents issues with inline-block elements
+    text-indent: 110%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }
 
 // Hides text in an element by squishing the text into oblivion.

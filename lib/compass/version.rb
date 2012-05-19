@@ -26,8 +26,9 @@ module Compass
       @version[:teeny]  = @version[:patch]
       @version[:string] = "#{@version[:major]}.#{@version[:minor]}"
       @version[:string] << ".#{@version[:patch]}" if @version[:patch]
-      @version[:string] << ".#{@version[:state]}" if @version[:state]
       @version[:string] << ".#{@version[:build]}" if @version[:build]
+      @version[:string] << ".#{@version[:state]}" if @version[:state]
+      @version[:string] << ".#{@version[:iteration]}" if @version[:iteration]
       if !ENV['OFFICIAL'] && r = revision
         @version[:string] << ".#{r[0..6]}"
       end
