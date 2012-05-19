@@ -69,7 +69,6 @@ $rem-with-px-fallback: true !default;
 			@return $length;
 		}
 	}
-
 	@return $length * $px-per-from-unit / $px-per-to-unit;
 }
 
@@ -86,7 +85,7 @@ $rem-with-px-fallback: true !default;
 	$rem-values: ();
 
 	// Ensure $values is a list.
-	@if type-of($values) != "list" {
+	@if type-of($values) != 'list' {
 		$values: join((), $values);
 	}
 
@@ -94,13 +93,14 @@ $rem-with-px-fallback: true !default;
 	@each $value in $values {
 		// For each property value, if it's in rem or px, derive both rem and
 		// px values for it and add those to the end of the appropriate buffer.
+		// Ensure all pixel values are rounded to the nearest pixel.
 		@if type-of($value) == number and not unitless($value) and (unit($value) == px or unit($value) == rem) {
 			@if unit($value) == px {
-				$px-values: join($px-values, $value);
+				$px-values: join($px-values, round($value));
 				$rem-values: join($rem-values, convert-length($value, rem));
 			}
 			@else {
-				$px-values: join($px-values, convert-length($value, px));
+				$px-values: join($px-values, round(convert-length($value, px)));
 				$rem-values: join($rem-values, $value);
 			}
 		}
