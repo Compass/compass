@@ -1,5 +1,0 @@
-@import "blueprint";
-@import "compass/reset";
-
-body.bp {
-  @include blueprint(true); }

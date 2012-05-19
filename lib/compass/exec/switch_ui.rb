@@ -40,7 +40,7 @@ module Compass::Exec
     
     def parse!
       self.opts = OptionParser.new(&method(:set_opts))
-      self.opts.parse!(self.args)    
+      self.opts.parse!(self.args)
       if self.args.size > 0
         self.options[:project_name] = trim_trailing_separator(self.args.shift)
       end
@@ -59,9 +59,9 @@ Usage: compass [options] [project]
 Description:
 The compass command line tool will help you create and manage the stylesheets for your project.
 
-To get started on a stand-alone project based on blueprint:
+To get started on a stand-alone project:
 
-  compass -f blueprint my_compass_project
+  compass my_compass_project
 
 When you change any sass files, you must recompile your project using --update or --watch.
 END

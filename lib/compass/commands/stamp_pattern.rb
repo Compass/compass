@@ -12,7 +12,7 @@ Description:
   Install an extension's pattern into your compass project
 
 Example:
-  compass install blueprint/buttons
+  compass install compass/ellipsis
 
 Options:
 }
