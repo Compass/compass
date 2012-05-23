@@ -8,7 +8,7 @@ COMPASS CHANGELOG
 =================
 
 Upgrading compass is pretty easy.
-Don't let all these details [scare you...](/help/tutorials/upgrading/im-scared/)
+Don't let all these details [scare you...](http://compass-style.org/help/tutorials/upgrading/im-scared/)
 
 The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
