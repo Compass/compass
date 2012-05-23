@@ -140,7 +140,7 @@ $default-skew-y      : 5deg                  !default;
 //
 //     @include transform( transforms [, 3D-only ] )
 //
-// where 'transforms' is a space separated list of all the transforms to be applied
+// where 'transforms' is a space separated list of all the transforms to be applied.
 @mixin transform(
   $transform,
   $only3d: false
@@ -174,8 +174,8 @@ $default-skew-y      : 5deg                  !default;
 //
 //      @include perspective( perspective )
 //
-// where 'perspective' is a uniless number representing the depth of the z-axis
-// the higher the perspective, the more exagerated the foreshortening.
+// where 'perspective' is a unitless number representing the depth of the
+// z-axis. The higher the perspective, the more exaggerated the foreshortening.
 // values from 500 to 1000 are more-or-less "normal" - a good starting-point.
 @mixin perspective($p) {
   @include experimental(perspective, $p,
@@ -198,8 +198,8 @@ $default-skew-y      : 5deg                  !default;
 //
 //      @include transform-style( [ style ] )
 //
-// where `style` can be either `flat` or `preserve-3d`
-// browsers default to `flat`, mixin defaults to `preserve-3d`
+// where `style` can be either `flat` or `preserve-3d`.
+// Browsers default to `flat`, mixin defaults to `preserve-3d`.
 @mixin transform-style($style: preserve-3d) {
   @include experimental(transform-style, $style,
     -moz, -webkit, -o, -ms, not -khtml, official
@@ -210,8 +210,8 @@ $default-skew-y      : 5deg                  !default;
 //
 //     @include backface-visibility( [ visibility ] )
 //
-// where `visibility` can be either `visible` or `hidden`
-// browsers default to visible, mixin defaults to hidden
+// where `visibility` can be either `visible` or `hidden`.
+// Browsers default to visible, mixin defaults to hidden
 @mixin backface-visibility($visibility: hidden) {
   @include experimental(backface-visibility, $visibility,
     -moz, -webkit, -o, -ms, not -khtml, official
@@ -362,9 +362,9 @@ $default-skew-y      : 5deg                  !default;
 
 // Rotate an object around an arbitrary axis (3D)
 // @include rotate( [ vector-x, vector-y, vector-z, rotation, perspective ] )
-// where the 'vector-' arguments accept unitless numbers
-// these numbers are not important on their own, but in relation to one another
-// creating an axis from your transform-origin, along the axis of Xx = Yy = Zz
+// where the 'vector-' arguments accept unitless numbers.
+// These numbers are not important on their own, but in relation to one another
+// creating an axis from your transform-origin, along the axis of Xx = Yy = Zz.
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin rotate3d(
@@ -385,7 +385,7 @@ $default-skew-y      : 5deg                  !default;
 
 // Move an object along the x or y axis (2D)
 // @include translate( [ translate-x, translate-y, perspective, 3D-only ] )
-// where the 'translate-' arguments accept any distance in percentages or absolute (px, cm, in, em etc..) units
+// where the 'translate-' arguments accept any distance in percentages or absolute (px, cm, in, em etc..) units.
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin translate(
@@ -463,7 +463,7 @@ $default-skew-y      : 5deg                  !default;
 //
 //     @include skew( [ skew-x, skew-y, 3D-only ] )
 //
-// where the 'skew-' arguments accept css angles in degrees (deg) or radian (rad) units
+// where the 'skew-' arguments accept css angles in degrees (deg) or radian (rad) units.
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin skew(
@@ -504,8 +504,8 @@ $default-skew-y      : 5deg                  !default;
 
 // Full transform mixins
 // For settings any combination of transforms as arguments
-// These are complex and not highly recommended for daily use
-// They are mainly here for backwards-compatability purposes
+// These are complex and not highly recommended for daily use. They are mainly
+// here for backward-compatibility purposes.
 //
 // * they include origin adjustments
 // * scale takes a multiplier (unitless), rotate and skew take degrees (deg)
