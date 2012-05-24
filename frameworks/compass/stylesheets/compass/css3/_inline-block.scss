@@ -3,14 +3,13 @@
 // Provides a cross-browser method to implement `display: inline-block;`
 
 @mixin inline-block {
-  @if $legacy-support-for-ie {
-    & { *display: inline; }
-  }
-  display: -moz-inline-box;
+  display: -moz-inline-stack;
   -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: middle;
   @if $legacy-support-for-ie {
     *vertical-align: auto;
+    zoom: 1;
+    *display: inline;
   }
 }
