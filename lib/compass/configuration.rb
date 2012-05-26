@@ -40,7 +40,8 @@ module Compass
       :preferred_syntax,
       :disable_warnings,
       :sprite_engine,
-      :chunky_png_options
+      :chunky_png_options,
+      :images_file_source
     ].flatten
 
     ARRAY_ATTRIBUTES = [
