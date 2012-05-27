@@ -32,6 +32,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Reverted the [hide-text](/reference/compass/typography/text/replacement/#mixin-hide-text) mixin to the `-9999` method. If you prefer the [Kellum method](http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/) then you need to set `$hide-text-direction` to `right` in your stylesheets.
 * `$legacy-support-for-mozilla` can be set to `false` to disable output
   for Firefox 3.6 or earlier.
+* Cleaned up the inline-block mixin to have less output and make the vertical-alignment of that mixin configurable or even turned off. [Details](https://github.com/chriseppstein/compass/commit/84e9a684b9697d728a37abb14cb0aae2c4d2a790)
 
 0.12.1 (03/14/2012)
 -------------------
