@@ -4,7 +4,7 @@ description: "Blueprint will be extracted to a plugin"
 author: chris
 ---
 
-Five years ago, [Blueprint CSS](http://blueprintcss.com/) was an
+Five years ago, [Blueprint CSS](http://blueprintcss.org/) was an
 innovative CSS Framework. It was a boilerplate before
 [H5BP](http://html5boilerplate.com/) and it was the most popular CSS
 Grid Framework when the concept was still young.
