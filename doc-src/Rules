@@ -113,7 +113,10 @@ route '/stylesheets/*/' do
 end
 
 route '/posts/*/' do
-  if item.identifier =~ %r{^/posts/(\d{4})-(\d{2})-(\d{2})-(.*)/$}
+  if item[:draft]
+    puts "Skipping Draft post: #{item.identifier}"
+    nil
+  elsif item.identifier =~ %r{^/posts/(\d{4})-(\d{2})-(\d{2})-(.*)/$}
     "/blog/#{$1}/#{$2}/#{$3}/#{$4}/index.html"
   else
     puts "WARNING: malformed post name: #{item.identifier}"
