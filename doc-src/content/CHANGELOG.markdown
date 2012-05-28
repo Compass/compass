@@ -37,6 +37,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Cleaned up the inline-block mixin to have less output and make the vertical-alignment of that mixin configurable or even turned off. [Details](https://github.com/chriseppstein/compass/commit/84e9a684b9697d728a37abb14cb0aae2c4d2a790)
 * Output of SVG and original webkit gradients is now omitted when using
   the degree-based linear gradient syntax.
+* Added a `--fonts-dir` configuration flag for the compass command line.
 
 0.12.1 (03/14/2012)
 -------------------
