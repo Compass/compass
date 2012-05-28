@@ -11,13 +11,17 @@ $hide-text-direction: left !default;
 //
 // Parameters:
 //
-// * `img` -- the relative path from the project image directory to the image.
+// * `img` -- the relative path from the project image directory to the image, or a url literal.
 // * `x` -- the x position of the background image.
 // * `y` -- the y position of the background image.
 @mixin replace-text($img, $x: 50%, $y: 50%) {
   @include hide-text;
   background: {
-    image: image-url($img);
+    @if is-url($img) {
+      image: $img;
+    } @else {
+      image: image-url($img);
+    }
     repeat: no-repeat;
     position: $x $y;
   };
@@ -25,8 +29,10 @@ $hide-text-direction: left !default;
 
 // Like the `replace-text` mixin, but also sets the width
 // and height of the element according the dimensions of the image.
-@mixin replace-text-with-dimensions($img, $x: 50%, $y: 50%) {
-  @include replace-text($img, $x, $y);
+//
+// If you set `$inline` to true, then an inline image (data uri) will be used.
+@mixin replace-text-with-dimensions($img, $x: 50%, $y: 50%, $inline: false) {
+  @include replace-text(if($inline, inline-image($img), $img), $x, $y);
   width: image-width($img);
   height: image-height($img);
 }
