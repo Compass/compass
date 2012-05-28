@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.expand_path("../../test_helper", __FILE__)
 require 'compass'
 require 'stringio'
 
@@ -22,7 +22,6 @@ class ConfigurationTest < Test::Unit::TestCase
       http_path = "/"
       css_dir = "css"
       sass_dir = "sass"
-      images_dir = "img"
       javascripts_dir = "js"
       
       output_style = :nested
@@ -39,13 +38,14 @@ class ConfigurationTest < Test::Unit::TestCase
       # preferred_syntax = :sass
       # and then run:
       # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+      images_dir = ["img"]
     CONFIG
 
     Compass.add_configuration(contents, "test_parse")
 
     assert_equal 'sass', Compass.configuration.sass_dir
     assert_equal 'css', Compass.configuration.css_dir
-    assert_equal 'img', Compass.configuration.images_dir
+    assert_equal 'img', Compass.configuration.images_dir.first
     assert_equal 'js', Compass.configuration.javascripts_dir
 
     expected_lines = contents.string.split("\n").map{|l|l.strip}
@@ -374,7 +374,7 @@ EXPECTED
 
     assert_equal "css", Compass.configuration.css_dir
     assert_equal "sass", Compass.configuration.sass_dir
-    assert_equal "images", Compass.configuration.images_dir
+    assert_equal "images", Compass.configuration.images_dir.first
     assert_equal "js", Compass.configuration.javascripts_dir
     assert_equal "fonts", Compass.configuration.fonts_dir
     assert_equal "extensions", Compass.configuration.extensions_dir

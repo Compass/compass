@@ -57,10 +57,10 @@ module Compass
       chained_method :run_stylesheet_error
 
       inherited_accessor *ATTRIBUTES
-
-      strip_trailing_separator *ATTRIBUTES.select{|a| a.to_s =~ /dir|path/}
-
       inherited_array *ARRAY_ATTRIBUTES
+
+      strip_trailing_separator *(ATTRIBUTES+ARRAY_ATTRIBUTES).select{|a| a.to_s =~ /dir|path/}
+
 
       def initialize(name, attr_hash = nil)
         raise "I need a name!" unless name

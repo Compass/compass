@@ -19,7 +19,6 @@ module Compass
       # Where are the various bits of the project
       attributes_for_directory(:css, :stylesheets),
       attributes_for_directory(:sass, nil),
-      attributes_for_directory(:images),
       attributes_for_directory(:generated_images),
       attributes_for_directory(:javascripts),
       attributes_for_directory(:fonts),
@@ -44,11 +43,12 @@ module Compass
     ].flatten
 
     ARRAY_ATTRIBUTES = [
+      attributes_for_directory(:images),
       :sprite_load_path,
       :required_libraries,
       :loaded_frameworks,
       :framework_path
-    ]
+    ].flatten
     # Registers a new configuration property.
     # Extensions can use this to add new configuration options to compass.
     #

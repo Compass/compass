@@ -121,11 +121,17 @@ module Compass
 
       # Returns a full path to the relative path to the project directory
       def projectize(path, project_path = nil)
+        if path.is_a?(Array)
+          return path.map{ |p| Compass.projectize(p, project_path)}
+        end
         project_path ||= configuration.project_path
         File.join(project_path, *path.split('/'))
       end
 
       def deprojectize(path, project_path = nil)
+        if path.is_a?(Array)
+          return path.map{ |p| Compass.deprojectize(p, project_path)}
+        end
         project_path ||= configuration.project_path
         if path[0..(project_path.size - 1)] == project_path
           path[(project_path.size + 1)..-1]
