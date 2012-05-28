@@ -36,7 +36,7 @@ module Compass::Exec::ProjectOptionsParser
       set_dir_or_path(:javascripts, javascripts_dir)
     end
     
-    opts.on('--fonts-dir JS_DIR', "The directory where you keep your fonts.") do |fonts_dir|
+    opts.on('--fonts-dir FONTS_DIR', "The directory where you keep your fonts.") do |fonts_dir|
       set_dir_or_path(:fonts, fonts_dir)
     end
 
