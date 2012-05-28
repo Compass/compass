@@ -4,7 +4,7 @@ module Compass::SassExtensions::Functions::ImageSize
     width, _ = image_dimensions(image_file)
     Sass::Script::Number.new(width,["px"])
   end
-  
+
   # Returns the height of the image relative to the images directory
   def image_height(image_file)
     _, height = image_dimensions(image_file)
@@ -23,13 +23,23 @@ module Compass::SassExtensions::Functions::ImageSize
       raise Sass::SyntaxError, "Unrecognized file type: #{@file_type}"
     end
 
-  private
+    private
+    def open_file_source
+      source = Compass.configuration.images_file_source || lambda { |file| File.open(file, 'rb') }
+
+      io = source.call(@file)
+      result = yield io
+      io.close
+
+      result
+    end
+
     def get_size_for_png
-      File.open(@file, "rb") {|io| io.read}[0x10..0x18].unpack('NN')
+      open_file_source {|io| io.read}[0x10..0x18].unpack('NN')
     end
 
     def get_size_for_gif
-      File.open(@file, "rb") {|io| io.read}[6..10].unpack('SS')
+      open_file_source {|io| io.read}[6..10].unpack('SS')
     end
 
     def get_size_for_jpg
@@ -37,22 +47,24 @@ module Compass::SassExtensions::Functions::ImageSize
     end
 
     def get_size_for_jpeg
-      jpeg = JPEG.new(@file)
-      [jpeg.width, jpeg.height]
+      open_file_source do |io|
+        jpeg = JPEG.new(io)
+        [ jpeg.width, jpeg.height ]
+      end
     end
   end
 
-private
+  private
 
   def image_dimensions(image_file)
     options[:compass] ||= {}
     options[:compass][:image_dimensions] ||= {}
     options[:compass][:image_dimensions][image_file.value] = ImageProperties.new(image_path_for_size(image_file.value)).size
   end
-  
+
   def image_path_for_size(image_file)
     if File.exists?(image_file)
-      return image_file 
+      return image_file
     end
     real_path(image_file)
   end
@@ -69,15 +81,11 @@ private
   class JPEG
     attr_reader :width, :height, :bits
 
-    def initialize(file)
-      if file.kind_of? IO
-        examine(file)
-      else
-        File.open(file, 'rb') { |io| examine(io) }
-      end
+    def initialize(io)
+      examine(io)
     end
 
-  private
+    private
     def examine(io)
       class << io
         unless method_defined?(:readbyte)
@@ -99,15 +107,15 @@ private
 
       while marker = io.next
         case marker
-          when 0xC0..0xC3, 0xC5..0xC7, 0xC9..0xCB, 0xCD..0xCF # SOF markers
-            length, @bits, @height, @width, components = io.readsof
-            raise 'malformed JPEG' unless length == 8 + components * 3
-          when 0xD9, 0xDA then  break # EOI, SOS
-          when 0xFE then @comment = io.readframe # COM
-          when 0xE1 then io.readframe # APP1, contains EXIF tag
-          else io.readframe # ignore frame
+        when 0xC0..0xC3, 0xC5..0xC7, 0xC9..0xCB, 0xCD..0xCF # SOF markers
+          length, @bits, @height, @width, components = io.readsof
+          raise 'malformed JPEG' unless length == 8 + components * 3
+        when 0xD9, 0xDA then  break # EOI, SOS
+        when 0xFE then @comment = io.readframe # COM
+        when 0xE1 then io.readframe # APP1, contains EXIF tag
+        else io.readframe # ignore frame
         end
       end
     end
-end
+  end
 end

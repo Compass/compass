@@ -166,16 +166,29 @@ class SassExtensionsTest < Test::Unit::TestCase
     base64_string = File.read(File.join(Compass.configuration.fonts_path, "bgrove.base64.txt")).chomp
     assert_equal "url('data:font/truetype;base64,#{base64_string}') format('truetype')", evaluate("inline_font_files('bgrove.ttf', truetype)")
   end
-  
-  
+
   def test_image_size_should_respond_to_to_path
     object = mock()
     object.expects(:to_path).returns('foo.jpg')
     object.expects(:respond_to?).with(:to_path).returns(true)
-    
+
     Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(object)
   end
-  
+
+  def test_image_properites_should_be_able_to_use_file_like_object
+    source = Class.new do
+      def self.open(*args, &block)
+        File.open(*args, &block)
+      end
+    end
+
+    Compass.configuration.images_file_source = lambda { |file| source.open(file) }
+
+    properties = Compass::SassExtensions::Functions::ImageSize::ImageProperties.new('test/fixtures/sprites/public/images/colors/blue.png')
+
+    assert_equal [ 10, 10 ], properties.size
+  end
+
   def test_reject
     assert_equal "b d", evaluate("reject(a b c d, a, c)")
     assert_equal "a b c d", evaluate("reject(a b c d, e)")
