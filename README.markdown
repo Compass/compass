@@ -2,6 +2,8 @@
 
 Build Status: ![Build Status](https://secure.travis-ci.org/chriseppstein/compass.png)
 
+Code Quality: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/chriseppstein/compass)
+
 ## Resources
 
 * [Compass Homepage](http://compass-style.org/)
