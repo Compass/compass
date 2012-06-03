@@ -30,8 +30,19 @@ $transitionable-prefixed-values: transform, transform-origin !default;
 // * for multiple, use a comma-delimited list
 // * also accepts "all" or "none"
 
-@mixin transition-property($properties: $default-transition-property) {
-  @if type-of($properties) == string { $properties: unquote($properties); }
+@mixin transition-property($property-1: $default-transition-property,
+  $property-2 : false,
+  $property-3 : false,
+  $property-4 : false,
+  $property-5 : false,
+  $property-6 : false,
+  $property-7 : false,
+  $property-8 : false,
+  $property-9 : false,
+  $property-10: false
+) {
+  @if type-of($property-1) == string { $property-1: unquote($property-1); }
+  $properties: compact($property-1, $property-2, $property-3, $property-4, $property-5, $property-6, $property-7, $property-8, $property-9, $property-10);
   @include build-prefix-values(transition-property, $properties);
 }
 
@@ -40,9 +51,20 @@ $transitionable-prefixed-values: transform, transform-origin !default;
 // * for multiple, use a comma-delimited list
 // * these durations will affect the properties in the same list position
 
-@mixin transition-duration($duration: $default-transition-duration) {
-  @if type-of($duration) == string { $duration: unquote($duration); }
-  @include experimental(transition-duration, $duration,
+@mixin transition-duration($duration-1: $default-transition-duration,
+  $duration-2 : false,
+  $duration-3 : false,
+  $duration-4 : false,
+  $duration-5 : false,
+  $duration-6 : false,
+  $duration-7 : false,
+  $duration-8 : false,
+  $duration-9 : false,
+  $duration-10: false
+) {
+  @if type-of($duration-1) == string { $duration-1: unquote($duration-1); }
+  $durations: compact($duration-1, $duration-2, $duration-3, $duration-4, $duration-5, $duration-6, $duration-7, $duration-8, $duration-9, $duration-10);
+  @include experimental(transition-duration, $durations,
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
@@ -53,8 +75,20 @@ $transitionable-prefixed-values: transform, transform-origin !default;
 // * For multiple, use a comma-delimited list
 // * These functions will effect the properties in the same list position
 
-@mixin transition-timing-function($function: $default-transition-function) {
-  @include experimental(transition-timing-function, unquote($function),
+@mixin transition-timing-function($function-1: $default-transition-function,
+  $function-2 : false,
+  $function-3 : false,
+  $function-4 : false,
+  $function-5 : false,
+  $function-6 : false,
+  $function-7 : false,
+  $function-8 : false,
+  $function-9 : false,
+  $function-10: false
+) {
+  $function-1: unquote($function-1);
+  $functions: compact($function-1, $function-2, $function-3, $function-4, $function-5, $function-6, $function-7, $function-8, $function-9, $function-10);
+  @include experimental(transition-timing-function, $functions,
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
@@ -64,9 +98,20 @@ $transitionable-prefixed-values: transform, transform-origin !default;
 // * for multiple, use a comma-delimited list
 // * these delays will effect the properties in the same list position
 
-@mixin transition-delay($delay: $default-transition-delay) {
-  @if type-of($delay) == string { $delay: unquote($delay); }
-  @include experimental(transition-delay, $delay,
+@mixin transition-delay($delay-1: $default-transition-delay,
+  $delay-2 : false,
+  $delay-3 : false,
+  $delay-4 : false,
+  $delay-5 : false,
+  $delay-6 : false,
+  $delay-7 : false,
+  $delay-8 : false,
+  $delay-9 : false,
+  $delay-10: false
+) {
+  @if type-of($delay-1) == string { $delay-1: unquote($delay-1); }
+  $delays: compact($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10);
+  @include experimental(transition-delay, $delays,
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
