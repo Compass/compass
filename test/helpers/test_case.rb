@@ -9,7 +9,14 @@ module Compass
         File.join(File.expand_path('../../', __FILE__), path)
       end
     end
-    
+
+    # compile a Sass string in the context of a project in the current working directory.
+    def compile_for_project(contents, options = {})
+      Compass.add_project_configuration
+      options[:syntax] ||= :scss
+      Sass::Engine.new(contents, Compass.configuration.to_sass_engine_options.merge(options)).render
+    end
+
     def assert_correct(before, after)
       if before == after
         assert(true)
