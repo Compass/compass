@@ -59,6 +59,16 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25%", evaluate("saturation(adjust-saturation(hsl(50deg, 50%, 50%), -25%))")
   end
 
+  def test_shade
+    assert_equal evaluate("mix(black, #ff0, 25%)"), evaluate("shade(#ff0, 25%)")
+    assert_equal evaluate("mix(black, #ff0, 0%)"), evaluate("shade(#ff0, 0%)")
+  end
+
+  def test_tint
+    assert_equal evaluate("mix(white, #ff0, 75%)"), evaluate("tint(#ff0, 75%)")
+    assert_equal evaluate("mix(white, #ff0, 100%)"), evaluate("tint(#ff0, 100%)")
+  end
+
   def test_if_function
     assert_equal "no", evaluate("if(false, yes, no)")
     assert_equal "yes", evaluate("if(true, yes, no)")
