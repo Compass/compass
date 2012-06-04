@@ -1,3 +1,4 @@
+require 'rational'
 module Compass
   module SassExtensions
     module Sprites
@@ -21,7 +22,7 @@ module Compass
           end
 
           def properties
-            if [@width, @height].any? { |p| p == 0 }
+            if [@width, @height].any?(&:zero?)
               raise Compass::SpriteException, "You must set the width and height before fetching the properties"
             end
             [@images, @width, @height]
