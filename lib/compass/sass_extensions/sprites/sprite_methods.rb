@@ -1,3 +1,5 @@
+require 'rational'
+
 module Compass
   module SassExtensions
     module Sprites

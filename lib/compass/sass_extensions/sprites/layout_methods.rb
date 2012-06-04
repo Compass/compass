@@ -50,12 +50,10 @@ module Compass
             end
 
             @width = width_for_vertical_layout
+            calculate_repeat_extra_width! if @images.any?(&:repeat_x?)
             calulate_vertical_postions
             @height = height_for_vertical_layout
-            if @images.any?(&:repeat_x?)
-              calculate_repeat_extra_width!
-              tile_images_that_repeat
-             end
+            tile_images_that_repeat if @images.any?(&:repeat_x?)
           end
         end
 
