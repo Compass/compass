@@ -27,6 +27,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CSS3] Added `-ms` and `-webkit` support for CSS Regions. [Docs](/reference/compass/css3/regions/)
 * [CSS3] Added mixins for column-break properties to the columns module.
 * [CSS3] Added a css3/hyphenation module for the `word-break` and `hyphens` properties.
+* [CSS3] Made the API more consistent across the different mixins in the transitions module.
 * [CLI] Added a `-I` option for adding sass import paths via the CLI during compilation and project set up.
 * [Configuration] For better ruby and rails integration, the `add_import_path` command now accepts
   [Sass::Importer](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#custom_importers) objects
