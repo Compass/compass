@@ -174,6 +174,23 @@ module Compass::SassExtensions::Functions::Sprites
     raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://compass-style.org/help/tutorials/spriting/ for more information.)
   end
 
+  # Returns the position of the sprite in the sprite map specified by $<map>-<sprite>-position
+  # This can be useful for automatically adjusting the background-position property 
+  def sprite_image_position(map, sprite)
+    verify_map(map, "sprite-image-position")
+    sprite = convert_sprite_name(sprite)
+    unless sprite && sprite.is_a?(Sass::Script::String)
+      raise Sass::SyntaxError, %Q(The second argument to sprite-image-position must be a sprite name.)
+    end
+    image = map.image_for(sprite.value)
+    unless image
+      missing_image!(map, sprite)
+    end
+    image.position
+  end
+  Sass::Script::Functions.declare :sprite_image_position, [:map, :sprite]
+end
+
 protected
 
   def reversed_color_names
