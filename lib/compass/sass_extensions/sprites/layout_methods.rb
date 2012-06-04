@@ -32,7 +32,8 @@ module Compass
         def compute_image_positions!
           case layout
           when SMART
-            calculate_smart_positions
+            require 'compass/sass_extensions/sprites/layout/smart'
+            @images, @width, @height = Layout::Smart.new(@images, @kwargs).properties
           when DIAGONAL
             calculate_diagonal_dimensions
             calculate_diagonal_positions
@@ -43,22 +44,6 @@ module Compass
             require 'compass/sass_extensions/sprites/layout/vertical'
             @images, @width, @height = Layout::Vertical.new(@images, @kwargs).properties
           end
-        end
- 
-        def calculate_smart_positions
-          fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images)
-          current_y = 0
-          fitter.fit!.each do |row|
-            current_x = 0
-            row.images.each_with_index do |image, index|
-              image.left = current_x
-              image.top = current_y
-              current_x += image.width
-            end
-            current_y += row.height
-          end
-          @width = fitter.width
-          @height = fitter.height
         end
         
         
