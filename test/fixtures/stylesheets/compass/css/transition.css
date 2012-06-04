@@ -78,10 +78,10 @@
   transition-property: transform, opacity, width, height, left, top; }
 
 .multiple-transition-properties {
-  -webkit-transition-property: -webkit-transform transform left;
-  -moz-transition-property: -moz-transform transform left;
-  -ms-transition-property: -ms-transform transform left;
-  -o-transition-property: -o-transform transform left;
+  -webkit-transition-property: opacity, -webkit-transform, left;
+  -moz-transition-property: opacity, -moz-transform, left;
+  -ms-transition-property: opacity, -ms-transform, left;
+  -o-transition-property: opacity, -o-transform, left;
   transition-property: opacity, transform, left; }
 
 .transition-timing {
@@ -139,3 +139,11 @@
   -ms-transition-delay: 1s, 2s, 3s;
   -o-transition-delay: 1s, 2s, 3s;
   transition-delay: 1s, 2s, 3s; }
+
+.regression-912 {
+  -webkit-transition: background-color 0.5s ease-in, width 0.5s ease-out, height 0.5s ease-in, top 0.5s ease-out;
+  -webkit-transition-delay: 0s, 0s, 0s, 0s;
+  -moz-transition: background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s;
+  -ms-transition: background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s;
+  -o-transition: background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s;
+  transition: background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s; }

@@ -20,3 +20,5 @@
 .transition-delays { @include transition-delay(1s, 2s, 3s); }
 .transition-delays-list { @include transition-delay((1s, 2s, 3s)); }
 .transition-delays-string { @include transition-delay("1s, 2s, 3s"); }
+.regression-912 { @include transition((background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s)); }
+
