@@ -13,8 +13,8 @@ module Compass
             @options = kwargs
             @height  = 0
             @width   = 0
+            
             layout!
-            @images
           end
 
           def layout!
@@ -22,9 +22,13 @@ module Compass
           end
 
           def properties
-            if [@width, @height].any?(&:zero?)
-              raise Compass::SpriteException, "You must set the width and height before fetching the properties"
+            if @width.zero?
+              raise Compass::SpriteException, "You must set the width fetching the properties"
             end
+            if @height.zero?
+              raise Compass::SpriteException, "You must set the height fetching the properties"
+            end
+
             [@images, @width, @height]
           end
 
