@@ -34,11 +34,21 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CSS3] Added 3D transform support for Mozillia, IE, and Opera.
 * [CSS3] Added `-ms` support for css3 columns. Add support for the columns shorthand property.
 * [CSS3] Added `-ms` and `-webkit` support for CSS Regions. [Docs](/reference/compass/css3/regions/)
+* [CSS3] Added mixins for column-break properties to the columns module.
+* [CSS3] Added a css3/hyphenation module for the `word-break` and `hyphens` properties.
+* [CSS3] Made the API more consistent across the different mixins in the transitions module.
+* [CSS3] The text-shadow mixin now supports the spread parameter and it is used to progressively enhance browsers that support it.
 * [CLI] Added a `-I` option for adding sass import paths via the CLI during compilation and project set up.
 * [Configuration] For better ruby and rails integration, the `add_import_path` command now accepts
   [Sass::Importer](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#custom_importers) objects
   and [Ruby Pathname](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html) objects.
 * Reverted the [hide-text](/reference/compass/typography/text/replacement/#mixin-hide-text) mixin to the `-9999` method. If you prefer the [Kellum method](http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/) then you need to set `$hide-text-direction` to `right` in your stylesheets.
+* `$legacy-support-for-mozilla` can be set to `false` to disable output
+  for Firefox 3.6 or earlier.
+* Cleaned up the inline-block mixin to have less output and make the vertical-alignment of that mixin configurable or even turned off. [Details](https://github.com/chriseppstein/compass/commit/84e9a684b9697d728a37abb14cb0aae2c4d2a790)
+* Output of SVG and original webkit gradients is now omitted when using
+  the degree-based linear gradient syntax.
+* Added a `--fonts-dir` configuration flag for the compass command line.
 
 0.12.1 (03/14/2012)
 -------------------

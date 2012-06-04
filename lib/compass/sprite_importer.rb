@@ -93,7 +93,7 @@ module Compass
     
     # Returns the sass_options for this sprite
     def self.sass_options(uri, importer, options)
-      options.merge!(:filename => uri, :syntax => :scss, :importer => importer)
+      options.merge!(:filename => uri.gsub(%r{\*/},"*\\/"), :syntax => :scss, :importer => importer)
     end
     
     # Returns a Sass::Engine for this sprite object

@@ -1,9 +1,10 @@
 a {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
+  display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
   margin: 0.7em 0.5em 0.7em 0;
   border-width: 1px;
   border-style: solid;
@@ -14,8 +15,6 @@ a {
   text-decoration: none;
   cursor: pointer;
   padding: 5px 10px 5px 7px; }
-  a {
-    *display: inline; }
   a img {
     margin: 0 3px -3px 0 !important;
     padding: 0;
@@ -25,11 +24,12 @@ a {
     float: none; }
 
 button {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
+  display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
   margin: 0.7em 0.5em 0.7em 0;
   border-width: 1px;
   border-style: solid;
@@ -42,8 +42,6 @@ button {
   width: auto;
   overflow: visible;
   padding: 4px 10px 3px 7px; }
-  button {
-    *display: inline; }
   button img {
     margin: 0 3px -3px 0 !important;
     padding: 0;

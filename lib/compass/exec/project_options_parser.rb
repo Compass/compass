@@ -35,6 +35,10 @@ module Compass::Exec::ProjectOptionsParser
     opts.on('--javascripts-dir JS_DIR', "The directory where you keep your javascripts.") do |javascripts_dir|
       set_dir_or_path(:javascripts, javascripts_dir)
     end
+    
+    opts.on('--fonts-dir FONTS_DIR', "The directory where you keep your fonts.") do |fonts_dir|
+      set_dir_or_path(:fonts, fonts_dir)
+    end
 
     opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment.',
             '  One of: development (default), production') do |env|

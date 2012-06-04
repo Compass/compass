@@ -80,6 +80,8 @@
 // For use in IE 6 - 8. Best practice would have you apply this via a
 // conditional IE stylesheet, but if you must, you should place this before
 // any background-image properties that you have specified.
+//
+// For the `$orientation` parameter, you can pass `vertical` or `horizontal`.
 @mixin filter-gradient($start-color, $end-color, $orientation: vertical) {
   @include has-layout;
   $gradient-type: if($orientation == vertical, 0, 1);

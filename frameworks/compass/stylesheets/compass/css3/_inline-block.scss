@@ -1,16 +1,22 @@
 @import "shared";
 
-// Provides a cross-browser method to implement `display: inline-block;`
+// Set `$inline-block-alignment` to `none` or `false` to disable the output
+// of a vertical-align property in the inline-block mixin.
+// Or set it to a legal value for `vertical-align` to change the default.
+$inline-block-alignment: middle !default;
 
-@mixin inline-block {
-  @if $legacy-support-for-ie {
-    & { *display: inline; }
+// Provides a cross-browser method to implement `display: inline-block;`
+@mixin inline-block($alignment: $inline-block-alignment) {
+  @if $legacy-support-for-mozilla {
+    display: -moz-inline-stack;
   }
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
   display: inline-block;
-  vertical-align: middle;
+  @if $alignment and $alignment != none {
+    vertical-align: $alignment;
+  }
   @if $legacy-support-for-ie {
     *vertical-align: auto;
+    zoom: 1;
+    *display: inline;
   }
 }

@@ -88,14 +88,13 @@ ul.inline-block {
     list-style-image: none;
     list-style-type: none;
     margin-left: 0;
-    display: -moz-inline-box;
-    -moz-box-orient: vertical;
+    display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
+    zoom: 1;
+    *display: inline;
     white-space: nowrap; }
-    ul.inline-block li {
-      *display: inline; }
 
 ul.wide-inline-block {
   margin: 0;
@@ -107,16 +106,15 @@ ul.wide-inline-block {
     list-style-image: none;
     list-style-type: none;
     margin-left: 0;
-    display: -moz-inline-box;
-    -moz-box-orient: vertical;
+    display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
+    zoom: 1;
+    *display: inline;
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 10px; }
-    ul.wide-inline-block li {
-      *display: inline; }
 
 ul.inline {
   list-style-type: none; }

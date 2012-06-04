@@ -22,7 +22,8 @@ fallback_load_path(File.join(File.dirname(__FILE__), '..', 'lib')) do
 end
 
 if defined?(Bundler)
-  Bundler.require :assets
+  require 'bundler/shared_helpers'
+  Bundler.require :assets if Bundler::SharedHelpers.in_bundle?
 end
 
 runner = Proc.new do

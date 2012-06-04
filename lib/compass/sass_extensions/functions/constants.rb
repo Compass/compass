@@ -45,6 +45,15 @@ module Compass::SassExtensions::Functions::Constants
         position
       end
     end
+
+    def is_url(string)
+      if string.is_a?(Sass::Script::String)
+        is_url = !!(string.value =~ /^url\(.*\)$/)
+        Sass::Script::Bool.new(is_url)
+      else
+        Sass::Script::Bool.new(false)
+      end
+    end
   else
     # returns the opposite position of a side or corner.
     def opposite_position(position)

@@ -16,6 +16,10 @@ $legacy-support-for-ie8: $legacy-support-for-ie !default;
 // this combined variable.
 $legacy-support-for-ie: $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8;
 
+// Whether to output legacy support for mozilla.
+// Usually this means hacks to support Firefox 3.6 or earlier.
+$legacy-support-for-mozilla: true;
+
 // Support for mozilla in experimental css3 properties (-moz).
 $experimental-support-for-mozilla      : true !default;
 // Support for webkit in experimental css3 properties (-webkit).
