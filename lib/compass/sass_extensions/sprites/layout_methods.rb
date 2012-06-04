@@ -35,35 +35,14 @@ module Compass
             require 'compass/sass_extensions/sprites/layout/smart'
             @images, @width, @height = Layout::Smart.new(@images, @kwargs).properties
           when DIAGONAL
-            calculate_diagonal_dimensions
-            calculate_diagonal_positions
+            require 'compass/sass_extensions/sprites/layout/diagonal'
+            @images, @width, @height = Layout::Diagonal.new(@images, @kwargs).properties
           when HORIZONTAL
             require 'compass/sass_extensions/sprites/layout/horizontal'
             @images, @width, @height = Layout::Horizontal.new(@images, @kwargs).properties
           else
             require 'compass/sass_extensions/sprites/layout/vertical'
             @images, @width, @height = Layout::Vertical.new(@images, @kwargs).properties
-          end
-        end
-        
-        
-        def calculate_diagonal_dimensions
-          @width = @images.inject(0) {|sum, img| sum + img.width}
-          @height = @images.inject(0) {|sum, img| sum + img.height}
-        end
-        
-        def calculate_diagonal_positions
-          previous = nil
-          @images.each_with_index do |image, index|
-            if previous.nil?
-              previous = image
-              image.top = @height - image.height
-              image.left = 0
-              next
-            end
-            image.top = previous.top - image.height
-            image.left = previous.left + previous.width
-            previous = image
           end
         end
         
