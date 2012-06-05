@@ -19,6 +19,7 @@
 @import "compass/utilities/general/clearfix";
 @import "compass/utilities/general/reset";
 @import "compass/utilities/general/float";
+@import "compass/support";
 
 // Can be mixed into any selector that target a ul or ol that is meant
 // to have a horizontal layout. Used to implement +horizontal-list.

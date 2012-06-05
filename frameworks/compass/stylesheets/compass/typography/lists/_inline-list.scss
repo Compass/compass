@@ -1,5 +1,6 @@
-// makes a list inline.
+@import "compass/support";
 
+// makes a list inline.
 @mixin inline-list {
   list-style-type: none;
   &, & li {
