@@ -30,8 +30,10 @@
     &:last-child {
       &:after { content: ""; }
     }
-    &.last {
-      &:after { content: ""; }
+    @if $legacy-support-for-ie {
+      &.last {
+        &:after { content: ""; }
+      }
     }
   }
 }

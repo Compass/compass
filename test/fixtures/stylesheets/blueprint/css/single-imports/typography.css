@@ -41,13 +41,13 @@ h6 {
 p {
   margin: 0 0 1.5em; }
   p .left {
-    display: inline;
     float: left;
+    display: inline;
     margin: 1.5em 1.5em 1.5em 0;
     padding: 0; }
   p .right {
-    display: inline;
     float: right;
+    display: inline;
     margin: 1.5em 0 1.5em 1.5em;
     padding: 0; }
 

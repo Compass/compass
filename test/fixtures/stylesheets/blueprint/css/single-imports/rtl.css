@@ -6,8 +6,8 @@
   *zoom: 1; }
 
 .column, .span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10, .span-11, .span-12, .span-13, .span-14, .span-15, .span-16, .span-17, .span-18, .span-19, .span-20, .span-21, .span-22, .span-23, .span-24 {
-  display: inline;
   float: right;
+  display: inline;
   margin-left: 10px;
   text-align: right; }
   * html .column, * html .span-1, * html .span-2, * html .span-3, * html .span-4, * html .span-5, * html .span-6, * html .span-7, * html .span-8, * html .span-9, * html .span-10, * html .span-11, * html .span-12, * html .span-13, * html .span-14, * html .span-15, * html .span-16, * html .span-17, * html .span-18, * html .span-19, * html .span-20, * html .span-21, * html .span-22, * html .span-23, * html .span-24 {
@@ -277,8 +277,8 @@ input.span-24, textarea.span-24, select.span-24 {
   padding-right: 920px; }
 
 .pull-1, .pull-2, .pull-3, .pull-4, .pull-5, .pull-6, .pull-7, .pull-8, .pull-9, .pull-10, .pull-11, .pull-12, .pull-13, .pull-14, .pull-15, .pull-16, .pull-17, .pull-18, .pull-19, .pull-20, .pull-21, .pull-22, .pull-23, .pull-24 {
-  display: inline;
   float: left;
+  display: inline;
   position: relative; }
 
 .pull-1 {
@@ -354,8 +354,8 @@ input.span-24, textarea.span-24, select.span-24 {
   margin-left: -960px; }
 
 .push-1, .push-2, .push-3, .push-4, .push-5, .push-6, .push-7, .push-8, .push-9, .push-10, .push-11, .push-12, .push-13, .push-14, .push-15, .push-16, .push-17, .push-18, .push-19, .push-20, .push-21, .push-22, .push-23, .push-24 {
-  display: inline;
   float: left;
+  display: inline;
   position: relative; }
 
 .push-1 {
