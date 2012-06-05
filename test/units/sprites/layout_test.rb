@@ -67,6 +67,22 @@ class LayoutTest < Test::Unit::TestCase
     assert_equal 12, map.width
   end
 
+  test "repeat-y layout single image" do
+    opts = {"layout" => Sass::Script::String.new('horizontal'), "squares_ten_by_ten_repeat" => Sass::Script::String.new('repeat-y')}
+    map = sprite_map_test(@options.merge(opts), 'squares/*.png')
+    assert_equal 30, map.width
+    assert_equal 20, map.height
+    assert_equal 3, map.images.size
+    assert_equal [[0,0], [0,10], [10,0]], map.images.map { |img| [img.top, img.left] }
+    assert map.horizontal?
+  end
+
+  test "repeat-y layout multi image" do
+    opts = {"layout" => Sass::Script::String.new('horizontal'), "repeat_x_three_repeat" => Sass::Script::String.new('repeat-y'), "repeat_x_four_repeat" => Sass::Script::String.new('repeat-y')}
+    map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
+    assert_equal [[0, 0], [0, 5], [0, 9], [0, 10], [0, 13], [4, 5], [8, 5], [3, 10], [6, 10], [9, 10]], map.images.map { |img| [img.top, img.left] }
+  end
+
   # VERTICAL LAYOUT
 
   it "should have a vertical layout" do
