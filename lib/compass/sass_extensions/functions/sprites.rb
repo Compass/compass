@@ -189,7 +189,6 @@ module Compass::SassExtensions::Functions::Sprites
     image.position
   end
   Sass::Script::Functions.declare :sprite_image_position, [:map, :sprite]
-end
 
 protected
 
