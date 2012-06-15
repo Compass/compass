@@ -34,7 +34,7 @@
 
 // Specify the width of the rule between columns e.g. `1px`
 @mixin column-rule-width($width) {
-  @include experimental(rule-width, $width,
+  @include experimental(column-rule-width, $width,
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
@@ -42,7 +42,7 @@
 // Specify the style of the rule between columns e.g. `dotted`.
 // This works like border-style.
 @mixin column-rule-style($style) {
-  @include experimental(rule-style, unquote($style),
+  @include experimental(column-rule-style, unquote($style),
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
@@ -50,7 +50,7 @@
 // Specify the color of the rule between columns e.g. `blue`.
 // This works like border-color.
 @mixin column-rule-color($color) {
-  @include experimental(rule-color, $color,
+  @include experimental(column-rule-color, $color,
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
