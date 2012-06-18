@@ -35,22 +35,22 @@ p.dark-with-args {
   background-color: #5f1210;
   color: blue; }
 
-th {
+th.odd, th:nth-child(2n+1) {
   background-color: white; }
-  th.even, th:nth-child(2n) {
-    background-color: yellow; }
+th.even, th:nth-child(2n) {
+  background-color: yellow; }
 
-tr.odd td, tr:nth-child(2n+1) td {
+tr.odd td.odd, tr.odd td:nth-child(2n+1), tr:nth-child(2n+1) td.odd, tr:nth-child(2n+1) td:nth-child(2n+1) {
   background-color: white; }
-  tr.odd td.even, tr.odd td:nth-child(2n), tr:nth-child(2n+1) td.even, tr:nth-child(2n+1) td:nth-child(2n) {
-    background-color: yellow; }
+tr.odd td.even, tr.odd td:nth-child(2n), tr:nth-child(2n+1) td.even, tr:nth-child(2n+1) td:nth-child(2n) {
+  background-color: yellow; }
 
-tr.even td {
+tr.even td.odd, tr.even td:nth-child(2n+1), tr:nth-child(2n) td.odd, tr:nth-child(2n) td:nth-child(2n+1) {
   background-color: red; }
-  tr.even td.even, tr.even td:nth-child(2n) {
-    background-color: red; }
+tr.even td.even, tr.even td:nth-child(2n), tr:nth-child(2n) td.even, tr:nth-child(2n) td:nth-child(2n) {
+  background-color: red; }
 
-tfoot th, tfoot td {
+tfoot th.odd, tfoot th:nth-child(2n+1), tfoot td.odd, tfoot td:nth-child(2n+1) {
   background-color: white; }
-  tfoot th.even, tfoot th:nth-child(2n), tfoot td.even, tfoot td:nth-child(2n) {
-    background-color: yellow; }
+tfoot th.even, tfoot th:nth-child(2n), tfoot td.even, tfoot td:nth-child(2n) {
+  background-color: yellow; }
