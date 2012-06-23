@@ -1,0 +1,29 @@
+.blur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  filter: blur(5px); }
+
+.brightness {
+  -webkit-filter: brightness(0.2);
+  -moz-filter: brightness(0.2);
+  filter: brightness(0.2); }
+
+.hue-rotate {
+  -webkit-filter: hue-rotate(20deg);
+  -moz-filter: hue-rotate(20deg);
+  filter: hue-rotate(20deg); }
+
+.contrast {
+  -webkit-filter: contrast(150%);
+  -moz-filter: contrast(150%);
+  filter: contrast(150%); }
+
+.grayscale {
+  -webkit-filter: grayscale(150%);
+  -moz-filter: grayscale(150%);
+  filter: grayscale(150%); }
+
+.sepia {
+  -webkit-filter: sepia(150%);
+  -moz-filter: sepia(150%);
+  filter: sepia(150%); }
