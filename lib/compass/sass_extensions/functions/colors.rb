@@ -32,6 +32,20 @@ module Compass::SassExtensions::Functions::Colors
     color.with(:saturation => scale_color_value(color.saturation, amount.value))
   end
 
+  def shade(color, percentage)
+    assert_type color, :Color
+    assert_type percentage, :Number
+    black = Sass::Script::Color.new([0, 0, 0])
+    mix(black, color, percentage)
+  end
+
+  def tint(color, percentage)
+    assert_type color, :Color
+    assert_type percentage, :Number
+    white = Sass::Script::Color.new([255, 255, 255])
+    mix(white, color, percentage)
+  end
+
   # returns an IE hex string for a color with an alpha channel
   # suitable for passing to IE filters.
   def ie_hex_str(color)
