@@ -1,0 +1,111 @@
+// Based on the [respond-to mixin in Sam Richard's Aura framework](http://github.com/Snugug/Aura)
+//
+// Mix into top of stylesheet
+//
+// Respond-to Usage:
+//  - Set named breakpoints in the $breakpoints variable
+//    - Assumes breakpoints are min-width and screen media queries
+//    - Minimum needed is a name and a value
+//    - Optional operator and query inputs for each breakpoint
+//    - If you want to change query, you need to include operator.
+//    - Format: 'name' value 'operator' 'query'
+//      - $breakpoints: 'foo' 500px, 'bar' 700px 'max-width', 'baz' 700px 'min-width' tv, 'qux' 900px 'max-width' tv;
+//        - Foo assumes the defaults of min-width and screen. Foo will generate @media screen and (min-width: 500px)
+//        - Bar changes min-width to max, but assumes screen as well. Bar will generate @media screen and (max-width: 700px)
+//        - Baz wants to use min-width, but change media type, so min-width needs to be re-declare. Baz will generate @media tv and (min-width: 700px)
+//        - Qux goes all out and has a full unique media query. Qux will generate @media tv and (max-width: 900px)
+//  - Input is name of named breakpoint.
+//  - Call the respond-to mixin with the named breakpoint you'd like
+//    - @include respond-to('foo');
+//
+// Media-query Usage:
+//  - Writes a media query based on input variables
+//  - Required input is $value
+//    - $value can either be a single value or a list of value, operator, and query
+//  - Optional inputs are $operator and $query
+//    - $operator defaults to 'min-width'
+//    - $query defaults to 'screen'
+//  - Call the media-query mixin with what you're querying/
+//    - @include media-query(300px);
+//    - @include media-query(300px, 'max-width');
+//    - @include media-query(300px, 'max-width', 'tv');
+
+
+// Defaulted variable for use with respond-to mixin
+$breakpoints: false !default;
+
+// Mixin to dynamically generate named breakpoints based on the $breakpoints variable
+@mixin respond-to($context) {
+  @if $breakpoints != false {
+    // Check to see if the 2nd item is a number. If it is, we've got a single query
+    @if type-of(nth($breakpoints, 2)) == 'number' {
+      // Check to see if the context matches the breakpoint namespace
+      @if $context == nth($breakpoints, 1) {
+        // Call Media Query Generator
+        @include mqg($breakpoints) {
+          @content;
+        }
+      }
+    }
+    // Else, loop over all of them
+    @else {
+      // Loop over each breakpoint and check context
+      @each $bkpt in $breakpoints {
+        // If context is correct…
+        @if $context == nth($bkpt, 1) {
+          // Call the generator!
+          @include mqg($bkpt) {
+            @content;
+          }
+        }
+      }
+    }
+  }
+}
+
+// This functionality gets used twice so I turned it into its own mixin.
+// Not really to be called on its own, used to slice out breakpoint name from input.
+@mixin mqg($bkpt) {
+  // Get length of breakpoint variable, minus the namespace
+  $length: length($bkpt);
+  // Go through all of the breakpoint items, starting at the second, and add them to a variable to be passed into the media query mixin
+  $mq: false !default;
+  @for $i from 2 through $length {
+    // If it's the first item, override $mq
+    @if $i == 2 {
+      $mq: nth($bkpt, $i);
+    }
+    // Else, join $mq
+    @else {
+      $mq: join($mq, nth($bkpt, $i));
+    }
+  }
+  // Call Media Query mixin
+  @include media-query($mq) {
+    @content;
+  }
+}
+
+// Slightly modified version of [Sam Richard's Media Query Mixin](https://gist.github.com/2490750), modified to accommodate list input
+@mixin media-query($value, $operator: 'min-width', $query: 'screen') {
+  // If a list is passed in for value, break it into value, operator, and query
+  @if type-of($value) == 'list' {
+    $mq: $value;
+    
+    @for $i from 1 through length($mq) {
+      @if $i == 1 {
+        $value: nth($mq, 1);
+      }
+      @else if $i == 2 {
+        $operator: nth($mq, 2);
+      }
+      @else if $i == 3 {
+        $query: nth($mq, 3);
+      }
+    }
+  }
+  
+  @media #{$query} and (#{$operator}: #{$value}) {
+    @content;
+  }
+}
