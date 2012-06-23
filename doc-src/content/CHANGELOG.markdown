@@ -41,6 +41,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * Output of SVG and original webkit gradients is now omitted when using
   the degree-based linear gradient syntax.
 * Added a `--fonts-dir` configuration flag for the compass command line.
+* Added `tint()` and `shade()` color helper functions, for better ligthening/darkening of colors.
 
 0.12.1 (03/14/2012)
 -------------------
