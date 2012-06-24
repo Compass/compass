@@ -14,7 +14,7 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.12.2 (UNRELEASED)
+0.12.2 (06/24/2012)
 -------------------
 
 * [Vertical Rhythm Module] Removed the `$ie-font-ratio` constatnt in
