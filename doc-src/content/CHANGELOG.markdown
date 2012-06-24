@@ -14,7 +14,13 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-0.13.alpha.0 (UNRELEASED)
+0.13.alpha.1 (UNRELEASED)
+-------------------------
+
+* Removed the -ms prefix support from keyfrome animation, the spec was
+  approved before MS released IE10.
+
+0.13.alpha.0 (05/06/2012)
 -------------------------
 
 * Allow numeric sprite names when not using sprite selector generation capability.

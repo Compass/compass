@@ -4,7 +4,7 @@
 
 // Apply an animation property and value with the correct browser support
 @mixin animation-support($property, $value) {
-  @include experimental($property, $value, -moz, -webkit, -o, -ms, not -khtml, official); }
+  @include experimental($property, $value, -moz, -webkit, -o, not -ms, not -khtml, official); }
 
 // Name of any animation as a string.
 $default-animation-name             : false !default;
@@ -39,7 +39,6 @@ $default-animation-play-state       : false !default;
   $moz: $experimental-support-for-mozilla,
   $webkit: $experimental-support-for-webkit,
   $o: $experimental-support-for-opera,
-  $ms: $experimental-support-for-microsoft,
   $khtml: $experimental-support-for-khtml,
   $official: true
 ) {
@@ -56,11 +55,6 @@ $default-animation-play-state       : false !default;
   @if $o {
     @include with-only-support-for($o: true) {
       @-o-keyframes #{$name} { @content; }
-    }
-  }
-  @if $ms {
-    @include with-only-support-for($ms: true) {
-      @-ms-keyframes #{$name} { @content; }
     }
   }
   @if $khtml {
