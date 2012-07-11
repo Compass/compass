@@ -51,7 +51,7 @@
 //
 @mixin hyphens($value: auto){
   @include experimental(hyphens, $value,
-    -moz, -webkit, not -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
