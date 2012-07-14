@@ -45,7 +45,7 @@ $<%= name %>-inline: false !default;
     background: $<%= name %>-sprites no-repeat;
   }
 }
-//sass functions to return the dimensions of a sprite image as units
+// Sass functions to return the dimensions of a sprite image as units
 <% [:width, :height].each do |dimension| %>
   @function <%= name %>-sprite-<%= dimension %>($name) {
     $file: sprite_file($<%= name %>-sprites, $name);
