@@ -1,5 +1,6 @@
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
+  ONE = Sass::Script::Number::new(1)
   VALID_SELECTORS = %w(hover active target)
   # Provides a consistent interface for getting a variable in ruby
   # from a keyword argument hash that accounts for underscores/dash equivalence
@@ -57,7 +58,7 @@ module Compass::SassExtensions::Functions::Sprites
   # Becomes:
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
-  def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
+  def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO, ratio = ONE)
     sprite = convert_sprite_name(sprite)    
     verify_map(map)
     unless sprite.is_a?(Sass::Script::String)
@@ -70,6 +71,7 @@ module Compass::SassExtensions::Functions::Sprites
   Sass::Script::Functions.declare :sprite, [:map, :sprite]
   Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x]
   Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y]
+  Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y, :ratio]
 
   # Returns the name of a sprite map
   # The name is derived from the folder than contains the sprites.
@@ -117,10 +119,14 @@ module Compass::SassExtensions::Functions::Sprites
 
 
   # Returns a url to the sprite image.
-  def sprite_url(map)
+  def sprite_url(map, only_path = Sass::Script::Bool.new(false))
     verify_map(map, "sprite-url")
     map.generate
-    generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
+    if only_path.to_bool
+      Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png")
+    else
+      generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
+    end
   end
   Sass::Script::Functions.declare :sprite_url, [:map]
 
@@ -143,9 +149,10 @@ module Compass::SassExtensions::Functions::Sprites
   # Would change the above output to:
   #
   #     background-position: 3px -36px;
-  def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
+  def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO, ratio = ONE)
     assert_type offset_x, :Number
     assert_type offset_y, :Number
+    assert_type ratio, :Number
     sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
     unless sprite && sprite.is_a?(Sass::Script::String)
@@ -155,13 +162,19 @@ module Compass::SassExtensions::Functions::Sprites
     unless image
       missing_image!(map, sprite)
     end
-    if offset_x.unit_str == "%"
-      x = offset_x # CE: Shouldn't this be a percentage of the total width?
+    if ratio.unit_str == "%"
+      r = ratio.value / 100
     else
-      x = offset_x.value - image.left
+      r = ratio.value
+    end
+    if offset_x.unit_str == "%"
+      x = (offset_x.value * r) # CE: Shouldn't this be a percentage of the total width?
+      x = Sass::Script::Number.new(x, x == 0 ? [] : ["%"])
+    else
+      x = ( offset_x.value - image.left ) * r
       x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
     end
-    y = offset_y.value - image.top
+    y = ( offset_y.value - image.top ) * r
     y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
     Sass::Script::List.new([x, y],:space)
   end
@@ -169,6 +182,7 @@ module Compass::SassExtensions::Functions::Sprites
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite]
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x]
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y]
+  Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y, :ratio]
 
   def sprite_image(*args)
     raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://compass-style.org/help/tutorials/spriting/ for more information.)
