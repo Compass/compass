@@ -1,8 +1,13 @@
 @import "shared";
 
-// display:box; must be used for any of the other flexbox mixins to work properly
-@mixin display-box {
-  @include experimental-value(display, box,
+// display:box; (or inline box) must be used for any of the other flexbox mixins to work properly
+@mixin display-box( $box-style: box ) {
+  // box is default
+  @if $box-style != inline-box
+  {
+    $box-style: box;
+  }
+  @include experimental-value(display, $box-style,
     -moz, -webkit, not -o, -ms, not -khtml, official
   );
 }
