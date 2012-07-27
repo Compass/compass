@@ -77,3 +77,9 @@ $sprite-image-default-height: $sprite-default-size !default;
 @mixin sprite-replace-text-with-dimensions ($map, $sprite, $offset-x: 0, $offset-y: 0){    
   @include sprite-replace-text ($map, $sprite, true, $offset-x, $offset-y);
 }
+
+// Calculated the background size value based on the dimensions of the generated spritemap and the supplied ratio
+@mixin sprite-map-background-size( $map, $ratio: 1 )
+{
+	background-size: ( image-width( sprite-url( $map, true ) ) * $ratio ) ( image-height( sprite-url( $map, true ) ) * $ratio );
+}
