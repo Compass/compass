@@ -11,6 +11,7 @@ $<%= name %>-prefix: '' !default;
 $<%= name %>-clean-up: true !default;
 $<%= name %>-layout:vertical !default;
 $<%= name %>-inline: false !default;
+$<%= name %>-sprite-archetype: '' !default;
 
 <% if skip_overrides %> 
   $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up);
@@ -34,24 +35,27 @@ $<%= name %>-inline: false !default;
  );
 <% end %>
 
-// All sprites should extend this class
-// The <%= name %>-sprite mixin will do so for you.
-@if $<%= name %>-inline {
-  #{$<%= name %>-sprite-base-class} {
-    background-image: inline-sprite($<%= name %>-sprites);
-  } 
-} @else {
-  #{$<%= name %>-sprite-base-class} {
-    background: $<%= name %>-sprites no-repeat;
-  }
-}
-//sass functions to return the dimensions of a sprite image as units
+// Sass functions to return the dimensions of a sprite image as units
 <% [:width, :height].each do |dimension| %>
   @function <%= name %>-sprite-<%= dimension %>($name) {
     $file: sprite_file($<%= name %>-sprites, $name);
     @return image-<%= dimension %>($file);
   }
 <% end %>
+
+// All sprites should extend this class
+// The <%= name %>-sprite mixin will do so for you.
+#{$<%= name %>-sprite-base-class} {
+  @if $<%= name %>-inline {
+    background-image: inline-sprite($<%= name %>-sprites);
+  } @else {
+    background: $<%= name %>-sprites no-repeat;
+  }
+  @if $<%= name %>-sprite-archetype {
+    width: <%= name %>-sprite-width($<%= name %>-sprite-archetype);
+    height: <%= name %>-sprite-height($<%= name %>-sprite-archetype);
+  }
+}
 
 // Use this to set the dimensions of an element
 // based on the size of the original image.

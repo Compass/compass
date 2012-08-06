@@ -137,6 +137,30 @@ class SpritesTest < Test::Unit::TestCase
     assert_equal image_size('squares-s*.png'), [20, 30]
   end
 
+  it "should generate sprite classes with width and height of archetype sprite, the yellow sprite" do
+    css = render <<-SCSS
+      $colors-sprite-archetype: yellow;
+      @import "colors/*.png";
+      @include all-colors-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .colors-sprite, .colors-blue, .colors-yellow {
+        background: url('/colors-sbbc18e2129.png') no-repeat;
+        height: 10px;
+        width: 10px;
+      }
+      
+      .colors-blue {
+        background-position: 0 0;
+      }
+      
+      .colors-yellow {
+        background-position: 0 -10px;
+      }
+    CSS
+    assert_equal image_size('colors-s*.png'), [20, 30]
+  end
+
   it "should provide sprite mixin" do
     css = render <<-SCSS
       @import "squares/*.png";
