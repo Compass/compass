@@ -28,7 +28,13 @@ module Compass
       end
 
       def add_project_configuration
-        Compass.add_project_configuration(options[:configuration_file], :defaults => Compass.configuration_for(options, "cli_defaults")) do
+        defaults = Compass.configuration_for(options, "cli_defaults")
+        if options[:project_type]
+          project_type_config = Compass.configuration_for(options[:project_type])
+          project_type_config.inherit_from!(Compass.default_configuration)
+          defaults.inherit_from!(project_type_config)
+        end
+        Compass.add_project_configuration(options[:configuration_file], :defaults => defaults) do
           options[:project_type]
         end
       end
