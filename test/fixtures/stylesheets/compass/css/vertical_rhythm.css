@@ -3,43 +3,43 @@
 
 html {
   font-size: 14px;
-  line-height: 1.143em; }
+  line-height: 1.14286em; }
 
 .small {
-  font-size: 0.857em;
-  line-height: 1.333em; }
+  font-size: 0.85714em;
+  line-height: 1.33333em; }
 
 .padded {
-  margin-top: 1.143em;
-  padding-top: 1.143em;
-  padding-bottom: 1.143em;
-  margin-bottom: 1.143em; }
+  margin-top: 1.14286em;
+  padding-top: 1.14286em;
+  padding-bottom: 1.14286em;
+  margin-bottom: 1.14286em; }
 
 .small-padded {
-  font-size: 0.857em;
-  line-height: 1.333em;
-  margin-top: 1.333em;
-  padding-top: 1.333em;
-  padding-bottom: 1.333em;
-  margin-bottom: 1.333em; }
+  font-size: 0.85714em;
+  line-height: 1.33333em;
+  margin-top: 1.33333em;
+  padding-top: 1.33333em;
+  padding-bottom: 1.33333em;
+  margin-bottom: 1.33333em; }
 
 .borders {
   border-top-style: solid;
-  border-top-width: 0.071em;
-  padding-top: 1.071em;
+  border-top-width: 0.07143em;
+  padding-top: 1.07143em;
   border-bottom-style: solid;
-  border-bottom-width: 0.071em;
-  padding-bottom: 1.071em; }
+  border-bottom-width: 0.07143em;
+  padding-bottom: 1.07143em; }
 
 .large-borders {
-  font-size: 1.714em;
+  font-size: 1.71429em;
   line-height: 2em;
   border-top-style: solid;
   border-top-width: 0.25em;
-  padding-top: 0.417em;
+  padding-top: 0.41667em;
   border-bottom-style: solid;
   border-bottom-width: 0.25em;
-  padding-bottom: 0.417em; }
+  padding-bottom: 0.41667em; }
 
 .reset {
-  line-height: 1.143em; }
+  line-height: 1.14286em; }
