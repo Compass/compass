@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::GradientSupport
 
-  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg ms).freeze
+  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg).freeze
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
@@ -112,7 +112,6 @@ module Compass::SassExtensions::Functions::GradientSupport
     standardized_prefix :webkit
     standardized_prefix :moz
     standardized_prefix :o
-    standardized_prefix :ms
     
     def to_owg(options = self.options)
       args = [
@@ -168,8 +167,6 @@ module Compass::SassExtensions::Functions::GradientSupport
     standardized_prefix :webkit
     standardized_prefix :moz
     standardized_prefix :o
-    standardized_prefix :ms
-    
 
     def supports?(aspect)
       # I don't know how to support degree-based gradients in old webkit gradients (owg) or svg so we just disable them.

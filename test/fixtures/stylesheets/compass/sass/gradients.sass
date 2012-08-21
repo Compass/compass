@@ -15,7 +15,7 @@ $experimental-support-for-svg: true
 
 .bg-linear-gradient-angle2-svg
   +background-image(linear-gradient(top left, blue, black))
-  
+
 .bg-all-gradient-types-with-simplification
   +background-with-css2-fallback(image-url("4x6.png"), linear-gradient(top left, #ddd, #aaa), radial-gradient(center center, #ddd, #aaa 100px), #ffcc00)
 
@@ -34,10 +34,8 @@ $experimental-support-for-svg: true
 .transparent-in-linear-gradient
   +background-image(#fff linear-gradient(top left, transparent, #aaa))
 
-.transparent-in-linear-gradient
-  +background-image(radial-gradient(center center, #ddd, transparent 100px))
-
 .bg-radial-gradient
+  +background-image(radial-gradient(center center, #ddd, transparent 100px))
 
 .bg-linear-gradient-with-angle
   +background-image(linear-gradient(-45deg, #ddd, #aaa))

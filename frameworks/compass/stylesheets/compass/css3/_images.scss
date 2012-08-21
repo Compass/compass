@@ -23,7 +23,6 @@
   @if $experimental-support-for-webkit       and prefixed(-webkit, $backgrounds) {      background: -webkit($backgrounds); }
   @if $experimental-support-for-mozilla      and prefixed(-moz,    $backgrounds) {      background:    -moz($backgrounds); }
   @if $experimental-support-for-opera        and prefixed(-o,      $backgrounds) {      background:      -o($backgrounds); }
-  @if $experimental-support-for-microsoft    and prefixed(-ms,     $backgrounds) {      background:     -ms($backgrounds); }
   @if $experimental-support-for-pie          and $add-pie-bg                     { -pie-background:    -pie($backgrounds); }
                                                                                         background:         $backgrounds ;
 }
@@ -71,7 +70,6 @@
   @if $experimental-support-for-webkit       and prefixed(-webkit, $images) { background-image: -webkit($images); }
   @if $experimental-support-for-mozilla      and prefixed(-moz,    $images) { background-image:    -moz($images); }
   @if $experimental-support-for-opera        and prefixed(-o,      $images) { background-image:      -o($images); }
-  @if $experimental-support-for-microsoft    and prefixed(-ms,     $images) { background-image:     -ms($images); }
   @if $experimental-support-for-pie          and $add-pie-bg                { @warn "PIE does not support background-image. Use @include background(#{$images}) instead." }
                                                                               background-image:         $images ;
 }

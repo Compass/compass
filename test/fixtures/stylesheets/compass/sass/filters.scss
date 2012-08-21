@@ -1,0 +1,24 @@
+@import "compass/css3/filter";
+
+.blur {
+  @include filter(blur(5px));
+}
+.brightness {
+  @include filter(brightness(0.2));
+}
+// We can enable this test case when sass commit 38f3c4be8bc15c130c5b1cc5880c9131e1bcb08f is released.
+// .saturate {
+//   @include filter(saturate(50%));
+// }
+.hue-rotate {
+  @include filter(hue-rotate(20deg));
+}
+.contrast {
+  @include filter(contrast(150%));
+}
+.grayscale {
+  @include filter(grayscale(150%));
+}
+.sepia {
+  @include filter(sepia(150%));
+}

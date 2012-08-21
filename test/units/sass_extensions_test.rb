@@ -23,7 +23,7 @@ class SassExtensionsTest < Test::Unit::TestCase
   def test_enumerate
     assert_equal ".grid-1, .grid-2, .grid-3", evaluate(%Q{enumerate(".grid", 1, 3, "-")})
   end
-  
+
   def test_append_selector
     assert_equal "div.bar", evaluate(%Q{append_selector("div", ".bar")})
     assert_equal ".foo1.bar1, .foo1.bar2, .foo2.bar1, .foo2.bar2", evaluate(%Q{append_selector(".foo1, .foo2", ".bar1, .bar2")})
@@ -59,30 +59,40 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25%", evaluate("saturation(adjust-saturation(hsl(50deg, 50%, 50%), -25%))")
   end
 
+  def test_shade
+    assert_equal evaluate("mix(black, #ff0, 25%)"), evaluate("shade(#ff0, 25%)")
+    assert_equal evaluate("mix(black, #ff0, 0%)"), evaluate("shade(#ff0, 0%)")
+  end
+
+  def test_tint
+    assert_equal evaluate("mix(white, #ff0, 75%)"), evaluate("tint(#ff0, 75%)")
+    assert_equal evaluate("mix(white, #ff0, 100%)"), evaluate("tint(#ff0, 100%)")
+  end
+
   def test_if_function
     assert_equal "no", evaluate("if(false, yes, no)")
     assert_equal "yes", evaluate("if(true, yes, no)")
   end
 
   def test_math_functions
-    assert_equal "0.841", evaluate("sin(1)")
-    assert_equal "0.841px", evaluate("sin(1px)")
+    assert_equal "0.84147", evaluate("sin(1)")
+    assert_equal "0.84147px", evaluate("sin(1px)")
     assert_equal "0.0", evaluate("sin(pi())")
     assert_equal "1",   evaluate("sin(pi() / 2)")
     assert_equal "0.0",   evaluate("sin(180deg)")
     assert_equal "-1",  evaluate("sin(3* pi() / 2)")
     assert_equal "-1", evaluate("cos(pi())")
     assert_equal "1", evaluate("cos(360deg)")
-    assert_equal "-0.176", evaluate("sin(270)")
+    assert_equal "-0.17605", evaluate("sin(270)")
     assert_equal "1", evaluate("cos(2*pi())")
     assert_equal "0.0",   evaluate("cos(pi() / 2)")
     assert_equal "0.0",  evaluate("cos(3* pi() / 2)")
     assert_equal "0.0",  evaluate("tan(pi())")
     assert_equal "0.0", evaluate("tan(360deg)")
-    assert_equal "0.959", evaluate("sin(360)")
+    assert_equal "0.95892", evaluate("sin(360)")
     assert evaluate("tan(pi()/2 - 0.0001)").to_f > 1000, evaluate("tan(pi()/2 - 0.0001)")
     assert evaluate("tan(pi()/2 + 0.0001)").to_f < -1000, evaluate("tan(pi()/2 - 0.0001)")
-    assert_equal "0.693px", evaluate("logarithm(2px)")
+    assert_equal "0.69315px", evaluate("logarithm(2px)")
     assert_equal "0", evaluate("logarithm(1)")
     assert_equal "1", evaluate("logarithm(e())")
     assert_equal "1", evaluate("logarithm($number: e())")
@@ -93,7 +103,7 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "5px", evaluate("square-root($number: 25px)")
     assert_equal "25px", evaluate("pow(5px, 2)")
     assert_equal "25px", evaluate("pow($number: 5px, $exponent: 2)")
-    assert_equal "79.432px", evaluate("pow(5px, e())")
+    assert_equal "79.43236px", evaluate("pow(5px, e())")
   end
 
   def test_blank
@@ -166,16 +176,16 @@ class SassExtensionsTest < Test::Unit::TestCase
     base64_string = File.read(File.join(Compass.configuration.fonts_path, "bgrove.base64.txt")).chomp
     assert_equal "url('data:font/truetype;base64,#{base64_string}') format('truetype')", evaluate("inline_font_files('bgrove.ttf', truetype)")
   end
-  
-  
+
+
   def test_image_size_should_respond_to_to_path
     object = mock()
     object.expects(:to_path).returns('foo.jpg')
     object.expects(:respond_to?).with(:to_path).returns(true)
-    
+
     Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(object)
   end
-  
+
   def test_reject
     assert_equal "b d", evaluate("reject(a b c d, a, c)")
     assert_equal "a b c d", evaluate("reject(a b c d, e)")

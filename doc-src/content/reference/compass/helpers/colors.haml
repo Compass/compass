@@ -13,6 +13,8 @@ documented_functions:
   - "adjust-saturation"
   - "scale-lightness"
   - "scale-saturation"
+  - "shade"
+  - "tint"
 ---
 %h1 Compass Color Helpers
 %p
@@ -56,3 +58,19 @@ documented_functions:
     %p
       Scales <code>$color</code>'s saturation value by <code>$amount</code>.
       <code>$amount</code> can be negative.
+
+#shade.helper
+  %h3
+    %a(href="#shade")
+      shade(<span class="arg">$color</span>, <span class="arg">$percentage</span>)
+  .details
+    %p
+      Darkens the <code>$color</code> by mixing it with black as specified by <code>$percentage</code>.
+
+#tint.helper
+  %h3
+    %a(href="#tint")
+      tint(<span class="arg">$color</span>, <span class="arg">$percentage</span>)
+  .details
+    %p
+      Lightens the <code>$color</code> by mixing it with white as specified by <code>$percentage</code>.
