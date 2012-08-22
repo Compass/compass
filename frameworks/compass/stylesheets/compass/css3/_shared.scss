@@ -20,6 +20,18 @@
   @if $official                                        {         #{$property} : $value; }
 }
 
+// This mixin is a shortcut for applying only a single experimental value
+@mixin experimental-only-for($property, $value,
+  $moz      : false,
+  $webkit   : false,
+  $o        : false,
+  $ms       : false,
+  $khtml    : false,
+  $official : false
+) {
+  @include experimental($property, $value, $moz, $webkit, $o, $ms, $khtml, $official);
+}
+
 // Same as experimental(), but for cases when the property is the same and the value is vendorized
 @mixin experimental-value($property, $value,
   $moz      : $experimental-support-for-mozilla,
@@ -73,4 +85,19 @@
   // Return to original support settings
   @include set-legacy-ie-support($original-ie6, $original-ie7, $original-ie8);
   @include set-experimental-support($original-moz, $original-webkit, $original-ms, $original-o, $original-khtml);
+}
+
+// This mixin is a shortcut for making slight adjustments to browser support
+// for child @
+@mixin adjust-support-for(
+    $moz: $experimental-support-for-mozilla,
+    $webkit: $experimental-support-for-webkit,
+    $ms: $experimental-support-for-microsoft,
+    $o: $experimental-support-for-opera,
+    $khtml: $experimental-support-for-khtml,
+    $legacy-ie: $legacy-support-for-ie
+) {
+  @include with-only-support-for($moz, $webkit, $ms, $o, $khtml, $legacy-ie) {
+    @content;
+  }
 }
