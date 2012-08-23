@@ -2,9 +2,9 @@
 
 // CSS Animations.
 
-// Apply an animation property and value with the correct browser support
-@mixin animation-support($property, $value) {
-  @include experimental($property, $value, -moz, -webkit, -o, not -ms, not -khtml, official); }
+// @private css3-feature-support variables must always include a list of six boolean values
+// representing in order: -moz, -webkit, -o, -ms, -khtml.
+$animation-support: -moz, -webkit, -o, not -ms, -khtml;
 
 // Name of any animation as a string.
 $default-animation-name             : false !default;
@@ -36,28 +36,28 @@ $default-animation-play-state       : false !default;
 //     @content - The keyframes of the animation.
 @mixin keyframes(
   $name,
-  $moz: $experimental-support-for-mozilla,
-  $webkit: $experimental-support-for-webkit,
-  $o: $experimental-support-for-opera,
-  $khtml: $experimental-support-for-khtml,
-  $official: true
+  $moz      : $experimental-support-for-mozilla,
+  $webkit   : $experimental-support-for-webkit,
+  $o        : $experimental-support-for-opera,
+  $khtml    : $experimental-support-for-khtml,
+  $official : true
 ) {
-  @if $moz {
+  @if $moz and nth($animation-support,1) {
     @include with-only-support-for($moz: true) {
       @-moz-keyframes #{$name} { @content; }
     }
   }
-  @if $webkit {
+  @if $webkit and nth($animation-support,2) {
     @include with-only-support-for($webkit: true) {
       @-webkit-keyframes #{$name} { @content; }
     }
   }
-  @if $o {
+  @if $o and nth($animation-support,3) {
     @include with-only-support-for($o: true) {
       @-o-keyframes #{$name} { @content; }
     }
   }
-  @if $khtml {
+  @if $khtml and nth($animation-support,5) {
     @include with-only-support-for($khtml: true) {
       @-khtml-keyframes #{$name} { @content; }
     }
@@ -69,53 +69,54 @@ $default-animation-play-state       : false !default;
   }
 }
 
-// Apply 1-10 animation names.
-@mixin animation-name($name-1: $default-animation-name, $name-2: false, $name-3: false, $name-4: false, $name-5: false, $name-6: false, $name-7: false, $name-8: false, $name-9: false, $name-10: false) {
-  $name: compact($name-1, $name-2, $name-3, $name-4, $name-5, $name-6, $name-7, $name-8, $name-9, $name-10);
-  @include animation-support(animation-name, $name); }
+// Apply any number of animation names.
+@mixin animation-name($name...) {
+  $name: if(length($name) > 0, $name, $default-animation-name);
+  @include experimental(animation-name, $name, $animation-support...); }
 
-// Apply 1-10 animation durations.
-@mixin animation-duration($duration-1: $default-animation-duration, $duration-2: false, $duration-3: false, $duration-4: false, $duration-5: false, $duration-6: false, $duration-7: false, $duration-8: false, $duration-9: false, $duration-10: false) {
-  $duration: compact($duration-1, $duration-2, $duration-3, $duration-4, $duration-5, $duration-6, $duration-7, $duration-8, $duration-9, $duration-10);
-  @include animation-support(animation-duration, $duration); }
+// Apply any number of animation durations.
+@mixin animation-duration($duration...) {
+  $duration: if(length($duration) > 0, $duration, $default-animation-duration);
+  @include experimental(animation-duration, $duration, $animation-support...); }
 
-// Apply 1-10 animation delays.
-@mixin animation-delay($delay-1: $default-animation-delay, $delay-2: false, $delay-3: false, $delay-4: false, $delay-5: false, $delay-6: false, $delay-7: false, $delay-8: false, $delay-9: false, $delay-10: false) {
-  $delay: compact($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10);
-  @include animation-support(animation-delay, $delay); }
+// Apply any number of animation delays.
+@mixin animation-delay($delay...) {
+  $delay: if(length($delay) > 0, $delay, $default-animation-delay);
+  @include experimental(animation-delay, $delay, $animation-support...); }
 
-// Apply 1-10 animation timing functions.
-@mixin animation-timing-function($function-1: $default-animation-timing-function, $function-2: false, $function-3: false, $function-4: false, $function-5: false, $function-6: false, $function-7: false, $function-8: false, $function-9: false, $function-10: false) {
-  $function: compact($function-1, $function-2, $function-3, $function-4, $function-5, $function-6, $function-7, $function-8, $function-9, $function-10);
-  @include animation-support(animation-timing-function, $function); }
+// Apply any number of animation timing functions.
+@mixin animation-timing-function($function...) {
+  $function: if(length($function) > 0, $function, $default-animation-timing-function);
+  @include experimental(animation-timing-function, $function, $animation-support...); }
 
-// Apply 1-10 animation iteration counts.
-@mixin animation-iteration-count($count-1: $default-animation-iteration-count, $count-2: false, $count-3: false, $count-4: false, $count-5: false, $count-6: false, $count-7: false, $count-8: false, $count-9: false, $count-10: false) {
-  $count: compact($count-1, $count-2, $count-3, $count-4, $count-5, $count-6, $count-7, $count-8, $count-9, $count-10);
-  @include animation-support(animation-iteration-count, $count); }
+// Apply any number of animation iteration counts.
+@mixin animation-iteration-count($count...) {
+  $count: if(length($count) > 0, $count, $default-animation-iteration-count);
+  @include experimental(animation-iteration-count, $count, $animation-support...); }
 
-// Apply 1-10 animation directions.
-@mixin animation-direction($direction-1: $default-animation-direction, $direction-2: false, $direction-3: false, $direction-4: false, $direction-5: false, $direction-6: false, $direction-7: false, $direction-8: false, $direction-9: false, $direction-10: false) {
-  $direction: compact($direction-1, $direction-2, $direction-3, $direction-4, $direction-5, $direction-6, $direction-7, $direction-8, $direction-9, $direction-10);
-  @include animation-support(animation-direction, $direction); }
+// Apply any number of animation directions.
+@mixin animation-direction($direction...) {
+  $direction: if(length($direction) > 0, $direction, $default-animation-direction);
+  @include experimental(animation-direction, $direction, $animation-support...); }
 
-// Apply 1-10 animation fill modes.
-@mixin animation-fill-mode($mode-1: $default-animation-fill-mode, $mode-2: false, $mode-3: false, $mode-4: false, $mode-5: false, $mode-6: false, $mode-7: false, $mode-8: false, $mode-9: false, $mode-10: false) {
-  $mode: compact($mode-1, $mode-2, $mode-3, $mode-4, $mode-5, $mode-6, $mode-7, $mode-8, $mode-9, $mode-10);
-  @include animation-support(animation-fill-mode, $mode); }
+// Apply any number of animation fill modes.
+@mixin animation-fill-mode($mode...) {
+  $mode: if(length($mode) > 0, $mode, $default-animation-fill-mode);
+  @include experimental(animation-fill-mode, $mode, $animation-support...); }
 
-// Apply 1-10 animation play states.
-@mixin animation-play-state($state-1: $default-animation-play-state, $state-2: false, $state-3: false, $state-4: false, $state-5: false, $state-6: false, $state-7: false, $state-8: false, $state-9: false, $state-10: false) {
-  $state: compact($state-1, $state-2, $state-3, $state-4, $state-5, $state-6, $state-7, $state-8, $state-9, $state-10);
-  @include animation-support(animation-play-state, $state); }
+// Apply any number of animation play states.
+@mixin animation-play-state($state...) {
+  $state: if(length($state) > 0, $state, $default-animation-play-state);
+  @include experimental(animation-play-state, $state, $animation-support...); }
 
-// Shortcut to apply a named animation to an element, with all the settings.
+// Shortcut to apply any number of animations to an element, with all the settings.
 //
-//     $animation-1   : Name and settings for the first animation. [<values> | default]
-//     ...
-//     $animation-10  : Name and settings for the tenth animation. <values>
-@mixin animation($animation-1: default, $animation-2: false, $animation-3: false, $animation-4: false, $animation-5: false, $animation-6: false, $animation-7: false, $animation-8: false, $animation-9: false, $animation-10: false) {
-  @if $animation-1 == default {
-    $animation-1: -compass-space-list(compact($default-animation-name, $default-animation-duration, $default-animation-timing-function, $default-animation-delay, $default-animation-iteration-count, $default-animation-direction, $default-animation-fill-mode, $default-animation-play-state)); }
-  $animation: compact($animation-1, $animation-2, $animation-3, $animation-4, $animation-5, $animation-6, $animation-7, $animation-8, $animation-9, $animation-10);
-  @include animation-support(animation, $animation); }
+//     $animation... : Name and settings. [<values> | default]
+@mixin animation($animation...) {
+  $default: -compass-space-list(compact($default-animation-name $default-animation-duration $default-animation-timing-function $default-animation-delay $default-animation-iteration-count $default-animation-direction $default-animation-fill-mode $default-animation-play-state));
+  $output: if(length($animation) > 0, compact(), $default);
+  @each $layer in $animation {
+    $output: append($output, if($layer == default, $default, $layer));
+  }
+  @include experimental(animation, $output, $animation-support...);
+}
