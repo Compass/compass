@@ -5,7 +5,7 @@ $default-border-radius: 5px !default;
 
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml
-$border-radius-support: -moz, -webkit, not -o, not -ms, -khtml;
+$border-radius-support          : not -moz, not -webkit, not -o, not -ms, -khtml;
 
 // Round all corners by a specific amount, defaults to value of `$default-border-radius`.
 //
@@ -43,19 +43,15 @@ $border-radius-support: -moz, -webkit, not -o, not -ms, -khtml;
 
 @mixin border-radius($radius: $default-border-radius, $vertical-radius: false) {
 
-  @if $vertical-radius {
-    // Webkit doesn't understand the official shorthand syntax for specifying
-    // a vertical radius unless so in case there's several we only take the first.
-    @include experimental-only-for(border-radius, first-value-of($radius) first-value-of($vertical-radius),
-      $webkit: nth($border-radius-support,2)
-    );
-    @include adjust-support-for($webkit: false) {
-      @include experimental(border-radius, #{$radius} / #{$vertical-radius}, $border-radius-support...);
-    }
-  }
-  @else {
-    @include experimental(border-radius, $radius, $border-radius-support...);
-  }
+  // Legacy Webkit didn't understand the official shorthand syntax for specifying a vertical radius.
+  $legacy-webkit-radius: first-value-of($radius);
+  @if $vertical-radius { $legacy-webkit-radius: append($legacy-webkit-radius, first-value-of($vertical-radius)); }
+  @include experimental-only-for(border-radius, $legacy-webkit-radius, $webkit: $legacy-support-for-webkit);
+
+  // Official syntax for everyone else
+  $radius: if($vertical-radius, #{$radius} / #{$vertical-radius}, $radius);
+  @include experimental-only-for(border-radius, $radius, $moz: $legacy-support-for-mozilla);
+  @include experimental(border-radius, $radius, $border-radius-support...);
 }
 
 // Round radius at position by amount.
@@ -64,13 +60,14 @@ $border-radius-support: -moz, -webkit, not -o, not -ms, -khtml;
 // * legal values for `$horz`: `left`, `right`
 
 @mixin border-corner-radius($vert, $horz, $radius: $default-border-radius) {
+
   // Support for mozilla's syntax for specifying a corner
-  @include experimental-only-for("border-radius-#{$vert}#{$horz}", $radius,
-    $moz: nth($border-radius-support,1)
-  );
-  @include adjust-support-for($moz: false) {
-    @include experimental("border-#{$vert}-#{$horz}-radius", $radius, $border-radius-support...);
-  }
+  @include experimental-only-for("border-radius-#{$vert}#{$horz}", $radius, $moz: $legacy-support-for-mozilla);
+
+  // Official syntax for everyone else
+  $corners: "border-#{$vert}-#{$horz}-radius";
+  @include experimental-only-for($corners, $radius, $webkit: $legacy-support-for-webkit);
+  @include experimental($corners, $radius, $border-radius-support...);
 }
 
 // Round top-left corner only
