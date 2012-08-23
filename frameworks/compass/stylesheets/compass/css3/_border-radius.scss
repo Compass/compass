@@ -3,7 +3,7 @@
 // The length of a border-radius to be used by default.
 $default-border-radius: 5px !default;
 
-// @private css3-feature-support variables must always include a list of six boolean values
+// @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml
 $border-radius-support: -moz, -webkit, not -o, not -ms, -khtml;
 
