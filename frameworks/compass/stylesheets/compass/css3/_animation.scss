@@ -7,28 +7,28 @@
 $animation-support: -moz, -webkit, -o, not -ms, -khtml;
 
 // Name of any animation as a string.
-$default-animation-name             : false !default;
+$default-animation-name             : null !default;
 
 // Duration of the entire animation in seconds.
-$default-animation-duration         : false !default;
+$default-animation-duration         : null !default;
 
 // Delay for start of animation in seconds.
-$default-animation-delay            : false !default;
+$default-animation-delay            : null !default;
 
 // The timing function(s) to be used between keyframes. [ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier($number, $number, $number, $number)]
-$default-animation-timing-function  : false !default;
+$default-animation-timing-function  : null !default;
 
 // The number of times an animation cycle is played. [infinite | $number]
-$default-animation-iteration-count  : false !default;
+$default-animation-iteration-count  : null !default;
 
 // Whether or not the animation should play in reverse on alternate cycles. [normal | alternate]
-$default-animation-direction        : false !default;
+$default-animation-direction        : null !default;
 
 // What values are applied by the animation outside the time it is executing. [none | forwards | backwards | both]
-$default-animation-fill-mode        : false !default;
+$default-animation-fill-mode        : null !default;
 
 // Whether the animation is running or paused. [running | paused]
-$default-animation-play-state       : false !default;
+$default-animation-play-state       : null !default;
 
 // Create a named animation sequence that can be applied to elements later.
 //
