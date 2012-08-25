@@ -2,18 +2,11 @@
 
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml
-//   - mozilla legacy support handled seperately below
-$background-clip-support: not -moz, -webkit, not -o, not -ms, -khtml;
+//   - mozilla/webkit legacy support handled seperately below
+$background-clip-support: not -moz, not -webkit, not -o, not -ms, -khtml;
 
 // The default border-box model: [border-box | padding-box | content-box]
 $default-background-clip: padding-box !default;
-
-// @private Returns the legacy-mozilla value for a given clip
-@function legacy-background-clip($clip) {
-  @if $clip == padding-box { $clip: padding; }
-  @if $clip == border-box { $clip: border; }
-  @return $clip;
-}
 
 // Clip the background (image and color) at the edge of the padding, border, or content.
 //   $clip... : [padding-box | border-box | content-box]
@@ -24,15 +17,20 @@ $default-background-clip: padding-box !default;
   @if (length($clip) > 0) {
     @each $layer in $clip {
       $output: append($output, unquote($layer));
-      $deprecated: append($deprecated, legacy-background-clip($layer));
+      $deprecated: append($deprecated, legacy-box($layer));
     }
   } @else {
     $output: $default-background-clip;
-    $deprecated: legacy-background-clip($default-background-clip);
+    $deprecated: legacy-box($default-background-clip);
   }
 
   // Legacy versions of Mozilla support a different syntax, prefixed.
-  @include experimental-only-for(background-clip, $deprecated, $moz: $legacy-support-for-mozilla);
+  @if not index($deprecated, null) {
+    @include experimental-only-for(background-clip, $deprecated,
+      $moz: $legacy-support-for-mozilla,
+      $webkit: $legacy-support-for-webkit
+    );
+  }
 
   // Official syntax for the rest
   @include experimental(background-clip, $output, $background-clip-support...);
