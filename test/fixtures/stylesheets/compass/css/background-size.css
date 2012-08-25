@@ -1,0 +1,24 @@
+.background-size-default {
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto; }
+
+.background-size-single {
+  -webkit-background-size: 50% 25%;
+  -moz-background-size: 50% 25%;
+  -o-background-size: 50% 25%;
+  background-size: 50% 25%; }
+
+.background-size-multiple {
+  -webkit-background-size: 4em 3em, 100% auto, 50%;
+  -moz-background-size: 4em 3em, 100% auto, 50%;
+  -o-background-size: 4em 3em, 100% auto, 50%;
+  background-size: 4em 3em, 100% auto, 50%; }
+
+.background-size-khtml {
+  -webkit-background-size: 100% auto;
+  -khtml-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto; }
