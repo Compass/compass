@@ -25,12 +25,10 @@ $default-background-clip: padding-box !default;
   }
 
   // Legacy versions of Mozilla support a different syntax, prefixed.
-  @if not index($deprecated, null) {
-    @include experimental-only-for(background-clip, $deprecated,
-      $moz: $legacy-support-for-mozilla,
-      $webkit: $legacy-support-for-webkit
-    );
-  }
+  @include experimental-only-for(background-clip, $deprecated,
+    $moz: $legacy-support-for-mozilla,
+    $webkit: $legacy-support-for-webkit
+  );
 
   // Official syntax for the rest
   @include experimental(background-clip, $output, $background-clip-support...);
