@@ -102,6 +102,14 @@
   }
 }
 
+// Set a default value if the given arglist is empty
+@function set-arglist-default(
+  $arglist,
+  $default
+) {
+  @return if(length($arglist) > 0, $arglist, $default);
+}
+
 // @private Returns the legacy value for a given box-model
 // - Used by background-clip and -origin.
 @function legacy-box($box) {

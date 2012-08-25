@@ -71,42 +71,42 @@ $default-animation-play-state       : null !default;
 
 // Apply any number of animation names.
 @mixin animation-name($name...) {
-  $name: if(length($name) > 0, $name, $default-animation-name);
+  $name: set-arglist-default($name, $default-animation-name);
   @include experimental(animation-name, $name, $animation-support...); }
 
 // Apply any number of animation durations.
 @mixin animation-duration($duration...) {
-  $duration: if(length($duration) > 0, $duration, $default-animation-duration);
+  $duration: set-arglist-default($duration, $default-animation-duration);
   @include experimental(animation-duration, $duration, $animation-support...); }
 
 // Apply any number of animation delays.
 @mixin animation-delay($delay...) {
-  $delay: if(length($delay) > 0, $delay, $default-animation-delay);
+  $delay: set-arglist-default($delay, $default-animation-delay);
   @include experimental(animation-delay, $delay, $animation-support...); }
 
 // Apply any number of animation timing functions.
 @mixin animation-timing-function($function...) {
-  $function: if(length($function) > 0, $function, $default-animation-timing-function);
+  $function: set-arglist-default($function, $default-animation-timing-function);
   @include experimental(animation-timing-function, $function, $animation-support...); }
 
 // Apply any number of animation iteration counts.
 @mixin animation-iteration-count($count...) {
-  $count: if(length($count) > 0, $count, $default-animation-iteration-count);
+  $count: set-arglist-default($count, $default-animation-iteration-count);
   @include experimental(animation-iteration-count, $count, $animation-support...); }
 
 // Apply any number of animation directions.
 @mixin animation-direction($direction...) {
-  $direction: if(length($direction) > 0, $direction, $default-animation-direction);
+  $direction: set-arglist-default($direction, $default-animation-direction);
   @include experimental(animation-direction, $direction, $animation-support...); }
 
 // Apply any number of animation fill modes.
 @mixin animation-fill-mode($mode...) {
-  $mode: if(length($mode) > 0, $mode, $default-animation-fill-mode);
+  $mode: set-arglist-default($mode, $default-animation-fill-mode);
   @include experimental(animation-fill-mode, $mode, $animation-support...); }
 
 // Apply any number of animation play states.
 @mixin animation-play-state($state...) {
-  $state: if(length($state) > 0, $state, $default-animation-play-state);
+  $state: set-arglist-default($state, $default-animation-play-state);
   @include experimental(animation-play-state, $state, $animation-support...); }
 
 // Shortcut to apply any number of animations to an element, with all the settings.
@@ -114,7 +114,7 @@ $default-animation-play-state       : null !default;
 //     $animation... : Name and settings. [<values> | default]
 @mixin animation($animation...) {
   $default: -compass-space-list(compact($default-animation-name $default-animation-duration $default-animation-timing-function $default-animation-delay $default-animation-iteration-count $default-animation-direction $default-animation-fill-mode $default-animation-play-state));
-  $output: if(length($animation) > 0, compact(), $default);
+  $output: set-arglist-default(compact(), $default);
   @each $layer in $animation {
     $output: append($output, if($layer == default, $default, $layer));
   }
