@@ -107,7 +107,12 @@
   $arglist,
   $default
 ) {
-  @return if(length($arglist) > 0, $arglist, $default);
+  $default: if(length($default) > 0, $default, null);
+  $output: compact();
+  @each $layer in $arglist {
+    $output: append($output, if($layer == 'default', $default, $layer));
+  }
+  @return if(length($output) > 0, $output, $default);
 }
 
 // @private Returns the legacy value for a given box-model

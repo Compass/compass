@@ -114,9 +114,7 @@ $default-animation-play-state       : null !default;
 //     $animation... : Name and settings. [<values> | default]
 @mixin animation($animation...) {
   $default: -compass-space-list(compact($default-animation-name $default-animation-duration $default-animation-timing-function $default-animation-delay $default-animation-iteration-count $default-animation-direction $default-animation-fill-mode $default-animation-play-state));
-  $output: set-arglist-default(compact(), $default);
-  @each $layer in $animation {
-    $output: append($output, if($layer == default, $default, $layer));
-  }
-  @include experimental(animation, $output, $animation-support...);
+  $animation: set-arglist-default($animation, $default);
+  @include experimental(animation, $animation, $animation-support...);
 }
+
