@@ -1,11 +1,18 @@
 @import "shared";
 
-// The length of a border-radius to be used by default.
-$default-border-radius: 5px !default;
-
+// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml
 $border-radius-support: not -moz, not -webkit, not -o, not -ms, -khtml;
+
+// ----------------------------------------------------------------------------
+// Default
+
+// The length of a border-radius to be used by default.
+$default-border-radius: 5px !default;
+
+// ----------------------------------------------------------------------------
+// Mixins
 
 // Round all corners by a specific amount, defaults to value of `$default-border-radius`.
 //
@@ -40,7 +47,6 @@ $border-radius-support: not -moz, not -webkit, not -o, not -ms, -khtml;
 //      -moz-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
 //      -khtml-border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px;
 //      border-radius: 1px 3px 5px 7px / 2px 4px 6px 8px; }
-
 @mixin border-radius($radius: $default-border-radius, $vertical-radius: false) {
 
   // Legacy Webkit didn't understand the official shorthand syntax for specifying a vertical radius.
@@ -58,7 +64,6 @@ $border-radius-support: not -moz, not -webkit, not -o, not -ms, -khtml;
 //
 // * legal values for `$vert`: `top`, `bottom`
 // * legal values for `$horz`: `left`, `right`
-
 @mixin border-corner-radius($vert, $horz, $radius: $default-border-radius) {
 
   // Support for mozilla's syntax for specifying a corner
@@ -71,22 +76,18 @@ $border-radius-support: not -moz, not -webkit, not -o, not -ms, -khtml;
 }
 
 // Round top-left corner only
-
 @mixin border-top-left-radius($radius: $default-border-radius) {
   @include border-corner-radius(top, left, $radius); }
 
 // Round top-right corner only
-
 @mixin border-top-right-radius($radius: $default-border-radius) {
   @include border-corner-radius(top, right, $radius); }
 
 // Round bottom-left corner only
-
 @mixin border-bottom-left-radius($radius: $default-border-radius) {
   @include border-corner-radius(bottom, left, $radius); }
 
 // Round bottom-right corner only
-
 @mixin border-bottom-right-radius($radius: $default-border-radius) {
   @include border-corner-radius(bottom, right, $radius); }
 

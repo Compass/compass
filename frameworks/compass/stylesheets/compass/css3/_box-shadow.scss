@@ -1,5 +1,6 @@
 @import "shared";
 
+// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml
 $box-shadow-support: -moz, -webkit, not -o, not -ms, not -khtml;
@@ -8,6 +9,9 @@ $box-shadow-support: -moz, -webkit, not -o, not -ms, not -khtml;
 // These defaults make the arguments optional for this mixin
 // If you like, set different defaults before importing.
 // @doc on
+
+// ----------------------------------------------------------------------------
+// Defaults
 
 // The default color for box shadows
 $default-box-shadow-color: #333333 !default;
@@ -27,10 +31,13 @@ $default-box-shadow-spread : false !default;
 // The default shadow inset: inset or false (for standard shadow).
 $default-box-shadow-inset : false !default;
 
-// Provides cross-browser for Webkit, Gecko, and CSS3 box shadows when one or more box
-// shadows are needed.
-// Each shadow argument should adhere to the standard css3 syntax for the
-// box-shadow property.
+// ----------------------------------------------------------------------------
+// Mixins
+
+// Provides cross-browser for Webkit, Gecko, and CSS3 box shadows
+// when one or more box shadows are needed.
+// Each shadow argument should adhere to the standard css3 syntax
+// for the box-shadow property.
 @mixin box-shadow($shadow...) {
   $default: -compass-space-list(compact(if($default-box-shadow-inset, inset, false), $default-box-shadow-h-offset, $default-box-shadow-v-offset, $default-box-shadow-blur, $default-box-shadow-spread, $default-box-shadow-color));
   $shadow: set-arglist-default($shadow, $default);

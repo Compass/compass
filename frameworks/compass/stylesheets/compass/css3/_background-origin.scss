@@ -2,22 +2,20 @@
 
 @import "shared";
 
+// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml
 //   - mozilla/webkit legacy support handled seperately below
 $background-origin-support: not -moz, not -webkit, not -o, not -ms, -khtml;
 
+// ----------------------------------------------------------------------------
+// Default
+
 // The default background-origin: [border-box | padding-box | content-box]
 $default-background-origin: content-box !default;
 
-// Position the background off the edge of the padding, border or content
-//
-// * Possible values:
-//   * `padding-box`
-//   * `border-box`
-//   * `content-box`
-// * browser defaults to `padding-box`
-// * mixin defaults to `content-box`
+// ----------------------------------------------------------------------------
+// Mixin
 
 // Set the origin of the background (image and color) at the edge of the padding, border, or content.
 //   $origin... : [padding-box | border-box | content-box]
