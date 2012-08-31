@@ -1,0 +1,15 @@
+// Add the selection selector to any element
+// Example:
+// @include selection {
+//   color: #fff;
+//   background-color: #ff5e99;
+// }
+
+@mixin selection {
+  ::selection {
+    @content;
+  }
+  ::-moz-selection {
+    @content;
+  }
+}
