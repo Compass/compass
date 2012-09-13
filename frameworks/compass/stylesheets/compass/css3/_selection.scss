@@ -1,15 +1,37 @@
-// Add the selection selector to any element
-// Example:
-// @include selection {
-//   color: #fff;
-//   background-color: #ff5e99;
-// }
 
+// ----------------------------------------------------------------------------
+// Add the selection selector to any element
+//
+// Examples:
+//
+//     p {
+//        @include selection {
+//          color: #fff;
+//          background-color: #ff5e99;
+//        }
+//     }
+// Which generates:
+//
+//     p::-moz-selection {
+//       color: white;
+//       background-color: #ff5e99; }
+//
+// Caveat: keep in mind that, due to the implementation,
+// always include the mixin under a parent element.
+// If you need the selection styles all around,
+// put it under * like so:
+// 
+//     * {
+//        @include selection {
+//          color: #fff;
+//          background-color: #ff5e99;
+//        }
+//     }
 @mixin selection {
-  ::selection {
+  &::selection {
     @content;
   }
-  ::-moz-selection {
+  &::-moz-selection {
     @content;
   }
 }
