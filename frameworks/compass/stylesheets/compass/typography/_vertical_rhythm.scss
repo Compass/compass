@@ -40,10 +40,9 @@ $base-half-leader: $base-leader / 2;
 // @private Whether the rhythm output is in absolute units (px) or not (em, rem)
 $relative-font-sizing: if($rhythm-unit == px, false, true);
 
-
 // Validate units
-@if unit($base-font-size)   != 'px' { @warn "$base-font-size must resolve to a pixel unit." }
-@if unit($base-line-height) != 'px' { @warn "$base-line-height must resolve to a pixel unit." }
+@if unit($base-font-size)   != 'px' { @warn "$base-font-size must resolve to a pixel unit."; }
+@if unit($base-line-height) != 'px' { @warn "$base-line-height must resolve to a pixel unit."; }
 @if $rhythm-unit != 'px' and $rhythm-unit != 'em' and $rhythm-unit != 'rem' {
   @warn "$rhythm-unit must be `px`, `em` or `rem`.";
 }
@@ -77,14 +76,11 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
   @if $rhythm-unit == rem and $rem-with-px-fallback {
     @include rem($property, $values);
   }
-  // Ensure all pixel values are rounded to the nearest pixel.
   @else {
     $output: ();
-    @if type-of($values) != list {
-      $values: join((), $values);
-    }
     @each $value in $values {
       @if unit($value) == px {
+        // Ensure all pixel values are rounded to the nearest pixel.
         $output: join($output, round($value));
       }
       @else {
@@ -107,7 +103,16 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
   }
   html {
     font-size: if($relative-font-sizing, $relative-size, $font-size);
-    @include adjust-leading-to(1, $font-size);
+
+    // Webkit has a bug that prevents line-height being set in rem on <html>;
+    // To work around this and simplify output, we can set initial line-height
+    // in ems for all relative rhythm units, even when $rhythm-unit is `rem`.
+    @if $relative-font-sizing {
+      line-height: convert-length($base-line-height, em);
+    }
+    @else {
+      line-height: round($base-line-height);
+    }
   }
 }
 
@@ -115,7 +120,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 // Does not work on elements whose font-size is different from $base-font-size.
 //
 // @deprecated This mixin will be removed in the next release.
-// Please use the `adjust-leading-to` mixin instead.
+// Please use `adjust-leading-to(1)` instead.
 @mixin reset-baseline($font-size: $base-font-size) {
   @include adjust-leading-to(1, $font-size);
 }
@@ -128,7 +133,8 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 @mixin debug-vertical-alignment($img: false) {
   @if $img {
     background: image-url($img);
-  } @else {
+  }
+  @else {
     @include baseline-grid-background(rhythm());
   }
 }
