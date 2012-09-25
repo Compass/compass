@@ -34,11 +34,11 @@
 // If you need to support Firefox before 3.5 you need to use `legacy-pie-clearfix` instead.
 //
 // Adapted from: [A new micro clearfix hack](http://nicolasgallagher.com/micro-clearfix-hack/)
-@mixin pie-clearfix {
+@mixin pie-clearfix($clear: both) {
   &:after {
     content: "";
     display: table;
-    clear: both;
+    clear: $clear;
   }
   @include has-layout;
 }
