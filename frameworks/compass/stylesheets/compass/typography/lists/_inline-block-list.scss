@@ -35,6 +35,12 @@
   @include no-bullet;
   @include inline-block;
   white-space: nowrap;
+  // needed to display list-items w/o odd space and correctly
+  @if $baseFontSize {
+    font-size: $baseFontSize; // needed to displaty correctly
+  } else {
+    font-size: 12px;
+  }
   @if $padding {
     padding: {
       left: $padding;
@@ -46,5 +52,8 @@
 // A list(ol,ul) that is layed out such that the elements are inline-block and won't wrap.
 @mixin inline-block-list($padding: false) {
   @include inline-block-list-container;
+  font-size: 0; // there is a strange bug here http://stackoverflow.com/questions/9664321/strange-margin-on-displayinline-block-elements
   li {
-    @include inline-block-list-item($padding); } }
+    @include inline-block-list-item($padding);
+  }
+}
