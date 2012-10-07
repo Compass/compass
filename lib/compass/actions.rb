@@ -10,11 +10,7 @@ module Compass
     # copy/process a template in the compass template directory to the project directory.
     def copy(from, to, options = nil, binary = false)
       options ||= self.options if self.respond_to?(:options)
-      if binary
-        contents = File.new(from,"rb").read
-      else
-        contents = File.new(from).read
-      end  
+      contents = File.new(from).read
       write_file to, contents, options, binary
     end
 
