@@ -3,6 +3,16 @@
   -moz-user-select: none;
   user-select: none; }
 
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+
 .input-placeholder::-webkit-input-placeholder {
   color: #bfbfbf;
   font-style: italic; }
