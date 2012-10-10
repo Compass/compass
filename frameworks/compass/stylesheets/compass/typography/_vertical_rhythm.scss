@@ -16,8 +16,9 @@ $rhythm-unit: 'em' !default;
 // Whether to output fallback values in px when using rem as the rhythm-unit.
 $rem-with-px-fallback: true !default;
 
-// Default values for rhythm borders.
+// Default values for rhythm borders properties.
 // Supports style alone eg. `solid` or list of style and color eg. `solid #aaa`;
+$default-rhythm-border-width: 1px !default;
 $default-rhythm-border-style: solid !default;
 
 // Allows the `adjust-font-size-to` mixin and the `lines-for-font-size` function
@@ -229,7 +230,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 // rhythm. The whitespace must be greater than the width of the border.
 @mixin apply-side-rhythm-border(
   $side,
-  $width: 1px,
+  $width: $default-rhythm-border-width,
   $lines: 1,
   $font-size: $base-font-size,
   $border-style: $default-rhythm-border-style
@@ -248,7 +249,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 // Apply a leading border.
 // $border-style and $width are deprecated and will be removed in a future version of Compass.
 @mixin leading-border(
-  $width: 1px,
+  $width: $default-rhythm-border-width,
   $lines: 1,
   $font-size: $base-font-size,
   $border-style: $default-rhythm-border-style
@@ -258,7 +259,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 
 // Apply a trailing border.
 @mixin trailing-border(
-  $width: 1px,
+  $width: $default-rhythm-border-width,
   $lines: 1,
   $font-size: $base-font-size,
   $border-style: $default-rhythm-border-style
@@ -268,7 +269,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 
 // Apply both leading and trailing borders.
 @mixin horizontal-borders(
-  $width: 1px,
+  $width: $default-rhythm-border-width,
   $lines: 1,
   $font-size: $base-font-size,
   $border-style: $default-rhythm-border-style
@@ -279,7 +280,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 
 // Alias for `horizontal-borders` mixin.
 @mixin h-borders(
-  $width: 1px,
+  $width: $default-rhythm-border-width,
   $lines: 1,
   $font-size: $base-font-size,
   $border-style: $default-rhythm-border-style
@@ -289,7 +290,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 
 // Apply borders and whitespace equally to all sides.
 @mixin rhythm-borders(
-  $width: 1px,
+  $width: $default-rhythm-border-width,
   $lines: 1,
   $font-size: $base-font-size,
   $border-style: $default-rhythm-border-style
