@@ -1,15 +1,31 @@
-// Add the selection selector to any element
-// Example:
-// @include selection {
-//   color: #fff;
-//   background-color: #ff5e99;
-// }
+@import "shared";
 
-@mixin selection {
-  ::selection {
+// Add the selection selector to any element
+//
+// There are two usage modes: at the stylesheet root, include the mixin with
+// styles passed as mixin content. This applies to all elements. For example:
+//
+//     @include selection {
+//       background-color: #fe57a1;
+//       color: #fff;
+//     }
+//
+// If a specific element is being styled, pass "&" as an argument to the mixin
+// as well. For example:
+//
+//     .hot-pink {
+//       @include selection("&") {
+//         background-color: #fe57a1;
+//         color: #fff;
+//       }
+//     }
+@mixin selection($selector: "") {
+  #{$selector}::selection {
     @content;
   }
-  ::-moz-selection {
-    @content;
+  @if $experimental-support-for-mozilla {
+    #{$selector}::-moz-selection {
+      @content;
+    }
   }
 }
