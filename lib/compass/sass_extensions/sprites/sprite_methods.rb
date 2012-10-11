@@ -59,7 +59,7 @@ module Compass
         end
         
         def cleanup_old_sprites
-          Dir[File.join(Compass.configuration.generated_images_path, "#{path}-s*.png")].each do |file|
+          Sass::Util.glob(File.join(Compass.configuration.generated_images_path, "#{path}-s*.png")).each do |file|
             log :remove, file
             FileUtils.rm file
             Compass.configuration.run_sprite_removed(file)
