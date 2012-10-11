@@ -31,18 +31,18 @@
 //
 //     .textinput {
 //       @include input-placeholder("&") {
-//       	 color: #bfbfbf;
-//       	 font-style: italic;
+//         color: #bfbfbf;
+//         font-style: italic;
 //       }
 //     }
 @mixin input-placeholder($selector: "") {
-	@if $experimental-support-for-webkit {
-		#{$selector}::-webkit-input-placeholder { @content; }
-	}
-	@if $experimental-support-for-mozilla {
-		#{$selector}:-moz-placeholder { @content; }
-	}
-	@if $experimental-support-for-microsoft {
-		#{$selector}:-ms-input-placeholder { @content; }
-	}
+  @if $experimental-support-for-webkit {
+    #{$selector}::-webkit-input-placeholder { @content; }
+  }
+  @if $experimental-support-for-mozilla {
+    #{$selector}:-moz-placeholder { @content; }
+  }
+  @if $experimental-support-for-microsoft {
+    #{$selector}:-ms-input-placeholder { @content; }
+  }
 }
