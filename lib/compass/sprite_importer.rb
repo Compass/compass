@@ -16,7 +16,7 @@ module Compass
     def self.find_all_sprite_map_files(path)
       hex = "[0-9a-f]"
       glob = "*-s#{hex*10}{#{VALID_EXTENSIONS.join(",")}}"
-      Dir.glob(File.join(path, "**", glob))
+      Sass::Util.glob(File.join(path, "**", glob))
     end
     
     def find(uri, options)
@@ -75,7 +75,7 @@ module Compass
     # Returns the Glob of image files for the uri
     def self.files(uri)
       Compass.configuration.sprite_load_path.compact.each do |folder|
-        files = Dir[File.join(folder, uri)].sort
+        files = Sass::Util.glob(File.join(folder, uri)).sort
         next if files.empty?
         return files
       end
