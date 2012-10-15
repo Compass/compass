@@ -10,6 +10,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     def initialize(color, stop = nil)
       unless Sass::Script::Color === color ||
              Sass::Script::Funcall === color ||
+             (Sass::Script::String === color && color.value == "currentColor")||
              (Sass::Script::String === color && color.value == "transparent")
         raise Sass::SyntaxError, "Expected a color. Got: #{color}"
       end
@@ -21,6 +22,31 @@ module Compass::SassExtensions::Functions::GradientSupport
     def inspect
       to_s
     end
+
+    def self.color_to_svg_s(c)
+      # svg doesn't support the "transparent" keyword; we need to manually
+      # refactor it into "transparent black"
+      if c.is_a?(Sass::Script::String) && c.value == "transparent"
+        "black"
+      elsif c.is_a?(Sass::Script::String)
+        c.value.dup
+      else
+        self.color_to_s(c.with(:alpha => 1))
+      end
+    end
+
+    def self.color_to_svg_alpha(c)
+      # svg doesn't support the "transparent" keyword; we need to manually
+      # refactor it into "transparent black"
+      if c.is_a?(Sass::Script::String) && c.value == "transparent"
+        0
+      elsif c.is_a?(Sass::Script::String) && c.value == "currentColor"
+        1
+      else
+        c.alpha
+      end
+    end
+
     def self.color_to_s(c)
       if c.is_a?(Sass::Script::String)
         c.value.dup
@@ -251,6 +277,8 @@ module Compass::SassExtensions::Functions::GradientSupport
         elsif Sass::Script::List === arg
           ColorStop.new(*arg.value)
         elsif Sass::Script::String === arg && arg.value == "transparent"
+          ColorStop.new(arg)
+        elsif Sass::Script::String === arg && arg.value == "currentColor"
           ColorStop.new(arg)
         else
           raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
@@ -495,7 +523,11 @@ module Compass::SassExtensions::Functions::GradientSupport
     # color_stops = array of: [stop, color]
     def color_stops_svg(color_stops)
       color_stops.each.map{ |stop, color|
-          %{<stop offset="#{stop.to_s}" stop-color="#{color.inspect}"/>}
+        s = %{<stop offset="#{stop.to_s}"}
+        s << %{ stop-color="#{ColorStop.color_to_svg_s(color)}"}
+        alpha = ColorStop.color_to_svg_alpha(color)
+        s << %{ stop-opacity="#{alpha}"} if alpha != 1
+        s << "/>"
       }.join
     end
 

@@ -17,6 +17,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 0.13.alpha.1 (UNRELEASED)
 -------------------------
 
+* Fix a bug in gradients that used the currentColor keyword
 * Removed the -ms prefix support from keyfrome animation, the spec was
   approved before MS released IE10.
 
