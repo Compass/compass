@@ -4,9 +4,14 @@
   @include user-select(none);
 }
 
+@include input-placeholder {
+  color: #bfbfbf;
+  font-style: italic;
+}
+
 .input-placeholder {
-	@include input-placeholder {
-		color: #bfbfbf;
-		font-style: italic;
-	}
+  @include input-placeholder("&") {
+    color: #bfbfbf;
+    font-style: italic;
+  }
 }
