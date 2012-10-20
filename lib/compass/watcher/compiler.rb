@@ -16,15 +16,15 @@ module Compass
 
       def compile
         @memory_cache.reset! if @memory_cache
+        compiler.reset_staleness_checker!
         if file = compiler.out_of_date?
           begin
             time = Time.now.strftime("%T")
-            log_action(:info, ">>> Change detected at #{time} to: #{compiler.relative_stylesheet_name(file)}", {})
-            compiler.reset_staleness_checker!
+            log_action(:info, "Change detected at #{time} to: #{compiler.relative_stylesheet_name(file)}", compiler_options)
             compiler.run
             GC.start
           rescue StandardError => e
-            ::Compass::Exec::Helpers.report_error(e, options)
+            ::Compass::Exec::Helpers.report_error(e, compiler_options)
           end
         end
       end

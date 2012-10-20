@@ -3,6 +3,8 @@ require 'compass'
 
 class ProjectWatcherTest < Test::Unit::TestCase
 
+  FOO = ['foo.scss']
+
   def setup
     @working_path = File.join(fixture_path, 'stylesheets', 'valid')
     @to = File.join(@working_path, 'css')
@@ -20,34 +22,35 @@ class ProjectWatcherTest < Test::Unit::TestCase
   end
 
   test "sass callback add" do
-    @project_watcher.expects(:sass_added).with('foo.scss').once
-    @project_watcher.send(:sass_callback, @working_path, 'foo.scss', :added)
+    @project_watcher.expects(:sass_added).with(FOO).once
+    @project_watcher.send(:sass_callback, @working_path, FOO, :added)
   end
 
   test "sass callback modified" do
-    @project_watcher.expects(:sass_modified).with('foo.scss').once
-    @project_watcher.send(:sass_callback, @working_path, 'foo.scss', :modified)
+    @project_watcher.expects(:sass_modified).with(FOO).once
+    @project_watcher.send(:sass_callback, @working_path, FOO, :modified)
   end
 
   test "sass callback removed" do
-    @project_watcher.expects(:sass_removed).with('foo.scss').once
-    @project_watcher.send(:sass_callback, @working_path, 'foo.scss', :removed)
+    @project_watcher.expects(:sass_removed).with(FOO).once
+    @project_watcher.send(:sass_callback, @working_path, FOO, :removed)
   end
 
+  SAMPLE = ['sass/sample.scss']
 
   test "listen callback modified" do
-    @project_watcher.expects(:sass_modified).with('sass/sample.scss').once
-    @project_watcher.send(:listen_callback, 'sass/sample.scss', nil, nil)
+    @project_watcher.expects(:sass_modified).with(SAMPLE[0]).once
+    @project_watcher.send(:listen_callback, SAMPLE, [], [])
   end
 
   test "listen callback added" do
-    @project_watcher.expects(:sass_added).with('sass/sample.scss').once
-    @project_watcher.send(:listen_callback, nil, 'sass/sample.scss', nil)
+    @project_watcher.expects(:sass_added).with(SAMPLE[0]).once
+    @project_watcher.send(:listen_callback, [], SAMPLE, [])
   end
 
   test "listen callback removed" do
-    @project_watcher.expects(:sass_removed).with('sass/sample.scss').once
-    @project_watcher.send(:listen_callback, nil, nil, 'sass/sample.scss')
+    @project_watcher.expects(:sass_removed).with(SAMPLE[0]).once
+    @project_watcher.send(:listen_callback, [], [], SAMPLE)
   end
 
   def remove_to

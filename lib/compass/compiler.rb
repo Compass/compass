@@ -24,6 +24,7 @@ module Compass
 
     def reset_staleness_checker!
       self.staleness_checker = nil
+      #Sass::Plugin::StalenessChecker.dependencies_cache = {}
       self.staleness_checker = Sass::Plugin::StalenessChecker.new(sass_options)
     end
 

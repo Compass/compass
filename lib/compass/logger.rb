@@ -9,7 +9,7 @@ module Compass
     ACTION_COLORS = {
       :error     => :red,
       :warning   => :yellow,
-      :info      => :clear,
+      :info      => :green,
       :compile   => :green,
       :overwrite => :yellow,
       :create    => :green,
