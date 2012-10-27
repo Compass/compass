@@ -152,7 +152,8 @@ module Compass
     # A sass engine for compiling a single file.
     def engine(sass_filename, css_filename)
       syntax = (sass_filename =~ /\.(s[ac]ss)$/) && $1.to_sym || :sass
-      opts = sass_options.merge(:filename => sass_filename, :css_filename => css_filename, :syntax => syntax)
+      filename = sass_filename.gsub(%r{.*((/[^/]+){4})}, '\1')
+      opts = sass_options.merge(:filename => filename, :css_filename => css_filename, :syntax => syntax)
       Sass::Engine.new(open(sass_filename).read, opts)
     end
 
