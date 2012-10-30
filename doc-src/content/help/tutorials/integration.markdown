@@ -28,14 +28,14 @@ Also checkout this [gist](https://gist.github.com/1184843)
     require 'haml'
 
     configure do
-      set :haml, {:format => :html5, :escape_html => true}
+      set :haml, {:format => :html5}
       set :scss, {:style => :compact, :debug_info => false}
       Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
     end
 
     get '/stylesheets/:name.css' do
       content_type 'text/css', :charset => 'utf-8'
-      scss(:"stylesheets/#{params[:name]}" )
+      scss :"stylesheets/#{params[:name]}", Compass.sass_engine_options
     end
 
     get '/' do
@@ -43,7 +43,7 @@ Also checkout this [gist](https://gist.github.com/1184843)
     end
 
 
-If you keep your stylesheets in “views/stylesheets/” directory instead of just “views/”, remember to update sass_dir configuration accordingly.
+This assumes you keep your Compass config file in `config/compass.rb`. If you keep your stylesheets in “views/stylesheets/” directory instead of just “views/”, remember to update `sass_dir` configuration accordingly.
 Check out this [sample compass-sinatra project](http://github.com/chriseppstein/compass-sinatra) to get up and running in no time!
 
 [Sinatra Bootstrap](http://github.com/adamstac/sinatra-bootstrap) - a base Sinatra project with support for Haml, Sass, Compass, jQuery and more.
