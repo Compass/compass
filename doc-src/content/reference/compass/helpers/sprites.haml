@@ -12,6 +12,7 @@ documented_functions:
   - "sprite-map"
   - "sprite"
   - "sprite-map-name"
+  - "sprite-names"
   - "sprite-file"
   - "sprite-url"
   - "sprite-position"
@@ -93,6 +94,20 @@ documented_functions:
     :markdown
       Returns the name of a css sprite map
       The name is derived from the folder than contains the css sprites.
+
+#sprite-names.helper
+  %h3
+    %a(href="#sprite-names")
+      sprite-names(<span class="arg">$map</span>)
+  .details
+    :markdown
+      Returns a list of all sprite names. It is possible to loop over them to use them in custom code or use the result to give to the sprites() function:
+
+          @each $sprite in sprite-names($map) {
+            .custom_prefix_\#{$sprite} {
+              background-position: sprite-position($map, $sprite);
+            }
+          }
 
 #sprite-file.helper
   %h3
