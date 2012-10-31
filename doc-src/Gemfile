@@ -8,7 +8,6 @@ gem 'rdiscount'
 gem 'thor'
 gem 'rack'
 gem 'mime-types'
-gem 'serve', "1.0.0"
 gem 'nokogiri'
 gem 'coderay'
 gem 'haml'
