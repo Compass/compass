@@ -1,0 +1,2 @@
+watch: nanoc watch
+view: nanoc view -H thin
