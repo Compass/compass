@@ -65,7 +65,7 @@ webpage content. Following this best practice theoretically results in a website
 that is easier to maintain. However, in reality, the functional limitations of
 CSS force abstractions down into the markup to facilitate the [DRY][4] principle
 of code maintainability. Sass allows us to move our presentation completely to
-the stylesheets because it let's us create abstractions and reuse entirely in
+the stylesheets because it lets us create abstractions and reuse entirely in
 that context. Read [this blog post][5] for more information on the subject.
 
 Once you have clean markup, style it using Mixins and Inheritance. With clean
