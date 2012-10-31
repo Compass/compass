@@ -1,8 +1,8 @@
 # Compass documentation
 
 * [About](#about)
-* [Documentation setup](#documentation_setup)
-* [Documentation project structure](#documentation_project_structure)
+* [Documentation setup](#documentation-setup)
+* [Documentation project structure](#documentation-project-structure)
 * [HOW-TOs](#how-tos)
 
 If you want to work on a specific part of the docs, please let everyone know via the [Compass-devs google group](http://groups.google.com/group/compass-devs/browse_thread/thread/41dc723721a194f8).
