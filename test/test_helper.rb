@@ -40,6 +40,10 @@ class Test::Unit::TestCase
   include Compass::IoHelper
   extend Compass::TestCaseHelper::ClassMethods
   
+  def fixture_path
+    File.join(File.expand_path('../', __FILE__), 'fixtures')
+  end
+
 end 
 
 module SpriteHelper
