@@ -890,4 +890,24 @@ class SpritesTest < Test::Unit::TestCase
     assert_correct clean(css), clean(other_css)
   end
 
+  it "should return width and height of sprite" do
+    css = render <<-SCSS
+      @import "colors/*.png";
+      .height { height : sprite_height($colors-sprites); }
+      .width { width : sprite_width($colors-sprites); }
+    SCSS
+    other_css = <<-CSS
+      .colors-sprite {
+        background: url('/colors-s58671cb5bb.png') no-repeat;
+      }
+      .height {
+        height : 20px;
+      }
+      .width {
+        width : 10px;
+      }
+    CSS
+    assert_correct clean(css), clean(other_css)
+  end
+
 end

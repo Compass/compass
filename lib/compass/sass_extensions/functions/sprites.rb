@@ -10,7 +10,21 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  #Returns a list of all sprite names
+  # Returns the width of the generated sprite map
+  def sprite_width(map)
+    width, _ = image_dimensions(map.filename)
+    Sass::Script::Number.new(width, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_width, [:map]
+  
+  # Returns the height of the generated sprite map
+  def sprite_height(map)
+    _, height = image_dimensions(map.filename)
+    Sass::Script::Number.new(height, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_height, [:map]
+
+  # Returns a list of all sprite names
   def sprite_names(map)
     Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
   end
