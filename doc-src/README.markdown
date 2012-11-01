@@ -109,13 +109,13 @@ Your basic workflow might look like this:
 1. refresh the browser to see the changes
 1. go to 3.
 
-If you refresh the browser before the compilation is complete, nothing bad will happen, you just won't see the change until the compilation finishes (and you refresh again).
+If you refresh the browser before the compilation is complete, nothing bad will happen, you just won't see the change until the compilation finishes (and you refresh again). That's because the site is compiling asynchronously.
 
 If this doesn't work for you, you could try nanoc's `aco` (or `autocompile`) command:
 
     $ nanoc aco -H thin
 
-It compiles and previews the site in the browser (also at [http://localhost:3000](http://localhost:3000)), then recompiles it on each request. The difference from the previous approach is that the site is recompiled each time a page is requested, not when a file is changed. This approach is usually more sluggish.
+It compiles and previews the site in the browser (also at [http://localhost:3000](http://localhost:3000)), then recompiles it on each request. The difference from the previous approach is that the site is recompiled each time a page is requested, not when a file is changed. This approach is usually more sluggish because it's synchronous.
 
 It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.org/tutorial/) on nanoc.
 
