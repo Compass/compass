@@ -18,7 +18,7 @@ module Compass::SassExtensions::Functions::Sprites
 
   # Returns the system path of the sprite file
   def sprite_path(map)
-    Sass::Script::String.new(map.name_and_hash)
+    Sass::Script::String.new(map.filename)
   end
   Sass::Script::Functions.declare :sprite_path, [:map]
 
@@ -30,7 +30,8 @@ module Compass::SassExtensions::Functions::Sprites
   def inline_sprite(map)
     verify_map(map, "sprite-url")
     map.generate
-    inline_image(sprite_path(map))
+    path = map.filename
+    inline_image_string(data(path), compute_mime_type(path))
   end
   Sass::Script::Functions.declare :inline_sprite, [:map]
 

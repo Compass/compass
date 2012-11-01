@@ -13,6 +13,7 @@ class SpritesTest < Test::Unit::TestCase
     @images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images-tmp')
     @generated_images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'generated-images-tmp')
     ::FileUtils.cp_r @images_src_path, @images_tmp_path
+    ::FileUtils.mkdir_p @generated_images_tmp_path
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
@@ -819,7 +820,14 @@ class SpritesTest < Test::Unit::TestCase
    end
    
    it "should inline the sprite file" do
-     css = render <<-SCSS
+    Compass.reset_configuration!
+    file = StringIO.new(<<-CONFIG)
+      images_path = #{@images_tmp_path.inspect}
+      generated_images_path = #{@generated_images_tmp_path.inspect}
+    CONFIG
+    Compass.add_configuration(file, "sprite_config")
+    Compass.configure_sass_plugin!
+    css = render <<-SCSS
       $colors-inline:true;
       @import "colors/*.png";
       @include all-colors-sprites;
@@ -840,7 +848,6 @@ class SpritesTest < Test::Unit::TestCase
 
   it "should have a sprite_name function that returns the names of the sprites in a sass list" do
     css = render <<-SCSS
-      $colors-inline:true;
       @import "colors/*.png";
       @each $color in sprite_names($colors-sprites) {
         .\#{$color} {
@@ -850,7 +857,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     other_css = <<-CSS
       .colors-sprite {
-        background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAUCAAAAACRhfOKAAAAHElEQVR42mM5wQADLP8JMRlIUIvE/IdgctLTNgCHDhEQVD4ceAAAAABJRU5ErkJggg==');
+        background: url('/colors-s58671cb5bb.png') no-repeat;
       }
       .blue { 
         width:0px;
