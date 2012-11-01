@@ -20,7 +20,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CORE] Removed old watcher (FSSM) and replaced with Listen.
 * [CORE] Fix damaged images when creating projects on windows.
 * [CORE] Bug fix for CSS gradient parsing.
-* [CORE] Removed Dir[] for glob falling back to Sass::Utils for glob support on windows.
+* [CORE] Fixed an issue where directory globbing didn't work correctly on windows.
 * [CSS3] Update selection mixin for flexibility and consistency.
 * [CSS3] Fix a bug in gradients that used the currentColor keyword
 * [CSS3] Removed the -ms prefix support from keyfrome animation, the spec was approved before MS released IE10.
