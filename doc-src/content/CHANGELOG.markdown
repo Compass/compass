@@ -17,9 +17,21 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 0.13.alpha.1 (UNRELEASED)
 -------------------------
 
-* Fix a bug in gradients that used the currentColor keyword
-* Removed the -ms prefix support from keyfrome animation, the spec was
-  approved before MS released IE10.
+* [CORE] Removed old watcher (FSSM) and replaced with Listen.
+* [CORE] Fix damaged images when creating projects on windows.
+* [CORE] Bug fix for CSS gradient parsing.
+* [CORE] Removed Dir[] for glob falling back to Sass::Utils for glob support on windows.
+* [CSS3] Update selection mixin for flexibility and consistency.
+* [CSS3] Fix a bug in gradients that used the currentColor keyword
+* [CSS3] Removed the -ms prefix support from keyfrome animation, the spec was approved before MS released IE10.
+* [CSS3] Improve flexibility of input-placeholder mixin so it can be used at the root of the stylesheet or with an argument for use with a selector.
+* [DOCUMENTATION] Change `log` to `logarithm` in the docs.
+* [SPRITES] Added `sprite-width` and `sprite-height` heler functions.
+* [SPRITES] Use the right directory for cleanup when `generated_images_dir` is set
+* [Vertical Rhythm Module] Fix the Webkit establish-baseline issue by setting line-height on html in ems for all relative rhythm-units.
+* [Vertical Rhythm Module] Remove unnecessary type-checking for Sass lists.
+* [Vertical Rhythm Module] Switch to using Sass's built-in (absolute) unit conversions when possible.
+* [Vertical Rhythm Module] Added rem output with pixel fallbacks and other improvements to vertical rhythm partial.
 
 0.13.alpha.0 (05/06/2012)
 -------------------------
