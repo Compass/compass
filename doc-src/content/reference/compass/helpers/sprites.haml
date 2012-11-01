@@ -15,6 +15,9 @@ documented_functions:
   - "sprite-file"
   - "sprite-url"
   - "sprite-position"
+  - "sprite-height"
+  - "sprite-width"
+  - "sprite-path"
 ---
 %h1 <strong>CSS Sprite</strong> Helpers for Compass
 
@@ -85,6 +88,36 @@ documented_functions:
       
           background: url('/images/icons.png?12345678') 0 -24px no-repeat;
 
+#sprite-width.helper
+  %h3
+    %a(href="#sprite-width")
+      sprite-width(<span class="arg">$map</span>)
+  .details
+    :markdown
+      Returns the width of the generated sprite
+
+#sprite-height.helper
+  %h3
+    %a(href="#sprite-height")
+      sprite-height(<span class="arg">$map</span>)
+  .details
+    :markdown
+      Returns the height of the generated sprite
+
+#sprite-path.helper
+  %h3(href="#sprite-path")
+    sprite-path(<span class="arg">$map</span>)
+  .details
+    :markdown
+      Returns the filesystem path of the generated sprite
+
+#sprite-names.helper
+  %h3(href="#sprite-names")
+    sprite-names(<span class="arg">$map</span>)
+  .details
+    :markdown
+      Returns a list of all sprite names within the supplied map
+
 #sprite-map-name.helper
   %h3
     %a(href="#sprite-map-name")
@@ -100,7 +133,7 @@ documented_functions:
       sprite-file(<span class="arg">$map</span>, <span class="arg">$sprite</span>)
   .details
     :markdown
-      Returns the relative path (from the images directory) to the original file
+      Returns the path to the original file
       used when construction the sprite. This is suitable for passing to the
       `image-width` and `image-height` helpers.
 
