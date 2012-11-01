@@ -26,7 +26,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CSS3] Removed the -ms prefix support from keyfrome animation, the spec was approved before MS released IE10.
 * [CSS3] Improve flexibility of input-placeholder mixin so it can be used at the root of the stylesheet or with an argument for use with a selector.
 * [DOCUMENTATION] Change `log` to `logarithm` in the docs.
-* [SPRITES] Added `sprite-width` and `sprite-height` heler functions.
+* [SPRITES] Added `sprite-width` and `sprite-height` helper functions.
 * [SPRITES] Use the right directory for cleanup when `generated_images_dir` is set
 * [Vertical Rhythm Module] Fix the Webkit establish-baseline issue by setting line-height on html in ems for all relative rhythm-units.
 * [Vertical Rhythm Module] Remove unnecessary type-checking for Sass lists.
