@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem 'nanoc'
+gem 'nanoc', '3.4.1'
 gem 'adsf'
 gem 'thin'
 gem 'foreman'

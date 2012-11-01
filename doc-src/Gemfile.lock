@@ -70,7 +70,7 @@ DEPENDENCIES
   haml
   json
   mime-types
-  nanoc
+  nanoc (= 3.4.1)
   nokogiri
   rack
   rake
