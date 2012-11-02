@@ -10,7 +10,7 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.12.1.1aca960)
+    compass (0.12.2.080ef67)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
@@ -19,62 +19,63 @@ GEM
   remote: http://rubygems.org/
   specs:
     activesupport (3.0.10)
-    asdf (0.5.0)
-      rack (~> 1.2.1)
+    adsf (1.1.1)
+      rack (>= 1.0.0)
     builder (3.0.0)
-    chunky_png (1.2.5)
+    chunky_png (1.2.6)
     coderay (0.9.7)
+    colored (1.2)
     compass-susy-plugin (0.7.0)
       compass (>= 0.10.0)
-    cri (2.2.1)
+    cri (2.3.0)
+      colored (>= 1.2)
     css-slideshow (0.2.0)
       compass (>= 0.10.0.rc3)
     css_parser (1.0.1)
-    fssm (0.2.8.1)
+    daemons (1.1.9)
+    eventmachine (1.0.0)
+    foreman (0.60.2)
+      thor (>= 0.13.6)
+    fssm (0.2.9)
     haml (3.1.2)
-    i18n (0.4.2)
     json (1.5.4)
     mime-types (1.16)
-    nanoc (3.2.4)
-      nanoc3 (>= 3.2.4)
-    nanoc3 (3.2.4)
-      cri (~> 2.0)
+    nanoc (3.4.1)
+      cri (~> 2.2)
     nokogiri (1.4.4)
     rack (1.2.2)
     rake (0.9.2)
     rb-fsevent (0.4.0)
     rdiscount (1.6.8)
     ruby-prof (0.10.8)
-    sass (3.1.15)
-    serve (1.0.0)
-      activesupport (~> 3.0.1)
-      i18n (~> 0.4.1)
-      rack (~> 1.2.1)
-      tzinfo (~> 0.3.23)
+    sass (3.2.1)
+    thin (1.5.0)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.14.6)
-    tzinfo (0.3.29)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   activesupport (~> 3.0.10)
-  asdf
+  adsf
   builder
   coderay
   compass!
   compass-theme!
   css_parser (= 1.0.1)
+  foreman
   haml
   json
   mime-types
-  nanoc (= 3.2.4)
-  nanoc3 (= 3.2.4)
+  nanoc (= 3.4.1)
   nokogiri
   rack
   rake
   rb-fsevent
   rdiscount
   ruby-prof
-  serve (= 1.0.0)
+  thin
   thor

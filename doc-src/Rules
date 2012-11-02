@@ -92,19 +92,19 @@ route '/assets/htaccess/' do
 end
 
 route '/assets/css/*/' do
-  "#{SITE_ROOT}/stylesheets"+item.identifier.chop[11..-1]+"."+item[:extension]
+  "#{SITE_ROOT}/stylesheets"+item.identifier.chop[11..-1]
 end
 
 route '/assets/images/*/' do
-  SITE_ROOT+item.identifier.chop[7..-1]+"."+item[:extension]
+  SITE_ROOT+item.identifier.chop[7..-1]
 end
 
 route '/assets/javascripts/*/' do
-  SITE_ROOT+item.identifier.chop[7..-1]+"."+item[:extension]
+  SITE_ROOT+item.identifier.chop[7..-1]
 end
 
 route '/assets/fonts/*/' do
-  SITE_ROOT+item.identifier.chop[7..-1]+"."+item[:extension]
+  SITE_ROOT+item.identifier.chop[7..-1]
 end
 
 route '/stylesheets/*/' do
