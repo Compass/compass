@@ -1,0 +1,37 @@
+@import 'shared';
+
+@mixin input-placeholder {
+  @if $experimental-support-for-webkit {
+    ::-webkit-input-placeholder {
+      @content;
+    }
+  }
+  @if $experimental-support-for-mozilla {
+    :-moz-placeholder {  
+      @content;
+    }
+  }
+  @if $experimental-support-for-microsoft {
+    :-ms-input-placeholder {
+      @content;
+    }
+  }
+}
+
+@mixin input-placeholder-for-parent {
+  @if $experimental-support-for-webkit {
+    &::-webkit-input-placeholder {
+      @content;
+    }
+  }
+  @if $experimental-support-for-mozilla {
+    &:-moz-placeholder {  
+      @content;
+    }
+  }
+  @if $experimental-support-for-microsoft {
+    &:-ms-input-placeholder {
+      @content;
+    }
+  }
+}
