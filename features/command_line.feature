@@ -17,30 +17,13 @@ Feature: Command Line
     And I am told how to link to /stylesheets/print.css for media "print"
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
 
-  Scenario: Install a project with blueprint
-    When I create a project using: compass create bp_project --using blueprint
-    Then a directory bp_project/ is created
-    And a configuration file bp_project/config.rb is created
-    And a sass file bp_project/sass/screen.scss is created
-    And a sass file bp_project/sass/print.scss is created
-    And a sass file bp_project/sass/ie.scss is created
-    And a css file bp_project/stylesheets/screen.css is created
-    And a css file bp_project/stylesheets/print.css is created
-    And a css file bp_project/stylesheets/ie.css is created
-    And an image file bp_project/images/grid.png is created
-    And I am told how to link to /stylesheets/screen.css for media "screen, projection"
-    And I am told how to link to /stylesheets/print.css for media "print"
-    And I am told how to conditionally link "lt IE 8" to /stylesheets/ie.css for media "screen, projection"
-
   Scenario: Install a project with specific directories
-    When I create a project using: compass create custom_project --using blueprint --sass-dir sass --css-dir css --images-dir assets/imgs
+    When I create a project using: compass create custom_project --using compass --sass-dir sass --css-dir css --images-dir assets/imgs
     Then a directory custom_project/ is created
     And a directory custom_project/sass/ is created
     And a directory custom_project/css/ is created
-    And a directory custom_project/assets/imgs/ is created
     And a sass file custom_project/sass/screen.scss is created
     And a css file custom_project/css/screen.css is created
-    And an image file custom_project/assets/imgs/grid.png is created
 
   Scenario: Perform a dry run of creating a project
     When I create a project using: compass create my_project --dry-run
@@ -134,12 +117,8 @@ Feature: Command Line
 
   Scenario: Installing a pattern into a project
     Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass install blueprint/buttons
-    Then a sass file sass/buttons.scss is created
-    And an image file images/buttons/cross.png is created
-    And an image file images/buttons/key.png is created
-    And an image file images/buttons/tick.png is created
-    And a css file tmp/buttons.css is created
+    When I run: compass install compass/pie
+    Then a sass file sass/pie.scss is created
 
   Scenario: Basic help
     When I run: compass help
@@ -287,6 +266,5 @@ Feature: Command Line
   Scenario: List frameworks registered with compass
     When I run: compass frameworks
     Then I should see the following lines of output:
-      | blueprint  |
       | compass    |
 
