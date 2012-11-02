@@ -2,18 +2,18 @@
 
 // General Sprite Defaults
 // You can override them before you import this file.
-$<%= name %>-sprite-base-class: ".<%= name %>-sprite" !default;
-$<%= name %>-sprite-dimensions: false !default;
-$<%= name %>-position: 0% !default;
-$<%= name %>-spacing: 0 !default;
-$<%= name %>-repeat: no-repeat !default;
-$<%= name %>-prefix: '' !default;
-$<%= name %>-clean-up: true !default;
-$<%= name %>-layout:vertical !default;
-$<%= name %>-inline: false !default;
+$<%= name %>-sprite-base-class : ".<%= name %>-sprite" !default;
+$<%= name %>-sprite-dimensions : false !default;
+$<%= name %>-position          : 0% !default;
+$<%= name %>-spacing           : 0 !default;
+$<%= name %>-repeat            : no-repeat !default;
+$<%= name %>-prefix            : '' !default;
+$<%= name %>-clean-up          : true !default;
+$<%= name %>-layout            : vertical !default;
+$<%= name %>-inline            : false !default;
 
 <% if skip_overrides %> 
-  $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up);
+  $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up, $spacing: $<%= name %>-spacing, $position : $<%= name %>-position);
 <% else %>  
  // These variables control the generated sprite output
  // You can override them selectively before you import this file.
@@ -29,8 +29,10 @@ $<%= name %>-inline: false !default;
    $<%= name %>-<%= sprite_name %>-spacing:  $<%= name %>-<%= sprite_name %>-spacing, 
    $<%= name %>-<%= sprite_name %>-repeat:   $<%= name %>-<%= sprite_name %>-repeat,
  <% end %>
- $layout: $<%= name %>-layout,
- $cleanup: $<%= name %>-clean-up
+ $layout   : $<%= name %>-layout,
+ $cleanup  : $<%= name %>-clean-up,
+ $spacing  : $<%= name %>-spacing,
+ $position : $<%= name %>-position
  );
 <% end %>
 

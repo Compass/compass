@@ -1,0 +1,13 @@
+$contrasted-dark-default: #333333;
+$contrasted-light-default: #e7e7e7;
+
+@import "compass/utilities/color/contrast";
+
+.example {
+  p.dark {
+    @include contrasted(#5f1210);
+  }
+  p.light {
+    @include contrasted(#c82523);
+  }
+}

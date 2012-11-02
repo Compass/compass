@@ -260,7 +260,7 @@ Then /^the image ([^ ]+) has a size of (\d+)x(\d+)$/ do |file, width, height|
 end
 
 Then /^I should see the following lines of output:$/ do |table|
-  table.diff!([['blueprint'],['compass']])
+  table.diff!([['compass']])
 end
 
 Then /^I should see the following output: (.+)$/ do |expected|

@@ -10,15 +10,33 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  #Returns a list of all sprite names
+  # Returns the width of the generated sprite map
+  def sprite_width(map)
+    verify_map(map, 'sprite-width')
+    width, _ = image_dimensions(map.filename)
+    Sass::Script::Number.new(width, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_width, [:map]
+  
+  # Returns the height of the generated sprite map
+  def sprite_height(map)
+    verify_map(map, 'sprite-height')
+    _, height = image_dimensions(map.filename)
+    Sass::Script::Number.new(height, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_height, [:map]
+
+  # Returns a list of all sprite names
   def sprite_names(map)
+    verify_map(map, 'sprite-names')
     Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
   end
   Sass::Script::Functions.declare :sprite_names, [:map]
 
   # Returns the system path of the sprite file
   def sprite_path(map)
-    Sass::Script::String.new(map.name_and_hash)
+    verify_map(map, 'sprite-path')
+    Sass::Script::String.new(map.filename)
   end
   Sass::Script::Functions.declare :sprite_path, [:map]
 
@@ -30,7 +48,8 @@ module Compass::SassExtensions::Functions::Sprites
   def inline_sprite(map)
     verify_map(map, "sprite-url")
     map.generate
-    inline_image(sprite_path(map))
+    path = map.filename
+    inline_image_string(data(path), compute_mime_type(path))
   end
   Sass::Script::Functions.declare :inline_sprite, [:map]
 
@@ -60,9 +79,7 @@ module Compass::SassExtensions::Functions::Sprites
   def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
     sprite = convert_sprite_name(sprite)    
     verify_map(map)
-    unless sprite.is_a?(Sass::Script::String)
-      raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
-    end
+    verify_sprite(sprite)
     url = sprite_url(map)
     position = sprite_position(map, sprite, offset_x, offset_y)
     Sass::Script::List.new([url] + position.value, :space)
@@ -115,6 +132,13 @@ module Compass::SassExtensions::Functions::Sprites
   
   Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
 
+  # Determines if the CSS selector is valid
+  def sprite_has_valid_selector(selector)
+    unless selector.value =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
+      raise Sass::SyntaxError, "#{selector} must be a legal css identifier"
+    end
+    Sass::Script::Bool.new true
+  end
 
   # Returns a url to the sprite image.
   def sprite_url(map)
@@ -148,7 +172,7 @@ module Compass::SassExtensions::Functions::Sprites
     assert_type offset_y, :Number
     sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
-    unless sprite && sprite.is_a?(Sass::Script::String)
+    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite-position must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
     image = map.image_for(sprite.value)
@@ -202,7 +226,7 @@ protected
   end
 
   def verify_sprite(sprite)
-    unless sprite.is_a?(Sass::Script::String)
+    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
   end

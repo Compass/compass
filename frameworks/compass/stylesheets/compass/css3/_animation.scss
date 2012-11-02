@@ -1,0 +1,128 @@
+@import "shared";
+
+// ----------------------------------------------------------------------------
+// @private css3-feature-support variables must always include a list of five boolean values
+// representing in order: -moz, -webkit, -o, -ms, -khtml.
+$animation-support: -moz, -webkit, -o, not -ms, -khtml;
+
+// ----------------------------------------------------------------------------
+// Defaults
+
+// Name of any animation as a string.
+$default-animation-name             : null !default;
+
+// Duration of the entire animation in seconds.
+$default-animation-duration         : null !default;
+
+// Delay for start of animation in seconds.
+$default-animation-delay            : null !default;
+
+// The timing function(s) to be used between keyframes. [ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier($number, $number, $number, $number)]
+$default-animation-timing-function  : null !default;
+
+// The number of times an animation cycle is played. [infinite | $number]
+$default-animation-iteration-count  : null !default;
+
+// Whether or not the animation should play in reverse on alternate cycles. [normal | alternate]
+$default-animation-direction        : null !default;
+
+// What values are applied by the animation outside the time it is executing. [none | forwards | backwards | both]
+$default-animation-fill-mode        : null !default;
+
+// Whether the animation is running or paused. [running | paused]
+$default-animation-play-state       : null !default;
+
+// ----------------------------------------------------------------------------
+// Keyframes
+
+// Create a named animation sequence that can be applied to elements later.
+//
+//     $name    - The name of your animation.
+//     @content - The keyframes of the animation.
+@mixin keyframes(
+  $name,
+  $moz      : $experimental-support-for-mozilla,
+  $webkit   : $experimental-support-for-webkit,
+  $o        : $experimental-support-for-opera,
+  $khtml    : $experimental-support-for-khtml,
+  $official : true
+) {
+  @if $moz and nth($animation-support,1) {
+    @include with-only-support-for($moz: true) {
+      @-moz-keyframes #{$name} { @content; }
+    }
+  }
+  @if $webkit and nth($animation-support,2) {
+    @include with-only-support-for($webkit: true) {
+      @-webkit-keyframes #{$name} { @content; }
+    }
+  }
+  @if $o and nth($animation-support,3) {
+    @include with-only-support-for($o: true) {
+      @-o-keyframes #{$name} { @content; }
+    }
+  }
+  @if $khtml and nth($animation-support,5) {
+    @include with-only-support-for($khtml: true) {
+      @-khtml-keyframes #{$name} { @content; }
+    }
+  }
+  @if $official {
+    @include with-only-support-for {
+      @keyframes #{$name} { @content; }
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Animation
+
+// Apply any number of animation names.
+@mixin animation-name($name...) {
+  $name: set-arglist-default($name, $default-animation-name);
+  @include experimental(animation-name, $name, $animation-support...); }
+
+// Apply any number of animation durations.
+@mixin animation-duration($duration...) {
+  $duration: set-arglist-default($duration, $default-animation-duration);
+  @include experimental(animation-duration, $duration, $animation-support...); }
+
+// Apply any number of animation delays.
+@mixin animation-delay($delay...) {
+  $delay: set-arglist-default($delay, $default-animation-delay);
+  @include experimental(animation-delay, $delay, $animation-support...); }
+
+// Apply any number of animation timing functions.
+@mixin animation-timing-function($function...) {
+  $function: set-arglist-default($function, $default-animation-timing-function);
+  @include experimental(animation-timing-function, $function, $animation-support...); }
+
+// Apply any number of animation iteration counts.
+@mixin animation-iteration-count($count...) {
+  $count: set-arglist-default($count, $default-animation-iteration-count);
+  @include experimental(animation-iteration-count, $count, $animation-support...); }
+
+// Apply any number of animation directions.
+@mixin animation-direction($direction...) {
+  $direction: set-arglist-default($direction, $default-animation-direction);
+  @include experimental(animation-direction, $direction, $animation-support...); }
+
+// Apply any number of animation fill modes.
+@mixin animation-fill-mode($mode...) {
+  $mode: set-arglist-default($mode, $default-animation-fill-mode);
+  @include experimental(animation-fill-mode, $mode, $animation-support...); }
+
+// Apply any number of animation play states.
+@mixin animation-play-state($state...) {
+  $state: set-arglist-default($state, $default-animation-play-state);
+  @include experimental(animation-play-state, $state, $animation-support...); }
+
+// Shortcut to apply any number of animations to an element, with all the settings.
+//
+//     $animation... : Name and settings. [<values> | default]
+@mixin animation($animation...) {
+  $default: -compass-space-list(compact($default-animation-name $default-animation-duration $default-animation-timing-function $default-animation-delay $default-animation-iteration-count $default-animation-direction $default-animation-fill-mode $default-animation-play-state));
+  $animation: set-arglist-default($animation, $default);
+  @include experimental(animation, $animation, $animation-support...);
+}
+

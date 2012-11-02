@@ -1,0 +1,33 @@
+@-moz-keyframes test {
+  0%, 100% {
+    opacity: 1; }
+
+  50% {
+    opacity: 0; } }
+
+@-webkit-keyframes test {
+  0%, 100% {
+    opacity: 1; }
+
+  50% {
+    opacity: 0; } }
+
+@-o-keyframes test {
+  0%, 100% {
+    opacity: 1; }
+
+  50% {
+    opacity: 0; } }
+
+@keyframes test {
+  0%, 100% {
+    opacity: 1; }
+
+  50% {
+    opacity: 0; } }
+
+.animation {
+  -webkit-animation: test;
+  -moz-animation: test;
+  -o-animation: test;
+  animation: test; }

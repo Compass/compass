@@ -7,6 +7,6 @@
       Compass is Charityware - 
       %a(href="http://umdf.org/compass") Donate Now!
 
-- if @item[:content_for_footer]
+- if content_for(@item, :footer)
   %hr
-  = @item[:content_for_footer]
+  = content_for(@item, :footer)

@@ -2,63 +2,54 @@
   -webkit-columns: 20em 5;
   -moz-columns: 20em 5;
   -ms-columns: 20em 5;
-  -o-columns: 20em 5;
   columns: 20em 5; }
 
 .column-count {
   -webkit-column-count: 5;
   -moz-column-count: 5;
   -ms-column-count: 5;
-  -o-column-count: 5;
   column-count: 5; }
 
 .column-gap {
   -webkit-column-gap: 10px;
   -moz-column-gap: 10px;
   -ms-column-gap: 10px;
-  -o-column-gap: 10px;
   column-gap: 10px; }
 
 .column-width {
   -webkit-column-width: 90px;
   -moz-column-width: 90px;
   -ms-column-width: 90px;
-  -o-column-width: 90px;
   column-width: 90px; }
 
 .column-rule-width {
-  -webkit-column-rule-width: 1px;
-  -moz-column-rule-width: 1px;
-  -ms-column-rule-width: 1px;
-  -o-column-rule-width: 1px;
-  column-rule-width: 1px; }
+  -webkit-rule-width: 1px;
+  -moz-rule-width: 1px;
+  -ms-rule-width: 1px;
+  rule-width: 1px; }
 
 .column-rule-style {
-  -webkit-column-rule-style: dotted;
-  -moz-column-rule-style: dotted;
-  -ms-column-rule-style: dotted;
-  -o-column-rule-style: dotted;
-  column-rule-style: dotted; }
+  -webkit-rule-style: dotted;
+  -moz-rule-style: dotted;
+  -ms-rule-style: dotted;
+  rule-style: dotted; }
 
 .column-rule-color {
-  -webkit-column-rule-color: blue;
-  -moz-column-rule-color: blue;
-  -ms-column-rule-color: blue;
-  -o-column-rule-color: blue;
-  column-rule-color: blue; }
+  -webkit-rule-color: blue;
+  -moz-rule-color: blue;
+  -ms-rule-color: blue;
+  rule-color: blue; }
 
 .column-rule {
   -webkit-column-rule: 1px solid blue;
   -moz-column-rule: 1px solid blue;
   -ms-column-rule: 1px solid blue;
-  -o-column-rule: 1px solid blue;
   column-rule: 1px solid blue; }
 
 .column-rule-spaced {
   -webkit-column-rule: 1px solid blue;
   -moz-column-rule: 1px solid blue;
   -ms-column-rule: 1px solid blue;
-  -o-column-rule: 1px solid blue;
   column-rule: 1px solid blue; }
 
 .column-break-before {
@@ -77,56 +68,48 @@
   -webkit-column-count: 5;
   -moz-column-count: 5;
   -ms-column-count: 5;
-  -o-column-count: 5;
   column-count: 5; }
 
 .column-gap {
   -webkit-column-gap: 10px;
   -moz-column-gap: 10px;
   -ms-column-gap: 10px;
-  -o-column-gap: 10px;
   column-gap: 10px; }
 
 .column-width {
   -webkit-column-width: 90px;
   -moz-column-width: 90px;
   -ms-column-width: 90px;
-  -o-column-width: 90px;
   column-width: 90px; }
 
 .column-rule-width {
-  -webkit-column-rule-width: 1px;
-  -moz-column-rule-width: 1px;
-  -ms-column-rule-width: 1px;
-  -o-column-rule-width: 1px;
-  column-rule-width: 1px; }
+  -webkit-rule-width: 1px;
+  -moz-rule-width: 1px;
+  -ms-rule-width: 1px;
+  rule-width: 1px; }
 
 .column-rule-style {
-  -webkit-column-rule-style: dotted;
-  -moz-column-rule-style: dotted;
-  -ms-column-rule-style: dotted;
-  -o-column-rule-style: dotted;
-  column-rule-style: dotted; }
+  -webkit-rule-style: dotted;
+  -moz-rule-style: dotted;
+  -ms-rule-style: dotted;
+  rule-style: dotted; }
 
 .column-rule-color {
-  -webkit-column-rule-color: blue;
-  -moz-column-rule-color: blue;
-  -ms-column-rule-color: blue;
-  -o-column-rule-color: blue;
-  column-rule-color: blue; }
+  -webkit-rule-color: blue;
+  -moz-rule-color: blue;
+  -ms-rule-color: blue;
+  rule-color: blue; }
 
 .column-rule {
   -webkit-column-rule: 1px solid blue;
   -moz-column-rule: 1px solid blue;
   -ms-column-rule: 1px solid blue;
-  -o-column-rule: 1px solid blue;
   column-rule: 1px solid blue; }
 
 .column-rule-spaced {
   -webkit-column-rule: 1px solid blue;
   -moz-column-rule: 1px solid blue;
   -ms-column-rule: 1px solid blue;
-  -o-column-rule: 1px solid blue;
   column-rule: 1px solid blue; }
 
 .column-break-before {

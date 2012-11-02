@@ -15,3 +15,34 @@
     -moz, -webkit, not -o, not -ms, -khtml, official
   );
 }
+
+// Style the html5 input placeholder in browsers that support it.
+//
+// There are two usage modes: at the stylesheet root, include the mixin with
+// styles passed as mixin content. This applies to all elements. For example:
+//
+//     @include input-placeholder {
+//       color: #bfbfbf;
+//       font-style: italic;
+//     }
+//
+// If a specific element is being styled, pass "&" as an argument to the mixin
+// as well. For example:
+//
+//     .textinput {
+//       @include input-placeholder("&") {
+//         color: #bfbfbf;
+//         font-style: italic;
+//       }
+//     }
+@mixin input-placeholder($selector: "") {
+  @if $experimental-support-for-webkit {
+    #{$selector}::-webkit-input-placeholder { @content; }
+  }
+  @if $experimental-support-for-mozilla {
+    #{$selector}:-moz-placeholder { @content; }
+  }
+  @if $experimental-support-for-microsoft {
+    #{$selector}:-ms-input-placeholder { @content; }
+  }
+}

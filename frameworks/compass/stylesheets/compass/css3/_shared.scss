@@ -20,6 +20,18 @@
   @if $official                                        {         #{$property} : $value; }
 }
 
+// This mixin is a shortcut for applying only a single experimental value
+@mixin experimental-only-for($property, $value,
+  $moz      : false,
+  $webkit   : false,
+  $o        : false,
+  $ms       : false,
+  $khtml    : false,
+  $official : false
+) {
+  @include experimental($property, $value, $moz, $webkit, $o, $ms, $khtml, $official);
+}
+
 // Same as experimental(), but for cases when the property is the same and the value is vendorized
 @mixin experimental-value($property, $value,
   $moz      : $experimental-support-for-mozilla,
@@ -35,4 +47,80 @@
   @if $ms      and $experimental-support-for-microsoft { #{$property} :     -ms-#{$value}; }
   @if $o       and $experimental-support-for-opera     { #{$property} :      -o-#{$value}; }
   @if $official                                        { #{$property} :         #{$value}; }
+}
+
+// Change the experimental-support settings in specific contexts.
+@mixin set-experimental-support($moz: false, $webkit: false, $ms: false, $o: false, $khtml: false) {
+  $experimental-support-for-mozilla: $moz;
+  $experimental-support-for-webkit: $webkit;
+  $experimental-support-for-microsoft: $ms;
+  $experimental-support-for-opera: $o;
+  $experimental-support-for-khtml: $khtml;
+}
+
+// Change the legacy-support-for-ie* settings in specific contexts.
+@mixin set-legacy-ie-support($ie6: false, $ie7: false, $ie8: false) {
+  $legacy-support-for-ie6: $ie6;
+  $legacy-support-for-ie7: $ie7;
+  $legacy-support-for-ie8: $ie8;
+}
+
+// This mixin allows you to change the experimental support settings for
+// child (@content) styles.
+@mixin with-only-support-for($moz: false, $webkit: false, $ms: false, $o: false, $khtml: false, $legacy-ie: false) {
+  // Capture the current state
+  $original-moz: $experimental-support-for-mozilla;
+  $original-webkit: $experimental-support-for-webkit;
+  $original-o: $experimental-support-for-opera;
+  $original-ms: $experimental-support-for-microsoft;
+  $original-khtml: $experimental-support-for-khtml;
+  $original-ie6: $legacy-support-for-ie6;
+  $original-ie7: $legacy-support-for-ie7;
+  $original-ie8: $legacy-support-for-ie8;
+  // Change support settings
+  @include set-experimental-support($moz, $webkit, $ms, $o, $khtml);
+  @include set-legacy-ie-support($legacy-ie, $legacy-ie, $legacy-ie);
+  // Apply styles
+  @content;
+  // Return to original support settings
+  @include set-legacy-ie-support($original-ie6, $original-ie7, $original-ie8);
+  @include set-experimental-support($original-moz, $original-webkit, $original-ms, $original-o, $original-khtml);
+}
+
+// This mixin is a shortcut for making slight adjustments to browser support
+// for child @
+@mixin adjust-support-for(
+    $moz: $experimental-support-for-mozilla,
+    $webkit: $experimental-support-for-webkit,
+    $ms: $experimental-support-for-microsoft,
+    $o: $experimental-support-for-opera,
+    $khtml: $experimental-support-for-khtml,
+    $legacy-ie: $legacy-support-for-ie
+) {
+  @include with-only-support-for($moz, $webkit, $ms, $o, $khtml, $legacy-ie) {
+    @content;
+  }
+}
+
+// Set a default value if the given arglist is empty
+@function set-arglist-default(
+  $arglist,
+  $default
+) {
+  $default: if(length($default) > 0, $default, null);
+  $output: compact();
+  @each $layer in $arglist {
+    $output: append($output, if($layer == 'default', $default, $layer));
+  }
+  @return if(length($output) > 0, $output, $default);
+}
+
+// @private Returns the legacy value for a given box-model
+// - Used by background-clip and -origin.
+@function legacy-box($box) {
+  $box: unquote($box);
+  @if $box == padding-box { $box: padding; }
+  @if $box == border-box { $box: border; }
+  @if $box == content-box { $box: content; }
+  @return $box;
 }

@@ -15,6 +15,7 @@ test/fixtures/stylesheets/*/tmp
 test/fixtures/stylesheets/*/saved
 test/fixtures/stylesheets/empty
 test/fixtures/stylesheets/*/sass/.sass-cache
+test/fixtures/stylesheets/valid/css/*
 pkg/*
 compass-*.gem
 coverage*

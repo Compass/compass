@@ -19,6 +19,7 @@
 @import "compass/utilities/general/clearfix";
 @import "compass/utilities/general/reset";
 @import "compass/utilities/general/float";
+@import "compass/support";
 
 // Can be mixed into any selector that target a ul or ol that is meant
 // to have a horizontal layout. Used to implement +horizontal-list.
@@ -45,9 +46,10 @@
       left: $padding;
       right: $padding;
     }
-    &:first-child, &.first { padding-#{$direction}: 0; }
+    &:first-child #{if($legacy-support-for-ie6, ', &.first', '')} { padding-#{$direction}: 0; }
     &:last-child { padding-#{opposite-position($direction)}: 0; }
-    &.last { padding-#{opposite-position($direction)}: 0; }
+    @if $legacy-support-for-ie {
+      &.last { padding-#{opposite-position($direction)}: 0; } }
   }
 }
 

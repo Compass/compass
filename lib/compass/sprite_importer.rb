@@ -2,13 +2,13 @@ require 'erb'
 require 'compass/sprite_importer/binding'
 module Compass
   class SpriteImporter < Sass::Importers::Base
-    VAILD_FILE_NAME = /\A#{Sass::SCSS::RX::IDENT}\Z/
+    VAILD_FILE_NAME       = /\A#{Sass::SCSS::RX::IDENT}\Z/
     SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
-    VALID_EXTENSIONS = ['.png']
+    VALID_EXTENSIONS      = ['.png']
     
-    TEMPLATE_FOLDER = File.join(File.expand_path('../', __FILE__), 'sprite_importer')
+    TEMPLATE_FOLDER       = File.join(File.expand_path('../', __FILE__), 'sprite_importer')
     CONTENT_TEMPLATE_FILE = File.join(TEMPLATE_FOLDER, 'content.erb')
-    CONTENT_TEMPLATE = ERB.new(File.read(CONTENT_TEMPLATE_FILE))
+    CONTENT_TEMPLATE      = ERB.new(File.read(CONTENT_TEMPLATE_FILE))
 
 
 
@@ -16,7 +16,7 @@ module Compass
     def self.find_all_sprite_map_files(path)
       hex = "[0-9a-f]"
       glob = "*-s#{hex*10}{#{VALID_EXTENSIONS.join(",")}}"
-      Dir.glob(File.join(path, "**", glob))
+      Sass::Util.glob(File.join(path, "**", glob))
     end
     
     def find(uri, options)
@@ -75,7 +75,7 @@ module Compass
     # Returns the Glob of image files for the uri
     def self.files(uri)
       Compass.configuration.sprite_load_path.compact.each do |folder|
-        files = Dir[File.join(folder, uri)].sort
+        files = Sass::Util.glob(File.join(folder, uri)).sort
         next if files.empty?
         return files
       end
@@ -87,11 +87,7 @@ module Compass
     # Returns an Array of image names without the file extension
     def self.sprite_names(uri)
       files(uri).collect do |file|
-        filename = File.basename(file, '.png')
-        unless VAILD_FILE_NAME =~ filename
-          raise Compass::Error, "Sprite file names must be legal css identifiers. Please rename #{File.basename(file)}"
-        end
-        filename
+        File.basename(file, '.png')
       end
     end
     
