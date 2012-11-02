@@ -12,6 +12,7 @@ end
 
 ['markup', 'stylesheet', 'background'].each do |ex_file|
   compile "/examples/*/#{ex_file}/" do
+    snapshot :raw
     nil
   end
 end
