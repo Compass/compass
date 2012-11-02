@@ -62,7 +62,7 @@ $blueprint-container-size: $blueprint-grid-outer-width * $blueprint-grid-columns
   input, textarea, select {
     @for $n from 1 through $blueprint-grid-columns {
       &.span-#{$n} {
-        width: span($n); } } }
+        width: span($n) - 12; } } }
   // Add these to a column to append empty cols.
   @for $n from 1 to $blueprint-grid-columns {
     .append-#{$n} {
