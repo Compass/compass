@@ -17,10 +17,10 @@ possible.
 
 If you're reading this, you might be thinking about helping to improve the Compass documentation by editing existing documentation or by adding new documentation.
 
-There are three main kinds of documentation:
+There are two main kinds of documentation:
 
-* Reference → Details about **what** Compass has.
 * Tutorials → Describe **how** to use Compass.
+* Reference → Details about **what** Compass has.
 
 It's possible and encouraged for related tutorials and reference documentation to
 link to each other.
@@ -110,8 +110,8 @@ Then go to [http://localhost:3000](http://localhost:3000) to view the site.
 We use [foreman](https://github.com/ddollar/foreman) to combine two nanoc commands using a `Procfile`, which you'll find in `doc-src`. If you take a look a it, you'll see two processes, `watch` and `view`:
 
 ```sh
-watch: nanoc watch
-view: nanoc view -H thin
+watch: bundle exec nanoc watch
+view: bundle exec nanoc view -H thin
 ```
 
 `nanoc watch` watches for changes and `nanoc view -H thin` previews the site using thin (rather than WEBrick, which it would use by default). We suggest you install [Growl](http://growl.info/) or [rb-inotify](https://github.com/nex3/rb-inotify) so you can receive notifications when the site is done compiling.
@@ -130,13 +130,13 @@ If you refresh the browser before the compilation is complete, nothing bad will 
 Auto-compiling on file change might not be your thing. In that case, keep this process running in a separate terminal window:
 
 ```sh
-$ nanoc view -H thin
+$ bundle exec nanoc view -H thin
 ```
 
 and run:
 
 ```sh
-$ nanoc
+$ bundle exec nanoc (compile)
 ```
 
 every time you want to compile the site and see the changes.
@@ -144,10 +144,21 @@ every time you want to compile the site and see the changes.
 If this doesn't work for you, you could try nanoc's `aco` (or `autocompile`) command:
 
 ```sh
-$ nanoc aco -H thin
+$ bundle exec nanoc aco -H thin
 ```
 
 It compiles and previews the site in the browser (also at [http://localhost:3000](http://localhost:3000)), then recompiles it on each request. The difference from the previous approach is that the site is recompiled each time a page is requested, not when a file is changed. This approach is usually more sluggish because it's synchronous.
+
+For convenience, all these commands are written as rake tasks:
+
+```sh
+$ rake watch    # bundle execn nanoc watch
+$ rake view     # bundle exec nanoc view -H thin
+$ rake compile  # bundle exec nanoc (compile)
+$ rake aco      # bundle exec nanoc aco -H thin
+```
+
+if you choose not to use the Procfile approach.
 
 It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.org/tutorial/) on nanoc.
 
