@@ -127,6 +127,20 @@ Your basic workflow might look like this:
 
 If you refresh the browser before the compilation is complete, nothing bad will happen, you just won't see the change until the compilation finishes (and you refresh again). That's because the site is compiling asynchronously.
 
+Auto-compiling on file change might not be your thing. In that case, keep this process running in a separate terminal window:
+
+```sh
+$ nanoc view -H thin
+```
+
+and run:
+
+```sh
+$ nanoc
+```
+
+every time you want to compile the site and see the changes.
+
 If this doesn't work for you, you could try nanoc's `aco` (or `autocompile`) command:
 
 ```sh
