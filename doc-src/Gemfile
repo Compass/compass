@@ -3,6 +3,7 @@ source :gemcutter
 gem 'nanoc', :git => 'https://github.com/ddfreyne/nanoc.git'
 gem 'i18n'
 gem 'adsf'
+gem 'rb-inotify'
 gem 'thin'
 gem 'foreman'
 gem 'rdiscount'
