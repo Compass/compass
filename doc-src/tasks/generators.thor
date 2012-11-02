@@ -11,12 +11,11 @@ class Generate < Thor
 
   method_option :title, :type => :string, :aliases => "-t", :desc => %(Title of the example.)
   method_option :description, :type => :string, :aliases => "-d", :desc => %(Description of the example, which is shown below the link.)
-  method_option :framework, :type => :string, :default => "compass", :aliases => "-f", :desc => %(Framework of the example, available ones are "compass" and "blueprint".)
   method_option :mixin, :type => :string, :aliases => "-m", :desc => %(Name of the specific mixin in the module if the example isn't about the whole module.)
 
   def example(module_path)
     module_path = module_path.dup
-    module_path = "#{@options[:framework]}/#{module_path.chomp("/")}"
+    module_path = "compass/#{module_path.chomp("/")}"
 
     options = @options.merge(:stylesheet => stylesheet_path(module_path))
 
@@ -35,7 +34,7 @@ class Generate < Thor
       | ---
       | title: #{title}
       | description: #{options[:description] || "How to use #{title}"}
-      | framework: #{options[:framework]}
+      | framework: compass
       | stylesheet: #{options[:stylesheet]}
       | #{mixin}example: true
       | ---
@@ -84,16 +83,14 @@ class Generate < Thor
   desc "reference path/to/module", "Generate a reference page for the given module."
 
   method_option :title, :type => :string, :aliases => "-t", :desc => %(Title of the reference.)
-  method_option :framework, :type => :string, :default => "compass", :aliases => "-f", :desc => %(Framework of the reference, available ones are "compass" and "blueprint")
 
   def reference(module_path)
     module_path = module_path.dup
-    module_path = "#{@options[:framework]}/#{module_path.chomp("/")}"
+    module_path = "compass/#{module_path.chomp("/")}"
 
     options = @options.merge(:stylesheet => stylesheet_path(module_path))
 
     title = options[:title] || titleize(File.basename(module_path))
-    layout = if options[:framework] == "compass" then "core" else "blueprint" end
 
     directory = "reference/#{module_path}"
     puts "Generating /#{directory}/"
@@ -105,14 +102,14 @@ class Generate < Thor
     open(file_name, "w") do |reference_file|
       contents = <<-REFERENCE
       | ---
-      | title: #{options[:framework].capitalize} #{title}
+      | title: Compass #{title}
       | crumb: #{title}
-      | framework: #{options[:framework]}
+      | framework: compass
       | stylesheet: #{options[:stylesheet]}
-      | layout: #{layout}
+      | layout: core
       | classnames:
       |   - reference
-      |   - #{layout}
+      |   - core
       | ---
       | - render "reference" do
       |   %p Lorem ipsum dolor sit amet.
@@ -129,14 +126,11 @@ class Generate < Thor
   def stylesheet_path(module_path)
     array = module_path.split("/")
     stylesheet_name = array.pop
-    framework = array.first
     prefix = array.join("/")
 
-    stylesheet = Dir["../frameworks/#{framework}/stylesheets/#{prefix}/_#{stylesheet_name}.{scss,sass}"].first
+    stylesheet = Dir["../frameworks/compass/stylesheets/#{prefix}/_#{stylesheet_name}.{scss,sass}"].first
     raise "no stylesheet found for module #{module_path}" if stylesheet.nil?
     stylesheet = File.expand_path(stylesheet)
-    framework = Compass::Frameworks::ALL.find { |f| stylesheet.include?(f.stylesheets_directory) }
-    raise "no framework found for #{stylesheet}" if framework.nil?
 
     "#{prefix}/#{File.basename(stylesheet)}"
   end

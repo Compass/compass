@@ -278,19 +278,17 @@ Usage:
 Options:
   -t, [--title=TITLE]              # Title of the example.
   -d, [--description=DESCRIPTION]  # Description of the example, which is shown below the link.
-  -f, [--framework=FRAMEWORK]      # Framework of the, available ones are "compass" and "blueprint".
-                                   # Default: compass
   -m, [--mixin=MIXIN]              # Name of the specific mixin in the module if the example isn't about the whole module.
 
 Generates a new example.
 ```
 
-All of these are optional and have reasonable defaults, you can use them when understand what exactly they are setting. They are mostly metadata values (except `--framework`, which is used for finding the path), so you can change them later on.
+All of these are optional and have reasonable defaults, you can use them when understand what exactly they are setting. They are all simple metadata values, so you can change them later on.
 
 **Note**: When generating examples or references, Thor is searching for the appropriate
 module stylesheet. If it doesn't find one, it raises an error and doesn't
 generate anything. So before generating anything make sure the stylesheet exists and is
-under `../frameworks/<framework>/stylesheets/<framework>/path/to/module` (relative to the `doc-src` directory). If the path confuses you, just take a few minutes to study how other modules are organized and you'll quickly get the hang of it.
+under `../frameworks/compass/stylesheets/compass/path/to/module` (relative to the `doc-src` directory). If the path confuses you, just take a few minutes to study how other modules are organized and you'll quickly get the hang of it.
 
 Let's do an example:
 
@@ -316,7 +314,7 @@ The command generated three files:
 1. `stylesheet.scss` → The style for the example, it will be shown as SCSS, Sass
    and as CSS. This is the main file as it is demonstrating the module.
 
-`markup.haml` and `stylesheet.scss` are pretty self-explanatory, but we might want take a look at `inline-block-list.haml`. 
+`markup.haml` and `stylesheet.scss` are pretty self-explanatory, but we might want take a look at `inline-block-list.haml`.
 
 ```
 ---
@@ -377,8 +375,6 @@ Usage:
 
 Options:
   -t, [--title=TITLE]          # Title of the reference.
-  -f, [--framework=FRAMEWORK]  # Framework of the reference, available ones are "compass" and "blueprint"
-                               # Default: compass
 
 Generate a reference page for the given module.
 ```
