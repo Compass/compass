@@ -25,6 +25,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CSS3] Fix a bug in gradients that used the currentColor keyword
 * [CSS3] Removed the -ms prefix support from keyfrome animation, the spec was approved before MS released IE10.
 * [CSS3] Improve flexibility of input-placeholder mixin so it can be used at the root of the stylesheet or with an argument for use with a selector.
+* [CSS3] Deprecate `column-break-[before | after | inside]` mixins, in favor of the official `break-[before | after | inside]` syntax.
 * [DOCUMENTATION] Change `log` to `logarithm` in the docs.
 * [SPRITES] Added `sprite-width` and `sprite-height` helper functions.
 * [SPRITES] Use the right directory for cleanup when `generated_images_dir` is set
