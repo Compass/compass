@@ -22,10 +22,8 @@ class CommandLineTest < Test::Unit::TestCase
     within_tmp_directory do
       compass "create", "--boring", "basic"
       assert File.exists?("basic/sass/screen.scss")
-      assert File.exists?("basic/stylesheets/screen.css")
       assert_action_performed :directory, "basic/"
       assert_action_performed    :create, "basic/sass/screen.scss"
-      assert_action_performed    :create, "basic/stylesheets/screen.css"
     end
   end
 

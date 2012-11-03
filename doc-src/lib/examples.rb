@@ -1,6 +1,6 @@
 def example_haml
   markup_item = @item.children.detect{|child| child.identifier =~ /markup/}
-  markup_item.reps.find { |r| r.name == :default }.content_at_snapshot(:raw)
+  markup_item.reps.find { |r| r.name == :default }.content_at_snapshot(:last)
 end
 
 def example_html
@@ -9,7 +9,7 @@ end
 
 def example_sass
   markup_item = @item.children.detect{|child| child.identifier =~ /stylesheet/}
-  markup_item.reps.find { |r| r.name == :default }.content_at_snapshot(:raw)
+  markup_item.reps.find { |r| r.name == :default }.content_at_snapshot(:last)
 end
 
 def example_scss

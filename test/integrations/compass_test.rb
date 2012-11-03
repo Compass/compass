@@ -11,7 +11,7 @@ class CompassTest < Test::Unit::TestCase
   end
 
   def teardown
-    [:blueprint, :empty, :compass, :image_urls, :relative].each do |project_name|
+    [:empty, :compass, :image_urls, :relative].each do |project_name|
       ::FileUtils.rm_rf tempfile_path(project_name)
     end
   end
@@ -23,7 +23,7 @@ class CompassTest < Test::Unit::TestCase
     before_compile = Proc.new do |config|
       config.on_stylesheet_saved {|filepath| path = filepath; saved = true }
     end
-    within_project(:blueprint, before_compile)
+    within_project(:compass, before_compile)
     assert saved, "Stylesheet callback didn't get called"
     assert path.is_a?(String), "Path is not a string. Got: #{path.class.name}"
   end
@@ -47,17 +47,6 @@ class CompassTest < Test::Unit::TestCase
       return unless proj.css_path && File.exists?(proj.css_path)
       Dir.new(proj.css_path).each do |f|
         fail "This file should not have been generated: #{f}" unless f == "." || f == ".."
-      end
-    end
-  end
-
-  def test_blueprint
-    within_project(:blueprint) do |proj|
-      each_css_file(proj.css_path) do |css_file|
-        assert_no_errors css_file, :blueprint
-      end
-      each_sass_file do |sass_file|
-        assert_renders_correctly sass_file, :ignore_charset => true
       end
     end
   end
