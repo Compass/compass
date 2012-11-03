@@ -10,11 +10,12 @@ $<%= name %>-repeat            : no-repeat !default;
 $<%= name %>-prefix            : '' !default;
 $<%= name %>-clean-up          : true !default;
 $<%= name %>-layout            : vertical !default;
+$<%= name %>-sorting           : size !default;
 $<%= name %>-inline            : false !default;
 
-<% if skip_overrides %> 
-  $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up, $spacing: $<%= name %>-spacing, $position : $<%= name %>-position);
-<% else %>  
+<% if skip_overrides %>
+  $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $sorting: $<%= name %>-sorting, $cleanup: $<%= name %>-clean-up, $spacing: $<%= name %>-spacing, $position : $<%= name %>-position);
+<% else %>
  // These variables control the generated sprite output
  // You can override them selectively before you import this file.
  <% sprite_names.each do |sprite_name| %>
@@ -25,11 +26,12 @@ $<%= name %>-inline            : false !default;
 
  $<%= name %>-sprites: sprite-map("<%= uri %>",
  <% sprite_names.each do |sprite_name| %>
-   $<%= name %>-<%= sprite_name %>-position: $<%= name %>-<%= sprite_name %>-position, 
-   $<%= name %>-<%= sprite_name %>-spacing:  $<%= name %>-<%= sprite_name %>-spacing, 
+   $<%= name %>-<%= sprite_name %>-position: $<%= name %>-<%= sprite_name %>-position,
+   $<%= name %>-<%= sprite_name %>-spacing:  $<%= name %>-<%= sprite_name %>-spacing,
    $<%= name %>-<%= sprite_name %>-repeat:   $<%= name %>-<%= sprite_name %>-repeat,
  <% end %>
  $layout   : $<%= name %>-layout,
+ $sorting  : $<%= name %>-sorting,
  $cleanup  : $<%= name %>-clean-up,
  $spacing  : $<%= name %>-spacing,
  $position : $<%= name %>-position
@@ -41,7 +43,7 @@ $<%= name %>-inline            : false !default;
 @if $<%= name %>-inline {
   #{$<%= name %>-sprite-base-class} {
     background-image: inline-sprite($<%= name %>-sprites);
-  } 
+  }
 } @else {
   #{$<%= name %>-sprite-base-class} {
     background: $<%= name %>-sprites no-repeat;
