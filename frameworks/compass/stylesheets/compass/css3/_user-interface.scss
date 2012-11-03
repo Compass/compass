@@ -19,9 +19,10 @@ $userselect-support: not -moz, -webkit, not -o, -ms, -khtml;
 //   [ none | text | toggle | element | elements | all | inherit ]
 @mixin user-select($select) {
   $select: unquote($select);
-  $moz: if($select == 'none', -moz-none, $select);
 
-  @include experimental-only-for(user-select, $moz, $moz: $experimental-support-for-mozilla);
+  @if $experimental-support-for-mozilla {
+    -moz-user-select: if($select == 'none', -moz-none, $select);
+  }
   @include experimental(user-select, $select, $userselect-support...);
 }
 

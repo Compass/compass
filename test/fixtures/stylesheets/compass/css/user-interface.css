@@ -1,6 +1,7 @@
 .user-select {
-  -webkit-user-select: none;
   -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   user-select: none; }
 
 ::-webkit-input-placeholder {
