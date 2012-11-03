@@ -90,14 +90,12 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 
 @mixin column-break($type: before, $value: auto){
   // Webkit uses non-standard syntax
-  @include experimental-only-for("column-break-#{$type}", $value,
-    $webkit: $experimental-support-for-webkit
-  );
+  @if $experimental-support-for-webkit {
+    -webkit-column-break-#{$type}: $value;
+  }
 
   // Official syntax
-  @include experimental-only-for("break-#{$type}", $value,
-    $official: true
-  );
+  break-#{$type}: $value;
 }
 
 // Mixin for setting break-before
@@ -116,6 +114,11 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
   @include column-break(before, $value);
 }
 
+@mixin column-break-before($value: auto){
+  @include column-break(before, $value);
+  @warn '"column-break-before" has been deprecated in favor of the official syntax: "break-before".'
+}
+
 // Mixin for setting break-after
 //
 // * legal values are auto, always, avoid, left, right, page, column, avoid-page, avoid-column
@@ -132,6 +135,11 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
   @include column-break(after, $value);
 }
 
+@mixin column-break-after($value: auto){
+  @include column-break(after, $value);
+  @warn '"column-break-after" has been deprecated in favor of the official syntax: "break-after".'
+}
+
 // Mixin for setting break-inside
 //
 // * legal values are auto, avoid, avoid-page, avoid-column
@@ -146,6 +154,11 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 //    break-inside: auto;}
 @mixin break-inside($value: auto){
   @include column-break(inside, $value);
+}
+
+@mixin column-break-inside($value: auto){
+  @include column-break(inside, $value);
+  @warn '"column-break-inside" has been deprecated in favor of the official syntax: "break-inside".'
 }
 
 // Mixin for setting column-span
