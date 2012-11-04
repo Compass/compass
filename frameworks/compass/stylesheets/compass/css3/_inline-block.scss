@@ -14,7 +14,7 @@ $inline-block-alignment: middle !default;
   @if $alignment and $alignment != none {
     vertical-align: $alignment;
   }
-  @if $legacy-support-for-ie {
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
     *vertical-align: auto;
     zoom: 1;
     *display: inline;
