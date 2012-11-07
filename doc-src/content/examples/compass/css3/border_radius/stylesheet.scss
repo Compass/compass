@@ -1,0 +1,59 @@
+@import "compass/css3";
+
+@import "compass/utilities";
+
+#demo {
+  @include clearfix;
+}
+
+.border-radius-example {
+  width: 125px;
+  height: 125px;
+  background: red;
+  margin: 20px;
+  float: left;
+  padding: 5px;
+}
+
+#border-radius {
+  @include border-radius(25px);
+}
+
+#border-radius-top-left {
+  @include border-top-left-radius(25px);
+}
+
+#border-radius-top-right {
+  @include border-top-right-radius(25px);
+}
+
+#border-radius-bottom-left {
+  @include border-bottom-left-radius(25px);
+}
+
+#border-radius-bottom-right {
+  @include border-bottom-right-radius(25px);
+}
+
+#border-radius-top {
+  @include border-top-radius(25px);
+}
+
+#border-radius-bottom {
+  @include border-bottom-radius(25px);
+}
+
+#border-radius-left {
+  @include border-left-radius(25px);
+}
+
+#border-radius-right {
+  @include border-right-radius(25px);
+}
+
+#border-radius-combo {
+  @include border-corner-radius(top, left, 40px);
+  @include border-corner-radius(top, right, 5px);
+  @include border-corner-radius(bottom, left, 15px);
+  @include border-corner-radius(bottom, right, 30px);
+}

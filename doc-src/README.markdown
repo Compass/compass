@@ -48,15 +48,21 @@ If you encounter any problems, there's usually some people around to help at #co
 
 Make sure that you have RubyGems v1.3.6 or greater:
 
-    $ gem -v
+```sh
+$ gem -v
+```
 
 If that doesn't work, RubyGems is probably out of date, try:
 
-    $ (sudo) gem update --system
+```sh
+$ (sudo) gem update --system
+```
 
 You will need the [Bundler](http://gembundler.com/) gem, so if you don't have it:
 
-    $ (sudo) gem install bundler
+```sh
+$ (sudo) gem install bundler
+```
 
 A list of the gems on your system can be accessed via `gem list`. Run `gem list bundler` to see if you have bundler installed.
 
@@ -68,18 +74,24 @@ Make your own fork of Compass on Github by clicking the "Fork" button on [http:/
 
 `git clone` your fork of the Compass repository:
 
-    $ git clone git@github.com:<your-username>/compass.git
+```sh
+$ git clone git@github.com:<your-username>/compass.git
+```
 
 ### 3. Bundler
 
 If you haven't yet done so, install bundler:
 
-    $ (sudo) gem install bundler
+```sh
+$ (sudo) gem install bundler
+```
 
 Bundle the gems for this application:
 
-    $ cd doc-src
-    $ bundle install
+```sh
+$ cd doc-src
+$ bundle install
+```
 
 ### 3/4. Binstubs
 
@@ -89,14 +101,18 @@ If your bundler is still stuck with generating binstubs (an approach we used bef
 
 First, make sure you're in the `doc-src` directory. To watch the folder for changes and to preview the site in your browser, run:
 
-    $ foreman start
+```sh
+$ foreman start
+```
 
 Then go to [http://localhost:3000](http://localhost:3000) to view the site.
 
 We use [foreman](https://github.com/ddollar/foreman) to combine two nanoc commands using a `Procfile`, which you'll find in `doc-src`. If you take a look a it, you'll see two processes, `watch` and `view`:
 
-    watch: nanoc watch
-    view: nanoc view -H thin
+```sh
+watch: bundle exec nanoc watch
+view: bundle exec nanoc view -H thin
+```
 
 `nanoc watch` watches for changes and `nanoc view -H thin` previews the site using thin (rather than WEBrick, which it would use by default). We suggest you install [Growl](http://growl.info/) or [rb-inotify](https://github.com/nex3/rb-inotify) so you can receive notifications when the site is done compiling.
 
@@ -111,11 +127,38 @@ Your basic workflow might look like this:
 
 If you refresh the browser before the compilation is complete, nothing bad will happen, you just won't see the change until the compilation finishes (and you refresh again). That's because the site is compiling asynchronously.
 
+Auto-compiling on file change might not be your thing. In that case, keep this process running in a separate terminal window:
+
+```sh
+$ bundle exec nanoc view -H thin
+```
+
+and run:
+
+```sh
+$ bundle exec nanoc (compile)
+```
+
+every time you want to compile the site and see the changes.
+
 If this doesn't work for you, you could try nanoc's `aco` (or `autocompile`) command:
 
-    $ nanoc aco -H thin
+```sh
+$ bundle exec nanoc aco -H thin
+```
 
 It compiles and previews the site in the browser (also at [http://localhost:3000](http://localhost:3000)), then recompiles it on each request. The difference from the previous approach is that the site is recompiled each time a page is requested, not when a file is changed. This approach is usually more sluggish because it's synchronous.
+
+For convenience, all these commands are written as rake tasks:
+
+```sh
+$ rake watch    # bundle execn nanoc watch
+$ rake view     # bundle exec nanoc view -H thin
+$ rake compile  # bundle exec nanoc (compile)
+$ rake aco      # bundle exec nanoc aco -H thin
+```
+
+if you choose not to use the Procfile approach.
 
 It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.org/tutorial/) on nanoc.
 
@@ -123,11 +166,15 @@ It is recommended that you read the 5 minute [tutorial](http://nanoc.stoneship.o
 
 When you're happy with the changes you made and you're ready to submit them, use `git add` to stage the changes, then commit them with:
 
-    $ git commit
+```sh
+$ git commit
+```
 
 When you're ready to push your changes to your Compass fork on GitHub, run:
 
-    $ git push -u origin <branch>
+```sh
+$ git push -u origin <branch>
+```
 
 depending on which branch you want to push. Your changes are now reflected on your github repo. Go to Github and click the "Pull Request" button on top of your repo to notify Chris of changes. He will verify them and merge them into the master.
 
@@ -135,15 +182,21 @@ depending on which branch you want to push. Your changes are now reflected on yo
 
 Add the original Compass repository to your Git remotes:
 
-    $ git remote add chris git://github.com/chriseppstein/compass.git
+```sh
+$ git remote add chris git://github.com/chriseppstein/compass.git
+```
 
 Then get the new changes with fetch:
 
-    $ git fetch chris
+```sh
+$ git fetch chris
+```
 
 And merge them with your local docs branch:
 
-    $ git merge chris
+```sh
+$ git merge chris
+```
 
 ## Documentation project structure
 
@@ -162,7 +215,11 @@ And merge them with your local docs branch:
       <td>Reference documentation.</td>
     </tr>
     <tr>
-      <td><strong>content/tutorials/</strong></td>
+      <td><strong>content/examples/</strong></td>
+      <td>Examples.</td>
+    </tr>
+    <tr>
+      <td><strong>content/help/tutorials/</strong></td>
       <td>Tutorial documentation.</td>
     </tr>
     <tr>
@@ -206,48 +263,157 @@ If you are adding an asset (e.g. image, CSS, JavaScript) place the file(s) in th
 
 (Again, make sure you're in the `doc-src` directory.)
 
-Running the following command will generate a new example:
+We're using [Thor](https://github.com/wycats/thor) to generate examples and references. The command for generating examples is `generate:example`, you can see command's description and available options by running:
 
-    $ bundle exec thor generate:example blueprint/grid/simple/
+```sh
+$ thor help generate:example
+```
 
-An example consists of three files:
+which produces:
 
-1. The Example Container → The default generated container uses a shared partial for the container, but doesn't have to.
-2. Some Markup → The `markup.haml` file is located within a directory of the same name as container. This Haml gets converted to HTML and then displayed to the user as well as included into the page for styling.
-3. Some Sass → The `stylesheet.sass` file is located within a directory of the same name as container. This Sass gets displayed to the user. Also, the sass will be compiled and the CSS will be used to style the example as well as displayed to the user.
+```sh
+Usage:
+  thor generate:example path/to/module
 
-Example metadata (YAML front matter) is used to associate the example to a mixin in the reference documentation:
+Options:
+  -t, [--title=TITLE]              # Title of the example.
+  -d, [--description=DESCRIPTION]  # Description of the example, which is shown below the link.
+  -m, [--mixin=MIXIN]              # Name of the specific mixin in the module if the example isn't about the whole module.
 
-    --- 
-    example: true
-    title: My Example
-    description: This is an example of some awesome mixin.
-    framework: compass
-    stylesheet: compass/_awesome.sass
-    mixin: awesome
-    ---
+Generates a new example.
+```
 
-After adding the example and adjusting the metadata, go to the reference page and you can verify that a link to the example has appeared. If the mixin property is omitted, then the example will be a general example for the stylesheet.
+All of these are optional and have reasonable defaults, you can use them when understand what exactly they are setting. They are all simple metadata values, so you can change them later on.
+
+**Note**: When generating examples or references, Thor is searching for the appropriate
+module stylesheet. If it doesn't find one, it raises an error and doesn't
+generate anything. So before generating anything make sure the stylesheet exists and is
+under `../frameworks/compass/stylesheets/compass/path/to/module` (relative to the `doc-src` directory). If the path confuses you, just take a few minutes to study how other modules are organized and you'll quickly get the hang of it.
+
+Let's do an example:
+
+```sh
+$ thor generate:example typography/lists/inline-block-list
+```
+
+which produces the following output:
+
+```
+Generating /examples/compass/typography/lists/inline-block-list/
+DIRECTORY content/examples/compass/typography/lists/inline-block-list/
+   CREATE content/examples/compass/typography/lists/inline-block-list.haml
+   CREATE content/examples/compass/typography/lists/inline-block-list/markup.haml
+   CREATE content/examples/compass/typography/lists/inline-block-list/stylesheet.scss
+```
+
+The command generated three files:
+
+1. `inline-block-list.haml` → The main container, it contains example metadata
+   and description.
+1. `markup.haml` → The markup for the example, it will be shown as HTML and as Haml and it's styled with `stylesheet.scss`.
+1. `stylesheet.scss` → The style for the example, it will be shown as SCSS, Sass
+   and as CSS. This is the main file as it is demonstrating the module.
+
+`markup.haml` and `stylesheet.scss` are pretty self-explanatory, but we might want take a look at `inline-block-list.haml`.
+
+```
+---
+title: Inline Block List
+description: How to use Inline Block List
+framework: compass
+stylesheet: compass/typography/lists/_inline-block-list.scss
+example: true
+---
+- render "partials/example" do
+  %p Lorem ipsum dolor sit amet.
+```
+
+The stuff between `---` is called YAML front matter, it's describes example's metadata which is used to associate the example to the reference documentation.
+
+If your example covers only a specific mixin, not the whole module, you can add
+`mixin: <your-mixin>` to the metadata. This will display the example link right below
+that mixin in the reference (otherwise, it will appear near the top, below the module
+description).
+
+After adding the example and adjusting the metadata, go to the reference page in your browser and you can verify that a link to the example has appeared.
 
 ### How to Add New Reference Documentation
 
-Generate a reference file for a stylesheet:
+Existing modules already have reference files, so you'll most likely be adding
+reference files to new modules.
 
-    $ bundle exec thor generate:reference ../frameworks/compass/stylesheets/_compass.sass
+So we got a great idea for an awesome module, and after a lot of thinking we decided to name it `super-awesome-module`. The first step to adding a new module is creating the stylesheet. Let's say this will be a Compass CSS3 module, so we'll create a new file as `../frameworks/compass/stylesheets/compass/css3/_super-awesome-module.scss` (relative to the `doc-src` directory). Keep in mind that the comments inside those stylesheets are parsed with Markdown and output into the reference.
 
-The item metadata (at the top of the file) provides some details about what stylesheet is being documented. For instance, here is the metadata for the blueprint color module item:
+The easiest way to find out how you should write your stylesheet is to take a look at some existing modules. This module won't be very useful, but you'll get the point:
 
-    --- 
-    title: Blueprint Color Module
-    crumb: Colors
-    framework: blueprint
-    stylesheet: blueprint/_colors.sass
-    classnames:
-      - reference
-    ---
+```scss
+@import "shared";
 
-The `title` and `crumb` attributes are the H1 and the Breadcrumb label respectively. The `framework` attributes specifies what framework is being documented and similarly, the `stylesheet` attribute specifies what stylesheet. The `classnames` array allows class names to be applied to the body. Be sure to apply the `reference` class at a minimum.
+// Super awesomeness variable.
+$default-super-awesomeness : true !default;
 
-There are some shared partials that do most of the sass file inspection and formatting. __Most of the docs are kept in the source code__, but if there are times when you need more control, you can drop down to more powerful tools.
+// Super awesome mixin.
+@mixin super-awesome {
+  @if $default-super-awesomeness {
+    $a: 5;
+  }
+}
+```
 
-All source comments are formatted in Markdown.
+Now that we have a stylesheet, we can generate the reference for it using the
+`generate:reference` command. We can first see what it does by running:
+
+```sh
+$ thor help generate:reference
+```
+
+which produces:
+
+```sh
+Usage:
+  thor generate:reference path/to/module
+
+Options:
+  -t, [--title=TITLE]          # Title of the reference.
+
+Generate a reference page for the given module.
+```
+
+Now we can create a reference file for our new module:
+
+```sh
+$ thor generate:reference css3/super-awesome-module
+```
+
+Which produces the following output:
+
+```
+Generating /reference/compass/css3/super-awesome-module/
+DIRECTORY content/reference/compass/css3/super-awesome-module/
+   CREATE content/reference/compass/css3/super-awesome-module.haml
+```
+
+If we open `super-awesome-module.haml`, we can see our reference template:
+
+```
+---
+title: Compass Super Awesome Module
+crumb: Super Awesome Module
+framework: compass
+stylesheet: compass/css3/_super-awesome-module.scss
+layout: core
+classnames:
+  - reference
+  - core
+---
+- render "reference" do
+  %p Lorem ipsum dolor sit amet.
+```
+
+If `title` and `crumb` are the way you want them to be, your metadata should be good to go. Check the reference in your browser (it should be listed as a module in CSS3), if the style appears broken, take a look at the metadata of sibling stylesheets and adjust yours accordingly. If everything looks fine you can start writing the module's description below.
+
+Unlike what you might have guessed, the reference file only holds the main
+description of the module. Descriptions of specific variables, functions and
+mixins should be written as comments in the stylesheet file.
+
+Happy documenting!

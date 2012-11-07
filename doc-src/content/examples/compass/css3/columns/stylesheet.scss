@@ -1,0 +1,20 @@
+@import "compass/css3";
+
+#two-column {
+  @include column-count(2);
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+#three-column {
+  @include column-count(3);
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+#four-column-with-rule {
+  @include column-count(4);
+  @include column-rule(1px, solid, red);
+  width: 300px;
+  margin-bottom: 20px;
+}

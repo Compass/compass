@@ -1,0 +1,20 @@
+require "bundler"
+Bundler.setup
+
+require "rake"
+
+task :watch do
+  sh "nanoc watch"
+end
+
+task :compile do
+  sh "nanoc compile"
+end
+
+task :view do
+  sh "nanoc view -H thin"
+end
+
+task :aco do
+  sh "nanoc aco -H thin"
+end
