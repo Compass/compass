@@ -1,0 +1,8 @@
+@import "compass/css3/user-interface";
+
+input[type="text"] {
+  @include input-placeholder {
+    color: #bfbfbf;
+    font-style: italic;
+  }
+}

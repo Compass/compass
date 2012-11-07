@@ -1,0 +1,17 @@
+@import "compass/css3";
+
+.box-sizing-example {
+  background: red;
+  padding: 20px;
+  border: 10px solid green;
+  margin: 20px;
+  width: 200px;
+}
+
+#content-box {
+  @include box-sizing(content-box);
+}
+
+#border-box {
+  @include box-sizing(border-box);
+}

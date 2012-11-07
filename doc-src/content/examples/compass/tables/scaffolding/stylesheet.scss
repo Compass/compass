@@ -1,0 +1,7 @@
+@import "compass/utilities/tables/scaffolding";
+
+.example {
+  table {
+    @include table-scaffolding;
+  }
+}

@@ -41,6 +41,7 @@ GEM
     css_parser (1.0.1)
     daemons (1.1.9)
     eventmachine (1.0.0)
+    ffi (1.1.5)
     foreman (0.60.2)
       thor (>= 0.13.6)
     haml (3.1.7)
@@ -52,6 +53,8 @@ GEM
     rack (1.4.1)
     rake (0.9.2.2)
     rb-fsevent (0.9.2)
+    rb-inotify (0.8.8)
+      ffi (>= 0.5.0)
     rdiscount (1.6.8)
     ruby-prof (0.11.2)
     sass (3.2.1)
@@ -82,6 +85,7 @@ DEPENDENCIES
   rack
   rake
   rb-fsevent
+  rb-inotify
   rdiscount
   ruby-prof
   thin

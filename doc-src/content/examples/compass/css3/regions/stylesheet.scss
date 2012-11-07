@@ -1,0 +1,15 @@
+@import "compass/css3";
+
+.source {
+  @include flow-into(target);
+  border: 10px solid green;
+  margin: 20px;
+  width: 200px;
+}
+
+.new-container {
+  @include flow-from(target);
+  border: 10px solid red;
+  margin: 20px;
+  width: 200px;
+}
