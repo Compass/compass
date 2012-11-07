@@ -33,6 +33,8 @@ module Compass
           nil
         elsif config.is_a?(Compass::Configuration::Data)
           config
+        elsif config.instance_of?(Hash)
+          Compass::Configuration::Data.new(filename, config)
         elsif config.respond_to?(:read)
           filename ||= config.to_s if config.is_a?(Pathname)
           Compass::Configuration::FileData.new_from_string(config.read, filename, defaults)
