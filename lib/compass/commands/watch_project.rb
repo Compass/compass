@@ -63,11 +63,10 @@ module Compass
 
         project_watcher = Compass::Watcher::ProjectWatcher.new(Compass.configuration.project_path, Compass.configuration.watches, options, options[:poll])
 
-        action = 'watching'
-        action 'polling' if options[:polling]
-        puts ">>> Compass is #{action} for changes. Press Ctrl-C to Stop."
+        puts ">>> Compass is watching for changes. Press Ctrl-C to Stop."
         $stdout.flush
-
+        
+        project_watcher.compile
         project_watcher.watch!
 
 

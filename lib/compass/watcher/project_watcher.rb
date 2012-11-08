@@ -6,7 +6,7 @@ module Compass
       include Compass::Actions
       SASS_FILTER = '*.s[ac]ss'
       ALL_CHILDREN_SASS_FILTER = File.join('**', SASS_FILTER)
-      POLLING_MESSAGE = 'Some message about polling'
+      POLLING_MESSAGE = 'Compass is polling for changes'
 
       attr_reader :options, :project_path, :watcher_compiler, :listener, :poll, :css_dir, :sass_watchers
 
@@ -15,6 +15,7 @@ module Compass
       extend Forwardable
   
       def_delegators :@watcher_compiler, :compiler, :compiler
+      def_delegators :@watcher_compiler, :compile, :compile
 
       def initialize(project_path, watches=[], options={}, poll=false)
         @poll             = poll
@@ -40,12 +41,8 @@ module Compass
         if poll
           @listener = listener.force_polling(true)
         end
-        # not sure if we need to do this
-        # @listener = listener.filter(SASS_FILE_FILTER)
         @listener = listener.polling_fallback_message(POLLING_MESSAGE)
-        #cache_location = watcher_compiler.send(:determine_cache_location)
         @listener = listener.ignore(/\.css$/)
-        # @listener = listener.polling_fallback_message(true)
         @listener = listener.change(&method(:listen_callback))
       end
 
@@ -89,18 +86,18 @@ module Compass
 
       def sass_modified(file)
         log_action(:info, "#{file} was modified", options)
-        watcher_compiler.compile
+        compile
       end
 
       def sass_added(file)
         log_action(:info, "#{file} was added", options)
-        watcher_compiler.compile
+        compile
       end
 
       def sass_removed(file)
         log_action(:info, "#{file} was removed", options)
         css_file = compiler.corresponding_css_file(File.join(project_path, file))
-        watcher_compiler.compile
+        compile
         if File.exists?(css_file)
           remove(css_file)
         end
