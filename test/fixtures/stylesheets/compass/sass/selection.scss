@@ -1,0 +1,13 @@
+@import "compass/css3/selection";
+
+@include selection {
+  background-color: #fe57a1;
+  color: #fff;
+}
+
+.hot-pink {
+  @include selection("&") {
+    background-color: #fe57a1;
+    color: #fff;
+  }
+}

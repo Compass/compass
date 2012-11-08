@@ -10,15 +10,33 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  #Returns a list of all sprite names
+  # Returns the width of the generated sprite map
+  def sprite_width(map)
+    verify_map(map, 'sprite-width')
+    width, _ = image_dimensions(map.filename)
+    Sass::Script::Number.new(width, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_width, [:map]
+  
+  # Returns the height of the generated sprite map
+  def sprite_height(map)
+    verify_map(map, 'sprite-height')
+    _, height = image_dimensions(map.filename)
+    Sass::Script::Number.new(height, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_height, [:map]
+
+  # Returns a list of all sprite names
   def sprite_names(map)
+    verify_map(map, 'sprite-names')
     Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
   end
   Sass::Script::Functions.declare :sprite_names, [:map]
 
   # Returns the system path of the sprite file
   def sprite_path(map)
-    Sass::Script::String.new(map.name_and_hash)
+    verify_map(map, 'sprite-path')
+    Sass::Script::String.new(map.filename)
   end
   Sass::Script::Functions.declare :sprite_path, [:map]
 
@@ -30,7 +48,8 @@ module Compass::SassExtensions::Functions::Sprites
   def inline_sprite(map)
     verify_map(map, "sprite-url")
     map.generate
-    inline_image(sprite_path(map))
+    path = map.filename
+    inline_image_string(data(path), compute_mime_type(path))
   end
   Sass::Script::Functions.declare :inline_sprite, [:map]
 

@@ -1,13 +1,15 @@
 source :gemcutter
 
-gem 'nanoc', "3.2.4"
-gem 'nanoc3', "3.2.4"
-gem 'asdf'
+gem 'nanoc', :git => 'https://github.com/ddfreyne/nanoc.git'
+gem 'i18n'
+gem 'adsf'
+gem 'rb-inotify'
+gem 'thin'
+gem 'foreman'
 gem 'rdiscount'
 gem 'thor'
 gem 'rack'
 gem 'mime-types'
-gem 'serve', "1.0.0"
 gem 'nokogiri'
 gem 'coderay'
 gem 'haml'
@@ -22,5 +24,3 @@ gem 'css_parser', "1.0.1"
 gem 'ruby-prof'
 gem 'rb-fsevent'
 gem 'builder'
-
-
