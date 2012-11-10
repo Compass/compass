@@ -158,6 +158,7 @@ Feature: Command Line
       | imports     |
       | install     |
       | interactive |
+      | preview     |
       | sprite      |
       | stats       |
       | unpack      |

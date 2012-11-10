@@ -57,4 +57,9 @@ class CommandLineTest < Test::Unit::TestCase
     end
   end
 
+  def test_preview
+    compass "preview", "test/fixtures/preview/test.scss"
+    assert_match /opacity: 0\.3/, @last_result
+  end
+
 end
