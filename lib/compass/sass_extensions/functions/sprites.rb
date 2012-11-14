@@ -6,20 +6,46 @@ module Compass::SassExtensions::Functions::Sprites
   # and allows the caller to pass a symbol instead of a string.
   module VariableReader
     def get_var(variable_name)
-      self[variable_name.to_s.gsub(/-/,"_")]
+      self[variable_name.to_s.gsub(/-/, "_")]
     end
   end
+
+  def sprite_size(map)
+    x = Sass::Script::Number.new(map.width, x == 0 ? [] : ["px"])
+
+    y = Sass::Script::Number.new(map.height, y == 0 ? [] : ["px"])
+    Sass::Script::List.new([x, y], :space)
+  end
+
+  Sass::Script::Functions.declare :sprite_size, [:map]
+  #Returns the height of a sprite
+
+  def sprite_height(map)
+
+    Sass::Script::String.new(map.height.to_s)
+  end
+
+  Sass::Script::Functions.declare :sprite_height, [:map]
+
+  #Retuns the width of the sprite
+  def sprite_width(map)
+    Sass::Script::String.new(map.width.to_s)
+  end
+
+  Sass::Script::Functions.declare :sprite_width, [:map]
 
   #Returns a list of all sprite names
   def sprite_names(map)
     Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
   end
+
   Sass::Script::Functions.declare :sprite_names, [:map]
 
   # Returns the system path of the sprite file
   def sprite_path(map)
     Sass::Script::String.new(map.name_and_hash)
   end
+
   Sass::Script::Functions.declare :sprite_path, [:map]
 
   # Returns the sprite file as an inline image
@@ -32,6 +58,7 @@ module Compass::SassExtensions::Functions::Sprites
     map.generate
     inline_image(sprite_path(map))
   end
+
   Sass::Script::Functions.declare :inline_sprite, [:map]
 
   # Creates a Compass::SassExtensions::Sprites::SpriteMap object. A sprite map, when used in a property is the same
@@ -47,6 +74,7 @@ module Compass::SassExtensions::Functions::Sprites
     kwargs.extend VariableReader
     Compass::SassExtensions::Sprites::SpriteMap.from_uri(glob, self, kwargs)
   end
+
   Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
 
   # Returns the image and background position for use in a single shorthand property:
@@ -58,7 +86,7 @@ module Compass::SassExtensions::Functions::Sprites
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
   def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
-    sprite = convert_sprite_name(sprite)    
+    sprite = convert_sprite_name(sprite)
     verify_map(map)
     unless sprite.is_a?(Sass::Script::String)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
@@ -67,6 +95,7 @@ module Compass::SassExtensions::Functions::Sprites
     position = sprite_position(map, sprite, offset_x, offset_y)
     Sass::Script::List.new([url] + position.value, :space)
   end
+
   Sass::Script::Functions.declare :sprite, [:map, :sprite]
   Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x]
   Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y]
@@ -77,6 +106,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, "sprite-map-name")
     Sass::Script::String.new(map.name)
   end
+
   Sass::Script::Functions.declare :sprite_name, [:sprite]
 
   # Returns the path to the original image file for the sprite with the given name
@@ -90,6 +120,7 @@ module Compass::SassExtensions::Functions::Sprites
       missing_image!(map, sprite)
     end
   end
+
   Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
 
   # Returns boolean if sprite has a parent
@@ -99,7 +130,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_sprite sprite
     Sass::Script::Bool.new map.image_for(sprite.value).parent.nil?
   end
-  
+
   Sass::Script::Functions.declare :sprite_does_not_have_parent, [:map, :sprite]
 
   # Returns boolean if sprite has the selector
@@ -112,7 +143,7 @@ module Compass::SassExtensions::Functions::Sprites
     end
     Sass::Script::Bool.new map.send(:"has_#{selector.value}?", sprite.value)
   end
-  
+
   Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
 
 
@@ -122,6 +153,7 @@ module Compass::SassExtensions::Functions::Sprites
     map.generate
     generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
   end
+
   Sass::Script::Functions.declare :sprite_url, [:map]
 
   # Returns the position for the original image in the sprite.
@@ -163,8 +195,9 @@ module Compass::SassExtensions::Functions::Sprites
     end
     y = offset_y.value - image.top
     y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
-    Sass::Script::List.new([x, y],:space)
+    Sass::Script::List.new([x, y], :space)
   end
+
   Sass::Script::Functions.declare :sprite_position, [:map]
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite]
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x]
@@ -174,7 +207,7 @@ module Compass::SassExtensions::Functions::Sprites
     raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://compass-style.org/help/tutorials/spriting/ for more information.)
   end
 
-protected
+  protected
 
   def reversed_color_names
     if Sass::Script::Color.const_defined?(:HTML4_COLORS_REVERSE)
