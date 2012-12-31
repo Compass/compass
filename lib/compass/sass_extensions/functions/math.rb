@@ -23,7 +23,7 @@ module Compass::SassExtensions::Functions::Math
   def e()
     Sass::Script::Number.new(Math::E)
   end
-  Sass::Script::Functions.declare :pi, []
+  Sass::Script::Functions.declare :e, []
 
   def logarithm(number, base = e )
     assert_type number, :Number
