@@ -26,6 +26,13 @@
   -o-column-width: 90px;
   column-width: 90px; }
 
+.column-span {
+  -webkit-column-span: all;
+  -moz-column-span: all;
+  -ms-column-span: all;
+  -o-column-span: all;
+  column-span: all; }
+
 .column-rule-width {
   -webkit-column-rule-width: 1px;
   -moz-column-rule-width: 1px;

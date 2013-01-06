@@ -32,6 +32,15 @@
   );
 }
 
+// Specify how many columns an element should span across.
+//
+// * legal values are 1, all
+@mixin column-span($columns) {
+	@include experimental(column-span, $columns,
+		-moz, -webkit, -o, -ms, not -khtml, official
+	);
+}
+
 // Specify the width of the rule between columns e.g. `1px`
 @mixin column-rule-width($width) {
   @include experimental(column-rule-width, $width,
