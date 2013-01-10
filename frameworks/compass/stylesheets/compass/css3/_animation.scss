@@ -1,12 +1,9 @@
 @import "shared";
 
-// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml.
 $animation-support: -moz, -webkit, -o, not -ms, -khtml;
 
-// ----------------------------------------------------------------------------
-// Defaults
 
 // Name of any animation as a string.
 $default-animation-name             : null !default;
@@ -32,8 +29,6 @@ $default-animation-fill-mode        : null !default;
 // Whether the animation is running or paused. [running | paused]
 $default-animation-play-state       : null !default;
 
-// ----------------------------------------------------------------------------
-// Keyframes
 
 // Create a named animation sequence that can be applied to elements later.
 //
@@ -74,8 +69,6 @@ $default-animation-play-state       : null !default;
   }
 }
 
-// ----------------------------------------------------------------------------
-// Animation
 
 // Apply any number of animation names.
 @mixin animation-name($name...) {

@@ -1,39 +1,36 @@
+// Flexible Box
+
 @import "shared";
 
-// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml
 $flexbox-support: -moz, -webkit, not -o, -ms, not -khtml;
 
-// ----------------------------------------------------------------------------
-// Defaults
 
 // Default box orientation, assuming that the user wants something less block-like
-$default-box-orient: horizontal !default;
+$default-box-orient         : horizontal      !default;
 
 // Default box-align
-$default-box-align: stretch !default;
+$default-box-align          : stretch         !default;
 
 // Default box flex
-$default-box-flex: 0 !default;
+$default-box-flex           : 0               !default;
 
 // Default flex group
-$default-box-flex-group: 1 !default;
+$default-box-flex-group     : 1               !default;
 
 // Box direction default value
-$default-box-direction: normal !default;
+$default-box-direction      : normal          !default;
 
 // Default ordinal group
-$default-box-ordinal-group: 1 !default;
+$default-box-ordinal-group  : 1               !default;
 
 // Default box lines
-$default-box-lines: single !default;
+$default-box-lines          : single          !default;
 
 // Default box pack
-$default-box-pack: start !default;
+$default-box-pack           : start           !default;
 
-// ----------------------------------------------------------------------------
-// Mixins
 
 // Apply 'display:box;' to an element.
 // - must be used for any of the other flexbox mixins to work properly
