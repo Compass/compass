@@ -37,13 +37,17 @@ documented_functions:
 #font-url.helper
   %h3
     %a(href="#font-url")
-      font-url(<span class="arg">$path</span>, <span class="arg" data-default-value="false" title="Defaults to: false">$only-path</span>)
+      font-url(<span class="arg">$path</span>, <span class="arg" data-default-value="false" title="Defaults to: false">$only-path</span>, <span class="arg" data-default-value="false" title="Defaults to: false">$cache-buster</span>)
   .details
     %p
       Generates a path to an asset found relative to the project's font directory.
-      %br
+    %p
       Passing a true value as the second argument will cause the only the path to be returned
       instead of a <code>url()</code> function
+    %p
+      The third argument is used to control the cache buster on a per-use basis.
+      When set to <code>false</code> no cache buster will be used. When a string, that
+      value will be used as the cache buster.
 
 #image-url.helper
   %h3
