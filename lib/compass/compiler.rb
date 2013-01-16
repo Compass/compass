@@ -15,7 +15,8 @@ module Compass
       self.sass_options.delete(:quiet)
       self.sass_options.update(sass_opts)
       self.sass_options[:cache_location] ||= determine_cache_location
-      self.sass_options[:importer] = self.importer = Sass::Importers::Filesystem.new(from)
+      self.sass_options[:filesystem_importer] ||= Sass::Importers::Filesystem
+      self.sass_options[:importer] = self.importer = self.sass_options[:filesystem_importer].new(from)
       self.sass_options[:compass] ||= {}
       self.sass_options[:compass][:logger] = self.logger
       self.sass_options[:compass][:environment] = Compass.configuration.environment
