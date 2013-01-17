@@ -143,8 +143,8 @@ module Compass
         if file = compiler.out_of_date?
           begin
             puts ">>> Change detected at "+Time.now.strftime("%T")+" to: #{relative || compiler.relative_stylesheet_name(file)}"
-            $stdout.flush
             compiler.run
+            $stdout.flush
             GC.start
           rescue StandardError => e
             ::Compass::Exec::Helpers.report_error(e, options)
