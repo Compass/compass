@@ -1,6 +1,6 @@
 # Compass Stylesheet Authoring Framework
 
-Build Status: ![Build Status](https://secure.travis-ci.org/chriseppstein/compass.png)
+Build Status: [![Build Status](https://travis-ci.org/chriseppstein/compass.png)](https://travis-ci.org/chriseppstein/compass)
 
 Code Quality: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/chriseppstein/compass)
 
