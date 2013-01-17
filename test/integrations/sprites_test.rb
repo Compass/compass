@@ -475,6 +475,122 @@ class SpritesTest < Test::Unit::TestCase
     CSS
   end
  
+  it "should use percentage positions when use_percentages is true" do
+    css = render <<-SCSS
+      @import "squares/*.png";
+      $squares-use-percentages: true;
+      .foo {
+        @include squares-sprite-position("twenty-by-twenty");
+      }
+      .bar {
+        @include squares-sprite-position("ten-by-ten");
+        @include squares-sprite-dimensions("ten-by-ten");
+      }
+    SCSS
+    assert_correct css, <<-CSS
+      .squares-sprite {
+        background: url('/squares-sbbc18e2129.png') no-repeat;
+      }
+      
+      .foo {
+        background-position: 0 100%;
+      }
+      
+      .bar {
+        background-position: 0 0;
+        height: 10px;
+        width: 10px;
+      }
+    CSS
+  end
+  
+  it "should use correct percentages when use_percentages is with horizontal layout" do
+    css = render <<-SCSS
+      $squares-layout: horizontal;
+      @import "squares/*.png";
+      $squares-use-percentages: true;
+      .foo {
+        @include squares-sprite-position("twenty-by-twenty");
+      }
+      .bar {
+        @include squares-sprite-position("ten-by-ten");
+      }
+    SCSS
+    assert_correct css, <<-CSS
+      .squares-sprite {
+        background: url('/squares-s4bd95c5c56.png') no-repeat;
+      }
+      
+      .foo {
+        background-position: 100% 0;
+      }
+      
+      .bar {
+        background-position: 0 0;
+      }
+    CSS
+  end
+
+  it "should use correct percentages when use_percentages is true with smart layout" do
+    css = render <<-SCSS
+      $image_row-layout: smart;
+      @import "image_row/*.png";
+      $image_row-use-percentages: true;
+      .foo {
+        @include image_row-sprite-position("medium");
+      }
+      .bar {
+        @include image_row-sprite-position("large_square");
+      }
+    SCSS
+    assert_correct css, <<-CSS
+      .image_row-sprite {
+        background: url('/image_row-sc5082a6b9f.png') no-repeat;
+      }
+      
+      .foo {
+        background-position: 0 50%;
+      }
+      
+      .bar {
+        background-position: 33.33333% 100%;
+      }
+    CSS
+  end
+
+  it "should use correct percentages when use_percentages is true" do
+    css = render <<-SCSS
+      $image_row-use-percentages: true;
+      @import "image_row/*.png";
+      @include all-image_row-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .image_row-sprite, .image_row-large, .image_row-large_square, .image_row-medium, .image_row-small, .image_row-tall {
+        background: url('/image_row-sdf383d45a3.png') no-repeat;
+      }
+      
+      .image_row-large {
+        background-position: 0 0;
+      }
+      
+      .image_row-large_square {
+        background-position: 0 40%;
+      }
+      
+      .image_row-medium {
+        background-position: 0 16.66667%;
+      }
+      
+      .image_row-small {
+        background-position: 0 100%;
+      }
+      
+      .image_row-tall {
+        background-position: 0 80%;
+      }
+    CSS
+  end
+  
   it "should calculate corret sprite demsions when givin spacing via issue#253" do
     css = render <<-SCSS
       $squares-spacing: 10px;

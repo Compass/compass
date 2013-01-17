@@ -77,7 +77,7 @@ documented_functions:
 #sprite.helper
   %h3
     %a(href="#sprite")
-      sprite(<span class="arg">$map</span>, <span class="arg">$sprite</span>, <span class="arg" data-default-value="0">$offset-x</span>, <span class="arg" data-default-value="0">$offset-y</span>)
+      sprite(<span class="arg">$map</span>, <span class="arg">$sprite</span>, <span class="arg" data-default-value="0">$offset-x</span>, <span class="arg" data-default-value="0">$offset-y</span>, <span class="arg" data-default-value="false">$use-percentages</span>)
   .details
     :markdown
       Returns the image and background position for use in a single shorthand property:
@@ -88,6 +88,11 @@ documented_functions:
       Becomes:
       
           background: url('/images/icons.png?12345678') 0 -24px no-repeat;
+
+      Passing `true` for `$use-percentages` results in the background position
+      being expressed in percentages instead of pixels. Example:
+        
+        background: url('/images/icons.png?12345678') 0 25% no-repeat;
 
 #sprite-width.helper
   %h3
@@ -149,7 +154,7 @@ documented_functions:
 #sprite-position.helper
   %h3
     %a(href="#sprite-position")
-      sprite-position(<span class="arg">$map</span>, <span class="arg">$sprite</span>, <span class="arg" data-default-value="0">$offset-x</span>, <span class="arg" data-default-value="0">$offset-y</span>)
+      sprite-position(<span class="arg">$map</span>, <span class="arg">$sprite</span>, <span class="arg" data-default-value="0">$offset-x</span>, <span class="arg" data-default-value="0">$offset-y</span>, <span class="arg" data-default-value="false">$use-percentages</span>)
   .details
     :markdown
       Returns the position for the original image in the sprite.
@@ -171,3 +176,14 @@ documented_functions:
       Would change the above output to:
       
           background-position: 3px -36px;
+
+      Passing `true` for the `$use-percentages` argument will return the
+      sprite position in percentages instead of pixels. This is useful if you
+      need to be able to scale the sprite up and down. Following the example
+      above, this:
+
+          background-position: sprite-position($icons, new, 0, 0, true);
+
+      Would result in something like:
+
+          background-position: 0 25%;
