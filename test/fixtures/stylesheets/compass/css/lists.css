@@ -9,8 +9,8 @@ ul.horizontal {
     list-style-type: none;
     margin-left: 0;
     white-space: nowrap;
-    display: inline;
     float: left;
+    display: inline;
     padding-left: 4px;
     padding-right: 4px; }
     ul.horizontal li:first-child, ul.horizontal li.first {
@@ -31,8 +31,8 @@ ul.wide-horizontal {
     list-style-type: none;
     margin-left: 0;
     white-space: nowrap;
-    display: inline;
     float: left;
+    display: inline;
     padding-left: 10px;
     padding-right: 10px; }
     ul.wide-horizontal li:first-child, ul.wide-horizontal li.first {
@@ -53,8 +53,8 @@ ul.right-horizontal {
     list-style-type: none;
     margin-left: 0;
     white-space: nowrap;
-    display: inline;
     float: right;
+    display: inline;
     padding-left: 4px;
     padding-right: 4px; }
     ul.right-horizontal li:first-child, ul.right-horizontal li.first {
@@ -75,8 +75,8 @@ ul.no-padding {
     list-style-type: none;
     margin-left: 0;
     white-space: nowrap;
-    display: inline;
-    float: left; }
+    float: left;
+    display: inline; }
 
 ul.inline-block {
   margin: 0;

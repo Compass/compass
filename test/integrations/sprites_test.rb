@@ -13,6 +13,7 @@ class SpritesTest < Test::Unit::TestCase
     @images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images-tmp')
     @generated_images_tmp_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'generated-images-tmp')
     ::FileUtils.cp_r @images_src_path, @images_tmp_path
+    ::FileUtils.mkdir_p @generated_images_tmp_path
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
@@ -457,6 +458,138 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
+
+  it "should import sprites with numeric filenames via #738" do
+    css = render <<-SCSS
+      @import "numeric/*.png";
+      @include all-numeric-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .numeric-sprite, .numeric-200 {
+        background: url('/numeric-saa92d65a89.png') no-repeat;
+      }
+      
+      .numeric-200 {
+        background-position: 0 0;
+      }
+    CSS
+  end
+ 
+  it "should use percentage positions when use_percentages is true" do
+    css = render <<-SCSS
+      @import "squares/*.png";
+      $squares-use-percentages: true;
+      .foo {
+        @include squares-sprite-position("twenty-by-twenty");
+      }
+      .bar {
+        @include squares-sprite-position("ten-by-ten");
+        @include squares-sprite-dimensions("ten-by-ten");
+      }
+    SCSS
+    assert_correct css, <<-CSS
+      .squares-sprite {
+        background: url('/squares-sbbc18e2129.png') no-repeat;
+      }
+      
+      .foo {
+        background-position: 0 100%;
+      }
+      
+      .bar {
+        background-position: 0 0;
+        height: 10px;
+        width: 10px;
+      }
+    CSS
+  end
+  
+  it "should use correct percentages when use_percentages is with horizontal layout" do
+    css = render <<-SCSS
+      $squares-layout: horizontal;
+      @import "squares/*.png";
+      $squares-use-percentages: true;
+      .foo {
+        @include squares-sprite-position("twenty-by-twenty");
+      }
+      .bar {
+        @include squares-sprite-position("ten-by-ten");
+      }
+    SCSS
+    assert_correct css, <<-CSS
+      .squares-sprite {
+        background: url('/squares-s4bd95c5c56.png') no-repeat;
+      }
+      
+      .foo {
+        background-position: 100% 0;
+      }
+      
+      .bar {
+        background-position: 0 0;
+      }
+    CSS
+  end
+
+  it "should use correct percentages when use_percentages is true with smart layout" do
+    css = render <<-SCSS
+      $image_row-layout: smart;
+      @import "image_row/*.png";
+      $image_row-use-percentages: true;
+      .foo {
+        @include image_row-sprite-position("medium");
+      }
+      .bar {
+        @include image_row-sprite-position("large_square");
+      }
+    SCSS
+    assert_correct css, <<-CSS
+      .image_row-sprite {
+        background: url('/image_row-sc5082a6b9f.png') no-repeat;
+      }
+      
+      .foo {
+        background-position: 0 50%;
+      }
+      
+      .bar {
+        background-position: 33.33333% 100%;
+      }
+    CSS
+  end
+
+  it "should use correct percentages when use_percentages is true" do
+    css = render <<-SCSS
+      $image_row-use-percentages: true;
+      @import "image_row/*.png";
+      @include all-image_row-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .image_row-sprite, .image_row-large, .image_row-large_square, .image_row-medium, .image_row-small, .image_row-tall {
+        background: url('/image_row-sdf383d45a3.png') no-repeat;
+      }
+      
+      .image_row-large {
+        background-position: 0 0;
+      }
+      
+      .image_row-large_square {
+        background-position: 0 40%;
+      }
+      
+      .image_row-medium {
+        background-position: 0 16.66667%;
+      }
+      
+      .image_row-small {
+        background-position: 0 100%;
+      }
+      
+      .image_row-tall {
+        background-position: 0 80%;
+      }
+    CSS
+  end
   
   it "should calculate corret sprite demsions when givin spacing via issue#253" do
     css = render <<-SCSS
@@ -498,13 +631,13 @@ class SpritesTest < Test::Unit::TestCase
       .selectors-ten-by-ten {
         background-position: 0 0;
       }
-      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
+      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten-hover {
         background-position: 0 -20px;
       }
-      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
+      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten-target {
         background-position: 0 -30px;
       }
-      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
+      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten-active {
         background-position: 0 -10px;
       }
     CSS
@@ -523,13 +656,13 @@ class SpritesTest < Test::Unit::TestCase
       .selectors-ten-by-ten {
         background-position: 20px 20px;
       }
-      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten_hover, .selectors-ten-by-ten.ten-by-ten-hover {
+      .selectors-ten-by-ten:hover, .selectors-ten-by-ten.ten-by-ten-hover {
         background-position: 20px 0;
       }
-      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten_target, .selectors-ten-by-ten.ten-by-ten-target {
+      .selectors-ten-by-ten:target, .selectors-ten-by-ten.ten-by-ten-target {
         background-position: 20px -10px;
       }
-      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten_active, .selectors-ten-by-ten.ten-by-ten-active {
+      .selectors-ten-by-ten:active, .selectors-ten-by-ten.ten-by-ten-active {
         background-position: 20px 10px;
       }
     CSS
@@ -550,13 +683,13 @@ class SpritesTest < Test::Unit::TestCase
       a {
         background-position: 0 0;
       }
-      a:hover, a.ten-by-ten_hover, a.ten-by-ten-hover {
+      a:hover, a.ten-by-ten-hover {
         background-position: 0 -20px;
       }
-      a:target, a.ten-by-ten_target, a.ten-by-ten-target {
+      a:target, a.ten-by-ten-target {
         background-position: 0 -30px;
       }
-      a:active, a.ten-by-ten_active, a.ten-by-ten-active {
+      a:active, a.ten-by-ten-active {
         background-position: 0 -10px;
       }
     CSS
@@ -597,27 +730,34 @@ class SpritesTest < Test::Unit::TestCase
       a {
         background-position: 5px -5px;
       }
-      a:hover, a.ten-by-ten_hover, a.ten-by-ten-hover {
+      a:hover, a.ten-by-ten-hover {
         background-position: 5px -25px;
       }
-      a:target, a.ten-by-ten_target, a.ten-by-ten-target {
+      a:target, a.ten-by-ten-target {
         background-position: 5px -35px;
       }
-      a:active, a.ten-by-ten_active, a.ten-by-ten-active {
+      a:active, a.ten-by-ten-active {
         background-position: 5px -15px;
       }
     CSS
   end
   
-  it "should raise error on filenames that are not valid sass syntax" do
-    assert_raise(Compass::Error) do
-      css = render <<-SCSS
-        @import "prefix/*.png";
-        a {
-          @include squares-sprite(20-by-20);
-        }
-      SCSS
-    end
+  it "should not raise error on filenames that are invalid classnames if the selector generation is not used" do
+    css = render <<-SCSS
+      @import "prefix/*.png";
+      a {
+        @include prefix-sprite("20-by-20");
+      }
+    SCSS
+    assert_correct <<-CSS, css
+      .prefix-sprite, a {
+        background: url('/prefix-s949dea513d.png') no-repeat;
+      }
+      
+      a {
+        background-position: 0 -10px;
+      }
+    CSS
   end
 
   it "should generate sprite with bad repeat-x dimensions" do
@@ -796,7 +936,14 @@ class SpritesTest < Test::Unit::TestCase
    end
    
    it "should inline the sprite file" do
-     css = render <<-SCSS
+    Compass.reset_configuration!
+    file = StringIO.new(<<-CONFIG)
+      images_path = #{@images_tmp_path.inspect}
+      generated_images_path = #{@generated_images_tmp_path.inspect}
+    CONFIG
+    Compass.add_configuration(file, "sprite_config")
+    Compass.configure_sass_plugin!
+    css = render <<-SCSS
       $colors-inline:true;
       @import "colors/*.png";
       @include all-colors-sprites;
@@ -817,7 +964,6 @@ class SpritesTest < Test::Unit::TestCase
 
   it "should have a sprite_name function that returns the names of the sprites in a sass list" do
     css = render <<-SCSS
-      $colors-inline:true;
       @import "colors/*.png";
       @each $color in sprite_names($colors-sprites) {
         .\#{$color} {
@@ -827,7 +973,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     other_css = <<-CSS
       .colors-sprite {
-        background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAUCAAAAACRhfOKAAAAHElEQVR42mM5wQADLP8JMRlIUIvE/IdgctLTNgCHDhEQVD4ceAAAAABJRU5ErkJggg==');
+        background: url('/colors-s58671cb5bb.png') no-repeat;
       }
       .blue { 
         width:0px;
@@ -838,6 +984,46 @@ class SpritesTest < Test::Unit::TestCase
     CSS
     assert_correct clean(css), clean(other_css)
 
+  end
+
+  it "should respect global spacing" do
+    css = render <<-SCSS
+      $colors-spacing:5px;
+      @import "colors/*.png";
+      @include all-colors-sprites;
+    SCSS
+    other_css = <<-CSS
+      .colors-sprite, .colors-blue, .colors-yellow {
+        background: url('/colors-s747dec274e.png') no-repeat;
+      }
+      .colors-blue { 
+        background-position:0 0;
+      }
+      .colors-yellow {
+        background-position:0 -15px;
+      }
+    CSS
+    assert_correct clean(css), clean(other_css)
+  end
+
+  it "should return width and height of sprite" do
+    css = render <<-SCSS
+      @import "colors/*.png";
+      .height { height : sprite_height($colors-sprites); }
+      .width { width : sprite_width($colors-sprites); }
+    SCSS
+    other_css = <<-CSS
+      .colors-sprite {
+        background: url('/colors-s58671cb5bb.png') no-repeat;
+      }
+      .height {
+        height : 20px;
+      }
+      .width {
+        width : 10px;
+      }
+    CSS
+    assert_correct clean(css), clean(other_css)
   end
 
 end

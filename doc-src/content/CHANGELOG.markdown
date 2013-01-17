@@ -14,6 +14,35 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.13.alpha.1 (UNRELEASED)
+-------------------------
+
+* [CORE] Removed old watcher (FSSM) and replaced with Listen.
+* [CORE] Fix damaged images when creating projects on windows.
+* [CORE] Bug fix for CSS gradient parsing.
+* [CORE] Fixed an issue where directory globbing didn't work correctly on windows.
+* [CSS3] Update selection mixin for flexibility and consistency.
+* [CSS3] Fix a bug in gradients that used the currentColor keyword
+* [CSS3] Removed the -ms prefix support from keyfrome animation, the spec was approved before MS released IE10.
+* [CSS3] Improve flexibility of input-placeholder mixin so it can be used at the root of the stylesheet or with an argument for use with a selector.
+* [CSS3] Deprecate `column-break-[before | after | inside]` mixins, in favor of the official `break-[before | after | inside]` syntax.
+* [DOCUMENTATION] Change `log` to `logarithm` in the docs.
+* [SPRITES] Added `sprite-width` and `sprite-height` helper functions.
+* [SPRITES] Use the right directory for cleanup when `generated_images_dir` is set
+* [Vertical Rhythm Module] Fix the Webkit establish-baseline issue by setting line-height on html in ems for all relative rhythm-units.
+* [Vertical Rhythm Module] Remove unnecessary type-checking for Sass lists.
+* [Vertical Rhythm Module] Switch to using Sass's built-in (absolute) unit conversions when possible.
+* [Vertical Rhythm Module] Added rem output with pixel fallbacks and other improvements to vertical rhythm partial.
+
+0.13.alpha.0 (05/06/2012)
+-------------------------
+
+* Allow numeric sprite names when not using sprite selector generation capability.
+* Add new mixin for styling [input
+  placeholders](/reference/compass/css3/user_interface/#mixin-input-placeholder).
+* Add [css animations module](/reference/compass/css3/animation/).
+* When `$relative-font-sizing` is true, vertical-rhythm font sizes are declared in relative units throughout the document, including `establish-baseline`. This ensures that user defaults set in the browser are respected.
+
 0.12.2 (06/24/2012)
 -------------------
 
@@ -127,7 +156,7 @@ gem to integrate with compass. Please read the [README](https://github.com/Compa
 * Added support for diagonal, horizontal, and smart sprite layout
 * Fixed a bug with spacing in horizontal layout
 * Changed the descriptions of the sin, cos, and tan to be more descriptive
-* Fixed trig functions via issue #498 
+* Fixed trig functions via issue #498
 * Fixed the default `http_path` in rails
 * Sprites can now have a `sprite_load_path` that is an array of directories that
   contain source images for sprites handy for using sprites in extensions or gems

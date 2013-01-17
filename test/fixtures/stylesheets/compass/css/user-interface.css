@@ -1,4 +1,25 @@
 .user-select {
+  -moz-user-select: -moz-none;
   -webkit-user-select: none;
-  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none; }
+
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+
+.input-placeholder::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+.input-placeholder:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+.input-placeholder:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }

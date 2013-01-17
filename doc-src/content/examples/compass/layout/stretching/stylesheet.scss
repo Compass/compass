@@ -1,0 +1,43 @@
+@import "compass/layout/stretching";
+@import "compass/utilities";
+@import "compass/css3";
+
+.stretch-container {
+  border: 1px solid #999999;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  @include inline-block;
+}
+
+.stretched {
+  $stretch-color: #4c6b99;
+  border: 3px solid $stretch-color;
+  @include border-radius(8px);
+  display: block;
+  background-color: darken($stretch-color, 30%);
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.5em;
+}
+
+#stretch-full {
+  @extend .stretched;
+  @include stretch;
+}
+
+#stretch-offset {
+  @extend .stretched;
+  @include stretch(1em, 1em, 1em, 1em);
+}
+
+#stretch-x {
+  @extend .stretched;
+  @include stretch-x;
+}
+
+#stretch-y {
+  @extend .stretched;
+  @include stretch-y;
+}

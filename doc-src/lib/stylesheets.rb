@@ -118,6 +118,31 @@ def mixins(item)
   mixins.reject{|m| m.comment =~ /@private/}
 end
 
+def selectors(item)
+  sass_tree = tree(item)
+  # Visitors::CheckNesting.visit(sass_tree)
+  # sass_tree = Visitors::Perform.visit(sass_tree)
+  selectors = []
+  comment = nil
+  sass_tree.children.each do |child|
+    case child
+    when Sass::Tree::RuleNode
+      child.comment = comment && Sass::Tree::CommentNode.clean(comment)
+      comment = nil
+      selectors << child
+    when Sass::Tree::CommentNode
+      comment ||= ""
+      comment << "\n" unless comment.empty?
+      comment << child.docstring
+    else
+      comment = nil
+    end
+  end
+  selectors.reject!{|s| s.comment =~ /@private/}
+  # selectors.select!{|s| s.comment.strip.size > 0} # this would cause only documented selectors to be output
+  selectors
+end
+
 def functions(item)
   sass_tree = tree(item)
   functions = []

@@ -30,16 +30,7 @@ module Compass
             Image.new(self, relative_file, kwargs)
           end
         end
-        
-        # Validates that the sprite_names are valid sass
-        def validate!
-          for sprite_name in sprite_names
-            unless sprite_name =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
-              raise Sass::SyntaxError, "#{sprite_name} must be a legal css identifier"
-            end
-          end
-        end
-        
+
         def name_and_hash
           "#{path}-s#{uniqueness_hash}.png"
         end
@@ -68,7 +59,7 @@ module Compass
         end
         
         def cleanup_old_sprites
-          Dir[File.join(Compass.configuration.generated_images_path, "#{path}-s*.png")].each do |file|
+          Sass::Util.glob(File.join(Compass.configuration.generated_images_path, "#{path}-s*.png")).each do |file|
             log :remove, file
             FileUtils.rm file
             Compass.configuration.run_sprite_removed(file)
@@ -77,7 +68,7 @@ module Compass
         
         # Does this sprite need to be generated
         def generation_required?
-          !File.exists?(filename) || outdated? ||  options[:force]
+          !File.exists?(filename) || outdated? || options[:force]
         end
 
         # Returns the uniqueness hash for this sprite object

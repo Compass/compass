@@ -1,5 +1,6 @@
-// makes a list inline.
+@import "compass/support";
 
+// makes a list inline.
 @mixin inline-list {
   list-style-type: none;
   &, & li {
@@ -30,8 +31,10 @@
     &:last-child {
       &:after { content: ""; }
     }
-    &.last {
-      &:after { content: ""; }
+    @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+      &.last {
+        &:after { content: ""; }
+      }
     }
   }
 }

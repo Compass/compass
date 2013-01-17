@@ -53,6 +53,15 @@ Rake::TestTask.new :units do |t|
   t.verbose = true
 end
 
+Rake::TestTask.new :integrations do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  test_files = FileList['test/integrations/**/*_test.rb']
+  test_files.exclude('test/rails/*', 'test/haml/*')
+  t.test_files = test_files
+  t.verbose = true
+end
+
 
 desc "Compile Examples into HTML and CSS"
 task :examples do

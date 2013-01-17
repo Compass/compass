@@ -1,5 +1,6 @@
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
+  BOOL_FALSE = Sass::Script::Bool::new(false)
   VALID_SELECTORS = %w(hover active target)
   # Provides a consistent interface for getting a variable in ruby
   # from a keyword argument hash that accounts for underscores/dash equivalence
@@ -10,15 +11,33 @@ module Compass::SassExtensions::Functions::Sprites
     end
   end
 
-  #Returns a list of all sprite names
+  # Returns the width of the generated sprite map
+  def sprite_width(map)
+    verify_map(map, 'sprite-width')
+    width, _ = image_dimensions(map.filename)
+    Sass::Script::Number.new(width, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_width, [:map]
+  
+  # Returns the height of the generated sprite map
+  def sprite_height(map)
+    verify_map(map, 'sprite-height')
+    _, height = image_dimensions(map.filename)
+    Sass::Script::Number.new(height, ["px"])
+  end
+  Sass::Script::Functions.declare :sprite_height, [:map]
+
+  # Returns a list of all sprite names
   def sprite_names(map)
+    verify_map(map, 'sprite-names')
     Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
   end
   Sass::Script::Functions.declare :sprite_names, [:map]
 
   # Returns the system path of the sprite file
   def sprite_path(map)
-    Sass::Script::String.new(map.name_and_hash)
+    verify_map(map, 'sprite-path')
+    Sass::Script::String.new(map.filename)
   end
   Sass::Script::Functions.declare :sprite_path, [:map]
 
@@ -30,7 +49,8 @@ module Compass::SassExtensions::Functions::Sprites
   def inline_sprite(map)
     verify_map(map, "sprite-url")
     map.generate
-    inline_image(sprite_path(map))
+    path = map.filename
+    inline_image_string(data(path), compute_mime_type(path))
   end
   Sass::Script::Functions.declare :inline_sprite, [:map]
 
@@ -57,19 +77,24 @@ module Compass::SassExtensions::Functions::Sprites
   # Becomes:
   #
   #     background: url('/images/icons.png?12345678') 0 -24px no-repeat;
-  def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO)
-    sprite = convert_sprite_name(sprite)    
+  #
+  # If the `use_percentages` parameter is passed as true, percentages will be
+  # used to position the sprite. Example output:
+  #     
+  #     background: url('/images/icons.png?12345678') 0 50% no-repeat;
+  #
+  def sprite(map, sprite, offset_x = ZERO, offset_y = ZERO, use_percentages = BOOL_FALSE)
+    sprite = convert_sprite_name(sprite)
     verify_map(map)
-    unless sprite.is_a?(Sass::Script::String)
-      raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
-    end
+    verify_sprite(sprite)
     url = sprite_url(map)
-    position = sprite_position(map, sprite, offset_x, offset_y)
+    position = sprite_position(map, sprite, offset_x, offset_y, use_percentages)
     Sass::Script::List.new([url] + position.value, :space)
   end
   Sass::Script::Functions.declare :sprite, [:map, :sprite]
   Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x]
   Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y]
+  Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y, :use_percentages]
 
   # Returns the name of a sprite map
   # The name is derived from the folder than contains the sprites.
@@ -115,6 +140,13 @@ module Compass::SassExtensions::Functions::Sprites
   
   Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
 
+  # Determines if the CSS selector is valid
+  def sprite_has_valid_selector(selector)
+    unless selector.value =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
+      raise Sass::SyntaxError, "#{selector} must be a legal css identifier"
+    end
+    Sass::Script::Bool.new true
+  end
 
   # Returns a url to the sprite image.
   def sprite_url(map)
@@ -143,32 +175,52 @@ module Compass::SassExtensions::Functions::Sprites
   # Would change the above output to:
   #
   #     background-position: 3px -36px;
-  def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO)
+  #
+  # If you set the `use_percentages` parameter to true, the position will be
+  # expressed in percentages. An example:
+  #
+  #     background-position: sprite-position($icons, new, 0, 0, true);
+  #
+  # Would result in something like this:
+  #
+  #     background-position: 0 42%;
+  # 
+  def sprite_position(map, sprite = nil, offset_x = ZERO, offset_y = ZERO, use_percentages = BOOL_FALSE)
     assert_type offset_x, :Number
     assert_type offset_y, :Number
     sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
-    unless sprite && sprite.is_a?(Sass::Script::String)
+    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite-position must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
     image = map.image_for(sprite.value)
     unless image
       missing_image!(map, sprite)
     end
-    if offset_x.unit_str == "%"
-      x = offset_x # CE: Shouldn't this be a percentage of the total width?
+    if use_percentages.value
+      xdivis = map.width - image.width;
+      x = (offset_x.value + image.left.to_f) / (xdivis.nonzero? || 1) * 100
+      x = Sass::Script::Number.new(x, x == 0 ? [] : ["%"])
+      ydivis = map.height - image.height;
+      y = (offset_y.value + image.top.to_f) / (ydivis.nonzero? || 1) * 100
+      y = Sass::Script::Number.new(y, y == 0 ? [] : ["%"])
     else
-      x = offset_x.value - image.left
-      x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
+      if offset_x.unit_str == "%"
+        x = offset_x # CE: Shouldn't this be a percentage of the total width?
+      else
+        x = offset_x.value - image.left
+        x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
+      end
+      y = offset_y.value - image.top
+      y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
     end
-    y = offset_y.value - image.top
-    y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
     Sass::Script::List.new([x, y],:space)
   end
   Sass::Script::Functions.declare :sprite_position, [:map]
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite]
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x]
   Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y]
+  Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y, :use_percentages]
 
   def sprite_image(*args)
     raise Sass::SyntaxError, %Q(The sprite-image() function has been replaced by sprite(). See http://compass-style.org/help/tutorials/spriting/ for more information.)
@@ -202,7 +254,7 @@ protected
   end
 
   def verify_sprite(sprite)
-    unless sprite.is_a?(Sass::Script::String)
+    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
   end

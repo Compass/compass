@@ -1,43 +1,42 @@
 @import "shared";
 
-// The default value is `padding-box` -- the box model used by modern browsers.
-//
-// If you wish to do so, you can override the default constant with `border-box`
-//
-// To override to the default border-box model, use this code:
-//     $default-background-clip: border-box
+// ----------------------------------------------------------------------------
+// @private css3-feature-support variables must always include a list of five boolean values
+// representing in order: -moz, -webkit, -o, -ms, -khtml
+//   - mozilla/webkit legacy support handled seperately below
+$background-clip-support: not -moz, not -webkit, not -o, not -ms, -khtml;
 
+// ----------------------------------------------------------------------------
+// Default
+
+// The default border-box model: [border-box | padding-box | content-box]
 $default-background-clip: padding-box !default;
 
-// Clip the background (image and color) at the edge of the padding or border.
-//
-// Legal Values:
-//
-//   * padding-box
-//   * border-box
-//   * text
+// ----------------------------------------------------------------------------
+// Mixin
 
-@mixin background-clip($clip: $default-background-clip) {
-  // webkit and mozilla use the deprecated short [border | padding]
-  $clip: unquote($clip);
-  $deprecated: $clip;
-  @if $clip == padding-box { $deprecated: padding; }
-  @if $clip == border-box { $deprecated: border; }
-  // Support for webkit and mozilla's use of the deprecated short form
-  @include experimental(background-clip, $deprecated,
-    -moz,
-    -webkit,
-    not -o,
-    not -ms,
-    not -khtml,
-    not official
+// Clip the background (image and color) at the edge of the padding, border, or content.
+//   $clip... : [padding-box | border-box | content-box]
+@mixin background-clip($clip...) {
+  $output: compact();
+  $deprecated: compact();
+
+  @if (length($clip) > 0) {
+    @each $layer in $clip {
+      $output: append($output, unquote($layer));
+      $deprecated: append($deprecated, legacy-box($layer));
+    }
+  } @else {
+    $output: $default-background-clip;
+    $deprecated: legacy-box($default-background-clip);
+  }
+
+  // Legacy versions of Mozilla support a different syntax, prefixed.
+  @include experimental-only-for(background-clip, $deprecated,
+    $moz: $legacy-support-for-mozilla,
+    $webkit: $legacy-support-for-webkit
   );
-  @include experimental(background-clip, $clip,
-    not -moz,
-    not -webkit,
-    not -o,
-    not -ms,
-    -khtml,
-    official
-  );
+
+  // Official syntax for the rest
+  @include experimental(background-clip, $output, $background-clip-support...);
 }
