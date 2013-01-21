@@ -34,7 +34,7 @@ class SpritesTest < Test::Unit::TestCase
   end
 
   def image_size(file)
-    IO.read(map_location(file))[0x10..0x18].unpack('NN')
+    open(map_location(file), "rb").read[0x10..0x18].unpack('NN')
   end
 
   def image_md5(file)

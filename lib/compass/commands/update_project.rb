@@ -9,7 +9,7 @@ module Compass
           Usage: compass compile [path/to/project] [path/to/project/src/file.sass ...] [options]
 
           Description:
-          compile project at the path specified or the current director if not specified.
+          compile project at the path specified or the current directory if not specified.
 
           Options:
         }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n")
