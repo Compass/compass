@@ -8,6 +8,7 @@ module Compass
   end
 end
 
+require 'compass/sass_extensions/sprites/images'
 require 'compass/sass_extensions/sprites/layout'
 require 'compass/sass_extensions/sprites/image_row'
 require 'compass/sass_extensions/sprites/row_fitter'

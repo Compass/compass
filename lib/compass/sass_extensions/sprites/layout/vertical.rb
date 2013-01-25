@@ -5,7 +5,7 @@ module Compass
         class Vertical < SpriteLayout
 
           def layout!
-            sort_by_width!
+            @images.sort_by! :width
             calculate_width!
             calculate_positions!
             calculate_height!
@@ -13,16 +13,6 @@ module Compass
           end
 
         private # ===========================================================================================>
-
-          def sort_by_width!
-            @images.sort! do |a,b| 
-              if (b.size <=> a.size) === 0
-                a.name <=> b.name
-              else
-                b.size <=> a.size
-              end #if
-            end #sort!
-          end
 
           def calculate_width!
             @width = @images.map { |image| image.width + image.offset }.max
