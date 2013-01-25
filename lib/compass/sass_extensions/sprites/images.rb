@@ -5,7 +5,7 @@ module Compass
 
         def sort_by!(method)
           invert = false
-          if method[0].to_s == '!'
+          if method.to_s[0] == '!'
             method = method.to_s[1..-1]
             invert = true
           end
