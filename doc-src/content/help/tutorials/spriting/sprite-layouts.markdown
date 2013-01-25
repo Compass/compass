@@ -22,11 +22,11 @@ You can sort by:
 
 Example
 
-    $my-sprite-sort-by : width;
+    $my-sprite-sort-by : 'width';
 
 Default search direction is acending if you wish to sort decending prepend a `!` 
 
-    $my-sprite-sort-by : !width;
+    $my-sprite-sort-by : '!width';
 
 
 ## Sprite Layouts
