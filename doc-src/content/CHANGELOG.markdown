@@ -29,6 +29,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [DOCUMENTATION] Change `log` to `logarithm` in the docs.
 * [SPRITES] Added `sprite-width` and `sprite-height` helper functions.
 * [SPRITES] Use the right directory for cleanup when `generated_images_dir` is set
+* [SPRITES] A new sass var for sprites has been created for sorting `$<name>-sort-by`
 * [Vertical Rhythm Module] Fix the Webkit establish-baseline issue by setting line-height on html in ems for all relative rhythm-units.
 * [Vertical Rhythm Module] Remove unnecessary type-checking for Sass lists.
 * [Vertical Rhythm Module] Switch to using Sass's built-in (absolute) unit conversions when possible.
