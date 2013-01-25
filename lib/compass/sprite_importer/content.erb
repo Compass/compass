@@ -12,6 +12,7 @@ $<%= name %>-prefix            : '' !default;
 $<%= name %>-clean-up          : true !default;
 $<%= name %>-layout            : vertical !default;
 $<%= name %>-inline            : false !default;
+$<%= name %>-sort-by           : 'none' !default;
 
 <% if skip_overrides %> 
   $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up, $spacing: $<%= name %>-spacing, $position : $<%= name %>-position);
@@ -33,7 +34,8 @@ $<%= name %>-inline            : false !default;
  $layout   : $<%= name %>-layout,
  $cleanup  : $<%= name %>-clean-up,
  $spacing  : $<%= name %>-spacing,
- $position : $<%= name %>-position
+ $position : $<%= name %>-position,
+ $sort-by  : $<%= name %>-sort-by
  );
 <% end %>
 

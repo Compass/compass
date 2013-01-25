@@ -30,6 +30,9 @@ module Compass
           image_names.each do |relative_file|
             @images << Image.new(self, relative_file, kwargs)
           end
+          unless sort_method == 'none'
+            @images.sort_by! sort_method
+          end
         end
 
         def name_and_hash

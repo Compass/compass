@@ -17,14 +17,29 @@ class ImagesTest < Test::Unit::TestCase
     assert_equal [3, 2, 4, 1], @images.map(&:id)
   end
 
+  test "sort by !size" do
+    @images.sort_by! '!size'
+    assert_equal [3, 2, 4, 1].reverse, @images.map(&:id)
+  end
+
   test "sort by name" do
     @images.sort_by! :name
     assert_equal [3, 2, 1, 4], @images.map(&:id)
   end
 
+  test "sort by !name" do
+    @images.sort_by! '!name'
+    assert_equal [3, 2, 1, 4].reverse, @images.map(&:id)
+  end
+
   test "sort by width" do
     @images.sort_by! :width
     assert_equal [1, 3, 4, 2], @images.map(&:id)
+  end
+
+    test "sort by !width" do
+    @images.sort_by! '!width'
+    assert_equal [1, 3, 4, 2].reverse, @images.map(&:id)
   end
 
 end

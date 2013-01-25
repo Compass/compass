@@ -5,7 +5,6 @@ module Compass
         class Vertical < SpriteLayout
 
           def layout!
-            @images.sort_by! :width
             calculate_width!
             calculate_positions!
             calculate_height!

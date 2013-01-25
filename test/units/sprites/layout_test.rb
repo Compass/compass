@@ -54,7 +54,7 @@ class LayoutTest < Test::Unit::TestCase
   # REPEAT_X
 
   test 'repeat-x layout single image' do
-    opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x')}
+    opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x'), 'sort_by' => Sass::Script::String.new('width')}
     map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
     assert_equal 6, map.width
     assert_equal [0, 1, 3, 6, 10, 3, 3], map.images.map(&:top)

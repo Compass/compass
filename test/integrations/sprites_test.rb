@@ -561,6 +561,7 @@ class SpritesTest < Test::Unit::TestCase
   it "should use correct percentages when use_percentages is true" do
     css = render <<-SCSS
       $image_row-use-percentages: true;
+      $image_row-sort-by : '!width';
       @import "image_row/*.png";
       @include all-image_row-sprites;
     SCSS
@@ -744,6 +745,7 @@ class SpritesTest < Test::Unit::TestCase
   
   it "should not raise error on filenames that are invalid classnames if the selector generation is not used" do
     css = render <<-SCSS
+      $prefix-sort-by : 'width';
       @import "prefix/*.png";
       a {
         @include prefix-sprite("20-by-20");
