@@ -13,7 +13,7 @@ $<%= name %>-layout:vertical !default;
 $<%= name %>-inline: false !default;
 
 <% if skip_overrides %> 
-  $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up);
+  $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up, $spacing: $<%= name %>-spacing);
 <% else %>  
  // These variables control the generated sprite output
  // You can override them selectively before you import this file.
