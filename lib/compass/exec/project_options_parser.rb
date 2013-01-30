@@ -20,6 +20,10 @@ module Compass::Exec::ProjectOptionsParser
       self.options[:project_type] = project_type.to_sym
     end
 
+    opts.on('--app-dir PATH', 'The base directory for your application.') do |project_path|
+      self.options[:project_path] = project_path
+    end
+
     opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
       set_dir_or_path(:sass, sass_dir)
     end
@@ -35,7 +39,7 @@ module Compass::Exec::ProjectOptionsParser
     opts.on('--javascripts-dir JS_DIR', "The directory where you keep your javascripts.") do |javascripts_dir|
       set_dir_or_path(:javascripts, javascripts_dir)
     end
-    
+
     opts.on('--fonts-dir FONTS_DIR', "The directory where you keep your fonts.") do |fonts_dir|
       set_dir_or_path(:fonts, fonts_dir)
     end
