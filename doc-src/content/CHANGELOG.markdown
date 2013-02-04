@@ -34,6 +34,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [Vertical Rhythm Module] Remove unnecessary type-checking for Sass lists.
 * [Vertical Rhythm Module] Switch to using Sass's built-in (absolute) unit conversions when possible.
 * [Vertical Rhythm Module] Added rem output with pixel fallbacks and other improvements to vertical rhythm partial.
+* [Math] Added random function for generating random numbers.
 
 0.13.alpha.0 (05/06/2012)
 -------------------------
