@@ -18,3 +18,13 @@ p.dark-with-args  { @include contrasted(#5F1210, green, blue); }
 
 
 @include alternating-rows-and-columns(red, white, blue);
+
+p.ellipsis {
+  @include ellipsis;
+}
+
+p.ellipsis.moz {
+  $legacy-support-for-mozilla: true;
+  $use-mozilla-ellipsis-binding: true;
+  @include ellipsis;
+}
