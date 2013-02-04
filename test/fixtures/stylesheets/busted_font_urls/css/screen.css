@@ -1,9 +1,7 @@
-.showgrid { background-image: url('http://assets0.example.com/images/grid-BUSTED.png'); }
+.showgrid { font-family: url('http://assets3.example.com/fonts/grid-BUSTED.ttf'); }
 
-.inlinegrid { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUEAYAAACv1qP4AAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAZ0lEQVRYw+3QwQ2AIBAFUTEUwI3+uzN7gDscsIgxEuO8An52J11X73OudfxMraXkzHfO3Y98nQEhA0IGhAwIGRAyIGRAyICQASEDQgaEDAgZEDIgZEDIgJABoZzSGK3tPuN9ERFP7Nw4fg+c5g8V1wAAAABJRU5ErkJggg=='); }
+.no-buster { font-family: url('http://assets3.example.com/fonts/grid.ttf'); }
 
-.no-buster { background-image: url('http://assets0.example.com/images/grid.png'); }
+.feed { font-family: url('http://assets3.example.com/fonts/feed.ttf?query_string'); }
 
-.feed { background-image: url('http://assets0.example.com/images/feed.png?query_string'); }
-
-.dk { background-image: url('http://assets0.example.com/images/flags/dk.png?query_string'); }
+.dk { font-family: url('http://assets1.example.com/fonts/sub/dk.ttf?query_string'); }
