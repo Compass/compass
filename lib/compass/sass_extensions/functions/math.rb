@@ -5,6 +5,11 @@ module Compass::SassExtensions::Functions::Math
   end
   Sass::Script::Functions.declare :pi, []
 
+  def random(limit)
+    Sass::Script::Number.new(rand(limit.value))
+  end
+  Sass::Script::Functions.declare :random, []
+
   def sin(number)
     trig(:sin, number)
   end
