@@ -20,6 +20,6 @@ $use-mozilla-ellipsis-binding: false !default;
     official
   );
   @if $experimental-support-for-mozilla and $use-mozilla-ellipsis-binding {
-    -moz-binding: stylesheet-url(unquote("xml/ellipsis.xml#ellipsis"));    
+    -moz-binding: image-url(unquote("xml/ellipsis.xml#ellipsis"));
   }
 }
