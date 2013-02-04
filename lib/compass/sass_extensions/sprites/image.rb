@@ -51,7 +51,7 @@ module Compass
         
         # Basename of the image
         def name
-          File.basename(relative_file, '.png')
+          @name ||= File.basename(relative_file, '.png')
         end
 
         def get_var_file(var)
