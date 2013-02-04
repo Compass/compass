@@ -105,6 +105,7 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25px", evaluate("pow($number: 5px, $exponent: 2)")
     assert_equal "79.43236px", evaluate("pow(5px, e())")
     assert (0..2).include?(evaluate("random(2)").to_i)
+    assert (4..16).include?(evaluate("random(4, 16)").to_i)
   end
 
   def test_blank

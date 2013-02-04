@@ -5,10 +5,16 @@ module Compass::SassExtensions::Functions::Math
   end
   Sass::Script::Functions.declare :pi, []
 
-  def random(limit)
-    Sass::Script::Number.new(rand(limit.value))
+  def random(*args)
+    value = if args.length == 1
+      rand(args.pop.value)
+    else
+      (args.first.value..args.last.value).to_a.sample
+    end
+    Sass::Script::Number.new(value)
   end
-  Sass::Script::Functions.declare :random, []
+  Sass::Script::Functions.declare :random, [:limit]
+  Sass::Script::Functions.declare :random, [:start, :limit]
 
   def sin(number)
     trig(:sin, number)
