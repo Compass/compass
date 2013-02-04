@@ -1,3 +1,4 @@
+require 'date'
 path = "#{File.dirname(__FILE__)}/lib"
 require File.join(path, 'compass/version')
 
