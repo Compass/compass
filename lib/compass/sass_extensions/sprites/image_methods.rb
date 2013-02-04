@@ -4,8 +4,11 @@ module Compass
       module ImageMethods
         # Fetches the Sprite::Image object for the supplied name
          def image_for(name)
-           name = name.to_s
-           @images.detect { |img| img.name == name}
+          if name.is_a?(Sass::Script::String)
+            name = name.value
+          end
+          name = name.to_s
+          @images.detect { |img| img.name == name}
          end
 
          # Returns true if the image name has a hover selector image
