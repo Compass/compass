@@ -53,8 +53,7 @@ $<%= name %>-sort-by           : 'none' !default;
 //sass functions to return the dimensions of a sprite image as units
 <% [:width, :height].each do |dimension| %>
   @function <%= name %>-sprite-<%= dimension %>($name) {
-    $file: sprite_file($<%= name %>-sprites, $name);
-    @return image-<%= dimension %>($file);
+    @return sprite-<%= dimension %>($<%= name %>-sprites, $name);
   }
 <% end %>
 

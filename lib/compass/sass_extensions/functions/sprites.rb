@@ -12,17 +12,27 @@ module Compass::SassExtensions::Functions::Sprites
   end
 
   # Returns the width of the generated sprite map
-  def sprite_width(map)
+  def sprite_width(map, sprite=nil)
     verify_map(map, 'sprite-width')
-    width, _ = image_dimensions(map.filename)
+    file = if sprite
+      map.image_for(sprite).file
+    else
+      map.filename
+    end
+    width, _ = image_dimensions(file)
     Sass::Script::Number.new(width, ["px"])
   end
   Sass::Script::Functions.declare :sprite_width, [:map]
   
   # Returns the height of the generated sprite map
-  def sprite_height(map)
+  def sprite_height(map, sprite=nil)
     verify_map(map, 'sprite-height')
-    _, height = image_dimensions(map.filename)
+    file = if sprite
+      map.image_for(sprite).file
+    else
+      map.filename
+    end
+    _, height = image_dimensions(file)
     Sass::Script::Number.new(height, ["px"])
   end
   Sass::Script::Functions.declare :sprite_height, [:map]

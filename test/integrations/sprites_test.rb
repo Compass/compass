@@ -1008,7 +1008,7 @@ class SpritesTest < Test::Unit::TestCase
     assert_correct clean(css), clean(other_css)
   end
 
-  it "should return width and height of sprite" do
+  it "should return width and height of the map" do
     css = render <<-SCSS
       @import "colors/*.png";
       .height { height : sprite_height($colors-sprites); }
@@ -1020,6 +1020,26 @@ class SpritesTest < Test::Unit::TestCase
       }
       .height {
         height : 20px;
+      }
+      .width {
+        width : 10px;
+      }
+    CSS
+    assert_correct clean(css), clean(other_css)
+  end
+
+    it "should return width and height of a sprite" do
+    css = render <<-SCSS
+      @import "colors/*.png";
+      .height { height : sprite_height($colors-sprites, blue); }
+      .width { width : sprite_width($colors-sprites, blue); }
+    SCSS
+    other_css = <<-CSS
+      .colors-sprite {
+        background: url('/colors-s58671cb5bb.png') no-repeat;
+      }
+      .height {
+        height : 10px;
       }
       .width {
         width : 10px;
