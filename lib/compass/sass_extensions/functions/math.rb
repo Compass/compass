@@ -32,10 +32,10 @@ module Compass::SassExtensions::Functions::Math
   end
   Sass::Script::Functions.declare :tan, [:number]
 
-  def e()
+  def e
     Sass::Script::Number.new(Math::E)
   end
-  Sass::Script::Functions.declare :pi, []
+  Sass::Script::Functions.declare :e, []
 
   def logarithm(number, base = e )
     assert_type number, :Number
