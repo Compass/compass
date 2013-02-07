@@ -26,7 +26,7 @@ module Compass::Exec::GlobalOptionsParser
         ::Compass.configuration.discover Pathname.new(frameworks_dir).realpath
       end
 
-    opts.on('-I IMPORT_PATH',
+    opts.on('-I IMPORT_PATH', '--import-path IMPORT_PATH',
             "Makes files under the IMPORT_PATH folder findable by Sass's @import directive."
       ) do |import_path|
         require 'pathname'
