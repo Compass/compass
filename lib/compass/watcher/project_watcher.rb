@@ -52,7 +52,7 @@ module Compass
           load_path = load_path.root if load_path.respond_to?(:root)
           next unless load_path.is_a? String
           next unless load_path.include? project_path
-          load_path = Pathname.new(load_path).relative_path_from(Pathname.new(project_path))
+          load_path = Pathname.new(relative_to_base(project_path, load_path))
           filter = File.join(load_path, SASS_FILTER)
           children = File.join(load_path, ALL_CHILDREN_SASS_FILTER)
           watches << Watcher::Watch.new(filter, &method(:sass_callback))
@@ -101,6 +101,11 @@ module Compass
         if File.exists?(css_file)
           remove(css_file)
         end
+      end
+
+      def relative_to_base(base, path)
+        path = path.force_encoding("BINARY") if path.respond_to?(:force_encoding)
+        path.to_s.sub(%r{^#{Regexp.quote(base)}#{File::SEPARATOR}?}, '')
       end
 
     end
