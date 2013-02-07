@@ -9,7 +9,8 @@ module Compass::SassExtensions::Functions::Math
     value = if args.length == 1
       rand(args.pop.value)
     else
-      (args.first.value..args.last.value).to_a.sample
+      range = (args.first.value..args.last.value).to_a
+      range[rand(range.length)]
     end
     Sass::Script::Number.new(value)
   end
