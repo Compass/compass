@@ -13,8 +13,10 @@ Don't let all these details [scare you...](http://compass-style.org/help/tutoria
 The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
+0.13.alpha.2 (UNRELEASED)
+-------------------------
 
-0.13.alpha.1 (UNRELEASED)
+0.13.alpha.1 (02/07/2012)
 -------------------------
 
 * [CORE] Removed old watcher (FSSM) and replaced with Listen.
