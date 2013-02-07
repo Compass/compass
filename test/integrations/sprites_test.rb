@@ -35,7 +35,7 @@ class SpritesTest < Test::Unit::TestCase
   end
 
   def image_size(file)
-    IO.read(map_location(file))[0x10..0x18].unpack('NN')
+    Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(map_location(file)).size
   end
 
   def image_md5(file)
