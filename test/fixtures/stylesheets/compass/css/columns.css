@@ -21,8 +21,6 @@
 .column-span {
   -webkit-column-span: all;
   -moz-column-span: all;
-  -ms-column-span: all;
-  -o-column-span: all;
   column-span: all; }
 
 .column-rule-width {
