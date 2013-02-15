@@ -142,18 +142,6 @@ module Compass::SassExtensions::Functions::GradientSupport
     standardized_prefix :webkit
     standardized_prefix :moz
     standardized_prefix :o
-    
-    def to_owg(options = self.options)
-      args = [
-        grad_point(position || _center_position),
-        Sass::Script::String.new("0"),
-        grad_point(position || _center_position),
-        grad_end_position(color_stops, Sass::Script::Bool.new(true)),
-        grad_color_stops(color_stops)
-      ]
-      args.each {|a| a.options = options}
-      Sass::Script::String.new("-webkit-gradient(radial, #{args.join(', ')})")
-    end
 
     def to_svg(options = self.options)
       # XXX Add shape support if possible
@@ -230,16 +218,6 @@ module Compass::SassExtensions::Functions::GradientSupport
       else
         super
       end
-    end
-
-    # Output the original webkit gradient syntax
-    def to_owg(options = self.options)
-      args = []
-      args << grad_point(position_or_angle || Sass::Script::String.new("top"))
-      args << linear_end_position(position_or_angle, color_stops)
-      args << grad_color_stops(color_stops)
-      args.each{|a| a.options = options}
-      Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
     end
 
     def to_svg(options = self.options)
