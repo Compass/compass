@@ -125,13 +125,20 @@
                                                                              content:         $value ;
 }
 
-$use-legacy-gradient-syntax: true !default;
+$use-legacy-gradient-syntax: false !default;
 
-@function linear-gradient( $angle, $details...) {
-  @if $use-legacy-gradient-syntax {
+@function linear-gradient($angle, $details...) {
+  $legacy-syntax: $use-legacy-gradient-syntax;
+
+  @if type-of($angle) != 'number' {
+    $angle: compact($angle);
+    $legacy-syntax: if(index($angle, 'to'), false, true);
+  }
+
+  @if $legacy-syntax {
     @return _linear-gradient_legacy($angle, $details...);
-  }@else{
-    @return _linear-gradient($angle, $details...)
+  } @else {
+    @return _linear-gradient($angle, $details...);
   }
 }
 
