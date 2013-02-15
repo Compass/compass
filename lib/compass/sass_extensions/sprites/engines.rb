@@ -9,11 +9,11 @@ module Compass
         end
         
         def construct_sprite
-          raise ::Compass::Error, "You must impliment construct_sprite"
+          raise ::Compass::Error, "You must implement construct_sprite"
         end
         
         def save(filename)
-          raise ::Compass::Error, "You must impliment save(filename)"
+          raise ::Compass::Error, "You must implement save(filename)"
         end
         
       end
