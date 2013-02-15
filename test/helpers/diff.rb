@@ -3,7 +3,7 @@ require 'diff/lcs/hunk'
 module Compass
   module Diff
     #stole this from rspec who stole this from the gem
-    def diff_as_string(data_new, data_old)
+    def diff_as_string(data_old, data_new)
       data_old = data_old.split(/\n/).map! { |e| e.chomp }
       data_new = data_new.split(/\n/).map! { |e| e.chomp }
       output = ""

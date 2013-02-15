@@ -79,7 +79,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       def standardized_prefix(prefix)
         class_eval %Q{
           def to_#{prefix}(options = self.options)
-            Sass::Script::String.new("-#{prefix}-\#{to_s(options)}")
+            Sass::Script::String.new("-#{prefix}-\#{to_s_prefixed(options)}")
           end
         }
       end
@@ -134,6 +134,10 @@ module Compass::SassExtensions::Functions::GradientSupport
       s << color_stops.to_s(options)
       s << ")"
     end
+
+    def to_s_prefixed(options = self.options)
+      to_s(options)
+    end
     
     standardized_prefix :webkit
     standardized_prefix :moz
@@ -169,23 +173,48 @@ module Compass::SassExtensions::Functions::GradientSupport
   class LinearGradient < Sass::Script::Literal
     include Gradient
 
-    attr_accessor :color_stops, :position_or_angle
+    attr_accessor :color_stops, :position_or_angle, :legacy
 
     def children
       [color_stops, position_or_angle].compact
     end
 
-    def initialize(position_or_angle, color_stops)
+    def initialize(position_or_angle, color_stops, legacy=false)
       unless color_stops.value.size >= 2
         raise Sass::SyntaxError, "At least two color stops are required for a linear-gradient"
       end
       self.position_or_angle = position_or_angle
       self.color_stops = color_stops
+      self.legacy = legacy
+    end
+
+    def to_s_prefixed(options = self.options)
+      s = "linear-gradient("
+      if legacy
+        s << position_or_angle.to_s(options) << ", " if position_or_angle
+      else
+        s << convert_to_or_from_legacy(position_or_angle, options) << ", " if position_or_angle
+      end
+      s << color_stops.to_s(options)
+      s << ")"
+    end
+
+    def convert_to_or_from_legacy(position_or_angle, options = self.options)
+      input = if position_or_angle.is_a?(Sass::Script::Number)
+          position_or_angle
+        else
+          Sass::Script::List.new(position_or_angle.to_s.split(' ').map {|s| Sass::Script::String.new(s) }, :space)
+        end
+      return convert_angle_from_offical(input).to_s(options)
     end
 
     def to_s(options = self.options)
-      s = "linear-gradient("
-      s << position_or_angle.to_s(options) << ", " if position_or_angle
+      s = 'linear-gradient('
+      if legacy
+        s << convert_to_or_from_legacy(position_or_angle, options) << ", " if position_or_angle
+      else
+        s << position_or_angle.to_s(options) << ", " if position_or_angle
+      end
       s << color_stops.to_s(options)
       s << ")"
     end
@@ -229,6 +258,29 @@ module Compass::SassExtensions::Functions::GradientSupport
   end
 
   module Functions
+
+    def convert_angle_from_offical(deg)
+      if deg.is_a?(Sass::Script::Number)
+        return Sass::Script::Number.new((deg.value.to_f - 450).abs % 360, ['deg'])
+      else
+        args = deg.value
+        direction = []
+        if args[0] == Sass::Script::String.new('to')
+          if args.size < 2
+            direction = args
+          else
+            direction << opposite_position(args[1])
+          end
+        else
+          direction << Sass::Script::String.new('to')
+          args.each do |pos|
+            direction << opposite_position(pos)
+          end
+        end
+        return Sass::Script::String.new(direction.join(' '))
+      end
+    end
+
     # given a position list, return a corresponding position in percents
     # otherwise, returns the original argument
     def grad_point(position)
@@ -314,7 +366,7 @@ module Compass::SassExtensions::Functions::GradientSupport
       RadialGradient.new(position_or_angle, shape_and_size, send(:color_stops, *color_stops))
     end
 
-    def linear_gradient(position_or_angle, *color_stops)
+    def _build_linear_gradient(position_or_angle, *color_stops)
       if color_stop?(position_or_angle)
         color_stops.unshift(position_or_angle)
         position_or_angle = nil
@@ -328,7 +380,17 @@ module Compass::SassExtensions::Functions::GradientSupport
       if color_stops.size == 1 && (stops = list_of_color_stops?(color_stops.first))
         color_stops = stops
       end
+      return [position_or_angle, color_stops]
+    end
+
+    def _linear_gradient(position_or_angle, *color_stops)
+      position_or_angle, color_stops = _build_linear_gradient(position_or_angle, *color_stops)
       LinearGradient.new(position_or_angle, send(:color_stops, *color_stops))
+    end
+
+    def _linear_gradient_legacy(position_or_angle, *color_stops)
+      position_or_angle, color_stops = _build_linear_gradient(position_or_angle, *color_stops)
+      LinearGradient.new(position_or_angle, send(:color_stops, *color_stops), true)
     end
 
     # returns color-stop() calls for use in webkit.

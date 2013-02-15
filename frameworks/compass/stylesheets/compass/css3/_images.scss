@@ -130,3 +130,20 @@
   @if $experimental-support-for-svg          and prefixed(-svg,    $value) { content:    -svg($value); }
                                                                              content:         $value ;
 }
+
+$use-legacy-gradient-syntax: true !default;
+
+@function convert-gradient($angle, $details...) {
+  $new_angle : convert_angle_to_offical($angle);
+  @return "linear-gradient(#{$new_angle}, #{$details})";
+}
+
+@function linear_gradient( $angle, $details...) {
+  @if $use-legacy-gradient-syntax {
+    @return _linear-gradient_legacy($angle, $details...);
+  }@else{
+    @return _linear-gradient($angle, $details...)
+  }
+  
+}
+
