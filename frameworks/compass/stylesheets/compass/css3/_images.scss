@@ -132,12 +132,12 @@ $use-legacy-gradient-syntax: true !default;
   @return "linear-gradient(#{$new_angle}, #{$details})";
 }
 
-@function linear_gradient( $angle, $details...) {
+@function linear-gradient($angle, $details...) {
   @if $use-legacy-gradient-syntax {
     @return _linear-gradient_legacy($angle, $details...);
   }@else{
     @return _linear-gradient($angle, $details...)
   }
-  
+
 }
 
