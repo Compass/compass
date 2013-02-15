@@ -15,6 +15,14 @@ class ProjectWatcherTest < Test::Unit::TestCase
 
   test "should initalize correctly" do
     assert @project_watcher.listener.is_a?(Listen::Listener)
+    assert_equal 2, @project_watcher.sass_watchers.size
+  end
+
+  test "should have 3 watchers" do
+    Dir.chdir File.join(@working_path, 'sass') do
+      @project_watcher = Compass::Watcher::ProjectWatcher.new(Dir.pwd)
+      assert_equal 3, @project_watcher.sass_watchers.size
+    end
   end
 
   test "compiler" do

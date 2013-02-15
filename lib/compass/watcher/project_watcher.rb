@@ -55,6 +55,9 @@ module Compass
           load_path = Pathname.new(load_path).relative_path_from(Pathname.new(project_path))
           filter = File.join(load_path, SASS_FILTER)
           children = File.join(load_path, ALL_CHILDREN_SASS_FILTER)
+          if filter.match(%r{^./})
+            watches << Watcher::Watch.new(SASS_FILTER, &method(:sass_callback))
+          end
           watches << Watcher::Watch.new(filter, &method(:sass_callback))
           watches << Watcher::Watch.new(children, &method(:sass_callback))
         end
@@ -62,7 +65,7 @@ module Compass
       end
 
       def listen_callback(modified_file, added_file, removed_file)
-        #log_action(:info, ">>> Listen Callback fired", {})
+        #log_action(:info, ">>> Listen Callback fired added: #{added_file}, mod: #{modified_file}, rem: #{removed_file}", {})
         action = nil
         action ||= :modified unless modified_file.empty?
         action ||= :added unless added_file.empty?
@@ -78,7 +81,7 @@ module Compass
       end
 
       def sass_callback(base, file, action)
-        #log_action(:info, ">>> Sass Callback fired #{action}", {})
+        #log_action(:info, ">>> Sass Callback fired #{action}, #{file}", {})
         sass_modified(file) if action == :modified
         sass_added(file) if action == :added
         sass_removed(file) if action == :removed
