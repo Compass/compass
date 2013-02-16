@@ -103,8 +103,10 @@ module Compass::SassExtensions::Functions::Urls
       end
 
       # Compute the real path to the image on the file stystem if the images_dir is set.
-      real_path = if Compass.configuration.images_dir
-        File.join(Compass.configuration.project_path, Compass.configuration.images_dir, path)
+      real_path = if Compass.configuration.images_path
+        File.join(Compass.configuration.images_path, path)
+      else
+        File.join(Compass.configuration.project_path, path)
       end
 
       # prepend the path to the image if there's one
@@ -168,8 +170,10 @@ module Compass::SassExtensions::Functions::Urls
       end
 
       # Compute the real path to the image on the file stystem if the generated_images_dir is set.
-      real_path = if Compass.configuration.generated_images_dir
-        File.join(Compass.configuration.project_path, Compass.configuration.generated_images_dir, path)
+      real_path = if Compass.configuration.images_path
+        File.join(Compass.configuration.images_path, path)
+      else
+        File.join(Compass.configuration.project_path, path)
       end
 
       # prepend the path to the image if there's one
