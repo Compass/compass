@@ -19,7 +19,7 @@ Gem::Specification.new do |gemspec|
 
   gemspec.add_dependency 'sass', '~> 3.2.5'
   gemspec.add_dependency 'chunky_png', '~> 1.2'
-  gemspec.add_dependency 'listen', ['>= 0.5.3', '>= 0.7.0']
+  gemspec.add_dependency 'listen', ['>= 0.5.3', '<= 0.7.0']
 
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")
