@@ -61,6 +61,10 @@ module Compass::Exec::ProjectOptionsParser
     opts.on('--no-line-comments', :NONE, 'Disable line comments.') do
       self.options[:line_comments] = false
     end
+
+    opts.on('--http-path HTTP_PATH', 'Set this to the root of your project when deployed') do |http_path|
+      self.options[:http_path] = http_path
+    end
   end
 
 end
