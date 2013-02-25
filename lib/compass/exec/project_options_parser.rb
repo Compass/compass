@@ -65,6 +65,10 @@ module Compass::Exec::ProjectOptionsParser
     opts.on('--http-path HTTP_PATH', 'Set this to the root of your project when deployed') do |http_path|
       self.options[:http_path] = http_path
     end
+
+    opts.on('--generated-images-path GENERATED_IMAGES_PATH', 'The path where you generate your images') do |generated_images_path|
+      self.options[:generated_images_path] = generated_images_path
+    end
   end
 
 end
