@@ -4,11 +4,10 @@ gemspec
 
 unless ENV['PKG']
 
-  gem "cucumber", "~> 1.1.4"
-  gem "rspec", "~>2.0.0"
+  gem "cucumber", "~> 1.2.1"
+  gem "rspec", "~> 2.0.0"
   gem "compass-validator", "3.0.1"
   gem "css_parser", "~> 1.0.1"
-  gem "haml", "~> 3.1"
   gem "rubyzip"
   gem 'mocha', '0.11.4'
   gem 'diff-lcs', '~> 1.1.2'

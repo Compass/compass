@@ -6,4 +6,4 @@ rvm:
   - jruby-19mode
   - rbx
   - ree
-script: "bundle exec rake test features"
+script: "bundle exec rake"
