@@ -16,7 +16,7 @@ $flex-legacy-enabled: false !default;
 $flex-wrap-required : false !default;
 
 // September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
-// NOTE: FF does not support wrapping until version ??.  Because the `display: flex` property
+// NOTE: FF did not support wrapping until version ??.  Because the `display: flex` property
 // is wrapped in a `@supports` block checking for `flex-wrap: wrap` (when $flex-wrap-required or
 // the $wrap argument to the `display-flex` mixin is set to `true`), it will Just Work(TM) when
 // support is added
@@ -133,7 +133,7 @@ $flex-2009-moz   : true  !default;
 		$flex-khtml,
 		$flex-official and not $wrap);
 	
-	@if $wrap {
+	@if $wrap and $flex-official {
 		@supports (flex-wrap: wrap) {
 			display: $type;
 		}
