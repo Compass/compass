@@ -17,9 +17,9 @@ $flex-wrap-required : false !default;
 
 // September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
 // NOTE: FF did not support wrapping until version ??.  Because the `display: flex` property
-// is wrapped in a `@supports` block checking for `flex-wrap: wrap` (when $flex-wrap-required or
-// the $wrap argument to the `display-flex` mixin is set to `true`), it will Just Work(TM) when
-// support is added
+// is wrapped in a `@supports (flex-wrap: wrap)` block (when $flex-wrap-required or the $wrap
+// argument to the `display-flex` mixin is set to `true`), it will Just Work(TM) when support is
+// finally added
 // Chrome 21 (prefixed)
 // Opera 12.1 (unprefixed)
 // Firefox 20 (unprefixed)
@@ -70,7 +70,7 @@ $flex-2009-moz   : true  !default;
 	@include experimental($property, $value,
 		$flex-moz,
 		$flex-webkit,
-		false,
+		not -o,
 		$flex-ms,
 		$flex-khtml,
 		$flex-official);
@@ -78,22 +78,22 @@ $flex-2009-moz   : true  !default;
 
 @mixin flex-2012($property, $value) {
 	@include experimental($property, $value,
-		false,
+		not -moz,
 		$flex-2012-webkit,
-		false,
+		not -o,
 		$flex-2012-ms,
-		false,
-		false);
+		not -khtml,
+		not -official);
 }
 
 @mixin flex-2009($property, $value) {
 	@include experimental($property, $value,
 		$flex-2009-moz,
 		$flex-2009-webkit,
-		false,
-		false,
-		false,
-		false);
+		not -o,
+		not -ms,
+		not -khtml,
+		not -official);
 }
 
 // mixin to use if standard and 2012 have the same property names
@@ -101,7 +101,7 @@ $flex-2009-moz   : true  !default;
 	@include experimental($property, $value,
 		$flex-moz,
 		$flex-2012-webkit or $flex-webkit,
-		false, // opera
+		not -o,
 		$flex-2012-ms or $flex-ms,
 		$flex-khtml,
 		$flex-official);
@@ -118,17 +118,17 @@ $flex-2009-moz   : true  !default;
 	}
 	
 	@include experimental-value(display, flex-translate-value($type, 2012),
-		false,
+		not -moz,
 		$flex-2012-webkit,
-		false,
+		not -o,
 		$flex-2012-ms,
-		false,
-		false);
+		not -khtml,
+		not -standard);
 		
 	@include experimental-value(display, $type,
 		$flex-moz,
 		$flex-webkit,
-		false,
+		not -o,
 		$flex-ms,
 		$flex-khtml,
 		$flex-official and not $wrap);
@@ -144,10 +144,10 @@ $flex-2009-moz   : true  !default;
 	@include experimental-value(display, flex-translate-value($type, 2009),
 		$flex-2009-moz,
 		$flex-2009-webkit,
-		false,
-		false,
-		false,
-		false);
+		not -o,
+		not -ms,
+		not -khtml,
+		not standard);
 }
 
 // ====================================================================================================
