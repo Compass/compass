@@ -133,9 +133,15 @@ $flex-2009-moz   : true  !default;
 		$flex-khtml,
 		$flex-official and not $wrap);
 	
-	@if $wrap and $flex-official {
-		@supports (flex-wrap: wrap) {
-			display: $type;
+	@if $flex-official {
+		@if $wrap {
+			@supports (display: $type) and (flex-wrap: wrap) {
+				display: $type;
+			}
+		} @else {
+			@supports (display: $type) {
+				display: $type;
+			}
 		}
 	}
 }
