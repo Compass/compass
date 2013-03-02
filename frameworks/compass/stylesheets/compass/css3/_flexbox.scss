@@ -48,6 +48,8 @@ $flex-2009-moz   : true  !default;
 // function for converting a value from the standard specification to one that is comparable from
 // an older specification
 @function flex-translate-value($value, $version: 2009) {
+	$value: unquote($value);
+
 	@if $value == flex {
 		@return if($version == 2009, box, flexbox);
 	} @else if $value == inline-flex {
@@ -65,6 +67,7 @@ $flex-2009-moz   : true  !default;
 }
 
 @mixin flex-standard($property, $value) {
+	$value: unquote($value);
 	@include experimental($property, $value,
 		not -moz,
 		$flex-webkit,
@@ -75,6 +78,7 @@ $flex-2009-moz   : true  !default;
 }
 
 @mixin flex-2012($property, $value) {
+	$value: unquote($value);
 	@include experimental($property, $value,
 		not -moz,
 		$flex-2012-webkit,
@@ -85,6 +89,7 @@ $flex-2009-moz   : true  !default;
 }
 
 @mixin flex-2009($property, $value) {
+	$value: unquote($value);
 	@include experimental($property, $value,
 		$flex-2009-moz,
 		$flex-2009-webkit,
@@ -96,6 +101,7 @@ $flex-2009-moz   : true  !default;
 
 // mixin to use if standard and 2012 have the same property names
 @mixin flex-modern($property, $value) {
+	$value: unquote($value);
 	@include experimental($property, $value,
 		not -moz,
 		$flex-2012-webkit or $flex-webkit,
@@ -166,6 +172,7 @@ $flex-2009-moz   : true  !default;
 		@include legacy-flex-direction(nth($value, 1));
 		@include legacy-flex-wrap(nth($value, 2));
 	} @else {
+		$value: unquote($value);
 		@if $value == row or $value == row-reverse or $value == column or $value == column-reverse {
 			@include legacy-flex-direction($value);
 		} @else {
@@ -186,6 +193,7 @@ $flex-2009-moz   : true  !default;
 }
 
 @mixin legacy-flex-direction($value: row) {
+	$value: unquote($value);
 	@include flex-2009(box-orient, if($value == row or $value == row-reverse, horizontal, vertical));
 	@include flex-2009(box-direction, if($value == row-reverse or $value == column-reverse, reverse, normal));
 }
@@ -258,6 +266,7 @@ $flex-2009-moz   : true  !default;
 
 // $value: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
 @mixin flex($value: 0 1 auto, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
+	$value: unquote($value);
 	@if $legacy and unitless(nth($value, 1)) {
 		// 2009 version does not have a shorthand, see `legacy-flex-grow`
 		@include legacy-flex-grow(nth($value, 1));
