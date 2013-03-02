@@ -24,9 +24,7 @@ $flex-wrap-required : false !default;
 // Opera 12.1 (unprefixed)
 // Firefox 20 (unprefixed)
 $flex-webkit  : true  !default;
-$flex-moz     : false !default; // TODO: remove this?
 $flex-ms      : false !default;
-$flex-khtml   : false !default;
 $flex-official: true  !default;
 
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
@@ -68,11 +66,11 @@ $flex-2009-moz   : true  !default;
 
 @mixin flex-standard($property, $value) {
 	@include experimental($property, $value,
-		$flex-moz,
+		not -moz,
 		$flex-webkit,
 		not -o,
 		$flex-ms,
-		$flex-khtml,
+		not -khtml,
 		$flex-official);
 }
 
@@ -99,11 +97,11 @@ $flex-2009-moz   : true  !default;
 // mixin to use if standard and 2012 have the same property names
 @mixin flex-modern($property, $value) {
 	@include experimental($property, $value,
-		$flex-moz,
+		not -moz,
 		$flex-2012-webkit or $flex-webkit,
 		not -o,
 		$flex-2012-ms or $flex-ms,
-		$flex-khtml,
+		not -khtml,
 		$flex-official);
 }
 
@@ -126,11 +124,11 @@ $flex-2009-moz   : true  !default;
 		not -standard);
 		
 	@include experimental-value(display, $type,
-		$flex-moz,
+		not -moz,
 		$flex-webkit,
 		not -o,
 		$flex-ms,
-		$flex-khtml,
+		not -khtml,
 		$flex-official and not $wrap);
 	
 	@if $flex-official and $wrap {
