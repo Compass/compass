@@ -11,7 +11,9 @@
 // (if this is false, you're still free to explicitly call the legacy mixins yourself)
 $flex-legacy-enabled: false !default;
 
-// if `true`, properties are not emitted for browsers who don't support wrapping
+// if `true`, `$flex-legacy-enabled` is treated as false and an `@supports` block is added to 
+// the display property to hide the standard value from versions of Firefox that support the
+// unprefixed properties, but do not support wrapping
 // (this includes suppressing the automatic emittion of 2009 properties)
 $flex-wrap-required : false !default;
 
@@ -112,7 +114,7 @@ $flex-2009-moz   : true  !default;
 }
 
 // ====================================================================================================
-//                                                                       | Display property
+//                                                                       | Display Property
 // ====================================================================================================
 
 // $type: flex | inline-flex
@@ -155,10 +157,10 @@ $flex-2009-moz   : true  !default;
 }
 
 // ====================================================================================================
-//                                                                       | Flex-flow
+//                                                                       | Flex Container Properties
 // ====================================================================================================
 
-// <'flex-direction'> || <'flex-wrap'>
+// $value: <'flex-direction'> || <'flex-wrap'>
 @mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
 	@if $legacy and not $wrap {
 		@include legacy-flex-flow($value);
@@ -214,9 +216,7 @@ $flex-2009-moz   : true  !default;
 	@include flex-2009(box-lines, if($value == nowrap, single, multiple));
 }
 
-// ====================================================================================================
-//                                                                       | "Packing" & Alignment
-// ====================================================================================================
+// ----------------------------------------------------------------------
 
 // Distributing extra space along the "main axis"
 // $value: flex-start | flex-end | center | space-between | space-around
@@ -261,7 +261,7 @@ $flex-2009-moz   : true  !default;
 }
 
 // ====================================================================================================
-//                                                                       | Flex (Child Property)
+//                                                                       | Flex Item Properties
 // ====================================================================================================
 
 // $value: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
@@ -309,9 +309,7 @@ $flex-2009-moz   : true  !default;
 	@include flex-standard(flex-basis, $value);
 }
 
-// ====================================================================================================
-//                                                                       | Other Child properties
-// ====================================================================================================
+// ----------------------------------------------------------------------
 
 // Align items along the "cross axis" -- overrides `align-items` value on individual items
 // $value: auto | flex-start | flex-end | center | baseline | stretch
