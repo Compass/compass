@@ -1,3 +1,5 @@
+@import "compass/css3/flexbox";
+
 .flex {
 	@include display-flex;
 	@include flex-flow(column nowrap);
