@@ -11,6 +11,7 @@ $use-mozilla-ellipsis-binding: false !default;
 @mixin ellipsis($no-wrap: true) {
   @if $no-wrap { white-space: nowrap; }
   overflow: hidden;
+  word-wrap: normal;
   @include experimental(text-overflow, ellipsis,
     not -moz,
     not -webkit,
