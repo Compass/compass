@@ -47,7 +47,8 @@ $<%= name %>-sort-by           : 'none' !default;
   } 
 } @else {
   #{$<%= name %>-sprite-base-class} {
-    background: $<%= name %>-sprites no-repeat;
+    background-image: $<%= name %>-sprites;
+    background-repeat: no-repeat;
   }
 }
 //sass functions to return the dimensions of a sprite image as units
