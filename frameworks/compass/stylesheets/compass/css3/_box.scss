@@ -64,7 +64,7 @@ $default-box-ordinal-group: 1 !default;
 
 // mixin which takes an int argument for ordinal grouping and rearranging the order
 @mixin box-ordinal-group(
-  $group: $default-ordinal-flex-group
+  $group: $default-box-ordinal-group
 ) {
   @include experimental(box-ordinal-group, $group,
     -moz, -webkit, not -o, -ms, not -khtml, official
