@@ -44,20 +44,20 @@ class LayoutTest < Test::Unit::TestCase
     sprite_map_test(opts)
   end
 
-  def horizontal(options= {})
+  def horizontal(options= {}, uri=URI)
     opts = @options.merge("layout" => Sass::Script::String.new('horizontal'))
     opts.merge!(options)
 
-    sprite_map_test(opts)
+    sprite_map_test(opts, uri)
   end
 
   # REPEAT_X
 
   test 'repeat-x layout single image' do
-    opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x')}
+    opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x'), 'sort_by' => Sass::Script::String.new('width')}
     map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
     assert_equal 6, map.width
-    assert_equal [0, 4, 7, 9, 14, 4, 4], map.images.map(&:top)
+    assert_equal [0, 1, 3, 6, 10, 3, 3], map.images.map(&:top)
     assert_equal [0, 0, 0, 0, 0, 0, 3], map.images.map(&:left)
   end
 
@@ -155,10 +155,19 @@ class LayoutTest < Test::Unit::TestCase
     assert_equal [0, 0, 0, 0], base.images.map(&:top)
     assert_equal 80, base.width
   end
+
+  it "should layout horizontaly with spacing and and position" do
+    base = horizontal({"spacing" => Sass::Script::Number.new(10, ['px']), "position" => Sass::Script::Number.new(50, ['%'])}, 'squares/*.png')
+    assert_equal [0, 20], base.images.map(&:left)
+    assert_equal [5, 0], base.images.map(&:top)
+    assert_equal 50, base.width
+  end
   
   it "should layout horizontaly with position" do
     base = horizontal("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
     assert_equal [0, 10, 0, 0], base.images.map(&:top)
+    assert_equal 40, base.width
+    assert_equal 20, base.height
   end
   
   it "should generate a horrizontal sprite" do

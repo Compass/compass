@@ -109,7 +109,7 @@ Feature: Command Line
   Scenario: Re-compiling a specific file in a project with no changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
-    And I run: compass compile sass/utilities.scss
+    And I run: compass compile sass/utilities.scss --force
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
@@ -170,7 +170,7 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s4798b5a210.png |
+      | images/flag-s5b4f509715.png |
     And the following files are removed:
       | .sass-cache/                |
       | tmp/border_radius.css       |
@@ -178,7 +178,7 @@ Feature: Command Line
       | tmp/box_shadow.css          |
       | tmp/columns.css             |
       | tmp/fonts.css               |
-      | images/flag-s4798b5a210.png |
+      | images/flag-s5b4f509715.png |
 
   Scenario: Watching a project for changes
     Given ruby supports fork
@@ -245,7 +245,7 @@ Feature: Command Line
   @stats
   Scenario: Get stats for my project
     Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass stats
+    When I run: bundle exec compass stats
     Then I am told statistics for each file:
       | Filename                  | Rules | Properties |    Mixins Defs | Mixins Used | Filesize | CSS Selectors | CSS Properties | CSS Filesize |
       | sass/border_radius.scss   |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |

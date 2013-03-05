@@ -1,8 +1,8 @@
 # Compass Stylesheet Authoring Framework
 
-Build Status: ![Build Status](https://secure.travis-ci.org/chriseppstein/compass.png)
+Build Status: [![Build Status](https://travis-ci.org/chriseppstein/compass.png)](https://travis-ci.org/chriseppstein/compass)
 
-Code Quality: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/chriseppstein/compass)
+Code Quality: [![Code Climate](https://codeclimate.com/github/chriseppstein/compass.png)](https://codeclimate.com/github/chriseppstein/compass)
 
 ## Resources
 
@@ -11,8 +11,8 @@ Code Quality: [![Code Climate](https://codeclimate.com/badge.png)](https://codec
 * [Compass Reference](http://compass-style.org/install/reference/)
 
 ## Author
-Compass is written by [Chris Eppstein][chris_eppstein].<br>
-Chris is the Software Architect of [Caring.com][caring.com] and a member of the [Sass][sass] core team.
+Compass is written by [Chris Eppstein](http://chriseppstein.github.com/).<br>
+Chris is the Software Architect of [Caring.com](http://caring.com) and a member of the [Sass](https://github.com/nex3/sass) core team.
 
 ## Core Team Members
 
@@ -28,4 +28,4 @@ Chris is the Software Architect of [Caring.com][caring.com] and a member of the 
 ## License
 Copyright (c) 2008-2009 Christopher M. Eppstein<br>
 All Rights Reserved.<br>
-Released under a [slightly modified MIT License][license].
+Released under a [slightly modified MIT License](compass/blob/stable/LICENSE.markdown).

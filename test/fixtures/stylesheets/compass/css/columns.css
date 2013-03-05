@@ -18,6 +18,11 @@
   -moz-column-width: 90px;
   column-width: 90px; }
 
+.column-span {
+  -webkit-column-span: all;
+  -moz-column-span: all;
+  column-span: all; }
+
 .column-rule-width {
   -webkit-rule-width: 1px;
   -moz-rule-width: 1px;

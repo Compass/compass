@@ -1,3 +1,4 @@
+require 'date'
 path = "#{File.dirname(__FILE__)}/lib"
 require File.join(path, 'compass/version')
 
@@ -9,16 +10,14 @@ Gem::Specification.new do |gemspec|
   gemspec.homepage = "http://compass-style.org"
   gemspec.authors = ["Chris Eppstein", "Scott Davis", "Eric A. Meyer", "Brandon Mathis", "Anthony Short", "Nico Hagenburger"]
   gemspec.email = "chris@eppsteins.net"
-  #gemspec.default_executable = "compass" #deprecated
   gemspec.executables = %w(compass)
-  #gemspec.has_rdoc = false #deprecated
   gemspec.require_paths = %w(lib)
   gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}
 
-  gemspec.add_dependency 'sass', '~> 3.2.0.alpha.93'
+  gemspec.add_dependency 'sass', '~> 3.2.5'
   gemspec.add_dependency 'chunky_png', '~> 1.2'
-  gemspec.add_dependency 'listen', '~> 0.5.3'
+  gemspec.add_dependency 'listen', '<= 0.9.9'
 
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")

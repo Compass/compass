@@ -7,6 +7,27 @@ classnames:
 ---
 # Sprite Tutorial
 <%= sprite_tutorial_links %>
+<a name='sorting'>
+## Sorting
+
+Default is `none` sprites will be orderd however they are recived from the file system
+
+You can sort by:
+
+* width
+* height
+* size
+* name
+* none
+
+Example
+
+    $my-sprite-sort-by : 'width';
+
+Default search direction is acending if you wish to sort decending prepend a `!` 
+
+    $my-sprite-sort-by : '!width';
+
 
 ## Sprite Layouts
 

@@ -5,6 +5,18 @@ module Compass::SassExtensions::Functions::Math
   end
   Sass::Script::Functions.declare :pi, []
 
+  def random(*args)
+    value = if args.length == 1
+      rand(args.pop.value)
+    else
+      range = (args.first.value..args.last.value).to_a
+      range[rand(range.length)]
+    end
+    Sass::Script::Number.new(value)
+  end
+  Sass::Script::Functions.declare :random, [:limit]
+  Sass::Script::Functions.declare :random, [:start, :limit]
+
   def sin(number)
     trig(:sin, number)
   end
@@ -20,10 +32,10 @@ module Compass::SassExtensions::Functions::Math
   end
   Sass::Script::Functions.declare :tan, [:number]
 
-  def e()
+  def e
     Sass::Script::Number.new(Math::E)
   end
-  Sass::Script::Functions.declare :pi, []
+  Sass::Script::Functions.declare :e, []
 
   def logarithm(number, base = e )
     assert_type number, :Number

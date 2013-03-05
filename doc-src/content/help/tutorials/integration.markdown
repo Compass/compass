@@ -28,14 +28,14 @@ Also checkout this [gist](https://gist.github.com/1184843)
     require 'haml'
 
     configure do
-      set :haml, {:format => :html5, :escape_html => true}
+      set :haml, {:format => :html5}
       set :scss, {:style => :compact, :debug_info => false}
       Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
     end
 
     get '/stylesheets/:name.css' do
       content_type 'text/css', :charset => 'utf-8'
-      scss(:"stylesheets/#{params[:name]}" )
+      scss :"stylesheets/#{params[:name]}", Compass.sass_engine_options
     end
 
     get '/' do
@@ -43,18 +43,18 @@ Also checkout this [gist](https://gist.github.com/1184843)
     end
 
 
-If you keep your stylesheets in “views/stylesheets/” directory instead of just “views/”, remember to update sass_dir configuration accordingly.
+This assumes you keep your Compass config file in `config/compass.rb`. If you keep your stylesheets in “views/stylesheets/” directory instead of just “views/”, remember to update `sass_dir` configuration accordingly.
 Check out this [sample compass-sinatra project](http://github.com/chriseppstein/compass-sinatra) to get up and running in no time!
 
 [Sinatra Bootstrap](http://github.com/adamstac/sinatra-bootstrap) - a base Sinatra project with support for Haml, Sass, Compass, jQuery and more.
 
-## Nanoc3
+## nanoc
 
 ### Minimal integration: just drop it in
 
-One simple route for lightweight integration is to simply install compass inside nanoc. Then edit config.rb to point to the stylesheets you want to use. This means you have to have the Compass watch command running in a separate window from the Nanoc compilation process. 
+One simple route for lightweight integration is to simply install compass inside nanoc. Then edit `config.rb` to point to the stylesheets you want to use. This means you have to have the Compass watch command running in a separate window from the Nanoc compilation process. 
 
-Example project that works this way: http://github.com/unthinkingly/unthinkingly-blog
+Example project that works this way: [unthinkingly](http://github.com/unthinkingly/unthinkingly-blog).
 
 ### More formal integration
 
@@ -62,10 +62,13 @@ At the top of the Nanoc Rules file, load the Compass configuration, like this:
 
     require 'compass'
 
-    Compass.add_project_configuration 'compass.rb' # when using Compass > 0.10
-    Compass.configuration.parse 'compass.rb'       # when using Compass < 0.10
+    Compass.add_project_configuration 'compass.rb'        # when using Compass > 0.10
+    sass_options = Compass.sass_engine_options            # when using Compass > 0.10
 
-Your Compass configuration file (in compass/config.rb) could look like this (you may need to change the path to some directories depending on your directory structure):
+    Compass.configuration.parse 'compass.rb'              # when using Compass < 0.10
+    sass_options = Compass.config.to_sass_engine_options  # when using Compass < 0.10
+
+Then create a `compass.rb` file in your site's root folder and add your Compass configuration. An example configuration could look like this:
 
     http_path = "/"
     project_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
@@ -79,6 +82,7 @@ Your Compass configuration file (in compass/config.rb) could look like this (you
     http_images_dir = "images"
     http_fonts_dir = "fonts"
 
+You may need to change the path to some directories depending on your directory structure and the setup in your Rules file.
 
 To filter the stylesheets using Sass and Compass, call the sass filter with Sass engine options taken from Compass, like this:
 
@@ -87,6 +91,6 @@ To filter the stylesheets using Sass and Compass, call the sass filter with Sass
     end
 
 
-### Nanoc Projects using the formal approach
+### nanoc projects using the formal approach
 
 * [This Site](https://github.com/chriseppstein/compass/tree/master/doc-src)

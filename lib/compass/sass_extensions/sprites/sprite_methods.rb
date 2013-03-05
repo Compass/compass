@@ -26,8 +26,12 @@ module Compass
         
         # Creates the Sprite::Image objects for each image and calculates the width
         def init_images
-          @images = image_names.collect do |relative_file|
-            Image.new(self, relative_file, kwargs)
+          @images = Images.new
+          image_names.each do |relative_file|
+            @images << Image.new(self, relative_file, kwargs)
+          end
+          unless sort_method == 'none'
+            @images.sort_by! sort_method
           end
         end
 

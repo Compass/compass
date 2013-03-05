@@ -6,7 +6,7 @@ module Compass
       include Compass::Actions
       SASS_FILTER = '*.s[ac]ss'
       ALL_CHILDREN_SASS_FILTER = File.join('**', SASS_FILTER)
-      POLLING_MESSAGE = 'Some message about polling'
+      POLLING_MESSAGE = 'Compass is polling for changes'
 
       attr_reader :options, :project_path, :watcher_compiler, :listener, :poll, :css_dir, :sass_watchers
 
@@ -15,6 +15,7 @@ module Compass
       extend Forwardable
   
       def_delegators :@watcher_compiler, :compiler, :compiler
+      def_delegators :@watcher_compiler, :compile, :compile
 
       def initialize(project_path, watches=[], options={}, poll=false)
         @poll             = poll
@@ -40,12 +41,8 @@ module Compass
         if poll
           @listener = listener.force_polling(true)
         end
-        # not sure if we need to do this
-        # @listener = listener.filter(SASS_FILE_FILTER)
         @listener = listener.polling_fallback_message(POLLING_MESSAGE)
-        #cache_location = watcher_compiler.send(:determine_cache_location)
         @listener = listener.ignore(/\.css$/)
-        # @listener = listener.polling_fallback_message(true)
         @listener = listener.change(&method(:listen_callback))
       end
 
@@ -58,6 +55,9 @@ module Compass
           load_path = Pathname.new(load_path).relative_path_from(Pathname.new(project_path))
           filter = File.join(load_path, SASS_FILTER)
           children = File.join(load_path, ALL_CHILDREN_SASS_FILTER)
+          if filter.match(%r{^./})
+            watches << Watcher::Watch.new(SASS_FILTER, &method(:sass_callback))
+          end
           watches << Watcher::Watch.new(filter, &method(:sass_callback))
           watches << Watcher::Watch.new(children, &method(:sass_callback))
         end
@@ -65,7 +65,7 @@ module Compass
       end
 
       def listen_callback(modified_file, added_file, removed_file)
-        #log_action(:info, ">>> Listen Callback fired", {})
+        #log_action(:info, ">>> Listen Callback fired added: #{added_file}, mod: #{modified_file}, rem: #{removed_file}", {})
         action = nil
         action ||= :modified unless modified_file.empty?
         action ||= :added unless added_file.empty?
@@ -81,7 +81,7 @@ module Compass
       end
 
       def sass_callback(base, file, action)
-        #log_action(:info, ">>> Sass Callback fired #{action}", {})
+        #log_action(:info, ">>> Sass Callback fired #{action}, #{file}", {})
         sass_modified(file) if action == :modified
         sass_added(file) if action == :added
         sass_removed(file) if action == :removed
@@ -89,18 +89,18 @@ module Compass
 
       def sass_modified(file)
         log_action(:info, "#{file} was modified", options)
-        watcher_compiler.compile
+        compile
       end
 
       def sass_added(file)
         log_action(:info, "#{file} was added", options)
-        watcher_compiler.compile
+        compile
       end
 
       def sass_removed(file)
         log_action(:info, "#{file} was removed", options)
         css_file = compiler.corresponding_css_file(File.join(project_path, file))
-        watcher_compiler.compile
+        compile
         if File.exists?(css_file)
           remove(css_file)
         end
