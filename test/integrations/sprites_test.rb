@@ -467,7 +467,7 @@ class SpritesTest < Test::Unit::TestCase
   it "should work even if @import is missing" do
     css = render <<-SCSS
       .squares {
-        background-image: sprite(sprite-map("squares/*.png"), twenty-by-twenty)
+        background-image: sprite(sprite-map("squares/*.png"), twenty-by-twenty);
         background-repeat: no-repeat;
       }
     SCSS
