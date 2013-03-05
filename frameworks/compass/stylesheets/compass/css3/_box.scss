@@ -63,7 +63,7 @@ $default-box-pack           : start           !default;
 }
 
 // Takes an int argument for ordinal grouping and rearranging the order
-@mixin box-ordinal-group($group: $default-ordinal-flex-group) {
+@mixin box-ordinal-group($group: $default-box-ordinal-group) {
   @include experimental(box-ordinal-group, $group, $flexbox-support...);
 }
 
