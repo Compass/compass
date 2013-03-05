@@ -3,8 +3,8 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml
-$flexbox-support: -moz, -webkit, not -o, -ms, not -khtml;
+// representing in order: -moz, -webkit, -ms, -o, -khtml
+$flexbox-support: -moz, -webkit, -ms, not -o, not -khtml;
 
 
 // Default box orientation, assuming that the user wants something less block-like

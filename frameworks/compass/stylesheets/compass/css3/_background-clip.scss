@@ -3,9 +3,9 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml
+// representing in order: -moz, -webkit, -ms, -o, -khtml
 //   - mozilla/webkit legacy support handled seperately below
-$background-clip-support: not -moz, not -webkit, not -o, not -ms, -khtml;
+$background-clip-support: not -moz, not -webkit, not -ms, not -o, -khtml;
 
 
 // The default border-box model: [border-box | padding-box | content-box]

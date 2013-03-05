@@ -3,8 +3,8 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml.
-$appearance-support: -moz, -webkit, not -o, not -ms, not -khtml;
+// representing in order: -moz, -webkit, -ms, -o, -khtml.
+$appearance-support: -moz, -webkit, not -ms, not -o, not -khtml;
 
 
 // Change the appearance for Mozilla, Webkit and possibly the future.

@@ -3,8 +3,8 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml.
-$regions-support: not -moz, -webkit, not -o, -ms, not -khtml;
+// representing in order: -moz, -webkit, -ms, -o, -khtml.
+$regions-support: not -moz, -webkit, -ms, not -o, not -khtml;
 
 // Webkit, IE10 and future support for [CSS Regions](http://dev.w3.org/csswg/css3-regions/)
 //

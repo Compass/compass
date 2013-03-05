@@ -7,8 +7,8 @@
 @mixin experimental($property, $value,
   $moz      : $experimental-support-for-mozilla,
   $webkit   : $experimental-support-for-webkit,
-  $o        : $experimental-support-for-opera,
   $ms       : $experimental-support-for-microsoft,
+  $o        : $experimental-support-for-opera,
   $khtml    : $experimental-support-for-khtml,
   $official : true
 ) {
@@ -24,8 +24,8 @@
 @mixin experimental-only-for($property, $value,
   $moz      : false,
   $webkit   : false,
-  $o        : false,
   $ms       : false,
+  $o        : false,
   $khtml    : false,
   $official : false
 ) {
@@ -36,8 +36,8 @@
 @mixin experimental-value($property, $value,
   $moz      : $experimental-support-for-mozilla,
   $webkit   : $experimental-support-for-webkit,
-  $o        : $experimental-support-for-opera,
   $ms       : $experimental-support-for-microsoft,
+  $o        : $experimental-support-for-opera,
   $khtml    : $experimental-support-for-khtml,
   $official : true
 ) {

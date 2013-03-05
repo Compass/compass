@@ -1,8 +1,8 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml.
-$animation-support: -moz, -webkit, -o, not -ms, -khtml;
+// representing in order: -moz, -webkit, -ms, -o, -khtml.
+$animation-support: -moz, -webkit, not -ms, -o, -khtml;
 
 
 // Name of any animation as a string.
@@ -52,7 +52,7 @@ $default-animation-play-state       : null !default;
       @-webkit-keyframes #{$name} { @content; }
     }
   }
-  @if $o and nth($animation-support,3) {
+  @if $o and nth($animation-support,4) {
     @include with-only-support-for($o: true) {
       @-o-keyframes #{$name} { @content; }
     }

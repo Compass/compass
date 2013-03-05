@@ -3,9 +3,9 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml
+// representing in order: -moz, -webkit, -ms, -o, -khtml
 //   - mozilla/webkit legacy support handled seperately below
-$background-size-support: moz, -webkit, -o, not -ms, -khtml;
+$background-size-support: moz, -webkit, not -ms, -o, -khtml;
 
 
 //  override to change the default
