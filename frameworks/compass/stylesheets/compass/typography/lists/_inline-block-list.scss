@@ -45,7 +45,7 @@
 
 // Can be mixed into any li selector that is meant to participate in a horizontal layout.
 // Used to implement `inline-block-list`.
-@mixin inline-block-list-item($padding: false) {
+@mixin inline-block-list-item($padding: false, $direction: left) {
   @include no-bullet;
   @include inline-block;
   white-space: nowrap;
@@ -53,14 +53,12 @@
     padding: {
       left: $padding;
       right: $padding;
-    };    
+    };
+    &:first-child #{if($legacy-support-for-ie6, ', &.first', '')} { padding-#{$direction}: 0; }
+    &:last-child { padding-#{opposite-position($direction)}: 0; }
+    @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+      &.last { padding-#{opposite-position($direction)}: 0; } }
   }
-  // Not sure if we need to set these based on the direction
-  // since we can't set the direction of the list like we
-  // can when they are floated?
-  &:first-child, &.first { padding-left: 0; }
-  &:last-child { padding-right: 0; }
-  &.last { padding-left: 0; }
 }
 
 // A list(ol,ul) that is layed out such that the elements are inline-block and won't wrap.
