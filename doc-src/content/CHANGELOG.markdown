@@ -17,6 +17,13 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 -------------------------
 
 * [CSS3] All browser-support functions and mixins use same `-moz, -webkit, -ms, -o, -khtml, official` order. This is a change to `experimental()`, `experimental-only-for()`, and `experimental-value()`, which had `-o` listed before `-ms`.
+* [CSS3] Updated `transform` module browser-support matrix.
+* [CSS3] Remove `legacy-transform` module. Please use the current `transform` module.
+* [CSS3] Remove `$only3d` argument from all `$transform` mixins. We switch to 3d-only support in the few cases we can test for, but it's not enough different for the toggle to be useful as a feature-support check. Use modernizr instead.
+* [CSS3] Deprecate `transform2d` in favor of `transform`.
+* [CSS3] Combine `$default-origin-` variables into single `$default-origin` variable.
+* [CSS3] `transform-origin` now takes a single space-sperated argument, using the official w3c syntax.
+* [CSS3] Deprecate `apply-origin` in favor of `transform-origin`.
 
 0.13.alpha.2 (02/07/2012)
 -------------------------
