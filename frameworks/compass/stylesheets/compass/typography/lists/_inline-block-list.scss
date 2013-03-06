@@ -26,8 +26,22 @@
 
 // Can be mixed into any selector that target a ul or ol that is meant
 // to have an inline-block layout. Used to implement `inline-block-list`.
-@mixin inline-block-list-container {
-  @include horizontal-list-container; }
+@mixin inline-block-list-container($remove-inline-block-gap: true, $legacy-opera-support: false) {
+  
+  // do we need to use clearfix and reset the box model?
+  // I don't see why
+  @include horizontal-list-container;
+
+  @if $remove-inline-block-gap {
+    letter-spacing: -0.31em;
+    @if $legacy-opera-support {
+      &:-o-prefocus,
+      & {
+        word-spacing: -0.43em; //Opera 12 Windows
+      }
+    }
+  }
+}
 
 // Can be mixed into any li selector that is meant to participate in a horizontal layout.
 // Used to implement `inline-block-list`.
