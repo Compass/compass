@@ -55,6 +55,12 @@
       right: $padding;
     };    
   }
+  // Not sure if we need to set these based on the direction
+  // since we can't set the direction of the list like we
+  // can when they are floated?
+  &:first-child, &.first { padding-left: 0; }
+  &:last-child { padding-right: 0; }
+  &.last { padding-left: 0; }
 }
 
 // A list(ol,ul) that is layed out such that the elements are inline-block and won't wrap.
