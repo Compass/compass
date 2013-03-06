@@ -11,9 +11,9 @@ $default-transition-property: all !default;
 
 $default-transition-duration: 1s !default;
 
-$default-transition-function: false !default;
+$default-transition-function: null !default;
 
-$default-transition-delay: false !default;
+$default-transition-delay: null !default;
 
 // These values need to be singled out, and have the given prefixes added to them.
 $transitionable-prefixed-values : transform ms webkit,
@@ -70,7 +70,7 @@ $transitionable-prefixed-values : transform ms webkit,
 @mixin transition(
   $transition...
 ) {
-  $transitions: set-arglist-default($transition, $default-transition-property $default-transition-duration $default-transition-function $default-transition-delay);
+  $transitions: set-arglist-default($transition, compact($default-transition-property $default-transition-duration $default-transition-function $default-transition-delay));
   @include experimental(transition, $transitions, $transition-support...);
 }
 
