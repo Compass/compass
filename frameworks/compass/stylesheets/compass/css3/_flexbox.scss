@@ -1,22 +1,23 @@
 @import "shared";
 
 // NOTE:
-// All mixins for the 2009 spec have been written assuming they'll be fed property values that
-// correspond to the standard spec.  Some mixins can be fed values from the 2009 spec, but don't
-// rely on it.  The `legacy-order` mixin will increment the value fed to it because the 2009
+// All mixins for the @box spec have been written assuming they'll be fed property values that
+// correspond to the standard spec.  Some mixins can be fed values from the @box spec, but don't
+// rely on it.  The `legacy-order` mixin will increment the value fed to it because the @box
 // `box-ordinal-group` property begins indexing at 1, while the modern `order` property begins
 // indexing at 0.
 
-// if `true`, the 2009 properties will be emitted as part of the normal mixin call
+// if `true`, the @box properties will be emitted as part of the normal mixin call
 // (if this is false, you're still free to explicitly call the legacy mixins yourself)
 $flex-legacy-enabled: false !default;
 
 // if `true`, `$flex-legacy-enabled` is treated as false and an `@supports` block is added to 
 // the display property to hide the standard value from versions of Firefox that support the
 // unprefixed properties, but do not support wrapping
-// (this includes suppressing the automatic emittion of 2009 properties)
+// (this includes suppressing the automatic emittion of @box properties)
 $flex-wrap-required : false !default;
 
+// @flex
 // September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
 // NOTE: FF did not support wrapping until version ??.  Because the `display: flex` property
 // is wrapped in a `@supports (flex-wrap: wrap)` block (when $flex-wrap-required or the $wrap
@@ -25,23 +26,21 @@ $flex-wrap-required : false !default;
 // Chrome 21 (prefixed)
 // Opera 12.1 (unprefixed)
 // Firefox 20 (unprefixed)
-$flex-webkit  : true  !default;
-$flex-ms      : false !default;
-$flex-official: true  !default;
+$flex-support: -webkit, not -moz, not -ms, not -o, not -khtml !default;
 
+// @flexbox
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
 // Chrome 17 (prefixed)
 // Internet Explorer 10 (prefixed)
-$flex-2012-webkit: true  !default;
-$flex-2012-ms    : true  !default;
+$flexbox-support: -webkit, not -moz, -ms, not -o, not -khtml, not standard !default;
 
+// @box
 // July 2009 Working Draft (http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/)
 // NOTE: no browser that implements this spec is known to support `box-lines: multiple`
 // Chrome 4? (prefixed)
 // Safari 3.1 (prefixed)
 // Firefox <20 (prefixed)
-$flex-2009-webkit: true  !default;
-$flex-2009-moz   : true  !default;
+$box-support: -webkit, -moz, not -ms, not -o, not -khtml, not standard !default;
 
 // ====================================================================================================
 //                                                                       | Common
@@ -49,68 +48,31 @@ $flex-2009-moz   : true  !default;
 
 // function for converting a value from the standard specification to one that is comparable from
 // an older specification
-@function flex-translate-value($value, $version: 2009) {
+@function flex-translate-value($value, $version: box) {
 	$value: unquote($value);
 
 	@if $value == flex {
-		@return if($version == 2009, box, flexbox);
+		@return if($version == box, box, flexbox);
 	} @else if $value == inline-flex {
-		@return if($version == 2009, inline-box, inline-flexbox);
+		@return if($version == box, inline-box, inline-flexbox);
 	} @else if $value == flex-start {
 		@return start;
 	} @else if $value == flex-end {
 		@return end;
 	} @else if $value == space-between {
 		@return justify;
-	} @else if $value == space-around { // 2009 doesn't have a value equivalent to `space-around`
-		@return if($version == 2009, justify, distribute);
+	} @else if $value == space-around { // @box doesn't have a value equivalent to `space-around`
+		@return if($version == box, justify, distribute);
 	}
 	@return $value;
 }
 
-@mixin flex-standard($property, $value) {
-	$value: unquote($value);
-	@include experimental($property, $value,
-		not -moz,
-		$flex-webkit,
-		not -o,
-		$flex-ms,
-		not -khtml,
-		$flex-official);
-}
-
-@mixin flex-2012($property, $value) {
-	$value: unquote($value);
-	@include experimental($property, $value,
-		not -moz,
-		$flex-2012-webkit,
-		not -o,
-		$flex-2012-ms,
-		not -khtml,
-		not -official);
-}
-
-@mixin flex-2009($property, $value) {
-	$value: unquote($value);
-	@include experimental($property, $value,
-		$flex-2009-moz,
-		$flex-2009-webkit,
-		not -o,
-		not -ms,
-		not -khtml,
-		not -official);
-}
-
-// mixin to use if standard and 2012 have the same property names
-@mixin flex-modern($property, $value) {
-	$value: unquote($value);
-	@include experimental($property, $value,
-		not -moz,
-		$flex-2012-webkit or $flex-webkit,
-		not -o,
-		$flex-2012-ms or $flex-ms,
-		not -khtml,
-		$flex-official);
+@function flex-support-common() {
+	$common: ();
+	@for $i from 1 through length($flex-support) {
+		$common: append($common, nth($flex-support, $i) or nth($flexbox-support, $i));
+	}
+	@return $common;
 }
 
 // ====================================================================================================
@@ -123,23 +85,18 @@ $flex-2009-moz   : true  !default;
 		@include legacy-display-flex($type);
 	}
 	
-	@include experimental-value(display, flex-translate-value($type, 2012),
-		not -moz,
-		$flex-2012-webkit,
-		not -o,
-		$flex-2012-ms,
-		not -khtml,
-		not -standard);
-		
-	@include experimental-value(display, $type,
-		not -moz,
-		$flex-webkit,
-		not -o,
-		$flex-ms,
-		not -khtml,
-		$flex-official and not $wrap);
+	@include experimental-value(display, flex-translate-value($type, flexbox), $flexbox-support...);
 	
-	@if $flex-official and $wrap {
+	$flex-support-standard: true;
+	$flex-support-local: $flex-support;
+	@if length($flex-support) < 6 {
+		$flex-support-local: append($flex-support, not $wrap);
+	} @else {
+		$flex-support-standard: nth($flex-support, 6);
+	}
+	@include experimental-value(display, $type, $flex-support-local...);
+	
+	@if $wrap and $flex-support-standard {
 		@supports (flex-wrap: wrap) {
 			display: $type;
 		}
@@ -147,13 +104,7 @@ $flex-2009-moz   : true  !default;
 }
 
 @mixin legacy-display-flex($type: flex) {
-	@include experimental-value(display, flex-translate-value($type, 2009),
-		$flex-2009-moz,
-		$flex-2009-webkit,
-		not -o,
-		not -ms,
-		not -khtml,
-		not standard);
+	@include experimental-value(display, flex-translate-value($type, box), $box-support...);
 }
 
 // ====================================================================================================
@@ -166,11 +117,11 @@ $flex-2009-moz   : true  !default;
 		@include legacy-flex-flow($value);
 	}
 	
-	@include flex-modern(flex-flow, $value);
+	@include experimental(flex-flow, $value, flex-support-shared()...);
 }
 
 @mixin legacy-flex-flow($value: row nowrap) {
-	@if length($value) > 1 { // 2009 version doesn't have a shorthand
+	@if length($value) > 1 { // @box version doesn't have a shorthand
 		@include legacy-flex-direction(nth($value, 1));
 		@include legacy-flex-wrap(nth($value, 2));
 	} @else {
@@ -191,13 +142,13 @@ $flex-2009-moz   : true  !default;
 		@include legacy-flex-direction($value);
 	}
 	
-	@include flex-modern(flex-direction, $value);
+	@include experimental(flex-direction, $value, flex-support-shared()...);
 }
 
 @mixin legacy-flex-direction($value: row) {
 	$value: unquote($value);
-	@include flex-2009(box-orient, if($value == row or $value == row-reverse, horizontal, vertical));
-	@include flex-2009(box-direction, if($value == row-reverse or $value == column-reverse, reverse, normal));
+	@include experimental(box-orient, if($value == row or $value == row-reverse, horizontal, vertical), $box-support...);
+	@include experimental(box-direction, if($value == row-reverse or $value == column-reverse, reverse, normal), $box-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -208,12 +159,12 @@ $flex-2009-moz   : true  !default;
 		@include legacy-flex-wrap($value);
 	}
 	
-	@include flex-modern(flex-wrap, $value);
+	@include experimental(flex-wrap, $value, flex-support-shared()...);
 }
 
 @mixin legacy-flex-wrap($value: nowrap) {
-	// NOTE: 2009 has no equivalent of wrap-reverse
-	@include flex-2009(box-lines, if($value == nowrap, single, multiple));
+	// NOTE: @box has no equivalent of wrap-reverse
+	@include experimental(box-lines, if($value == nowrap, single, multiple), $box-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -225,12 +176,12 @@ $flex-2009-moz   : true  !default;
 		@include legacy-justify-content($value);
 	}
 	
-	@include flex-2012(flex-pack, flex-translate-value($value, 2012));
-	@include flex-standard(justify-content, $value);
+	@include experimental(flex-pack, flex-translate-value($value, flexbox), $flexbox-support);
+	@include experimental(justify-content, $value, $flex-support...);
 }
 
 @mixin legacy-justify-content($value: flex-start) {
-	@include flex-2009(box-pack, flex-translate-value($value, 2009));
+	@include experimental(box-pack, flex-translate-value($value, box), $box-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -242,12 +193,12 @@ $flex-2009-moz   : true  !default;
 		@include legacy-align-content($value);
 	}
 	
-	@include flex-2012(flex-line-pack, flex-translate-value($value, 2012));
-	@include flex-standard(align-content, $value);
+	@include experimental(flex-line-pack, flex-translate-value($value, flexbox), $flexbox-support...);
+	@include experimental(align-content, $value, $flex-support...);
 }
 
 @mixin legacy-align-content($value: flex-start) {
-	@include flex-2009(box-align, flex-translate-value($value, 2009));
+	@include experimental(box-align, flex-translate-value($value, box), $box-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -255,9 +206,9 @@ $flex-2009-moz   : true  !default;
 // Align items along the "cross axis"
 // $value: flex-start | flex-end | center | baseline | stretch
 @mixin align-items($value: stretch) { // the flex container
-	// There is no 2009 version of this property
-	@include flex-2012(flex-align, flex-translate-value($value, 2012));
-	@include flex-standard(align-items, $value);
+	// There is no @box version of this property
+	@include experimental(flex-align, flex-translate-value($value, flexbox), $flexbox-support...);
+	@include experimental(align-items, $value, $flex-support...);
 }
 
 // ====================================================================================================
@@ -268,11 +219,11 @@ $flex-2009-moz   : true  !default;
 @mixin flex($value: 0 1 auto, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
 	$value: unquote($value);
 	@if $legacy and unitless(nth($value, 1)) {
-		// 2009 version does not have a shorthand, see `legacy-flex-grow`
+		// @box version does not have a shorthand, see `legacy-flex-grow`
 		@include legacy-flex-grow(nth($value, 1));
 	}
 	
-	@include flex-modern(flex, $value);
+	@include experimental(flex, $value, flex-support-shared()...);
 }
 
 // ----------------------------------------------------------------------
@@ -283,30 +234,30 @@ $flex-2009-moz   : true  !default;
 		@include legacy-flex-grow($value);
 	}
 	
-	// There is no 2012 version of this property
-	@include flex-standard(flex-grow, $value);
+	// There is no @flexbox version of this property
+	@include experimental(flex-grow, $value, $flex-support...);
 }
 
 @mixin legacy-flex-grow($value: 0) {
-	@include flex-2009(box-flex, $value);
+	@include experimental(box-flex, $value, $box-support...);
 }
 
 // ----------------------------------------------------------------------
 
 // $value: Integer
 @mixin flex-shrink($value: 1) {
-	// There is no 2009 version of this property
-	// There is no 2012 version of this property
-	@include flex-standard(flex-shrink, $value);
+	// There is no @box version of this property
+	// There is no @flexbox version of this property
+	@include experimental(flex-shrink, $value, $flex-support...);
 }
 
 // ----------------------------------------------------------------------
 
 // $value: united number (eg: 100px)
 @mixin flex-basis($value: auto) {
-	// There is no 2009 version of this property
-	// There is no 2012 version of this property
-	@include flex-standard(flex-basis, $value);
+	// There is no @box version of this property
+	// There is no @flexbox version of this property
+	@include experimental(flex-basis, $value, $flex-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -314,9 +265,9 @@ $flex-2009-moz   : true  !default;
 // Align items along the "cross axis" -- overrides `align-items` value on individual items
 // $value: auto | flex-start | flex-end | center | baseline | stretch
 @mixin align-self($value: auto) { // children of flex containers
-	// There is no 2009 version of this property
-	@include flex-2012(flex-item-align, flex-translate-value($value, 2012));
-	@include flex-standard(align-self, $value);
+	// There is no @box version of this property
+	@include experimental(flex-item-align, flex-translate-value($value, flexbox), $flexbox-support...);
+	@include experimental(align-self, $value, $flex-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -327,11 +278,11 @@ $flex-2009-moz   : true  !default;
 		@include legacy-order($value);
 	}
 	
-	@include flex-2012(flex-order, $value);
-	@include flex-standard(order, $value);
+	@include experimental(flex-order, $value, $flexbox-support...);
+	@include experimental(order, $value, $flex-support...);
 }
 
 @mixin legacy-order($value: 0) {
-	// the 2009 spec starts the ordering at 1 instead of 0 like the modern specs
-	@include flex-2009(box-ordinal-group, $value + 1);
+	// the @box spec starts the ordering at 1 instead of 0 like the modern specs
+	@include experimental(box-ordinal-group, $value + 1, $box-support...);
 }
