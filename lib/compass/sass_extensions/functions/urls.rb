@@ -247,7 +247,7 @@ module Compass::SassExtensions::Functions::Urls
     if Compass.configuration.asset_cache_buster
       args = [path]
       if Compass.configuration.asset_cache_buster.arity > 1
-        args << (File.new(real_path) if real_path)
+        args << real_path
       end
       Compass.configuration.asset_cache_buster.call(*args)
     elsif real_path
