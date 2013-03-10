@@ -7,17 +7,8 @@
 // `box-ordinal-group` property begins indexing at 1, while the modern `order` property begins
 // indexing at 0.
 
-// if `true`, the @box properties will be emitted as part of the normal mixin call
-// (if this is false, you're still free to explicitly call the legacy mixins yourself)
-$flex-legacy-enabled: false !default;
+// ---------------------------------------------------------------------- | @flex
 
-// if `true`, `$flex-legacy-enabled` is treated as false and an `@supports` block is added to 
-// the display property to hide the standard value from versions of Firefox that support the
-// unprefixed properties, but do not support wrapping
-// (this includes suppressing the automatic emittion of @box properties)
-$flex-wrap-required : false !default;
-
-// @flex
 // September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
 // NOTE: FF did not support wrapping until version ??.  Because the `display: flex` property
 // is wrapped in a `@supports (flex-wrap: wrap)` block (when $flex-wrap-required or the $wrap
@@ -28,19 +19,31 @@ $flex-wrap-required : false !default;
 // Firefox 20 (unprefixed)
 $flex-support: -webkit, not -moz, not -ms, not -o, not -khtml !default;
 
-// @flexbox
+// if `true`, `$flex-legacy-enabled` is treated as false and an `@supports` block is added to 
+// the display property to hide the standard value from versions of Firefox that support the
+// unprefixed properties, but do not support wrapping
+// (this includes suppressing the automatic emittion of @box properties)
+$flex-wrap-required : false !default;
+
+// ---------------------------------------------------------------------- | @flexbox
+
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
 // Chrome 17 (prefixed)
 // Internet Explorer 10 (prefixed)
 $flexbox-support: -webkit, not -moz, -ms, not -o, not -khtml, not standard !default;
 
-// @box
+// ---------------------------------------------------------------------- | @box
+
 // July 2009 Working Draft (http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/)
 // NOTE: no browser that implements this spec is known to support `box-lines: multiple`
 // Chrome 4? (prefixed)
 // Safari 3.1 (prefixed)
 // Firefox <20 (prefixed)
 $box-support: -webkit, -moz, not -ms, not -o, not -khtml, not standard !default;
+
+// If `true`, the @box properties will be emitted as part of the normal mixin call
+// (if this is false, you're still free to explicitly call the legacy mixins yourself)
+$flex-legacy-enabled: false !default;
 
 // ====================================================================================================
 //                                                                       | Common
