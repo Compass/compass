@@ -24,7 +24,7 @@ module Compass
           if ActionPack::VERSION::MAJOR >= 3
             require 'rails/generators'
             require 'rails/generators/rails/app/app_generator'
-            require 'mocha'
+            require 'mocha/setup'
             dir ||= File.join(File.expand_path('../../', __FILE__))
             args = [File.join(dir, name), '-q', '-f', '--skip-bundle', '--skip-gemfile']
             
