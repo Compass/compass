@@ -39,12 +39,6 @@ module Compass
         define_method "test_#{underscore(name)}".to_sym, &block
       end
 
-      def setup(&block)
-        define_method :setup do
-          yield
-        end
-      end
-
       def after(&block)
         define_method :teardown do
           yield
