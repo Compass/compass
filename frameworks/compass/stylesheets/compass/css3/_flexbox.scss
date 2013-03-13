@@ -17,7 +17,7 @@
 // Chrome 21 (prefixed)
 // Opera 12.1 (unprefixed)
 // Firefox 20 (unprefixed)
-$flex-support: -webkit, not -moz, not -ms, not -o, not -khtml !default;
+$flex-support: not -moz, -webkit, not -ms, not -o, not -khtml !default;
 
 // if `true`, `$flex-legacy-enabled` is treated as false and an `@supports` block is added to 
 // the display property to hide the standard value from versions of Firefox that support the
@@ -30,7 +30,7 @@ $flex-wrap-required : false !default;
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
 // Chrome 17 (prefixed)
 // Internet Explorer 10 (prefixed)
-$flexbox-support: -webkit, not -moz, -ms, not -o, not -khtml, not standard !default;
+$flexbox-support: not -moz, -webkit, -ms, not -o, not -khtml, not standard !default;
 
 // ---------------------------------------------------------------------- | @box
 
@@ -39,7 +39,7 @@ $flexbox-support: -webkit, not -moz, -ms, not -o, not -khtml, not standard !defa
 // Chrome 4? (prefixed)
 // Safari 3.1 (prefixed)
 // Firefox <20 (prefixed)
-$box-support: -webkit, -moz, not -ms, not -o, not -khtml, not standard !default;
+$box-support: -moz, -webkit, not -ms, not -o, not -khtml, not standard !default;
 
 // If `true`, the @box properties will be emitted as part of the normal mixin call
 // (if this is false, you're still free to explicitly call the legacy mixins yourself)
@@ -123,7 +123,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-flow($value);
 	}
 	
-	@include experimental(flex-flow, $value, flex-support-shared()...);
+	@include experimental(flex-flow, $value, flex-support-common()...);
 }
 
 @mixin legacy-flex-flow($value: row nowrap) {
@@ -148,7 +148,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-direction($value);
 	}
 	
-	@include experimental(flex-direction, $value, flex-support-shared()...);
+	@include experimental(flex-direction, $value, flex-support-common()...);
 }
 
 @mixin legacy-flex-direction($value: row) {
@@ -165,7 +165,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-wrap($value);
 	}
 	
-	@include experimental(flex-wrap, $value, flex-support-shared()...);
+	@include experimental(flex-wrap, $value, flex-support-common()...);
 }
 
 @mixin legacy-flex-wrap($value: nowrap) {
@@ -229,7 +229,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-grow(nth($value, 1));
 	}
 	
-	@include experimental(flex, $value, flex-support-shared()...);
+	@include experimental(flex, $value, flex-support-common()...);
 }
 
 // ----------------------------------------------------------------------
