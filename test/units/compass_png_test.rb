@@ -22,7 +22,7 @@ class CompassPngTest < Test::Unit::TestCase
     header_data = "\000\000\000\n\000\000\000\n\b\006\000\000\000"
     header_length = "\000\000\000\r"
 
-    header_chunk = "#{header_length}IHDR#{header_data}#{header_crc}"
+    header_chunk = "#{header_length}IHDR#{header_data}#{header_crc}".force_encoding('BINARY')
 
     assert_equal header_chunk, chunk
   end
