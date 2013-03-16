@@ -70,10 +70,10 @@ $flex-legacy-enabled: false !default;
 	@return $value;
 }
 
-@function flex-support-common() {
+@function flex-support-either() {
 	$common: ();
 	@for $i from 1 through length($flex-support) {
-		$common: append($common, nth($flex-support, $i) or nth($flexbox-support, $i));
+		$common: append($common, nth($flex-support, $i) or nth($flexbox-support, $i), comma);
 	}
 	@return $common;
 }
@@ -123,7 +123,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-flow($value);
 	}
 	
-	@include experimental(flex-flow, $value, flex-support-common()...);
+	@include experimental(flex-flow, $value, flex-support-either()...);
 }
 
 @mixin legacy-flex-flow($value: row nowrap) {
@@ -148,7 +148,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-direction($value);
 	}
 	
-	@include experimental(flex-direction, $value, flex-support-common()...);
+	@include experimental(flex-direction, $value, flex-support-either()...);
 }
 
 @mixin legacy-flex-direction($value: row) {
@@ -165,7 +165,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-wrap($value);
 	}
 	
-	@include experimental(flex-wrap, $value, flex-support-common()...);
+	@include experimental(flex-wrap, $value, flex-support-either()...);
 }
 
 @mixin legacy-flex-wrap($value: nowrap) {
@@ -229,7 +229,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-grow(nth($value, 1));
 	}
 	
-	@include experimental(flex, $value, flex-support-common()...);
+	@include experimental(flex, $value, flex-support-either()...);
 }
 
 // ----------------------------------------------------------------------
