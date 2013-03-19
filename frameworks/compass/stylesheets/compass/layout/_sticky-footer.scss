@@ -6,7 +6,7 @@
 //
 // Footer must be a fixed height.
 
-@mixin sticky-footer($footer-height, $root-selector: unquote("#root"), $root-footer-selector: unquote("#root_footer"), $footer-selector: unquote("#footer")) {
+@mixin sticky-footer($footer-height, $root-selector: unquote("#root"), $root-footer-selector: unquote("#root_footer"), $footer-selector: unquote("#footer"), $full-height-selctor: unquote(".full-height")) {
   html, body {
     height: 100%; }
   #{$root-selector} {
@@ -15,6 +15,13 @@
     height: auto !important;
     height: 100%;
     margin-bottom: -$footer-height;
+    #{$full-height-selector} {
+      min-height: -moz-calc( 100% - #{$footer-height}) )
+      min-height: -o-calc( 100% - #{$footer-height}) )
+      min-height: -webkit-calc( 100% - #{$footer-height}) )
+      min-height: calc( 100% - #{$footer-height}) )
+      position: absolute
+    }
     #{$root-footer-selector} {
       height: $footer-height; } }
   #{$footer-selector} {
