@@ -49,6 +49,7 @@ $userselect-support: not -moz, -webkit, -ms, not -o, -khtml;
   }
   @if $experimental-support-for-mozilla {
     #{$selector}:-moz-placeholder { @content; }
+    #{$selector}::-moz-placeholder { @content; }
   }
   @if $experimental-support-for-microsoft {
     #{$selector}:-ms-input-placeholder { @content; }
