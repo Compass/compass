@@ -189,26 +189,7 @@ Feature: Command Line
     And I touch sass/layout.sass
     And I wait 2 seconds
     And I shutdown the other process
-    Then a css file tmp/layout.css is reported identical
-
-  Scenario: Generating a grid image so that I can debug my grid alignments
-    Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass grid-img 30+10x24
-    Then a png file images/grid.png is created
-    And the image images/grid.png has a size of 40x24
-
-  Scenario: Generating a grid image to a specified path with custom dimensions
-    Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass grid-img 50+10x24 assets/wide_grid.png
-    Then a directory assets is created
-    Then a png file assets/wide_grid.png is created
-    And the image assets/wide_grid.png has a size of 60x24
-
-  Scenario: Generating a grid image with invalid dimensions
-    Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass grid-img 50x24 assets/wide_grid.png
-    Then a directory assets is not created
-    And a png file assets/wide_grid.png is not created
+    Then a css file tmp/layout.css is reported identical\
 
   Scenario: Generate a compass configuration file
     Given I should clean up the directory: config
