@@ -26,7 +26,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CORE] Fixed an issue where directory globbing didn't work correctly on windows.
 * [CSS3] Update selection mixin for flexibility and consistency.
 * [CSS3] Fix a bug in gradients that used the currentColor keyword
-* [CSS3] Removed the -ms prefix support from keyfrome animation, the spec was approved before MS released IE10.
+* [CSS3] Removed the -ms prefix support from keyframe animation, the spec was approved before MS released IE10.
 * [CSS3] Improve flexibility of input-placeholder mixin so it can be used at the root of the stylesheet or with an argument for use with a selector.
 * [CSS3] Deprecate `column-break-[before | after | inside]` mixins, in favor of the official `break-[before | after | inside]` syntax.
 * [DOCUMENTATION] Change `log` to `logarithm` in the docs.
