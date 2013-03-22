@@ -132,7 +132,6 @@ Feature: Command Line
       | config      |
       | extension   |
       | frameworks  |
-      | grid-img    |
       | help        |
       | imports     |
       | install     |
