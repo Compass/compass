@@ -17,6 +17,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 -------------------------
 * [CORE] Removed png grid generator in favor of the css3 grid mixin.
 
+* [CSS3] All browser-support functions and mixins use same `-moz, -webkit, -ms, -o, -khtml, official` order. This is a change to `experimental()`, `experimental-only-for()`, and `experimental-value()`, which had `-o` listed before `-ms`.
+
 0.13.alpha.2 (02/07/2012)
 -------------------------
 
@@ -28,6 +30,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CSS3] Fix a bug in gradients that used the currentColor keyword
 * [CSS3] Removed the -ms prefix support from keyframe animation, the spec was approved before MS released IE10.
 * [CSS3] Improve flexibility of input-placeholder mixin so it can be used at the root of the stylesheet or with an argument for use with a selector.
+* [CSS3] Improve browser-support handling, make it easier to update quickly.
+* [CSS3] Use Sass listargs wherever multiple values are accepted.
 * [CSS3] Deprecate `column-break-[before | after | inside]` mixins, in favor of the official `break-[before | after | inside]` syntax.
 * [DOCUMENTATION] Change `log` to `logarithm` in the docs.
 * [SPRITES] Added `sprite-width` and `sprite-height` helper functions.

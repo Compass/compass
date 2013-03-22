@@ -1,17 +1,15 @@
-// User Interface ------------------------------------------------------------
+// User Interface
 // This file can be expanded to handle all the user interface properties as
 // they become available in browsers:
 // http://www.w3.org/TR/2000/WD-css3-userint-20000216
+
 @import "shared";
 
-// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml
+// representing in order: -moz, -webkit, -ms, -o, -khtml
 //   - mozilla support handled seperately below
-$userselect-support: not -moz, -webkit, not -o, -ms, -khtml;
+$userselect-support: not -moz, -webkit, -ms, not -o, -khtml;
 
-// ----------------------------------------------------------------------------
-// Mixins
 
 // This property controls the selection model and granularity of an element.
 //

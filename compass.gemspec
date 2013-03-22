@@ -10,9 +10,7 @@ Gem::Specification.new do |gemspec|
   gemspec.homepage = "http://compass-style.org"
   gemspec.authors = ["Chris Eppstein", "Scott Davis", "Eric A. Meyer", "Brandon Mathis", "Anthony Short", "Nico Hagenburger"]
   gemspec.email = "chris@eppsteins.net"
-  #gemspec.default_executable = "compass" #deprecated
   gemspec.executables = %w(compass)
-  #gemspec.has_rdoc = false #deprecated
   gemspec.require_paths = %w(lib)
   gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}

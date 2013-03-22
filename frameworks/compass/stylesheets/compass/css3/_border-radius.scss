@@ -1,18 +1,15 @@
+// Border Radius
+
 @import "shared";
 
-// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml
-$border-radius-support: not -moz, not -webkit, not -o, not -ms, -khtml;
+// representing in order: -moz, -webkit, -ms, -o, -khtml
+$border-radius-support: not -moz, not -webkit, not -ms, not -o, -khtml;
 
-// ----------------------------------------------------------------------------
-// Default
 
 // The length of a border-radius to be used by default.
 $default-border-radius: 5px !default;
 
-// ----------------------------------------------------------------------------
-// Mixins
 
 // Round all corners by a specific amount, defaults to value of `$default-border-radius`.
 //

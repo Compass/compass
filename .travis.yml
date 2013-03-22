@@ -7,4 +7,5 @@ rvm:
   - rbx
   - ree
   - 2.0.0
-script: "bundle exec rake test features"
+
+script: "bundle exec rake"

@@ -1,12 +1,11 @@
+// Columns
+
 @import "shared";
 
-// ----------------------------------------------------------------------------
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml
-$multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
+// representing in order: -moz, -webkit, -ms, -o, -khtml
+$multicolumn-support: -moz, -webkit, not -ms, not -o, not -khtml;
 
-// ----------------------------------------------------------------------------
-// Mixins
 
 // Specify the shorthand `columns` property.
 //
@@ -125,7 +124,7 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 
 @mixin column-break-before($value: auto){
   @include column-break(before, $value);
-  @warn '"column-break-before" has been deprecated in favor of the official syntax: "break-before".'
+  @warn '"column-break-before" has been deprecated in favor of the official syntax: "break-before".';
 }
 
 // Mixin for setting break-after
@@ -146,7 +145,7 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 
 @mixin column-break-after($value: auto){
   @include column-break(after, $value);
-  @warn '"column-break-after" has been deprecated in favor of the official syntax: "break-after".'
+  @warn '"column-break-after" has been deprecated in favor of the official syntax: "break-after".';
 }
 
 // Mixin for setting break-inside
@@ -167,7 +166,7 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 
 @mixin column-break-inside($value: auto){
   @include column-break(inside, $value);
-  @warn '"column-break-inside" has been deprecated in favor of the official syntax: "break-inside".'
+  @warn '"column-break-inside" has been deprecated in favor of the official syntax: "break-inside".';
 }
 
 // Mixin for setting column-span
