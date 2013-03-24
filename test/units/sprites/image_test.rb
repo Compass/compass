@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'mocha'
+require 'mocha/setup'
 require 'ostruct'
 
 class SpritesImageTest < Test::Unit::TestCase
