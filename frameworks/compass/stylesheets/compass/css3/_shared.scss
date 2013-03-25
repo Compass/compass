@@ -3,21 +3,53 @@
 // This mixin provides basic support for CSS3 properties and
 // their corresponding experimental CSS2 properties when
 // the implementations are identical except for the property
-// prefix.
+// prefix. Each vendor argument takes either a single boolean
+// for prefix-property, or two space separated booleans for
+// prefix-property and prefix-value respectively.
 @mixin experimental($property, $value,
   $moz      : $experimental-support-for-mozilla,
   $webkit   : $experimental-support-for-webkit,
   $ms       : $experimental-support-for-microsoft,
   $o        : $experimental-support-for-opera,
   $khtml    : $experimental-support-for-khtml,
-  $official : true
-) {
-  @if $webkit  and $experimental-support-for-webkit    { -webkit-#{$property} : $value; }
-  @if $khtml   and $experimental-support-for-khtml     {  -khtml-#{$property} : $value; }
-  @if $moz     and $experimental-support-for-mozilla   {    -moz-#{$property} : $value; }
-  @if $ms      and $experimental-support-for-microsoft {     -ms-#{$property} : $value; }
-  @if $o       and $experimental-support-for-opera     {      -o-#{$property} : $value; }
-  @if $official                                        {         #{$property} : $value; }
+  $official : true) {
+
+  $no-prefix: '';
+
+  @if $webkit and $experimental-support-for-webkit    {
+    $prefix: '-webkit-';
+    $property-prefix: if(nth($webkit, 1), $prefix, $no-prefix);
+    $value-prefix:    if(length($webkit) == 2 and nth($webkit,  2), $prefix,  $no-prefix);
+    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  }
+
+  @if $khtml  and $experimental-support-for-khtml     {
+    $prefix: '-khtml-';
+    $property-prefix: if(nth($khtml, 1), $prefix, $no-prefix);
+    $value-prefix:    if(length($khtml) == 2 and nth($khtml,  2), $prefix,  $no-prefix);
+    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  }
+  @if $moz    and $experimental-support-for-mozilla   {
+    $prefix: '-moz-';
+    $property-prefix: if(nth($moz, 1), $prefix, $no-prefix);
+    $value-prefix:    if(length($moz) == 2 and nth($moz,  2), $prefix,  $no-prefix);
+    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  }
+  @if $ms     and $experimental-support-for-microsoft {
+    $prefix: '-ms-';
+    $property-prefix: if(nth($ms, 1), $prefix, $no-prefix);
+    $value-prefix:    if(length($ms) == 2 and nth($ms,  2), $prefix,  $no-prefix);
+    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  }
+  @if $o      and $experimental-support-for-opera     {
+    $prefix: '-o-';
+    $property-prefix: if(nth($o, 1), $prefix, $no-prefix);
+    $value-prefix:    if(length($o) == 2 and nth($o,  2), $prefix,  $no-prefix);
+    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  }
+  @if $official                                   {
+    #{$no-prefix}#{$property} : #{$no-prefix}#{$value};
+  }
 }
 
 // This mixin is a shortcut for applying only a single experimental value
