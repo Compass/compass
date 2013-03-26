@@ -8,7 +8,6 @@
   $mult-bgs: -compass-list-size($backgrounds) > 1;
   $add-pie-bg: prefixed(-pie,   $backgrounds) or $mult-bgs;
   @if $experimental-support-for-svg          and prefixed(-svg,    $backgrounds) {      background:    -svg($backgrounds); }
-  @if $support-for-original-webkit-gradients and prefixed(-owg,    $backgrounds) {      background:    -owg($backgrounds); }
   @if $experimental-support-for-webkit       and prefixed(-webkit, $backgrounds) {      background: -webkit($backgrounds); }
   @if $experimental-support-for-mozilla      and prefixed(-moz,    $backgrounds) {      background:    -moz($backgrounds); }
   @if $experimental-support-for-opera        and prefixed(-o,      $backgrounds) {      background:      -o($backgrounds); }
@@ -33,7 +32,6 @@
   $add-pie-bg: prefixed(-pie,   $images) or -compass-list-size($images) > 1;
 
   @if $experimental-support-for-svg          and prefixed(-svg,    $images) { background-image:    -svg($images); background-size: 100%; }
-  @if $support-for-original-webkit-gradients and prefixed(-owg,    $images) { background-image:    -owg($images); }
   @if $experimental-support-for-webkit       and prefixed(-webkit, $images) { background-image: -webkit($images); }
   @if $experimental-support-for-mozilla      and prefixed(-moz,    $images) { background-image:    -moz($images); }
   @if $experimental-support-for-opera        and prefixed(-o,      $images) { background-image:      -o($images); }
@@ -65,7 +63,6 @@
   $value
 ) {
   @if $experimental-support-for-mozilla      {    -moz-border-image:    -moz(reject(-compass-list($value), fill)); }
-  @if $support-for-original-webkit-gradients { -webkit-border-image:    -owg(reject(-compass-list($value), fill)); }
   @if $experimental-support-for-webkit       { -webkit-border-image: -webkit(reject(-compass-list($value), fill)); }
   @if $experimental-support-for-opera        {      -o-border-image:      -o(reject(-compass-list($value), fill)); }
   @if $experimental-support-for-svg          {         border-image:    -svg(reject(-compass-list($value), fill)); }
@@ -77,7 +74,6 @@
   $image
 ) {
   @if $experimental-support-for-mozilla      and prefixed(-moz,    $image) { list-style-image:    -moz($image); }
-  @if $support-for-original-webkit-gradients and prefixed(-owg,    $image) { list-style-image:    -owg($image); }
   @if $experimental-support-for-webkit       and prefixed(-webkit, $image) { list-style-image: -webkit($image); }
   @if $experimental-support-for-opera        and prefixed(-o,      $image) { list-style-image:      -o($image); }
   @if $experimental-support-for-svg          and prefixed(-svg,    $image) { list-style-image:    -svg($image); }
@@ -90,7 +86,6 @@
 ) {
   $value: -compass-list($value);
   @if $experimental-support-for-mozilla      and prefixed(-moz,    $value) { list-style-image:    -moz($value); }
-  @if $support-for-original-webkit-gradients and prefixed(-owg,    $value) { list-style-image:    -owg($value); }
   @if $experimental-support-for-webkit       and prefixed(-webkit, $value) { list-style-image: -webkit($value); }
   @if $experimental-support-for-opera        and prefixed(-o,      $value) { list-style-image:      -o($value); }
   @if $experimental-support-for-svg          and prefixed(-svg,    $value) { list-style-image:    -svg($value); }
@@ -103,9 +98,26 @@
 ) {
   $value: -compass-list($value);
   @if $experimental-support-for-mozilla      and prefixed(-moz,    $value) { content:    -moz($value); }
-  @if $support-for-original-webkit-gradients and prefixed(-owg,    $value) { content:    -owg($value); }
   @if $experimental-support-for-webkit       and prefixed(-webkit, $value) { content: -webkit($value); }
   @if $experimental-support-for-opera        and prefixed(-o,      $value) { content:      -o($value); }
   @if $experimental-support-for-svg          and prefixed(-svg,    $value) { content:    -svg($value); }
                                                                              content:         $value ;
 }
+
+$use-legacy-gradient-syntax: false !default;
+
+@function linear-gradient($angle, $details...) {
+  $legacy-syntax: $use-legacy-gradient-syntax;
+
+  @if type-of($angle) != 'number' {
+    $angle: compact($angle);
+    $legacy-syntax: if(index($angle, 'to'), false, true);
+  }
+
+  @if $legacy-syntax {
+    @return _linear-gradient_legacy($angle, $details...);
+  } @else {
+    @return _linear-gradient($angle, $details...);
+  }
+}
+
