@@ -1,60 +1,108 @@
 @import "compass/support";
 
-// This mixin provides basic support for CSS3 properties and
-// their corresponding experimental CSS2 properties when
-// the implementations are identical except for the property
-// prefix. Each vendor argument takes either a single boolean
-// for prefix-property, or two space separated booleans for
-// prefix-property and prefix-value respectively.
+// Prefix any single value or value in a list that matches a value
+// in $prefixable-values. If $prefixable-values is 'true', prefix all
+// values.
+@function prefix-value($value, $prefix, $prefixable-values) {
+  // join() to allow index() on a single value.
+  // Remove when https://github.com/nex3/sass/issues/668 lands in stable.
+  $prefixable-values: join($prefixable-values, ());
+
+  // List values (e.g., 'transform 2s ease-in').
+  @if type-of($value) == 'list' {
+  $value-list: ();
+    @each $single-value in $value {
+      $value-list: append($value-list, prefix-value($single-value, $prefix, $prefixable-values));
+    }
+    @return $value-list;
+  }
+
+  // Single values (e.g., 'border-box')
+  @if index($prefixable-values, $value) or index($prefixable-values, true) {
+    @return #{$prefix}#{$value};
+  }
+  @return $value;
+}
+
+// This mixin provides basic support for CSS3 properties and their
+// corresponding experimental CSS2 properties when the implementations
+// are identical except for the property prefix. Vendor arguments take a
+// boolean, and vendor-value arguments take a list of values to be
+// prefixed, true for all, or false.
 @mixin experimental($property, $value,
-  $moz      : $experimental-support-for-mozilla,
-  $webkit   : $experimental-support-for-webkit,
-  $ms       : $experimental-support-for-microsoft,
-  $o        : $experimental-support-for-opera,
-  $khtml    : $experimental-support-for-khtml,
-  $official : true
+  $moz            : $experimental-support-for-mozilla,
+  $webkit         : $experimental-support-for-webkit,
+  $ms             : $experimental-support-for-microsoft,
+  $o              : $experimental-support-for-opera,
+  $khtml          : $experimental-support-for-khtml,
+  $moz-value      : false,
+  $webkit-value   : false,
+  $ms-value       : false,
+  $o-value        : false,
+  $khtml-value    : false,
+  $official       : true
   ) {
 
-  @if $webkit and $experimental-support-for-webkit    {
-    $property-prefix: if(nth($webkit, 1), '-webkit-', '');
-    $value-prefix:    if(length($webkit) == 2 and nth($webkit,  2), '-webkit-', '');
-    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  @if $experimental-support-for-webkit and ($webkit or $webkit-value) {
+    $prefix-property: if($webkit, -webkit-#{$property}, $property);
+    $prefix-value: prefix-value($value, '-webkit-', $webkit-value);
+
+    @if $prefix-property != $property or $prefix-value != $value {
+      #{$prefix-property} : #{$prefix-value};
+    }
   }
-  @if $khtml  and $experimental-support-for-khtml     {
-    $property-prefix: if(nth($khtml, 1), '-khtml-', '');
-    $value-prefix:    if(length($khtml) == 2 and nth($khtml,  2), '-khtml-', '');
-    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  @if $experimental-support-for-khtml and ($khtml or $khtml-value) {
+    $prefix-property: if($khtml, -khtml-#{$property}, $property);
+    $prefix-value: prefix-value($value, '-khtml-', $khtml-value);
+
+    @if $prefix-property != $property or $prefix-value != $value {
+      #{$prefix-property} : #{$prefix-value};
+    }
   }
-  @if $moz    and $experimental-support-for-mozilla   {
-    $property-prefix: if(nth($moz, 1), '-moz-', '');
-    $value-prefix:    if(length($moz) == 2 and nth($moz,  2), '-moz-', '');
-    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  @if $experimental-support-for-mozilla and ($moz or $moz-value) {
+    $prefix-property: if($moz, -moz-#{$property}, $property);
+    $prefix-value: prefix-value($value, '-moz-', $moz-value);
+
+    @if $prefix-property != $property or $prefix-value != $value {
+      #{$prefix-property} : #{$prefix-value};
+    }
   }
-  @if $ms     and $experimental-support-for-microsoft {
-    $property-prefix: if(nth($ms, 1), '-ms-', '');
-    $value-prefix:    if(length($ms) == 2 and nth($ms,  2), '-ms-', '');
-    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  @if $experimental-support-for-microsoft and ($ms or $ms-value) {
+    $prefix-property: if($ms, -ms-#{$property}, $property);
+    $prefix-value: prefix-value($value, '-ms-', $ms-value);
+
+    @if $prefix-property != $property or $prefix-value != $value {
+      #{$prefix-property} : #{$prefix-value};
+    }
   }
-  @if $o      and $experimental-support-for-opera     {
-    $property-prefix: if(nth($o, 1), '-o-', '');
-    $value-prefix:    if(length($o) == 2 and nth($o,  2), '-o-', '');
-    #{$property-prefix}#{$property} : #{$value-prefix}#{$value};
+  @if $experimental-support-for-opera and ($o or $o-value) {
+    $prefix-property: if($o, -o-#{$property}, $property);
+    $prefix-value: prefix-value($value, '-o-', $o-value);
+
+    @if $prefix-property != $property or $prefix-value != $value {
+      #{$prefix-property} : #{$prefix-value};
+    }
   }
-  @if $official                                       {
+  @if $official {
     #{$property} : #{$value};
   }
 }
 
 // This mixin is a shortcut for applying only a single experimental value
 @mixin experimental-only-for($property, $value,
-  $moz      : false,
-  $webkit   : false,
-  $ms       : false,
-  $o        : false,
-  $khtml    : false,
-  $official : false
+  $moz          : false,
+  $webkit       : false,
+  $ms           : false,
+  $o            : false,
+  $khtml        : false,
+  $moz-value    : false,
+  $webkit-value : false,
+  $ms-value     : false,
+  $o-value      : false,
+  $khtml-value  : false,
+  $official     : false
 ) {
-  @include experimental($property, $value, $moz, $webkit, $o, $ms, $khtml, $official);
+  @include experimental($property, $value, $moz, $webkit, $o, $ms, $khtml, $moz-value, $webkit-value, $ms-value, $o-value, $khtml-value, $official);
 }
 
 // Same as experimental(), but for cases when the property is the same and the value is vendorized
@@ -66,12 +114,19 @@
   $khtml    : $experimental-support-for-khtml,
   $official : true
 ) {
-  @if $webkit  and $experimental-support-for-webkit    { #{$property} : -webkit-#{$value}; }
-  @if $khtml   and $experimental-support-for-khtml     { #{$property} :  -khtml-#{$value}; }
-  @if $moz     and $experimental-support-for-mozilla   { #{$property} :    -moz-#{$value}; }
-  @if $ms      and $experimental-support-for-microsoft { #{$property} :     -ms-#{$value}; }
-  @if $o       and $experimental-support-for-opera     { #{$property} :      -o-#{$value}; }
-  @if $official                                        { #{$property} :         #{$value}; }
+  @include experimental (
+  $moz            : false,
+  $webkit         : false,
+  $ms             : false,
+  $o              : false,
+  $khtml          : false,
+  $moz-value      : $moz,
+  $webkit-value   : $webkit,
+  $ms-value       : $ms,
+  $o-value        : $o,
+  $khtml-value    : $khtml,
+  $official       : true
+  );
 }
 
 // A debug tool for checking browser support
