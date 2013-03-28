@@ -1,13 +1,9 @@
 @import "compass/support";
 
 // Prefix any single value or value in a list that matches a value
-// in $prefixable-values. If $prefixable-values is 'true', prefix all
-// values.
-@function prefix-value($value, $prefix, $prefixable-values) {
-  // join() to allow index() on a single value.
-  // Remove when https://github.com/nex3/sass/issues/668 lands in stable.
-  $prefixable-values: join($prefixable-values, ());
-
+// in $prefixable-values. If $prefixable-values is 'true' or -[vendor],
+// prefix all values.
+@function prefix-value($value, $prefix, $prefixable-values: true) {
   // List values (e.g., 'transform 2s ease-in').
   @if type-of($value) == 'list' {
   $value-list: ();
@@ -18,7 +14,9 @@
   }
 
   // Single values (e.g., 'border-box')
-  @if index($prefixable-values, $value) or index($prefixable-values, true) {
+  // join() to allow index() on a single value.
+  // Remove when https://github.com/nex3/sass/issues/668 lands in stable.
+  @if index(join($prefixable-values, ()), $value) or index('-webkit' '-khtml' '-moz' '-ms' '-o' true, $prefixable-values) {
     @return #{$prefix}#{$value};
   }
   @return $value;
@@ -26,9 +24,10 @@
 
 // This mixin provides basic support for CSS3 properties and their
 // corresponding experimental CSS2 properties when the implementations
-// are identical except for the property prefix. Vendor arguments take a
-// boolean, and vendor-value arguments take a list of values to be
-// prefixed, true for all, or false.
+// are identical except for a property or value prefix. Vendor-property
+// arguments take a boolean; vendor-value arguments take true or a
+// vendor prefix to prefix all values, a list of values to be prefixed,
+// or false.
 @mixin experimental($property, $value,
   $moz            : $experimental-support-for-mozilla,
   $webkit         : $experimental-support-for-webkit,
