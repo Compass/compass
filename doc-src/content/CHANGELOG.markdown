@@ -19,6 +19,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 0.13.alpha.3 (3/29/2013)
 -------------------------
+* [RUBY] Updated for ruby 2.0
 * [CORE] Removed png grid generator in favor of the css3 grid mixin.
 * [CSS3] All browser-support functions and mixins use same `-moz, -webkit, -ms, -o, -khtml, official` order. This is a change to `experimental()`, `experimental-only-for()`, and `experimental-value()`, which had `-o` listed before `-ms`.
 * [SPRITES] Removed old sprite_image function.
