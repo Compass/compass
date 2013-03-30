@@ -444,14 +444,7 @@ class SpritesTest < Test::Unit::TestCase
         }
       SCSS
     end
-    assert_raise(Sass::SyntaxError) do
-      css = render <<-SCSS
-        .squares {
-          background-image: sprite-image("squares/twenty-by-twenty.png");
-          background-repeat: no-repeat;
-        }
-      SCSS
-    end
+    
     assert_raise(Sass::SyntaxError) do
       css = render <<-SCSS
         @import "squares/*.png";
