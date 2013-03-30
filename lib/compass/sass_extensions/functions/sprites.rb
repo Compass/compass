@@ -14,11 +14,7 @@ module Compass::SassExtensions::Functions::Sprites
   # Returns the width of the generated sprite map
   def sprite_width(map, sprite=nil)
     verify_map(map, 'sprite-width')
-    file = if sprite
-      map.image_for(sprite).file
-    else
-      map.filename
-    end
+    file = get_sprite_file(map, sprite)
     width, _ = image_dimensions(file)
     Sass::Script::Number.new(width, ["px"])
   end
@@ -28,11 +24,7 @@ module Compass::SassExtensions::Functions::Sprites
   # Returns the height of the generated sprite map
   def sprite_height(map, sprite=nil)
     verify_map(map, 'sprite-height')
-    file = if sprite
-      map.image_for(sprite).file
-    else
-      map.filename
-    end
+    file = get_sprite_file(map, sprite)
     _, height = image_dimensions(file)
     Sass::Script::Number.new(height, ["px"])
   end
@@ -239,6 +231,14 @@ module Compass::SassExtensions::Functions::Sprites
   end
 
 protected
+
+  def get_sprite_file(map, sprite=nil)
+    if sprite
+      map.image_for(sprite).file
+    else
+      map.filename
+    end
+  end
 
   def reversed_color_names
     if Sass::Script::Color.const_defined?(:HTML4_COLORS_REVERSE)
