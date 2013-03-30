@@ -17,10 +17,10 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.13.alpha.0.dc743e8)
+    compass (0.13.alpha.3.fe13089)
       chunky_png (~> 1.2)
-      listen (~> 0.5.3)
-      sass (~> 3.2.0.alpha.93)
+      listen (<= 0.9.9)
+      sass (~> 3.2.5)
 
 GEM
   remote: http://rubygems.org/
@@ -29,7 +29,7 @@ GEM
     adsf (1.1.1)
       rack (>= 1.0.0)
     builder (3.1.4)
-    chunky_png (1.2.6)
+    chunky_png (1.2.7)
     coderay (1.0.8)
     colored (1.2)
     compass-susy-plugin (0.7.0)
@@ -47,7 +47,7 @@ GEM
     haml (3.1.7)
     i18n (0.6.1)
     json (1.7.5)
-    listen (0.5.3)
+    listen (0.7.3)
     mime-types (1.19)
     nokogiri (1.5.5)
     rack (1.4.1)
@@ -57,7 +57,7 @@ GEM
       ffi (>= 0.5.0)
     rdiscount (1.6.8)
     ruby-prof (0.11.2)
-    sass (3.2.1)
+    sass (3.2.7)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)

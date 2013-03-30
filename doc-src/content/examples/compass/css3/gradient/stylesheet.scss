@@ -22,7 +22,7 @@
 
 // This yields a linear gradient spanning from the upper left corner to the lower right corner
 #linear-gradient {
-  @include background-image(linear-gradient(left top, white, #dddddd));
+  @include background-image(linear-gradient(to bottom right, white, #dddddd));
 }
 
 // This yields a gradient starting at the top with #fff, ending in #aaa
@@ -42,12 +42,12 @@
 
 // This yields a horizontal linear gradient spanning from left to right.
 #h-gradient {
-  @include background-image(linear-gradient(left, white, #dddddd));
+  @include background-image(linear-gradient(to right, white, #dddddd));
 }
 
 #svg-gradient {
   $experimental-support-for-svg: true;
-  @include background-image(linear-gradient(left, #2ac363, #cd8c14, #9c4cc2));
+  @include background-image(linear-gradient(to right, #2ac363, #cd8c14, #9c4cc2));
   width: 80px;
   height: 80px;
 }
