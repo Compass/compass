@@ -182,7 +182,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-justify-content($value);
 	}
 	
-	@include experimental(flex-pack, flex-translate-value($value, flexbox), $flexbox-support);
+	@include experimental(flex-pack, flex-translate-value($value, flexbox), $flexbox-support...);
 	@include experimental(justify-content, $value, $flex-support...);
 }
 
