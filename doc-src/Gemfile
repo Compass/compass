@@ -1,6 +1,5 @@
-source :gemcutter
-
-gem 'nanoc', :git => 'https://github.com/ddfreyne/nanoc.git'
+source 'https://rubygems.org'
+gem 'nanoc', '~> 3.4.2'
 gem 'i18n'
 gem 'adsf'
 gem 'rb-inotify'
