@@ -22,7 +22,11 @@ GEM
     adsf (1.1.1)
       rack (>= 1.0.0)
     builder (3.1.4)
+<<<<<<< HEAD
     chunky_png (1.2.8)
+=======
+    chunky_png (1.2.7)
+>>>>>>> e9295c558e0cc59fe0e3e45860d648493b6dd2e4
     coderay (1.0.8)
     colored (1.2)
     compass-susy-plugin (0.7.0)

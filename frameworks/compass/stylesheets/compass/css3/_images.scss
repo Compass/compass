@@ -1,6 +1,28 @@
 @import "shared";
 @import "compass/utilities/general/hacks";
 
+// Compass assumes you will use the official gradient syntax,
+// unless otherwise instructed.
+$use-legacy-gradient-syntax: false !default;
+
+// Create a linear gradient using standard official or legacy syntax.
+// This function must be included in one of the following
+// image module mixins to work properly.
+@function linear-gradient($angle, $details...) {
+  $legacy-syntax: $use-legacy-gradient-syntax;
+
+  @if type-of($angle) != 'number' {
+    $angle: compact($angle);
+    $legacy-syntax: if(index($angle, 'to'), false, true);
+  }
+
+  @if $legacy-syntax {
+    @return _linear-gradient_legacy($angle, $details...);
+  } @else {
+    @return _linear-gradient($angle, $details...);
+  }
+}
+
 // Background property support for vendor prefixing within values.
 @mixin background(
   $backgrounds...
@@ -15,6 +37,8 @@
                                                                                         background:         $backgrounds ;
 }
 
+// Set any number of background layers, along with a fallback.
+// The final argument will be output separately, first, as a css2 fallback.
 @mixin background-with-css2-fallback(
   $backgrounds...
 ) {
@@ -103,21 +127,3 @@
   @if $experimental-support-for-svg          and prefixed(-svg,    $value) { content:    -svg($value); }
                                                                              content:         $value ;
 }
-
-$use-legacy-gradient-syntax: false !default;
-
-@function linear-gradient($angle, $details...) {
-  $legacy-syntax: $use-legacy-gradient-syntax;
-
-  @if type-of($angle) != 'number' {
-    $angle: compact($angle);
-    $legacy-syntax: if(index($angle, 'to'), false, true);
-  }
-
-  @if $legacy-syntax {
-    @return _linear-gradient_legacy($angle, $details...);
-  } @else {
-    @return _linear-gradient($angle, $details...);
-  }
-}
-
