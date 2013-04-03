@@ -10,6 +10,9 @@
 :-moz-placeholder {
   color: #bfbfbf;
   font-style: italic; }
+::-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
 :-ms-input-placeholder {
   color: #bfbfbf;
   font-style: italic; }
@@ -18,6 +21,9 @@
   color: #bfbfbf;
   font-style: italic; }
 .input-placeholder:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+.input-placeholder::-moz-placeholder {
   color: #bfbfbf;
   font-style: italic; }
 .input-placeholder:-ms-input-placeholder {
