@@ -50,8 +50,7 @@ module Compass
         if compiler.sass_files.empty? && !dry_run?
           message = "Nothing to compile. If you're trying to start a new project, you have left off the directory argument.\n"
           message << "Run \"compass -h\" to get help."
-          puts message
-          exit(0)
+          raise Compass::Error, message
         end
       end
 
