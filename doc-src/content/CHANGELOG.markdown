@@ -13,9 +13,13 @@ Don't let all these details [scare you...](http://compass-style.org/help/tutoria
 The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
+0.13.alpha.5 (UNRELEASED)
 
-0.13.alpha.4 (UNRELEASED)
+0.13.alpha.4 (4/3/2013)
 -------------------------
+* [CORE] fixed edge case for people running `compass compile watch .`
+* [CORE] Updated compiler failure message to be more inline with what is actually failing.
+* [CSS3] New Flexbox Mixins
 
 0.13.alpha.3 (3/29/2013)
 -------------------------
