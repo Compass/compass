@@ -1,10 +1,8 @@
-require 'date'
 path = "#{File.dirname(__FILE__)}/lib"
 require File.join(path, 'compass/version')
 
 Gem::Specification.new do |gemspec|
   gemspec.name = "compass"
-  gemspec.date = Date.today
   gemspec.version = Compass::VERSION # Update VERSION.yml file to set this.
   gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintenance of CSS."
   gemspec.homepage = "http://compass-style.org"
@@ -18,6 +16,10 @@ Gem::Specification.new do |gemspec|
   gemspec.add_dependency 'sass', '~> 3.2.5'
   gemspec.add_dependency 'chunky_png', '~> 1.2'
   gemspec.add_dependency 'listen', '<= 0.9.9'
+
+  gemspec.post_install_message = <<-MESSAGE
+    Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/compass Thanks!
+  MESSAGE
 
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")
