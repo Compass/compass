@@ -10,9 +10,6 @@ $legacy-support-for-ie7: $legacy-support-for-ie !default;
 // Setting this to false will result in smaller output, but no support for legacy ie8 hacks
 $legacy-support-for-ie8: $legacy-support-for-ie !default;
 
-// Setting this to false will result in smaller output, but no support for legacy Mozilla hacks.
-$legacy-support-for-mozilla: true !default;
-
 
 // @private
 // The user can simply set $legacy-support-for-ie and 6, 7, and 8 will be set accordingly,
