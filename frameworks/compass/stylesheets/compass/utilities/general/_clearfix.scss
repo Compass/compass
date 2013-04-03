@@ -6,49 +6,58 @@
 
 // And advanced clearfix mixin that will write the correct clearfix depending on what level of browser support you need.
 // Adapted from: [The very latest new new way to do "clearfix"](http://www.css-101.org/articles/clearfix/latest-new-clearfix-so-far.php) and [Better float containment in IE using CSS expressions](http://nicolasgallagher.com/better-float-containment-in-ie/)
-@mixin clearfix {
-  // Legacy Clearfix
-  @if $legacy-support-for-ie6 and $legacy-support-for-ie7 and $legacy-support-for-mozilla {
-    /* for IE 6/7 */
-    *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
-    /* non-JS fallback */
-    *zoom: 1;
 
-    &:before,
-    &:after {
-      content: ".";
-      display: block;
-      height: 0;
-      overflow: hidden;
-    }
-
-    &:after {
-      clear: both;
-    }
+@mixin clearfix($overflow: false) {
+  // If you truly want the Overflow clearfix, you'd simply call @include clearfix(true) to get the old Compass clearfix.
+  @if $overflow {
+    overflow: hidden;
+    @include has-layout;
   }
-  // Micro Clearfix
-  @else if $legacy-support-for-ie6 and $legacy-support-for-ie7 and not $legacy-support-for-mozilla {
-    /* for IE 6/7 */
-    *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
-    /* non-JS fallback */
-    *zoom: 1;
-
-    &:before,
-    &:after {
-      content: "";
-      display: table;
-    }
-
-    &:after {
-      clear: both;
-    }
-  }
-  // Modern Clearfix
+  // If you prefer the much more comprehensive and intelligent variations on clearfix, you can have them.
   @else {
-    &:after {
-      content: "";
-      display: table;
-      clear: both;
+    // Legacy Clearfix
+    @if $legacy-support-for-ie6 and $legacy-support-for-ie7 and $legacy-support-for-mozilla {
+      /* for IE 6/7 */
+      *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+      /* non-JS fallback */
+      *zoom: 1;
+
+      &:before,
+      &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        overflow: hidden;
+      }
+
+      &:after {
+        clear: both;
+      }
+    }
+    // Micro Clearfix
+    @else if $legacy-support-for-ie6 and $legacy-support-for-ie7 and not $legacy-support-for-mozilla {
+      /* for IE 6/7 */
+      *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+      /* non-JS fallback */
+      *zoom: 1;
+
+      &:before,
+      &:after {
+        content: "";
+        display: table;
+      }
+
+      &:after {
+        clear: both;
+      }
+    }
+    // Modern Clearfix
+    @else {
+      &:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
     }
   }
 }
