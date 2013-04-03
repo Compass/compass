@@ -26,41 +26,19 @@ module Compass
 
       end
     end
-    module MemoryDebugger
-      def report_on_instances(type, options = {})
-        @@runs ||= 0
-        @@runs += 1
-        @@object_id_tracker ||= {}
-        @@object_id_tracker[type] ||= []
-        GC.start
-        sleep options.fetch(:gc_pause, 1)
-        count = ObjectSpace.each_object(type) do |obj|
-          if options.fetch(:verbose, true)
-            if @@runs > 2
-              if !@@object_id_tracker[type].include?(obj.object_id)
-                begin
-                  puts obj.inspect
-                rescue
-                end
-                puts "#{obj.class.name}:#{obj.object_id}"
-              end
-            end
-            @@object_id_tracker[type] << obj.object_id
-          end
-        end
-        puts "#{type}: #{count} instances."
-      end
-    end
+
     class WatchProject < UpdateProject
 
       register :watch
 
       attr_accessor :last_update_time, :last_sass_files
 
-      include MemoryDebugger
-
       def perform
-
+        # '.' assumes you are in the executing directory. so get the full path to the directory
+        if options[:project_name] == '.'
+          Compass.configuration.project_path = Dir.pwd
+        end
+        
         project_watcher = Compass::Watcher::ProjectWatcher.new(Compass.configuration.project_path, Compass.configuration.watches, options, options[:poll])
 
         puts ">>> Compass is watching for changes. Press Ctrl-C to Stop."
