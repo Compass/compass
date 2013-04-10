@@ -22,15 +22,30 @@ module Compass::SassExtensions::Functions::Math
   end
   Sass::Script::Functions.declare :sin, [:number]
 
+  def asin(number)
+    trig(:asin, number)
+  end
+  Sass::Script::Functions.declare :asin, [:number]
+
   def cos(number)
     trig(:cos, number)
   end
   Sass::Script::Functions.declare :cos, [:number]
 
+  def acos(number)
+    trig(:acos, number)
+  end
+  Sass::Script::Functions.declare :acos, [:number]
+
   def tan(number)
     trig(:tan, number)
   end
   Sass::Script::Functions.declare :tan, [:number]
+
+  def atan(number)
+    trig(:atan, number)
+  end
+  Sass::Script::Functions.declare :atan, [:number]
 
   def e
     Sass::Script::Number.new(Math::E)

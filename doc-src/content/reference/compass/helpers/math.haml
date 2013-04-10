@@ -13,6 +13,9 @@ documented_functions:
   - "sin"
   - "cos"
   - "tan"
+  - "asin"
+  - "acos"
+  - "atan"
   - "e"
   - "logarithm"
   - "sqrt"
@@ -63,6 +66,42 @@ documented_functions:
   .details
     %p
       Returns the tangent of a number. If the number is unitless or has a unit of <code>deg</code>
+      then it will return a unitless result. Unless the number has a unit of <code>deg</code> it
+      will be evaluated as radians. Degrees will first be converted to radians.
+      If the number is any other unit, the units will be passed thru to the result,
+      and the number will be treated as radians.
+
+#asin.helper
+  %h3
+    %a(href="a#sin")
+      sin(<span class="arg">$number</span>)
+  .details
+    %p
+      Returns the arcsine of a number. If the number is unitless or has a unit of <code>deg</code>
+      then it will return a unitless result. Unless the number has a unit of <code>deg</code> it
+      will be evaluated as radians. Degrees will first be converted to radians.
+      If the number is any other unit, the units will be passed thru to the result,
+      and the number will be treated as radians.
+
+#acos.helper
+  %h3
+    %a(href="#acos")
+      cos(<span class="arg">$number</span>)
+  .details
+    %p
+      Returns the arccosine of a number. If the number is unitless or has a unit of <code>deg</code>
+      then it will return a unitless result. Unless the number has a unit of <code>deg</code> it
+      will be evaluated as radians. Degrees will first be converted to radians.
+      If the number is any other unit, the units will be passed thru to the result,
+      and the number will be treated as radians.
+
+#atan.helper
+  %h3
+    %a(href="#atan")
+      tan(<span class="arg">$number</span>)
+  .details
+    %p
+      Returns the arctangent of a number. If the number is unitless or has a unit of <code>deg</code>
       then it will return a unitless result. Unless the number has a unit of <code>deg</code> it
       will be evaluated as radians. Degrees will first be converted to radians.
       If the number is any other unit, the units will be passed thru to the result,
