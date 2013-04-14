@@ -80,17 +80,9 @@ module Compass
     end
 
     def basename(file)
-      relativize(file) {|f| File.basename(file)}
-    end
-
-    def relativize(path)
-      if path.index(working_path+File::SEPARATOR) == 0
-        path[(working_path+File::SEPARATOR).length..-1]
-      elsif block_given?
-        yield path
-      else
-        path
-      end
+      p1 = Pathname.new(File.expand_path(file, working_path+File::SEPARATOR))
+      p2 = Pathname.new(working_path)
+      p1.relative_path_from(p2)
     end
 
     # Write paths like we're on unix and then fix it
