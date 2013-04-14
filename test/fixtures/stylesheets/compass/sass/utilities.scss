@@ -11,10 +11,10 @@
   @include pie-clearfix;
 }
 
-p.light { @include contrasted(#B0201E); }
-p.dark  { @include contrasted(#5F1210); }
-p.light-with-args { @include contrasted(#B0201E, green, blue); }
-p.dark-with-args  { @include contrasted(#5F1210, green, blue); }
+p.light { @include contrasted(#f3aead); }
+p.dark  { @include contrasted(#a22321); }
+p.light-with-args { @include contrasted(#f3aead, blue, yellow); }
+p.dark-with-args  { @include contrasted(#a22321, blue, yellow); }
 
 
 @include alternating-rows-and-columns(red, white, blue);
