@@ -20,20 +20,20 @@
     clear: both; }
 
 p.light {
-  background-color: #b0201e;
+  background-color: #f3aead;
   color: black; }
 
 p.dark {
-  background-color: #5f1210;
+  background-color: #a22321;
   color: white; }
 
 p.light-with-args {
-  background-color: #b0201e;
-  color: green; }
+  background-color: #f3aead;
+  color: blue; }
 
 p.dark-with-args {
-  background-color: #5f1210;
-  color: blue; }
+  background-color: #a22321;
+  color: yellow; }
 
 th {
   background-color: white; }
