@@ -6,7 +6,9 @@ module Compass
         "#{dir_name}_dir",
         "#{dir_name}_path",
         ("http_#{http_dir_name}_dir" if http_dir_name),
-        ("http_#{http_dir_name}_path" if http_dir_name)
+        ("http_#{http_dir_name}_path" if http_dir_name),
+        ("output_#{dir_name}_dir" if http_dir_name),
+        ("output_#{dir_name}_path" if http_dir_name)
       ].compact.map{|a| a.to_sym}
     end
 
@@ -16,6 +18,7 @@ module Compass
       # Where is the project?
       :project_path,
       :http_path,
+      :output_path,
       # Where are the various bits of the project
       attributes_for_directory(:css, :stylesheets),
       attributes_for_directory(:sass, nil),

@@ -54,6 +54,16 @@ module Compass
         end
       end
 
+      def default_output_css_path
+        if (pp = top_level.output_path) && (dir = top_level.output_css_dir)
+          Compass.projectize(dir, pp)
+        elsif (pp = top_level.output_path) && (dir = top_level.css_dir)
+          Compass.projectize(dir, pp)
+        elsif (pp = top_level.project_path) && (dir = top_level.css_dir)
+          Compass.projectize(dir, pp)
+        end
+      end
+
       def default_images_path
         if (pp = top_level.project_path) && (dir = top_level.images_dir)
           Compass.projectize(dir, pp)

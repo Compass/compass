@@ -11,7 +11,7 @@ module Compass
       self.logger = options.delete(:logger)
       sass_opts = options.delete(:sass) || {}
       self.options = options
-      self.output_to = options[:output_dir] || to
+      self.output_to = Compass.configuration.output_css_path || to
       self.sass_options = options.dup
       self.sass_options.delete(:quiet)
       self.sass_options.update(sass_opts)

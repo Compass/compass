@@ -18,17 +18,17 @@ Feature: Command Line
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
 
   Scenario: Install a project without a framework and separate output-dir
-    Given I should clean up the directory: my_project_output
-    When I create a project using: compass create my_project --output-dir my_project_output
+    Given I should clean up the directory: out
+    When I create a project using: compass create my_project --output-dir out
     Then a directory my_project/ is created
-    And a directory my_project_output/ is created
+    And a directory out/ is created
     And a configuration file my_project/config.rb is created
     And a sass file my_project/sass/screen.scss is created
     And a sass file my_project/sass/print.scss is created
     And a sass file my_project/sass/ie.scss is created
-    And a css file my_project_output/screen.css is created
-    And a css file my_project_output/print.css is created
-    And a css file my_project_output/ie.css is created
+    And a css file out/stylesheets/screen.css is created
+    And a css file out/stylesheets/print.css is created
+    And a css file out/stylesheets/ie.css is created
     And I am told how to link to /stylesheets/screen.css for media "screen, projection"
     And I am told how to link to /stylesheets/print.css for media "print"
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
@@ -42,14 +42,14 @@ Feature: Command Line
     And a css file custom_project/css/screen.css is created
 
   Scenario: Install a project with specific directories and separate output dir
-    Given I should clean up the directory: custom_project_css
-    When I create a project using: compass create custom_project --using compass --sass-dir sass --css-dir css --images-dir assets/imgs --output-dir custom_project_css
+    Given I should clean up the directory: custom_out
+    When I create a project using: compass create custom_project --using compass --sass-dir sass --css-dir css --images-dir assets/imgs --output-dir custom_out
     Then a directory custom_project/ is created
-    And a directory custom_project_css/ is created
+    And a directory custom_out/ is created
     And a directory custom_project/sass/ is created
     And a directory custom_project/css/ is created
     And a sass file custom_project/sass/screen.scss is created
-    And a css file custom_project_css/screen.css is created
+    And a css file custom_out/css/screen.css is created
 
   Scenario: Perform a dry run of creating a project
     When I create a project using: compass create my_project --dry-run
@@ -63,9 +63,9 @@ Feature: Command Line
     And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
 
   Scenario: Perform a dry run of creating a project with separate output dir
-    When I create a project using: compass create my_project --output-dir my_project_dir --dry-run
+    When I create a project using: compass create my_project --output-dir out --dry-run
     Then a directory my_project/ is not created
-    And a directory my_project_dir/ is not created
+    And a directory out/ is not created
     But a configuration file my_project/config.rb is reported created
     And a sass file my_project/sass/screen.scss is reported created
     And a sass file my_project/sass/print.scss is reported created
@@ -126,19 +126,22 @@ Feature: Command Line
     And a css file tmp/print.css is created
     And a css file tmp/reset.css is created
     And a css file tmp/utilities.css is created
-    When I run: compass compile --output-dir tmp-css 
-    Then a directory tmp-css/ is created
-    And a css file tmp-css/layout.css is created
-    And tmp-css/layout.css and tmp/layout.css are the same
-    And a css file tmp-css/print.css is created
-    And tmp-css/print.css and tmp/print.css are the same
-    And a css file tmp-css/reset.css is created
-    And tmp-css/reset.css and tmp/reset.css are the same
-    And a css file tmp-css/utilities.css is created
-    And tmp-css/utilities.css and tmp/utilities.css are the same
+    When I run: compass compile --output-dir out
+    Then a directory out/ is created
+    And a css file out/tmp/layout.css is created
+    And out/tmp/layout.css and tmp/layout.css are the same
+    And a css file out/tmp/print.css is created
+    And out/tmp/print.css and tmp/print.css are the same
+    And a css file out/tmp/reset.css is created
+    And out/tmp/reset.css and tmp/reset.css are the same
+    And a css file out/tmp/utilities.css is created
+    And out/tmp/utilities.css and tmp/utilities.css are the same
 
   Scenario: Compiling an existing project with a separate output-dir and relative-assets
     Given I am using the existing project in test/fixtures/stylesheets/compass
+    When I run: compass compile --css-dir tmp-css/css/ --relative-assets
+    Then a directory tmp-css/css/ is created
+    And a css file tmp-css/css/sprites.css is created
     When I run: compass compile --relative-assets
     Then a directory tmp/ is created
     And a css file tmp/layout.css is created
@@ -147,13 +150,10 @@ Feature: Command Line
     And a css file tmp/utilities.css is created
     And a css file tmp/sprites.css is created
     When I run: compass compile --output-dir tmp-output/css/ --relative-assets
-    And a css file tmp-output/css/sprites.css is created
-    And tmp-output/css/sprites.css and tmp/sprites.css are the same
-    When I run: compass compile --css-dir tmp-css/css/ --relative-assets
-    Then a directory tmp-css/css/ is created
-    And a css file tmp-output/css/sprites.css is created
+    And a css file tmp-output/css/tmp/sprites.css is created
+    And tmp-output/css/tmp/sprites.css and tmp/sprites.css are the same
     But tmp-css/css/sprites.css and tmp/sprites.css are not the same
-    And tmp-css/css/sprites.css and tmp-output/css/sprites.css are not the same
+    And tmp-css/css/sprites.css and tmp-output/css/tmp/sprites.css are not the same
 
   Scenario: Compiling an existing project with a specified project
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -168,14 +168,14 @@ Feature: Command Line
   Scenario: Compiling an existing project with a specified project with an output-dir
     Given I am using the existing project in test/fixtures/stylesheets/compass
     And I am in the parent directory
-    And I should clean up the directory: tmp_compass_tmp
-    When I run: compass compile tmp_compass --output-dir tmp_compass_tmp
-    Then a directory tmp_compass_tmp/ is created
+    And I should clean up the directory: out
+    When I run: compass compile tmp_compass --output-dir out
+    Then a directory out/ is created
     But a directory tmp_compass/tmp is not created
-    And a css file tmp_compass_tmp/layout.css is created
-    And a css file tmp_compass_tmp/print.css is created
-    And a css file tmp_compass_tmp/reset.css is created
-    And a css file tmp_compass_tmp/utilities.css is created
+    And a css file out/tmp/layout.css is created
+    And a css file out/tmp/print.css is created
+    And a css file out/tmp/reset.css is created
+    And a css file out/tmp/utilities.css is created
 
   Scenario: Dry Run of Compiling an existing project.
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -206,12 +206,12 @@ Feature: Command Line
 
   Scenario: compiling a specific file in a project with output-dir
     Given I am using the existing project in test/fixtures/stylesheets/compass
-    And I run: compass compile sass/utilities.scss --output-dir css_tmp
+    And I run: compass compile sass/utilities.scss --output-dir out
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
-    And a css file css_tmp/utilities.css is reported created
-    And a css file css_tmp/utilities.css is created
+    And a css file out/tmp/utilities.css is reported created
+    And a css file out/tmp/utilities.css is created
 
   Scenario: Re-compiling a specific file in a project with no changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -229,7 +229,7 @@ Feature: Command Line
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
-    And a css file tmp-css/utilities.css is reported identical
+    And a css file tmp-css/tmp/utilities.css is reported identical
 
   Scenario: Re-compiling a specific file in a project with no changes but a new output-dir
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -238,7 +238,7 @@ Feature: Command Line
     Then a sass file sass/layout.sass is not mentioned
     And a sass file sass/print.sass is not mentioned
     And a sass file sass/reset.sass is not mentioned
-    And a css file tmp/utilities.css is created
+    And a css file css_tmp/tmp/utilities.css is created
 
   Scenario: Installing a pattern into a project
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -289,7 +289,7 @@ Feature: Command Line
     And I wait 1 second
     And I touch sass/layout.sass
     And I run: compass compile --output-dir test-css
-    Then a css file test-css/layout.css is reported identical
+    Then a css file test-css/tmp/layout.css is reported identical
 
   Scenario: Recompiling a project with output-dir and changes
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -297,7 +297,7 @@ Feature: Command Line
     And I wait 1 second
     And I add some sass to sass/layout.sass
     And I run: compass compile --output-dir test-css
-    And a css file test-css/layout.css is reported overwritten
+    And a css file test-css/tmp/layout.css is reported overwritten
 
   Scenario: Cleaning a project
     Given I am using the existing project in test/fixtures/stylesheets/compass
@@ -322,23 +322,23 @@ Feature: Command Line
 
   Scenario: Cleaning a project with output-dir 
     Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass compile --output-dir output-dir
-    And I run: compass clean --output-dir output-dir
+    When I run: compass compile --output-dir output
+    And I run: compass clean --output-dir output
     Then the following files are reported removed:
       | .sass-cache/                 |
-      | output-dir/border_radius.css |
-      | output-dir/box.css           |
-      | output-dir/box_shadow.css    |
-      | output-dir/columns.css       |
-      | output-dir/fonts.css         |
+      | output/tmp/border_radius.css |
+      | output/tmp/box.css           |
+      | output/tmp/box_shadow.css    |
+      | output/tmp/columns.css       |
+      | output/tmp/fonts.css         |
       | images/flag-s5b4f509715.png  |
     And the following files are removed:
       | .sass-cache/                 |
-      | output-dir/border_radius.css |
-      | output-dir/box.css           |
-      | output-dir/box_shadow.css    |
-      | output-dir/columns.css       |
-      | output-dir/fonts.css         |
+      | output/tmp/border_radius.css |
+      | output/tmp/box.css           |
+      | output/tmp/box_shadow.css    |
+      | output/tmp/columns.css       |
+      | output/tmp/fonts.css         |
       | images/flag-s5b4f509715.png  |
 
   Scenario: Watching a project for changes
@@ -355,13 +355,13 @@ Feature: Command Line
   Scenario: Watching a project with output-dir for changes
     Given ruby supports fork
     Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass compile --output-dir output-dir
-    And I run in a separate process: compass watch --output-dir output-dir
+    When I run: compass compile --output-dir output
+    And I run in a separate process: compass watch --output-dir output
     And I wait 3 seconds
     And I touch sass/layout.sass
     And I wait 2 seconds
     And I shutdown the other process
-    Then a css file output-dir/layout.css is reported identical
+    Then a css file output/tmp/layout.css is reported identical
 
   Scenario: Generate a compass configuration file
     Given I should clean up the directory: config
