@@ -339,7 +339,7 @@ Feature: Command Line
       | output/tmp/box_shadow.css    |
       | output/tmp/columns.css       |
       | output/tmp/fonts.css         |
-      | images/flag-s5b4f509715.png  |
+      | output/images/flag-s5b4f509715.png  |
 
   Scenario: Watching a project for changes
     Given ruby supports fork

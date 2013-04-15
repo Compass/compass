@@ -44,6 +44,10 @@ module Compass
           File.join(Compass.configuration.generated_images_path, name_and_hash)
         end
 
+        def actual_filename
+          File.join(Compass.configuration.output_generated_images_path || Compass.configuration.generated_images_path, name_and_hash)
+        end
+
         def relativize(path)
           Pathname.new(path).relative_path_from(Pathname.new(Dir.pwd)).to_s rescue path
         end
@@ -58,12 +62,12 @@ module Compass
             Compass.configuration.run_sprite_generated(engine.canvas)
             save!
           else
-            log :unchanged, filename
+            log :unchanged, actual_filename
           end
         end
         
         def cleanup_old_sprites
-          Sass::Util.glob(File.join(Compass.configuration.generated_images_path, "#{path}-s*.png")).each do |file|
+          Sass::Util.glob(File.join(Compass.configuration.output_generated_images_path, "#{path}-s*.png")).each do |file|
             log :remove, file
             FileUtils.rm file
             Compass.configuration.run_sprite_removed(file)
@@ -72,7 +76,7 @@ module Compass
         
         # Does this sprite need to be generated
         def generation_required?
-          !File.exists?(filename) || outdated? || options[:force]
+          !File.exists?(actual_filename) || outdated? || options[:force]
         end
 
         # Returns the uniqueness hash for this sprite object
@@ -94,10 +98,10 @@ module Compass
 
         # Saves the sprite engine
         def save!
-          FileUtils.mkdir_p(File.dirname(filename))
-          saved = engine.save(filename)
-          log :create, filename
-          Compass.configuration.run_sprite_saved(filename)
+          FileUtils.mkdir_p(File.dirname(actual_filename))
+          saved = engine.save(actual_filename)
+          log :create, actual_filename
+          Compass.configuration.run_sprite_saved(actual_filename)
           @mtime = nil if saved
           saved
         end
@@ -109,7 +113,7 @@ module Compass
 
         # Checks whether this sprite is outdated
         def outdated?
-          if File.exists?(filename)
+          if File.exists?(actual_filename)
             return @images.any? {|image| image.mtime.to_i > self.mtime.to_i }
           end
           true
@@ -117,7 +121,7 @@ module Compass
 
         # Mtime of the sprite file
         def mtime
-          @mtime ||= File.mtime(filename)
+          @mtime ||= File.mtime(actual_filename)
         end
         
        # Calculate the size of the sprite

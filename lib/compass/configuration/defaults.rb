@@ -78,6 +78,18 @@ module Compass
         end
       end
 
+      def default_output_generated_images_path
+        if (pp = top_level.output_path) && (dir = top_level.output_generated_images_dir)
+          Compass.projectize(dir, pp)
+        elsif (pp = top_level.output_path) && (dir = top_level.generated_images_dir)
+          Compass.projectize(dir, pp)
+        elsif (pp = top_level.project_path) && (dir = top_level.generated_images_dir)
+          Compass.projectize(dir, pp)
+        else
+          top_level.generated_images_path
+        end
+      end
+
       def default_javascripts_path
         if (pp = top_level.project_path) && (dir = top_level.javascripts_dir)
           Compass.projectize(dir, pp)
