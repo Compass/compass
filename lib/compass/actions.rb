@@ -82,7 +82,7 @@ module Compass
     def basename(file)
       p1 = Pathname.new(File.expand_path(file, working_path+File::SEPARATOR))
       p2 = Pathname.new(working_path)
-      p1.relative_path_from(p2)
+      p1.relative_path_from(p2).to_s
     end
 
     # Write paths like we're on unix and then fix it
