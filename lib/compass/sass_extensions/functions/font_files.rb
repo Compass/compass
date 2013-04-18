@@ -6,7 +6,7 @@ module Compass::SassExtensions::Functions::FontFiles
     :ttf => 'truetype',
     :truetype => 'truetype',
     :svg => 'svg',
-    :eot => 'eot'
+    :eot => 'embedded-opentype'
   }
 
   def font_files(*args)
