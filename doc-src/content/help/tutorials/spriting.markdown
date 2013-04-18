@@ -12,6 +12,9 @@ Spriting has never been easier with Compass. You place the sprite images in a fo
 import them into your stylesheet, and then you can use the sprite in your selectors in one
 of several convenient ways.
 
+****Note**: Only PNG images are supported at this time using 
+[`chunky_png`](https://github.com/wvanbergen/chunky_png)[*](#Oily-PNG).
+
 ## Sprite Tutorial Contents
 <%= sprite_tutorial_links(true) %>
 
