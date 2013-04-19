@@ -103,7 +103,7 @@ module Compass
       def default_http_images_dir
         top_level.images_dir
       end
-      
+
       def default_sprite_load_path
         [top_level.images_path]
       end
@@ -144,6 +144,10 @@ module Compass
         http_root_relative top_level.http_javascripts_dir
       end
 
+      def default_command_extensions
+        []
+      end
+
       def default_cache
         true
       end
@@ -151,15 +155,15 @@ module Compass
       def default_preferred_syntax
         :scss
       end
-      
+
       def default_sprite_engine
         :chunky_png
       end
-      
+
       def default_chunky_png_options
         {:compression => Zlib::BEST_COMPRESSION}
       end
-      
+
       # helper functions
 
       def http_join(*segments)

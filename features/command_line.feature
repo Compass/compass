@@ -183,7 +183,7 @@ Feature: Command Line
     Given ruby supports fork
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
-    And I run in a separate process: compass watch 
+    And I run in a separate process: compass watch
     And I wait 3 seconds
     And I touch sass/layout.sass
     And I wait 2 seconds
@@ -204,7 +204,7 @@ Feature: Command Line
     When I run: compass config -p <property>
     Then I should see the following output: <value>
     And the command exits <exit>
-  
+
     Examples:
       | property        | value                    | exit     |
       | extensions_dir  | extensions               | normally |
@@ -213,7 +213,18 @@ Feature: Command Line
       | css_path        | $PROJECT_PATH/tmp        | normally |
       | sass_dir        | sass                     | normally |
       | sass_path       | $PROJECT_PATH/sass       | normally |
-      | foobar          | ERROR: configuration property 'foobar' does not exist | with a non-zero error code | 
+      | foobar          | ERROR: configuration property 'foobar' does not exist | with a non-zero error code |
+
+  Scenario: Creating a config with command_extensions
+    Given I should clean up the directory: config
+    When I run: compass config config/compass.rb --command-extensions=command-line-extension-test
+    Then a configuration file config/compass.rb is created
+    And the following configuration properties are set in config/compass.rb:
+      | property           | value                       |
+      | command_extensions | command-line-extension-test |
+    When I run: compass config -p command_extensions
+    Then I should see the following output: command-line-extension-test
+    And the command exits normally
 
   @validator
   Scenario: Validate the generated CSS

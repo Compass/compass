@@ -7,7 +7,7 @@ class ConfigurationTest < Test::Unit::TestCase
   setup do
     Compass.reset_configuration!
   end
-  
+
   after do
     Compass.reset_configuration!
   end
@@ -18,22 +18,22 @@ class ConfigurationTest < Test::Unit::TestCase
       # Require any additional compass plugins here.
 
       project_type = :stand_alone
-      
+
       http_path = "/"
       css_dir = "css"
       sass_dir = "sass"
       images_dir = "img"
       javascripts_dir = "js"
-      
+
       output_style = :nested
-      
+
       # To enable relative paths to assets via compass helper functions. Uncomment:
       # relative_assets = true
-      
+
       # To disable debugging comments that display the original location of your selectors. Uncomment:
       # line_comments = false
-      
-      
+
+
       # If you prefer the indented syntax, you might want to regenerate this
       # project again passing --syntax sass, or you can uncomment this:
       # preferred_syntax = :sass
@@ -392,6 +392,66 @@ EXPECTED
     assert_equal "extensions", Compass.configuration.extensions_dir
   end
 
+  def test_command_extensions_array
+    # Add an array of multiple command-line extensions to compass.
+    contents = StringIO.new(<<-CONFIG)
+      command_extensions = ["foo", "bar"]
+    CONFIG
+
+    Compass.add_configuration(contents, "test_command_extensions_array")
+
+    assert_equal ["foo", "bar"], Compass.configuration.command_extensions
+
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+
+# Set this to the root of your project when deployed:
+http_path = "/"
+
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+command_extensions = ["foo", "bar"]
+
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+
+EXPECTED
+    assert_correct(expected_serialization, Compass.configuration.serialize)
+  end
+
+  def test_command_extensions_string
+    # Add a single command-line extensions to compass.
+    contents = StringIO.new(<<-CONFIG)
+      command_extensions = "foo"
+    CONFIG
+
+    Compass.add_configuration(contents, "test_command_extensions_string")
+
+    assert_equal "foo", Compass.configuration.command_extensions
+
+    expected_serialization = <<EXPECTED
+# Require any additional compass plugins here.
+
+# Set this to the root of your project when deployed:
+http_path = "/"
+
+# You can select your preferred output style here (can be overridden via the command line):
+# output_style = :expanded or :nested or :compact or :compressed
+
+# To enable relative paths to assets via compass helper functions. Uncomment:
+# relative_assets = true
+command_extensions = "foo"
+
+# To disable debugging comments that display the original location of your selectors. Uncomment:
+# line_comments = false
+
+EXPECTED
+    assert_correct(expected_serialization, Compass.configuration.serialize)
+  end
+
   def test_custom_configuration_properties
     # Add a configuration property to compass.
     Compass::Configuration.add_configuration_property(:foobar, "this is a foobar") do
@@ -448,5 +508,5 @@ EXPECTED
       end
     end.compact
   end
-  
+
 end
