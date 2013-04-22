@@ -156,6 +156,10 @@ module Compass
         :chunky_png
       end
       
+      def default_digest_class
+        Digest::MD5
+      end
+
       def default_chunky_png_options
         {:compression => Zlib::BEST_COMPRESSION}
       end
