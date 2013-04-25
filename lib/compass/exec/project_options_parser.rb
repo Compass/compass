@@ -24,6 +24,10 @@ module Compass::Exec::ProjectOptionsParser
       self.options[:project_path] = project_path
     end
 
+    opts.on('--output-dir OUTPUT_PATH', "An override directory to output generated files to.") do |output_path|
+      self.options[:output_path] = output_path
+    end
+
     opts.on('--sass-dir SRC_DIR', "The source directory where you keep your sass stylesheets.") do |sass_dir|
       set_dir_or_path(:sass, sass_dir)
     end

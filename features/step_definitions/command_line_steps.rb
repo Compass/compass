@@ -3,6 +3,7 @@ $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), '../../test')))
 require 'test_helper'
 
 require 'compass/exec'
+require 'fileutils'
 include Compass::TestCaseHelper
 include Compass::CommandLineHelper
 include Compass::IoHelper
@@ -137,6 +138,10 @@ end
 
 Then /an? \w+ file ([^ ]+) is reported removed/ do |filename|
   @last_result.should =~ /remove.*#{Regexp.escape(filename)}/
+end
+
+Then /([^ ]+) and ([^ ]+) are (not )?the same/ do |file1, file2, negated|
+    FileUtils.compare_file(file1, file2).should == !negated
 end
 
 Then /an? \w+ file ([^ ]+) is reported created/ do |filename|

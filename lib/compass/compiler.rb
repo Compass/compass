@@ -3,7 +3,7 @@ module Compass
 
     include Actions
 
-    attr_accessor :working_path, :from, :to, :options, :sass_options, :staleness_checker, :importer
+    attr_accessor :working_path, :from, :to, :options, :sass_options, :staleness_checker, :importer, :output_to
 
     def initialize(working_path, from, to, options)
       self.working_path = working_path.to_s
@@ -11,6 +11,7 @@ module Compass
       self.logger = options.delete(:logger)
       sass_opts = options.delete(:sass) || {}
       self.options = options
+      self.output_to = Compass.configuration.output_css_path || to
       self.sass_options = options.dup
       self.sass_options.delete(:quiet)
       self.sass_options.update(sass_opts)
@@ -54,6 +55,10 @@ module Compass
     end
 
     def corresponding_css_file(sass_file)
+      "#{output_to}/#{stylesheet_name(sass_file)}.css"
+    end
+
+    def virtual_css_file(sass_file)
       "#{to}/#{stylesheet_name(sass_file)}.css"
     end
 
@@ -143,7 +148,7 @@ module Compass
       start_time = end_time = nil
       css_content = logger.red do
         timed do
-          engine(sass_filename, css_filename).render
+          engine(sass_filename, virtual_css_file(sass_filename)).render
         end
       end
       duration = options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
