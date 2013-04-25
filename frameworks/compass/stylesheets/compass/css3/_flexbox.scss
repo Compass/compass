@@ -229,11 +229,14 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 @mixin flex($value: 0 1 auto, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
 	$value: unquote($value);
 	@if $legacy and unitless(nth($value, 1)) {
-		// @box version does not have a shorthand, see `legacy-flex-grow`
-		@include legacy-flex-grow(nth($value, 1));
+		@include legacy-flex(nth($value, 1));
 	}
 	
 	@include experimental(flex, $value, flex-support-common()...);
+}
+
+@mixin legacy-flex($value: 0) {
+	@include experimental(box-flex, $value, $box-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -246,10 +249,6 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 	
 	// There is no @flexbox version of this property
 	@include experimental(flex-grow, $value, $flex-support...);
-}
-
-@mixin legacy-flex-grow($value: 0) {
-	@include experimental(box-flex, $value, $box-support...);
 }
 
 // ----------------------------------------------------------------------
