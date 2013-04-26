@@ -17,9 +17,10 @@ $flex-legacy-enabled: false !default;
 // (this includes suppressing the automatic emittion of @box properties)
 $flex-wrap-required : false !default;
 
-// The modern `flex-direction` property corresponds to two properties in the @box spec.  If this
-// variable is set to false, then `box-direction: normal` will not be emitted.  If either of the 
-// reverse values are used, `box-direction: reverse` will always be emitted.
+// The modern `flex-direction` property corresponds to two properties in the @box spec.  If
+// this variable is set to false, then `box-direction: normal` will not be emitted when the 
+// `legacy-flex-direction` mixin is invoked.  If either of the reverse values are used, 
+// `box-direction: reverse` will always be emitted.
 $box-direction-normal: true !default;
 
 // @flex
