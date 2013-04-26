@@ -17,11 +17,14 @@ $flex-legacy-enabled: false !default;
 // (this includes suppressing the automatic emittion of @box properties)
 $flex-wrap-required : false !default;
 
-// The modern `flex-direction` property corresponds to two properties in the @box spec.  If
-// this variable is set to false, then `box-direction: normal` will not be emitted when the 
-// `legacy-flex-direction` mixin is invoked.  If either of the reverse values are used, 
-// `box-direction: reverse` will always be emitted.
-$box-direction-normal: true !default;
+// The modern `flex-direction` property corresponds to two properties in the @box spec.  This 
+// variable allows you to suppress it from being emitted when the `legacy-flex-direction` mixin
+// is invoked:
+//     false  : always emit
+//     true   : always suppress
+//     normal : suppress the `normal` direction
+//     reverse: suppress the `reverse` direction
+$suppress-box-direction: false !default;
 
 // @flex
 // September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
@@ -31,7 +34,7 @@ $box-direction-normal: true !default;
 // finally added
 // Chrome 21 (prefixed)
 // Opera 12.1 (unprefixed)
-// Firefox 20 (unprefixed)
+// Firefox 22 (unprefixed)
 $flex-support: not -moz, -webkit, not -o, not -ms, not -khtml !default;
 
 // @flexbox
@@ -121,7 +124,7 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 // ====================================================================================================
 
 // $value: <'flex-direction'> || <'flex-wrap'>
-@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $normal: $box-direction-normal) {
+@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $suppress: $suppress-box-direction) {
 	@if $legacy and not $wrap {
 		@include legacy-flex-flow($value);
 	}
@@ -129,9 +132,9 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 	@include experimental(flex-flow, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-flow($value: row nowrap, $normal: $box-direction-normal) {
+@mixin legacy-flex-flow($value: row nowrap, $suppress: $suppress-box-direction) {
 	@if length($value) > 1 { // @box version doesn't have a shorthand
-		@include legacy-flex-direction(nth($value, 1), $normal);
+		@include legacy-flex-direction(nth($value, 1), $suppress);
 		@include legacy-flex-wrap(nth($value, 2));
 	} @else {
 		$value: unquote($value);
@@ -146,19 +149,20 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 // ----------------------------------------------------------------------
 
 // $value: row | row-reverse | column | column-reverse
-@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $normal: $box-direction-normal) {
+@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $suppress: $suppress-box-direction) {
 	@if $legacy and not $wrap {
-		@include legacy-flex-direction($value, $normal);
+		@include legacy-flex-direction($value, $suppress);
 	}
 	
 	@include experimental(flex-direction, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-direction($value: row, $normal: $box-direction-normal) {
+@mixin legacy-flex-direction($value: row, $suppress: $suppress-box-direction) {
 	$value: unquote($value);
+	$direction: if($value == row-reverse or $value == column-reverse, reverse, normal);
 	@include experimental(box-orient, if($value == row or $value == row-reverse, horizontal, vertical), $box-support...);
-	@if $value == row-reverse or $value == column-reverse or $normal {
-		@include experimental(box-direction, if($value == row-reverse or $value == column-reverse, reverse, normal), $box-support...);
+	@if not $suppress or $suppress != $direction {
+		@include experimental(box-direction, $direction, $box-support...);
 	}
 }
 
