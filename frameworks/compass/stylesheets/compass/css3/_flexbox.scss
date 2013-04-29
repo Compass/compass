@@ -20,11 +20,11 @@ $flex-wrap-required : false !default;
 // The modern `flex-direction` property corresponds to two properties in the @box spec.  This 
 // variable allows you to suppress it from being emitted when the `legacy-flex-direction` mixin
 // is invoked:
-//     false  : always emit
-//     true   : always suppress
-//     normal : suppress the `normal` direction
-//     reverse: suppress the `reverse` direction
-$suppress-box-direction: false !default;
+//     true   : always emit
+//     false  : always suppress
+//     normal : only emit if the direction is `normal`
+//     reverse: only emit if the direction is `reverse`
+$flex-legacy-direction: true !default;
 
 // @flex
 // September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
@@ -124,7 +124,7 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 // ====================================================================================================
 
 // $value: <'flex-direction'> || <'flex-wrap'>
-@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $suppress: $suppress-box-direction) {
+@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $direction: $flex-legacy-direction) {
 	@if $legacy and not $wrap {
 		@include legacy-flex-flow($value);
 	}
@@ -132,9 +132,9 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 	@include experimental(flex-flow, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-flow($value: row nowrap, $suppress: $suppress-box-direction) {
+@mixin legacy-flex-flow($value: row nowrap, $direction: $flex-legacy-direction) {
 	@if length($value) > 1 { // @box version doesn't have a shorthand
-		@include legacy-flex-direction(nth($value, 1), $suppress);
+		@include legacy-flex-direction(nth($value, 1), $direction);
 		@include legacy-flex-wrap(nth($value, 2));
 	} @else {
 		$value: unquote($value);
@@ -149,20 +149,20 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 // ----------------------------------------------------------------------
 
 // $value: row | row-reverse | column | column-reverse
-@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $suppress: $suppress-box-direction) {
+@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $direction: $flex-legacy-direction) {
 	@if $legacy and not $wrap {
-		@include legacy-flex-direction($value, $suppress);
+		@include legacy-flex-direction($value, $direction);
 	}
 	
 	@include experimental(flex-direction, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-direction($value: row, $suppress: $suppress-box-direction) {
+@mixin legacy-flex-direction($value: row, $direction: $flex-legacy-direction) {
 	$value: unquote($value);
-	$direction: if($value == row-reverse or $value == column-reverse, reverse, normal);
+	$translated-direction: if($value == row-reverse or $value == column-reverse, reverse, normal);
 	@include experimental(box-orient, if($value == row or $value == row-reverse, horizontal, vertical), $box-support...);
-	@if not $suppress or $suppress != $direction {
-		@include experimental(box-direction, $direction, $box-support...);
+	@if $direction == true or $translated-direction == $direction {
+		@include experimental(box-direction, $translated-direction, $box-support...);
 	}
 }
 
