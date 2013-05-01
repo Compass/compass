@@ -28,7 +28,7 @@ module Compass
       end
 
       def watch!
-        listener.start
+        listener.start!
       rescue Interrupt
         log_action(:info, "Good bye!", options)
         listener.stop

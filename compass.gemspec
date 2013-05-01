@@ -15,7 +15,7 @@ Gem::Specification.new do |gemspec|
 
   gemspec.add_dependency 'sass', '~> 3.2.5'
   gemspec.add_dependency 'chunky_png', '~> 1.2'
-  gemspec.add_dependency 'listen', '<= 0.9.9'
+  gemspec.add_dependency 'listen', '~> 1.0.0'
 
   gemspec.post_install_message = <<-MESSAGE
     Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/compass Thanks!
