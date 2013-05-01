@@ -35,13 +35,13 @@ $flex-legacy-direction: true !default;
 // Chrome 21 (prefixed)
 // Opera 12.1 (unprefixed)
 // Firefox 22 (unprefixed)
-$flex-support: not -moz, -webkit, not -o, not -ms, not -khtml !default;
+$flex-support: not -moz, -webkit, not -ms, not -o, not -khtml !default;
 
 // @flexbox
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
 // Chrome 17 (prefixed)
 // Internet Explorer 10 (prefixed)
-$flexbox-support: not -moz, -webkit, not -o, -ms, not -khtml, not standard !default;
+$flexbox-support: not -moz, -webkit, -ms, not -o, not -khtml, not standard !default;
 
 // @box
 // July 2009 Working Draft (http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/)
@@ -49,7 +49,7 @@ $flexbox-support: not -moz, -webkit, not -o, -ms, not -khtml, not standard !defa
 // Chrome 4? (prefixed)
 // Safari 3.1 (prefixed)
 // Firefox <20 (prefixed)
-$box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
+$box-support: -moz, -webkit, not -ms, not -o, not -khtml, not standard !default;
 
 // ====================================================================================================
 //                                                                       | Common
