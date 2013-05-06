@@ -28,10 +28,10 @@ $flex-wrap-required : false !default;
 $flex-legacy-direction: true !default;
 
 //  This variable controls the emition of the `box-orient` property:
-//     true                : always emit
-//     false               : always suppress
-//     horizontal or row   : only emit if the orient is `horizontal`
-//     vertical or column  : only emit if the orient is `vertical`
+//     true      : always emit
+//     false     : always suppress
+//     horizontal: only emit if the orient is `horizontal`
+//     vertical  : only emit if the orient is `vertical`
 $flex-legacy-orient: true !default;
 
 // @flex
@@ -167,11 +167,11 @@ $box-support: -moz, -webkit, not -ms, not -o, not -khtml, not standard !default;
 
 @mixin legacy-flex-direction($value: row, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	$value: unquote($value);
-	$translated-orient: if($value == row or $value == row-reverse, row, column);
+	$translated-orient: if($value == row or $value == row-reverse, horizontal, vertical);
 	$translated-direction: if($value == row or $value == column, normal, reverse);
 
 	@if $orient == true or $translated-orient == $orient {
-		@include experimental(box-orient, if($translated-orient == row or $translated-orient == horizontal, horizontal, vertical), $box-support...);
+		@include experimental(box-orient, $translated-orient, $box-support...);
 	}
 
 	@if $direction == true or $translated-direction == $direction {
