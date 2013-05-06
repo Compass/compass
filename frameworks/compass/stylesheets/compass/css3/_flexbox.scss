@@ -17,14 +17,22 @@ $flex-legacy-enabled: false !default;
 // (this includes suppressing the automatic emittion of @box properties)
 $flex-wrap-required : false !default;
 
-// The modern `flex-direction` property corresponds to two properties in the @box spec.  This 
-// variable allows you to suppress it from being emitted when the `legacy-flex-direction` mixin
-// is invoked:
+// The modern `flex-direction` property corresponds to two properties in the @box spec and the
+// `legacy-flex-direction` mixin will emit both by default.
+
+//  This variable controls the emition of the `box-direction` property:
 //     true   : always emit
 //     false  : always suppress
 //     normal : only emit if the direction is `normal`
 //     reverse: only emit if the direction is `reverse`
 $flex-legacy-direction: true !default;
+
+//  This variable controls the emition of the `box-orient` property:
+//     true                : always emit
+//     false               : always suppress
+//     horizontal or row   : only emit if the orient is `horizontal`
+//     vertical or column  : only emit if the orient is `vertical`
+$flex-legacy-orient: true !default;
 
 // @flex
 // September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
@@ -124,17 +132,17 @@ $box-support: -moz, -webkit, not -ms, not -o, not -khtml, not standard !default;
 // ====================================================================================================
 
 // $value: <'flex-direction'> || <'flex-wrap'>
-@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $direction: $flex-legacy-direction) {
+@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	@if $legacy and not $wrap {
-		@include legacy-flex-flow($value);
+		@include legacy-flex-flow($value, $orient, $direction);
 	}
 	
 	@include experimental(flex-flow, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-flow($value: row nowrap, $direction: $flex-legacy-direction) {
+@mixin legacy-flex-flow($value: row nowrap, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	@if length($value) > 1 { // @box version doesn't have a shorthand
-		@include legacy-flex-direction(nth($value, 1), $direction);
+		@include legacy-flex-direction(nth($value, 1), $orient, $direction);
 		@include legacy-flex-wrap(nth($value, 2));
 	} @else {
 		$value: unquote($value);
@@ -149,18 +157,23 @@ $box-support: -moz, -webkit, not -ms, not -o, not -khtml, not standard !default;
 // ----------------------------------------------------------------------
 
 // $value: row | row-reverse | column | column-reverse
-@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $direction: $flex-legacy-direction) {
+@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	@if $legacy and not $wrap {
-		@include legacy-flex-direction($value, $direction);
+		@include legacy-flex-direction($value, $orient, $direction);
 	}
 	
 	@include experimental(flex-direction, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-direction($value: row, $direction: $flex-legacy-direction) {
+@mixin legacy-flex-direction($value: row, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	$value: unquote($value);
-	$translated-direction: if($value == row-reverse or $value == column-reverse, reverse, normal);
-	@include experimental(box-orient, if($value == row or $value == row-reverse, horizontal, vertical), $box-support...);
+	$translated-orient: if($value == row or $value == row-reverse, row, column);
+	$translated-direction: if($value == row or $value == column, normal, reverse);
+
+	@if $orient == true or $translated-orient == $orient {
+		@include experimental(box-orient, if($translated-orient == row or $translated-orient == horizontal, horizontal, vertical), $box-support...);
+	}
+
 	@if $direction == true or $translated-direction == $direction {
 		@include experimental(box-direction, $translated-direction, $box-support...);
 	}
