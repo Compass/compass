@@ -1,5 +1,5 @@
 // Determines those states for which you want to enable magic sprite selectors
-$sprite-selectors: hover, target, active !default;
+$sprite-selectors: hover, target, active, focus !default;
 
 // Set the width and height of an element to the original
 // dimensions of an image before it was included in the sprite.

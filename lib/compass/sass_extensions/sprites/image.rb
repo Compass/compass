@@ -5,6 +5,7 @@ module Compass
         ACTIVE = %r{[_-]active$}
         TARGET = %r{[_-]target$}
         HOVER = %r{[_-]hover$}
+        FOCUS = %r{[_-]focus$}
         PARENT = %r{(.+)[-_](.+)$}
 
         REPEAT_X = 'repeat-x'
@@ -136,10 +137,20 @@ module Compass
         def active
           base.image_for("#{name}_active")
         end
+
+        # Is active selector
+        def focus?
+          name =~ FOCUS
+        end
+        
+        # Active selector Image object if exsists
+        def focus
+          base.image_for("#{name}_focus")
+        end
         
         
         def parent
-          if [hover?, target?, active?].any?
+          if [hover?, target?, active?, focus?].any?
             PARENT.match name
             base.image_for($1)
           end

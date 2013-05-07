@@ -21,6 +21,11 @@ module Compass
            !image_for("#{name}_target").nil?
          end
 
+         # Returns true if the image name has a focus selector image
+         def has_focus?(name)
+           !image_for("#{name}_focus").nil?
+         end
+
          # Returns true if the image name has an active selector image
          def has_active?(name)
            !image_for("#{name}_active").nil?

@@ -1,7 +1,7 @@
 module Compass::SassExtensions::Functions::Sprites
   ZERO = Sass::Script::Number::new(0)
   BOOL_FALSE = Sass::Script::Bool::new(false)
-  VALID_SELECTORS = %w(hover active target)
+  VALID_SELECTORS = %w(hover active target focus)
   # Provides a consistent interface for getting a variable in ruby
   # from a keyword argument hash that accounts for underscores/dash equivalence
   # and allows the caller to pass a symbol instead of a string.

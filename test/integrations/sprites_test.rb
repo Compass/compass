@@ -1082,4 +1082,33 @@ class SpritesTest < Test::Unit::TestCase
     assert_correct clean(css), clean(other_css)
   end
 
+  it "should render correct sprite with focus selector" do
+    css = render <<-SCSS
+      @import "focus/*.png";
+      @include all-focus-sprites;
+    SCSS
+    assert_correct css, <<-CSS
+      .focus-sprite, .focus-ten-by-ten {
+        background-image: url('/focus-sb5d1467be1.png');
+        background-repeat: no-repeat;
+      }
+      
+      .focus-ten-by-ten {
+        background-position: 0 0;
+      }
+      .focus-ten-by-ten:hover, .focus-ten-by-ten.ten-by-ten-hover {
+        background-position: 0 -30px;
+      }
+      .focus-ten-by-ten:target, .focus-ten-by-ten.ten-by-ten-target {
+        background-position: 0 -40px;
+      }
+      .focus-ten-by-ten:active, .focus-ten-by-ten.ten-by-ten-active {
+        background-position: 0 -10px;
+      }
+      .focus-ten-by-ten:focus, .focus-ten-by-ten.ten-by-ten-focus {
+        background-position: 0 -20px;
+      }
+    CSS
+  end
+
 end

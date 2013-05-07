@@ -14,6 +14,9 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 0.13.alpha.5 (UNRELEASED)
+-------------------------
+* [CORE] Updated listen version
+* [SPRITES] added :focus support for magic selectors
 
 0.13.alpha.4 (4/3/2013)
 -------------------------
