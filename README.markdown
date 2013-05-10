@@ -19,7 +19,6 @@ Chris is the Software Architect of [Caring.com](http://caring.com) and a member 
 * [Scott Davis](https://github.com/scottdavis)
 * [Eric Meyer](https://github.com/ericam)
 * [Brandon Mathis](https://github.com/imathis)
-* [Anthony Short](https://github.com/anthonyshort/)
 
 ## Major Contributors
 
