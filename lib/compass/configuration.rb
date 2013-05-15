@@ -40,6 +40,7 @@ module Compass
       :preferred_syntax,
       :disable_warnings,
       :sprite_engine,
+      :digest_class,
       :chunky_png_options
     ].flatten
 

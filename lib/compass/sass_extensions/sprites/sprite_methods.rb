@@ -78,7 +78,7 @@ module Compass
         # Returns the uniqueness hash for this sprite object
         def uniqueness_hash
           @uniqueness_hash ||= begin
-            sum = Digest::MD5.new
+            sum = Compass.configuration.digest_class.new
             sum << SPRITE_VERSION
             sum << path
             sum << layout

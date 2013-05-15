@@ -98,9 +98,9 @@ module Compass
           @spacing ||= (get_var_file("spacing") || options.get_var("spacing") || Sass::Script::Number.new(0, ['px'])).value
         end
 
-        # MD5 hash of this file
+        # Digest/hash of this file
         def digest
-          Digest::MD5.file(file).hexdigest
+          Compass.configuration.digest_class.file(file).hexdigest
         end
         
         # mtime of this file
