@@ -17,6 +17,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 -------------------------
 * [CORE] Updated listen version
 * [SPRITES] added :focus support for magic selectors
+* [CSS3] *note: alpha users* The input-placeholder mixin API has changed. It no longer accepts an argument.
+* [HELPERS] The `elements-of-type($type)` helper now accepts a type of `text-input`.
 
 0.13.alpha.4 (4/3/2013)
 -------------------------
@@ -28,7 +30,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 -------------------------
 * [RUBY] Updated for ruby 2.0
 * [CORE] Removed png grid generator in favor of the css3 grid mixin.
-* [CSS3] All browser-support functions and mixins use same `-moz, -webkit, -ms, -o, -khtml, official` order. This is a change to `experimental()`, `experimental-only-for()`, and `experimental-value()`, which had `-o` listed before `-ms`.
+* [CSS3] All browser-support functions and mixins use same `-moz, -webkit, -ms, -o, -khtml, official` order.
 * [SPRITES] Removed old sprite_image function.
 * [CORE] Fixed issue with custom watchers in config file not working.
 * [CSS3] Support for new linear gradient format.
@@ -69,13 +71,14 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 0.12.2 (06/24/2012)
 -------------------
 
-* [Vertical Rhythm Module] Removed the `$ie-font-ratio` constatnt in
+* [Vertical Rhythm Module] Removed the `$ie-font-ratio` constant in
   favor of a more clear `$browser-default-font-size` constant.
 * [Vertical Rhythm Module] The `establish-baseline` mixin now styles the
   `<html>` element instead of the `<body>` element. This makes the
   vertical rhythm module work better with `rem` based measurements.
 * [CSS3] Added 3D transform support for Mozillia, IE, and Opera.
-* [CSS3] Added `-ms` support for css3 columns. Add support for the columns shorthand property.
+* [CSS3] Added `-ms` support for css3 columns.
+* [CSS3] Add support for the columns shorthand property.
 * [CSS3] Added `-ms` and `-webkit` support for CSS Regions. [Docs](/reference/compass/css3/regions/)
 * [CSS3] Added mixins for column-break properties to the columns module.
 * [CSS3] Added a css3/hyphenation module for the `word-break` and `hyphens` properties.

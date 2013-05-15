@@ -4,22 +4,22 @@
   -ms-user-select: none;
   user-select: none; }
 
-::-webkit-input-placeholder {
+*::-webkit-input-placeholder {
   color: #bfbfbf;
   font-style: italic; }
-:-moz-placeholder {
+*:-moz-placeholder {
   color: #bfbfbf;
   font-style: italic; }
-:-ms-input-placeholder {
+*:-ms-input-placeholder {
   color: #bfbfbf;
   font-style: italic; }
 
-.input-placeholder::-webkit-input-placeholder {
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
   color: #bfbfbf;
   font-style: italic; }
-.input-placeholder:-moz-placeholder {
+input:-moz-placeholder, textarea:-moz-placeholder {
   color: #bfbfbf;
   font-style: italic; }
-.input-placeholder:-ms-input-placeholder {
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   color: #bfbfbf;
   font-style: italic; }
