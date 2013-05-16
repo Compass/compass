@@ -2,7 +2,6 @@
 
 // General Sprite Defaults
 // You can override them before you import this file.
-$<%= name %>-sprite-base-class : ".<%= name %>-sprite" !default;
 $<%= name %>-sprite-dimensions : false !default;
 $<%= name %>-use-percentages   : false !default;
 $<%= name %>-position          : 0% !default;
@@ -13,6 +12,8 @@ $<%= name %>-clean-up          : true !default;
 $<%= name %>-layout            : vertical !default;
 $<%= name %>-inline            : false !default;
 $<%= name %>-sort-by           : 'none' !default;
+$<%= name %>-class-separator   : $default-sprite-separator !default;
+$<%= name %>-sprite-base-class : ".<%= name %>#{$<%= name %>-class-separator}sprite" !default;
 
 <% if skip_overrides %> 
   $<%= name %>-sprites: sprite-map("<%= uri %>", $layout: $<%= name %>-layout, $cleanup: $<%= name %>-clean-up, $spacing: $<%= name %>-spacing, $position : $<%= name %>-position);
@@ -71,16 +72,16 @@ $<%= name %>-sort-by           : 'none' !default;
 
 // Extends the sprite base class and set the background position for the desired sprite.
 // It will also apply the image dimensions if $dimensions is true.
-@mixin <%= name %>-sprite($name, $dimensions: $<%= name %>-sprite-dimensions, $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages) {
+@mixin <%= name %>-sprite($name, $dimensions: $<%= name %>-sprite-dimensions, $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages, $separator: $<%= name %>-class-separator) {
   @extend #{$<%= name %>-sprite-base-class};
-  @include sprite($<%= name %>-sprites, $name, $dimensions, $offset-x, $offset-y, $use-percentages);
+  @include sprite($<%= name %>-sprites, $name, $dimensions, $offset-x, $offset-y, $use-percentages, $separator: $separator);
 }
 
-@mixin <%= name %>-sprites($sprite-names, $dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages) {
-  @include sprites($<%= name %>-sprites, $sprite-names, $<%= name %>-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages)
+@mixin <%= name %>-sprites($sprite-names, $dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages, $separator: $<%= name %>-class-separator) {
+  @include sprites($<%= name %>-sprites, $sprite-names, $<%= name %>-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $separator: $separator)
 }
 
 // Generates a class for each sprited image.
-@mixin all-<%= name %>-sprites($dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages) {
-  @include <%= name %>-sprites(<%= sprite_names.join(" ") %>, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages);
+@mixin all-<%= name %>-sprites($dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages, $separator: $<%= name %>-class-separator) {
+  @include <%= name %>-sprites(<%= sprite_names.join(" ") %>, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $separator: $separator);
 }

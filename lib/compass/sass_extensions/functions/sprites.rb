@@ -145,8 +145,9 @@ module Compass::SassExtensions::Functions::Sprites
   Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
 
   # Determines if the CSS selector is valid
+  IDENTIFIER_RX = /\A#{Sass::SCSS::RX::IDENT}\Z/
   def sprite_has_valid_selector(selector)
-    unless selector.value =~ /\A#{Sass::SCSS::RX::IDENT}\Z/
+    unless selector.value =~ IDENTIFIER_RX
       raise Sass::SyntaxError, "#{selector} must be a legal css identifier"
     end
     Sass::Script::Bool.new true

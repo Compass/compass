@@ -16,9 +16,11 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 0.13.alpha.5 (UNRELEASED)
 -------------------------
 * [CORE] Updated listen version
-* [SPRITES] added :focus support for magic selectors
 * [CSS3] *note: alpha users* The input-placeholder mixin API has changed. It no longer accepts an argument.
 * [HELPERS] The `elements-of-type($type)` helper now accepts a type of `text-input`.
+* [SPRITES] added :focus support for magic selectors
+* [SPRITES] You can now set `$default-sprite-separator` or `$<map>-class-separator` to an
+  underscore if you prefer underscored class names to dashes.
 
 0.13.alpha.4 (4/3/2013)
 -------------------------
