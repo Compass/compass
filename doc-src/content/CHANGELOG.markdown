@@ -18,6 +18,15 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [CORE] Updated listen version
 * [CSS3] *note: alpha users* The input-placeholder mixin API has changed. It no longer accepts an argument.
 * [HELPERS] The `elements-of-type($type)` helper now accepts a type of `text-input`.
+* [HELPERS] The `current-date()` and `current-time()` functions now have
+  reasonable default formats.
+* [HELPERS] The `current-source-file()` helper now returns the top-level sass
+  file that is being compiled instead of the file you're currently in
+  and the path is relative to your Sass directory unless you specify it
+  should be an absolute path.
+* [HELPERS] The `current-output-file()` helper now returns a path
+  relative to the css output directory unless you specify that it should
+  return an absolute path.
 * [SPRITES] added :focus support for magic selectors
 * [SPRITES] You can now set `$default-sprite-separator` or `$<map>-class-separator` to an
   underscore if you prefer underscored class names to dashes.
