@@ -1,4 +1,7 @@
 module Compass::SassExtensions::Functions::Sprites
+
+  extend Compass::SassExtensions::Functions::SassDeclarationHelper
+
   ZERO = Sass::Script::Number::new(0)
   BOOL_FALSE = Sass::Script::Bool::new(false)
   VALID_SELECTORS = %w(hover active target focus)
@@ -18,8 +21,8 @@ module Compass::SassExtensions::Functions::Sprites
     width, _ = image_dimensions(file)
     Sass::Script::Number.new(width, ["px"])
   end
-  Sass::Script::Functions.declare :sprite_width, [:map]
-  Sass::Script::Functions.declare :sprite_width, [:map, :sprite]
+  register_sass_function :sprite_width, [:map]
+  register_sass_function :sprite_width, [:map, :sprite]
   
   # Returns the height of the generated sprite map
   def sprite_height(map, sprite=nil)
@@ -28,22 +31,22 @@ module Compass::SassExtensions::Functions::Sprites
     _, height = image_dimensions(file)
     Sass::Script::Number.new(height, ["px"])
   end
-  Sass::Script::Functions.declare :sprite_height, [:map]
-  Sass::Script::Functions.declare :sprite_height, [:map, :sprite]
+  register_sass_function :sprite_height, [:map]
+  register_sass_function :sprite_height, [:map, :sprite]
 
   # Returns a list of all sprite names
   def sprite_names(map)
     verify_map(map, 'sprite-names')
     Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
   end
-  Sass::Script::Functions.declare :sprite_names, [:map]
+  register_sass_function :sprite_names, [:map]
 
   # Returns the system path of the sprite file
   def sprite_path(map)
     verify_map(map, 'sprite-path')
     Sass::Script::String.new(map.filename)
   end
-  Sass::Script::Functions.declare :sprite_path, [:map]
+  register_sass_function :sprite_path, [:map]
 
   # Returns the sprite file as an inline image
   #    @include "icon/*.png";
@@ -56,7 +59,7 @@ module Compass::SassExtensions::Functions::Sprites
     path = map.filename
     inline_image_string(data(path), compute_mime_type(path))
   end
-  Sass::Script::Functions.declare :inline_sprite, [:map]
+  register_sass_function :inline_sprite, [:map]
 
   # Creates a Compass::SassExtensions::Sprites::SpriteMap object. A sprite map, when used in a property is the same
   # as calling sprite-url. So the following background properties are equivalent:
@@ -71,7 +74,7 @@ module Compass::SassExtensions::Functions::Sprites
     kwargs.extend VariableReader
     Compass::SassExtensions::Sprites::SpriteMap.from_uri(glob, self, kwargs)
   end
-  Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
+  register_sass_function :sprite_map, [:glob], :var_kwargs => true
 
   # Returns the image and background position for use in a single shorthand property:
   #
@@ -95,10 +98,10 @@ module Compass::SassExtensions::Functions::Sprites
     position = sprite_position(map, sprite, offset_x, offset_y, use_percentages)
     Sass::Script::List.new([url] + position.value, :space)
   end
-  Sass::Script::Functions.declare :sprite, [:map, :sprite]
-  Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x]
-  Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y]
-  Sass::Script::Functions.declare :sprite, [:map, :sprite, :offset_x, :offset_y, :use_percentages]
+  register_sass_function :sprite, [:map, :sprite]
+  register_sass_function :sprite, [:map, :sprite, :offset_x]
+  register_sass_function :sprite, [:map, :sprite, :offset_x, :offset_y]
+  register_sass_function :sprite, [:map, :sprite, :offset_x, :offset_y, :use_percentages]
 
   # Returns the name of a sprite map
   # The name is derived from the folder than contains the sprites.
@@ -106,7 +109,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, "sprite-map-name")
     Sass::Script::String.new(map.name)
   end
-  Sass::Script::Functions.declare :sprite_name, [:sprite]
+  register_sass_function :sprite_name, [:sprite]
 
   # Returns the path to the original image file for the sprite with the given name
   def sprite_file(map, sprite)
@@ -119,7 +122,7 @@ module Compass::SassExtensions::Functions::Sprites
       missing_image!(map, sprite)
     end
   end
-  Sass::Script::Functions.declare :sprite_file, [:map, :sprite]
+  register_sass_function :sprite_file, [:map, :sprite]
 
   # Returns boolean if sprite has a parent
   def sprite_does_not_have_parent(map, sprite)
@@ -129,7 +132,7 @@ module Compass::SassExtensions::Functions::Sprites
     Sass::Script::Bool.new map.image_for(sprite.value).parent.nil?
   end
   
-  Sass::Script::Functions.declare :sprite_does_not_have_parent, [:map, :sprite]
+  register_sass_function :sprite_does_not_have_parent, [:map, :sprite]
 
   # Returns boolean if sprite has the selector
   def sprite_has_selector(map, sprite, selector)
@@ -142,7 +145,7 @@ module Compass::SassExtensions::Functions::Sprites
     Sass::Script::Bool.new map.send(:"has_#{selector.value}?", sprite.value)
   end
   
-  Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
+  register_sass_function :sprite_has_selector, [:map, :sprite, :selector]
 
   # Determines if the CSS selector is valid
   IDENTIFIER_RX = /\A#{Sass::SCSS::RX::IDENT}\Z/
@@ -159,7 +162,7 @@ module Compass::SassExtensions::Functions::Sprites
     map.generate
     generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
   end
-  Sass::Script::Functions.declare :sprite_url, [:map]
+  register_sass_function :sprite_url, [:map]
 
   # Returns the position for the original image in the sprite.
   # This is suitable for use as a value to background-position:
@@ -221,11 +224,11 @@ module Compass::SassExtensions::Functions::Sprites
     end
     Sass::Script::List.new([x, y],:space)
   end
-  Sass::Script::Functions.declare :sprite_position, [:map]
-  Sass::Script::Functions.declare :sprite_position, [:map, :sprite]
-  Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x]
-  Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y]
-  Sass::Script::Functions.declare :sprite_position, [:map, :sprite, :offset_x, :offset_y, :use_percentages]
+  register_sass_function :sprite_position, [:map]
+  register_sass_function :sprite_position, [:map, :sprite]
+  register_sass_function :sprite_position, [:map, :sprite, :offset_x]
+  register_sass_function :sprite_position, [:map, :sprite, :offset_x, :offset_y]
+  register_sass_function :sprite_position, [:map, :sprite, :offset_x, :offset_y, :use_percentages]
 
 protected
 
