@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Compass/compass-theme.git
-  revision: e870bc7c1d9124636280b974ccfc395eed097411
+  revision: 91f61208b587bd60ee88392e03f16258c081a7d8
   specs:
     compass-theme (0.0.2)
       compass (~> 0.11)
