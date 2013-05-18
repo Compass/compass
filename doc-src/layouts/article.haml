@@ -12,7 +12,6 @@
           Version:
           %a.number(href="/CHANGELOG/")= compass_version
       %article= yield
-      -comments= render "partials/disqus_comments"
     %footer(role="contentinfo")= render "partials/footer"
   = content_for(@item, :javascripts)
   = render "partials/analytics"
