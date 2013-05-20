@@ -24,7 +24,7 @@ $use-percentages: false) {
 $disable-magic-sprite-selectors: false !default;
 
 // Set this to underscore if you prefer
-$default-sprite-separator: "-";
+$default-sprite-separator: "-" !default;
 
 // Include the position and (optionally) dimensions of this `$sprite`
 // in the given sprite `$map`. The sprite url should come from either a base
