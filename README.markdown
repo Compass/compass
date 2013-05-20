@@ -11,8 +11,8 @@ Code Quality: [![Code Climate](https://codeclimate.com/github/chriseppstein/comp
 * [Compass Reference](http://compass-style.org/install/reference/)
 
 ## Author
-Compass is written by [Chris Eppstein](http://chriseppstein.github.com/).<br>
-Chris is the Software Architect of [Caring.com](http://caring.com) and a member of the [Sass](https://github.com/nex3/sass) core team.
+Compass is written by [Chris Eppstein](http://chriseppstein.github.io/).<br>
+Chris is a software engineer at [LinkedIn](http://www.linkedin.com/) and a member of the [Sass](https://github.com/nex3/sass) core team.
 
 ## Core Team Members
 
