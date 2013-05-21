@@ -5,17 +5,23 @@ $contrasted-light-default:  #fff !default;
 // and the `$dark` color when the `$color` is light.
 // The brightness calculations determine when the lightness of
 // `$color` changes from "dark" to "light".
+//
+// When `$color` is `null`, this function returns `null`.
 @function contrast-color(
   $color,
   $dark: $contrasted-dark-default,
   $light: $contrasted-light-default
 ) {
+  @if $color == null {
+    @return null;
+  }
+  @else {
+    $color-brightness: round((red($color) * 299) + (green($color) * 587) + (blue($color) * 114) / 1000);
+    $dark-text-brightness: round((red($dark) * 299) + (green($dark) * 587) + (blue($dark) * 114) / 1000);
+    $light-text-brightness: round((red($light) * 299) + (green($light) * 587) + (blue($light) * 114) / 1000);
 
-  $color-brightness: round((red($color) * 299) + (green($color) * 587) + (blue($color) * 114) / 1000);
-  $dark-text-brightness: round((red($dark) * 299) + (green($dark) * 587) + (blue($dark) * 114) / 1000);
-  $light-text-brightness: round((red($light) * 299) + (green($light) * 587) + (blue($light) * 114) / 1000);
-
-  @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);
+    @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);
+  }
 }
 
 // Sets the specified background color and calculates a dark or light contrasted text color.
