@@ -4,7 +4,13 @@ module Compass
     # adapt to various consumers of configuration data
     module Adapters
       def to_compiler_arguments(additional_options = {})
-        [project_path, sass_path, css_path, to_sass_engine_options.merge(additional_options)]
+        engine_opts = to_sass_engine_options.merge(additional_options)
+        # we have to pass the quiet option in the nested :sass hash to disambiguate it from the compass compiler's own quiet option.
+        if engine_opts.has_key?(:quiet)
+          engine_opts[:sass] ||= {}
+          engine_opts[:sass][:quiet] = engine_opts.delete(:quiet)
+        end
+        [project_path, sass_path, css_path, engine_opts]
       end
 
       def to_sass_plugin_options
