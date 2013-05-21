@@ -39,13 +39,31 @@ $default-box-shadow-inset       : false     !default;
 // Provides a single cross-browser CSS box shadow for Webkit, Gecko, and CSS3.
 // Includes default arguments for color, horizontal offset, vertical offset, blur length, spread length, and inset.
 @mixin single-box-shadow(
-  $hoff   : $default-box-shadow-h-offset,
-  $voff   : $default-box-shadow-v-offset,
-  $blur   : $default-box-shadow-blur,
-  $spread : $default-box-shadow-spread,
-  $color  : $default-box-shadow-color,
+  $hoff   : null,
+  $voff   : null,
+  $blur   : null,
+  $spread : null,
+  $color  : null,
   $inset  : $default-box-shadow-inset
 ) {
+  // Handle legacy argument order
+  @if $hoff != none and type-of($hoff) != number {
+    @warn "The $color argument for single-box-shadow is now the 5th argument instead of the 1st.";
+    $tmp-color: $color;
+    $color: $hoff;
+    $hoff: $voff;
+    $voff: $blur;
+    $blur: $spread;
+    $spread: $tmp-color
+  }
+
+  // Need to set these defaults here instead of the arglist to support the above backwards compat handling
+  @if $hoff   == null { $hoff:   $default-box-shadow-h-offset; }
+  @if $voff   == null { $hoff:   $default-box-shadow-v-offset; }
+  @if $blur   == null { $blur:   $default-box-shadow-blur;     }
+  @if $spread == null { $spread: $default-box-shadow-spread;   }
+  @if $color  == null { $color:  $default-box-shadow-color;    }
+
   @if not ($inset == true or $inset == false or $inset == inset) {
     @warn "$inset expected to be true or the inset keyword. Got #{$inset} instead. Using: inset";
   }
