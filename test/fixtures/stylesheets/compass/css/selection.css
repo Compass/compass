@@ -1,7 +1,7 @@
-::selection {
+*::selection {
   background-color: #fe57a1;
   color: #fff; }
-::-moz-selection {
+*::-moz-selection {
   background-color: #fe57a1;
   color: #fff; }
 
@@ -11,3 +11,26 @@
 .hot-pink::-moz-selection {
   background-color: #fe57a1;
   color: #fff; }
+
+.hot-pink-with-arguments::selection {
+  color: white;
+  background-color: #fe57a1; }
+.hot-pink-with-arguments::-moz-selection {
+  color: white;
+  background-color: #fe57a1; }
+
+.hot-pink-with-arguments-and-extra-stuff::selection {
+  color: white;
+  background-color: #fe57a1;
+  text-decoration: line-through; }
+.hot-pink-with-arguments-and-extra-stuff::-moz-selection {
+  color: white;
+  background-color: #fe57a1;
+  text-decoration: line-through; }
+
+.hot-pink-with-default-foreground::selection {
+  color: black;
+  background-color: #fe57a1; }
+.hot-pink-with-default-foreground::-moz-selection {
+  color: black;
+  background-color: #fe57a1; }
