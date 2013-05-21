@@ -17,6 +17,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 -------------------------
 * [CORE] Updated listen version
 * [CSS3] *note: alpha users* The input-placeholder mixin API has changed. It no longer accepts an argument.
+* [CSS3] *note: alpha users* The selection mixin API has changed. It no longer accepts a selector as an argument.
 * [HELPERS] The `elements-of-type($type)` helper now accepts a type of `text-input`.
 * [HELPERS] The `current-date()` and `current-time()` functions now have
   reasonable default formats.
