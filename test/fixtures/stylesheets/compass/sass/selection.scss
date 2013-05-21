@@ -28,3 +28,13 @@
   @include selection(#fe57a1);
 }
 
+.browser-support-is-considered {
+  @include selection(#fe57a1) {
+    @if $experimental-support-for-mozilla {
+      -moz-specific: yes;
+    } @else {
+      -not-moz-specific: yes;
+    }
+  }
+}
+

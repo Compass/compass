@@ -3,8 +3,9 @@
 
 // Style selected text.
 //
-// At this time, only two CSS properties are supported
-// during selection: color and background-color.
+// At this time, only two CSS properties are supported in most browsers
+// during selection: color and background-color. Firefox supports the
+// text-shadow property.
 //
 // At the stylesheet root, include the mixin within the * selector.
 //
@@ -42,13 +43,13 @@
   &::selection {
     color: $color;
     background-color: $background-color;
-    @content;
+    @include adjust-support-for($moz: false) { @content; }
   }
   @if $experimental-support-for-mozilla {
     &::-moz-selection {
       color: $color;
       background-color: $background-color;
-      @content;
+      @include with-only-support-for($moz: true) { @content; }
     }
   }
 }

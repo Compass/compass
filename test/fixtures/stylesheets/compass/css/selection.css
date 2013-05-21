@@ -34,3 +34,12 @@
 .hot-pink-with-default-foreground::-moz-selection {
   color: black;
   background-color: #fe57a1; }
+
+.browser-support-is-considered::selection {
+  color: black;
+  background-color: #fe57a1;
+  -not-moz-specific: yes; }
+.browser-support-is-considered::-moz-selection {
+  color: black;
+  background-color: #fe57a1;
+  -moz-specific: yes; }
