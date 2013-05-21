@@ -7,17 +7,9 @@
 // `box-ordinal-group` property begins indexing at 1, while the modern `order` property begins
 // indexing at 0.
 
-// ---------------------------------------------------------------------- | @flex
-
-// September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
-// NOTE: FF did not support wrapping until version ??.  Because the `display: flex` property
-// is wrapped in a `@supports (flex-wrap: wrap)` block (when $flex-wrap-required or the $wrap
-// argument to the `display-flex` mixin is set to `true`), it will Just Work(TM) when support is
-// finally added
-// Chrome 21 (prefixed)
-// Opera 12.1 (unprefixed)
-// Firefox 20 (unprefixed)
-$flex-support: not -moz, -webkit, not -ms, not -o, not -khtml !default;
+// if `true`, the @box properties will be emitted as part of the normal mixin call
+// (if this is false, you're still free to explicitly call the legacy mixins yourself)
+$flex-legacy-enabled: false !default;
 
 // if `true`, `$flex-legacy-enabled` is treated as false and an `@supports` block is added to 
 // the display property to hide the standard value from versions of Firefox that support the
@@ -25,25 +17,47 @@ $flex-support: not -moz, -webkit, not -ms, not -o, not -khtml !default;
 // (this includes suppressing the automatic emittion of @box properties)
 $flex-wrap-required : false !default;
 
-// ---------------------------------------------------------------------- | @flexbox
+// The modern `flex-direction` property corresponds to two properties in the @box spec and the
+// `legacy-flex-direction` mixin will emit both by default.
 
+//  This variable controls the emition of the `box-direction` property:
+//     true   : always emit
+//     false  : always suppress
+//     normal : only emit if the direction is `normal`
+//     reverse: only emit if the direction is `reverse`
+$flex-legacy-direction: true !default;
+
+//  This variable controls the emition of the `box-orient` property:
+//     true      : always emit
+//     false     : always suppress
+//     horizontal: only emit if the orient is `horizontal`
+//     vertical  : only emit if the orient is `vertical`
+$flex-legacy-orient: true !default;
+
+// @flex
+// September 2012 Candidate Recommendation (http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/)
+// NOTE: FF did not support wrapping until version ??.  Because the `display: flex` property
+// is wrapped in a `@supports (flex-wrap: wrap)` block (when $flex-wrap-required or the $wrap
+// argument to the `display-flex` mixin is set to `true`), it will Just Work(TM) when support is
+// finally added
+// Chrome 21 (prefixed)
+// Opera 12.1 (unprefixed)
+// Firefox 22 (unprefixed)
+$flex-support: not -moz, -webkit, not -ms, not -o, not -khtml !default;
+
+// @flexbox
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
 // Chrome 17 (prefixed)
 // Internet Explorer 10 (prefixed)
 $flexbox-support: not -moz, -webkit, -ms, not -o, not -khtml, not standard !default;
 
-// ---------------------------------------------------------------------- | @box
-
+// @box
 // July 2009 Working Draft (http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/)
 // NOTE: no browser that implements this spec is known to support `box-lines: multiple`
 // Chrome 4? (prefixed)
 // Safari 3.1 (prefixed)
 // Firefox <20 (prefixed)
 $box-support: -moz, -webkit, not -ms, not -o, not -khtml, not standard !default;
-
-// If `true`, the @box properties will be emitted as part of the normal mixin call
-// (if this is false, you're still free to explicitly call the legacy mixins yourself)
-$flex-legacy-enabled: false !default;
 
 // ====================================================================================================
 //                                                                       | Common
@@ -70,7 +84,7 @@ $flex-legacy-enabled: false !default;
 	@return $value;
 }
 
-@function flex-support-either() {
+@function flex-support-common() {
 	$common: ();
 	@for $i from 1 through length($flex-support) {
 		$common: append($common, nth($flex-support, $i) or nth($flexbox-support, $i), comma);
@@ -118,17 +132,17 @@ $flex-legacy-enabled: false !default;
 // ====================================================================================================
 
 // $value: <'flex-direction'> || <'flex-wrap'>
-@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
+@mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	@if $legacy and not $wrap {
-		@include legacy-flex-flow($value);
+		@include legacy-flex-flow($value, $orient, $direction);
 	}
 	
-	@include experimental(flex-flow, $value, flex-support-either()...);
+	@include experimental(flex-flow, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-flow($value: row nowrap) {
+@mixin legacy-flex-flow($value: row nowrap, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	@if length($value) > 1 { // @box version doesn't have a shorthand
-		@include legacy-flex-direction(nth($value, 1));
+		@include legacy-flex-direction(nth($value, 1), $orient, $direction);
 		@include legacy-flex-wrap(nth($value, 2));
 	} @else {
 		$value: unquote($value);
@@ -143,18 +157,26 @@ $flex-legacy-enabled: false !default;
 // ----------------------------------------------------------------------
 
 // $value: row | row-reverse | column | column-reverse
-@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
+@mixin flex-direction($value: row, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	@if $legacy and not $wrap {
-		@include legacy-flex-direction($value);
+		@include legacy-flex-direction($value, $orient, $direction);
 	}
 	
-	@include experimental(flex-direction, $value, flex-support-either()...);
+	@include experimental(flex-direction, $value, flex-support-common()...);
 }
 
-@mixin legacy-flex-direction($value: row) {
+@mixin legacy-flex-direction($value: row, $orient: $flex-legacy-orient, $direction: $flex-legacy-direction) {
 	$value: unquote($value);
-	@include experimental(box-orient, if($value == row or $value == row-reverse, horizontal, vertical), $box-support...);
-	@include experimental(box-direction, if($value == row-reverse or $value == column-reverse, reverse, normal), $box-support...);
+	$translated-orient: if($value == row or $value == row-reverse, horizontal, vertical);
+	$translated-direction: if($value == row or $value == column, normal, reverse);
+
+	@if $orient == true or $translated-orient == $orient {
+		@include experimental(box-orient, $translated-orient, $box-support...);
+	}
+
+	@if $direction == true or $translated-direction == $direction {
+		@include experimental(box-direction, $translated-direction, $box-support...);
+	}
 }
 
 // ----------------------------------------------------------------------
@@ -165,7 +187,7 @@ $flex-legacy-enabled: false !default;
 		@include legacy-flex-wrap($value);
 	}
 	
-	@include experimental(flex-wrap, $value, flex-support-either()...);
+	@include experimental(flex-wrap, $value, flex-support-common()...);
 }
 
 @mixin legacy-flex-wrap($value: nowrap) {
@@ -225,11 +247,14 @@ $flex-legacy-enabled: false !default;
 @mixin flex($value: 0 1 auto, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
 	$value: unquote($value);
 	@if $legacy and unitless(nth($value, 1)) {
-		// @box version does not have a shorthand, see `legacy-flex-grow`
-		@include legacy-flex-grow(nth($value, 1));
+		@include legacy-flex(nth($value, 1));
 	}
 	
-	@include experimental(flex, $value, flex-support-either()...);
+	@include experimental(flex, $value, flex-support-common()...);
+}
+
+@mixin legacy-flex($value: 0) {
+	@include experimental(box-flex, $value, $box-support...);
 }
 
 // ----------------------------------------------------------------------
@@ -242,10 +267,6 @@ $flex-legacy-enabled: false !default;
 	
 	// There is no @flexbox version of this property
 	@include experimental(flex-grow, $value, $flex-support...);
-}
-
-@mixin legacy-flex-grow($value: 0) {
-	@include experimental(box-flex, $value, $box-support...);
 }
 
 // ----------------------------------------------------------------------
