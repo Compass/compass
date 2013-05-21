@@ -8,7 +8,8 @@
 
 @mixin sticky-footer($footer-height, $root-selector: unquote("#root"), $root-footer-selector: unquote("#root_footer"), $footer-selector: unquote("#footer")) {
   html, body {
-    height: 100%; }
+    min-height: 100%;
+    height: auto;  }
   #{$root-selector} {
     clear: both;
     min-height: 100%;
