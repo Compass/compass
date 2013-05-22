@@ -31,6 +31,12 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [SPRITES] added :focus support for magic selectors
 * [SPRITES] You can now set `$default-sprite-separator` or `$<map>-class-separator` to an
   underscore if you prefer underscored class names to dashes.
+* A new function `brightness($color)` is available when you import
+  "compass/utilities/color/brightness".
+  [Documentation](/reference/compass/utilities/color/brightness/).
+* The `contrast-color` function and `contrasted` mixin no longer need a
+  `$threshold` argument. Instead, the decision for which color to pick
+  is based on the brightness delta of the original color.
 * [BLUEPRINT] The blueprint framework has been removed from compass. The
   docs are now at [compass-blueprint.org](http://compass-blueprint.org)
   and the code is maintained as [its own
