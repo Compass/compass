@@ -29,10 +29,6 @@ Here's some general information about the project you might find useful along th
 
 * [Submitting Patches](#patches)
 * [Project Structure](#project-structure)
-<!-- * Project Architecture
-  * [Command Line](/help/tutorials/command-line)
-  * [Extensions](/help/tutorials/extensions)
-  * [Configuration](help/tutorials/configuration-reference) -->
 * [General Philosophy](#project-philosophy)
 * [Stylesheet Conventions](#stylesheet-conventions)
 * [Miscellaneous Stuff](#faq)
@@ -248,39 +244,26 @@ Getting recent changes from the main repo:
 1. Use the bin script. `/path/to/compass/bin/compass` is a version of the compass
    command line that uses the local changes you have made. You can add `/path/to/compass/bin`
    to your `$PATH`, or refer to it directly.
-2. Build and install a gem:
-   1. Edit VERSION.yml and add a build indicator like so (**Do not commit this change**):
-
-          ---
-          :major: 0
-          :minor: 10
-          :patch: 6
-          :build: something-uniq-to-me.1
-   2. `gem build compass.gemspec`
+2. `gem build compass.gemspec`
    3. `gem install compass-0.10.6.something-uniq-to-me.1.gem` -- If installing to your
       system gems, you'll probably need to add `sudo` to the front. If you don't know
       what that means, you probably need to add `sudo` to the front.
 3. In a [bundled][bundler] environment, you can configure your gem to use compass
-   while you work on it like so:
-
-       gem 'compass', :path => "/Users/myusername/some/path/to/compass"
-
+   while you work on it like so: `gem 'compass', :path => "/Users/myusername/some/path/to/compass"`
    Bundler will perform some sort of charm on ruby to make it work.
 4. Configuring ruby directly. If you're a ruby pro, you probably don't need to be
-   told that you can set compass on the load path like so:
-
-       export RUBYLIB=/Users/myusername/some/path/to/compass/lib
+   told that you can set compass on the load path like so: `export RUBYLIB=/Users/myusername/some/path/to/compass/lib`
 
 <h3 id="running-tests">Running Tests</h3>
 
 1. You must have Ruby installed on your system. After [setting up git](#setting-up-git),
    change to the root directory of your git checkout of Compass.
 
-       cd compass
+   `cd compass`
 
 2. Install the bundler Ruby gem.
 
-       gem install bundler
+   `gem install bundler`
 
    If installing to your system gems, you'll probably need to add `sudo` to the
    front of that command. If you don't know what that means, you probably need
@@ -288,15 +271,15 @@ Getting recent changes from the main repo:
 
 3. Install development dependencies:
 
-       bundle install --binstubs devbin
+   `bundle install --binstubs devbin`
 
 4. Running core library and stylesheet tests:
 
-       bundle exec rake test features
+   `bundle exec rake test features`
 
 5. Running behavior tests
 
-       ./devbin/cucumber
+   `./devbin/cucumber`
 
 If stylesheet tests fail, the output of the test project is captured in
 `test/fixtures/stylesheets/<project>/saved/` and the error message will report where
