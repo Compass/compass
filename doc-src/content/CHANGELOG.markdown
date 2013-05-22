@@ -31,6 +31,11 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [SPRITES] added :focus support for magic selectors
 * [SPRITES] You can now set `$default-sprite-separator` or `$<map>-class-separator` to an
   underscore if you prefer underscored class names to dashes.
+* [BLUEPRINT] The blueprint framework has been removed from compass. The
+  docs are now at [compass-blueprint.org](http://compass-blueprint.org)
+  and the code is maintained as [its own
+  project](https://github.com/Compass/compass-blueprint) by [Stephen
+  Way](https://github.com/stephenway)
 
 0.13.alpha.4 (4/3/2013)
 -------------------------
