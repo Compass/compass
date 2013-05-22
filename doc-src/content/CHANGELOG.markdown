@@ -35,7 +35,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   docs are now at [compass-blueprint.org](http://compass-blueprint.org)
   and the code is maintained as [its own
   project](https://github.com/Compass/compass-blueprint) by [Stephen
-  Way](https://github.com/stephenway)
+  Way](https://github.com/stephenway). Full details can be [found on the
+  blog](/blog/2012/05/20/removing-blueprint/).
 
 0.13.alpha.4 (4/3/2013)
 -------------------------
