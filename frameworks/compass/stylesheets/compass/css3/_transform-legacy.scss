@@ -2,22 +2,22 @@
 
 @warn "This version of the transform module has been deprecated and will be removed.";
 
+// @private css3-feature-support variables must always include a list of five boolean values
+// representing in order: -moz, -webkit, -o, -ms, -khtml.
+$regions-support: -moz, -webkit, -o, not -ms, not -khtml;
+
 // CSS Transform and Transform-Origin
 
 // Apply a transform sent as a complete string.
 
 @mixin apply-transform($transform) {
-  @include experimental(transform, $transform,
-    -moz, -webkit, not -ms, -o, not -khtml, official
-  );
+  @include experimental(transform, $transform, $transform-legacy-support...);
 }
 
 // Apply a transform-origin sent as a complete string.
 
 @mixin apply-origin($origin) {
-  @include experimental(transform-origin, $origin,
-    -moz, -webkit, not -ms, -o, not -khtml, official
-  );
+  @include experimental(transform-origin, $origin, $transform-legacy-support...);
 }
 
 // transform-origin requires x and y coordinates
