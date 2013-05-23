@@ -55,8 +55,12 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 // (if this is false, you're still free to explicitly call the legacy mixins yourself)
 $flex-legacy-enabled: false !default;
 
+// @doc off
+
 // Common Mixins
 // =============
+
+// @doc on
 
 // function for converting a value from the standard specification to one that is comparable from
 // an older specification
@@ -87,8 +91,12 @@ $flex-legacy-enabled: false !default;
 	@return $common;
 }
 
+// @doc off
+
 // Display Property
 // ================
+
+// @doc on
 
 // $type: flex | inline-flex
 @mixin display-flex($type: flex, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
@@ -121,8 +129,12 @@ $flex-legacy-enabled: false !default;
 	@include experimental-value(display, flex-translate-value($type, box), $box-support...);
 }
 
+// @doc off
+
 // Flex Container Properties
 // =========================
+
+// @doc on
 
 // $value: <'flex-direction'> || <'flex-wrap'>
 @mixin flex-flow($value: row nowrap, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
@@ -214,8 +226,12 @@ $flex-legacy-enabled: false !default;
 	@include experimental(align-items, $value, $flex-support...);
 }
 
+// @doc off
+
 // Flex Item Properties
 // ====================
+
+// @doc on
 
 // $value: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
 @mixin flex($value: 0 1 auto, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {

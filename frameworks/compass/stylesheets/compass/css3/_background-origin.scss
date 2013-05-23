@@ -13,7 +13,8 @@ $default-background-origin: content-box !default;
 
 
 // Set the origin of the background (image and color) at the edge of the padding, border, or content.
-//   $origin... : [padding-box | border-box | content-box]
+//
+//     $origin... : [padding-box | border-box | content-box]
 @mixin background-origin($origin...) {
   $output: compact();
   $deprecated: compact();

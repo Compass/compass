@@ -49,6 +49,7 @@
   @if $official                                        { #{$property} :         #{$value}; }
 }
 
+// @private
 // Check a given support list for support of a particular browser
 @function supported(
   $prefix,

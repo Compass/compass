@@ -9,8 +9,7 @@ $box-sizing-support:  -moz, -webkit, not -o, not -ms, not -khtml;
 
 // Change the box model for Mozilla, Webkit, IE8 and the future
 //
-// @param $box-model
-//   [ content-box | border-box | padding-box ]
+//     $box-model: [ content-box | border-box | padding-box ]
 @mixin box-sizing($box-model) {
   $box-model: unquote($box-model);
   @include experimental(box-sizing, $box-model, $box-sizing-support...);
