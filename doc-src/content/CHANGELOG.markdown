@@ -15,9 +15,23 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 0.13.alpha.5 (UNRELEASED)
 -------------------------
+
+### Deprecations & Breaking changes
+
+* The old box module has been deprecated. Please use the new flexbox module.
+* The transform-legacy module which was deprecated in 0.12 has been removed.
+* The blueprint framework has been removed from compass. The
+  docs are now at [compass-blueprint.org](http://compass-blueprint.org)
+  and the code is maintained as [its own
+  project](https://github.com/Compass/compass-blueprint) by [Stephen
+  Way](https://github.com/stephenway). Full details can be [found on the
+  blog](/blog/2012/05/20/removing-blueprint/).
+* *alpha users only:* The input-placeholder mixin API has changed. It no longer accepts an argument.
+* *alpha users only:* The selection mixin API has changed. It no longer accepts a selector as an argument.
+
+### Changes
+
 * [CORE] Updated listen version
-* [CSS3] *note: alpha users* The input-placeholder mixin API has changed. It no longer accepts an argument.
-* [CSS3] *note: alpha users* The selection mixin API has changed. It no longer accepts a selector as an argument.
 * [HELPERS] The `elements-of-type($type)` helper now accepts a type of `text-input`.
 * [HELPERS] The `current-date()` and `current-time()` functions now have
   reasonable default formats.
@@ -37,12 +51,6 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * The `contrast-color` function and `contrasted` mixin no longer need a
   `$threshold` argument. Instead, the decision for which color to pick
   is based on the brightness delta of the original color.
-* [BLUEPRINT] The blueprint framework has been removed from compass. The
-  docs are now at [compass-blueprint.org](http://compass-blueprint.org)
-  and the code is maintained as [its own
-  project](https://github.com/Compass/compass-blueprint) by [Stephen
-  Way](https://github.com/stephenway). Full details can be [found on the
-  blog](/blog/2012/05/20/removing-blueprint/).
 
 0.13.alpha.4 (4/3/2013)
 -------------------------
