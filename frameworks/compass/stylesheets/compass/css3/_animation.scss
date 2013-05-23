@@ -42,27 +42,27 @@ $default-animation-play-state       : null !default;
   $khtml    : $experimental-support-for-khtml,
   $official : true
 ) {
-  @if $moz and nth($animation-support,1) {
+  @if $moz and supported(moz, $animation-support) {
     @include with-only-support-for($moz: true) {
       @-moz-keyframes #{$name} { @content; }
     }
   }
-  @if $webkit and nth($animation-support,2) {
+  @if $webkit and supported(webkit, $animation-support) {
     @include with-only-support-for($webkit: true) {
       @-webkit-keyframes #{$name} { @content; }
     }
   }
-  @if $o and nth($animation-support,3) {
+  @if $o and supported(o, $animation-support) {
     @include with-only-support-for($o: true) {
       @-o-keyframes #{$name} { @content; }
     }
   }
-  @if $khtml and nth($animation-support,5) {
+  @if $khtml and supported(khtml, $animation-support) {
     @include with-only-support-for($khtml: true) {
       @-khtml-keyframes #{$name} { @content; }
     }
   }
-  @if $official {
+  @if $official and supported(official, $animation-support) {
     @include with-only-support-for {
       @keyframes #{$name} { @content; }
     }

@@ -49,6 +49,25 @@
   @if $official                                        { #{$property} :         #{$value}; }
 }
 
+// Check a given support list for support of a particular browser
+@function supported(
+  $prefix,
+  $support-list
+) {
+  $keys: moz, webkit, o, ms, khtml, official;
+  $index: index($keys, $prefix);
+
+  @if $index {
+    @if $index == 6 and length($support-list) == 5 {
+      @return official;
+    } @else {
+      @return nth($support-list, $index);
+    }
+  } @else {
+    @warn 'Please pass a valid browser for $prefix: moz, webkit, o, ms, khtml, or official.';
+  }
+}
+
 // A debug tool for checking browser support
 @mixin debug-support-matrix($experimental: true, $ie: true) {
   @debug  #{'$moz-'}$experimental-support-for-mozilla
