@@ -45,7 +45,6 @@ class SpritesTest < Test::Unit::TestCase
   end
 
   def render(scss)
-    scss = %Q(@import "compass"; #{scss})
     options = Compass.sass_engine_options
     options[:line_comments] = false
     options[:style] = :expanded
@@ -931,6 +930,7 @@ class SpritesTest < Test::Unit::TestCase
 
   it "should replace text with images and dimensions using sprites" do
      css = render <<-SCSS
+     @import "compass/utilities/sprites/sprite-img";
      @import "colors/*.png";
      .blue { 
        @include sprite-replace-text($colors-sprites, blue); 
