@@ -8,7 +8,7 @@
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -ms, -o, -khtml
 //   - mozilla support handled seperately below
-$userselect-support: not -moz, -webkit, -ms, not -o, -khtml;
+$userselect-support: not -moz, -webkit, not -o, -ms, -khtml;
 
 
 // This property controls the selection model and granularity of an element.

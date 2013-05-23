@@ -3,8 +3,8 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -ms, -o, -khtml
-$border-radius-support: not -moz, not -webkit, not -ms, not -o, -khtml;
+// representing in order: -moz, -webkit, -o, -ms, -khtml.
+$border-radius-support: not -moz, not -webkit, not -o, not -ms, -khtml;
 
 
 // The length of a border-radius to be used by default.

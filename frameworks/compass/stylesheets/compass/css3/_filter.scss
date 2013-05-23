@@ -3,8 +3,8 @@
 @import "shared";
 
 // @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -ms, -o, -khtml
-$filter-support: -moz, -webkit, not -ms, not -o, not -khtml;
+// representing in order: -moz, -webkit, -o, -ms, -khtml.
+$filter-support: -moz, -webkit, not -o, not -ms, not -khtml;
 
 
 // Provides cross-browser support for the upcoming (?) css3 filter property.
