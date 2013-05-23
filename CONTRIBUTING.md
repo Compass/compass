@@ -249,7 +249,7 @@ Getting recent changes from the main repo:
    command line that uses the local changes you have made. You can add `/path/to/compass/bin`
    to your `$PATH`, or refer to it directly.
 2. Build and install a gem:
-   1. Edit VERSION.yml and add a build indicator like so (**Do not commit this change**):
+   1. Edit VERSION.yml and add a build indicator like so (<em>Do not commit this change</em>):
 
           ---
           :major: 0
