@@ -1,6 +1,6 @@
 source :rubygems
 
-gemspec
+gemspec unless defined?(CI)
 
 unless ENV['PKG']
   gem "cucumber", "~> 1.1.4"
