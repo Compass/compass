@@ -7,5 +7,7 @@ rvm:
   - rbx
   - ree
   - 2.0.0
-
+gemfile:
+  - gemfiles/sass_3_2.gemfile
+  - gemfiles/sass_master.gemfile
 script: "bundle exec rake"
