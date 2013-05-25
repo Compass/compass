@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gemspec
+gemspec unless defined?(CI)
 
 unless ENV['PKG']
 

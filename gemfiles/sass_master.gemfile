@@ -1,0 +1,8 @@
+CI=true
+main_gemfile = File.expand_path(File.join(File.dirname(__FILE__), "..", "Gemfile"))
+eval File.read(main_gemfile), nil, main_gemfile
+
+gem 'sass', :git => "git://github.com/nex3/sass.git"
+gem 'compass', :path => "../"
+
+gemspec :path=>"../"
