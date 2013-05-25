@@ -8,7 +8,7 @@ unless ENV['PKG']
   gem "rails", "~> 3.1"
   gem "compass-validator", "3.0.1"
   gem "css_parser", "~> 1.0.1"
-  gem "sass", "~> 3.2"
+  gem "sass", "~> 3.2" unless defined?(CI)
   gem "haml", "~> 3.1"
   gem "rubyzip"
   gem 'mocha'
