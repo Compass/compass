@@ -9,10 +9,10 @@ module Compass
     module Sprites
       class ChunkyPngEngine < Compass::SassExtensions::Sprites::Engine
 
-        def construct_sprite
+        def construct_sprite                    
           @canvas = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
           images.each do |image|
-            input_png  = ChunkyPNG::Image.from_file(image.file)
+            input_png  = ChunkyPNG::Image.from_file(image.file)                 
             canvas.replace! input_png, image.left, image.top
           end
         end    

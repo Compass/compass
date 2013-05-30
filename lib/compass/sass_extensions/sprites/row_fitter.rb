@@ -9,7 +9,7 @@ module Compass
         attr_reader :images, :rows
         def_delegators :rows, :[]
 
-        def initialize(images)
+        def initialize(images)          
           @images = images.sort do |a,b|
             if a.height == b.height
               b.width <=> a.width
@@ -17,7 +17,7 @@ module Compass
               a.height <=> b.height
             end
           end
-          @rows = []
+          @rows = []        
         end
 
         def fit!(style = :scan)
@@ -26,11 +26,11 @@ module Compass
         end
 
         def width
-          @width ||= @images.collect(&:width).max
+          @width ||= @images.collect(&:width).max + @images.collect(&:spacing).max
         end
         
         def height
-          @height ||= @rows.inject(0) {|sum, row| sum += row.height}
+          @height ||= @rows.inject(0) {|sum, row| sum += row.height} + @images[0].spacing
         end
 
         def efficiency
@@ -38,29 +38,29 @@ module Compass
         end
 
         private
-        def new_row(image = nil)
+        def new_row(image = nil)          
           row = Compass::SassExtensions::Sprites::ImageRow.new(width)
           row.add(image) if image
           row
         end
 
         def fast_fit
-          row = new_row
-          @images.each do |image|
-            if !row.add(image)
-              @rows << row
-              row = new_row(image)
+          row = new_row          
+          @images.each do |image|            
+            if !row.add(image)              
+              @rows << row              
+              row = new_row(image)            
             end
           end
 
-          @rows << row
+          @rows << row          
         end
 
         def scan_fit
           fast_fit
 
           moved_images = []
-
+          
           begin
             removed = false
 

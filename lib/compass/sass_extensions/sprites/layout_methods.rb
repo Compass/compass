@@ -29,10 +29,10 @@ module Compass
         
         # Calculates the overal image dimensions
         # collects image sizes and input parameters for each sprite
-        def compute_image_positions!
+        def compute_image_positions!                    
           case layout
-          when SMART
-            calculate_smart_positions
+          when SMART                        
+            calculate_smart_positions            
           when DIAGONAL
             calculate_diagonal_dimensions
             calculate_diagonal_positions
@@ -84,13 +84,15 @@ module Compass
         def calculate_smart_positions
           fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images)
           current_y = 0
+          spacing = 0;          
           fitter.fit!.each do |row|
-            current_x = 0
+            current_x = 0            
             row.images.each_with_index do |image, index|
               image.left = current_x
-              image.top = current_y
-              current_x += image.width
-            end
+              image.top = current_y              
+              current_x += image.width + image.spacing
+              spacing = image.spacing              
+            end                        
             current_y += row.height
           end
           @width = fitter.width
