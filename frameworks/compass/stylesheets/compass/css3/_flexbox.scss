@@ -1,5 +1,6 @@
 @import "shared";
 
+
 // NOTE:
 // -----
 // All mixins for the @box spec have been written assuming they'll be fed property values that
@@ -262,25 +263,25 @@ $flex-legacy-orient: true !default;
 @mixin flex($value: 0 1 auto, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
 	$value: unquote($value);
 	@if $legacy and unitless(nth($value, 1)) {
-		// @box version does not have a shorthand, see `legacy-flex`
-		@include legacy-flex(nth($value, 1));
+		@include legacy-flex($value);
 	}
 
 	@include experimental(flex, $value, flex-support-common()...);
 }
 
-// $value: Integer
-@mixin flex-grow($value: 0, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
-	@if $legacy and not $wrap {
-		@include legacy-flex($value);
+@mixin legacy-flex($value: 0) {
+	$value: nth($value, 1);
+	@if not unitless($value) {
+		@warn 'The legacy flex property `box-flex` requires an Integer (eg. 1)';
 	}
-
-	// There is no @flexbox version of this property
-	@include experimental(flex-grow, $value, $flex-support...);
+	@include experimental(box-flex, $value, $box-support...);
 }
 
-@mixin legacy-flex($value: 0) {
-	@include experimental(box-flex, $value, $box-support...);
+// $value: Integer
+@mixin flex-grow($value: 0, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
+	// There is no @box version of this property
+	// There is no @flexbox version of this property
+	@include experimental(flex-grow, $value, $flex-support...);
 }
 
 // $value: Integer
