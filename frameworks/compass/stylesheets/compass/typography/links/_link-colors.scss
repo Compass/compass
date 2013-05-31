@@ -7,6 +7,9 @@
 // 4. visited
 // 5. focus
 //
+// However, the CSS output is: Normal-Visited-Hover-Focus-Active
+// mixin argument order was not changed to keep it backwards-compatible
+//
 // Those states not specified will inherit.
 // Mixin to an anchor link like so:
 //     a
@@ -17,12 +20,12 @@
   @if $visited {
     &:visited {
       color: $visited; } }
-  @if $focus {
-    &:focus {
-      color: $focus; } }
   @if $hover {
     &:hover {
       color: $hover; } }
+  @if $focus {
+    &:focus {
+      color: $focus; } }
   @if $active {
     &:active {
       color: $active; } } }
