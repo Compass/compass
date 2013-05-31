@@ -1,4 +1,7 @@
 @font-face {
   font-family: "font1";
   src: url('/tmp/fonts/font1.eot');
-  src: url('/tmp/fonts/font1.eot?#iefix') format('embedded-opentype'), url('/tmp/fonts/font1.woff') format('woff'); }
+  src: local("☺"), url('/tmp/fonts/font1.eot?#iefix') format('embedded-opentype'), url('/tmp/fonts/font1.woff') format('woff'), url('/tmp/fonts/font1.ttf') format('truetype'), url('/tmp/fonts/font1.svg') format('svg');
+  unicode-range: U+1700-1714, U+1735-1736;
+  font-weight: normal;
+  font-style: normal; }
