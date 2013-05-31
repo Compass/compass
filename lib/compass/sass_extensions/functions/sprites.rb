@@ -264,7 +264,13 @@ protected
   def convert_sprite_name(sprite)
     case sprite
       when Sass::Script::Color
-        Sass::Script::String.new(reversed_color_names[sprite.rgb])
+        rgb = if reversed_color_names.keys.first.size == 3
+                sprite.rgb
+              else
+                # Sass 3.3 includes the alpha channel
+                sprite.rgba
+              end
+        Sass::Script::String.new(reversed_color_names[rgb])
       when Sass::Script::Bool
         Sass::Script::String.new(sprite.to_s)
       else
