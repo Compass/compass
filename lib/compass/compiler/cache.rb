@@ -77,8 +77,10 @@ module Compass
     end
 
     def clear!
-      @hash = nil
-      @hash = Hash.new
+      semaphore.synchronize do
+        @hash = nil
+        @hash = Hash.new
+      end
     end
 
   end
