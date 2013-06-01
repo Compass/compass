@@ -19,6 +19,7 @@ module Compass
           sprites = files.map do |sprite|
             relative_name(sprite)
           end
+        
           new(sprites, path, name, context, kwargs)
         end
         

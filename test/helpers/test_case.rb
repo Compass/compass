@@ -14,6 +14,8 @@ module Compass
     def compile_for_project(contents, options = {})
       Compass.add_project_configuration
       options[:syntax] ||= :scss
+      options[:compass] ||= {}
+      options[:compass][:cache] ||= Compass::CompilerCache.new
       Sass::Engine.new(contents, Compass.configuration.to_sass_engine_options.merge(options)).render
     end
 
@@ -57,6 +59,18 @@ module Compass
         string.gsub(' ', '_')
       end
 
+    end
+  end
+
+  class TestLogger < Logger
+    attr_reader :messages
+    def initialize
+      @messages = []
+      super
+    end
+
+    def log(msg)
+      @messages << msg
     end
   end
 end

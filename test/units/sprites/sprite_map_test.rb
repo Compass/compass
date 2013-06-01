@@ -10,6 +10,8 @@ class SpriteMapTest < Test::Unit::TestCase
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}
+    @options[:compass] ||= {}
+    @options[:compass][:cache] ||= Compass::CompilerCache.new
     @base = sprite_map_test(@options)
   end
 

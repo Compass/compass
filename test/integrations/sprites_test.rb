@@ -23,6 +23,8 @@ class SpritesTest < Test::Unit::TestCase
     Compass.reset_configuration!
     ::FileUtils.rm_r @images_tmp_path
     ::FileUtils.rm_rf @generated_images_tmp_path
+    @logger = nil
+    @cache = nil
   end
 
 
@@ -44,13 +46,22 @@ class SpritesTest < Test::Unit::TestCase
     md5.hexdigest
   end
 
-  def render(scss)
-    options = Compass.sass_engine_options
+  def logger
+    @logger ||= Compass::TestLogger.new
+  end
+
+  def cache
+    @cache ||= Compass::CompilerCache.new
+  end
+
+  def render(scss, options={})
+    options.merge! Compass.sass_engine_options
     options[:line_comments] = false
     options[:style] = :expanded
     options[:syntax] = :scss
     options[:compass] ||= {}
-    options[:compass][:logger] ||= Compass::NullLogger.new
+    options[:compass][:logger] ||= logger
+    options[:compass][:cache] ||= cache
     css = Sass::Engine.new(scss, options).render
     # reformat to fit result of heredoc:
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
@@ -1109,6 +1120,25 @@ class SpritesTest < Test::Unit::TestCase
         background-position: 0 -20px;
       }
     CSS
+  end
+
+  it "should call the sprite map class once even on a forced compile" do
+    scss = <<-SCSS
+      $map  : sprite-map("focus/*.png");
+      $map2 : sprite-map("focus/*.png");
+      $map3 : sprite-map("focus/*.png");
+      .foo {
+        background-image : $map3;
+      }
+      .bar {
+        background-image : $map2;
+      }
+      .baz {
+        background-image : $map; 
+      }
+    SCSS
+    css = render scss, {:force => true}
+    assert_equal 1, logger.messages.size
   end
 
 end
