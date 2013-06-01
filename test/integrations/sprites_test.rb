@@ -1122,7 +1122,7 @@ class SpritesTest < Test::Unit::TestCase
     CSS
   end
 
-  it "should call the sprite map class once even on a forced compile" do
+  it "should generate sprite once even on a forced compile" do
     scss = <<-SCSS
       $map  : sprite-map("focus/*.png");
       $map2 : sprite-map("focus/*.png");
@@ -1135,6 +1135,25 @@ class SpritesTest < Test::Unit::TestCase
       }
       .baz {
         background-image : $map; 
+      }
+    SCSS
+    css = render scss, {:force => true}
+    assert_equal 1, logger.messages.size
+  end
+
+  it "should generate sprite once with inline sprite even with forced compile" do
+    scss = <<-SCSS
+      $map  : sprite-map("focus/*.png");
+      $map2 : sprite-map("focus/*.png");
+      $map3 : sprite-map("focus/*.png");
+      .foo {
+        background-image : inline-sprite($map3);
+      }
+      .bar {
+        background-image : inline-sprite($map2);
+      }
+      .baz {
+        background-image : inline-sprite($map); 
       }
     SCSS
     css = render scss, {:force => true}
