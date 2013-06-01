@@ -1,3 +1,5 @@
+require 'compass/compiler/cache'
+
 module Compass
   class Compiler
 
@@ -5,7 +7,7 @@ module Compass
 
     attr_accessor :working_path, :from, :to, :options, :sass_options, :staleness_checker, :importer
 
-    def initialize(working_path, from, to, options)
+    def initialize(working_path, from, to, options, cache=nil)
       self.working_path = working_path.to_s
       self.from, self.to = File.expand_path(from), to
       self.logger = options.delete(:logger)
@@ -19,6 +21,14 @@ module Compass
       self.sass_options[:compass] ||= {}
       self.sass_options[:compass][:logger] = self.logger
       self.sass_options[:compass][:environment] = Compass.configuration.environment
+
+      self.sass_options[:compass][:cache] = if cache.nil?
+        CompilerCache.new
+      else
+        cache
+      end
+
+
       reset_staleness_checker!
     end
 
