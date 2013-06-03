@@ -8,7 +8,7 @@ module Compass
       ALL_CHILDREN_SASS_FILTER = File.join('**', SASS_FILTER)
       POLLING_MESSAGE = 'Compass is polling for changes'
 
-      attr_reader :options, :project_path, :watcher_compiler, :listener, :poll, :css_dir, :sass_watchers
+      attr_reader :options, :project_path, :watcher_compiler, :listener, :poll, :css_dir, :watchers
 
       alias :working_path :project_path
 
@@ -22,7 +22,7 @@ module Compass
         @options          = options
         @project_path     = project_path
         @css_dir          = Compass.configuration.css_dir
-        @sass_watchers    = create_sass_watchers + watches
+        @watchers         = [SassWatch.new(&method(:sass_callback))] + watches
         @watcher_compiler = Compass::Watcher::Compiler.new(project_path, options)
         setup_listener
       end
@@ -30,75 +30,78 @@ module Compass
       def watch!
         listener.start!
       rescue Interrupt
-        log_action(:info, "Good bye!", options)
+        logger.log "\nHappy Styling!"
         listener.stop
       end
 
     private #============================================================================>
 
       def setup_listener
-        @listener = Listen.to(@project_path, :relative_paths => true)
-        if poll
-          @listener = listener.force_polling(true)
-        end
+        @listener = Listen::Listener.new(directories_to_watch,
+                                         :relative_paths => false)
+        @listener = listener.force_polling(true) if poll
         @listener = listener.polling_fallback_message(POLLING_MESSAGE)
         @listener = listener.ignore(/\.css$/)
         @listener = listener.change(&method(:listen_callback))
       end
 
-      def create_sass_watchers
-        watches = []
-        Compass.configuration.sass_load_paths.map do |load_path|
-          load_path = load_path.root if load_path.respond_to?(:root)
-          next unless load_path.is_a? String
-          next unless load_path.include? project_path
-          load_path = Pathname.new(load_path).relative_path_from(Pathname.new(project_path))
-          filter = File.join(load_path, SASS_FILTER)
-          children = File.join(load_path, ALL_CHILDREN_SASS_FILTER)
-          if filter.match(%r{^./})
-            watches << Watcher::Watch.new(SASS_FILTER, &method(:sass_callback))
-          end
-          watches << Watcher::Watch.new(filter, &method(:sass_callback))
-          watches << Watcher::Watch.new(children, &method(:sass_callback))
-        end
-        watches.compact
+      def directories_to_watch
+        [Compass.configuration.sass_path] + Compass.configuration.sass_load_paths.map{|p| p.respond_to?(:root) ? p.root : nil}.compact
       end
 
-      def listen_callback(modified_file, added_file, removed_file)
-        #log_action(:info, ">>> Listen Callback fired added: #{added_file}, mod: #{modified_file}, rem: #{removed_file}", {})
-        action = nil
-        action ||= :modified unless modified_file.empty?
-        action ||= :added unless added_file.empty?
-        action ||= :removed unless removed_file.empty?
+      def listen_callback(modified_files, added_files, removed_files)
+        #log_action(:info, ">>> Listen Callback fired added: #{added_files}, mod: #{modified_files}, rem: #{removed_files}", {})
+        files = {:modified => modified_files,
+                 :added    => added_files,
+                 :removed  => removed_files}
 
-        files = modified_file + added_file + removed_file
-        # run watchers
-        sass_watchers.each do |watcher|
-          files.each do |file|
-            watcher.run_callback(project_path, file, action) if watcher.match?(file)
+        run_once, run_each = watchers.partition {|w| w.run_once_per_changeset?}
+
+        run_once.each do |watcher|
+          if file = files.values.flatten.detect{|f| watcher.match?(f) }
+            action = files.keys.detect{|k| files[k].include?(file) }
+            watcher.run_callback(project_path, relative_to(file, project_path), action)
+          end
+        end
+
+        run_each.each do |watcher|
+          files.each do |action, list|
+            list.each do |file|
+              if watcher.match?(file)
+                watcher.run_callback(project_path, relative_to(file, project_path), action)
+              end
+            end
           end
         end
       end
 
       def sass_callback(base, file, action)
         #log_action(:info, ">>> Sass Callback fired #{action}, #{file}", {})
-        sass_modified(file) if action == :modified
-        sass_added(file) if action == :added
-        sass_removed(file) if action == :removed
+        full_filename = File.expand_path(File.join(base,file))
+        case action
+        when :modified
+          sass_modified(full_filename)
+        when :added
+          sass_added(full_filename)
+        when :removed
+          sass_removed(full_filename)
+        else
+          raise ArgumentError, "Illegal Action: #{action.inspect}"
+        end
       end
 
       def sass_modified(file)
-        log_action(:info, "#{file} was modified", options)
+        log_action(:info, "#{filename_for_display(file)} was modified", options)
         compile
       end
 
       def sass_added(file)
-        log_action(:info, "#{file} was added", options)
+        log_action(:info, "#{filename_for_display(file)} was added", options)
         compile
       end
 
       def sass_removed(file)
-        log_action(:info, "#{file} was removed", options)
+        log_action(:info, "#{filename_for_display(file)} was removed", options)
         css_file = compiler.corresponding_css_file(File.join(project_path, file))
         compile
         if File.exists?(css_file)
@@ -106,6 +109,36 @@ module Compass
         end
       end
 
+      def local_development_locations
+        @local_development_locations ||= begin
+                                          r = [Compass.configuration.sass_path] + Array(Compass.configuration.additional_import_paths)
+                                          r.map!{|l| File.expand_path(l) }
+                                         end
+      end
+
+      def filename_for_display(f)
+        if local_development_locations.detect{|d| in_directory?(d, f) }
+          relative_to_working_directory(f)
+        elsif framework = Frameworks::ALL.detect {|framework| in_directory?(framework.stylesheets_directory, f) }
+          "(#{framework.name}) #{relative_to(f, framework.stylesheets_directory)}"
+        else
+          f
+        end
+      end
+
+      def in_directory?(dir, f)
+        dir && (f[0...(dir.size)] == dir)
+      end
+
+      def relative_to_working_directory(f)
+        relative_to(f, Dir.pwd)
+      end
+
+      def relative_to(f, dir)
+        Pathname.new(f).relative_path_from(Pathname.new(dir))
+      rescue ArgumentError # does not share a common path.
+        f
+      end
     end
   end
 end

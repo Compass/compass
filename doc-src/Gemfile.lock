@@ -10,10 +10,10 @@ GIT
 PATH
   remote: ..
   specs:
-    compass (0.13.alpha.4.7bec392)
+    compass (0.13.alpha.4.c4921ef)
       chunky_png (~> 1.2)
-      listen (~> 1.0.0)
-      sass (~> 3.2.5)
+      listen (~> 1.1.0)
+      sass (>= 3.2.5, < 3.4)
 
 GEM
   remote: https://rubygems.org/
@@ -41,7 +41,7 @@ GEM
     haml (3.1.7)
     i18n (0.6.4)
     json (1.7.7)
-    listen (1.0.3)
+    listen (1.1.4)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
