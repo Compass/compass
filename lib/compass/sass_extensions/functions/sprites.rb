@@ -55,9 +55,11 @@ module Compass::SassExtensions::Functions::Sprites
   #      }
   def inline_sprite(map)
     verify_map(map, "sprite-url")
-    map.generate
-    path = map.filename
-    inline_image_string(data(path), compute_mime_type(path))
+    options[:compass][:cache].cache("sprite_inline#{map.name}_#{map.uniqueness_hash}") do
+      map.generate
+      path = map.filename
+      inline_image_string(data(path), compute_mime_type(path))
+    end
   end
   register_sass_function :inline_sprite, [:map]
 
@@ -159,8 +161,10 @@ module Compass::SassExtensions::Functions::Sprites
   # Returns a url to the sprite image.
   def sprite_url(map)
     verify_map(map, "sprite-url")
-    map.generate
-    generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
+    options[:compass][:cache].cache("sprite_url#{map.name}_#{map.uniqueness_hash}") do
+      map.generate
+      generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
+    end
   end
   register_sass_function :sprite_url, [:map]
 
