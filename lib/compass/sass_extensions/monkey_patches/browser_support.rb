@@ -1,6 +1,4 @@
-require 'sass/script/node'
-require 'sass/script/literal'
-require 'sass/script/funcall'
+require 'sass/script'
 
 module Sass::Script
   module HasSimpleCrossBrowserFunctionSupport
