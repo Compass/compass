@@ -1,9 +1,10 @@
+
 module Compass
   module SassExtensions
     module Sprites
       class Engine
         attr_accessor :width, :height, :images, :canvas
-        def initialize(width, height, images)
+        def initialize(width=nil, height=nil, images=nil)
           @width, @height, @images = width, height, images
           @canvas = nil
         end
@@ -20,6 +21,5 @@ module Compass
     end
   end
 end
-
 
 require 'compass/sass_extensions/sprites/engines/chunky_png_engine'
