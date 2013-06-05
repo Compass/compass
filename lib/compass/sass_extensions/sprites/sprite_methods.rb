@@ -18,7 +18,7 @@ module Compass
         end
         
         def init_engine
-          @engine = eval("::Compass::SassExtensions::Sprites::#{modulize}Engine.new(nil, nil, nil)")
+          @engine = self.class.sprite_engine_class.new
           @engine.width = @width
           @engine.height = @height
           @engine.images = @images

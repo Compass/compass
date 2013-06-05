@@ -1,10 +1,14 @@
 require 'erb'
+require 'compass'
 require 'compass/sprite_importer/binding'
+
+
+
+
 module Compass
   class SpriteImporter < Sass::Importers::Base
     VAILD_FILE_NAME       = /\A#{Sass::SCSS::RX::IDENT}\Z/
-    SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
-    VALID_EXTENSIONS      = ['.png']
+    SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)}
     
     TEMPLATE_FOLDER       = File.join(File.expand_path('../', __FILE__), 'sprite_importer')
     CONTENT_TEMPLATE_FILE = File.join(TEMPLATE_FOLDER, 'content.erb')
@@ -15,7 +19,7 @@ module Compass
     # finds all sprite files
     def self.find_all_sprite_map_files(path)
       hex = "[0-9a-f]"
-      glob = "*-s#{hex*10}{#{VALID_EXTENSIONS.join(",")}}"
+      glob = "*-s#{hex*10}{#{valid_extensions.join(",")}}"
       Sass::Util.glob(File.join(path, "**", glob))
     end
     
@@ -53,7 +57,7 @@ module Compass
     end
     
     def self.path_and_name(uri)
-      if uri =~ SPRITE_IMPORTER_REGEX
+      if uri =~ sprite_importer_regex_with_ext
         [$1, $3]
       else
         raise Compass::Error, "invalid sprite path"
@@ -106,6 +110,16 @@ module Compass
     def self.content_for_images(uri, name, skip_overrides = false)
       binder = Compass::Sprites::Binding.new(:name => name, :uri => uri, :skip_overrides => skip_overrides, :sprite_names => sprite_names(uri), :files => files(uri))
       CONTENT_TEMPLATE.result(binder.get_binding)
+    end
+
+  private
+
+    def self.valid_extensions
+      @valid_extensions ||= SassExtensions::Sprites::SpriteMap.sprite_engine_class::VALID_EXTENSIONS
+    end
+
+    def self.sprite_importer_regex_with_ext
+      @importer_regex ||= %r{#{SPRITE_IMPORTER_REGEX}(#{valid_extensions.join('|')})}
     end
   end
 end

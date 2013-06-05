@@ -32,6 +32,10 @@ module Compass
           end
         end
 
+        def self.sprite_engine_class      
+          constantize("Compass::SassExtensions::Sprites::#{self.modulize}Engine")
+        end
+
         def initialize(sprites, path, name, context, kwargs)
           @image_names = sprites
           @path = path
@@ -81,9 +85,22 @@ module Compass
 
         private 
 
-        def modulize
+        def self.modulize
           @modulize ||= Compass::configuration.sprite_engine.to_s.scan(/([^_.]+)/).flatten.map {|chunk| "#{chunk[0].chr.upcase}#{chunk[1..-1]}" }.join
         end
+
+        def self.constantize(camel_cased_word)
+          names = camel_cased_word.split('::')
+          names.shift if names.empty? || names.first.empty?
+
+          constant = Object
+          names.each do |name|
+            constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
+          end
+          constant
+        end
+
+
 
       end
     end
