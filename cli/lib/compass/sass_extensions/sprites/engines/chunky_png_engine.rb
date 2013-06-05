@@ -9,6 +9,8 @@ module Compass
     module Sprites
       class ChunkyPngEngine < Compass::SassExtensions::Sprites::Engine
 
+        VALID_EXTENSIONS = ['.png']
+
         def construct_sprite
           @canvas = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
           images.each do |image|

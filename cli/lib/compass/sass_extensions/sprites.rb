@@ -1,6 +1,3 @@
-require 'digest/md5'
-require 'compass/sprite_importer'
-
 module Compass
   module SassExtensions
     module Sprites
@@ -8,6 +5,7 @@ module Compass
   end
 end
 
+require 'digest/md5'
 require 'compass/sass_extensions/sprites/images'
 require 'compass/sass_extensions/sprites/layout'
 require 'compass/sass_extensions/sprites/image_row'
@@ -18,4 +16,5 @@ require 'compass/sass_extensions/sprites/sprite_methods'
 require 'compass/sass_extensions/sprites/image_methods'
 require 'compass/sass_extensions/sprites/sprite_map'
 require 'compass/sass_extensions/sprites/engines'
+require 'compass/sprite_importer'
 
