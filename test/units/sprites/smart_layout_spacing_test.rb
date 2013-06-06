@@ -30,15 +30,11 @@ class SmartLayoutSpacingTest < Test::Unit::TestCase
   end
 
   it 'should correctly space the images according to the spacing' do
-	images = create_images_with_spacing(spacing_dims)
+  	images = create_images_with_spacing(spacing_dims)
 
-	computed_images, width, height = Compass::SassExtensions::Sprites::Layout::Smart.new(images, nil).properties
+  	computed_images, width, height = Compass::SassExtensions::Sprites::Layout::Smart.new(images, nil).properties
 
-	computed_images.each do |img|
-		puts img.width.to_s + ": " + img.left.to_s + " " + img.top.to_s
-	end
-
-	assert_equal 110, width
-	assert_equal 90, height
+  	assert_equal 110, width
+  	assert_equal 90, height
   end
 end
