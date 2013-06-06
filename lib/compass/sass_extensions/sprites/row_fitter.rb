@@ -38,12 +38,10 @@ module Compass
         end
 
         private
-        def new_row(image = nil)          
-          if image
-            row = Compass::SassExtensions::Sprites::ImageRow.new(width + 2 * image.spacing)
-          else 
-            row = Compass::SassExtensions::Sprites::ImageRow.new(width + 2 * @images[0].spacing)
-          end
+        def new_row(image = nil)
+          spacing = image ? image.spacing : @images[0].spacing
+          row = Compass::SassExtensions::Sprites::ImageRow.new(width + 2 * spacing)
+          
           row.add(image) if image
           row
         end
