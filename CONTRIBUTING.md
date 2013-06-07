@@ -1,7 +1,7 @@
 Contributing Stylesheets to Compass
 ===================================
 
-####Please make all pull requests against the master branch**
+####Please make all pull requests against the master branch
 
 Thank you for your interest in contributing to Compass. Our goal is to make it as easy
 as we can for you to contribute changes to compass -- So if there's something here that
