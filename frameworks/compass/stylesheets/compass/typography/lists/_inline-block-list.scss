@@ -26,18 +26,29 @@
 
 // Can be mixed into any selector that target a ul or ol that is meant
 // to have an inline-block layout. Used to implement `inline-block-list`.
-@mixin inline-block-list-container($remove-inline-block-gap: true, $legacy-opera-support: false) {
+@mixin inline-block-list-container($remove-inline-block-gap: true, $legacy-opera-support: false, $monospaced-font: false) {
   
   // do we need to use clearfix and reset the box model?
   // I don't see why
   @include horizontal-list-container;
-
+  
+  // Remove inter-unit whitespace that appears between `inline-block` child
+  // elements. Work for all non-monospace font-families.  If you're using a
+  // monospace base font, you will need to set the `Grid` font-family to
+  // `sans-serif` and then redeclare the monospace font on the `Grid-cell`
+  // objects.
   @if $remove-inline-block-gap {
     letter-spacing: -0.31em;
     @if $legacy-opera-support {
       &:-o-prefocus,
       & {
         word-spacing: -0.43em; //Opera 12 Windows
+      }
+    }
+    @if $monospaced-font {
+      font-family: 'sans-serif';
+      li {
+        font-family: $monospaced-font;
       }
     }
   }
