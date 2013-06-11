@@ -205,16 +205,15 @@ $flex-legacy-enabled: true !default;
 
 // Distributing extra space along the "cross axis"
 // $value: flex-start | flex-end | center | space-between | space-around | stretch
-@mixin align-content($value: flex-start, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
+@mixin align-content($value: flex-start) {
 	// There is no @box version of this property
-
 	@include experimental(flex-line-pack, flex-translate-value($value, flexbox), $flexbox-support...);
 	@include experimental(align-content, $value, $flex-support...);
 }
 
 // Align items along the "cross axis"
 // $value: flex-start | flex-end | center | baseline | stretch
-@mixin align-items($value: stretch) { // the flex container
+@mixin align-items($value: stretch, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) { // the flex container
 	@if $legacy and not $wrap {
 		@include legacy-align-items($value);
 	}
