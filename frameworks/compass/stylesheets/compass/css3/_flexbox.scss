@@ -53,7 +53,7 @@ $box-support: -moz, -webkit, not -o, not -ms, not -khtml, not standard !default;
 
 // If `true`, the @box properties will be emitted as part of the normal mixin call
 // (if this is false, you're still free to explicitly call the legacy mixins yourself)
-$flex-legacy-enabled: false !default;
+$flex-legacy-enabled: true !default;
 
 // @doc off
 
@@ -206,24 +206,24 @@ $flex-legacy-enabled: false !default;
 // Distributing extra space along the "cross axis"
 // $value: flex-start | flex-end | center | space-between | space-around | stretch
 @mixin align-content($value: flex-start, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
-	@if $legacy and not $wrap {
-		@include legacy-align-content($value);
-	}
+	// There is no @box version of this property
 
 	@include experimental(flex-line-pack, flex-translate-value($value, flexbox), $flexbox-support...);
 	@include experimental(align-content, $value, $flex-support...);
 }
 
-@mixin legacy-align-content($value: flex-start) {
-	@include experimental(box-align, flex-translate-value($value, box), $box-support...);
-}
-
 // Align items along the "cross axis"
 // $value: flex-start | flex-end | center | baseline | stretch
 @mixin align-items($value: stretch) { // the flex container
-	// There is no @box version of this property
+	@if $legacy and not $wrap {
+		@include legacy-align-items($value);
+	}
 	@include experimental(flex-align, flex-translate-value($value, flexbox), $flexbox-support...);
 	@include experimental(align-items, $value, $flex-support...);
+}
+
+@mixin legacy-align-items($value: flex-start) {
+	@include experimental(box-align, flex-translate-value($value, box), $box-support...);
 }
 
 // @doc off
