@@ -44,9 +44,9 @@ module Compass::Exec::ProjectOptionsParser
       set_dir_or_path(:fonts, fonts_dir)
     end
 
-    opts.on('-e ENV', '--environment ENV', [:development, :production], 'Use sensible defaults for your current environment.',
-            '  One of: development (default), production') do |env|
-      self.options[:environment] = env
+    opts.on('-e ENV', '--environment ENV', 'Use sensible defaults for your current environment.',
+            '  defaults to development') do |env|
+      self.options[:environment] = env || :development
     end
 
     opts.on('-s STYLE', '--output-style STYLE', [:nested, :expanded, :compact, :compressed], 'Select a CSS output mode.',
