@@ -103,8 +103,8 @@ later on.
     <td style="vertical-align:top;">Symbol </td>
     <td style="vertical-align:top;">The environment mode.
       Defaults to <code>:development</code>, traditionally one of <code>:development</code> or <code>:production</code>
-      but any environment string can be provided. Custom environments will use the defaults of the 
-      <code>:development</code> environment unless overwridden.
+      but any environment string can be provided. Custom environments will use the defaults of the
+      <code>:development</code> environment unless overridden.
     </td>
   </tr>
   <tr>
