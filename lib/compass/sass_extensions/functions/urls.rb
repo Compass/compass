@@ -47,7 +47,7 @@ module Compass::SassExtensions::Functions::Urls
         base.declare :font_url,       [:path, :only_path, :cache_buster]
       end
     end
-    def font_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(false))
+    def font_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(true))
       path = path.value # get to the string value of the literal.
 
       # Short curcuit if they have provided an absolute url.
@@ -67,6 +67,10 @@ module Compass::SassExtensions::Functions::Urls
       real_path = if Compass.configuration.fonts_dir
         File.join(Compass.configuration.project_path, Compass.configuration.fonts_dir, path)
       end
+
+      # Strip query string and hash from real path
+      # (e.g. "example.eot?#iefix" or "example.svg#my-font")
+      real_path = real_path.sub(%r{[?#].+?$}, '')
 
       # prepend the path to the font if there's one
       if http_fonts_path
@@ -268,7 +272,19 @@ module Compass::SassExtensions::Functions::Urls
     end
     
     if cache_buster[:query]
-      "%s?%s" % [path, cache_buster[:query]]
+      if path =~ /[?]([^#]*)/
+        # Append cache buster to a given query string using "&"
+        # (e.g. "/?foo" => "/?foo&...", "/?foo#bar" => "/?foo&...#bar", "/?#bar" => "/?...#bar")
+        path.sub(%r{[?][^#]*}, '\0' + ($1.empty? ? "" : "&") + cache_buster[:query])
+      elsif path =~ /#/
+        # Insert cache buster query string before hash
+        # (e.g. "/#bar" => "/?...#bar")
+        path.sub('#', '?' + cache_buster[:query] + '#')
+      else
+        # Simply append cache buster query string
+        # (e.g. "/" => "/?...")
+        "%s?%s" % [path, cache_buster[:query]]
+      end
     else
       path
     end
