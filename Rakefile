@@ -21,12 +21,12 @@ require 'rake/testtask'
 require 'fileutils'
 
 begin
-require 'cucumber'
-require 'cucumber/rake/task'
+  require 'cucumber'
+  require 'cucumber/rake/task'
 
-Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "features --format progress"
-end
+  Cucumber::Rake::Task.new(:features) do |t|
+    #t.cucumber_opts = %w{--format progress}
+  end
 rescue LoadError
   $stderr.puts "cannot load cucumber"
 end
@@ -39,15 +39,20 @@ Rake::TestTask.new :test do |t|
   t.test_files = test_files
   t.verbose = true
 end
-Rake::Task[:test].send(:add_comment, <<END)
-To run with an alternate version of Rails, make test/rails a symlink to that version.
-To run with an alternate version of Haml & Sass, make test/haml a symlink to that version.
-END
 
 Rake::TestTask.new :units do |t|
   t.libs << 'lib'
   t.libs << 'test'
   test_files = FileList['test/units/**/*_test.rb']
+  test_files.exclude('test/rails/*', 'test/haml/*')
+  t.test_files = test_files
+  t.verbose = true
+end
+
+Rake::TestTask.new :integrations do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  test_files = FileList['test/integrations/**/*_test.rb']
   test_files.exclude('test/rails/*', 'test/haml/*')
   t.test_files = test_files
   t.verbose = true

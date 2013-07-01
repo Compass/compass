@@ -1,0 +1,15 @@
+.background-origin {
+  -webkit-background-origin: border;
+  -moz-background-origin: border;
+  background-origin: border-box; }
+
+.background-origin-multiple {
+  -webkit-background-origin: border, padding, content;
+  -moz-background-origin: border, padding, content;
+  background-origin: border-box, padding-box, content-box; }
+
+.background-origin-khtml {
+  -webkit-background-origin: border;
+  -moz-background-origin: border;
+  -khtml-background-origin: border-box;
+  background-origin: border-box; }

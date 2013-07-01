@@ -1,108 +1,137 @@
-$: << File.join(File.dirname(__FILE__), '..', '..', 'lib')
+require 'bundler'
+Bundler.setup
+
 require 'fileutils'
 require 'compass'
 
+COMPASS_DIR = File.expand_path(File.join(File.dirname(__FILE__), "../.."))
+
 class Generate < Thor
-  desc "example IDENTIFIER [../frameworks/fmwk/stylesheets/path/to/_module.sass]", "Generate a new example."
-  method_options :title => :string, :framework => :string, :stylesheet => :string, :mixin => :string
-  def example(identifier, stylesheet = nil)
-    identifier = identifier.dup
-    identifier << "/" unless identifier[identifier.length - 1] == ?/
-    identifier = identifier[1..-1] if identifier[0] == ?/
-    stylesheet = stylesheet && dereference(stylesheet) || {}
-    options = @options.merge(stylesheet)
-    puts "Generating /examples/#{identifier}"
-    puts "DIRECTORY content/examples/#{identifier}"
-    FileUtils.mkdir_p("content/examples/#{identifier}")
-    puts "   CREATE content/examples/#{identifier[0..-2]}.haml"
-    open("content/examples/#{identifier[0..-2]}.haml", "w") do |example_file|
+  desc "example path/to/module", "Generate a new example."
+
+  method_option :title, :type => :string, :aliases => "-t", :desc => %(Title of the example.)
+  method_option :description, :type => :string, :aliases => "-d", :desc => %(Description of the example, which is shown below the link.)
+  method_option :mixin, :type => :string, :aliases => "-m", :desc => %(Name of the specific mixin in the module if the example isn't about the whole module.)
+
+  def example(module_path)
+    module_path = module_path.dup
+    module_path = "compass/#{module_path.chomp("/")}"
+
+    options = @options.merge(:stylesheet => stylesheet_path(module_path))
+
+    title = options[:title] || (options[:mixin] && titleize(options[:mixin])) || titleize(File.basename(module_path))
+
+    directory = "examples/#{module_path}"
+    puts "Generating /#{directory}/"
+    puts "DIRECTORY content/#{directory}/"
+    FileUtils.mkdir_p("content/#{directory}/")
+
+    file_name = "content/examples/#{module_path}.haml"
+    puts "   CREATE #{file_name}"
+    open(file_name, "w") do |example_file|
       mixin = "mixin: #{options[:mixin]}\n" if options[:mixin]
       example_contents = <<-EXAMPLE
       | ---
-      | title: #{options[:framework].capitalize} #{options[:mixin].capitalize if options[:mixin]} Example
-      | description: How to do X with Y
-      | framework: #{options[:framework]}
+      | title: #{title}
+      | description: #{options[:description] || "How to use #{title}"}
+      | framework: compass
       | stylesheet: #{options[:stylesheet]}
       | #{mixin}example: true
       | ---
-      | = render "partials/example"
+      | - render "partials/example" do
+      |   %p Lorem ipsum dolor sit amet.
       EXAMPLE
       example_file.puts example_contents.gsub(/^ +\| /, '')
     end
-    puts "   CREATE content/examples/#{identifier[0..-2]}/markup.haml"
-    open("content/examples/#{identifier[0..-2]}/markup.haml", "w") do |example_file|
+
+    file_name = "content/examples/#{module_path}/markup.haml"
+    puts "   CREATE #{file_name}"
+    open(file_name, "w") do |example_file|
       example_contents = <<-EXAMPLE
         | .example
-        |   %h1.markup In Haml
+        |   .title #{title}
         |   %p This file gets included into the example.
-        |   %p And the source is shown to the user as HTML.
+        |   %p And the source is shown to the user as HTML and as Haml.
       EXAMPLE
       example_file.puts example_contents.gsub(/^ +\| /, '')
     end
-    puts "   CREATE content/examples/#{identifier[0..-2]}/stylesheet.sass"
-    open("content/examples/#{identifier[0..-2]}/stylesheet.sass", "w") do |example_file|
+
+    file_name = "content/examples/#{module_path}/stylesheet.scss"
+    puts "   CREATE #{file_name}"
+    open(file_name, "w") do |example_file|
       example_contents = <<-EXAMPLE
-        | .example
-        |   h1.markup
-        |     /* This file is used to style the example markup. */
-        |     p
-        |       /* And the source is shown to the user as Sass and as CSS. */
+        | @import "#{module_path}";
+        | 
+        | // This file is used to style the example markup.
+        | // And the source is shown to the user as SCSS, Sass and as CSS.
+        | 
+        | .example {
+        |   .title {
+        |     font-size: 36px;
+        |     margin-bottom: 30px;
+        |     color: #333;
+        |     border: none;
+        |   }
+        | 
+        |   p { color: #666; }
+        | }
       EXAMPLE
       example_file.puts example_contents.gsub(/^ +\| /, '')
-      puts "bundle exec nanoc3 co && open http://localhost:3000/docs/examples/#{identifier} && bundle exec nanoc3 aco"
     end
   end
 
-  desc "reference ../frameworks/fmwk/stylesheets/path/to/_module.sass", "Generate a reference page for the given stylesheet."
-  method_options :title => :string
-  def reference(stylesheet)
-    stylesheet = dereference(stylesheet)
-    identifier = "reference/#{stylesheet[:framework]}/#{stylesheet[:stylesheet]}"
-    identifier.gsub!(%r{/_},'/')
-    identifier.gsub!(/\.s[ac]ss/,'')
-    identifier.gsub!(%r{/#{stylesheet[:framework]}/#{stylesheet[:framework]}/},"/#{stylesheet[:framework]}/")
+  desc "reference path/to/module", "Generate a reference page for the given module."
 
-    module_name = File.basename(identifier).gsub(/\.[^.]+$/,'').capitalize
-    framework_name = stylesheet[:framework].capitalize
+  method_option :title, :type => :string, :aliases => "-t", :desc => %(Title of the reference.)
 
-    title = @options[:title] || "#{framework_name} #{module_name}"
-    crumb = @options[:title] || module_name
+  def reference(module_path)
+    module_path = module_path.dup
+    module_path = "compass/#{module_path.chomp("/")}"
 
-    file_name = "content/#{identifier}.haml"
-    directory = File.dirname(file_name)
+    options = @options.merge(:stylesheet => stylesheet_path(module_path))
 
-    puts "DIRECTORY #{directory}"
-    FileUtils.mkdir_p directory
+    title = options[:title] || titleize(File.basename(module_path))
 
+    directory = "reference/#{module_path}"
+    puts "Generating /#{directory}/"
+    puts "DIRECTORY content/#{directory}/"
+    FileUtils.mkdir_p "content/#{directory}"
+
+    file_name = "content/reference/#{module_path}.haml"
     puts "   CREATE #{file_name}"
     open(file_name, "w") do |reference_file|
-      contents = <<-CONTENTS
-      | --- 
-      | title: #{title}
-      | crumb: #{crumb}
-      | framework: #{stylesheet[:framework]}
-      | stylesheet: #{stylesheet[:stylesheet]}
+      contents = <<-REFERENCE
+      | ---
+      | title: Compass #{title}
+      | crumb: #{title}
+      | framework: compass
+      | stylesheet: #{options[:stylesheet]}
+      | layout: core
       | classnames:
       |   - reference
+      |   - core
       | ---
-      | - render 'reference' do
-      |   %p
-      |     Lorem ipsum dolor sit amet.
-      CONTENTS
+      | - render "reference" do
+      |   %p Lorem ipsum dolor sit amet.
+      REFERENCE
       reference_file.puts contents.gsub(/^ +\| /, '')
-
-      puts "     ITEM /#{identifier}/"
     end
   end
 
   private
-  def dereference(stylesheet)
+  def titleize(string)
+    string.split('-').map(&:capitalize).join(' ')
+  end
+
+  def stylesheet_path(module_path)
+    array = module_path.split("/")
+    stylesheet_name = array.pop
+    prefix = array.join("/")
+
+    stylesheet = Dir["../frameworks/compass/stylesheets/#{prefix}/_#{stylesheet_name}.{scss,sass}"].first
+    raise "no stylesheet found for module #{module_path}" if stylesheet.nil?
     stylesheet = File.expand_path(stylesheet)
-    framework = Compass::Frameworks::ALL.find{|f| stylesheet.index(f.stylesheets_directory) == 0}
-    raise "No Framework found for #{stylesheet}" unless framework
-    {
-      :framework => framework.name,
-      :stylesheet => stylesheet[framework.stylesheets_directory.length+1..-1]
-    }
+
+    "#{prefix}/#{File.basename(stylesheet)}"
   end
 end

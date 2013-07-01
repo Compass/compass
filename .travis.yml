@@ -10,4 +10,4 @@ rvm:
 gemfile:
   - gemfiles/sass_3_2.gemfile
   - gemfiles/sass_master.gemfile
-script: "bundle exec rake test features"
+script: "bundle exec rake"

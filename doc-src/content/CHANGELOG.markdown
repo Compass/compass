@@ -13,17 +13,104 @@ Don't let all these details [scare you...](http://compass-style.org/help/tutoria
 The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
+0.13.alpha.5 (UNRELEASED)
+-------------------------
+
+### Deprecations & Breaking changes
+
+* The old box module has been deprecated. Please use the new flexbox module.
+* The transform-legacy module which was deprecated in 0.12 has been removed.
+* The blueprint framework has been removed from compass. The
+  docs are now at [compass-blueprint.org](http://compass-blueprint.org)
+  and the code is maintained as [its own
+  project](https://github.com/Compass/compass-blueprint) by [Stephen
+  Way](https://github.com/stephenway). Full details can be [found on the
+  blog](/blog/2012/05/20/removing-blueprint/).
+* *alpha users only:* The input-placeholder mixin API has changed. It no longer accepts an argument.
+* *alpha users only:* The selection mixin API has changed. It no longer accepts a selector as an argument.
+
+### Changes
+
+* [CORE] Updated listen version
+* [HELPERS] The `elements-of-type($type)` helper now accepts a type of `text-input`.
+* [HELPERS] The `current-date()` and `current-time()` functions now have
+  reasonable default formats.
+* [HELPERS] The `current-source-file()` helper now returns the top-level sass
+  file that is being compiled instead of the file you're currently in
+  and the path is relative to your Sass directory unless you specify it
+  should be an absolute path.
+* [HELPERS] The `current-output-file()` helper now returns a path
+  relative to the css output directory unless you specify that it should
+  return an absolute path.
+* [SPRITES] added :focus support for magic selectors
+* [SPRITES] You can now set `$default-sprite-separator` or `$<map>-class-separator` to an
+  underscore if you prefer underscored class names to dashes.
+* A new function `brightness($color)` is available when you import
+  "compass/utilities/color/brightness".
+  [Documentation](/reference/compass/utilities/color/brightness/).
+* The `contrast-color` function and `contrasted` mixin no longer need a
+  `$threshold` argument. Instead, the decision for which color to pick
+  is based on the brightness delta of the original color.
+
+0.13.alpha.4 (4/3/2013)
+-------------------------
+* [CORE] fixed edge case for people running `compass compile watch .`
+* [CORE] Updated compiler failure message to be more inline with what is actually failing.
+* [CSS3] New Flexbox Mixins
+
+0.13.alpha.3 (3/29/2013)
+-------------------------
+* [RUBY] Updated for ruby 2.0
+* [CORE] Removed png grid generator in favor of the css3 grid mixin.
+* [CSS3] All browser-support functions and mixins use same `-moz, -webkit, -ms, -o, -khtml, official` order.
+* [SPRITES] Removed old sprite_image function.
+* [CORE] Fixed issue with custom watchers in config file not working.
+* [CSS3] Support for new linear gradient format.
+
+0.13.alpha.2 (02/07/2012)
+-------------------------
+
+* [CORE] Removed old watcher (FSSM) and replaced with Listen.
+* [CORE] Fix damaged images when creating projects on windows.
+* [CORE] Bug fix for CSS gradient parsing.
+* [CORE] Fixed an issue where directory globbing didn't work correctly on windows.
+* [CSS3] Update selection mixin for flexibility and consistency.
+* [CSS3] Fix a bug in gradients that used the currentColor keyword
+* [CSS3] Removed the -ms prefix support from keyframe animation, the spec was approved before MS released IE10.
+* [CSS3] Improve flexibility of input-placeholder mixin so it can be used at the root of the stylesheet or with an argument for use with a selector.
+* [CSS3] Improve browser-support handling, make it easier to update quickly.
+* [CSS3] Use Sass listargs wherever multiple values are accepted.
+* [CSS3] Deprecate `column-break-[before | after | inside]` mixins, in favor of the official `break-[before | after | inside]` syntax.
+* [DOCUMENTATION] Change `log` to `logarithm` in the docs.
+* [SPRITES] Added `sprite-width` and `sprite-height` helper functions.
+* [SPRITES] Use the right directory for cleanup when `generated_images_dir` is set
+* [SPRITES] A new sass var for sprites has been created for sorting `$<name>-sort-by`
+* [Vertical Rhythm Module] Fix the Webkit establish-baseline issue by setting line-height on html in ems for all relative rhythm-units.
+* [Vertical Rhythm Module] Remove unnecessary type-checking for Sass lists.
+* [Vertical Rhythm Module] Switch to using Sass's built-in (absolute) unit conversions when possible.
+* [Vertical Rhythm Module] Added rem output with pixel fallbacks and other improvements to vertical rhythm partial.
+* [Math] Added random function for generating random numbers.
+
+0.13.alpha.0 (05/06/2012)
+-------------------------
+
+* Allow numeric sprite names when not using sprite selector generation capability.
+* Add new mixin for styling [input
+  placeholders](/reference/compass/css3/user_interface/#mixin-input-placeholder).
+* Add [css animations module](/reference/compass/css3/animation/).
+* When `$relative-font-sizing` is true, vertical-rhythm font sizes are declared in relative units throughout the document, including `establish-baseline`. This ensures that user defaults set in the browser are respected.
 
 0.12.2 (06/24/2012)
 -------------------
 
-* [Vertical Rhythm Module] Removed the `$ie-font-ratio` constatnt in
+* [Vertical Rhythm Module] Removed the `$ie-font-ratio` constant in
   favor of a more clear `$browser-default-font-size` constant.
 * [Vertical Rhythm Module] The `establish-baseline` mixin now styles the
   `<html>` element instead of the `<body>` element. This makes the
   vertical rhythm module work better with `rem` based measurements.
 * [CSS3] Added 3D transform support for Mozillia, IE, and Opera.
-* [CSS3] Added `-ms` support for css3 columns. Add support for the columns shorthand property.
+* [CSS3] Added `-ms` support for css3 columns.
+* [CSS3] Add support for the columns shorthand property.
 * [CSS3] Added `-ms` and `-webkit` support for CSS Regions. [Docs](/reference/compass/css3/regions/)
 * [CSS3] Added mixins for column-break properties to the columns module.
 * [CSS3] Added a css3/hyphenation module for the `word-break` and `hyphens` properties.
@@ -127,7 +214,7 @@ gem to integrate with compass. Please read the [README](https://github.com/Compa
 * Added support for diagonal, horizontal, and smart sprite layout
 * Fixed a bug with spacing in horizontal layout
 * Changed the descriptions of the sin, cos, and tan to be more descriptive
-* Fixed trig functions via issue #498 
+* Fixed trig functions via issue #498
 * Fixed the default `http_path` in rails
 * Sprites can now have a `sprite_load_path` that is an array of directories that
   contain source images for sprites handy for using sprites in extensions or gems

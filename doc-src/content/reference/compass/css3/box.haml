@@ -5,9 +5,11 @@ framework: compass
 stylesheet: compass/css3/_box.scss
 meta_description: This module provides mixins that pertain to the CSS3 Flexible Box.
 layout: core
+deprecated: true
 classnames:
   - reference
 ---
 - render 'reference' do
-  %p
-    This module provides mixins that pertain to the CSS3 Flexible Box.
+  %p.warning
+    This module is deprecated and will be removed in the next release.
+    Please use the <a href="/reference/compass/css3/flexbox/">flexbox module</a> instead.

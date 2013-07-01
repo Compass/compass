@@ -9,7 +9,7 @@ $default-has-layout-approach: zoom !default;
 // to gain the "hasLayout" property in internet explorer.
 // More information on [hasLayout](http://reference.sitepoint.com/css/haslayout).
 @mixin has-layout($approach: $default-has-layout-approach) {
-  @if $legacy-support-for-ie {
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
     @if $approach == zoom {
       @include has-layout-zoom;
     } @else if $approach == block {
@@ -28,7 +28,7 @@ $default-has-layout-approach: zoom !default;
 }
 
 @mixin has-layout-block {
-  @if $legacy-support-for-ie {
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
     // This makes ie6 get layout
     display: inline-block;
     // and this puts it back to block

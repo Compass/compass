@@ -6,6 +6,7 @@
 @include reset-html5;
 
 @import "core/base-classes";
+@import "core/media-block";
 
 @import "partials/theme";
 @import "partials/layout";
@@ -27,3 +28,8 @@
 
 html.dark { @include dark-theme(true); }
 html.light { @include light-theme(true); }
+
+footer {
+  margin: 0 auto;
+  width: 640px;
+}

@@ -8,16 +8,18 @@ Gem::Specification.new do |gemspec|
   gemspec.homepage = "http://compass-style.org"
   gemspec.authors = ["Chris Eppstein", "Scott Davis", "Eric A. Meyer", "Brandon Mathis", "Anthony Short", "Nico Hagenburger"]
   gemspec.email = "chris@eppsteins.net"
-  #gemspec.default_executable = "compass" #deprecated
   gemspec.executables = %w(compass)
-  #gemspec.has_rdoc = false #deprecated
   gemspec.require_paths = %w(lib)
   gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}
 
-  gemspec.add_dependency 'sass', '~> 3.1'
+  gemspec.add_dependency 'sass', '>= 3.2.5', '< 3.4'
   gemspec.add_dependency 'chunky_png', '~> 1.2'
-  gemspec.add_dependency 'fssm', '>= 0.2.7'
+  gemspec.add_dependency 'listen', '~> 1.0.0'
+
+  gemspec.post_install_message = <<-MESSAGE
+    Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/compass Thanks!
+  MESSAGE
 
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")

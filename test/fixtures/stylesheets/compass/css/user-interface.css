@@ -1,4 +1,40 @@
 .user-select {
+  -moz-user-select: -moz-none;
   -webkit-user-select: none;
-  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none; }
+
+*::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+*:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+*::-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+*:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+
+.sets-up-browser-support-for-content::-webkit-input-placeholder {
+  webkit: yes; }
+.sets-up-browser-support-for-content:-moz-placeholder {
+  moz: yes; }
+.sets-up-browser-support-for-content::-moz-placeholder {
+  moz: yes; }
+.sets-up-browser-support-for-content:-ms-input-placeholder {
+  ms: yes; }

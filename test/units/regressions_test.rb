@@ -4,12 +4,16 @@ require 'compass/exec'
 require 'stringio'
 
 class RegressionsTest < Test::Unit::TestCase
+  include SpriteHelper
   include Compass::CommandLineHelper
-  setup do
+
+  def setup
+    create_sprite_temp
     Compass.reset_configuration!
   end
   
-  after do
+  def teardown
+    clean_up_sprites
     Compass.reset_configuration!
   end
 
@@ -18,12 +22,8 @@ class RegressionsTest < Test::Unit::TestCase
       compass "create --bare issue911"
       FileUtils.mkdir_p "issue911/images/sprites/a"
       FileUtils.mkdir_p "issue911/images/sprites/b"
-      open "issue911/images/sprites/a/foo.png", "wb" do |f|
-        f.write(Compass::PNG.new(5,10, [255,0,255]).to_blob)
-      end
-      open "issue911/images/sprites/b/bar.png", "wb" do |f|
-        f.write(Compass::PNG.new(5,10, [255,255,0]).to_blob)
-      end
+      FileUtils.cp File.join(@images_tmp_path, 'nested/squares/ten-by-ten.png'), "issue911/images/sprites/a/foo.png"
+      FileUtils.cp File.join(@images_tmp_path, 'nested/squares/ten-by-ten.png'), "issue911/images/sprites/a/bar.png"
       Dir.chdir "issue911" do
         result = compile_for_project(<<-SCSS)
           @import "sprites/**/*.png";

@@ -74,6 +74,11 @@ class SpritesImageTest < Test::Unit::TestCase
     assert img.repeat_x?
   end
 
+  test 'image repeat-y' do
+    img = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('repeat-y')
+    assert img.repeat_y?
+  end
+
   test 'image position' do
     image = test_image "selectors_ten_by_ten_position" => Sass::Script::Number.new(100, ["px"])
     assert_equal 100, image.position.value

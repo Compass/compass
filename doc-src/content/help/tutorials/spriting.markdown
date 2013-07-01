@@ -12,6 +12,9 @@ Spriting has never been easier with Compass. You place the sprite images in a fo
 import them into your stylesheet, and then you can use the sprite in your selectors in one
 of several convenient ways.
 
+****Note**: Only PNG images are supported at this time using 
+[`chunky_png`](https://github.com/wvanbergen/chunky_png)[*](#Oily-PNG).
+
 ## Sprite Tutorial Contents
 <%= sprite_tutorial_links(true) %>
 
@@ -53,11 +56,10 @@ You can now apply the `my-icons-XXX` classes to your markup as needed.
 Let's go over what happened there. The import statement told compass to [generate a
 stylesheet that is customized for your sprites](https://gist.github.com/729507). This
 stylesheet is [magic](#magic-imports), it is not written to disk, and it can be customized
-by setting configuration variables before you import it. See the section below on
-[Customization Options](customization-options). The goal of this stylesheet is to provide a
-simple naming convention for your sprites so that you they are easy to remember and use. You
-should never have to care what the is name of the generated sprite map, nor where a sprite
-is located within it.
+by setting configuration variables before you import it. See the page on
+[Customization Options](/help/tutorials/spriting/customization-options/). The goal of this stylesheet is to provide a simple naming convention for your sprites so that you they are
+easy to remember and use. You should never have to care what the is name of the generated
+sprite map, nor where a sprite is located within it.
 
 <a name='nested-folders' id='nested-folders'></a>    
 ## Nested Folders    

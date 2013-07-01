@@ -1,13 +1,17 @@
+// Text Shadow
+
 @import "shared";
+
 
 // These defaults make the arguments optional for this mixin
 // If you like, set different defaults in your project
 
-$default-text-shadow-color:    #aaa !default;
-$default-text-shadow-h-offset: 0px  !default;
-$default-text-shadow-v-offset: 0px  !default;
-$default-text-shadow-blur:     1px  !default;
-$default-text-shadow-spread:   false  !default;
+$default-text-shadow-color      : #aaa    !default;
+$default-text-shadow-h-offset   : 0px     !default;
+$default-text-shadow-v-offset   : 0px     !default;
+$default-text-shadow-blur       : 1px     !default;
+$default-text-shadow-spread     : false   !default;
+
 
 // Provides cross-browser text shadows when one or more shadows are needed.
 // Each shadow argument should adhere to the standard css3 syntax for the
@@ -18,32 +22,23 @@ $default-text-shadow-spread:   false  !default;
 // then with the spread included. This allows you to progressively
 // enhance the browsers that do support the spread parameter.
 @mixin text-shadow(
-  $shadow-1 : default,
-  $shadow-2 : false,
-  $shadow-3 : false,
-  $shadow-4 : false,
-  $shadow-5 : false,
-  $shadow-6 : false,
-  $shadow-7 : false,
-  $shadow-8 : false,
-  $shadow-9 : false,
-  $shadow-10: false
+  $shadow...
 ) {
-  @if $shadow-1 == default {
-    $shadow-1: compact($default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur $default-text-shadow-spread $default-text-shadow-color);
-  }
+  $shadow: if(length($shadow) > 0, $shadow, default);
+  $default: -compass-space-list(compact($default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur $default-text-shadow-spread $default-text-shadow-color));
   $shadows-without-spread: join((),(),comma);
   $shadows: join((),(),comma);
   $has-spread: false;
-  @each $shadow in compact($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5,
-                           $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10) {
-    @if length($shadow) > 4 {
+
+  @each $layer in $shadow {
+    $layer: if($layer == 'default', $default, $layer);
+    @if length($layer) > 4 {
       $has-spread: true;
-      $shadows-without-spread: append($shadows-without-spread, nth($shadow,1) nth($shadow,2) nth($shadow,3) nth($shadow,5));
-      $shadows: append($shadows, $shadow);
-    } else {
-      $shadows-without-spread: append($shadows-without-spread, $shadow);
-      $shadows: append($shadows, $shadow);
+      $shadows-without-spread: append($shadows-without-spread, nth($layer,1) nth($layer,2) nth($layer,3) nth($layer,5));
+      $shadows: append($shadows, $layer);
+    } @else {
+      $shadows-without-spread: append($shadows-without-spread, $layer);
+      $shadows: append($shadows, $layer);
     }
   }
   @if $has-spread {
