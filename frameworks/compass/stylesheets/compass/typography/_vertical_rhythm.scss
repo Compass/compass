@@ -136,7 +136,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
     background: image-url($img);
   }
   @else {
-    @include baseline-grid-background(rhythm());
+    @include baseline-grid-background(rhythm(1, $base-font-size));
   }
 }
 
@@ -296,4 +296,19 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
   $border-style: $default-rhythm-border-style
 ) {
   @include apply-side-rhythm-border(all, $width, $lines, $font-size, $border-style);
+}
+
+// Use an alternative baseline than the established one. Mixins and functions
+// called in this context will use the given $base-font-size and $base-line-height.
+@mixin use-baseline($new-base-size, $new-line-height) {
+  // Save the baseline context
+  $initial-font-size: $base-font-size;
+  $initial-line-height: $base-line-height;
+  // Apply the new context
+  $base-font-size: $new-base-size;
+  $base-line-height: $new-line-height;
+  @content;
+  // Reapply the initial context
+  $base-font-size: $initial-font-size;
+  $base-line-height: $initial-line-height;
 }
