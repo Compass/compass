@@ -1,5 +1,6 @@
 Given /^the "([^\"]*)" directory exists$/ do |directory|
   directory.gsub!('~', ENV["HOME"]) if directory.include?('~/')
+  @cleanup_directories << directory
   FileUtils.mkdir_p directory
 end
 
@@ -16,6 +17,13 @@ Given /^and I have a fake extension at (.*)$/ do |directory|
       welcome_message "this is a fake welcome"
     }
   end
+end
+
+Given /^and I have a fake command\-line extension at (.*)$/ do |directory|
+  directory.gsub!('~', ENV["HOME"]) if directory.include?('~/')
+  FileUtils.mkdir_p File.join(directory, 'lib')
+  framework = directory.split('/').last
+  FileUtils.touch File.join(directory, 'lib', framework+'.rb')
 end
 
 Then /^the list of frameworks includes "([^\"]*)"$/ do |framework|

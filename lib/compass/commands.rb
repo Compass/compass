@@ -13,3 +13,4 @@ require 'compass/commands/registry'
 end
 
 Compass::Commands::CommandExtensionLoader.load_extensions_in_config
+Compass.discover_extensions!
