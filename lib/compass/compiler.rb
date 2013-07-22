@@ -141,7 +141,7 @@ module Compass
         end
       end
       duration = options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
-      write_file(css_filename, css_content, options.merge(:force => true, :extra => duration))
+      write_file(css_filename, css_content, options.merge(:force => true, :extra => duration), sass_options[:unix_newlines])
       Compass.configuration.run_stylesheet_saved(css_filename)
     end
 
@@ -166,7 +166,7 @@ module Compass
       formatted_error = "(Line #{e.sass_line}#{ " of #{exception_file}" if exception_file}: #{e.message})"
       logger.record :error, file, formatted_error
       Compass.configuration.run_stylesheet_error(sass_filename, formatted_error)
-      write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true)
+      write_file css_filename, error_contents(e, sass_filename), options.merge(:force => true), sass_options[:unix_newlines]
     end
 
     # Haml refactored this logic in 2.3, this is backwards compatibility for either one
