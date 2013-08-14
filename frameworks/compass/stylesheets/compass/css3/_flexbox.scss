@@ -231,25 +231,25 @@ $flex-legacy-orient: true !default;
 
 // Distributing extra space along the "cross axis"
 // $value: flex-start | flex-end | center | space-between | space-around | stretch
-@mixin align-content($value: flex-start, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
-	@if $legacy and not $wrap {
-		@include legacy-align-content($value);
-	}
+@mixin align-content($value: flex-start) {
+	// There is no @box version of this property
 
 	@include experimental(flex-line-pack, flex-translate-value($value, flexbox), $flexbox-support...);
 	@include experimental(align-content, $value, $flex-support...);
 }
 
-@mixin legacy-align-content($value: flex-start) {
-	@include experimental(box-align, flex-translate-value($value, box), $box-support...);
-}
-
 // Align items along the "cross axis"
 // $value: flex-start | flex-end | center | baseline | stretch
-@mixin align-items($value: stretch) { // the flex container
-	// There is no @box version of this property
+@mixin align-items($value: stretch, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) { // the flex container
+	@if $legacy and not $wrap {
+		@include legacy-align-items($value);
+	}
 	@include experimental(flex-align, flex-translate-value($value, flexbox), $flexbox-support...);
 	@include experimental(align-items, $value, $flex-support...);
+}
+
+@mixin legacy-align-items($value: flex-start) {
+	@include experimental(box-align, flex-translate-value($value, box), $box-support...);
 }
 
 // @doc off
