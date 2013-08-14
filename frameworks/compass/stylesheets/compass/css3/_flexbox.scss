@@ -1,6 +1,5 @@
 @import "shared";
 
-
 // NOTE:
 // -----
 // All mixins for the @box spec have been written assuming they'll be fed property values that
@@ -18,7 +17,8 @@
 // finally added
 // Chrome 21 (prefixed)
 // Opera 12.1 (unprefixed)
-// Firefox 20 (unprefixed)
+// Firefox 22 (unprefixed)
+// Internet Explorer 11 (unprefixed)
 
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml.
@@ -33,7 +33,7 @@ $flex-wrap-required : false !default;
 // @private Flexbox
 // ----------------
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
-// Chrome 17 (prefixed)
+// Chrome 17-? (prefixed)
 // Internet Explorer 10 (prefixed)
 
 // @private css3-feature-support variables must always include a list of five boolean values
@@ -46,7 +46,7 @@ $flexbox-support: not -moz, not -webkit, not -o, -ms, not -khtml, not standard !
 // NOTE: no browser that implements this spec is known to support `box-lines: multiple`
 // Chrome 4? (prefixed)
 // Safari 3.1 (prefixed)
-// Firefox <20 (prefixed)
+// Firefox 2.0? (prefixed)
 
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml.
