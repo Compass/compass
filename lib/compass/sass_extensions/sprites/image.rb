@@ -12,8 +12,6 @@ module Compass
         REPEAT_Y = 'repeat-y'
         NO_REPEAT = 'no-repeat'
 
-        SEPERATORS = ['_', '-']
-
         VALID_REPEATS = [REPEAT_Y, REPEAT_X, NO_REPEAT]
         
         attr_reader :relative_file, :options, :base
@@ -117,7 +115,7 @@ module Compass
         
         # Hover selector Image object if exsists
         def hover
-          get_magic_selector_image(name, 'hover')
+          base.get_magic_selector_image(name, 'hover')
         end
         
         # Is target selector
@@ -127,7 +125,7 @@ module Compass
         
         # Target selector Image object if exsists
         def target
-          get_magic_selector_image(name, 'target')
+          base.get_magic_selector_image(name, 'target')
         end
         
         # Is active selector
@@ -137,7 +135,7 @@ module Compass
         
         # Active selector Image object if exsists
         def active
-          get_magic_selector_image(name, 'active')
+          base.get_magic_selector_image(name, 'active')
         end
 
         # Is active selector
@@ -147,18 +145,8 @@ module Compass
         
         # Active selector Image object if exsists
         def focus
-          get_magic_selector_image(name, 'focus')
+          base.get_magic_selector_image(name, 'focus')
         end
-
-        def get_magic_selector_image(name, selector)
-          SEPERATORS.each do |seperator|
-            file = base.image_for("#{name}#{seperator}#{selector}")
-            return file if !file.nil?
-          end
-
-          nil
-        end
-        
         
         def parent
           if [hover?, target?, active?, focus?].any?

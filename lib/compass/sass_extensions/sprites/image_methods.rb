@@ -13,23 +13,34 @@ module Compass
 
          # Returns true if the image name has a hover selector image
          def has_hover?(name)
-           !image_for("#{name}_hover").nil?
+           !get_magic_selector_image(name, 'hover').nil?
          end
 
          # Returns true if the image name has a target selector image
          def has_target?(name)
-           !image_for("#{name}_target").nil?
+           !get_magic_selector_image(name, 'target').nil?
          end
 
          # Returns true if the image name has a focus selector image
          def has_focus?(name)
-           !image_for("#{name}_focus").nil?
+           !get_magic_selector_image(name, 'focus').nil?
          end
 
          # Returns true if the image name has an active selector image
          def has_active?(name)
-           !image_for("#{name}_active").nil?
+           !get_magic_selector_image(name, 'active').nil?
          end
+
+         SEPERATORS = ['_', '-']
+
+         def get_magic_selector_image(name, selector)
+          SEPERATORS.each do |seperator|
+            file = image_for("#{name}#{seperator}#{selector}")
+            return file if !file.nil?
+          end
+
+          nil
+        end
 
          # Return and array of image names that make up this sprite
          def sprite_names

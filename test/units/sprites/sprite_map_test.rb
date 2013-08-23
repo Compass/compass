@@ -60,6 +60,17 @@ class SpriteMapTest < Test::Unit::TestCase
       assert_equal "ten-by-ten_#{selector}", @base.image_for('ten-by-ten').send(:"#{selector}").name
     end
     
+    it "should find file with '-' #{selector}" do
+      map = sprite_map_test(:seperator => '-')
+      map.images.each_index do |i|
+        if map.images[i].name != 'ten-by-ten'
+          name = map.images[i].name.gsub(/_/, '-')
+          map.images[i].stubs(:name).returns(name)
+        end
+      end
+      assert_equal "ten-by-ten-#{selector}", map.image_for('ten-by-ten').send(:"#{selector}").name
+    end
+
   end
 
   it "should generate sprite" do
