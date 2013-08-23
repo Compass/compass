@@ -134,6 +134,19 @@ module Compass::SassExtensions::Functions::Sprites
   
   register_sass_function :sprite_does_not_have_parent, [:map, :sprite]
 
+  #return the name of the selector file
+  def sprite_selector_file(map, sprite, selector)
+    sprite = convert_sprite_name(sprite)
+    image = map.image_for(sprite.value)
+    if map.send(:"has_#{selector.value}?", sprite.value)
+      return Sass::Script::String.new(image.send(selector.value).name)
+    end
+
+    raise Sass::SyntaxError, "Sprite: #{sprite.value} do not have a #{selector} state"
+  end
+
+  register_sass_function :sprite_selector_file, [:map, :sprite, :selector]
+
   # Returns boolean if sprite has the selector
   def sprite_has_selector(map, sprite, selector)
     sprite = convert_sprite_name(sprite)

@@ -57,7 +57,7 @@ $default-sprite-separator: "-" !default;
     @if sprite_has_selector($map, $sprite-name, $state) {
       @if sprite_has_valid_selector($sprite-class) {
         &:#{$state}, &.#{$sprite-class} {
-            @include sprite-background-position($map, "#{$sprite-name}_#{$state}",
+            @include sprite-background-position($map, sprite_selector_file($map, $sprite-name, $state),
                                                 $offset-x, $offset-y, $use-percentages);
         }
       }
