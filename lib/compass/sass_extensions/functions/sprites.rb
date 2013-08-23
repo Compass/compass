@@ -142,7 +142,7 @@ module Compass::SassExtensions::Functions::Sprites
       return Sass::Script::String.new(image.send(selector.value).name)
     end
 
-    raise Sass::SyntaxError, "Sprite: #{sprite.value} do not have a #{selector} state"
+    raise Sass::SyntaxError, "Sprite: #{sprite.value} does not have a #{selector} state"
   end
 
   register_sass_function :sprite_selector_file, [:map, :sprite, :selector]
