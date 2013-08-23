@@ -45,6 +45,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 * [SPRITES] added :focus support for magic selectors
 * [SPRITES] You can now set `$default-sprite-separator` or `$<map>-class-separator` to an
   underscore if you prefer underscored class names to dashes.
+* [SPRITES] magic sprite selector file names can now use '-' or '_'
 * A new function `brightness($color)` is available when you import
   "compass/utilities/color/brightness".
   [Documentation](/reference/compass/utilities/color/brightness/).
