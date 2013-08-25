@@ -8,11 +8,21 @@ $sprite-selectors: hover, target, active !default;
   width: image-width(sprite-file($map, $sprite));
 }
 
+// Return the width of an image in the sprite map
+@function sprite-width($map, $sprite) {
+    @return image-width(sprite-file($map, $sprite));
+}
+
+// Return the height of an image in the sprite map
+@function sprite-height($map, $sprite) {
+    @return image-height(sprite-file($map, $sprite));
+}
+
 // Set the background position of the given sprite `$map` to display the
 // sprite of the given `$sprite` name. You can move the image relative to its
 // natural position by passing `$offset-x` and `$offset-y`.
 @mixin sprite-background-position($map, $sprite, $offset-x: 0, $offset-y: 0) {
-  background-position: sprite-position($map, $sprite, $offset-x, $offset-y);  
+  background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
 }
 
 
@@ -34,7 +44,7 @@ $disable-magic-sprite-selectors:false !default;
   }
 }
 
-// Include the selectors for the `$sprite` given the `$map` and the 
+// Include the selectors for the `$sprite` given the `$map` and the
 // `$full-sprite-name`
 // @private
 @mixin sprite-selectors($map, $sprite-name, $full-sprite-name, $offset-x: 0, $offset-y: 0) {
