@@ -26,11 +26,11 @@ module Compass
         end
 
         def width
-          @width ||= @images.collect(&:width).max
+          @width ||= @images.collect(&:width).max + @images.collect(&:spacing).max
         end
         
         def height
-          @height ||= @rows.inject(0) {|sum, row| sum += row.height}
+          @height ||= @rows.inject(0) {|sum, row| sum += row.height} + @images[0].spacing
         end
 
         def efficiency
@@ -39,13 +39,16 @@ module Compass
 
         private
         def new_row(image = nil)
-          row = Compass::SassExtensions::Sprites::ImageRow.new(width)
+          spacing = image ? image.spacing : @images[0].spacing
+          row = Compass::SassExtensions::Sprites::ImageRow.new(width + 2 * spacing)
+          
           row.add(image) if image
           row
         end
 
         def fast_fit
           row = new_row
+
           @images.each do |image|
             if !row.add(image)
               @rows << row
@@ -58,7 +61,6 @@ module Compass
 
         def scan_fit
           fast_fit
-
           moved_images = []
 
           begin

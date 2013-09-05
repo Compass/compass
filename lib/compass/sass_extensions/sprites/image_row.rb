@@ -23,7 +23,7 @@ module Compass
         alias :<< :add
         
         def height
-          images.map(&:height).max
+          images.map {|i| i.height + i.spacing}.max
         end
         
         def width
@@ -31,7 +31,7 @@ module Compass
         end
 
         def total_width
-          images.inject(0) {|sum, img| sum + img.width }
+          images.inject(0) {|sum, img| sum + img.width + 2 * img.spacing}
         end
         
         def efficiency
@@ -39,7 +39,7 @@ module Compass
         end
 
         def will_fit?(image)
-          (total_width + image.width) <= max_width
+          (total_width + image.width + 2 * image.spacing) <= max_width
         end
       end
     end

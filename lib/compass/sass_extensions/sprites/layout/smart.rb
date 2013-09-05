@@ -13,12 +13,14 @@ module Compass
           def calculate_positions!
             fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images)
             current_y = 0
+            spacing = 0
             fitter.fit!.each do |row|
               current_x = 0
               row.images.each_with_index do |image, index|
                 image.left = current_x
                 image.top = current_y
-                current_x += image.width
+                current_x += image.width + image.spacing + spacing
+                spacing = image.spacing
               end
               current_y += row.height
             end
