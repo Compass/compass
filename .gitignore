@@ -31,3 +31,4 @@ vendor/ruby
 vendor
 Gemfile.lock
 *.pkg
+.idea
