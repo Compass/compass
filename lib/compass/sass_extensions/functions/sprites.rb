@@ -137,7 +137,7 @@ module Compass::SassExtensions::Functions::Sprites
   #return the name of the selector file
   def sprite_selector_file(map, sprite, selector)
     sprite = convert_sprite_name(sprite)
-    image = map.image_for(sprite.value)
+    image = map.image_for(sprite)
     if map.send(:"has_#{selector.value}?", sprite.value)
       return Sass::Script::String.new(image.send(selector.value).name)
     end
