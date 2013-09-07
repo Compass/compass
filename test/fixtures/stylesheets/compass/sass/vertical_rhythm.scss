@@ -23,12 +23,14 @@
 // * trailing-border
 // * rhythm-borders
 // * horizontal-borders (h-borders)
+// * use-baseline
 //
 // deprecated mixins:
 // * reset-baseline
 
 $base-font-size: 14px;
 $base-line-height: 16px;
+$alternative-baseline: 18px 25px;
 @import "compass/typography/vertical_rhythm";
 
 @include establish-baseline;
@@ -59,6 +61,11 @@ $base-line-height: 16px;
 	@include reset-baseline;
 }
 
+#alternative-baseline {
+	@include use-baseline($alternative-baseline...) {
+		// ...
+	}
+}
 
 /* New test using em output */
 $base-font-size: 18px;
@@ -113,6 +120,13 @@ blockquote {
 	@include rhythm-borders($font-size: 16px);
 }
 
+#alternative-baseline {
+	@include use-baseline($alternative-baseline...) {
+		// ...
+	}
+}
+
+
 /* New using rem output with pixel fallbacks */
 $base-font-size: 18px;
 $base-line-height: $base-font-size * 1.4;
@@ -162,6 +176,12 @@ blockquote {
 
 .panel {
 	@include rhythm-borders;
+}
+
+#alternative-baseline {
+	@include use-baseline($alternative-baseline...) {
+		// ...
+	}
 }
 
 /* New using px output */
@@ -215,3 +235,8 @@ blockquote {
 	@include rhythm-borders;
 }
 
+#alternative-baseline {
+	@include use-baseline($alternative-baseline...) {
+		// ...
+	}
+}

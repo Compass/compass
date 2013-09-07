@@ -30,14 +30,6 @@ $round-to-nearest-half-line: false !default;
 // of vertical padding above and below the text.
 $min-line-padding: 2px !default;
 
-// The leader is the amount of whitespace in a line.
-// It might be useful in your calculations.
-$base-leader: convert-length($base-line-height - $base-font-size, $rhythm-unit, $base-font-size);
-
-// The half-leader is the amount of whitespace above and below a line.
-// It might be useful in your calculations.
-$base-half-leader: $base-leader / 2;
-
 // @private Whether the rhythm output is in absolute units (px) or not (em, rem)
 $relative-font-sizing: if($rhythm-unit == px, false, true);
 
@@ -48,6 +40,25 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
   @warn "$rhythm-unit must be `px`, `em` or `rem`.";
 }
 
+// Calculate base leader :
+// The leader is the amount of whitespace in a line.
+// It might be useful in your calculations.
+@function base-leader(
+  $base-font-size: $base-font-size,
+  $base-line-height: $base-line-height
+) {
+  @return convert-length($base-line-height - $base-font-size, $rhythm-unit, $base-font-size);
+}
+
+// Calculate base half leader :
+// The half-leader is the amount of whitespace above and below a line.
+// It might be useful in your calculations.
+@function base-half-leader(
+  $base-font-size: $base-font-size,
+  $base-line-height: $base-line-height
+) {
+  @return base-leader() / 2;
+}
 
 // Calculate rhythm units.
 @function rhythm($lines: 1, $font-size: $base-font-size, $offset: 0) {
@@ -131,12 +142,12 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 // for rem output.
 // Include the $img argument if you would rather use your own image than the
 // Compass default gradient image.
-@mixin debug-vertical-alignment($img: false) {
+@mixin debug-vertical-alignment($img: false, $font-size: $base-font-size) {
   @if $img {
     background: image-url($img);
   }
   @else {
-    @include baseline-grid-background(rhythm());
+    @include baseline-grid-background(rhythm(1, $font-size));
   }
 }
 
@@ -296,4 +307,16 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
   $border-style: $default-rhythm-border-style
 ) {
   @include apply-side-rhythm-border(all, $width, $lines, $font-size, $border-style);
+}
+
+// Switch baseline context.
+// It takes a list of targeted font size and line height as argument.
+@mixin use-baseline($alt-baseline...) {
+  $initial-font-size: $base-font-size;
+  $initial-line-height: $base-line-height;
+  $base-font-size: nth($alt-baseline, 1);
+  $base-line-height: nth($alt-baseline, 2);
+  @content;
+  $base-font-size: $initial-font-size;
+  $base-line-height: $initial-line-height;
 }
