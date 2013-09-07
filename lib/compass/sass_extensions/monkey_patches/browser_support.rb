@@ -1,13 +1,6 @@
-if File.exists? ('sass/script/tree')
-  require 'sass/script/tree/node'
-  require 'sass/script/tree/literal'
-  require 'sass/script/tree/funcall'
-else
-  require 'sass/script/node'
-  require 'sass/script/literal'
-  require 'sass/script/funcall'
-end
-
+require 'sass/script/tree/node' unless require 'sass/script/node'
+require 'sass/script/tree/literal' unless require 'sass/script/literal'
+require 'sass/script/tree/funcall' unless require 'sass/script/funcall'
 
 module Sass::Script
   module HasSimpleCrossBrowserFunctionSupport
