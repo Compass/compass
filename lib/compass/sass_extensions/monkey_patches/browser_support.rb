@@ -1,8 +1,8 @@
-if File.exists? ('sass/script/tree')
+begin
   require 'sass/script/tree/node'
   require 'sass/script/tree/literal'
   require 'sass/script/tree/funcall'
-else
+rescue
   require 'sass/script/node'
   require 'sass/script/literal'
   require 'sass/script/funcall'
