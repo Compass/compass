@@ -109,6 +109,30 @@ class SpriteMapTest < Test::Unit::TestCase
     FileUtils.rm_rf other_folder
   end
   
+  test "should get correct relative_name for directories with similar names" do
+    Compass.reset_configuration!
+    uri = 'foo/*.png'
+    other_folder = File.join(@images_tmp_path, '../other-temp')
+    other_folder2 = File.join(@images_tmp_path, '../other-temp2')
+
+    FileUtils.mkdir_p other_folder
+    FileUtils.mkdir_p other_folder2
+    
+    FileUtils.mkdir_p File.join(other_folder2, 'foo')
+    %w(my bar).each do |file|
+      FileUtils.touch(File.join(other_folder2, "foo/#{file}.png"))
+    end
+    
+    config = Compass::Configuration::Data.new('config')
+    config.images_path = @images_tmp_path
+    config.sprite_load_path = [@images_tmp_path, other_folder, other_folder2]
+    Compass.add_configuration(config, "sprite_config")
+
+    assert_equal 'foo/my.png', Compass::SassExtensions::Sprites::SpriteMap.relative_name(File.join(other_folder2, 'foo/my.png'))
+    FileUtils.rm_rf other_folder
+    FileUtils.rm_rf other_folder2
+  end
+  
   test "should create map for nested" do
     base = Compass::SassExtensions::Sprites::SpriteMap.from_uri OpenStruct.new(:value => 'nested/squares/*.png'), @base.instance_variable_get(:@evaluation_context), @options
     assert_equal 'squares', base.name
