@@ -39,13 +39,17 @@ module Compass
           @kwargs = kwargs
           @kwargs['cleanup'] ||= Sass::Script::Bool.new(true)
           @kwargs['layout'] ||= Sass::Script::String.new('vertical')
+          @kwargs['sort_by'] ||= Sass::Script::String.new('none')
           @images = nil
           @width = nil
           @height = nil
           @engine = nil
           @evaluation_context = context
-          validate!
           compute_image_metadata!
+        end
+
+        def sort_method
+          @kwargs['sort_by'].value
         end
 
         def inspect

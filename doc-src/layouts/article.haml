@@ -12,9 +12,8 @@
           Version:
           %a.number(href="/CHANGELOG/")= compass_version
       %article= yield
-      -comments= render "partials/disqus_comments"
     %footer(role="contentinfo")= render "partials/footer"
-  = @item[:content_for_javascripts]
+  = content_for(@item, :javascripts)
   = render "partials/analytics"
   <script type="text/javascript">SyntaxHighlighter.all();</script>
 

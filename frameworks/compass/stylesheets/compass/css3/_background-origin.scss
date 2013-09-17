@@ -1,42 +1,40 @@
-// Override `$default-background-origin` to change the default.
+// Background Origin
 
 @import "shared";
 
+// @private css3-feature-support variables must always include a list of five boolean values
+// representing in order: -moz, -webkit, -o, -ms, -khtml.
+//   - mozilla/webkit legacy support handled seperately below
+$background-origin-support: not -moz, not -webkit, not -o, not -ms, -khtml;
+
+
+// The default background-origin: [border-box | padding-box | content-box]
 $default-background-origin: content-box !default;
 
-// Position the background off the edge of the padding, border or content
+
+// Set the origin of the background (image and color) at the edge of the padding, border, or content.
 //
-// * Possible values:
-//   * `padding-box`
-//   * `border-box`
-//   * `content-box`
-// * browser defaults to `padding-box`
-// * mixin defaults to `content-box`
+//     $origin... : [padding-box | border-box | content-box]
+@mixin background-origin($origin...) {
+  $output: compact();
+  $deprecated: compact();
 
+  @if (length($origin) > 0) {
+    @each $layer in $origin {
+      $output: append($output, unquote($layer));
+      $deprecated: append($deprecated, legacy-box($layer));
+    }
+  } @else {
+    $output: $default-background-origin;
+    $deprecated: legacy-box($default-background-origin);
+  }
 
-@mixin background-origin($origin: $default-background-origin) {
-  $origin: unquote($origin);
-  // webkit and mozilla use the deprecated short [border | padding | content]
-  $deprecated: $origin;
-  @if $origin == padding-box { $deprecated: padding; }
-  @if $origin == border-box  { $deprecated: border;  }
-  @if $origin == content-box { $deprecated: content; }
-
-  // Support for webkit and mozilla's use of the deprecated short form
-  @include experimental(background-origin, $deprecated,
-    -moz,
-    -webkit,
-    not -o,
-    not -ms,
-    not -khtml,
-    not official
+  // Legacy versions of Mozilla support a different syntax, prefixed.
+  @include experimental-only-for(background-origin, $deprecated,
+    $moz: $legacy-support-for-mozilla,
+    $webkit: $legacy-support-for-webkit
   );
-  @include experimental(background-origin, $origin,
-    not -moz,
-    not -webkit,
-    -o,
-    -ms,
-    -khtml,
-    official
-  );
+
+  // Official syntax for the rest
+  @include experimental(background-origin, $output, $background-origin-support...);
 }

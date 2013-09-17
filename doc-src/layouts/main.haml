@@ -3,10 +3,9 @@
     = render "partials/main-navigation"
     #sub-nav
       %nav#docs-nav{:role => "navigation"}
-        %a{:href => "/reference/blueprint/", :rel => "blueprint"} Blueprint
         %a{:href => "/reference/compass/", :rel => "core"} Core
-      - if @item[:content_for_module_nav]
-        %nav#module-nav= @item[:content_for_module_nav]
+      - if content_for(@item, :module_nav)
+        %nav#module-nav= content_for(@item, :module_nav)
     #page
       #docs_panel
         #theme_pref
@@ -18,8 +17,7 @@
           Version:
           %a.number(href="/CHANGELOG/")= compass_version
       = yield
-      #comments= render "partials/disqus_comments"
     %footer(role="contentinfo")= render "partials/footer"
-  = @item[:content_for_javascripts]
+  = content_for(@item, :javascripts)
   = render "partials/analytics"
   <script type="text/javascript">SyntaxHighlighter.all();</script>

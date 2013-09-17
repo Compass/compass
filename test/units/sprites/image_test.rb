@@ -52,6 +52,18 @@ class SpritesImageTest < Test::Unit::TestCase
     assert_equal 'ten-by-ten_hover', test_image.hover.name
   end
 
+  test 'hover should find image by _ or - in file name' do
+    map = test_map(:seperator => '-')
+    map.images.each_index do |i|
+      if map.images[i].name == 'ten-by-ten_hover'
+        map.images[i].stubs(:name).returns('ten-by-ten-hover')
+      end
+    end
+    test_image = map.images.first
+
+    assert_equal 'ten-by-ten-hover', test_image.hover.name
+  end
+
   test 'no parent' do
     assert_nil test_image.parent
   end
@@ -72,6 +84,11 @@ class SpritesImageTest < Test::Unit::TestCase
   test 'image repeat-x' do
     img = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('repeat-x')
     assert img.repeat_x?
+  end
+
+  test 'image repeat-y' do
+    img = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('repeat-y')
+    assert img.repeat_y?
   end
 
   test 'image position' do

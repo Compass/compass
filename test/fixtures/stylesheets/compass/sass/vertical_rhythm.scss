@@ -1,16 +1,217 @@
-@import "compass/typography/vertical_rhythm";
+// Test all functions and mixins, at least indirectly.
+// functions:
+// * rhythm
+// * lines-for-font-size
+//
+// mixins:
+// * establish-baseline
+// * output-rhythm
+// * debug-vertical-alignment
+// * adjust-font-size-to
+// * adjust-leading-to
+// * leader
+// * margin-leader
+// * padding-leader
+// * trailer
+// * margin-trailer
+// * padding-trailer
+// * rhythm
+// * rhythm-margins
+// * rhythm-padding
+// * apply-side-rhythm-border
+// * leading-border
+// * trailing-border
+// * rhythm-borders
+// * horizontal-borders (h-borders)
+//
+// deprecated mixins:
+// * reset-baseline
 
 $base-font-size: 14px;
 $base-line-height: 16px;
+@import "compass/typography/vertical_rhythm";
 
 @include establish-baseline;
 
-.small { @include adjust-font-size-to(12px,1); }
+.small {
+	@include adjust-font-size-to(12px, 1);
+}
 
-.padded { @include rhythm(1,1,1,1); }
-.small-padded { @include adjust-font-size-to(12px,1); @include rhythm(1,1,1,1,12px); }
+.padded {
+	@include rhythm(1, 1, 1, 1);
+}
 
-.borders { @include h-borders(1px,1); }
-.large-borders { @include adjust-font-size-to(24px,3); @include h-borders(6px,1,24px); }
+.small-padded {
+	@include adjust-font-size-to(12px, 1);
+	@include rhythm(1, 1, 1, 1, 12px);
+}
 
-.reset { @include reset-baseline; }
+.borders {
+	@include h-borders(1px, 1);
+}
+
+.large-borders {
+	@include adjust-font-size-to(24px, 3);
+	@include h-borders(6px, 1, 24px);
+}
+
+.reset {
+	@include reset-baseline;
+}
+
+
+/* New test using em output */
+$base-font-size: 18px;
+$base-line-height: $base-font-size * 1.4;
+$rhythm-unit: em;
+$default-rhythm-border-style: solid #aaa;
+
+@import "compass/typography/vertical_rhythm";
+
+@include establish-baseline;
+
+.container {
+	@include debug-vertical-alignment;
+}
+
+p {
+	@include margin-leader;
+	@include margin-trailer;
+}
+
+th,
+td {
+	@include rhythm-padding(.25);
+}
+
+// Incremental leading made easy!
+.caption {
+	@include adjust-font-size-to(13px, 4/5);
+}
+
+.spaced-out {
+	@include adjust-leading-to(1.5);
+}
+
+blockquote {
+	@include rhythm-margins;
+	padding: 0 rhythm();
+}
+
+.fig-quote {
+	> blockquote {
+		@include trailer(.5);
+	}
+	.source {
+		@include adjust-font-size-to(13px, auto);
+		@include trailer(.5, 13px);
+	}
+}
+
+.panel {
+	@include adjust-font-size-to(16px);
+	@include rhythm-borders($font-size: 16px);
+}
+
+/* New using rem output with pixel fallbacks */
+$base-font-size: 18px;
+$base-line-height: $base-font-size * 1.4;
+$rhythm-unit: rem;
+$default-rhythm-border-style: solid #aaa;
+@import "compass/typography/vertical_rhythm";
+
+@include establish-baseline;
+
+.container {
+	@include debug-vertical-alignment;
+}
+
+p {
+	@include margin-leader;
+	@include margin-trailer;
+}
+
+th,
+td {
+	@include rhythm-padding(.25);
+}
+
+/* Incremental leading made easy! */
+.caption {
+	@include adjust-font-size-to(.85rem, 4/5);
+}
+
+.spaced-out {
+	@include adjust-leading-to(1.5);
+}
+
+blockquote {
+	@include rhythm-margins;
+	padding: 0 rhythm();
+}
+
+.fig-quote {
+	> blockquote {
+		@include trailer(.5);
+	}
+	.source {
+		@include adjust-font-size-to(.85rem, auto);
+		@include trailer(.5);
+	}
+}
+
+.panel {
+	@include rhythm-borders;
+}
+
+/* New using px output */
+$base-font-size: 18px;
+$base-line-height: $base-font-size * 1.4;
+$rhythm-unit: px;
+$default-rhythm-border-style: solid #aaa;
+@import "compass/typography/vertical_rhythm";
+
+@include establish-baseline;
+
+.container {
+	@include debug-vertical-alignment;
+}
+
+p {
+	@include margin-leader;
+	@include margin-trailer;
+}
+
+th,
+td {
+	@include rhythm-padding(.25);
+}
+
+/* Incremental leading made easy! */
+.caption {
+	@include adjust-font-size-to(.85rem, 4/5);
+}
+
+.spaced-out {
+	@include adjust-leading-to(1.5);
+}
+
+blockquote {
+	@include rhythm-margins;
+	padding: 0 rhythm();
+}
+
+.fig-quote {
+	> blockquote {
+		@include trailer(.5);
+	}
+	.source {
+		@include adjust-font-size-to(.85rem, auto);
+		@include trailer(.5);
+	}
+}
+
+.panel {
+	@include rhythm-borders;
+}
+

@@ -12,6 +12,7 @@
 .transition-property { @include transition-property(transform); }
 .transition-properties { @include transition-property(transform, opacity, width, height, left, top); }
 .multiple-transition-properties { @include transition-property((opacity, transform, left)); }
+.default-transition { @include transition(); }
 .transition-timing { @include transition-timing-function(ease-in); }
 .transition-timings { @include transition-timing-function(ease-in, cubic-bezier(1,0,1,0)); }
 .transition-timings-list { @include transition-timing-function((ease-in, cubic-bezier(1,0,1,0))); }
@@ -21,4 +22,3 @@
 .transition-delays-list { @include transition-delay((1s, 2s, 3s)); }
 .transition-delays-string { @include transition-delay("1s, 2s, 3s"); }
 .regression-912 { @include transition((background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s)); }
-

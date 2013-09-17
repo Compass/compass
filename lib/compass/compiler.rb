@@ -19,6 +19,12 @@ module Compass
       self.sass_options[:compass] ||= {}
       self.sass_options[:compass][:logger] = self.logger
       self.sass_options[:compass][:environment] = Compass.configuration.environment
+      reset_staleness_checker!
+    end
+
+    def reset_staleness_checker!
+      self.staleness_checker = nil
+      #Sass::Plugin::StalenessChecker.dependencies_cache = {}
       self.staleness_checker = Sass::Plugin::StalenessChecker.new(sass_options)
     end
 
@@ -27,8 +33,22 @@ module Compass
     end
 
     def sass_files(options = {})
+      @sass_files = []
       exclude_partials = options.fetch(:exclude_partials, true)
-      @sass_files = self.options[:sass_files] || Dir.glob(separate("#{from}/**/#{'[^_]' if exclude_partials}*.s[ac]ss"))
+      if self.options[:sass_files]
+        @sass_files = self.options[:sass_files]
+      else
+        Dir[separate("#{from}/**/*")].each do |filename|
+          # @sass_files.push(filename)
+          @sass_files.push(filename) unless File.directory?(filename) || /#{'[^_]' if exclude_partials}*.s[ac]ss$/.match(filename) == false
+          if File.symlink?(filename) && File.directory?(filename)
+            Dir[separate("#{filename}/**/#{'[^_]' if exclude_partials}*.s[ac]ss")].each do |inner_filename|
+              @sass_files.push(inner_filename) unless File.directory?(inner_filename)
+            end
+          end
+        end
+      end
+      return @sass_files
     end
 
     def relative_stylesheet_name(sass_file)

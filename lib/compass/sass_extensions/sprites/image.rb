@@ -5,12 +5,14 @@ module Compass
         ACTIVE = %r{[_-]active$}
         TARGET = %r{[_-]target$}
         HOVER = %r{[_-]hover$}
+        FOCUS = %r{[_-]focus$}
         PARENT = %r{(.+)[-_](.+)$}
 
         REPEAT_X = 'repeat-x'
+        REPEAT_Y = 'repeat-y'
         NO_REPEAT = 'no-repeat'
 
-        VALID_REPEATS = [REPEAT_X, NO_REPEAT]
+        VALID_REPEATS = [REPEAT_Y, REPEAT_X, NO_REPEAT]
         
         attr_reader :relative_file, :options, :base
         attr_accessor :top, :left
@@ -50,7 +52,7 @@ module Compass
         
         # Basename of the image
         def name
-          File.basename(relative_file, '.png')
+          @name ||= File.basename(relative_file, '.png')
         end
 
         def get_var_file(var)
@@ -71,6 +73,10 @@ module Compass
 
         def repeat_x?
           repeat == REPEAT_X
+        end
+
+        def repeat_y?
+          repeat == REPEAT_Y
         end
 
         def no_repeat?
@@ -109,7 +115,7 @@ module Compass
         
         # Hover selector Image object if exsists
         def hover
-          base.image_for("#{name}_hover")
+          base.get_magic_selector_image(name, 'hover')
         end
         
         # Is target selector
@@ -119,7 +125,7 @@ module Compass
         
         # Target selector Image object if exsists
         def target
-          base.image_for("#{name}_target")
+          base.get_magic_selector_image(name, 'target')
         end
         
         # Is active selector
@@ -129,12 +135,21 @@ module Compass
         
         # Active selector Image object if exsists
         def active
-          base.image_for("#{name}_active")
+          base.get_magic_selector_image(name, 'active')
+        end
+
+        # Is active selector
+        def focus?
+          name =~ FOCUS
         end
         
+        # Active selector Image object if exsists
+        def focus
+          base.get_magic_selector_image(name, 'focus')
+        end
         
         def parent
-          if [hover?, target?, active?].any?
+          if [hover?, target?, active?, focus?].any?
             PARENT.match name
             base.image_for($1)
           end

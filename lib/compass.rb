@@ -1,7 +1,7 @@
 module Compass
 end
 
-%w(dependencies util browser_support sass_extensions version errors quick_cache logger).each do |lib|
+%w(dependencies util browser_support sass_extensions version errors quick_cache logger actions).each do |lib|
   require "compass/#{lib}"
 end
 
@@ -29,7 +29,7 @@ module Compass
   extend QuickCache
 end
 
-%w(configuration frameworks app_integration actions compiler).each do |lib|
+%w(watcher configuration frameworks app_integration compiler).each do |lib|
   require "compass/#{lib}"
 end
 

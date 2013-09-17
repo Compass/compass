@@ -5,12 +5,9 @@
 .bordered {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
   border-radius: 5px; }
 
 .gradient {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0000), color-stop(100%, #0000ff));
   background: -webkit-linear-gradient(#ff0000, #0000ff);
   background: -moz-linear-gradient(#ff0000, #0000ff);
   background: -o-linear-gradient(#ff0000, #0000ff);

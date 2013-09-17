@@ -77,17 +77,22 @@ class SassExtensionsTest < Test::Unit::TestCase
   def test_math_functions
     assert_equal "0.84147", evaluate("sin(1)")
     assert_equal "0.84147px", evaluate("sin(1px)")
+    assert_equal "0.5236", evaluate("asin(0.5)")
+    assert_equal "0.5236", evaluate("asin(100px/200px)")
     assert_equal "0.0", evaluate("sin(pi())")
     assert_equal "1",   evaluate("sin(pi() / 2)")
     assert_equal "0.0",   evaluate("sin(180deg)")
     assert_equal "-1",  evaluate("sin(3* pi() / 2)")
     assert_equal "-1", evaluate("cos(pi())")
     assert_equal "1", evaluate("cos(360deg)")
+    assert_equal "1.0472", evaluate("acos(0.5)")
+    assert_equal "1.0472", evaluate("acos(100px/200px)")
     assert_equal "-0.17605", evaluate("sin(270)")
     assert_equal "1", evaluate("cos(2*pi())")
     assert_equal "0.0",   evaluate("cos(pi() / 2)")
     assert_equal "0.0",  evaluate("cos(3* pi() / 2)")
     assert_equal "0.0",  evaluate("tan(pi())")
+    assert_equal "0.46365",  evaluate("atan(0.5)")
     assert_equal "0.0", evaluate("tan(360deg)")
     assert_equal "0.95892", evaluate("sin(360)")
     assert evaluate("tan(pi()/2 - 0.0001)").to_f > 1000, evaluate("tan(pi()/2 - 0.0001)")
@@ -104,6 +109,8 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25px", evaluate("pow(5px, 2)")
     assert_equal "25px", evaluate("pow($number: 5px, $exponent: 2)")
     assert_equal "79.43236px", evaluate("pow(5px, e())")
+    assert (0..2).include?(evaluate("random(2)").to_i)
+    assert (4..16).include?(evaluate("random(4, 16)").to_i)
   end
 
   def test_blank

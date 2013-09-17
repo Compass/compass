@@ -3,6 +3,11 @@
   -moz-background-clip: border;
   background-clip: border-box; }
 
+.background-clip-multiple {
+  -webkit-background-clip: border, padding, content;
+  -moz-background-clip: border, padding, content;
+  background-clip: border-box, padding-box, content-box; }
+
 .background-clip-khtml {
   -webkit-background-clip: border;
   -moz-background-clip: border;

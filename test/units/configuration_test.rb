@@ -53,6 +53,18 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_correct expected_lines, actual_lines
   end
 
+  def test_custom_watch
+    contents = StringIO.new(<<-CONFIG)
+      watch 'img/**/*' do
+        puts 'foobar'
+      end
+    CONFIG
+    Compass.add_configuration(contents, 'test_watch_config')
+    watch = Compass.configuration.watches.first
+    assert_equal 'img/**/*', watch.glob
+    assert watch.is_a?(Compass::Watcher::Watch)
+  end
+
   def test_serialization_warns_with_asset_host_set
     contents = StringIO.new(<<-CONFIG)
       asset_host do |path|

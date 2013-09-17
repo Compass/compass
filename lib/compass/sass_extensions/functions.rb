@@ -1,4 +1,9 @@
 module Compass::SassExtensions::Functions
+  module SassDeclarationHelper
+    def register_sass_function(*args)
+      Sass::Script::Functions.declare(*args)
+    end
+  end
 end
 
 %w(

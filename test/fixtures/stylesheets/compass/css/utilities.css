@@ -20,20 +20,20 @@
     clear: both; }
 
 p.light {
-  background-color: #b0201e;
+  background-color: #f3aead;
   color: black; }
 
 p.dark {
-  background-color: #5f1210;
+  background-color: #a22321;
   color: white; }
 
 p.light-with-args {
-  background-color: #b0201e;
-  color: green; }
+  background-color: #f3aead;
+  color: blue; }
 
 p.dark-with-args {
-  background-color: #5f1210;
-  color: blue; }
+  background-color: #a22321;
+  color: yellow; }
 
 th {
   background-color: white; }
@@ -54,3 +54,18 @@ tfoot th, tfoot td {
   background-color: white; }
   tfoot th.even, tfoot th:nth-child(2n), tfoot td.even, tfoot td:nth-child(2n) {
     background-color: yellow; }
+
+p.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis; }
+
+p.ellipsis.moz {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  -moz-binding: url('/tmp/xml/ellipsis.xml#ellipsis'); }
