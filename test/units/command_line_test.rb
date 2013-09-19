@@ -55,4 +55,12 @@ class CommandLineTest < Test::Unit::TestCase
     end
   end
 
+  def test_command_line_extensions
+    within_tmp_directory do
+      # create config with command_extensions
+      compass "config", "config.rb", "--command-extensions=command-line-extension-test"
+      assert_action_performed    :create, "config.rb"
+    end
+  end
+
 end

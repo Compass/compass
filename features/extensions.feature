@@ -13,6 +13,14 @@ Feature: Extensions
     Then the list of frameworks includes "testing"
 
   @listframeworks
+  Scenario: Extensions directory for stand_alone projects using a command-line extension
+    Given I am using the existing project in test/fixtures/stylesheets/compass
+    And the "extensions" directory exists
+    And and I have a fake command-line extension at extensions/compass-command-testing
+    When I run: compass frameworks
+    Then the list of frameworks includes "compass-command-testing"
+
+  @listframeworks
   Scenario: Shared extensions directory
     Given the "~/.compass/extensions" directory exists
     And and I have a fake extension at ~/.compass/extensions/testing

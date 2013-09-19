@@ -29,6 +29,7 @@ module Compass
       :environment,
       :relative_assets,
       :additional_import_paths,
+      :command_extensions,
       :sass_options,
       attributes_for_directory(:cache, nil),
       :cache,

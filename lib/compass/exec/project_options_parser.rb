@@ -69,6 +69,10 @@ module Compass::Exec::ProjectOptionsParser
     opts.on('--generated-images-path GENERATED_IMAGES_PATH', 'The path where you generate your images') do |generated_images_path|
       self.options[:generated_images_path] = generated_images_path
     end
+
+    opts.on('--command-extensions COMMANDS', 'Compass command line extensions to include.') do |command_extensions|
+      self.options[:command_extensions] = command_extensions
+    end
   end
 
 end
