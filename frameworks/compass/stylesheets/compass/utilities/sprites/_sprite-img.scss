@@ -38,7 +38,7 @@ $sprite-image-default-height: $sprite-default-size !default;
 
 // Sets rules common for all sprites, assumes a rectangular region.
 @mixin sprite-background-rectangle($img, $width: $sprite-image-default-width, $height: $sprite-image-default-height) {
-  background: image-url($img) no-repeat;
+  background-image: image-url($img) no-repeat;
   width: $width;
   height: $height;
   overflow: hidden; 
