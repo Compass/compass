@@ -87,11 +87,17 @@ module Compass
           fitter.fit!.each do |row|
             current_x = 0
             row.images.each_with_index do |image, index|
-              image.left = current_x
+              if current_x.odd?
+                current_x += 1
+              end
+              if current_y.odd?
+                current_y += 1
+              end
+              image.left = current_x +
               image.top = current_y
-              current_x += image.width
+              current_x += image.width + 24
             end
-            current_y += row.height
+            current_y += row.height + 24
           end
           @width = fitter.width
           @height = fitter.height
