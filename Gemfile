@@ -8,7 +8,7 @@ unless ENV['PKG']
   gem "rspec", "~> 2.0.0"
   gem "compass-validator", "3.0.1"
   gem "css_parser", "~> 1.0.1"
-  gem "rubyzip"
+  gem "rubyzip", "0.9.9"
   gem 'mocha', '0.11.4'
   gem 'diff-lcs', '~> 1.1.2'
   gem 'rake', '~> 0.9.2'
