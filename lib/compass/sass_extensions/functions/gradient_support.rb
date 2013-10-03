@@ -67,6 +67,10 @@ module Compass::SassExtensions::Functions::GradientSupport
       end
       s
     end
+
+    def to_sass(options = nil)
+      Sass::Script::String.new("color-stop(#{color.to_sass rescue nil}, #{stop.to_sass rescue nil})")
+    end
   end
 
   module Gradient
@@ -95,6 +99,10 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     def has_aspect?
       true
+    end
+
+    def is_position(pos)
+      pos.value =~ Compass::SassExtensions::Functions::Constants::POSITIONS
     end
 
     def angle?(value)
@@ -269,7 +277,7 @@ module Compass::SassExtensions::Functions::GradientSupport
         Sass::Script::List.new(position.value.dup, position.separator)
       end
       # Handle unknown arguments by passing them along untouched.
-      unless position.value.all?{|p| is_position(p).to_bool }
+      unless position.value.all?{|p| is_position(p) }
         return original_value
       end
       if (position.value.first.value =~ /top|bottom/) or (position.value.last.value =~ /left|right/)
