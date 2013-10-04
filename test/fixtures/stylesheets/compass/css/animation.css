@@ -1,0 +1,33 @@
+@-moz-keyframes test {
+  0%, 100% {
+    background-color: red; }
+
+  50% {
+    background-color: blue; } }
+
+@-webkit-keyframes test {
+  0%, 100% {
+    background-color: red; }
+
+  50% {
+    background-color: blue; } }
+
+@-o-keyframes test {
+  0%, 100% {
+    background-color: red; }
+
+  50% {
+    background-color: blue; } }
+
+@keyframes test {
+  0%, 100% {
+    background-color: red; }
+
+  50% {
+    background-color: blue; } }
+
+.animation {
+  -webkit-animation: test;
+  -moz-animation: test;
+  -o-animation: test;
+  animation: test; }

@@ -1,6 +1,20 @@
 require 'sass'
 module Sass
   module Tree
+    class RuleNode
+      attr_accessor :comment unless method_defined? :comment
+      def identifier
+        @identifier ||= begin
+                          id = name.gsub(/[^a-zA-Z]+/,"-").downcase
+                          id = id[1..-1] if id[0..0] == "-"
+                          id = id[0..-2] if id[-1..-1] == "-"
+                          id
+                        end
+      end
+      def name
+        @name ||= rule.map{|part| Sass::Script::Node === part ? "\#{#{part.to_sass}}" : part}.join('')
+      end
+    end
     class VariableNode < Node
       attr_accessor :name unless method_defined? :name
       attr_accessor :expr unless method_defined? :expr

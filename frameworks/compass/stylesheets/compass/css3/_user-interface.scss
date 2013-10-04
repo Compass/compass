@@ -1,8 +1,14 @@
-// User Interface ------------------------------------------------------------
+// User Interface
 // This file can be expanded to handle all the user interface properties as
 // they become available in browsers:
 // http://www.w3.org/TR/2000/WD-css3-userint-20000216
+
 @import "shared";
+
+// @private css3-feature-support variables must always include a list of five boolean values
+// representing in order: -moz, -webkit, -ms, -o, -khtml
+//   - mozilla support handled seperately below
+$userselect-support: not -moz, -webkit, not -o, -ms, -khtml;
 
 
 // This property controls the selection model and granularity of an element.
@@ -11,7 +17,40 @@
 //   [ none | text | toggle | element | elements | all | inherit ]
 @mixin user-select($select) {
   $select: unquote($select);
-  @include experimental(user-select, $select,
-    -moz, -webkit, not -o, not -ms, -khtml, official
-  );
+
+  @if $experimental-support-for-mozilla {
+    -moz-user-select: if($select == 'none', -moz-none, $select);
+  }
+  @include experimental(user-select, $select, $userselect-support...);
+}
+
+// Style the html5 input placeholder in browsers that support it.
+//
+// The styles for the input placeholder are passed as mixin content
+// and the selector comes from the mixin's context.
+//
+// For example:
+//
+//     #{elements-of-type(text-input)} {
+//       @include input-placeholder {
+//         color: #bfbfbf;
+//         font-style: italic;
+//       }
+//     }
+//
+// if you want to apply the placeholder styles to all elements supporting
+// the `input-placeholder` psuedoclass (beware of performance impacts):
+//
+//     * {
+//       @include input-placeholder {
+//         color: #bfbfbf;
+//         font-style: italic;
+//       }
+//     }
+@mixin input-placeholder {
+  @if $experimental-support-for-webkit    { &::-webkit-input-placeholder { @include with-only-support-for($webkit: true) { @content; } } }
+  @if $legacy-support-for-mozilla         { &:-moz-placeholder           { @include with-only-support-for(   $moz: true) { @content; } } } // for Firefox 19 and below
+  @if $experimental-support-for-mozilla   { &::-moz-placeholder          { @include with-only-support-for(   $moz: true) { @content; } } } // for Firefox 20 and above
+  @if $experimental-support-for-microsoft { &:-ms-input-placeholder      { @include with-only-support-for(    $ms: true) { @content; } } }
+  // This is not standardized yet so no official selector is generated.
 }

@@ -1,8 +1,43 @@
-require 'sass/script/node'
-require 'sass/script/literal'
-require 'sass/script/funcall'
+require 'sass/script'
 
 module Sass::Script
+  module Value
+    class Base
+      NO_CHILDREN = []
+      def children
+        NO_CHILDREN
+      end
+
+      def options=(opts)
+        @options = opts
+        children.each {|c| c.options = opts}
+        opts
+      end
+
+      def opts(value)
+        value.options = options
+        value
+      end
+    end
+
+    class List < Base
+      def children
+        value
+      end
+    end
+
+    class ArgList < List
+      def children
+        super + @keywords.values
+      end
+    end
+
+    class Map < Base
+      def children
+        to_a
+      end
+    end
+  end
   module HasSimpleCrossBrowserFunctionSupport
     def supports?(aspect)
       return true if Compass::BrowserSupport.supports?(name, aspect)
@@ -65,19 +100,13 @@ module Sass::Script
   class Funcall < Node
     include HasSimpleCrossBrowserFunctionSupport
 
-    if method_defined? :to_literal
-      alias sass_to_literal to_literal 
-    else
-      def sass_to_literal
-        Script::String.new("#{name}(#{args.join(', ')})")
-      end
-    end
+    alias sass_to_value to_value 
 
-    def to_literal(args)
+    def to_value(args)
       if has_aspect?(args)
         CrossBrowserFunctionCall.new(name, args)
       else
-        sass_to_literal(args)
+        sass_to_value(args)
       end
     end
   end

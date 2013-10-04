@@ -1,5 +1,10 @@
 @import "shared";
 
+// @private css3-feature-support variables must always include a list of five boolean values
+// representing in order: -moz, -webkit, -o, -ms, -khtml.
+$transform-support: -moz, -webkit, -o, -ms, not -khtml;
+$transform3d-support: $transform-support;
+
 // @doc off
 // Note ----------------------------------------------------------------------
 // Safari, Chrome, and Firefox all support 3D transforms. However,
@@ -103,13 +108,9 @@ $default-skew-y      : 5deg                  !default;
 @mixin apply-origin($origin, $only3d) {
   $only3d: $only3d or -compass-list-size(-compass-list($origin)) > 2;
   @if $only3d {
-    @include experimental(transform-origin, $origin,
-      -moz, -webkit, -o, -ms, not -khtml, official
-    );
+    @include experimental(transform-origin, $origin, $transform3d-support...);
   } @else {
-    @include experimental(transform-origin, $origin,
-      -moz, -webkit, -o, -ms, not -khtml, official
-    );
+    @include experimental(transform-origin, $origin, $transform-support...);
   }
 }
 
@@ -146,13 +147,9 @@ $default-skew-y      : 5deg                  !default;
   $only3d: false
 ) {
   @if $only3d {
-    @include experimental(transform, $transform,
-      -moz, -webkit, -o, -ms, not -khtml, official
-    );
+    @include experimental(transform, $transform, $transform3d-support...);
   } @else {
-    @include experimental(transform, $transform,
-      -moz, -webkit, -o, -ms, not -khtml, official
-    );
+    @include experimental(transform, $transform, $transform-support...);
   }
 }
 
@@ -178,9 +175,7 @@ $default-skew-y      : 5deg                  !default;
 // z-axis. The higher the perspective, the more exaggerated the foreshortening.
 // values from 500 to 1000 are more-or-less "normal" - a good starting-point.
 @mixin perspective($p) {
-  @include experimental(perspective, $p,
-    -moz, -webkit, -o, -ms, not -khtml, official
-  );
+  @include experimental(perspective, $p, $transform3d-support...);
 }
 
 // Set the origin position for the perspective
@@ -189,9 +184,7 @@ $default-skew-y      : 5deg                  !default;
 //
 // where the two arguments represent x/y coordinates
 @mixin perspective-origin($origin: 50%) {
-  @include experimental(perspective-origin, $origin,
-    -moz, -webkit, -o, -ms, not -khtml, official
-  );
+  @include experimental(perspective-origin, $origin, $transform3d-support...);
 }
 
 // Determine whether a 3D objects children also live in the given 3D space
@@ -201,9 +194,7 @@ $default-skew-y      : 5deg                  !default;
 // where `style` can be either `flat` or `preserve-3d`.
 // Browsers default to `flat`, mixin defaults to `preserve-3d`.
 @mixin transform-style($style: preserve-3d) {
-  @include experimental(transform-style, $style,
-    -moz, -webkit, -o, -ms, not -khtml, official
-  );
+  @include experimental(transform-style, $style, $transform3d-support...);
 }
 
 // Determine the visibility of an element when it's back is turned
@@ -213,9 +204,7 @@ $default-skew-y      : 5deg                  !default;
 // where `visibility` can be either `visible` or `hidden`.
 // Browsers default to visible, mixin defaults to hidden
 @mixin backface-visibility($visibility: hidden) {
-  @include experimental(backface-visibility, $visibility,
-    -moz, -webkit, -o, -ms, not -khtml, official
-  );
+  @include experimental(backface-visibility, $visibility, $transform3d-support...);
 }
 
 // @doc off

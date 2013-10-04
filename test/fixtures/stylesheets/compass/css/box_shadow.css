@@ -1,14 +1,25 @@
+.no-box-shadow {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+
 .box-shadow {
   -webkit-box-shadow: 0px 0px 5px #333333, 2px 2px 5px #222222;
   -moz-box-shadow: 0px 0px 5px #333333, 2px 2px 5px #222222;
   box-shadow: 0px 0px 5px #333333, 2px 2px 5px #222222; }
 
 .single-box-shadow {
-  -webkit-box-shadow: 0px 0px 5px #333333;
-  -moz-box-shadow: 0px 0px 5px #333333;
-  box-shadow: 0px 0px 5px #333333; }
+  -webkit-box-shadow: 0px 5px #333333;
+  -moz-box-shadow: 0px 5px #333333;
+  box-shadow: 0px 5px #333333; }
 
 .multiple-box-shadows {
   -webkit-box-shadow: 0px 0px 5px #333333, 2px 2px 5px #222222;
   -moz-box-shadow: 0px 0px 5px #333333, 2px 2px 5px #222222;
   box-shadow: 0px 0px 5px #333333, 2px 2px 5px #222222; }
+
+.legacy-single-box-shadow {
+  -webkit-box-shadow: 0px 5px blue;
+  -moz-box-shadow: 0px 5px blue;
+  box-shadow: 0px 5px blue; }
+

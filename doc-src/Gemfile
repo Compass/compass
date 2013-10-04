@@ -1,16 +1,18 @@
-source :gemcutter
-
-gem 'nanoc', "3.2.4"
-gem 'nanoc3', "3.2.4"
-gem 'asdf'
+source 'https://rubygems.org'
+gem 'nanoc', '~> 3.4.2'
+gem 'i18n'
+gem 'adsf'
+gem 'rb-inotify'
+gem 'thin'
+gem 'foreman'
 gem 'rdiscount'
 gem 'thor'
 gem 'rack'
+gem 'fssm'
 gem 'mime-types'
-gem 'serve', "1.0.0"
 gem 'nokogiri'
 gem 'coderay'
-gem 'haml'
+gem 'haml', '3.1.7'
 gem 'rake'
 gem 'activesupport', '~> 3.0.10', :require => 'active_support/inflector'
 gem 'compass', :path => ".."
@@ -22,5 +24,3 @@ gem 'css_parser', "1.0.1"
 gem 'ruby-prof'
 gem 'rb-fsevent'
 gem 'builder'
-
-

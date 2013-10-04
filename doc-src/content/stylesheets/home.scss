@@ -3,6 +3,7 @@
 @include reset(global);
 @include reset(html5);
 @import "core/base-classes";
+@import "core/media-block";
 
 @import "partials/theme";
 @import "partials/layout";

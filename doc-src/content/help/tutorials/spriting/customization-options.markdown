@@ -9,6 +9,23 @@ classnames:
 <%= sprite_tutorial_links %>
 ## Customization Options
 
+### Options Applying to All Sprite Maps
+
+These options allow you to customize the behavior of all sprites
+referenced in your stylesheet. In many cases, there's a configuration option
+that allows you to change the default for that sprite map or even an
+individual sprite image.
+
+**NOTE:** These configuration options must be set **before** you import the
+sprites.
+
+* `$sprite-selectors` - Which interaction states should be considered
+  for creating [magic sprite selectors](/help/tutorials/spriting/magic-selectors/).
+* `$disable-magic-sprite-selectors` - Set to `true` to turn off magic
+  selectors. Defaults to `false`.
+* `$default-sprite-separator` - Defaults to a dash. You can set this to
+  an underscore (`"_"`) if you're one of *those* people.
+
 ### Options per Sprite Map
 
 When constructing the sprite map, the entire sprite map and it's associated stylesheet
@@ -29,7 +46,12 @@ the sprites were contained within a folder called `icon`.
   included in each sprite's CSS output. Can be `true` or `false`. Defaults to `false`.
 * `$<map>-sprite-base-class` -- The base class for these sprites. Defaults to `.<map>-sprite`.
   E.g. `$icon-sprite-base-class: ".action-icon"`
-* `$<map>-clean-up` -- Whether or not to removed the old sprite file when a new one is created. Defaults to true
+* `$<map>-clean-up` -- Whether or not to removed the old sprite file
+  when a new one is created. Defaults to true
+* `$<map>-class-separator` -- If you set this to an underscore (`"_"`)
+  then all the generated selectors for this sprite will use underscores
+  instead dashes. To change this value for all sprites, set
+  `$default-sprite-separator` to an underscore.
 
 ### Options per Sprite
 

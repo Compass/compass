@@ -34,8 +34,17 @@ $experimental-support-for-svg: true
 .transparent-in-linear-gradient
   +background-image(#fff linear-gradient(top left, transparent, #aaa))
 
+.currentColor-in-linear-gradient
+  +background-image(#fff linear-gradient(top left, transparent, currentColor))
+
+.rgba-in-linear-gradient
+  +background-image(#fff linear-gradient(top left, rgba(255,255,255,0.8), rgba(0,0,0,0.1)))
+
 .bg-radial-gradient
   +background-image(radial-gradient(center center, #ddd, transparent 100px))
+
+.currentColor-in-radial-gradient
+  +background-image(radial-gradient(center center, currentColor, transparent 100px))
 
 .bg-linear-gradient-with-angle
   +background-image(linear-gradient(-45deg, #ddd, #aaa))
@@ -93,4 +102,26 @@ $experimental-support-for-svg: false
 
 .ie-alpha-filter
   +filter-gradient(rgba(#fff, 1), rgba(#fff, 0))
+
+.linear-gradient-new
+  +background(linear-gradient(to bottom, #ff0000 0%, #88aa44 100%))
+
+$use-legacy-gradient-syntax: true
+ 
+.linear-gradient-old
+  +background(linear-gradient(top, #ff0000 0%, #88aa44 100%))
+ 
+// This setting is only important when we can't tell which syntax is being used.
+// * That is only ever true when the angle is specified in deg
+// * original webkit syntax does not support deg (see output)
+// * if $support-for-original-webkit-gradients and type-of($angle) == "number" : @WARN
+$use-legacy-gradient-syntax: false
+ 
+.linear-gradient-unknown-new
+  +background(linear-gradient(120deg, #ff0000 0%, #88aa44 100%))
+ 
+$use-legacy-gradient-syntax: true
+ 
+.linear-gradient-unknown-old
+  +background(linear-gradient(120deg, #ff0000 0%, #88aa44 100%))
 

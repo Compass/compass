@@ -11,7 +11,7 @@ classnames:
 ## Magic Selectors
 
 If you want to add selectors for your sprites, it's easy todo by adding `_active` `_target` or `_hover` to the file name, In the example below we have a sprite directory that looks like:
-
+* note you can use `-` in file names also ex. `glossy-active.png` *
 * `my-buttons/glossy.png`
 * `my-buttons/glossy_hover.png`
 * `my-buttons/glossy_active.png`

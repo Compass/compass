@@ -11,7 +11,7 @@ class CompassTest < Test::Unit::TestCase
   end
 
   def teardown
-    [:blueprint, :empty, :compass, :image_urls, :relative].each do |project_name|
+    [:empty, :compass, :image_urls, :relative].each do |project_name|
       ::FileUtils.rm_rf tempfile_path(project_name)
     end
   end
@@ -23,7 +23,7 @@ class CompassTest < Test::Unit::TestCase
     before_compile = Proc.new do |config|
       config.on_stylesheet_saved {|filepath| path = filepath; saved = true }
     end
-    within_project(:blueprint, before_compile)
+    within_project(:compass, before_compile)
     assert saved, "Stylesheet callback didn't get called"
     assert path.is_a?(String), "Path is not a string. Got: #{path.class.name}"
   end
@@ -47,17 +47,6 @@ class CompassTest < Test::Unit::TestCase
       return unless proj.css_path && File.exists?(proj.css_path)
       Dir.new(proj.css_path).each do |f|
         fail "This file should not have been generated: #{f}" unless f == "." || f == ".."
-      end
-    end
-  end
-
-  def test_blueprint
-    within_project(:blueprint) do |proj|
-      each_css_file(proj.css_path) do |css_file|
-        assert_no_errors css_file, :blueprint
-      end
-      each_sass_file do |sass_file|
-        assert_renders_correctly sass_file, :ignore_charset => true
       end
     end
   end
@@ -91,6 +80,17 @@ class CompassTest < Test::Unit::TestCase
       end
       each_sass_file do |sass_file|
         assert_renders_correctly sass_file, :ignore_charset => true, :environment => "production"
+      end
+    end
+  end
+
+  def test_busted_font_urls
+    within_project('busted_font_urls') do |proj|
+      each_css_file(proj.css_path) do |css_file|
+        assert_no_errors css_file, 'busted_font_urls'
+      end
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file
       end
     end
   end
@@ -138,8 +138,9 @@ private
   def assert_renders_correctly(*arguments)
     options = arguments.last.is_a?(Hash) ? arguments.pop : {}
     for name in arguments
-      actual_result_file = "#{tempfile_path(@current_project)}/#{name}.css"
+      @output_file = actual_result_file = "#{tempfile_path(@current_project)}/#{name}.css"
       expected_result_file = "#{result_path(@current_project)}/#{name}.css"
+      @filename = expected_result_file.gsub('css', 'scss')
       actual_lines = File.read(actual_result_file)
       actual_lines.gsub!(/^@charset[^;]+;/,'') if options[:ignore_charset]
       actual_lines = actual_lines.split("\n").reject{|l| l=~/\A\Z/}
@@ -219,6 +220,14 @@ private
 
   def save_path(project_name)
     File.join(project_path(project_name), "saved")
+  end
+
+  def filename
+    @filename
+  end
+
+  def output_file
+    @output_file
   end
 
 end

@@ -9,6 +9,7 @@ module Compass
     ACTION_COLORS = {
       :error     => :red,
       :warning   => :yellow,
+      :info      => :green,
       :compile   => :green,
       :overwrite => :yellow,
       :create    => :green,
@@ -76,6 +77,7 @@ module Compass
     # Emit a log message
     def log(msg)
       puts msg
+      $stdout.flush
     end
 
     # add padding to the left of an action that was performed.

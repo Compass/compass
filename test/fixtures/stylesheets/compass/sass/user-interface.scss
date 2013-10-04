@@ -3,3 +3,28 @@
 .user-select {
   @include user-select(none);
 }
+
+* {
+  @include input-placeholder {
+    color: #bfbfbf;
+    font-style: italic;
+  }
+}
+
+#{elements-of-type(text-input)} {
+  @include input-placeholder {
+    color: #bfbfbf;
+    font-style: italic;
+  }
+}
+
+.sets-up-browser-support-for-content {
+  @include input-placeholder {
+    @if $experimental-support-for-mozilla   { moz: yes;    }
+    @if $experimental-support-for-webkit    { webkit: yes; }
+    @if $experimental-support-for-microsoft { ms: yes;     }
+    @if not $experimental-support-for-mozilla and
+        not $experimental-support-for-webkit and
+        not $experimental-support-for-microsoft { other: wtf;  }
+  }
+}

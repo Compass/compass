@@ -19,7 +19,7 @@ $use-mozilla-ellipsis-binding: false !default;
     not -khtml,
     official
   );
-  @if $experimental-support-for-mozilla and $use-mozilla-ellipsis-binding {
+  @if $legacy-support-for-mozilla and $use-mozilla-ellipsis-binding {
     -moz-binding: stylesheet-url(unquote("xml/ellipsis.xml#ellipsis"));    
   }
 }

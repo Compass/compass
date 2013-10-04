@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::Constants
-  if defined?(Sass::Script::List)
-    POSITIONS = /top|bottom|left|right|center/
+  POSITIONS = /top|bottom|left|right|center/
+  if defined?(Sass::Script::Value::List)
     def is_position(position)
       Sass::Script::Bool.new(position.is_a?(Sass::Script::String) && !!(position.value =~ POSITIONS))
     end

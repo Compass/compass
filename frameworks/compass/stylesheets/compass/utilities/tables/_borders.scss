@@ -1,3 +1,5 @@
+@import "compass/support";
+
 @mixin outer-table-borders($width: 2px, $color: black) {
   border: $width solid $color;
   thead {
@@ -7,7 +9,7 @@
     th, td {
       border-top: $width solid $color; } }
   th {
-    &:first-child {
+    &:first-child #{if($legacy-support-for-ie6, ', &.first', '')} {
       border-right: $width solid $color; } } }
 
 @mixin inner-table-borders($width: 2px, $color: black) {
@@ -17,17 +19,20 @@
       bottom: $width solid $color;
       left-width: 0px;
       top-width: 0px; };
-    &:last-child,
-    &.last {
-      border-right-width: 0px; } }
+    &:last-child {
+      border-right-width: 0px; }
 
-// IE8 ignores rules that are included on the same line as :last-child
-// see http://www.richardscarrott.co.uk/posts/view/ie8-last-child-bug for details
+    // IE8 ignores rules that are included on the same line as :last-child
+    // see http://www.richardscarrott.co.uk/posts/view/ie8-last-child-bug for details
+    @if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
+      &.last {
+        border-right-width: 0px; } } }
 
   tbody, tfoot {
     tr:last-child {
       th, td {
         border-bottom-width: 0px; } }
-    tr.last {
-      th, td {
-        border-bottom-width: 0px; } } } }
+    @if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
+      tr.last {
+        th, td {
+          border-bottom-width: 0px; } } } } }
