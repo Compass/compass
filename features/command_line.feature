@@ -179,12 +179,13 @@ Feature: Command Line
       | tmp/fonts.css               |
       | images/flag-s5b4f509715.png |
 
+  @now
   Scenario: Watching a project for changes
     Given ruby supports fork
     Given I am using the existing project in test/fixtures/stylesheets/compass
     When I run: compass compile
     And I run in a separate process: compass watch 
-    And I wait 3 seconds
+    And I wait 4 seconds
     And I touch sass/layout.sass
     And I wait 2 seconds
     And I shutdown the other process
