@@ -58,6 +58,22 @@ Rake::TestTask.new :integrations do |t|
   t.verbose = true
 end
 
+desc "Download the latest browser stats data."
+task :caniuse do
+  require 'uri'
+  require 'net/http'
+  require 'net/https'
+  uri = URI.parse("https://raw.github.com/Fyrd/caniuse/master/data.json")
+  https = Net::HTTP.new(uri.host,uri.port)
+  https.use_ssl = true
+  req = Net::HTTP::Get.new(uri.path)
+  res = https.request(req)
+  filename = File.join(File.dirname(__FILE__), "data", "caniuse.json")
+  open(filename, "wb") do |file|
+    file.write(res.body)
+  end
+  puts "#{filename} (#{res.body.size} bytes)"
+end
 
 desc "Compile Examples into HTML and CSS"
 task :examples do
