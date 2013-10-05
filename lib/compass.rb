@@ -29,7 +29,7 @@ module Compass
   extend QuickCache
 end
 
-%w(watcher configuration frameworks app_integration compiler).each do |lib|
+%w(watcher configuration frameworks app_integration compiler caniuse).each do |lib|
   require "compass/#{lib}"
 end
 
