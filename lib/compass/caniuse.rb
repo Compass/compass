@@ -6,9 +6,10 @@ class Compass::CanIUse
   DATA_FILE_NAME = File.join(Compass.base_directory, "data", "caniuse.json")
 
   def initialize
-   @data = JSON.parse(File.read(DATA_FILE_NAME))
+    @data = JSON.parse(File.read(DATA_FILE_NAME))
   end
 
+  # The browser names from caniuse are ugly.
   PUBLIC_BROWSER_NAMES = Hash.new {|h, k| k}
   PUBLIC_BROWSER_NAMES.update(
     "and_chr" => "android-chrome",
@@ -28,16 +29,19 @@ class Compass::CanIUse
   CAN_I_USE_NAMES = Hash.new {|h, k| k}
   CAN_I_USE_NAMES.update(PUBLIC_BROWSER_NAMES.invert)
 
+  # Returns all the known browsers according to caniuse
   def browsers
     @browsers ||= @data["agents"].keys.map{|b| PUBLIC_BROWSER_NAMES[b] }.sort
   end
 
+  # Returns the prefix corresponding to a particular browser
   def prefix(browser)
     assert_valid_browser browser
     p = @data["agents"][CAN_I_USE_NAMES[browser]]["prefix"]
     "-#{p}"
   end
 
+  # returns the prefixes needed by the list of browsers given
   def prefixes(browsers = browsers)
     result = browsers.map{|b| prefix(b) }
     result.uniq!
@@ -45,12 +49,15 @@ class Compass::CanIUse
     result
   end
 
+  # returns the list of browsers that use the given prefix
   def browsers_with_prefix(prefix)
     assert_valid_prefix prefix
     prefix = prefix[1..-1] if prefix.start_with?("-")
     browsers.select {|b| @data["agents"][CAN_I_USE_NAMES[b]]["prefix"] == prefix }
   end
 
+  # returns the percentage of users (0-100) that would be affected if the prefix
+  # was not used with the given capability.
   def prefixed_usage(prefix, capability)
     assert_valid_prefix prefix
     assert_valid_capability capability
@@ -66,6 +73,8 @@ class Compass::CanIUse
     usage
   end
 
+  # Returns whether the given minimum version of a browser
+  # requires the use of a prefix for the stated capability.
   def requires_prefix(browser, min_version, capability)
     assert_valid_browser browser
     assert_valid_capability capability
@@ -82,6 +91,9 @@ class Compass::CanIUse
     false
   end
 
+  # Returns the versions of a browser. If the min_usage parameter is provided,
+  # only those versions having met the threshold of user percentage.
+  #
   # @param min_usage a decimal number betwee 0 and 100
   def versions(browser, min_usage = 0)
     assert_valid_browser browser
@@ -90,6 +102,7 @@ class Compass::CanIUse
     versions.select {|v| browser_data(browser)["usage_global"][v] > min_usage }
   end
 
+  # The list of capabilities tracked by caniuse.
   def capabilities
     @capabilities ||= @data["data"].keys.select do |cap|
       cats = @data["data"][cap]["categories"]
@@ -97,22 +110,28 @@ class Compass::CanIUse
     end.sort
   end
 
-  def capability_data(capability)
-    @data["data"][capability]
-  end
-
-  def browser_data(browser)
-    @data["agents"][CAN_I_USE_NAMES[browser]]
-  end
-
-  def usage(browser, version)
-    browser_data(browser)["usage_global"][version]
-  end
-
   def inspect
     "Compass::CanIUse(#{browsers.join(", ")})"
   end
 
+  private
+
+  # the browser data assocated with a given capability
+  def capability_data(capability)
+    @data["data"][capability]
+  end
+
+  # the metadata assocated with a given browser
+  def browser_data(browser)
+    @data["agents"][CAN_I_USE_NAMES[browser]]
+  end
+
+  # the usage % for a given browser version.
+  def usage(browser, version)
+    browser_data(browser)["usage_global"][version]
+  end
+
+  # efficiently checks if a prefix is valid
   def assert_valid_prefix(prefix)
     @known_prefixes ||= Set.new(prefixes(browsers))
     unless @known_prefixes.include?(prefix)
@@ -120,6 +139,7 @@ class Compass::CanIUse
     end
   end
 
+  # efficiently checks if a browser is valid
   def assert_valid_browser(browser)
     @known_browsers ||= Set.new(browsers)
     @known_browsers.include?(browser)
@@ -128,6 +148,7 @@ class Compass::CanIUse
     end
   end
 
+  # efficiently checks if a capability is valid
   def assert_valid_capability(capability)
     @known_capabilities ||= Set.new(capabilities)
     unless @known_capabilities.include?(capability)
