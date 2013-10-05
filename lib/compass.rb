@@ -33,5 +33,13 @@ end
   require "compass/#{lib}"
 end
 
+
+extension_paths    = Sass::Util.glob(File.join(Compass.shared_extension_paths, '**'))
+extension_paths    = extension_paths + Sass::Util.glob(File.join(Compass.shared_extension_paths, '**', 'lib'))
+absolute_ext_path = File.expand_path(Compass.configuration.extensions_path, Compass.configuration.project_path)
+extension_paths    = extension_paths + Sass::Util.glob(File.join(absolute_ext_path, '**'))
+extension_paths    = extension_paths + Sass::Util.glob(File.join(absolute_ext_path, '**', 'lib'))
+# Add compass extension paths to the ruby load paths
+extension_paths.each { |path| $: << path }
 # for rails upgrade warnings in 0.12
 require 'compass/app_integration/rails'
