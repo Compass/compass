@@ -7,7 +7,11 @@
 
 @mixin opacity($opacity) {
   @if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
-    filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+    @if $opacity == 1 {
+      filter: unquote("progid:DXImageTransform.Microsoft.Alpha(enabled=false)");
+    } @else {
+      filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+    }
   }
   opacity: $opacity;
 }
