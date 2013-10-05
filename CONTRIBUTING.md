@@ -288,8 +288,11 @@ the error was. Here's an example:
 
 <h3 id="writing-tests">Writing Stylesheet Tests</h3>
 
-Compass has stylesheet tests to ensure that each stylesheet compiles, can be imported directly
-without any other dependencies and that refactorings that should not affect the output, don't.
+Compass has stylesheet tests to ensure that:
+
+- each stylesheet compiles
+- each stylesheet can be imported directly without any other dependencies
+- refactorings that should not affect the output, don't
 
 At some point, it would be great to have a test system that verifies that the stylesheets
 *work correctly* in various browsers. If you have ideas for how to accomplish this in a sane
