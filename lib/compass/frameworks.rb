@@ -59,6 +59,15 @@ module Compass
       frameworks_directory = DEFAULT_FRAMEWORKS_PATH if frameworks_directory == :defaults
       frameworks_directory = Dir.new(frameworks_directory) unless frameworks_directory.is_a?(Dir)
       dirs = frameworks_directory.entries.reject{|e| e =~ /^\./}.sort_by{|n| n =~ /^_/ ? n[1..-1] : n}
+      # Add each extensions lib and root folder to the load path
+      dirs.each do |dir| 
+        $: << File.expand_path(File.join(frameworks_directory.path, dir), Compass.configuration.project_path)
+        lib = File.expand_path(File.join(frameworks_directory.path, dir, 'lib'), Compass.configuration.project_path)
+        if File.directory?(lib)
+          $: << lib
+        end
+      end
+
       dirs.each do |framework|
         register_directory File.join(frameworks_directory.path, framework)
       end
