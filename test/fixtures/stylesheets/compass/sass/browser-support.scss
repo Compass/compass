@@ -1,0 +1,25 @@
+@function unprefixed-at-version($browser, $capability) {
+  @each $version in browser-versions($browser) {
+    @if not browser-requires-prefix($browser, $version, $capability) {
+      @return $version;
+    }
+  }
+  @return null;
+}
+@each $browser in browsers() {
+  $prefix: browser-prefix($browser);
+  .#{$browser} {
+    $versions: browser-versions($browser);
+    versions: $versions;
+    @each $capability in browser-capabilities() {
+      @if browser-requires-prefix($browser, nth($versions, 1), $capability) {
+        @if prefix-usage($prefix, $capability) > 0.1 {
+          #{$capability}: $prefix;
+        } @else {
+          #{$capability}: prefix-no-longer-needed;
+        }
+        #{$capability}-unprefixed-at: unprefixed-at-version($browser, $capability);
+      }
+    }
+  }
+}
