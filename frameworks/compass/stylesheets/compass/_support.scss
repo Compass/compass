@@ -1,40 +1,186 @@
-// Usually compass hacks apply to both ie6 & 7 -- set this to false to disable support for both.
-$legacy-support-for-ie: true !default;
+// The list of browsers you want to support.
+// Defaults to all.
+$supported-browsers: browsers() !default;
 
-// Setting this to false will result in smaller output, but no support for ie6 hacks
-$legacy-support-for-ie6: $legacy-support-for-ie !default;
+// The browser usage threshold for features that gracefully degrade
+// Defaults to 1 user in 1,000.
+$graceful-usage-threshold: 0.1 !default;
 
-// Setting this to false will result in smaller output, but no support for ie7 hacks
-$legacy-support-for-ie7: $legacy-support-for-ie !default;
+// The browser usage threshold for features that cannot degrade gracefully
+// Defaults to 1 user in 10,000.
+$critical-usage-threshold: 0.01 !default;
 
-// Setting this to false will result in smaller output, but no support for legacy ie8 hacks
-$legacy-support-for-ie8: $legacy-support-for-ie !default;
+// Minimum browser versions that must be supported.
+// The keys of this map are any valid browser according to `browsers()`.
+// The values of this map are the min version that is valid for that browser
+// according to `browser-versions($browser)`
+$browser-minimum-versions: (
+  'chrome':  null,
+  'firefox': null,
+  'ie':      null,
+  'safari':  null,
+  'opera':   null
+) !default;
+
+// When a prefix is in a selector or directive scope, this is set to the current prefix value.
+$current-prefix: null;
+
+// When in a context that only exists in a particular version
+// this variable is set to those versions.
+$current-browser-minimum-versions: ();
+
+// Check if the browser is in scope given the current prefix
+@function browser-in-scope($browser, $version: null) {
+  @if not ($current-prefix == null or $current-prefix == browser-prefix($browser)) {
+    @return false;
+  }
+  $current-min: map-get($current-browser-minimum-versions, $browser);
+  @if not ($version and $current-min) {
+    // We don't have any versions to compare
+    @return true;
+  } @else {
+    // If the version is at least the current min, it is currently supported
+    @return compare-browser-versions($browser, $version, $current-min) >= 0;
+  }
+}
+
+// Check whether the browser is supported according to the declared minimum support
+// and usage thresholds.
+@function support-legacy-browser($browser, $version, $threshold: $critical-usage-threshold) {
+  // Check agaist usage stats and declared minimums
+  $min-version: map-get($browser-minimum-versions, $browser);
+  @return omitted-usage($browser, $version) > $threshold or
+          ($min-version and compare-browser-versions($browser, $version, $min-version) >= 0);
+}
+
+// Include content for a legacy browser
+@mixin for-legacy-browser($browser, $version, $threshold: $critical-usage-threshold) {
+  @if browser-in-scope($browser, $version) and
+      support-legacy-browser($browser, $version, $threshold)
+  {
+    @content;
+  }
+}
+
+// If there's a prefix context in scope, this will only output the content if the prefix matches.
+// Otherwise, sets the current prefix scope and outputs the content.
+@mixin with-prefix($prefix) {
+  @if $current-prefix {
+    @if $current-prefix == $prefix {
+      @content;
+    }
+  } @else {
+    $current-prefix: $prefix;
+    @content;
+    $current-prefix: null;
+  }
+}
+
+// Yields to the mixin content once for each prefix required.
+// The current prefix is set to the $current-prefix global for use by the included content.
+// Also yields to the content once with $current-prefix set to null for the official version
+// as long as there's not already a prefix in scope.
+@mixin with-each-prefix($capability, $threshold) {
+  @each $prefix in browser-prefixes($supported-browsers) {
+    @if use-prefix($prefix, $capability, $threshold) {
+      @include with-prefix($prefix) {
+        @include with-browser-minimums($capability) {
+          @content;
+        }
+      }
+    }
+  }
+  @if not $current-prefix {
+    @include with-browser-minimums($capability) {
+      @content;
+    }
+  }
+}
+
+@mixin with-browser-minimums($capability, $prefix: $current-prefix) {
+  $old-minimums: $current-browser-minimum-versions;
+  $current-browser-minimum-versions: browser-minimums($capability, $prefix);
+  @content;
+  $current-browser-minimum-versions: $old-minimums;
+}
+
+// Returns true if the prefixed usage stats for the capability exceed the threshold
+// or if the minimum version for a supported browser would require a prefix for the capability.
+@function use-prefix($prefix, $capability, $threshold) {
+  @if prefix-usage($prefix, $capability) > $threshold {
+    @return true;
+  } @else {
+    @each $browser in browsers($prefix) {
+      @if index($supported-browsers, $browser) {
+        $min-version: map-get($browser-minimum-versions, $browser);
+        @if $min-version and browser-requires-prefix($browser, $min-version, $capability) {
+          @return $min-version;
+        }
+      }
+    }
+  }
+  @return false
+}
+
+// Emit a set of properties with the prefix governed by the capability and usage threshold given.
+//
+// Example:
+//
+//     @include prefixed-properties(css-animation, $animation-support-threshold,
+//       (animation-name: foo, animation-duration: 2s)
+//     );
+@mixin prefixed-properties($capability, $threshold, $properties) {
+  @include with-each-prefix($capability, $threshold) {
+    $prefix: if($current-prefix, "#{$current-prefix}-", "");
+    @each $prop, $value in $properties {
+      #{$prefix}#{$prop}: $value;
+    }
+  }
+}
+
 
 // @private
-// The user can simply set $legacy-support-for-ie and 6, 7, and 8 will be set accordingly,
-// But in case the user set each of those explicitly, we need to sync the value of
-// this combined variable.
-$legacy-support-for-ie: $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8;
+@function warn-about-old-variables() {
+  $old-variables-in-use: ();
+  @each $old-variable-name in
+        (legacy-support-for-ie, legacy-support-for-ie6, legacy-support-for-ie7,
+         legacy-support-for-ie8, legacy-support-for-mozilla, legacy-support-for-webkit,
+         experimental-support-for-mozilla, experimental-support-for-webkit,
+         experimental-support-for-opera, experimental-support-for-microsoft,
+         experimental-support-for-khtml, experimental-support-for-svg)
+  {
+    @if global-variable-exists($old-variable-name) {
+      $old-variables-in-use: append($old-variables-in-use,
+                                    unquote("$#{$old-variable-name}"), comma);
+    }
+  }
+  @if length($old-variables-in-use) > 0 {
+    @warn "Compass has changed how browser support is configured. " +
+          "See the CHANGELOG for more details. The following configuration variables " +
+          "are no longer supported: #{$old-variables-in-use}."
+  }
+  @return $old-variables-in-use;
+}
 
-// Whether to output legacy support for mozilla.
-$legacy-support-for-mozilla: true !default;
+// @private
+@function warn-about-pie-removal() {
+  @if global-variable-exists(experimental-support-for-pie) {
+    @warn "Compass no longer supports css3pie.";
+  }
+  @return true;
+}
 
-// Whether to output legacy support for webkit.
-$legacy-support-for-webkit: true !default;
+// @private
+$old-variable-warnings-issued: warn-about-old-variables() !default;
 
-// Support for mozilla in experimental css3 properties (-moz).
-$experimental-support-for-mozilla      : true !default;
-// Support for webkit in experimental css3 properties (-webkit).
-$experimental-support-for-webkit       : true !default;
-// Support for opera in experimental css3 properties (-o).
-$experimental-support-for-opera        : true !default;
-// Support for microsoft in experimental css3 properties (-ms).
-$experimental-support-for-microsoft    : true !default;
-// Support for khtml in experimental css3 properties (-khtml).
-$experimental-support-for-khtml        : false !default;
-// Support for svg in experimental css3 properties.
-// Setting this to true might add significant size to your
-// generated stylesheets.
-$experimental-support-for-svg          : false !default;
-// Support for CSS PIE in experimental css3 properties (-pie).
-$experimental-support-for-pie          : false !default;
+// @private
+$pie-removal-warnging-issued: warn-about-pie-removal() !default;
+
+// @private
+@function warn-about-useless-prefix-arguments($moz: null, $webkit: null, $o: null, $khtml: null, $official: null) {
+  @if $moz != null or $webkit != null or $o != null or $khtml != null or $official != null {
+    @warn "Browser prefix arguments to this mixin are no longer used and " +
+          "will be removed in the next release.";
+  }
+  @return true;
+}

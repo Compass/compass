@@ -1,5 +1,19 @@
 @import "compass/support";
 
+// XXX Remove these
+$experimental-support-for-mozilla: true;
+$experimental-support-for-webkit: true;
+$experimental-support-for-opera: true;
+$experimental-support-for-microsoft: true;
+$experimental-support-for-khtml: false;
+$experimental-support-for-pie: false;
+$experimental-support-for-svg: false;
+$legacy-support-for-ie6: true;
+$legacy-support-for-ie7: true;
+$legacy-support-for-ie8: true;
+$legacy-support-for-mozilla: true;
+$legacy-support-for-webkit: true;
+
 // This mixin provides basic support for CSS3 properties and
 // their corresponding experimental CSS2 properties when
 // the implementations are identical except for the property
@@ -259,16 +273,12 @@ $legacy-ie-matrix: capture-legacy-ie-matrix();
 }
 
 // Set a default value if the given arglist is empty
-@function set-arglist-default(
-  $arglist,
-  $default
-) {
-  $default: if(length($default) > 0, $default, null);
-  $output: compact();
-  @each $layer in $arglist {
-    $output: append($output, if($layer == 'default', $default, $layer));
+@function set-arglist-default($arglist, $default) {
+  $default-index: index($arglist, default);
+  @if $default-index {
+    $arglist: set-nth($arglist, $default-index, $default)
   }
-  @return if(length($output) > 0, $output, $default);
+  @return if(length($arglist) > 0, $arglist, $default);
 }
 
 // @private Returns the legacy value for a given box-model

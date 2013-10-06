@@ -49,6 +49,32 @@ class Compass::CanIUse
     result
   end
 
+  def browser_minimums(capability, prefix = nil)
+    assert_valid_capability capability
+    browsers = prefix.nil? ? browsers() : browsers_with_prefix(prefix)
+    data = capability_data(capability)
+    browsers.inject({}) do |m, browser|
+      version = versions(browser).find do |version|
+                  support = data["stats"][CAN_I_USE_NAMES[browser]][version]
+                  !support.start_with?("n") && (prefix.nil? ^ support.end_with?("x"))
+                end
+      m.update(browser => version) if version
+      m
+    end
+  end
+
+  # How many users would be omitted if support for the given browser starts
+  # with the given version.
+  def omitted_usage(browser, min_version)
+    assert_valid_browser browser
+    usage = 0
+    versions(browser).each do |version|
+      return usage if version == min_version
+      usage += usage(browser, version)
+    end
+    raise ArgumentError, "#{min_version} is not a version for #{browser}"
+  end
+
   # returns the list of browsers that use the given prefix
   def browsers_with_prefix(prefix)
     assert_valid_prefix prefix
@@ -110,6 +136,12 @@ class Compass::CanIUse
     end.sort
   end
 
+  # the usage % for a given browser version.
+  def usage(browser, version)
+    browser_data(browser)["usage_global"][version]
+  end
+
+
   def inspect
     "Compass::CanIUse(#{browsers.join(", ")})"
   end
@@ -126,11 +158,6 @@ class Compass::CanIUse
     @data["agents"][CAN_I_USE_NAMES[browser]]
   end
 
-  # the usage % for a given browser version.
-  def usage(browser, version)
-    browser_data(browser)["usage_global"][version]
-  end
-
   # efficiently checks if a prefix is valid
   def assert_valid_prefix(prefix)
     @known_prefixes ||= Set.new(prefixes(browsers))
@@ -144,7 +171,7 @@ class Compass::CanIUse
     @known_browsers ||= Set.new(browsers)
     @known_browsers.include?(browser)
     unless @known_browsers.include?(browser)
-      raise ArgumentError, "#{prefix} is not known browser."
+      raise ArgumentError, "#{browser} is not known browser."
     end
   end
 

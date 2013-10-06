@@ -11,8 +11,10 @@ unless ENV['PKG']
   gem "rubyzip", "0.9.9"
   gem 'mocha', '0.11.4'
   gem 'diff-lcs', '~> 1.1.2'
-  gem 'rake', '~> 0.9.2'
+  gem 'rake'
   gem 'json', '~> 1.7.7'
+  gem 'sass', :path => "../sass"
+  gem 'true'
 
   # Warning be carful adding OS dependant gems above this line it will break the CI server please
   # place them below so they are excluded

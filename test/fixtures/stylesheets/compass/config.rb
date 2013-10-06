@@ -1,4 +1,5 @@
 # Require any additional compass plugins here.
+require 'true'
 project_type = :stand_alone
 css_dir = "tmp"
 sass_dir = "sass"

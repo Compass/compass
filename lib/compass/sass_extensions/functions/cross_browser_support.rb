@@ -67,16 +67,28 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
     CSS2FallbackValue.new(value, css2_value)
   end
 
-  def browsers
-    list(Compass::CanIUse.instance.browsers.map{|b| identifier(b)}, :comma)
+  # The known browsers.
+  #
+  # If prefix is given, limits the returned browsers to those using the specified prefix.
+  def browsers(prefix = nil)
+    browsers = if prefix
+                 assert_type prefix, :String
+                 Compass::CanIUse.instance.browsers_with_prefix(prefix.value)
+               else
+                 Compass::CanIUse.instance.browsers
+               end
+    list(browsers.map{|b| identifier(b)}, :comma)
   end
   Sass::Script::Functions.declare(:browsers, [])
+  Sass::Script::Functions.declare(:browsers, [:prefix])
 
+  # The known capabilities of browsers.
   def browser_capabilities
     list(Compass::CanIUse.instance.capabilities.map{|c| identifier(c)}, :comma)
   end
   Sass::Script::Functions.declare(:browser_capabilities, [])
 
+  # The versions for the given browser.
   def browser_versions(browser)
     assert_type browser, :String
     list(Compass::CanIUse.instance.versions(browser.value).map{|v| quoted_string(v)}, :comma)
@@ -85,6 +97,8 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   end
   Sass::Script::Functions.declare(:browser_versions, [:browser])
 
+  # whether the browser uses a prefix for the given capability at the version
+  # specified or a later version.
   def browser_requires_prefix(browser, version, capability)
     assert_type browser, :String
     assert_type version, :String
@@ -95,6 +109,7 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   end
   Sass::Script::Functions.declare(:browser_requires_prefix, [:browser, :version, :capability])
 
+  # the prefix for the given browser.
   def browser_prefix(browser)
     assert_type browser, :String
     identifier(Compass::CanIUse.instance.prefix(browser.value))
@@ -103,14 +118,27 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   end
   Sass::Script::Functions.declare(:browser_prefix, [:browser])
 
-  def browser_prefixes(browser)
-    assert_type browser, :String
-    identifier(Compass::CanIUse.instance.prefix(browser.value))
+  # The prefixes used by the given browsers.
+  def browser_prefixes(browsers)
+    assert_type browsers, :List
+    browser_strings = browsers.value.map {|b| assert_type(b, :String); b.value }
+    prefix_strings = Compass::CanIUse.instance.prefixes(browser_strings)
+    list(prefix_strings.map {|p| identifier(p)}, :comma)
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
-  Sass::Script::Functions.declare(:browser_prefix, [:browser])
+  Sass::Script::Functions.declare(:browser_prefixes, [:browsers])
 
+  # The percent of users that are omitted by setting the min_version of browser
+  # as specified.
+  def omitted_usage(browser, min_version)
+    assert_type browser, :String
+    assert_type min_version, :String
+    number(Compass::CanIUse.instance.omitted_usage(browser.value, min_version.value))
+  end
+  Sass::Script::Functions.declare(:omitted_usage, [:browser, :min_version])
+
+  # The percent of users relying on a particular prefix
   def prefix_usage(prefix, capability)
     assert_type prefix, :String
     assert_type capability, :String
@@ -119,4 +147,49 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
     raise Sass::SyntaxError.new(e.message)
   end
   Sass::Script::Functions.declare(:prefix_usage, [:prefix, :capability])
+
+  # Compares two browser versions. Returning:
+  #
+  # * 0 if they are the same
+  # * <0 if the first version is less than the second
+  # * >0 if the first version is more than the second
+  def compare_browser_versions(browser, version1, version2)
+    assert_type browser, :String
+    assert_type version1, :String
+    assert_type version2, :String
+    index1 = index2 = nil
+    Compass::CanIUse.instance.versions(browser.value).each_with_index do |v, i|
+      index1 = i if v == version1.value
+      index2 = i if v == version2.value
+      break if index1 && index2
+    end
+    unless index1
+      raise Sass::SyntaxError.new("#{version1} is not a version for #{browser}")
+    end
+    unless index2
+      raise Sass::SyntaxError.new("#{version2} is not a version for #{browser}")
+    end
+    number(index1 <=> index2)
+  end
+  Sass::Script::Functions.declare(:compare_browser_versions, [:browser, :version1, :version2])
+
+  # Returns a map of browsers to the first version the capability became available
+  # without a prefix.
+  #
+  # If a prefix is provided, only those browsers using that prefix will be returned
+  # and the minimum version will be when it first became available as a prefix or
+  # without a prefix.
+  #
+  # If a browser does not have the capability, it will not included in the map.
+  def browser_minimums(capability, prefix = null())
+    assert_type capability, :String
+    assert_type(prefix, :String) unless prefix == null()
+    mins = Compass::CanIUse.instance.browser_minimums(capability.value, prefix.value)
+    Sass::Script::Value::Map.new(mins.inject({}) do |m, (h, k)|
+      m[identifier(h)] = quoted_string(k)
+      m
+    end)
+  end
+  Sass::Script::Functions.declare(:browser_minimums, [:capability])
+  Sass::Script::Functions.declare(:browser_minimums, [:capability, :prefix])
 end
