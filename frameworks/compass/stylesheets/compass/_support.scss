@@ -29,7 +29,7 @@ $current-prefix: null;
 // this variable is set to those versions.
 $current-browser-minimum-versions: ();
 
-// Check if the browser is in scope given the current prefix
+// Check if the browser is in scope given the current prefix minimums.
 @function browser-in-scope($browser, $version: null) {
   @if not ($current-prefix == null or $current-prefix == browser-prefix($browser)) {
     @return false;
@@ -97,11 +97,21 @@ $current-browser-minimum-versions: ();
   }
 }
 
+// If passed a map, that will be the new browser minimums.
+// Otherwise a minimum map will be created based on the given capability and prefix
+// using the `browser-minimums($capability, $prefix)` function.
 @mixin with-browser-minimums($capability, $prefix: $current-prefix) {
-  $old-minimums: $current-browser-minimum-versions;
-  $current-browser-minimum-versions: browser-minimums($capability, $prefix);
-  @content;
-  $current-browser-minimum-versions: $old-minimums;
+  @if type-of($capability) == map {
+    $old-minimums: $current-browser-minimum-versions;
+    $current-browser-minimum-versions: $capability;
+    @content;
+    $current-browser-minimum-versions: $old-minimums;
+  } @else {
+    $old-minimums: $current-browser-minimum-versions;
+    $current-browser-minimum-versions: browser-minimums($capability, $prefix);
+    @content;
+    $current-browser-minimum-versions: $old-minimums;
+  }
 }
 
 // Returns true if the prefixed usage stats for the capability exceed the threshold
@@ -119,7 +129,7 @@ $current-browser-minimum-versions: ();
       }
     }
   }
-  @return false
+  @return false;
 }
 
 // Emit a set of properties with the prefix governed by the capability and usage threshold given.

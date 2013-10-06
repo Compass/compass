@@ -120,6 +120,7 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
 
   # The prefixes used by the given browsers.
   def browser_prefixes(browsers)
+    browsers = list(browsers, :comma) if browsers.is_a?(Sass::Script::Value::String)
     assert_type browsers, :List
     browser_strings = browsers.value.map {|b| assert_type(b, :String); b.value }
     prefix_strings = Compass::CanIUse.instance.prefixes(browser_strings)

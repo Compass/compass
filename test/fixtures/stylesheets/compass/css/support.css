@@ -1,0 +1,21 @@
+/*  
+
+### Compass Support ------ */
+/*  - [function] set-arglist-default() with no arguments (1 assertions, 1 passed, 0 failed) */
+/*  - [function] set-arglist-default() with a "default" argument (1 assertions, 1 passed, 0 failed) */
+/*  - [function] set-arglist-default() with a "default" argument and another argument (1 assertions, 1 passed, 0 failed) */
+/*  - [function] set-arglist-default() with a "default" argument not first and another argument (1 assertions, 1 passed, 0 failed) */
+/*  - [function] support-legacy-browser() from threshold (2 assertions, 2 passed, 0 failed) */
+/*  - [function] support-legacy-browser() from minimums (2 assertions, 2 passed, 0 failed) */
+/*  - [function] browser-in-scope() with no scope (2 assertions, 2 passed, 0 failed) */
+/*  - [function] browser-in-scope() with a scope (2 assertions, 2 passed, 0 failed) */
+/*  - [function] browser-in-scope() with version (3 assertions, 3 passed, 0 failed) */
+/*  - [mixin] with-prefix() (4 assertions, 4 passed, 0 failed) */
+/*  - [mixin] with-each-prefix() (1 assertions, 1 passed, 0 failed) */
+/*  - [mixin] with-each-prefix() respects $supported-browsers (1 assertions, 1 passed, 0 failed) */
+/*  - [mixin] with-each-prefix() respects $current-prefix (2 assertions, 2 passed, 0 failed) */
+/*  
+    Summary:
+    - 13 Tests
+    - 13 Passed
+    - 0 Failed */
