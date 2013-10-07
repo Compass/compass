@@ -241,6 +241,16 @@ $current-browser-minimum-versions: ();
   $debug-browser-support: $current-status;
 }
 
+// Set a default value if the given arglist is empty
+@function set-arglist-default($arglist, $default) {
+  $default-index: index($arglist, default);
+  @if $default-index {
+    $arglist: set-nth($arglist, $default-index, $default)
+  }
+  @return if(length($arglist) > 0, $arglist, $default);
+}
+
+
 // @private
 $old-variable-warnings-issued: warn-about-old-variables() !default;
 
