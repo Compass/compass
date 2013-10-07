@@ -1,4 +1,6 @@
 @import "compass/css3/shared";
+@import "compass/css3/animation";
+@import "compass/css3/opacity";
 @import "true";
 
 $some-default-value: some default value;
@@ -58,23 +60,23 @@ $some-default-value: some default value;
     }
   }
 
-  @include test('[function] browser-in-scope() with no scope') {
-    @include assert-true(browser-in-scope('ie'), "should be in scope.");
-    @include assert-true(browser-in-scope('chrome'), "should be in scope.");
+  @include test('[function] browser-out-of-scope() with no scope') {
+    @include assert-true(not browser-out-of-scope('ie'), "should be in scope.");
+    @include assert-true(not browser-out-of-scope('chrome'), "should be in scope.");
   }
 
-  @include test('[function] browser-in-scope() with a scope') {
+  @include test('[function] browser-out-of-scope() with a scope') {
     @include with-prefix(browser-prefix('chrome')) {
-      @include assert-true(browser-in-scope('chrome'), "should be in scope.");
-      @include assert-false(browser-in-scope('ie'), "should not be in scope.");
+      @include assert-true(not browser-out-of-scope('chrome'), "should be in scope.");
+      @include assert-false(not browser-out-of-scope('ie'), "should not be in scope.");
     }
   }
 
-  @include test('[function] browser-in-scope() with version') {
+  @include test('[function] browser-out-of-scope() with version') {
     @include with-browser-minimums((ie: '8')) {
-      @include assert-true(browser-in-scope('ie', '10'), "should be in scope.");
-      @include assert-true(browser-in-scope('ie', '8'), "should be in scope.");
-      @include assert-false(browser-in-scope('ie', '7'), "should not be in scope.");
+      @include assert-true(not browser-out-of-scope('ie', '10'), "should be in scope.");
+      @include assert-true(not browser-out-of-scope('ie', '8'), "should be in scope.");
+      @include assert-false(not browser-out-of-scope('ie', '7'), "should not be in scope.");
     }
   }
 
@@ -122,5 +124,15 @@ $some-default-value: some default value;
       @include assert-equal(false, index($prefixes, null), "Not not have a null");
       @include assert-equal("-webkit", #{$prefixes}, "Not equal");
     }
+  }
+}
+
+@include with-browser-support-debugging {
+  @include keyframes(foo) {
+    0% { @include opacity(0); }
+    100% { @include opacity(1); }
+  }
+  .foo {
+    @include animation(foo 1s);
   }
 }

@@ -10,6 +10,9 @@ $graceful-usage-threshold: 0.1 !default;
 // Defaults to 1 user in 10,000.
 $critical-usage-threshold: 0.01 !default;
 
+// Set this to true to generate comments that will explain why a prefix was included or omitted.
+$debug-browser-support: false !default;
+
 // Minimum browser versions that must be supported.
 // The keys of this map are any valid browser according to `browsers()`.
 // The values of this map are the min version that is valid for that browser
@@ -30,17 +33,30 @@ $current-prefix: null;
 $current-browser-minimum-versions: ();
 
 // Check if the browser is in scope given the current prefix minimums.
-@function browser-in-scope($browser, $version: null) {
+@function browser-out-of-scope($browser, $version: null) {
   @if not ($current-prefix == null or $current-prefix == browser-prefix($browser)) {
-    @return false;
+    @if $debug-browser-support {
+      @return "The #{$browser} #{$version} is incompatible with #{$current-prefix}."
+    } @else {
+      @return true;
+    }
   }
   $current-min: map-get($current-browser-minimum-versions, $browser);
   @if not ($version and $current-min) {
     // We don't have any versions to compare
-    @return true;
+    @return false;
   } @else {
-    // If the version is at least the current min, it is currently supported
-    @return compare-browser-versions($browser, $version, $current-min) >= 0;
+    // If the version is less than the current min, it is not supported
+    $too-old: compare-browser-versions($browser, $version, $current-min) < 0;
+    @if $too-old {
+      @if $debug-browser-support {
+        @return "The current scope only works with #{$browser} #{$current-min} or greater.";
+      } @else {
+        @return true;
+      }
+    } @else {
+      @return false;
+    }
   }
 }
 
@@ -54,11 +70,30 @@ $current-browser-minimum-versions: ();
 }
 
 // Include content for a legacy browser
+
+// Version can be a single version string or a list of versions ordered from oldest to newest.
 @mixin for-legacy-browser($browser, $version, $threshold: $critical-usage-threshold) {
-  @if browser-in-scope($browser, $version) and
-      support-legacy-browser($browser, $version, $threshold)
+  $latest-version: nth($version, -1);
+  @if not browser-out-of-scope($browser, $latest-version) and
+      support-legacy-browser($browser, $latest-version, $threshold)
   {
+    @if $debug-browser-support {
+      /* Content for #{$browser} #{$version}.
+      Min version: #{map-get($browser-minimum-versions, $browser)}.
+      User threshold to keep: #{$threshold}%. If #{$browser} #{$version} and below are omitted: #{omitted-usage($browser, $version)}%. */
+    }
     @content;
+  } @else if $debug-browser-support and browser-out-of-scope($browser, $latest-version) {
+    /* Content for #{$browser} #{$version} omitted.
+       Not allowed in the current scope: #{browser-out-of-scope($browser, $latest-version)} */
+  } @else if $debug-browser-support and not support-legacy-browser($browser, $latest-version, $threshold) {
+    @if omitted-usage($browser, $version) > $threshold {
+      /* Content for #{$browser} #{$version} omitted.
+         User threshold to keep: #{$threshold}%. If #{$browser} #{$version} and below are omitted: #{omitted-usage($browser, $version)}%. */
+    } @else {
+      /* Content for #{$browser} #{$version} omitted.
+         Minimum support is #{map-get($browser-minimum-versions, $browser)}. */
+    }
   }
 }
 
@@ -68,6 +103,8 @@ $current-browser-minimum-versions: ();
   @if $current-prefix {
     @if $current-prefix == $prefix {
       @content;
+    } @else if $debug-browser-support {
+      /* Omitting content for #{$prefix} because #{$current-prefix} is already in scope. */
     }
   } @else {
     $current-prefix: $prefix;
@@ -82,7 +119,14 @@ $current-browser-minimum-versions: ();
 // as long as there's not already a prefix in scope.
 @mixin with-each-prefix($capability, $threshold) {
   @each $prefix in browser-prefixes($supported-browsers) {
-    @if use-prefix($prefix, $capability, $threshold) {
+    $should-use-prefix: use-prefix($prefix, $capability, $threshold);
+
+    @if $should-use-prefix {
+      @if $debug-browser-support and type-of($should-use-prefix) == list {
+        /* Capability #{$capability} is prefixed with #{$prefix} because #{$should-use-prefix} is required. */
+      } @else if $debug-browser-support and type-of($should-use-prefix) == number {
+        /* Capability #{$capability} is prefixed with #{$prefix} because omitting it would affect #{$should-use-prefix}% of users and the threshold is #{$threshold}%. */
+      }
       @include with-prefix($prefix) {
         @include with-browser-minimums($capability) {
           @content;
@@ -94,6 +138,8 @@ $current-browser-minimum-versions: ();
     @include with-browser-minimums($capability) {
       @content;
     }
+  } @else if $debug-browser-support {
+    /* Not including prefix-free content for #{$capability} because the #{$current-prefix} prefix is in scope. */
   }
 }
 
@@ -117,19 +163,26 @@ $current-browser-minimum-versions: ();
 // Returns true if the prefixed usage stats for the capability exceed the threshold
 // or if the minimum version for a supported browser would require a prefix for the capability.
 @function use-prefix($prefix, $capability, $threshold) {
-  @if prefix-usage($prefix, $capability) > $threshold {
-    @return true;
+  $usage: prefix-usage($prefix, $capability);
+  @if $usage > $threshold {
+    @return $usage;
   } @else {
     @each $browser in browsers($prefix) {
       @if index($supported-browsers, $browser) {
         $min-version: map-get($browser-minimum-versions, $browser);
         @if $min-version and browser-requires-prefix($browser, $min-version, $capability) {
-          @return $min-version;
+          @return $browser $min-version;
         }
       }
     }
   }
   @return false;
+}
+
+// Output a property and value using the current prefix.
+// It will be unprefixed if $current-prefix is null.
+@mixin prefix-prop($property, $value) {
+  #{$current-prefix}#{if($current-prefix, '-', null)}#{$property}: $value;
 }
 
 // Emit a set of properties with the prefix governed by the capability and usage threshold given.
@@ -141,9 +194,8 @@ $current-browser-minimum-versions: ();
 //     );
 @mixin prefixed-properties($capability, $threshold, $properties) {
   @include with-each-prefix($capability, $threshold) {
-    $prefix: if($current-prefix, "#{$current-prefix}-", "");
     @each $prop, $value in $properties {
-      #{$prefix}#{$prop}: $value;
+      @include prefix-prop($prop, $value);
     }
   }
 }
@@ -178,6 +230,15 @@ $current-browser-minimum-versions: ();
     @warn "Compass no longer supports css3pie.";
   }
   @return true;
+}
+
+// Enable browser support debugging within the content block.
+// Or you can enable it for the whole stylesheet by setting `$debug-browser-support` to true.
+@mixin with-browser-support-debugging {
+  $current-status: $debug-browser-support;
+  $debug-browser-support: true;
+  @content;
+  $debug-browser-support: $current-status;
 }
 
 // @private

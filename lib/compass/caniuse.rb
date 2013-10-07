@@ -183,4 +183,12 @@ class Compass::CanIUse
     end
     nil
   end
+
+  def assert_valid_version(browser, *versions)
+    versions.each do |v|
+      unless versions(browser).include?(v)
+        raise ArgumentError, "#{v} is not known version for #{browser}."
+      end
+    end
+  end
 end
