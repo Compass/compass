@@ -5,8 +5,3 @@
 .background-size-single { @include background-size(50% 25%); }
 
 .background-size-multiple { @include background-size(4em 3em, $default-background-size, 50%); }
-
-.background-size-khtml {
-  $experimental-support-for-khtml:true;
-  @include background-size;
-}

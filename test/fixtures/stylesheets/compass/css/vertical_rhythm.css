@@ -51,9 +51,9 @@ html {
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
-  -webkit-background-size: 100% 1.4em;
   -moz-background-size: 100% 1.4em;
   -o-background-size: 100% 1.4em;
+  -webkit-background-size: 100% 1.4em;
   background-size: 100% 1.4em;
   background-position: left top; }
 
@@ -103,9 +103,9 @@ html {
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
-  -webkit-background-size: 100% 1.4rem;
   -moz-background-size: 100% 1.4rem;
   -o-background-size: 100% 1.4rem;
+  -webkit-background-size: 100% 1.4rem;
   background-size: 100% 1.4rem;
   background-position: left top; }
 
@@ -172,9 +172,9 @@ html {
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
-  -webkit-background-size: 100% 25px;
   -moz-background-size: 100% 25px;
   -o-background-size: 100% 25px;
+  -webkit-background-size: 100% 25px;
   background-size: 100% 25px;
   background-position: left top; }
 

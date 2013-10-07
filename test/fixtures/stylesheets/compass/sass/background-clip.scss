@@ -3,8 +3,3 @@
 .background-clip { @include background-clip('border-box'); }
 
 .background-clip-multiple { @include background-clip('border-box', padding-box, content-box); }
-
-.background-clip-khtml {
-  $experimental-support-for-khtml:true;
-  @include background-clip(border-box);
-}

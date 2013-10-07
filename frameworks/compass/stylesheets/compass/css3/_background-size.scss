@@ -1,12 +1,8 @@
 // Background Size
+@import "compass/css3/shared";
 
-@import "shared";
-
-// @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml.
-//   - mozilla/webkit legacy support handled seperately below
-$background-size-support: -moz, -webkit, -o, not -ms, -khtml;
-
+// The the user threshold for background-clip support. Defaults to `$critical-usage-threshold`
+$background-size-threshold: $critical-usage-threshold !default;
 
 //  override to change the default
 $default-background-size: 100% auto !default;
@@ -19,5 +15,5 @@ $default-background-size: 100% auto !default;
 // * mixin defaults to: `$default-background-size`
 @mixin background-size($size...) {
   $size: set-arglist-default($size, $default-background-size);
-  @include experimental(background-size, $size, $background-size-support...);
+  @include prefixed-properties(background-img-opts, $background-size-threshold, (background-size: $size));
 }

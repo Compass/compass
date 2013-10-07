@@ -9,9 +9,3 @@
   -o-background-clip: border-box, padding-box, content-box;
   -webkit-background-clip: border, padding, content;
   background-clip: border-box, padding-box, content-box; }
-
-.background-clip-khtml {
-  -moz-background-clip: border;
-  -o-background-clip: border-box;
-  -webkit-background-clip: border;
-  background-clip: border-box; }

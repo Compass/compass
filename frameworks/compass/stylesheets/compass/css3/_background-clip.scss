@@ -27,9 +27,9 @@ $default-background-clip: padding-box !default;
   @include with-each-prefix(background-img-opts, $background-clip-threshold) {
     @if $current-prefix == -moz or $current-prefix == -webkit {
       // Legacy versions of Mozilla support a different syntax, prefixed.
-      @include prefix-prop(background-clip, $deprecated)
+      @include prefix-prop(background-clip, $deprecated);
     } @else {
-      @include prefix-prop(background-clip, $output)
+      @include prefix-prop(background-clip, $output);
     }
   }
 }

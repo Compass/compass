@@ -3,8 +3,3 @@
 .background-origin { @include background-origin('border-box'); }
 
 .background-origin-multiple { @include background-origin('border-box', padding-box, content-box); }
-
-.background-origin-khtml {
-  $experimental-support-for-khtml:true;
-  @include background-origin(border-box);
-}
