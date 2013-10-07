@@ -1,15 +1,17 @@
 .background-clip {
-  -webkit-background-clip: border;
   -moz-background-clip: border;
+  -o-background-clip: border-box;
+  -webkit-background-clip: border;
   background-clip: border-box; }
 
 .background-clip-multiple {
-  -webkit-background-clip: border, padding, content;
   -moz-background-clip: border, padding, content;
+  -o-background-clip: border-box, padding-box, content-box;
+  -webkit-background-clip: border, padding, content;
   background-clip: border-box, padding-box, content-box; }
 
 .background-clip-khtml {
-  -webkit-background-clip: border;
   -moz-background-clip: border;
-  -khtml-background-clip: border-box;
+  -o-background-clip: border-box;
+  -webkit-background-clip: border;
   background-clip: border-box; }

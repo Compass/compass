@@ -1,12 +1,7 @@
 // Background Clip
+@import "compass/css3/shared";
 
-@import "shared";
-
-// @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml.
-//   - mozilla/webkit legacy support handled seperately below
-$background-clip-support: not -moz, not -webkit, not -o, not -ms, -khtml;
-
+$background-clip-threshold: $critical-usage-threshold !default;
 
 // The default border-box model: [border-box | padding-box | content-box]
 $default-background-clip: padding-box !default;
@@ -15,25 +10,25 @@ $default-background-clip: padding-box !default;
 // Clip the background (image and color) at the edge of the padding, border, or content.
 //   $clip... : [padding-box | border-box | content-box]
 @mixin background-clip($clip...) {
-  $output: compact();
-  $deprecated: compact();
+  $output: ();
+  $deprecated: ();
 
   @if (length($clip) > 0) {
     @each $layer in $clip {
-      $output: append($output, unquote($layer));
-      $deprecated: append($deprecated, legacy-box($layer));
+      $output: append($output, unquote($layer), comma);
+      $deprecated: append($deprecated, legacy-box($layer), comma);
     }
   } @else {
     $output: $default-background-clip;
     $deprecated: legacy-box($default-background-clip);
   }
 
-  // Legacy versions of Mozilla support a different syntax, prefixed.
-  @include experimental-only-for(background-clip, $deprecated,
-    $moz: $legacy-support-for-mozilla,
-    $webkit: $legacy-support-for-webkit
-  );
-
-  // Official syntax for the rest
-  @include experimental(background-clip, $output, $background-clip-support...);
+  @include with-each-prefix(background-img-opts, $background-clip-threshold) {
+    @if $current-prefix == -moz or $current-prefix == -webkit {
+      // Legacy versions of Mozilla support a different syntax, prefixed.
+      @include prefix-prop(background-clip, $deprecated)
+    } @else {
+      @include prefix-prop(background-clip, $output)
+    }
+  }
 }
