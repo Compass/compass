@@ -1,6 +1,7 @@
 // Background Clip
 @import "compass/css3/shared";
 
+// The the user threshold for background-clip support. Defaults to `$critical-usage-threshold`
 $background-clip-threshold: $critical-usage-threshold !default;
 
 // The default border-box model: [border-box | padding-box | content-box]
