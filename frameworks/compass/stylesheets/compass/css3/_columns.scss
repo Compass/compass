@@ -1,10 +1,9 @@
 // Columns
+@import "compass/support";
 
-@import "shared";
-
-// @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -o, -ms, -khtml.
-$multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
+// The prefixed support threshold for columns.
+// Defaults to the $critical-usage-threshold.
+$multicolumn-support-threshold: $critical-usage-threshold !default;
 
 
 // Specify the shorthand `columns` property.
@@ -13,48 +12,62 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 //
 //     @include columns(20em 2);
 @mixin columns($width-and-count) {
-  @include experimental(columns, $width-and-count, $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    columns: $width-and-count
+  ));
 }
 
 // Specify the number of columns
 @mixin column-count($count) {
-  @include experimental(column-count, $count, $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    column-count: $count
+  ));
 }
 
 // Specify the gap between columns e.g. `20px`
 @mixin column-gap($width) {
-  @include experimental(column-gap, $width, $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    column-gap: $width
+  ));
 }
 
 // Specify the width of columns e.g. `100px`
 @mixin column-width($width) {
-  @include experimental(column-width, $width, $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    column-width: $width
+  ));
 }
 
 // Specify how many columns an element should span across.
 //
 // * legal values are 1, all
 @mixin column-span($columns) {
-	@include experimental(column-span, $columns,
-		-moz, -webkit, -o, -ms, not -khtml, official
-	);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    column-span: $columns
+  ));
 }
 
 // Specify the width of the rule between columns e.g. `1px`
 @mixin column-rule-width($width) {
-  @include experimental(rule-width, $width, $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    rule-width: $width
+  ));
 }
 
 // Specify the style of the rule between columns e.g. `dotted`.
 // This works like border-style.
 @mixin column-rule-style($style) {
-  @include experimental(rule-style, unquote($style), $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    rule-style: $style
+  ));
 }
 
 // Specify the color of the rule between columns e.g. `blue`.
 // This works like border-color.
 @mixin column-rule-color($color) {
-  @include experimental(rule-color, $color, $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    rule-color: $color
+  ));
 }
 
 // Mixin encompassing all column rule properties
@@ -65,9 +78,10 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 // Or the values can be space separated:
 //
 //     @include column-rule(1px solid #c00)
-@mixin column-rule($width, $style: false, $color: false) {
-  $full : -compass-space-list(compact($width, $style, $color));
-  @include experimental(column-rule, $full, $multicolumn-support...);
+@mixin column-rule($width, $style: null, $color: null) {
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    column-rule: $width $style $color
+  ));
 }
 
 // All-purpose mixin for setting column breaks.
@@ -97,13 +111,15 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 //    break-inside: auto;}
 
 @mixin column-break($type: before, $value: auto){
-  // Webkit uses non-standard syntax
-  @if $experimental-support-for-webkit {
-    -webkit-column-break-#{$type}: $value;
+  @include with-each-prefix(multicolumn, $multicolumn-support-threshold) {
+    @if $current-prefix == -webkit {
+      // Webkit uses non-standard syntax
+      -webkit-column-break-#{$type}: $value;
+    } @else {
+      // Official syntax
+      break-#{$type}: $value;
+    }
   }
-
-  // Official syntax
-  break-#{$type}: $value;
 }
 
 // Mixin for setting break-before
@@ -176,7 +192,9 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 //  Example:
 //    h2.span {@include column-span();}
 @mixin column-span($span: all){
-  @include experimental(column-span, unquote($span), $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    column-span: $span
+  ));
 }
 
 // Mixin for setting column-fill
@@ -186,5 +204,7 @@ $multicolumn-support: -moz, -webkit, not -o, not -ms, not -khtml;
 //  Example:
 //    h2.fill {@include column-fill();}
 @mixin column-fill($fill: balance){
-  @include experimental(column-fill, unquote($fill), $multicolumn-support...);
+  @include prefixed-properties(multicolumn, $multicolumn-support-threshold,(
+    column-fill: $fill
+  ));
 }
