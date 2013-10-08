@@ -3,13 +3,11 @@
 // they become available in browsers:
 // http://www.w3.org/TR/2000/WD-css3-userint-20000216
 
-@import "shared";
+@import "compass/support";
 
-// @private css3-feature-support variables must always include a list of five boolean values
-// representing in order: -moz, -webkit, -ms, -o, -khtml
-//   - mozilla support handled seperately below
-$userselect-support: not -moz, -webkit, not -o, -ms, -khtml;
-
+// The prefixed support threshold for user-select.
+// Defaults to the $graceful-usage-threshold.
+$userselect-support-threshold: $graceful-usage-threshold !default;
 
 // This property controls the selection model and granularity of an element.
 //
@@ -18,11 +16,16 @@ $userselect-support: not -moz, -webkit, not -o, -ms, -khtml;
 @mixin user-select($select) {
   $select: unquote($select);
 
-  @if $experimental-support-for-mozilla {
-    -moz-user-select: if($select == 'none', -moz-none, $select);
+  @include with-each-prefix(user-select-none, $userselect-support-threshold) {
+    // old Firefox used a proprietary `-moz-none` value, starting with Firefox 21 `none` behaves like `-moz-none`
+    // @link https://developer.mozilla.org/en-US/docs/Web/CSS/user-select
+    @include prefix-prop(user-select, if($current-prefix == -moz and $select == 'none', -moz-none, $select));
   }
-  @include experimental(user-select, $select, $userselect-support...);
 }
+
+// The prefixed support threshold for input-placeholder.
+// Defaults to the $graceful-usage-threshold.
+$input-placeholder-support-threshold: $graceful-usage-threshold !default;
 
 // Style the html5 input placeholder in browsers that support it.
 //
@@ -48,9 +51,21 @@ $userselect-support: not -moz, -webkit, not -o, -ms, -khtml;
 //       }
 //     }
 @mixin input-placeholder {
-  @if $experimental-support-for-webkit    { &::-webkit-input-placeholder { @include with-only-support-for($webkit: true) { @content; } } }
-  @if $legacy-support-for-mozilla         { &:-moz-placeholder           { @include with-only-support-for(   $moz: true) { @content; } } } // for Firefox 19 and below
-  @if $experimental-support-for-mozilla   { &::-moz-placeholder          { @include with-only-support-for(   $moz: true) { @content; } } } // for Firefox 20 and above
-  @if $experimental-support-for-microsoft { &:-ms-input-placeholder      { @include with-only-support-for(    $ms: true) { @content; } } }
+  @include with-each-prefix(css-placeholder, $input-placeholder-support-threshold) {
+    @if $current-prefix == -webkit {
+
+    }
+    @elseif $current-prefix == -moz {
+      // for Firefox 19 and below
+      //@include for-legacy-browser("firefox", "19") {
+      //  &:-moz-placeholder { @content; }
+      //}
+      // for Firefox 20 and above
+      &::-moz-placeholder { @content; }
+    }
+    @elseif $current-prefix == -ms {
+      &:-ms-input-placeholder { @content; }
+    }
+  }
   // This is not standardized yet so no official selector is generated.
 }
