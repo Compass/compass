@@ -35,15 +35,33 @@ class Compass::CanIUse
   end
 
   # Returns the prefix corresponding to a particular browser
-  def prefix(browser)
+  def prefix(browser, version = nil)
     assert_valid_browser browser
-    p = @data["agents"][CAN_I_USE_NAMES[browser]]["prefix"]
+    assert_valid_version browser, version if version
+    data = browser_data(browser)
+    p = if data["prefix_exceptions"] && data["prefix_exceptions"][version]
+          data["prefix_exceptions"][version]
+        else
+          data["prefix"]
+        end
     "-#{p}"
+  end
+
+  # returns all possible prefixes a browser might use.
+  def all_prefixes(browser)
+    assert_valid_browser browser
+    data = browser_data(browser)
+    prefixes = ["-#{data["prefix"]}"]
+    if data["prefix_exceptions"]
+      prefixes += data["prefix_exceptions"].values.uniq.map{|p| "-#{p}"}
+    end
+    prefixes
   end
 
   # returns the prefixes needed by the list of browsers given
   def prefixes(browsers = browsers)
-    result = browsers.map{|b| prefix(b) }
+    result = browsers.map{|b| all_prefixes(b) }
+    result.flatten!
     result.uniq!
     result.sort!
     result
@@ -56,7 +74,13 @@ class Compass::CanIUse
     browsers.inject({}) do |m, browser|
       version = versions(browser).find do |version|
                   support = data["stats"][CAN_I_USE_NAMES[browser]][version]
-                  !support.start_with?("n") && (prefix.nil? ^ support.end_with?("x"))
+                  if prefix.nil?
+                    !support.start_with?("n") && !support.end_with?("x")
+                  else
+                    actual_prefix = prefix(browser, version)
+                    !support.start_with?("n") && support.end_with?("x") && prefix == actual_prefix
+                  end
+
                 end
       m.update(browser => version) if version
       m
@@ -78,8 +102,8 @@ class Compass::CanIUse
   # returns the list of browsers that use the given prefix
   def browsers_with_prefix(prefix)
     assert_valid_prefix prefix
-    prefix = prefix[1..-1] if prefix.start_with?("-")
-    browsers.select {|b| @data["agents"][CAN_I_USE_NAMES[b]]["prefix"] == prefix }
+    prefix = "-" + prefix unless prefix.start_with?("-")
+    browsers.select {|b| all_prefixes(b).include?(prefix) }
   end
 
   # returns the percentage of users (0-100) that would be affected if the prefix
@@ -91,6 +115,7 @@ class Compass::CanIUse
     browsers_with_prefix(prefix).each do |browser|
       data = capability_data(capability)
       versions(browser).each do |version|
+        next unless prefix == prefix(browser, version)
         if data["stats"][CAN_I_USE_NAMES[browser]][version].end_with?("x")
           usage += usage(browser, version)
         end
@@ -110,11 +135,11 @@ class Compass::CanIUse
       found_version ||= version == min_version
       next unless found_version
       if data["stats"][CAN_I_USE_NAMES[browser]][version].end_with?("x")
-        return true
+        return prefix(browser, version)
       end
     end
     raise ArgumentError, "#{min_version} is not a version for #{browser}" unless found_version
-    false
+    nil
   end
 
   # Returns the versions of a browser. If the min_usage parameter is provided,

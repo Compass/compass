@@ -98,25 +98,27 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   Sass::Script::Functions.declare(:browser_versions, [:browser])
 
   # whether the browser uses a prefix for the given capability at the version
-  # specified or a later version.
+  # specified or a later version. Returns the prefix it requires, or null.
   def browser_requires_prefix(browser, version, capability)
     assert_type browser, :String
     assert_type version, :String
     assert_type capability, :String
-    bool(Compass::CanIUse.instance.requires_prefix(browser.value, version.value, capability.value))
+    p = Compass::CanIUse.instance.requires_prefix(browser.value, version.value, capability.value)
+    p ? identifier(p) : null()
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
   Sass::Script::Functions.declare(:browser_requires_prefix, [:browser, :version, :capability])
 
   # the prefix for the given browser.
-  def browser_prefix(browser)
+  def browser_prefix(browser, version = nil)
     assert_type browser, :String
     identifier(Compass::CanIUse.instance.prefix(browser.value))
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
   Sass::Script::Functions.declare(:browser_prefix, [:browser])
+  Sass::Script::Functions.declare(:browser_prefix, [:browser, :version])
 
   # The prefixes used by the given browsers.
   def browser_prefixes(browsers)

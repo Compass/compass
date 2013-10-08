@@ -170,8 +170,11 @@ $current-browser-minimum-versions: ();
     @each $browser in browsers($prefix) {
       @if index($supported-browsers, $browser) {
         $min-version: map-get($browser-minimum-versions, $browser);
-        @if $min-version and browser-requires-prefix($browser, $min-version, $capability) {
-          @return $browser $min-version;
+        @if $min-version {
+          $actual-prefix: browser-requires-prefix($browser, $min-version, $capability);
+          @if $actual-prefix and $prefix == $actual-prefix {
+            @return $browser $min-version;
+          }
         }
       }
     }

@@ -5,13 +5,6 @@
   50% {
     opacity: 0; } }
 
-@-o-keyframes test {
-  0%, 100% {
-    opacity: 1; }
-
-  50% {
-    opacity: 0; } }
-
 @-webkit-keyframes test {
   0%, 100% {
     opacity: 1; }
@@ -28,6 +21,5 @@
 
 .animation {
   -moz-animation: test;
-  -o-animation: test;
   -webkit-animation: test;
   animation: test; }

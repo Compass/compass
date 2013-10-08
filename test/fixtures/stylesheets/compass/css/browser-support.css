@@ -201,31 +201,31 @@
   background-img-opts-unprefixed-at: "10.5";
   border-image: -o;
   border-image-unprefixed-at: "15";
-  css-animation: -o;
-  css-canvas: -o;
-  css-filters: -o;
+  css-animation: prefix-no-longer-needed;
+  css-canvas: prefix-no-longer-needed;
+  css-filters: prefix-no-longer-needed;
   css-gradients: -o;
   css-gradients-unprefixed-at: "12.1";
-  css-masks: -o;
-  css-reflections: -o;
+  css-masks: prefix-no-longer-needed;
+  css-reflections: prefix-no-longer-needed;
   css-repeating-gradients: -o;
   css-repeating-gradients-unprefixed-at: "12.1";
   css-transitions: -o;
   css-transitions-unprefixed-at: "12.1";
   css3-tabsize: -o;
   css3-tabsize-unprefixed-at: "15";
-  flexbox: -o;
-  font-feature: -o;
-  intrinsic-width: -o;
-  multicolumn: -o;
+  flexbox: prefix-no-longer-needed;
+  font-feature: prefix-no-longer-needed;
+  intrinsic-width: prefix-no-longer-needed;
+  multicolumn: prefix-no-longer-needed;
   object-fit: -o;
   object-fit-unprefixed-at: "15";
   text-overflow: -o;
   text-overflow-unprefixed-at: "11";
-  text-stroke: -o;
+  text-stroke: prefix-no-longer-needed;
   transforms2d: -o;
-  transforms3d: -o;
-  user-select-none: -o; }
+  transforms3d: prefix-no-longer-needed;
+  user-select-none: prefix-no-longer-needed; }
 
 .opera-mini {
   versions: "5.0-7.0";
@@ -235,31 +235,31 @@
   versions: "10", "11.5", "12", "12.1", "14";
   border-image: -o;
   border-image-unprefixed-at: "14";
-  css-animation: -o;
-  css-canvas: -o;
-  css-filters: -o;
+  css-animation: prefix-no-longer-needed;
+  css-canvas: prefix-no-longer-needed;
+  css-filters: prefix-no-longer-needed;
   css-gradients: -o;
   css-gradients-unprefixed-at: "12.1";
-  css-masks: -o;
-  css-reflections: -o;
+  css-masks: prefix-no-longer-needed;
+  css-reflections: prefix-no-longer-needed;
   css-repeating-gradients: -o;
   css-repeating-gradients-unprefixed-at: "12.1";
   css-transitions: -o;
   css-transitions-unprefixed-at: "12.1";
   css3-tabsize: -o;
   css3-tabsize-unprefixed-at: "14";
-  flexbox: -o;
-  font-feature: -o;
-  intrinsic-width: -o;
-  multicolumn: -o;
+  flexbox: prefix-no-longer-needed;
+  font-feature: prefix-no-longer-needed;
+  intrinsic-width: prefix-no-longer-needed;
+  multicolumn: prefix-no-longer-needed;
   object-fit: -o;
   object-fit-unprefixed-at: "14";
   text-overflow: -o;
   text-overflow-unprefixed-at: "12.1";
-  text-stroke: -o;
+  text-stroke: prefix-no-longer-needed;
   transforms2d: -o;
-  transforms3d: -o;
-  user-select-none: -o; }
+  transforms3d: prefix-no-longer-needed;
+  user-select-none: prefix-no-longer-needed; }
 
 .safari {
   versions: "3.1", "3.2", "4", "5", "5.1", "6", "7";

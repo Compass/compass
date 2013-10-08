@@ -5,13 +5,6 @@
   50% {
     background-color: blue; } }
 
-@-o-keyframes test {
-  0%, 100% {
-    background-color: red; }
-
-  50% {
-    background-color: blue; } }
-
 @-webkit-keyframes test {
   0%, 100% {
     background-color: red; }
@@ -28,6 +21,5 @@
 
 .animation {
   -moz-animation: test;
-  -o-animation: test;
   -webkit-animation: test;
   animation: test; }

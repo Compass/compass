@@ -26,10 +26,11 @@ class CanIUseTest < Test::Unit::TestCase
     assert_equal "-webkit", caniuse.prefix("safari")
     assert_equal "-ms", caniuse.prefix("ie")
     assert_equal "-o", caniuse.prefix("opera")
+    assert_equal "-webkit", caniuse.prefix("opera", "15")
   end
 
   def test_browsers_with_prefix
-    assert_equal %w(android android-chrome blackberry chrome ios-safari safari),
+    assert_equal %w(android android-chrome blackberry chrome ios-safari opera opera-mobile safari),
       caniuse.browsers_with_prefix("-webkit").sort
     assert_equal %w(android-firefox firefox),
       caniuse.browsers_with_prefix("-moz").sort
@@ -78,8 +79,26 @@ class CanIUseTest < Test::Unit::TestCase
     assert_raises ArgumentError do
       caniuse.requires_prefix("chrome", "3", "border-radius")
     end
-    assert_equal true, caniuse.requires_prefix("chrome", "4", "border-radius")
-    assert_equal false, caniuse.requires_prefix("chrome", "5", "border-radius")
-    assert_equal false, caniuse.requires_prefix("chrome", "30", "border-radius")
+    assert_equal "-webkit", caniuse.requires_prefix("chrome", "4", "border-radius")
+    assert_equal nil, caniuse.requires_prefix("chrome", "5", "border-radius")
+    assert_equal nil, caniuse.requires_prefix("chrome", "30", "border-radius")
+    assert_equal "-webkit", caniuse.requires_prefix("opera", "16", "css-filters")
+  end
+
+  def test_browser_minimums
+    mins = caniuse.browser_minimums("css-filters", "-webkit")
+    expected = {
+      "android-chrome"=>"0",
+      "blackberry"=>"10",
+      "chrome"=>"18",
+      "ios-safari"=>"6.0-6.1",
+      "opera"=>"15",
+      "opera-mobile"=>"14",
+      "safari"=>"6"
+    }
+    assert_equal(expected, mins)
+    mins = caniuse.browser_minimums("css-filters", "-o")
+    expected = {}
+    assert_equal(expected, mins)
   end
 end

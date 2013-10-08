@@ -31,19 +31,7 @@
        Not allowed in the current scope: The ie 8 is incompatible with -moz. */
     opacity: 1; } }
 
-/* Capability css-animation is prefixed with -o because omitting it would affect 0.27123% of users and the threshold is 0.1%. */
-@-o-keyframes foo {
-  0% {
-    /* Content for ie 8 omitted.
-       Not allowed in the current scope: The ie 8 is incompatible with -o. */
-    opacity: 0; }
-
-  100% {
-    /* Content for ie 8 omitted.
-       Not allowed in the current scope: The ie 8 is incompatible with -o. */
-    opacity: 1; } }
-
-/* Capability css-animation is prefixed with -webkit because omitting it would affect 51.19952% of users and the threshold is 0.1%. */
+/* Capability css-animation is prefixed with -webkit because omitting it would affect 51.42143% of users and the threshold is 0.1%. */
 @-webkit-keyframes foo {
   0% {
     /* Content for ie 8 omitted.
@@ -69,8 +57,6 @@
 .foo {
   /* Capability css-animation is prefixed with -moz because omitting it would affect 1.03559% of users and the threshold is 0.1%. */
   -moz-animation: foo 1s;
-  /* Capability css-animation is prefixed with -o because omitting it would affect 0.27123% of users and the threshold is 0.1%. */
-  -o-animation: foo 1s;
-  /* Capability css-animation is prefixed with -webkit because omitting it would affect 51.19952% of users and the threshold is 0.1%. */
+  /* Capability css-animation is prefixed with -webkit because omitting it would affect 51.42143% of users and the threshold is 0.1%. */
   -webkit-animation: foo 1s;
   animation: foo 1s; }
