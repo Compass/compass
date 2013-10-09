@@ -53,7 +53,7 @@ $input-placeholder-support-threshold: $graceful-usage-threshold !default;
 @mixin input-placeholder {
   @include with-each-prefix(css-placeholder, $input-placeholder-support-threshold) {
     @if $current-prefix == -webkit {
-
+      ::-webkit-input-placeholder { @content; }
     }
     @elseif $current-prefix == -moz {
       // for Firefox 19 and below
