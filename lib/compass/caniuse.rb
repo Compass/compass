@@ -4,9 +4,18 @@ class Compass::CanIUse
   include Singleton
 
   DATA_FILE_NAME = File.join(Compass.base_directory, "data", "caniuse.json")
+  DATA_FEATURE_FILES = Dir.glob(File.join(Compass.base_directory, "data", "caniuse_extras", "**", "*.json"))
 
   def initialize
     @data = JSON.parse(File.read(DATA_FILE_NAME))
+    # support ad-hoc features
+    DATA_FEATURE_FILES.each do |feature_file|
+      feature_name = File.basename(feature_file, ".json")
+      # if the feature doesn't exist in the master `caniuse.json`
+      if @data["data"][feature_name].nil?
+        @data["data"][feature_name] = JSON.parse(File.read(feature_file))
+      end
+    end
   end
 
   # The browser names from caniuse are ugly.

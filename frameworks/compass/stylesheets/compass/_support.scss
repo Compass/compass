@@ -32,6 +32,10 @@ $current-prefix: null;
 // this variable is set to those versions.
 $current-browser-minimum-versions: ();
 
+// The legacy support CSS 2.1 Selectors.
+// Defaults to the $critical-usage-threshold.
+$css-sel2-support-threshold: $critical-usage-threshold !default;
+
 // Check if the browser is in scope given the current prefix minimums.
 @function browser-out-of-scope($browser, $version: null) {
   @if not ($current-prefix == null or $current-prefix == browser-prefix($browser)) {

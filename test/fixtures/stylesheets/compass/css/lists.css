@@ -10,10 +10,9 @@ ul.horizontal {
     margin-left: 0;
     white-space: nowrap;
     float: left;
-    display: inline;
     padding-left: 4px;
     padding-right: 4px; }
-    ul.horizontal li:first-child, ul.horizontal li.first {
+    ul.horizontal li:first-child {
       padding-left: 0; }
     ul.horizontal li:last-child {
       padding-right: 0; }
@@ -32,10 +31,9 @@ ul.wide-horizontal {
     margin-left: 0;
     white-space: nowrap;
     float: left;
-    display: inline;
     padding-left: 10px;
     padding-right: 10px; }
-    ul.wide-horizontal li:first-child, ul.wide-horizontal li.first {
+    ul.wide-horizontal li:first-child {
       padding-left: 0; }
     ul.wide-horizontal li:last-child {
       padding-right: 0; }
@@ -54,10 +52,9 @@ ul.right-horizontal {
     margin-left: 0;
     white-space: nowrap;
     float: right;
-    display: inline;
     padding-left: 4px;
     padding-right: 4px; }
-    ul.right-horizontal li:first-child, ul.right-horizontal li.first {
+    ul.right-horizontal li:first-child {
       padding-right: 0; }
     ul.right-horizontal li:last-child {
       padding-left: 0; }
@@ -75,8 +72,7 @@ ul.no-padding {
     list-style-type: none;
     margin-left: 0;
     white-space: nowrap;
-    float: left;
-    display: inline; }
+    float: left; }
 
 ul.inline-block {
   margin: 0;
@@ -88,11 +84,10 @@ ul.inline-block {
     list-style-image: none;
     list-style-type: none;
     margin-left: 0;
-    display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
-    zoom: 1;
+    *zoom: 1;
     *display: inline;
     white-space: nowrap; }
 
@@ -106,11 +101,10 @@ ul.wide-inline-block {
     list-style-image: none;
     list-style-type: none;
     margin-left: 0;
-    display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
-    zoom: 1;
+    *zoom: 1;
     *display: inline;
     white-space: nowrap;
     padding-left: 10px;

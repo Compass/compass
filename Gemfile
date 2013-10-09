@@ -28,5 +28,7 @@ unless ENV['PKG']
     gem 'guard-test'
     gem 'guard-cucumber'
     gem 'packager'
+    gem 'colorize'
+    gem 'fileutils'
   end
 end

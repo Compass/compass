@@ -35,7 +35,7 @@ class CanIUseTest < Test::Unit::TestCase
     assert_equal %w(android-firefox firefox),
       caniuse.browsers_with_prefix("-moz").sort
   end
-  
+
   def test_capabilities
     # This is meant to break if a capability goes away or arrives
     # So that we can think about what that means for compass
@@ -43,7 +43,7 @@ class CanIUseTest < Test::Unit::TestCase
                   "css-animation", "css-boxshadow", "css-canvas", "css-counters",
                   "css-featurequeries", "css-filters", "css-fixed", "css-gencontent",
                   "css-gradients", "css-grid", "css-hyphens", "css-masks",
-                  "css-mediaqueries", "css-opacity", "css-reflections", "css-regions",
+                  "css-mediaqueries", "css-opacity", "css-placeholder", "css-reflections", "css-regions",
                   "css-repeating-gradients", "css-resize", "css-sel2", "css-sel3",
                   "css-selection", "css-table", "css-textshadow", "css-transitions",
                   "css3-boxsizing", "css3-colors", "css3-tabsize", "flexbox",

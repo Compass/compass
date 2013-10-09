@@ -28,6 +28,7 @@
   css-canvas: -webkit;
   css-filters: -webkit;
   css-masks: -webkit;
+  css-placeholder: -webkit;
   css-reflections: -webkit;
   font-feature: -webkit;
   intrinsic-width: -webkit;
@@ -90,6 +91,7 @@
   css-gradients: -webkit;
   css-gradients-unprefixed-at: "26";
   css-masks: -webkit;
+  css-placeholder: -webkit;
   css-reflections: -webkit;
   css-regions: -webkit;
   css-regions-unprefixed-at: "19";
@@ -126,6 +128,7 @@
   css-gradients: -moz;
   css-gradients-unprefixed-at: "16";
   css-hyphens: -moz;
+  css-placeholder: -moz;
   css-repeating-gradients: -moz;
   css-repeating-gradients-unprefixed-at: "16";
   css-resize: prefix-no-longer-needed;
@@ -150,6 +153,7 @@
   versions: "5.5", "6", "7", "8", "9", "10", "11";
   css-grid: -ms;
   css-hyphens: -ms;
+  css-placeholder: -ms;
   css-regions: -ms;
   transforms2d: -ms;
   transforms2d-unprefixed-at: "10";
@@ -158,6 +162,7 @@
 .ie-mobile {
   versions: "10";
   css-grid: -ms;
+  css-placeholder: -ms;
   css-regions: -ms;
   user-select-none: -ms; }
 
@@ -178,6 +183,7 @@
   css-gradients-unprefixed-at: "7.0";
   css-hyphens: -webkit;
   css-masks: -webkit;
+  css-placeholder: -webkit;
   css-reflections: -webkit;
   css-regions: -webkit;
   css-repeating-gradients: -webkit;
@@ -207,6 +213,8 @@
   css-gradients: -o;
   css-gradients-unprefixed-at: "12.1";
   css-masks: prefix-no-longer-needed;
+  css-placeholder: prefix-no-longer-needed;
+  css-placeholder-unprefixed-at: "16";
   css-reflections: prefix-no-longer-needed;
   css-repeating-gradients: -o;
   css-repeating-gradients-unprefixed-at: "12.1";
@@ -241,6 +249,7 @@
   css-gradients: -o;
   css-gradients-unprefixed-at: "12.1";
   css-masks: prefix-no-longer-needed;
+  css-placeholder: prefix-no-longer-needed;
   css-reflections: prefix-no-longer-needed;
   css-repeating-gradients: -o;
   css-repeating-gradients-unprefixed-at: "12.1";
@@ -278,6 +287,7 @@
   css-gradients-unprefixed-at: "7";
   css-hyphens: -webkit;
   css-masks: -webkit;
+  css-placeholder: -webkit;
   css-reflections: -webkit;
   css-regions: -webkit;
   css-repeating-gradients: -webkit;
