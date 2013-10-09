@@ -1,6 +1,6 @@
 module Compass::SassExtensions::Functions::GradientSupport
 
-  GRADIENT_ASPECTS = %w(webkit moz svg pie css2 o owg).freeze
+  GRADIENT_ASPECTS = %w(webkit moz svg css2 o owg).freeze
 
   class ColorStop < Sass::Script::Literal
     attr_accessor :color, :stop
@@ -156,11 +156,6 @@ module Compass::SassExtensions::Functions::GradientSupport
       radial_svg_gradient(color_stops, position || _center_position)
     end
 
-    def to_pie(options = self.options)
-      Compass::Logger.new.record(:warning, "PIE does not support radial-gradient.")
-      Sass::Script::String.new("-pie-radial-gradient(unsupported)")
-    end
-
     def to_css2(options = self.options)
       Sass::Script::String.new("")
     end
@@ -230,12 +225,6 @@ module Compass::SassExtensions::Functions::GradientSupport
 
     def to_svg(options = self.options)
       linear_svg_gradient(color_stops, position_or_angle || Sass::Script::String.new("top"))
-    end
-
-    def to_pie(options = self.options)
-      # PIE just uses the standard rep, but the property is prefixed so
-      # the presence of this attribute helps flag when to render a special rule.
-      Sass::Script::String.new to_s(options)
     end
 
     def to_css2(options = self.options)

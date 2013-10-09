@@ -2,7 +2,7 @@ module Compass
   module BrowserSupport
     extend self
 
-    ASPECTS = %w(webkit moz o ms svg pie css2)
+    ASPECTS = %w(webkit moz o ms svg css2)
 
     SIMPLE_FUNCTIONS = {
            "image" => %w(), # No browsers implement this yet.
