@@ -30,11 +30,9 @@
 
 .browser-support-is-considered {
   @include selection(#fe57a1) {
-    @if $experimental-support-for-mozilla {
-      -moz-specific: yes;
-    } @else {
-      -not-moz-specific: yes;
-    }
+    prefix: $current-prefix;
+    -moz-prefix: $current-prefix == -moz;
+    -ms-prefix: $current-prefix == -ms;
+    -webkit-prefix: $current-prefix == -webkit;
   }
 }
-
