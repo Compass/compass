@@ -4,6 +4,9 @@
   -webkit-user-select: none;
   user-select: none; }
 
+*:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
 *::-moz-placeholder {
   color: #bfbfbf;
   font-style: italic; }
@@ -11,6 +14,9 @@
   color: #bfbfbf;
   font-style: italic; }
 
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
 input::-moz-placeholder, textarea::-moz-placeholder {
   color: #bfbfbf;
   font-style: italic; }
@@ -18,6 +24,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   color: #bfbfbf;
   font-style: italic; }
 
+.sets-up-browser-support-for-content:-moz-placeholder {
+  prefix: -moz;
+  -moz-prefix: true;
+  -ms-prefix: false;
+  -webkit-prefix: false; }
 .sets-up-browser-support-for-content::-moz-placeholder {
   prefix: -moz;
   -moz-prefix: true;
