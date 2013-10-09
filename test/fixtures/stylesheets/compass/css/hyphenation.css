@@ -2,17 +2,15 @@
   word-break: keep-all; }
 
 .hyphens {
-  -webkit-hyphens: manual;
   -moz-hyphens: manual;
   -ms-hyphens: manual;
-  -o-hyphens: manual;
+  -webkit-hyphens: manual;
   hyphens: manual; }
 
 .hyphenate {
   word-break: break-all;
   word-break: break-word;
-  -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
-  -o-hyphens: auto;
+  -webkit-hyphens: auto;
   hyphens: auto; }
