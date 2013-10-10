@@ -7,6 +7,8 @@ class CanIUseTest < Test::Unit::TestCase
     Compass::CanIUse.instance
   end
 
+  DEFAULT_CAPABILITY_OPTIONS = [{:full_support => true}, {:partial_support => true}]
+
   def test_unknown_browsers
     assert_equal "unknown", Compass::CanIUse::PUBLIC_BROWSER_NAMES["unknown"]
     assert_equal "unknown", Compass::CanIUse::CAN_I_USE_NAMES["unknown"]
@@ -68,21 +70,21 @@ class CanIUseTest < Test::Unit::TestCase
   end
 
   def test_prefixed_usage
-    assert 0 < caniuse.prefixed_usage("-webkit", "border-radius")
-    assert_equal 0, caniuse.prefixed_usage("-webkit", "outline")
+    assert 0 < caniuse.prefixed_usage("-webkit", "border-radius", DEFAULT_CAPABILITY_OPTIONS)
+    assert_equal 0, caniuse.prefixed_usage("-webkit", "outline", DEFAULT_CAPABILITY_OPTIONS)
     assert_raises ArgumentError do
-      caniuse.prefixed_usage("-webkit", "unknown")
+      caniuse.prefixed_usage("-webkit", "unknown", DEFAULT_CAPABILITY_OPTIONS)
     end
   end
 
   def test_requires_prefix
     assert_raises ArgumentError do
-      caniuse.requires_prefix("chrome", "3", "border-radius")
+      caniuse.requires_prefix("chrome", "3", "border-radius", DEFAULT_CAPABILITY_OPTIONS)
     end
-    assert_equal "-webkit", caniuse.requires_prefix("chrome", "4", "border-radius")
-    assert_equal nil, caniuse.requires_prefix("chrome", "5", "border-radius")
-    assert_equal nil, caniuse.requires_prefix("chrome", "30", "border-radius")
-    assert_equal "-webkit", caniuse.requires_prefix("opera", "16", "css-filters")
+    assert_equal "-webkit", caniuse.requires_prefix("chrome", "4", "border-radius", DEFAULT_CAPABILITY_OPTIONS)
+    assert_equal nil, caniuse.requires_prefix("chrome", "5", "border-radius", DEFAULT_CAPABILITY_OPTIONS)
+    assert_equal nil, caniuse.requires_prefix("chrome", "30", "border-radius", DEFAULT_CAPABILITY_OPTIONS)
+    assert_equal "-webkit", caniuse.requires_prefix("opera", "16", "css-filters", DEFAULT_CAPABILITY_OPTIONS)
   end
 
   def test_browser_minimums
@@ -100,5 +102,14 @@ class CanIUseTest < Test::Unit::TestCase
     mins = caniuse.browser_minimums("css-filters", "-o")
     expected = {}
     assert_equal(expected, mins)
+  end
+
+  def test_capability_matches
+    assert caniuse.capability_matches(
+      caniuse.browser_support("chrome", "10", "flexbox"),
+      [{:full_support => true}, {:partial_support => true, :spec_versions => [1]}])
+    assert !caniuse.capability_matches(
+      caniuse.browser_support("chrome", "10", "flexbox"),
+      [{:full_support => true}, {:partial_support => true, :spec_versions => [3]}])
   end
 end

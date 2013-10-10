@@ -79,17 +79,15 @@ class Compass::CanIUse
   def browser_minimums(capability, prefix = nil)
     assert_valid_capability capability
     browsers = prefix.nil? ? browsers() : browsers_with_prefix(prefix)
-    data = capability_data(capability)
     browsers.inject({}) do |m, browser|
       version = versions(browser).find do |version|
-                  support = data["stats"][CAN_I_USE_NAMES[browser]][version]
+                  support = browser_support(browser, version, capability)
                   if prefix.nil?
-                    !support.start_with?("n") && !support.end_with?("x")
+                    support !~ /\bn\b/ && support !~ /\bx\b/
                   else
                     actual_prefix = prefix(browser, version)
-                    !support.start_with?("n") && support.end_with?("x") && prefix == actual_prefix
+                    support !~ /\bn\b/ && support =~ /\bx\b/ && prefix == actual_prefix
                   end
-
                 end
       m.update(browser => version) if version
       m
@@ -115,17 +113,36 @@ class Compass::CanIUse
     browsers.select {|b| all_prefixes(b).include?(prefix) }
   end
 
+  SPEC_VERSION_MATCHERS = Hash.new do |h, k|
+    h[k] = /##{k}\b/
+  end
+
+  CAPABILITY_MATCHERS = {
+    :full_support => lambda {|support, capability| !support ^ (capability =~ /\by\b/) },
+    :partial_support => lambda {|support, capability| !support ^ (capability =~ /\ba\b/) },
+    :prefixed => lambda {|support, capability| !support ^ (capability =~ /\bx\b/) },
+    :spec_versions => lambda {|versions, capability| versions.any? {|v| capability =~ SPEC_VERSION_MATCHERS[v] } }
+  }
+
+  # Return whether the capability matcher the options specified.
+  # For each capability option in the options the capability will need to match it.
+  def capability_matches(support, capability_options_list)
+    capability_options_list.any? do |capability_options|
+      capability_options.all? {|c, v| CAPABILITY_MATCHERS[c].call(v, support)}
+    end
+  end
+
   # returns the percentage of users (0-100) that would be affected if the prefix
   # was not used with the given capability.
-  def prefixed_usage(prefix, capability)
+  def prefixed_usage(prefix, capability, capability_options_list)
     assert_valid_prefix prefix
     assert_valid_capability capability
     usage = 0
     browsers_with_prefix(prefix).each do |browser|
-      data = capability_data(capability)
       versions(browser).each do |version|
         next unless prefix == prefix(browser, version)
-        if data["stats"][CAN_I_USE_NAMES[browser]][version].end_with?("x")
+        support = browser_support(browser, version, capability)
+        if capability_matches(support, capability_options_list) and support =~ /\bx\b/
           usage += usage(browser, version)
         end
       end
@@ -135,15 +152,15 @@ class Compass::CanIUse
 
   # Returns whether the given minimum version of a browser
   # requires the use of a prefix for the stated capability.
-  def requires_prefix(browser, min_version, capability)
+  def requires_prefix(browser, min_version, capability, capability_options_list)
     assert_valid_browser browser
     assert_valid_capability capability
-    data = capability_data(capability)
     found_version = false
     versions(browser).each do |version|
       found_version ||= version == min_version
       next unless found_version
-      if data["stats"][CAN_I_USE_NAMES[browser]][version].end_with?("x")
+      support = browser_support(browser, version, capability)
+      if capability_matches(support, capability_options_list) and support =~ /\bx\b/
         return prefix(browser, version)
       end
     end
@@ -180,11 +197,13 @@ class Compass::CanIUse
     "Compass::CanIUse(#{browsers.join(", ")})"
   end
 
-  private
-
   # the browser data assocated with a given capability
   def capability_data(capability)
     @data["data"][capability]
+  end
+
+  def browser_support(browser, version, capability)
+    capability_data(capability)["stats"][CAN_I_USE_NAMES[browser]][version]
   end
 
   # the metadata assocated with a given browser

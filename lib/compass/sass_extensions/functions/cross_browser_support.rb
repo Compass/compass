@@ -101,11 +101,14 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
 
   # whether the browser uses a prefix for the given capability at the version
   # specified or a later version. Returns the prefix it requires, or null.
-  def browser_requires_prefix(browser, version, capability)
+  def browser_requires_prefix(browser, version, capability, capability_options)
     assert_type browser, :String
     assert_type version, :String
     assert_type capability, :String
-    p = Compass::CanIUse.instance.requires_prefix(browser.value, version.value, capability.value)
+    p = Compass::CanIUse.instance.requires_prefix(browser.value,
+                                                  version.value,
+                                                  capability.value,
+                                                  unbox_capability_options_list(capability_options))
     p ? identifier(p) : null()
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
@@ -144,10 +147,12 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   Sass::Script::Functions.declare(:omitted_usage, [:browser, :min_version])
 
   # The percent of users relying on a particular prefix
-  def prefix_usage(prefix, capability)
+  def prefix_usage(prefix, capability, capability_options)
     assert_type prefix, :String
     assert_type capability, :String
-    number(Compass::CanIUse.instance.prefixed_usage(prefix.value, capability.value))
+    number(Compass::CanIUse.instance.prefixed_usage(prefix.value,
+                                                    capability.value,
+                                                    unbox_capability_options_list(capability_options)))
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
@@ -197,4 +202,44 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   end
   Sass::Script::Functions.declare(:browser_minimums, [:capability])
   Sass::Script::Functions.declare(:browser_minimums, [:capability, :prefix])
+
+  private
+
+  def unbox_capability_options_list(capability_options_list)
+    if capability_options_list.is_a?(Sass::Script::Value::Map)
+      [unbox_capability_options(capability_options_list)]
+    elsif capability_options_list.is_a?(Sass::Script::Value::List)
+      capability_options_list.to_a.map{|opts| unbox_capability_options(opts) }
+    else
+      assert_type capability_options_list, :List
+    end
+  end
+
+  CAPABILITY_OPTION_KEYS = {
+    "full-support" => :full_support,
+    "partial-support" => :partial_support,
+    "prefixed" => :prefixed,
+    "spec-versions" => :spec_versions,
+  }
+
+  CAPABILITY_OPTION_UNBOXER = {
+    :full_support => lambda {|v| v.to_bool },
+    :partial_support => lambda {|v| v.to_bool },
+    :prefixed => lambda {|v| v.to_bool },
+    :spec_versions => lambda {|versions| versions.to_a.map {|v| v.value } }
+  }
+
+  def unbox_capability_options(capability_options)
+    assert_type capability_options, :Map
+    result = {}
+    capability_options.value.each do |k, v|
+      assert_type k, :String
+      key = CAPABILITY_OPTION_KEYS[k.value]
+      unless key
+        raise Sass::SyntaxError, "#{k} is not valid capability option"
+      end
+      result[key] = CAPABILITY_OPTION_UNBOXER[key].call(v)
+    end
+    result
+  end
 end

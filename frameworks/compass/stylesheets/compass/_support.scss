@@ -25,6 +25,13 @@ $browser-minimum-versions: (
   'opera':   null
 ) !default;
 
+
+// @private
+$default-capability-options: (
+  (full-support: true),
+  (partial-support: true)
+);
+
 // When a prefix is in a selector or directive scope, this is set to the current prefix value.
 $current-prefix: null;
 
@@ -131,11 +138,11 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
   }
 }
 
-@function prefixes-for-capability($capability, $threshold) {
+@function prefixes-for-capability($capability, $threshold, $capability-options: $default-capability-options) {
   $result: ();
   @each $prefix in browser-prefixes($supported-browsers) {
     $result: map-merge($result,
-                      ($prefix: use-prefix($prefix, $capability, $threshold)));
+                      ($prefix: use-prefix($prefix, $capability, $threshold, $capability-options)));
   }
   @return $result;
 }
@@ -144,8 +151,8 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
 // The current prefix is set to the $current-prefix global for use by the included content.
 // Also yields to the content once with $current-prefix set to null for the official version
 // as long as there's not already a prefix in scope.
-@mixin with-each-prefix($capability, $threshold) {
-  @each $prefix, $should-use-prefix in prefixes-for-capability($capability, $threshold) {
+@mixin with-each-prefix($capability, $threshold, $capability-options: $default-capability-options) {
+  @each $prefix, $should-use-prefix in prefixes-for-capability($capability, $threshold, $capability-options) {
     @if $should-use-prefix {
       @if $debug-browser-support and type-of($should-use-prefix) == list {
         /* Capability #{$capability} is prefixed with #{$prefix} because #{$should-use-prefix} is required. */
@@ -224,8 +231,8 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
 
 // Returns true if the prefixed usage stats for the capability exceed the threshold
 // or if the minimum version for a supported browser would require a prefix for the capability.
-@function use-prefix($prefix, $capability, $threshold) {
-  $usage: prefix-usage($prefix, $capability);
+@function use-prefix($prefix, $capability, $threshold, $capability-options: $default-capability-options) {
+  $usage: prefix-usage($prefix, $capability, $capability-options);
   @if $usage > $threshold {
     @return $usage;
   } @else {
@@ -233,7 +240,7 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
       @if index($supported-browsers, $browser) {
         $min-version: map-get($browser-minimum-versions, $browser);
         @if $min-version {
-          $actual-prefix: browser-requires-prefix($browser, $min-version, $capability);
+          $actual-prefix: browser-requires-prefix($browser, $min-version, $capability, $capability-options);
           @if $actual-prefix and $prefix == $actual-prefix {
             @return $browser $min-version;
           }
@@ -257,8 +264,8 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
 //     @include prefixed-properties(css-animation, $animation-support-threshold,
 //       (animation-name: foo, animation-duration: 2s)
 //     );
-@mixin prefixed-properties($capability, $threshold, $properties) {
-  @include with-each-prefix($capability, $threshold) {
+@mixin prefixed-properties($capability, $threshold, $properties, $capability-options: $default-capability-options) {
+  @include with-each-prefix($capability, $threshold, $capability-options) {
     @each $prop, $value in $properties {
       @include prefix-prop($prop, $value);
     }

@@ -1,6 +1,10 @@
+@import "compass/support";
+@import "compass/css3/flexbox";
+
 @function unprefixed-at-version($browser, $capability) {
+  $options: if($capability == flexbox, $flexbox-capability-options, $default-capability-options);
   @each $version in browser-versions($browser) {
-    @if not browser-requires-prefix($browser, $version, $capability) {
+    @if not browser-requires-prefix($browser, $version, $capability, $options) {
       @return $version;
     }
   }
@@ -12,8 +16,9 @@
     $versions: browser-versions($browser);
     versions: $versions;
     @each $capability in browser-capabilities() {
-      @if browser-requires-prefix($browser, nth($versions, 1), $capability) {
-        @if prefix-usage($prefix, $capability) > 0.1 {
+      $options: if($capability == flexbox, $flexbox-capability-options, $default-capability-options);
+      @if browser-requires-prefix($browser, nth($versions, 1), $capability, $options) {
+        @if prefix-usage($prefix, $capability, $options) > 0.1 {
           #{$capability}: $prefix;
         } @else {
           #{$capability}: prefix-no-longer-needed;
