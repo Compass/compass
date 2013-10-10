@@ -1,6 +1,7 @@
 @import compass/css3/images
 
-$experimental-support-for-svg: true
+$svg-gradient-shim-threshold: 0
+
 .bg-shortcut-simple-image
   +background(#fff url('foo.png'))
 
@@ -77,7 +78,7 @@ $experimental-support-for-svg: true
 .content-with-gradient
   +content(radial-gradient(lime, red 10px))
 
-$experimental-support-for-svg: false
+$svg-gradient-shim-threshold: 10
 
 .bg-linear-gradient-no-position
   +background-image(linear-gradient(#ddd, #aaa))

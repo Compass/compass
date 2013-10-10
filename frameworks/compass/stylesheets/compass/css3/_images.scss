@@ -1,5 +1,9 @@
-@import "shared";
+@import "compass/support";
 @import "compass/utilities/general/hacks";
+
+$gradient-support-threshold: $graceful-usage-threshold !default;
+$svg-gradient-shim-threshold: 10.0 !default;
+$border-image-support-threshold: $graceful-usage-threshold !default;
 
 // Compass assumes you will use the official gradient syntax,
 // unless otherwise instructed.
@@ -23,33 +27,66 @@ $use-legacy-gradient-syntax: false !default;
   }
 }
 
+// These browsers support svg but not gradients
+// so we can shim the gradient with an inline svg file.
+$browsers-supporting-svg-but-not-gradients: (ie: "9", opera: "9.5-9.6");
+
+@mixin each-gradient-prefix($values) {
+  @if prefixed(-svg, $values) {
+    @include for-legacy-browsers($browsers-supporting-svg-but-not-gradients,
+                                 $svg-gradient-shim-threshold)
+    {
+      @include with-prefix(-svg) {
+        @content;
+      }
+    }
+  }
+  @include with-each-prefix(css-gradients, $gradient-support-threshold) {
+    @if $current-prefix {
+      @if prefixed($current-prefix, $values) {
+        @content;
+      } @else if $debug-browser-support {
+        /* There is not a value that needs to be prefixed with #{$current-prefix} in: #{$values} */
+      }
+    } @else {
+      @content;
+    }
+  }
+}
+
+@mixin image-property($property, $values...) {
+  @include each-gradient-prefix($values) {
+    @if $current-prefix {
+      #{$property}: prefix($current-prefix, $values);
+    } @else {
+      #{$property}: $values;
+    }
+    @content;
+  }
+}
+
 // Background property support for vendor prefixing within values.
 @mixin background($backgrounds...) {
-  $mult-bgs: -compass-list-size($backgrounds) > 1;
-  @if $experimental-support-for-svg          and prefixed(-svg,    $backgrounds) { background:    -svg($backgrounds); }
-  @if $experimental-support-for-webkit       and prefixed(-webkit, $backgrounds) { background: -webkit($backgrounds); }
-  @if $experimental-support-for-mozilla      and prefixed(-moz,    $backgrounds) { background:    -moz($backgrounds); }
-  @if $experimental-support-for-opera        and prefixed(-o,      $backgrounds) { background:      -o($backgrounds); }
-                                                                                   background:         $backgrounds ;
+  @include image-property(background, $backgrounds...);
 }
 
 // Set any number of background layers, along with a fallback.
 // The final argument will be output separately, first, as a css2 fallback.
 @mixin background-with-css2-fallback($backgrounds...) {
-  $mult-bgs: -compass-list-size($backgrounds) > 1;
-  $simple-background: if($mult-bgs or prefixed(-css2, $backgrounds), -css2(-compass-nth($backgrounds, last)), false);
-  @if not blank($simple-background) { background: $simple-background; }
-  @include background($backgrounds);
+  @if length($backgrounds) > 1 or prefixed(-css2, $backgrounds) {
+    background: -css2(nth($backgrounds, -1));
+  }
+  @include background($backgrounds...);
 }
 
 
 // Background image property support for vendor prefixing within values.
 @mixin background-image($images...) {
-  @if $experimental-support-for-svg          and prefixed(-svg,    $images) { background-image:    -svg($images); background-size: 100%; }
-  @if $experimental-support-for-webkit       and prefixed(-webkit, $images) { background-image: -webkit($images); }
-  @if $experimental-support-for-mozilla      and prefixed(-moz,    $images) { background-image:    -moz($images); }
-  @if $experimental-support-for-opera        and prefixed(-o,      $images) { background-image:      -o($images); }
-                                                                              background-image:         $images ;
+  @include image-property(background-image, $images...) {
+    @if $current-prefix == -svg {
+      background-size: 100%;
+    }
+  }
 }
 
 // Emit a IE-Specific filters that renders a simple linear gradient.
@@ -63,9 +100,9 @@ $use-legacy-gradient-syntax: false !default;
   $end-color,
   $orientation: vertical
 ) {
-  @include has-layout;
-  $gradient-type: if($orientation == vertical, 0, 1);
-  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
+  @include for-legacy-browsers((ie: "8"), $gradient-support-threshold) {
+    @include has-layout;
+    $gradient-type: if($orientation == vertical, 0, 1);
     filter: progid:DXImageTransform.Microsoft.gradient(gradientType=#{$gradient-type}, startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}');
   }
 }
@@ -73,38 +110,30 @@ $use-legacy-gradient-syntax: false !default;
 
 // Border image property support for vendor prefixing properties and values.
 @mixin border-image($value) {
-  @if $experimental-support-for-mozilla      {    -moz-border-image:    -moz(reject(-compass-list($value), fill)); }
-  @if $experimental-support-for-webkit       { -webkit-border-image: -webkit(reject(-compass-list($value), fill)); }
-  @if $experimental-support-for-opera        {      -o-border-image:      -o(reject(-compass-list($value), fill)); }
-  @if $experimental-support-for-svg          {         border-image:    -svg(reject(-compass-list($value), fill)); }
-                                                       border-image:                              $value;
+  @include with-each-prefix(border-image, $border-image-support-threshold) {
+    $border-prefix: $current-prefix;
+    @include each-gradient-prefix($value) {
+      @if $current-prefix and prefixed($current-prefix, $value) {
+        $legacy-value: reject($value, fill);
+        @include prefix-prop(border-image, prefix($current-prefix, $legacy-value), $prefix: $border-prefix);
+      } @else {
+        @include prefix-prop(border-image, $value, $prefix: $border-prefix);
+      }
+    }
+  }
 }
 
 // List style image property support for vendor prefixing within values.
 @mixin list-style-image($image) {
-  @if $experimental-support-for-mozilla      and prefixed(-moz,    $image) { list-style-image:    -moz($image); }
-  @if $experimental-support-for-webkit       and prefixed(-webkit, $image) { list-style-image: -webkit($image); }
-  @if $experimental-support-for-opera        and prefixed(-o,      $image) { list-style-image:      -o($image); }
-  @if $experimental-support-for-svg          and prefixed(-svg,    $image) { list-style-image:    -svg($image); }
-                                                                             list-style-image:         $image ;
+  @include image-property(list-style-image, $image);
 }
 
 // List style property support for vendor prefixing within values.
 @mixin list-style($value) {
-  $value: -compass-list($value);
-  @if $experimental-support-for-mozilla      and prefixed(-moz,    $value) { list-style-image:    -moz($value); }
-  @if $experimental-support-for-webkit       and prefixed(-webkit, $value) { list-style-image: -webkit($value); }
-  @if $experimental-support-for-opera        and prefixed(-o,      $value) { list-style-image:      -o($value); }
-  @if $experimental-support-for-svg          and prefixed(-svg,    $value) { list-style-image:    -svg($value); }
-                                                                             list-style-image:         $value ;
+  @include image-property(list-style, $value);
 }
 
 // content property support for vendor prefixing within values.
 @mixin content($value) {
-  $value: -compass-list($value);
-  @if $experimental-support-for-mozilla      and prefixed(-moz,    $value) { content:    -moz($value); }
-  @if $experimental-support-for-webkit       and prefixed(-webkit, $value) { content: -webkit($value); }
-  @if $experimental-support-for-opera        and prefixed(-o,      $value) { content:      -o($value); }
-  @if $experimental-support-for-svg          and prefixed(-svg,    $value) { content:    -svg($value); }
-                                                                             content:         $value ;
+  @include image-property(content, $value);
 }

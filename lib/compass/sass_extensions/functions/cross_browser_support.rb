@@ -28,6 +28,7 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
 
   # Check if any of the arguments passed require a vendor prefix.
   def prefixed(prefix, *args)
+    assert_type prefix, :String
     aspect = prefix.value.sub(/^-/,"")
     needed = args.any?{|a| a.respond_to?(:supports?) && a.supports?(aspect)}
     Sass::Script::Bool.new(needed)
@@ -44,6 +45,7 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   end
 
   def prefix(prefix, *objects)
+    assert_type prefix, :String if prefix.is_a?(Sass::Script::Value::Base)
     prefix = prefix.value if prefix.is_a?(Sass::Script::String)
     prefix = prefix[1..-1] if prefix[0] == ?-
     if objects.size > 1
