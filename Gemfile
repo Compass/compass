@@ -13,7 +13,6 @@ unless ENV['PKG']
   gem 'diff-lcs', '~> 1.1.2'
   gem 'rake'
   gem 'json', '~> 1.7.7'
-  gem 'sass', :path => "../sass"
   gem 'true'
 
   # Warning be carful adding OS dependant gems above this line it will break the CI server please
