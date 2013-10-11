@@ -12,10 +12,55 @@
   @include flex-flow(row-reverse wrap-reverse);
 }
 
+.order {
+  @include order(1);
+}
+
+.flex {
+  @include flex(1 0 auto);
+}
+
+.flex-grow {
+  @include flex-grow(1);
+}
+
+.flex-shrink {
+  @include flex-shrink(1);
+}
+
+.flex-basis {
+  @include flex-basis(auto);
+}
+
+.justify-content {
+  @include justify-content(flex-start);
+}
+
+.align-items {
+  @include align-items(flex-start);
+}
+
+.align-self {
+  @include align-self(flex-start);
+}
+
+.align-content {
+  @include align-content(flex-start);
+}
+
 .flexbox {
   @include flexbox((
     flex-direction: row-reverse,
     flex-wrap: wrap-reverse,
-    flex-flow: row-reverse wrap-reverse
+    flex-flow: row-reverse wrap-reverse,
+    order: 1,
+    flex: 1 0 auto,
+    flex-grow: 1,
+    flex-shrink: 0,
+    flex-basis: auto,
+    justify-content: flex-start,
+    align-items: flex-start,
+    align-self: flex-start,
+    align-content: flex-start
   ));
 }

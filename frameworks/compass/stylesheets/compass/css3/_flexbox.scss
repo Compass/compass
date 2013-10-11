@@ -27,3 +27,49 @@ $flexbox-capability-options: (
 @mixin flex-flow($flow) {
   @include flexbox((flex-flow: $flow));
 }
+
+// Accepts an integer
+@mixin order($order) {
+  @include flexbox((order: $order));
+}
+
+// Shorthand for flex-grow, flex-shrink and optionally flex-basis.
+// Space separated, in that order.
+@mixin flex($flex) {
+  @include flexbox((flex: $flex));
+}
+
+// Accepts a number.
+@mixin flex-grow($flex-grow) {
+  @include flexbox((flex-grow: $flex-grow));
+}
+
+// Accepts a number.
+@mixin flex-shrink($flex-shrink) {
+  @include flexbox((flex-shrink: $flex-shrink));
+}
+
+// Accepts any legal value for the width property.
+@mixin flex-basis($flex-basis) {
+  @include flexbox((flex-basis: $flex-basis));
+}
+
+// Legal values: flex-start | flex-end | center | space-between | space-around
+@mixin justify-content($justify-content) {
+  @include flexbox((justify-content: $justify-content));
+}
+
+// Legal values: flex-start | flex-end | center | baseline | stretch
+@mixin align-items($align-items) {
+  @include flexbox((align-items: $align-items));
+}
+
+// Legal values: auto | flex-start | flex-end | center | baseline | stretch
+@mixin align-self($align-self) {
+  @include flexbox((align-self: $align-self));
+}
+
+// Legal values: flex-start | flex-end | center | space-between | space-around | stretch
+@mixin align-content($align-content) {
+  @include flexbox((align-content: $align-content));
+}
