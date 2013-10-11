@@ -115,11 +115,6 @@ Feature: Command Line
     And a sass file sass/reset.sass is not mentioned
     And a css file tmp/utilities.css is reported identical
 
-  Scenario: Installing a pattern into a project
-    Given I am using the existing project in test/fixtures/stylesheets/compass
-    When I run: compass install compass/pie
-    Then a sass file sass/pie.scss is created
-
   Scenario: Basic help
     When I run: compass help
     Then I should see the following "primary" commands:
