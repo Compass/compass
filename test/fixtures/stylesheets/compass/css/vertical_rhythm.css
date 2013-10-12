@@ -160,9 +160,6 @@ blockquote {
   padding: 1.34444rem; }
 
 /* New using px output */
-* html {
-  font-size: 112.5%; }
-
 html {
   font-size: 18px;
   line-height: 25px; }

@@ -270,13 +270,3 @@ $legacy-ie-matrix: capture-legacy-ie-matrix();
     @content;
   }
 }
-
-// @private Returns the legacy value for a given box-model
-// - Used by background-clip and -origin.
-@function legacy-box($box) {
-  $box: unquote($box);
-  @if $box == padding-box { $box: padding; }
-  @if $box == border-box { $box: border; }
-  @if $box == content-box { $box: content; }
-  @return $box;
-}
