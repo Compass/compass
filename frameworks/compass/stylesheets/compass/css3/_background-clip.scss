@@ -2,7 +2,7 @@
 @import "compass/css3/shared";
 
 // The the user threshold for background-clip support. Defaults to `$critical-usage-threshold`
-$background-clip-threshold: $critical-usage-threshold !default;
+$background-clip-support-threshold: $critical-usage-threshold !default;
 
 // The default border-box model: [border-box | padding-box | content-box]
 $default-background-clip: padding-box !default;
@@ -24,7 +24,7 @@ $default-background-clip: padding-box !default;
     $deprecated: legacy-box($default-background-clip);
   }
 
-  @include with-each-prefix(background-img-opts, $background-clip-threshold) {
+  @include with-each-prefix(background-img-opts, $background-clip-support-threshold) {
     @if $current-prefix == -moz or $current-prefix == -webkit {
       // Legacy versions of Mozilla support a different syntax, prefixed.
       @include prefix-prop(background-clip, $deprecated);
