@@ -13,7 +13,7 @@ unless ENV['PKG']
   gem 'diff-lcs', '~> 1.1.2'
   gem 'rake'
   gem 'json', '~> 1.7.7'
-  gem 'true', :path => "../true"#, :git => "https://github.com/chriseppstein/true.git"
+  gem 'true', :git => "https://github.com/chriseppstein/true.git"
 
   # Warning be carful adding OS dependant gems above this line it will break the CI server please
   # place them below so they are excluded
