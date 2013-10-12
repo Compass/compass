@@ -1,6 +1,6 @@
 // Mixins to support specific CSS Text Level 3 elements
 
-@import "shared";
+@import "compass/support";
 
 // The the user threshold for hyphens support.
 // Defaults to `$graceful-usage-threshold`.

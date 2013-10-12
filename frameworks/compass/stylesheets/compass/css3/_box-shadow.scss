@@ -71,7 +71,7 @@ $default-box-shadow-inset: null !default;
   @if $spread == null { $spread: $default-box-shadow-spread;   }
   @if $color  == null { $color:  $default-box-shadow-color;    }
 
-  @if not ($inset == true or $inset == false or $inset == inset) {
+  @if not ($inset == true or $inset == false or $inset == null or $inset == inset) {
     @warn "$inset expected to be true or the inset keyword. Got #{$inset} instead. Using: inset";
   }
 
