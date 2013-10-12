@@ -9,16 +9,16 @@ $some-default-value: some default value;
 
 @mixin with-declared-support($browsers) {
   $old-browsers: $supported-browsers;
-  $supported-browsers: $browsers;
+  $supported-browsers: $browsers !global;
   @content;
-  $supported-browsers: $old-browsers;
+  $supported-browsers: $old-browsers !global;
 }
 
 @mixin with-declared-minimums($supported-browsers) {
     $old-mins: $browser-minimum-versions;
-    $browser-minimum-versions: $supported-browsers;
+    $browser-minimum-versions: $supported-browsers !global;
     @content;
-    $browser-minimum-versions: $old-mins;
+    $browser-minimum-versions: $old-mins !global;
 }
 
 @include test-module('Compass Support') {

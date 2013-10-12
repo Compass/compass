@@ -132,9 +132,9 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
       /* Omitting content for #{$prefix} because #{$current-prefix} is already in scope. */
     }
   } @else {
-    $current-prefix: $prefix;
+    $current-prefix: $prefix !global;
     @content;
-    $current-prefix: null;
+    $current-prefix: null !global;
   }
 }
 
@@ -223,9 +223,9 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
 
   @if has-browser-subset($current-browser-minimum-versions, $new-mins) {
     $old-minimums: $current-browser-minimum-versions;
-    $current-browser-minimum-versions: merge-browser-minumums($old-minimums, $new-mins);
+    $current-browser-minimum-versions: merge-browser-minumums($old-minimums, $new-mins) !global;
     @content;
-    $current-browser-minimum-versions: $old-minimums;
+    $current-browser-minimum-versions: $old-minimums !global;
   }
 }
 
@@ -312,9 +312,9 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
 // Or you can enable it for the whole stylesheet by setting `$debug-browser-support` to true.
 @mixin with-browser-support-debugging {
   $current-status: $debug-browser-support;
-  $debug-browser-support: true;
+  $debug-browser-support: true !global;
   @content;
-  $debug-browser-support: $current-status;
+  $debug-browser-support: $current-status !global;
 }
 
 // Set a default value if the given arglist is empty

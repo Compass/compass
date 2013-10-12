@@ -722,7 +722,7 @@ class SpritesTest < Test::Unit::TestCase
     css = render <<-SCSS
       @import "selectors/*.png";
       a {
-        $disable-magic-sprite-selectors:true;
+        $disable-magic-sprite-selectors:true !global;
         @include selectors-sprite(ten-by-ten)
       }
     SCSS
@@ -814,7 +814,7 @@ class SpritesTest < Test::Unit::TestCase
     css = render <<-SCSS
       @import "selectors/*.png";
       a {
-        $disable-magic-sprite-selectors:true;
+        $disable-magic-sprite-selectors:true !global;
         @include selectors-sprite(ten-by-ten)
       }
     SCSS
@@ -828,7 +828,7 @@ class SpritesTest < Test::Unit::TestCase
       $selectors-clean-up: false;
       @import "selectors/*.png";
       a {
-        $disable-magic-sprite-selectors:true;
+        $disable-magic-sprite-selectors:true !global;
         @include selectors-sprite(ten-by-ten)
       }
     SCSS

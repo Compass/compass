@@ -24,7 +24,7 @@ p.ellipsis {
 }
 
 p.ellipsis.moz {
-  $legacy-support-for-mozilla: true;
-  $use-mozilla-ellipsis-binding: true;
+  $legacy-support-for-mozilla: true !global;
+  $use-mozilla-ellipsis-binding: true !global;
   @include ellipsis;
 }
