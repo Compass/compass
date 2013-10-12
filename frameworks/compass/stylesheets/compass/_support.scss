@@ -251,10 +251,14 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
   @return false;
 }
 
+@function prefix-identifier($ident, $prefix: $current-prefix) {
+  @return unquote("#{$prefix}#{if($prefix, '-', null)}#{$ident}");
+}
+
 // Output a property and value using the current prefix.
 // It will be unprefixed if $current-prefix is null.
 @mixin prefix-prop($property, $value, $prefix: $current-prefix) {
-  #{$prefix}#{if($prefix, '-', null)}#{$property}: $value;
+  #{prefix-identifier($property, $prefix)}: $value;
 }
 
 // Emit a set of properties with the prefix governed by the capability and usage threshold given.

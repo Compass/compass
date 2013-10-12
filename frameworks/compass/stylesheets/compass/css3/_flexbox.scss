@@ -1,6 +1,59 @@
+// There are two ways to use the flexbox module.
+// If you're using the final version of the spec,
+// you can use the property mixins as elsewhere in
+// the css3 module.
+//
+// You can also use the flexbox prefixing mixin `flexbox`.
+// This mixin takes an optional `$version` argument which
+// allows you to specify which spec version the properties
+// are using so that they will be prefixed correctly.
+//
+// Example:
+//
+//     .flex-column {
+//       /* For flexbox spec v1 */
+//       @include flexbox((
+//         display: box,
+//         box-orient: vertical,
+//       ), $version: 1);
+//       
+//       /* For flexbox spec v2 */
+//       @include flexbox((
+//         display: flexbox,
+//         flex-direction: column,
+//       ), $version: 2);
+//       
+//       /* Latest Spec */
+//       @include flexbox((
+//         display: flex,
+//         flex-direction: column,
+//       ));
+//     }
+//
+// Which compiles to:
+//
+//     .flex-row {
+//       /* For flexbox spec v1 */
+//       display: -moz-box;
+//       -moz-box-orient: vertical;
+//       display: -webkit-box;
+//       -webkit-box-orient: vertical;
+//       
+//       /* For flexbox spec v2 */
+//       display: -ms-flexbox;
+//       -ms-flex-direction: column;
+//       
+//       /* Latest Spec */
+//       display: -webkit-flex;
+//       -webkit-flex-direction: column;
+//       display: flex;
+//       flex-direction: column;
+//     }
+
 @import "compass/support";
 
 $flexbox-support-threshold: $critical-usage-threshold !default;
+
 
 // @private
 $flexbox-capability-options: (
@@ -8,9 +61,28 @@ $flexbox-capability-options: (
   (partial-support: true, spec-versions: 3)
 );
 
-@mixin flexbox($properties) {
-  @include prefixed-properties(flexbox, $flexbox-support-threshold,
-    $properties, $flexbox-capability-options);
+@mixin flexbox($properties, $version: null) {
+  $capability-options: $flexbox-capability-options;
+  @if $version {
+    $capability-options: (partial-support: true, spec-versions: $version);
+  }
+
+  @include with-each-prefix(flexbox, $flexbox-support-threshold, $capability-options) {
+    // Don't output unprefixed versions when the spec version is not the final version
+    @if $version and $current-prefix or not $version or $version == 3 {
+      @each $prop, $value in $properties {
+        @if $prop == display {
+          display: prefix-identifier($value);
+        } @else {
+          @include prefix-prop($prop, $value);
+        }
+      }
+    }
+  }
+}
+
+@mixin display-flex {
+  @include flexbox((display: flex));
 }
 
 // Values: row | row-reverse | column | column-reverse
