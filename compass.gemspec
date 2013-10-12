@@ -24,6 +24,7 @@ Gem::Specification.new do |gemspec|
 
   gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
   gemspec.files += Dir.glob("bin/*")
+  gemspec.files += Dir.glob("data/**/*")
   gemspec.files += Dir.glob("examples/**/*.*")
   gemspec.files -= Dir.glob("examples/**/*.css")
   gemspec.files -= Dir.glob("examples/**/*.html")
