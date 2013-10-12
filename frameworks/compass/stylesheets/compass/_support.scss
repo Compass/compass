@@ -341,3 +341,8 @@ $pie-removal-warnging-issued: warn-about-pie-removal() !default;
   }
   @return true;
 }
+
+// coerce a list to be comma delimited or make a new, empty comma delimited list.
+@function comma-list($list: ()) {
+  @return join((), $list, comma);
+}
