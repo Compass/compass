@@ -226,6 +226,16 @@ Feature: Command Line
     Then I should see the following output: command-line-extension-test
     And the command exits normally
 
+  Scenario: Creating a config with multiple command_extensions
+    Given I should clean up the directory: config
+    When I run: compass config config/compass.rb --command-extensions command-line-extension-test1,command-line-extension-test2
+    Then a configuration file config/compass.rb is created
+    And the command_extensions property is set to ["command-line-extension-test1","command-line-extension-test2"] in config/compass.rb:
+    When I run: compass config -p command_extensions
+    Then I should see the following commands:
+      | command-line-extension-test1 | command-line-extension-test2 |
+    And the command exits normally
+
   @validator
   Scenario: Validate the generated CSS
     Given I am using the existing project in test/fixtures/stylesheets/valid

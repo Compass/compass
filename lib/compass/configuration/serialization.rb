@@ -73,7 +73,12 @@ module Compass
         if value.respond_to?(:serialize_to_config)
           value.serialize_to_config(prop) + "\n"
         else
-          %Q(#{prop} = #{value.inspect}\n)
+          if value.respond_to?('include?') && value.include?(",")
+            value = '["' + value.split(',').join('","') + '"]'
+            %Q(#{prop} = #{value}\n)
+          else
+            %Q(#{prop} = #{value.inspect}\n)
+          end
         end
       end
 

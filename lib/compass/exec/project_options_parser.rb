@@ -70,7 +70,7 @@ module Compass::Exec::ProjectOptionsParser
       self.options[:generated_images_path] = generated_images_path
     end
 
-    opts.on('--command-extensions COMMANDS', 'Compass command line extensions to include.') do |command_extensions|
+    opts.on('--command-extensions COMMAND1,COMMAND2', 'Compass command line extensions to include.') do |command_extensions|
       self.options[:command_extensions] = command_extensions
     end
   end

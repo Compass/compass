@@ -14,7 +14,7 @@ Before do
   @cleanup_directories = []
   @original_working_directory = Dir.pwd
 end
- 
+
 After do
   Dir.chdir @original_working_directory
   @cleanup_directories.each do |dir|
@@ -66,7 +66,7 @@ When /^I run: compass ([^\s]+) ?(.+)?$/ do |command, args|
 end
 
 When /^I run in a separate process: compass ([^\s]+) ?(.+)?$/ do |command, args|
-  unless @other_process = fork 
+  unless @other_process = fork
     @last_result = ''
     @last_error = ''
     Signal.trap("HUP") do
@@ -113,7 +113,7 @@ end
 Then /^a directory ([^ ]+) is (not )?created$/ do |directory, negated|
   File.directory?(directory).should == !negated
 end
- 
+
 Then /an? \w+ file ([^ ]+) is (not )?removed/ do |filename, negated|
   File.exists?(filename).should == !!negated
 end
@@ -217,10 +217,19 @@ Then /^the list of commands should describe the ([^ ]+) command$/ do |command|
 end
 
 Then /^the following configuration properties are set in ([^ ]+):$/ do |config_file, table|
-  
+
   config = Compass::Configuration::FileData.new_from_file(config_file)
   table.hashes.each do |hash|
    config.send(hash['property']).should == hash['value']
+  end
+end
+
+Then /^the ([^\s]+) property is set to \["(.+)"\] in ([^\s]+):$/ do |prop, commands, config_file|
+  config = Compass::Configuration::FileData.new_from_file(config_file)
+  @last_command_list = commands.split('","')
+
+  @last_command_list.each_with_index do |command, index|
+    config.send(prop)[index].should == command
   end
 end
 
@@ -252,9 +261,12 @@ Then /^I should see the following "([^"]+)" commands:$/ do |kind, table|
   commands = @last_command_list.map{|c| c =~ /^\s+\* ([^ ]+)\s+- [A-Z].+$/; [$1]}
   table.diff!(commands)
 end
-     
 
-Then /^the image ([^ ]+) has a size of (\d+)x(\d+)$/ do |file, width, height| 
+Then /^I should see the following commands:$/ do |table|
+  table.diff!([@last_command_list])
+end
+
+Then /^the image ([^ ]+) has a size of (\d+)x(\d+)$/ do |file, width, height|
   # see http://snippets.dzone.com/posts/show/805
   size = File.open(file, "rb") {|io| io.read}[0x10..0x18].unpack('NN')
   size.should == [width.to_i, height.to_i]
