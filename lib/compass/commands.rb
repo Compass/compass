@@ -10,3 +10,9 @@ require 'compass/commands/registry'
 ).each do |lib|
   require "compass/commands/#{lib}"
 end
+
+Gem.find_files("compass-*").map{|f| File.basename(f, ".rb")}.each do |compass_extension|
+  require compass_extension
+end
+Compass.discover_extensions!
+
