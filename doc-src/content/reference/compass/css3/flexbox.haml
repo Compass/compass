@@ -3,16 +3,62 @@ title: Compass Flexbox
 crumb: Flexbox
 framework: compass
 stylesheet: compass/css3/_flexbox.scss
-meta_description: This module provides mixins that pertain to the CSS3 Flexible Box.
+meta_description: This module provides mixins that pertain to CSS3 Flexbox.
 layout: core
 classnames:
   - reference
 ---
 - render 'reference' do
-	%p
-		This module provides a unified collection of mixins for the following Flexbox specifications:
+  :markdown
+    This module provides prefixing support for the three versions of flexbox that have been
+    implemented by browsers since 2009. However it does not attempt to provide a unified interface
+    across these different versions.
 
-	%ul
-		%li <a href="http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/">July 2009 Working Draft</a> (box)
-		%li <a href="http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/">March 2012 Working Draft</a> (flexbox)
-		%li <a href="http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/">September 2012 Candidate Recommendation</a> (flex)
+    1. [July 2009 Working Draft](http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/) (box)
+    2. [March 2012 Working Draft](http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/) (flexbox)
+    3. [September 2012 Candidate Recommendation](http://www.w3.org/TR/2012/CR-css3-flexbox-20120918/) (flex)
+    
+    The flexbox property mixins will only prefix the properties
+    according the spec version 3.
+    
+    There are two ways to use this module. Per property mixins or by passing a map of properties
+    to the generic flexbox module.
+
+    ### Per-property mixins
+
+    The per-property mixins only work with browsers implementing the most recent (3rd) version
+    of the spec. If you want to support the legacy browsers, you will need to use the generic flexbox
+    mixin.
+
+    Example:
+
+        .row {
+          @include display-flex;
+          @include flex-direction(row);
+        }
+
+    ### Generic Flexbox Mixin
+
+    By default the flexbox mixin assumes it is applying prefixes for spec version 3 which will also
+    output the unprefixed property. However the `$version` argument allows for prefixing according to the
+    previous versions of the spec.
+
+    Example:
+
+        .row {
+          @include flexbox((
+            display: box,
+            box-orient: vertical
+          ), $version: 1);
+          @include flexbox((
+            display: flexbox,
+            flex-direction: row
+          ), $version: 2);
+          @include flexbox((
+            display: flex,
+            flex-direction: row
+          ));
+        }
+
+
+  %ol

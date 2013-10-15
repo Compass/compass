@@ -20,7 +20,7 @@
 #flexible {
   padding: 0;
   text-align: center;
-  @include display-flex($wrap: true);
+  @include display-flex;
   @include flex-wrap(wrap);
 
   li {
@@ -47,7 +47,7 @@
 }
 
 #layout {
-  @include display-flex($wrap: true);
+  @include display-flex;
   @include flex-wrap(wrap);
 
   header, footer {

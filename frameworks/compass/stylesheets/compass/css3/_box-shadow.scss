@@ -54,7 +54,7 @@ $default-box-shadow-inset: null !default;
   $inset  : $default-box-shadow-inset
 ) {
   // Handle legacy argument order
-  @if $hoff != none and type-of($hoff) != number {
+  @if not ($hoff == none or $hoff == null) and type-of($hoff) != number {
     @warn "The $color argument for single-box-shadow is now the 5th argument instead of the 1st.";
     $tmp-color: $color;
     $color: $hoff;

@@ -19,12 +19,12 @@
   .pagerankspam { font-size: 9px; }
  .dark & {
    @extend .code-block-dark;
-   img:hover { @include single-box-shadow(white); }
+   img:hover { @include single-box-shadow($color: white); }
  }
  .light & {
    @extend .code-block-light;
    a:not(.pagerankspam) { color: #222}
-   img:hover { @include single-box-shadow(#222); }
+   img:hover { @include single-box-shadow($color: #222); }
  }
  #home & {
    float: right;

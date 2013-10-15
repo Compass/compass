@@ -61,6 +61,14 @@ $flexbox-capability-options: (
   (partial-support: true, spec-versions: 3)
 );
 
+// This is the underlying implementation for all the other mixins in this module.
+// It is the only way to access prefix support for older versions of the spec.
+//
+// `$properties`: map of property-value pairs that should be prefixed
+
+// `$version1: the version of the spec to use when considering what prefix
+// to appply. Defaults to the most recent (spec version 3). Only the most
+// recent version of the spec outputs an unprefixed version.
 @mixin flexbox($properties, $version: null) {
   $capability-options: $flexbox-capability-options;
   @if $version {
@@ -81,8 +89,9 @@ $flexbox-capability-options: (
   }
 }
 
-@mixin display-flex {
-  @include flexbox((display: flex));
+// Values for $display are: flex (default), inline-flex
+@mixin display-flex($display: flex) {
+  @include flexbox((display: $display));
 }
 
 // Values: row | row-reverse | column | column-reverse
