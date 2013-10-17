@@ -15,12 +15,14 @@
 // is wrapped in a `@supports (flex-wrap: wrap)` block (when $flex-wrap-required or the $wrap
 // argument to the `display-flex` mixin is set to `true`), it will Just Work(TM) when support is
 // finally added
-// Chrome 21 (prefixed)
+// Chrome 21 (-webkit-)
+// Safari 7.0 (-webkit-)
+// iOS 7.0 (-webkit-)
+// Blackberry 10 (-webkit-)
+// Opera 15 (-webkit-)
 // Opera 12.1-12.16 (unprefixed)
-// Opera 15 (webkit prefix)
 // Firefox 22 (unprefixed)
 // Internet Explorer 11 (unprefixed)
-// Safari 6.1 (prefixed)
 
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml.
@@ -35,8 +37,8 @@ $flex-wrap-required : false !default;
 // @private Flexbox
 // ----------------
 // March 2012 Working Draft (http://www.w3.org/TR/2012/WD-css3-flexbox-20120322/)
-// Chrome 17-? (prefixed)
-// Internet Explorer 10 (prefixed)
+// Chrome 17-? (-webkit-), unknown when support for this stopped
+// Internet Explorer 10 (-webkit-)
 
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml.
@@ -46,9 +48,13 @@ $flexbox-support: not -moz, not -webkit, not -o, -ms, not -khtml, not standard !
 // ------------
 // July 2009 Working Draft (http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/)
 // NOTE: no browser that implements this spec is known to support `box-lines: multiple`
-// Chrome 4? (prefixed)
-// Safari 3.1 (prefixed)
-// Firefox 2.0? (prefixed)
+// Chrome 4? (-webkit-)
+// Safari 3.1 (-webkit-)
+// iOS 3.2 (-webkit-)
+// Android 2.1 (-webkit-)
+// Blackberry 7 (-webkit-)
+// Opera 12.?, 15 (-webkit-)
+// Firefox 2.0? (-moz-)
 
 // @private css3-feature-support variables must always include a list of five boolean values
 // representing in order: -moz, -webkit, -o, -ms, -khtml.
@@ -109,6 +115,14 @@ $flex-legacy-orient: true !default;
 		$common: append($common, nth($flex-support, $i) or nth($flexbox-support, $i), comma);
 	}
 	@return $common;
+}
+
+@function generate-box-properties() {
+	@return $box-support != (false, false, false, false, false, false);
+}
+
+@function generate-flexbox-properties() {
+	@return $flexbox-support != (false, false, false, false, false, false);
 }
 
 // @doc off
@@ -213,6 +227,9 @@ $flex-legacy-orient: true !default;
 
 @mixin legacy-flex-wrap($value: nowrap) {
 	// NOTE: @box has no equivalent of wrap-reverse
+	@if $value != nowrap {
+		@warn "No 2009 Flexbox (@box) implementation supports wrapping";
+	}
 	@include experimental(box-lines, if($value == nowrap, single, multiple), $box-support...);
 }
 
@@ -280,7 +297,7 @@ $flex-legacy-orient: true !default;
 }
 
 // $value: Integer
-@mixin flex-grow($value: 0, $wrap: $flex-wrap-required, $legacy: $flex-legacy-enabled) {
+@mixin flex-grow($value: 0) {
 	// There is no @box version of this property
 	// There is no @flexbox version of this property
 	@include experimental(flex-grow, $value, $flex-support...);
