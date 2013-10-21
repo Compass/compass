@@ -49,4 +49,11 @@ module Compass::SassExtensions::Functions::Env
   register_sass_function :current_output_file, []
   register_sass_function :current_output_file, [:absolute]
 
+  unless Sass::Util.has?(:public_instance_method, Sass::Script::Functions, :inspect)
+    # This is going to be in sass 3.3, just here temporarily.
+    def inspect(value)
+      unquoted_string(value.to_sass)
+    end
+    register_sass_function :inspect, [:value]
+  end
 end
