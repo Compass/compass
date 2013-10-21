@@ -102,9 +102,9 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
       support-legacy-browser($browser, $min-version, $max-version, $threshold)
   {
     @if $debug-browser-support {
-      /* Content for #{$browser} #{$version}.
+      /* Content for #{display-browser-range($browser, $min-version, $max-version)}.
       Min version: #{map-get($browser-minimum-versions, $browser) or unspecified}.
-      User threshold to keep: #{$threshold}%. If #{$browser} #{$version} and below are omitted: #{omitted-usage($browser, $version)}%. */
+      User threshold to keep: #{$threshold}%. If #{display-browser-range($browser, $min-version, $max-version)} are omitted: #{omitted-usage($browser, $min-version, $max-version)}%. */
     }
     @include with-browser-ranges(intersect-browser-ranges($current-browser-versions, $ranges)) {
       @content;
