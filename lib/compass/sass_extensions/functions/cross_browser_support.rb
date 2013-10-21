@@ -148,6 +148,7 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
     number(Compass::CanIUse.instance.omitted_usage(browser.value, *versions))
   end
   Sass::Script::Functions.declare(:omitted_usage, [:browser, :min_version])
+  Sass::Script::Functions.declare(:omitted_usage, [:browser, :min_version, :max_version])
 
   # The version before the version for the browser specified
   def previous_version(browser, version)
