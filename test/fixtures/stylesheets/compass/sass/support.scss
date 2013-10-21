@@ -64,6 +64,30 @@ $some-default-value: some default value;
     @include assert-true(not browser-out-of-scope('chrome'), "should be in scope.");
   }
 
+  @include test('prefix context tracking') {
+    $outer-prefix-invoked: false;
+    $inner-prefix-invoked: false;
+    $mismatched-prefix-invoked: false;
+    @include with-prefix(-webkit) {
+      $outer-prefix-invoked: true;
+      @include assert-equal(-webkit, $current-prefix, "should be equal.");
+      @include assert-equal(-webkit, $prefix-context, "should be equal.");
+      @include with-prefix(null) {
+        $inner-prefix-invoked: true;
+        @include assert-equal(null, $current-prefix, "should be equal.");
+        @include assert-equal(-webkit, $prefix-context, "should be equal.");
+      }
+      @include with-prefix(-ms) {
+        $mismatched-prefix-invoked: true;
+      }
+    }
+    @include assert-true($inner-prefix-invoked, "should have been invoked");
+    @include assert-true($outer-prefix-invoked, "should have been invoked");
+    @include assert-false($mismatched-prefix-invoked, "should not have been invoked");
+    @include assert-equal(null, $prefix-context, "should be null");
+    @include assert-equal(null, $current-prefix, "should be null");
+  }
+
   @include test('[function] browser-out-of-scope() with a scope') {
     @include with-prefix(browser-prefix('chrome')) {
       @include assert-true(not browser-out-of-scope('chrome'), "should be in scope.");
@@ -127,7 +151,7 @@ $some-default-value: some default value;
     }
     @include assert-true(index($prefixes, null), "Must have a null");
     @include assert-equal((-webkit -webkit null), $prefixes, "Not equal");
-    @include assert-equal((null -webkit -webkit), $contexts, "Not equal");
+    @include assert-equal((-webkit -webkit -webkit), $contexts, "Not equal");
   }
 
   @include test('[fuction] has-browser-subset()') {

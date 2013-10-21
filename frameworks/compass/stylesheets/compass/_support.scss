@@ -179,9 +179,11 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
     @if $debug-browser-support and $prefix {
       /* Creating new #{$prefix} context. */
     }
+    $prefix-context: $prefix !global;
     $current-prefix: $prefix !global;
     @content;
     $current-prefix: null !global;
+    $prefix-context: null !global;
   }
 }
 
