@@ -5,8 +5,8 @@ module Compass
     ASPECTS = %w(webkit moz o ms svg css2)
 
     SIMPLE_FUNCTIONS = {
-           "image" => %w(), # No browsers implement this yet.
-      "cross-fade" => %w()  # No browsers implement this yet.
+           "image" => %w(webkit),
+      "cross-fade" => %w(webkit)
     }
 
     # Adds support for one or more aspects for the given simple function

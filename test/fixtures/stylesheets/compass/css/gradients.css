@@ -183,13 +183,13 @@
 .image-fallback {
   background-image: image(-moz-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'), #cc0000);
   background-image: image(-o-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'), #cc0000);
-  background-image: image(-webkit-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'), #cc0000);
+  background-image: -webkit-image(-webkit-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'), #cc0000);
   background-image: image(radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'), #cc0000); }
 
 .cross-fade {
   background-image: cross-fade(-moz-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'));
   background-image: cross-fade(-o-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'));
-  background-image: cross-fade(-webkit-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'));
+  background-image: -webkit-cross-fade(-webkit-radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true'));
   background-image: cross-fade(radial-gradient(#dddddd, #aaaaaa 100px), url('/images/4x6.png?busted=true')); }
 
 .unknown-function-wrapper {
