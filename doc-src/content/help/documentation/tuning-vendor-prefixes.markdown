@@ -63,7 +63,7 @@ the underlying data. You can inspect these values in the console:
     >> browser-versions(ie)
     ("5.5", "6", "7", "8", "9", "10", "11")
 
-## Tweeking Support on a Per-Feature Basis
+## Tweaking Support on a Per-Feature Basis
 
 Each CSS3 module provides feature-specific threshold variables. These
 default to either `$graceful-usage-threshold` or
