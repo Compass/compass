@@ -12,12 +12,13 @@ gem 'fssm'
 gem 'mime-types'
 gem 'nokogiri'
 gem 'coderay'
-gem 'haml', '3.1.7'
+gem 'haml'
 gem 'rake'
 gem 'activesupport', '~> 3.0.10', :require => 'active_support/inflector'
+gem 'sass', :path => "../../sass"
 gem 'compass', :path => ".."
-# gem 'compass-susy-plugin', ">=0.7.0.pre8"
-# gem 'css-slideshow', "0.2.0"
+gem 'susy'
+gem 'css-slideshow', "0.2.0"
 gem 'json'
 gem 'css_parser', "1.0.1"
 gem 'ruby-prof'

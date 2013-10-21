@@ -2,8 +2,6 @@
   #wrap
     = render "partials/main-navigation"
     #sub-nav
-      %nav#docs-nav{:role => "navigation"}
-        %a{:href => "/reference/compass/", :rel => "core"} Core
       - if content_for(@item, :module_nav)
         %nav#module-nav= content_for(@item, :module_nav)
     #page

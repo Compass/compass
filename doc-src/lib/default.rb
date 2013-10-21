@@ -129,6 +129,14 @@ def tutorial_item(path)
   end
 end
 
+def documentation_item(path)
+  path = "" if path == :root
+  @items.detect do |i|
+    i.identifier == "/help/documentation/#{path}"
+  end
+end
+
+
 def compass_version
   v = Compass.version
   "#{v[:major]}.#{v[:minor]}#{"."+v[:state] if v[:state]}.#{v[:build] || v[:patch]}"

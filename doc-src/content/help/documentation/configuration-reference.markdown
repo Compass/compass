@@ -1,8 +1,8 @@
 ---
 title: Configuration Reference
-layout: tutorial
+layout: documentation
 classnames:
-  - tutorial
+  - documentation
 ---
 # Configuration Reference
 

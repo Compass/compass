@@ -1,19 +1,12 @@
-GIT
-  remote: git://github.com/Compass/compass-theme.git
-  revision: 91f61208b587bd60ee88392e03f16258c081a7d8
-  specs:
-    compass-theme (0.0.2)
-      compass (~> 0.11)
-      compass-susy-plugin (~> 0.7.0)
-      css-slideshow (= 0.2.0)
-
 PATH
   remote: ..
   specs:
-    compass (0.13.alpha.4.c4921ef)
+    compass (0.13.alpha.7.1758fa1)
       chunky_png (~> 1.2)
+      json
       listen (~> 1.1.0)
-      sass (>= 3.2.5, < 3.4)
+      sass (~> 3.3.0.rc.1)
+      listen (~> 1.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -22,11 +15,9 @@ GEM
     adsf (1.1.1)
       rack (>= 1.0.0)
     builder (3.2.0)
-    chunky_png (1.2.8)
+    chunky_png (1.2.9)
     coderay (1.0.9)
     colored (1.2)
-    compass-susy-plugin (0.7.0)
-      compass (>= 0.10.0)
     cri (2.3.0)
       colored (>= 1.2)
     css-slideshow (0.2.0)
@@ -38,10 +29,11 @@ GEM
     foreman (0.62.0)
       thor (>= 0.13.6)
     fssm (0.2.10)
-    haml (3.1.7)
+    haml (4.0.3)
+      tilt
     i18n (0.6.4)
     json (1.7.7)
-    listen (1.1.4)
+    listen (1.1.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -58,12 +50,15 @@ GEM
       ffi (>= 0.5.0)
     rdiscount (2.0.7.2)
     ruby-prof (0.13.0)
-    sass (3.2.9)
+    susy (2.0.0.alpha.4)
+      compass (>= 0.12.2)
+      sass (>= 3.2.0)
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.18.1)
+    tilt (1.4.1)
 
 PLATFORMS
   ruby
@@ -74,11 +69,11 @@ DEPENDENCIES
   builder
   coderay
   compass!
-  compass-theme!
+  css-slideshow (= 0.2.0)
   css_parser (= 1.0.1)
   foreman
   fssm
-  haml (= 3.1.7)
+  haml
   i18n
   json
   mime-types
@@ -90,5 +85,7 @@ DEPENDENCIES
   rb-inotify
   rdiscount
   ruby-prof
+  sass
+  susy
   thin
   thor

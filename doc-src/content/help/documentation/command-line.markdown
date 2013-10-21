@@ -1,8 +1,8 @@
 ---
 title: Compass Command Line Documentation
-layout: tutorial
+layout: documentation
 classnames:
-  - tutorial
+  - documentation
 ---
 Compass Command Line Documentation
 ==================================
