@@ -42,7 +42,7 @@ $input-placeholder-support-threshold: $graceful-usage-threshold !default;
 //     }
 //
 // if you want to apply the placeholder styles to all elements supporting
-// the `input-placeholder` psuedoclass (beware of performance impacts):
+// the `input-placeholder` pseudo class (beware of performance impacts):
 //
 //     * {
 //       @include input-placeholder {
