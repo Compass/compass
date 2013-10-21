@@ -4,7 +4,7 @@
 
 // The the user threshold for hyphens support.
 // Defaults to `$graceful-usage-threshold`.
-$hyphens-support-threshold: $graceful-usage-threshold;
+$hyphens-support-threshold: $graceful-usage-threshold !default;
 
 
 // Mixin for word-break properties

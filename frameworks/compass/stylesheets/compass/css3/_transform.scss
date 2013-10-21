@@ -1,7 +1,7 @@
 @import "compass/support";
 
 // The the user threshold for transform support. Defaults to `$graceful-usage-threshold`
-$transform-support-threshold: $graceful-usage-threshold;
+$transform-support-threshold: $graceful-usage-threshold !default;
 
 // @doc off
 // Note ----------------------------------------------------------------------

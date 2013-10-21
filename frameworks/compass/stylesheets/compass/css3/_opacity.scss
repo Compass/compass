@@ -2,7 +2,7 @@
 
 // The support usage threshold for opacity. Defaults to the global
 // threshold for graceful degradation.
-$opacity-usage-threshold: $graceful-usage-threshold;
+$opacity-usage-threshold: $graceful-usage-threshold !default;
 
 // Provides cross-browser CSS opacity. Takes a number between 0 and 1 as the argument, e.g. 0.5 for 50% opacity.
 //
