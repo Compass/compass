@@ -13,7 +13,7 @@ $default-has-layout-approach: zoom !default;
 // to gain the "hasLayout" property in internet explorer.
 // More information on [hasLayout](http://reference.sitepoint.com/css/haslayout).
 @mixin has-layout($approach: $default-has-layout-approach) {
-  @if support-legacy-browser("ie", "7", $has-layout-support-threshold) {
+  @if support-legacy-browser("ie", "7", $threshold: $has-layout-support-threshold) {
     @if $approach == zoom {
       @include has-layout-zoom;
     } @else if $approach == block {
@@ -26,13 +26,13 @@ $default-has-layout-approach: zoom !default;
 }
 
 @mixin has-layout-zoom {
-  @if support-legacy-browser("ie", "7", $has-layout-support-threshold) {
+  @if support-legacy-browser("ie", "7", $threshold: $has-layout-support-threshold) {
     *zoom: 1;
   }
 }
 
 @mixin has-layout-block {
-  @if support-legacy-browser("ie", "7", $has-layout-support-threshold) {
+  @if support-legacy-browser("ie", "7", $threshold: $has-layout-support-threshold) {
     // This makes ie6 get layout
     display: inline-block;
     // and this puts it back to block
@@ -48,7 +48,7 @@ $ie6-attribute-hack-support-threshold: $critical-usage-threshold !default;
 // A hack to supply IE6 (and below) with a different property value.
 // [Read more](http://www.cssportal.com/css-hacks/#in_css-important).
 @mixin bang-hack($property, $value, $ie6-value) {
-  @if support-legacy-browser("ie", "6", $ie6-attribute-hack-support-threshold) {
+  @if support-legacy-browser("ie", "6", $threshold: $ie6-attribute-hack-support-threshold) {
     @warn "it's recommended to use the underscore-hack() mixin instead of bang-hack()";
     #{$property}: #{$value} !important;
     #{$property}: #{$ie6-value};
@@ -58,7 +58,7 @@ $ie6-attribute-hack-support-threshold: $critical-usage-threshold !default;
 // A hack to supply IE6 (and below) with a different property value.
 // [Read more](http://www.paulirish.com/2009/browser-specific-css-hacks/)
 @mixin underscore-hack($property, $value, $ie6-value) {
-  @if support-legacy-browser("ie", "6", $ie6-attribute-hack-support-threshold) {
+  @if support-legacy-browser("ie", "6", $threshold: $ie6-attribute-hack-support-threshold) {
     #{$property}: #{$value};
     _#{$property}: #{$ie6-value};
   }

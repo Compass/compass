@@ -10,7 +10,7 @@ $opacity-usage-threshold: $graceful-usage-threshold;
 //         A number between 0 and 1, where 0 is transparent and 1 is opaque.
 
 @mixin opacity($opacity) {
-  @include for-legacy-browser("ie", "8", $opacity-usage-threshold) {
+  @include for-legacy-browser("ie", "8", $threshold: $opacity-usage-threshold) {
     filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
   }
   opacity: $opacity;

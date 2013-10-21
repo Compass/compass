@@ -46,9 +46,9 @@
       left: $padding;
       right: $padding;
     }
-    &:first-child #{if(support-legacy-browser("ie", "6", $css-sel2-support-threshold), ', &.first', '')} { padding-#{$direction}: 0; }
+    &:first-child #{if(support-legacy-browser("ie", "6", $threshold: $css-sel2-support-threshold), ', &.first', '')} { padding-#{$direction}: 0; }
     &:last-child { padding-#{opposite-position($direction)}: 0; }
-    @if support-legacy-browser("ie", "7", $css-sel2-support-threshold) {
+    @if support-legacy-browser("ie", "7", $threshold: $css-sel2-support-threshold) {
       &.last { padding-#{opposite-position($direction)}: 0; } }
   }
 }

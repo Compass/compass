@@ -128,9 +128,14 @@
 
 .border-image-gradient {
   -moz-border-image: -moz-radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
+  -moz-border-image: radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
   -o-border-image: -o-radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
+  -o-border-image: radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
   -webkit-border-image: -webkit-radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
+  -webkit-border-image: radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
+  border-image: -moz-radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
   border-image: -o-radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
+  border-image: -webkit-radial-gradient(#00ff00, #ff0000 100px) 100 stretch;
   border-image: radial-gradient(#00ff00, #ff0000 100px) 100 stretch; }
 
 .direct-list-image-plain {

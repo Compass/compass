@@ -76,34 +76,58 @@ class Compass::CanIUse
     result
   end
 
-  def browser_minimums(capability, prefix = nil)
+  def browser_ranges(capability, prefix = nil, include_unprefixed_versions = true)
     assert_valid_capability capability
     browsers = prefix.nil? ? browsers() : browsers_with_prefix(prefix)
     browsers.inject({}) do |m, browser|
-      version = versions(browser).find do |version|
-                  support = browser_support(browser, version, capability)
-                  if prefix.nil?
-                    support !~ /\bn\b/ && support !~ /\bx\b/
-                  else
-                    actual_prefix = prefix(browser, version)
-                    support !~ /\bn\b/ && support =~ /\bx\b/ && prefix == actual_prefix
-                  end
-                end
-      m.update(browser => version) if version
+      browser_versions = versions(browser)
+      min_version = find_first_prefixed_version(browser, browser_versions, capability, prefix)
+      if min_version
+        max_version = if include_unprefixed_versions
+                        browser_versions.last
+                      else
+                        find_first_prefixed_version(browser, browser_versions.reverse, capability, prefix)
+                      end
+        m.update(browser => [min_version, max_version])
+      end
       m
     end
   end
 
-  # How many users would be omitted if support for the given browser starts
-  # with the given version.
-  def omitted_usage(browser, min_version)
-    assert_valid_browser browser
-    usage = 0
-    versions(browser).each do |version|
-      return usage if version == min_version
-      usage += usage(browser, version)
+  def find_first_prefixed_version(browser, versions, capability, prefix)
+    versions.find do |version|
+      support = browser_support(browser, version, capability)
+      if prefix.nil?
+        support !~ /\bn\b/ && support !~ /\bx\b/
+      else
+        actual_prefix = prefix(browser, version)
+        support !~ /\bn\b/ && support =~ /\bx\b/ && prefix == actual_prefix
+      end
     end
-    raise ArgumentError, "#{min_version} is not a version for #{browser}"
+  end
+
+  # @overload omitted_usage(browser, min_supported_version)
+  #   How many users would be omitted if support for the given browser starts
+  #   with the given version.
+  #
+  # @overload omitted_usage(browser, min_unsupported_version, max_unsupported_version)
+  #   How many users would be omitted if the browsers with version
+  def omitted_usage(browser, min_version, max_version = nil)
+    versions = versions(browser)
+    if max_version.nil?
+      assert_valid_version browser, min_version
+    else
+      assert_valid_version browser, min_version, max_version
+    end
+    usage = 0
+    in_range = max_version.nil?
+    versions.each do |version|
+      break if max_version.nil? && version == min_version
+      in_range = true if (!max_version.nil? && version == min_version)
+      usage += usage(browser, version) if in_range
+      break if !max_version.nil? && version == max_version
+    end
+    return usage
   end
 
   # returns the list of browsers that use the given prefix
@@ -148,6 +172,18 @@ class Compass::CanIUse
       end
     end
     usage
+  end
+
+  def next_version(browser, version)
+    versions = versions(browser)
+    index = versions.index(version)
+    index < versions.length - 1 ? versions[index + 1] : nil
+  end
+
+  def previous_version(browser, version)
+    versions = versions(browser)
+    index = versions.index(version)
+    index > 0 ? versions[index - 1] : nil
   end
 
   # Returns whether the given minimum version of a browser

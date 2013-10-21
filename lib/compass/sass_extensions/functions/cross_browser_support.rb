@@ -139,12 +139,33 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
 
   # The percent of users that are omitted by setting the min_version of browser
   # as specified.
-  def omitted_usage(browser, min_version)
+  def omitted_usage(browser, min_version, max_version = nil)
     assert_type browser, :String
-    assert_type min_version, :String
-    number(Compass::CanIUse.instance.omitted_usage(browser.value, min_version.value))
+    assert_type min_version, :String, :min_version
+    assert_type(max_version, :String, :max_version) if max_version
+    versions = [min_version.value]
+    versions << max_version.value if max_version
+    number(Compass::CanIUse.instance.omitted_usage(browser.value, *versions))
   end
   Sass::Script::Functions.declare(:omitted_usage, [:browser, :min_version])
+
+  # The version before the version for the browser specified
+  def previous_version(browser, version)
+    assert_type browser, :String
+    assert_type version, :String
+    previous = Compass::CanIUse.instance.previous_version(browser.value, version.value)
+    previous.nil? ? null() : quoted_string(previous)
+  end
+  Sass::Script::Functions.declare(:previous_version, [:browser, :version])
+
+  # The version before the version for the browser specified
+  def next_version(browser, version)
+    assert_type browser, :String
+    assert_type version, :String
+    next_version = Compass::CanIUse.instance.next_version(browser.value, version.value)
+    next_version.nil? ? null() : quoted_string(next_version)
+  end
+  Sass::Script::Functions.declare(:next_version, [:browser, :version])
 
   # The percent of users relying on a particular prefix
   def prefix_usage(prefix, capability, capability_options)
@@ -164,9 +185,9 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   # * <0 if the first version is less than the second
   # * >0 if the first version is more than the second
   def compare_browser_versions(browser, version1, version2)
-    assert_type browser, :String
-    assert_type version1, :String
-    assert_type version2, :String
+    assert_type browser, :String, :browser
+    assert_type version1, :String, :version1
+    assert_type version2, :String, :version2
     index1 = index2 = nil
     Compass::CanIUse.instance.versions(browser.value).each_with_index do |v, i|
       index1 = i if v == version1.value
@@ -191,12 +212,14 @@ module Compass::SassExtensions::Functions::CrossBrowserSupport
   # without a prefix.
   #
   # If a browser does not have the capability, it will not included in the map.
-  def browser_minimums(capability, prefix = null())
+  def browser_ranges(capability, prefix = null(), include_unprefixed_versions = bool(true))
     assert_type capability, :String
     assert_type(prefix, :String) unless prefix == null()
-    mins = Compass::CanIUse.instance.browser_minimums(capability.value, prefix.value)
-    Sass::Script::Value::Map.new(mins.inject({}) do |m, (h, k)|
-      m[identifier(h)] = quoted_string(k)
+    mins = Compass::CanIUse.instance.browser_ranges(capability.value,
+                                                    prefix.value,
+                                                    include_unprefixed_versions.to_bool)
+    Sass::Script::Value::Map.new(mins.inject({}) do |m, (h, range)|
+      m[identifier(h)] = list(range.map{|version| quoted_string(version)}, :space)
       m
     end)
   end

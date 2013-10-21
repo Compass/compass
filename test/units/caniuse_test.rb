@@ -87,20 +87,31 @@ class CanIUseTest < Test::Unit::TestCase
     assert_equal "-webkit", caniuse.requires_prefix("opera", "16", "css-filters", DEFAULT_CAPABILITY_OPTIONS)
   end
 
-  def test_browser_minimums
-    mins = caniuse.browser_minimums("css-filters", "-webkit")
+  def test_browser_ranges_only_prefixed
+    mins = caniuse.browser_ranges("border-radius", "-webkit", false)
     expected = {
-      "android-chrome"=>"0",
-      "blackberry"=>"10",
-      "chrome"=>"18",
-      "ios-safari"=>"6.0-6.1",
-      "opera"=>"15",
-      "opera-mobile"=>"14",
-      "safari"=>"6"
+      "android"=>["2.1", "2.1"],
+      "chrome"=>["4", "4"],
+      "ios-safari"=>["3.2", "3.2"],
+      "safari"=>["3.1", "4"]
     }
     assert_equal(expected, mins)
-    mins = caniuse.browser_minimums("css-filters", "-o")
+  end
+
+  def test_ranges_are_empty_when_prefix_doesnt_exit
+    mins = caniuse.browser_ranges("css-filters", "-o")
     expected = {}
+    assert_equal(expected, mins)
+  end
+
+  def test_browser_ranges_including_unprefixed
+    mins = caniuse.browser_ranges("border-radius", "-webkit")
+    expected = {
+      "android"=>["2.1", "4.2"],
+      "chrome"=>["4", "31"],
+      "ios-safari"=>["3.2", "7.0"],
+      "safari"=>["3.1", "7"]
+    }
     assert_equal(expected, mins)
   end
 
@@ -111,5 +122,13 @@ class CanIUseTest < Test::Unit::TestCase
     assert !caniuse.capability_matches(
       caniuse.browser_support("chrome", "10", "flexbox"),
       [{:full_support => true}, {:partial_support => true, :spec_versions => [3]}])
+  end
+
+  def test_omitted_usage
+    assert_equal 0, caniuse.omitted_usage("chrome", "4")
+    assert_equal caniuse.usage("chrome", "4"), caniuse.omitted_usage("chrome", "5")
+    assert_equal caniuse.usage("chrome", "4"), caniuse.omitted_usage("chrome", "4", "4")
+    assert_equal caniuse.usage("chrome", "4") + caniuse.usage("chrome", "5"),
+                 caniuse.omitted_usage("chrome", "4", "5")
   end
 end

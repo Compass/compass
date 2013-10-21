@@ -4,21 +4,18 @@
 
   50% {
     opacity: 0; } }
-
 @-webkit-keyframes test {
   0%, 100% {
     opacity: 1; }
 
   50% {
     opacity: 0; } }
-
 @keyframes test {
   0%, 100% {
     opacity: 1; }
 
   50% {
     opacity: 0; } }
-
 .animation {
   -moz-animation: test;
   -webkit-animation: test;

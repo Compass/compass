@@ -31,7 +31,7 @@
     &:last-child {
       &:after { content: ""; }
     }
-    @if support-legacy-browser("ie", "7", $css-sel2-support-threshold) {
+    @if support-legacy-browser("ie", "7", $threshold: $css-sel2-support-threshold) {
       &.last {
         &:after { content: ""; }
       }

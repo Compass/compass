@@ -4,21 +4,18 @@
 
   50% {
     background-color: blue; } }
-
 @-webkit-keyframes test {
   0%, 100% {
     background-color: red; }
 
   50% {
     background-color: blue; } }
-
 @keyframes test {
   0%, 100% {
     background-color: red; }
 
   50% {
     background-color: blue; } }
-
 .animation {
   -moz-animation: test;
   -webkit-animation: test;

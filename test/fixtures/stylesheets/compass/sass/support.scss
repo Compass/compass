@@ -44,17 +44,17 @@ $some-default-value: some default value;
   }
 
   @include test('[function] support-legacy-browser() from threshold') {
-    @include assert-true(support-legacy-browser('ie', '6', 0.00000001),
+    @include assert-true(support-legacy-browser('ie', '6', $threshold: 0.00000001),
                          "should be supported because of user support threshold.");
-    @include assert-false(support-legacy-browser('ie', '6', 10.000),
+    @include assert-false(support-legacy-browser('ie', '6', $threshold: 10.000),
                           "should not be supported because of support threshold.");
   }
 
   @include test('[function] support-legacy-browser() from minimums') {
     @include with-declared-minimums(('ie': '7')) {
-      @include assert-true(support-legacy-browser('ie', '7', 10.00),
+      @include assert-true(support-legacy-browser('ie', '7', $threshold: 10.00),
       "should be supported because of minimum version.");
-      @include assert-false(support-legacy-browser('ie', '6', 10.000),
+      @include assert-false(support-legacy-browser('ie', '6', $threshold: 10.000),
       "should not be supported because of minimum version.");
     }
   }
@@ -72,7 +72,7 @@ $some-default-value: some default value;
   }
 
   @include test('[function] browser-out-of-scope() with version') {
-    @include with-browser-minimums((ie: '8')) {
+    @include with-browser-ranges((ie: '8' '8')) {
       @include assert-true(not browser-out-of-scope('ie', '10'), "should be in scope.");
       @include assert-true(not browser-out-of-scope('ie', '8'), "should be in scope.");
       @include assert-false(not browser-out-of-scope('ie', '7'), "should not be in scope.");
@@ -115,14 +115,27 @@ $some-default-value: some default value;
   }
 
   @include test('[mixin] with-each-prefix() respects $current-prefix') {
+    $contexts: ();
+    $prefixes: ();
     @include with-prefix(-webkit) {
-      $prefixes: ();
+      $prefixes: append($prefixes, $current-prefix);
+      $contexts: append($contexts, $prefix-context);
       @include with-each-prefix(css-regions, 0.0001) {
         $prefixes: append($prefixes, $current-prefix);
+        $contexts: append($contexts, $prefix-context);
       }
-      @include assert-equal(false, index($prefixes, null), "Not not have a null");
-      @include assert-equal("-webkit", #{$prefixes}, "Not equal");
     }
+    @include assert-true(index($prefixes, null), "Must have a null");
+    @include assert-equal((-webkit -webkit null), $prefixes, "Not equal");
+    @include assert-equal((null -webkit -webkit), $contexts, "Not equal");
+  }
+
+  @include test('[fuction] has-browser-subset()') {
+    @include assert-true(has-browser-subset((firefox: "16" "25"), (firefox: "2" "25")), "Should detect version overlap");
+    @include assert-true(not has-browser-subset((firefox: "16" "25"), (firefox: "2" "15")), "Should not detect version overlap");
+    @include assert-true(not has-browser-subset((firefox: "2" "15"), (firefox: "16" "25")), "Should not detect version overlap");
+    @include assert-true(has-browser-subset((firefox: "16" "24"), (firefox: "2" "25")), "Should detect version overlap");
+    @include assert-true(has-browser-subset((firefox: "2" "25"), (firefox: "16" "24")), "Should detect version overlap");
   }
 }
 
