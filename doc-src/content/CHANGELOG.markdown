@@ -13,11 +13,17 @@ Don't let all these details [scare you...](http://compass-style.org/help/tutoria
 The Documentation for the [latest stable release](http://compass-style.org/docs/):
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
-0.13.alpha.5 (UNRELEASED)
+
+0.13.alpha.8 (10/21/2013)
 -------------------------
 
 ### Deprecations & Breaking changes
 
+* **Breaking Change**: The CSS3PIE module has been removed.
+* The experimental and legacy support configuration variables have been
+  removed. Vendor prefixing is now configured according to minimum
+browser versions and browser usage statistic thresholds. [More
+details](/help/documentation/tuning-vendor-prefixes/).
 * The old box module has been deprecated. Please use the new flexbox module.
 * The transform-legacy module which was deprecated in 0.12 has been removed.
 * The blueprint framework has been removed from compass. The
@@ -28,6 +34,8 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   blog](/blog/2012/05/20/removing-blueprint/).
 * *alpha users only:* The input-placeholder mixin API has changed. It no longer accepts an argument.
 * *alpha users only:* The selection mixin API has changed. It no longer accepts a selector as an argument.
+* *alpha users only:* The flexbox module was completely rewritten.
+  [Documentation](/reference/compass/css3/flexbox/)
 
 ### Changes
 
