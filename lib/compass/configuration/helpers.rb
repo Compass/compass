@@ -106,7 +106,15 @@ module Compass
           end
           add_configuration(data)
         else
-          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)  
+          add_configuration(options[:project_type] || configuration.project_type_without_default || (yield if block_given?) || :stand_alone)
+        end
+      end
+
+      def discover_gem_extensions!
+        if defined?(Gem)
+          Gem.find_files("compass-*").map{|f| File.basename(f, ".rb")}.each do |compass_extension|
+            require compass_extension
+          end
         end
       end
 
@@ -119,6 +127,7 @@ module Compass
         if File.directory?(configuration.extensions_path)
           Compass::Frameworks.discover(configuration.extensions_path)
         end
+        discover_gem_extensions!
       end
 
       # Returns a full path to the relative path to the project directory
