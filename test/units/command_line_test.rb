@@ -29,6 +29,7 @@ class CommandLineTest < Test::Unit::TestCase
 
   Compass::Frameworks::ALL.each do |framework|
     next if framework.name == "true"
+    next if framework.name == "testing"
     next if framework.name =~ /^_/
     define_method "test_#{framework.name}_installation" do
       within_tmp_directory do
