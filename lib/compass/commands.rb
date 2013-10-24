@@ -10,3 +10,5 @@ require 'compass/commands/registry'
 ).each do |lib|
   require "compass/commands/#{lib}"
 end
+
+Compass.discover_extensions!
