@@ -14,13 +14,13 @@ class CommandLineTest < Test::Unit::TestCase
   end
 
   def test_print_version
-    compass "-vq"
-    assert_match /\d+\.\d+\.(\d+|((alpha|beta|rc)\.\d+\.[0-9a-f]+))?/, @last_result
+    compass("-vq")
+    assert_match(/\d+\.\d+\.(\d+|((alpha|beta|rc)\.\d+\.[0-9a-f]+))?/, @last_result)
   end
 
   def test_basic_install
     within_tmp_directory do
-      compass "create", "--boring", "basic"
+      compass(*%w(create --boring basic))
       assert File.exists?("basic/sass/screen.scss")
       assert_action_performed :directory, "basic/"
       assert_action_performed    :create, "basic/sass/screen.scss"
@@ -33,7 +33,7 @@ class CommandLineTest < Test::Unit::TestCase
     next if framework.name =~ /^_/
     define_method "test_#{framework.name}_installation" do
       within_tmp_directory do
-        compass *%W(create --boring --using #{framework.name} #{framework.name}_project)
+        compass(*%W(create --boring --using #{framework.name} #{framework.name}_project))
         assert File.exists?("#{framework.name}_project/sass/screen.scss"), "sass/screen.scss is missing. Found: #{Dir.glob("#{framework.name}_project/**/*").join(", ")}"
         assert File.exists?("#{framework.name}_project/stylesheets/screen.css")
         assert_action_performed :directory, "#{framework.name}_project/"

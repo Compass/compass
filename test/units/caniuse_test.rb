@@ -4,18 +4,18 @@ require 'compass'
 class CanIUseTest < Test::Unit::TestCase
 
   def caniuse
-    Compass::CanIUse.instance
+    Compass::Core::CanIUse.instance
   end
 
   DEFAULT_CAPABILITY_OPTIONS = [{:full_support => true}, {:partial_support => true}]
 
   def test_unknown_browsers
-    assert_equal "unknown", Compass::CanIUse::PUBLIC_BROWSER_NAMES["unknown"]
-    assert_equal "unknown", Compass::CanIUse::CAN_I_USE_NAMES["unknown"]
+    assert_equal "unknown", Compass::Core::CanIUse::PUBLIC_BROWSER_NAMES["unknown"]
+    assert_equal "unknown", Compass::Core::CanIUse::CAN_I_USE_NAMES["unknown"]
   end
 
   def test_browser_names
-    assert_equal Compass::CanIUse::PUBLIC_BROWSER_NAMES.values.sort, caniuse.browsers
+    assert_equal Compass::Core::CanIUse::PUBLIC_BROWSER_NAMES.values.sort, caniuse.browsers
   end
 
   def test_prefixes

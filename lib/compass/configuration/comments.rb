@@ -42,7 +42,7 @@ module Compass
       end
 
       def comment_for_preferred_syntax
-        if top_level.preferred_syntax == :scss && top_level.sass_dir
+        if top_level.preferred_syntax_without_default.nil? && top_level.sass_dir
           %Q{
 # If you prefer the indented syntax, you might want to regenerate this
 # project again passing --syntax sass, or you can uncomment this:
@@ -54,6 +54,9 @@ module Compass
           ""
         end
       end
+    end
+    class Data
+      include Comments
     end
   end
 end

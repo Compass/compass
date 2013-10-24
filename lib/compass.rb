@@ -1,7 +1,17 @@
 module Compass
 end
 
-%w(dependencies util browser_support sass_extensions version errors quick_cache logger actions).each do |lib|
+%w(frameworks
+   core
+   dependencies
+   util
+   sass_extensions
+   version
+   errors
+   quick_cache
+   logger
+   actions
+).each do |lib|
   require "compass/#{lib}"
 end
 
@@ -29,9 +39,15 @@ module Compass
   extend QuickCache
 end
 
-%w(watcher configuration frameworks app_integration compiler caniuse).each do |lib|
+%w(watcher
+   configuration/adapters
+   configuration/comments
+   configuration/helpers
+   configuration/serialization
+   configuration/file_data
+   app_integration
+   compiler
+   sprite_importer
+).each do |lib|
   require "compass/#{lib}"
 end
-
-# for rails upgrade warnings in 0.12
-require 'compass/app_integration/rails'

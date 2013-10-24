@@ -79,5 +79,8 @@ module Compass
         load_paths
       end
     end
+    class Data
+      include Adapters
+    end
   end
 end

@@ -172,7 +172,7 @@ class SassExtensionsTest < Test::Unit::TestCase
             :original
           end
         end
-        c.send(:include, Compass::SassExtensions::Functions::Urls)
+        c.send(:include, Compass::Core::SassExtensions::Functions::Urls)
         assert_equal :original, c.new.#{helper}("logo.png")
       end
     }
@@ -190,7 +190,7 @@ class SassExtensionsTest < Test::Unit::TestCase
     object.expects(:to_path).returns('foo.jpg')
     object.expects(:respond_to?).with(:to_path).returns(true)
 
-    Compass::SassExtensions::Functions::ImageSize::ImageProperties.new(object)
+    Compass::Core::SassExtensions::Functions::ImageSize::ImageProperties.new(object)
   end
 
   def test_reject

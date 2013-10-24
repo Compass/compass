@@ -1,6 +1,6 @@
 class GradientTestClass
-  extend Compass::SassExtensions::Functions::Constants
-  extend Compass::SassExtensions::Functions::GradientSupport::Functions
+  extend Compass::Core::SassExtensions::Functions::Constants
+  extend Compass::Core::SassExtensions::Functions::GradientSupport::Functions
 end
 
 require 'test_helper'

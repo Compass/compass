@@ -84,5 +84,8 @@ module Compass
       end
 
     end
+    class Data
+      include Serialization
+    end
   end
 end

@@ -6,7 +6,10 @@ class SpriteMapTest < Test::Unit::TestCase
   def setup
     Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
     create_sprite_temp
-    file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
+    file = StringIO.new(<<-CONFIG)
+      project_path = "#{@images_proj_path}"
+      images_dir = "#{@images_tmp_dir}"
+    CONFIG
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
     @options = {'cleanup' => Sass::Script::Bool.new(true), 'layout' => Sass::Script::String.new('vertical')}

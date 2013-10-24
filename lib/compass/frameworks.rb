@@ -3,7 +3,6 @@ module Compass
     extend self
 
     ALL = []
-    DEFAULT_FRAMEWORKS_PATH = File.join(Compass.base_directory, 'frameworks')
 
     class Framework
       attr_accessor :name
@@ -56,7 +55,10 @@ module Compass
     end
 
     def discover(frameworks_directory)
-      frameworks_directory = DEFAULT_FRAMEWORKS_PATH if frameworks_directory == :defaults
+      if frameworks_directory == :defaults
+        warn("The :defaults argument to Compass::Frameworks.discover is no longer necessary")
+        return
+      end
       frameworks_directory = Dir.new(frameworks_directory) unless frameworks_directory.is_a?(Dir)
       dirs = frameworks_directory.entries.reject{|e| e =~ /^\./}.sort_by{|n| n =~ /^_/ ? n[1..-1] : n}
       dirs.each do |framework|
@@ -128,6 +130,26 @@ module Compass
       result
     end
   end
-end
 
-Compass::Frameworks.discover(:defaults)
+  class << self
+    def discover_gem_extensions!
+      if defined?(Gem)
+        Gem.find_files("compass-*").map{|f| File.basename(f, ".rb")}.each do |compass_extension|
+          require compass_extension
+        end
+      end
+    end
+
+    def discover_extensions!
+      Compass.shared_extension_paths.each do |extensions_path|
+        if File.directory?(extensions_path)
+          Compass::Frameworks.discover(extensions_path)
+        end
+      end
+      if File.directory?(configuration.extensions_path)
+        Compass::Frameworks.discover(configuration.extensions_path)
+      end
+      discover_gem_extensions!
+    end
+  end
+end

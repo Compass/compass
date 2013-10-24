@@ -19,6 +19,7 @@ module Compass
       self.sass_options[:compass] ||= {}
       self.sass_options[:compass][:logger] = self.logger
       self.sass_options[:compass][:environment] = Compass.configuration.environment
+      self.sass_options[:compass][:compiler_in_use] = true
       reset_staleness_checker!
     end
 

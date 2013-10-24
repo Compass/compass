@@ -1,5 +1,3 @@
-need_gems = false
-
 lib_dir = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $:.unshift(lib_dir) unless $:.include?(lib_dir)
 test_dir = File.dirname(__FILE__)
@@ -37,8 +35,11 @@ module SpriteHelper
   URI = "selectors/*.png"
   
   def init_sprite_helper
-    @images_src_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public', 'images')
-    @images_tmp_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public', 'images-tmp')
+    @images_proj_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public')
+    @images_src_dir = 'images'
+    @images_src_path = File.join(@images_proj_path, @images_src_dir)
+    @images_tmp_dir = 'images-tmp'
+    @images_tmp_path = File.join(@images_proj_path, @images_tmp_dir)
   end
   
   def sprite_map_test(options, uri = URI)
@@ -59,7 +60,8 @@ module SpriteHelper
   def clean_up_sprites
     init_sprite_helper
     ::FileUtils.rm_r @images_tmp_path   
-  rescue Errno::ENOENT => e  
+  rescue Errno::ENOENT
+    #pass
   end
   
 end

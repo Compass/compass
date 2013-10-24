@@ -48,7 +48,7 @@ $<%= name %>-sprite-base-class : ".<%= name %>#{$<%= name %>-class-separator}spr
   } 
 } @else {
   #{$<%= name %>-sprite-base-class} {
-    background-image: $<%= name %>-sprites;
+    background-image: sprite-url($<%= name %>-sprites);
     background-repeat: no-repeat;
   }
 }

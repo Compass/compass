@@ -3,31 +3,6 @@ module Compass
     @callbacks_loaded = false
     # The helpers are available as methods on the Compass module. E.g. Compass.configuration
     module Helpers
-      def configuration
-        @configuration ||= default_configuration
-        if block_given?
-          yield @configuration
-        end
-        @configuration
-      end
-
-      def default_configuration
-        Data.new('defaults').extend(Defaults).extend(Comments)
-      end
-
-      def add_configuration(config, filename = nil)
-        return if config.nil?
-
-
-        data = configuration_for(config, filename)
-
-        # puts "New configuration: #{data.name}"
-        # puts caller.join("\n")
-        data.inherit_from!(configuration)
-        data.on_top!
-        @configuration = data
-      end
-
       def configuration_for(config, filename = nil, defaults = nil)
         if config.nil?
           nil
@@ -47,11 +22,6 @@ module Compass
         else
           raise "I don't know what to do with: #{config.inspect}"
         end
-      end
-
-      # Support for testing.
-      def reset_configuration!
-        @configuration = nil
       end
 
       def sass_plugin_configuration
@@ -110,41 +80,6 @@ module Compass
         end
       end
 
-      def discover_gem_extensions!
-        if defined?(Gem)
-          Gem.find_files("compass-*").map{|f| File.basename(f, ".rb")}.each do |compass_extension|
-            require compass_extension
-          end
-        end
-      end
-
-      def discover_extensions!
-        Compass.shared_extension_paths.each do |extensions_path|
-          if File.directory?(extensions_path)
-            Compass::Frameworks.discover(extensions_path)
-          end
-        end
-        if File.directory?(configuration.extensions_path)
-          Compass::Frameworks.discover(configuration.extensions_path)
-        end
-        discover_gem_extensions!
-      end
-
-      # Returns a full path to the relative path to the project directory
-      def projectize(path, project_path = nil)
-        project_path ||= configuration.project_path
-        File.join(project_path, *path.split('/'))
-      end
-
-      def deprojectize(path, project_path = nil)
-        project_path ||= configuration.project_path
-        if path[0..(project_path.size - 1)] == project_path
-          path[(project_path.size + 1)..-1]
-        else
-          path
-        end
-      end
-
       # TODO: Deprecate the src/config.rb location.
       KNOWN_CONFIG_LOCATIONS = ['config/compass.rb', ".compass/config.rb", "config/compass.config", "config.rb", "src/config.rb"]
 
@@ -167,5 +102,4 @@ module Compass
   end
 
   extend Configuration::Helpers
-  
 end

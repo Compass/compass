@@ -14,6 +14,7 @@ Gem::Specification.new do |gemspec|
   gemspec.summary = %q{A Real Stylesheet Framework}
 
   gemspec.add_dependency 'sass', '~> 3.3.0.rc.1'
+  gemspec.add_dependency 'compass-core'
   gemspec.add_dependency 'chunky_png', '~> 1.2'
   gemspec.add_dependency 'listen', '~> 1.1.0'
   gemspec.add_dependency 'json'

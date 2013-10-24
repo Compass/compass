@@ -80,7 +80,7 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_equal "WARNING: asset_host is code and cannot be written to a file. You'll need to copy it yourself.\n", warning
   end
 
-  class TestData < Compass::Configuration::Data
+  class TestData < Compass::Configuration::FileData
     def initialize
       super(:test)
     end
@@ -247,9 +247,16 @@ additional_import_paths = ["../foo", "/path/to/my/framework"]
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
+
+
+# If you prefer the indented syntax, you might want to regenerate this
+# project again passing --syntax sass, or you can uncomment this:
+# preferred_syntax = :sass
+# and then run:
+# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 EXPECTED
     assert_equal "/", Compass.configuration.http_path
-    assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
+    assert_correct expected_serialization, Compass.configuration.serialize
   end
 
   def test_additional_import_paths_can_be_importers
@@ -257,6 +264,7 @@ EXPECTED
       http_path = "/"
       project_path = "/home/chris/my_compass_project"
       css_dir = "css"
+      preferred_syntax = :scss
       additional_import_paths = ["../foo"]
       add_import_path Sass::Importers::Filesystem.new("/tmp/foo")
     CONFIG
@@ -301,6 +309,13 @@ additional_import_paths = ["../foo", "/path/to/my/framework"]
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
+
+
+# If you prefer the indented syntax, you might want to regenerate this
+# project again passing --syntax sass, or you can uncomment this:
+# preferred_syntax = :sass
+# and then run:
+# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 EXPECTED
     assert_equal "/", Compass.configuration.http_path
     assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
@@ -331,6 +346,12 @@ http_path = \"/\"
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
 
+
+# If you prefer the indented syntax, you might want to regenerate this
+# project again passing --syntax sass, or you can uncomment this:
+# preferred_syntax = :sass
+# and then run:
+# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 EXPECTED
 
       assert_correct(expected_serialization, Compass.configuration.serialize)
@@ -360,6 +381,12 @@ http_path = "/"
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
 
+
+# If you prefer the indented syntax, you might want to regenerate this
+# project again passing --syntax sass, or you can uncomment this:
+# preferred_syntax = :sass
+# and then run:
+# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 sprite_load_path = ["/Users/chris/Projects/my_compass_project/images/sprites"]
 EXPECTED
 
@@ -424,6 +451,12 @@ http_path = "/"
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
 
+
+# If you prefer the indented syntax, you might want to regenerate this
+# project again passing --syntax sass, or you can uncomment this:
+# preferred_syntax = :sass
+# and then run:
+# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 
 # this is a foobar
 foobar = "baz"
