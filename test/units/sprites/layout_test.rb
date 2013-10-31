@@ -25,8 +25,8 @@ class LayoutTest < Test::Unit::TestCase
     sprite_map_test(opts)
   end
 
-  def smart
-    options = @options.merge("layout" => Sass::Script::String.new('smart'))
+  def advanced(layout)
+    options = @options.merge("layout" => Sass::Script::String.new(layout))
     importer = Compass::SpriteImporter.new
     uri = "image_row/*.png"
     path, name = Compass::SpriteImporter.path_and_name(uri)
@@ -37,7 +37,15 @@ class LayoutTest < Test::Unit::TestCase
 
     map
   end
+  
+  def smart
+    advanced('smart')
+  end
 
+  def packed
+    advanced('packed')
+  end
+  
   def diagonal
     opts = @options.merge("layout" => Sass::Script::String.new('diagonal'))
 
@@ -121,6 +129,19 @@ class LayoutTest < Test::Unit::TestCase
     FileUtils.rm base.filename
   end
 
+  # PACKED LAYOUT
+  
+  it "should have a packed layout" do
+    base = packed
+    base.generate
+    assert base.packed?
+    assert_equal 400, base.width
+    assert_equal 80, base.height
+    assert_equal [[0, 0], [40, 0], [20, 0], [20, 100], [40, 40]], base.images.map {|i| [i.top, i.left]}
+    assert File.exists?(base.filename)
+    FileUtils.rm base.filename
+  end
+  
   # DIAGONAL LAYOUT
   
   it "should generate a diagonal sprite" do
