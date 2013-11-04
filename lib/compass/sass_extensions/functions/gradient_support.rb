@@ -488,7 +488,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     end
 
     def radial_svg(color_stops, cx, cy, r)
-      gradient = %Q{<radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="#{cx}" cy="#{cy}" r="#{r}">#{color_stops_svg(color_stops)}</radialGradient>}
+      gradient = %Q{<radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="#{cx}" cy="#{cy}" r="#{r}%">#{color_stops_svg(color_stops)}</radialGradient>}
       svg(gradient)
     end
 
