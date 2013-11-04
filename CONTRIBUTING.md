@@ -161,7 +161,6 @@
         devbin/               - development scripts after installing the bundle
         doc-src/              - source for documentation
         docs/                 - generated documentation
-        examples/             - fully working compass projects that you can explore
         features/             - tests for compass
         frameworks/           - All frameworks in this directory are loaded automatically
           compass/            - The compass framework

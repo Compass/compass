@@ -80,50 +80,6 @@ task :caniuse do
   puts "#{filename} (#{res.body.size} bytes)"
 end
 
-desc "Compile Examples into HTML and CSS"
-task :examples do
-  linked_haml = "tests/haml"
-  if File.exists?(linked_haml) && !$:.include?(linked_haml + '/lib')
-    puts "[ using linked Haml ]"
-    $:.unshift linked_haml + '/lib'
-  end
-  require 'haml'
-  require 'sass'
-  require 'pathname'
-  require 'compass'
-  require 'compass/exec'
-  FileList['examples/*'].each do |example|
-    next unless File.directory?(example)
-    puts "\nCompiling #{example}"
-    puts "=" * "Compiling #{example}".length
-    Dir.chdir example do
-      load "bootstrap.rb" if File.exists?("bootstrap.rb")
-      Compass::Exec::SubCommandUI.new(%w(compile --force)).run!
-    end
-    # compile any haml templates to html
-    FileList["#{example}/**/*.haml"].each do |haml_file|
-      basename = haml_file[0..-6]
-      engine = Haml::Engine.new(open(haml_file).read, :filename => haml_file)
-      puts "     haml #{File.basename(basename)}"
-      output = open(basename,'w')
-      output.write(engine.render)
-      output.close
-    end
-  end
-end
-
-namespace :examples do
-  desc "clean up the example directories"
-  task :clean do
-    puts "Cleaning Examples"
-    Dir.glob('examples/*/clean.rb').each do |cleaner|
-      load cleaner
-    end
-  end
-end
-
-task "gemspec:generate" => "examples:clean"
-
 namespace :git do
   task :clean do
     sh "git", "clean", "-fdx"
