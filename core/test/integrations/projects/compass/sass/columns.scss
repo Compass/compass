@@ -1,0 +1,29 @@
+@import "compass/css3/columns";
+
+.columns            { @include columns(20em 5);               }
+.column-count       { @include column-count(5);               }
+.column-gap         { @include column-gap(10px);              }
+.column-width       { @include column-width(90px);            }
+.column-span        { @include column-span(all);              }
+.column-rule-width  { @include column-rule-width(1px);        }
+.column-rule-style  { @include column-rule-style(dotted);     }
+.column-rule-color  { @include column-rule-color(blue);       }
+.column-rule        { @include column-rule(1px, solid, blue); }
+.column-rule-spaced { @include column-rule(1px solid blue);   }
+.column-break-before{ @include column-break(before, always);}
+.column-break-after { @include column-break(after, always); }
+.column-break-inside{ @include column-break(inside);        }
+.column-count       			{ @include column-count(5);               }
+.column-gap         			{ @include column-gap(10px);              }
+.column-width       			{ @include column-width(90px);            }
+.column-rule-width  			{ @include column-rule-width(1px);        }
+.column-rule-style  			{ @include column-rule-style(dotted);     }
+.column-rule-color  			{ @include column-rule-color(blue);       }
+.column-rule        			{ @include column-rule(1px, solid, blue); }
+.column-rule-spaced 			{ @include column-rule(1px solid blue);   }
+.column-break-before 			{ @include break-before(always);   }
+.column-break-after 			{ @include break-after(always);    }
+.column-break-inside 			{ @include break-inside();         }
+.column-break-before-shortcut 	{ @include column-break(before, always);}
+.column-break-after-shortcut 	{ @include column-break(after, always); }
+.column-break-inside-shortcut 	{ @include column-break(inside);        }

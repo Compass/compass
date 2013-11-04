@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in compass-core.gemspec
+gemspec
+
+gem 'sass', :path => "~/Projects/sass"
+gem 'pry'
+gem 'diff-lcs', '~> 1.1.2'
+gem 'true', :path => "~/Projects/true"
+gem 'timecop'

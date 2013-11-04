@@ -1,0 +1,11 @@
+.background-clip {
+  -moz-background-clip: border;
+  -o-background-clip: border-box;
+  -webkit-background-clip: border;
+  background-clip: border-box; }
+
+.background-clip-multiple {
+  -moz-background-clip: border, padding, content;
+  -o-background-clip: border-box, padding-box, content-box;
+  -webkit-background-clip: border, padding, content;
+  background-clip: border-box, padding-box, content-box; }
