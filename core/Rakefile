@@ -13,3 +13,5 @@ namespace :test do
 end
 
 task :test => ["test:integrations"]
+
+task :default => :test
