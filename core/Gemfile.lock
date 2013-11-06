@@ -33,7 +33,7 @@ GEM
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
     slop (3.4.6)
-    timecop (0.6.3)
+    timecop (0.5.9.2)
     true (0.2.0.rc.3)
       sass (~> 3.3.0.rc.1)
 
@@ -47,5 +47,5 @@ DEPENDENCIES
   pry
   rake
   sass!
-  timecop
+  timecop (~> 0.5.9.2)
   true (~> 0.2.0.rc.3)

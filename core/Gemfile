@@ -7,4 +7,4 @@ gem 'sass', :git => "https://github.com/nex3/sass.git"
 gem 'pry'
 gem 'diff-lcs', '~> 1.1.2'
 gem 'true', "~> 0.2.0.rc.3"
-gem 'timecop'
+gem 'timecop', "~> 0.5.9.2"
