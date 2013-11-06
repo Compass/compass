@@ -1,11 +1,5 @@
 rvm:
   - 1.8.7
-  - 1.9.2
-  - 1.9.3
-  - jruby-18mode
-  - jruby-19mode
-  - rbx
-  - ree
   - 2.0.0
 env:
   - TEST=core
