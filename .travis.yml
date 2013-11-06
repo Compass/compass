@@ -12,7 +12,7 @@ script: "cd $TEST && bundle exec rake"
 matrix:
   allow_failures:
     - rvm: rbx
-  exclusions:
+  exclude:
     - gemfile: cli/gemfiles/sass_3_3.gemfile
       env: TEST=core
     - gemfile: cli/gemfiles/sass_master.gemfile
