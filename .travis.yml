@@ -2,32 +2,32 @@ rvm:
   - 1.8.7
   - 2.0.0
 env:
-  - TEST=core
-  - TEST=cli
+  - CI_TEST=core
+  - CI_TEST=cli
 gemfile:
   - core/Gemfile
   #- cli/gemfiles/sass_3_3.gemfile
   - cli/gemfiles/sass_master.gemfile
-script: "cd $TEST && bundle exec rake"
+script: "cd $CI_TEST && bundle exec rake"
 matrix:
   allow_failures:
     - rvm: rbx
   exclude:
     - gemfile: cli/gemfiles/sass_3_3.gemfile
-      env: TEST=core
+      env: CI_TEST=core
       rvm: 1.8.7
     - gemfile: cli/gemfiles/sass_3_3.gemfile
-      env: TEST=core
+      env: CI_TEST=core
       rvm: 2.0.0
     - gemfile: cli/gemfiles/sass_master.gemfile
-      env: TEST=core
+      env: CI_TEST=core
       rvm: 1.8.7
     - gemfile: cli/gemfiles/sass_master.gemfile
-      env: TEST=core
+      env: CI_TEST=core
       rvm: 2.0.0
     - gemfile: core/Gemfile
-      env: TEST=cli
+      env: CI_TEST=cli
       rvm: 1.8.7
     - gemfile: core/Gemfile
-      env: TEST=cli
+      env: CI_TEST=cli
       rvm: 2.0.0
