@@ -4,7 +4,7 @@ gemspec unless defined?(CI)
 
 unless ENV['PKG']
 
-  gem "compass-core", :path => "../compass-core"
+  gem "compass-core", :path => "../core"
   gem "cucumber", "~> 1.2.1"
   gem "rspec", "~> 2.0.0"
   gem "compass-validator", "3.0.1"

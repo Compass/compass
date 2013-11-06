@@ -10,8 +10,6 @@ include Compass::IoHelper
 
 Before do
   Compass.reset_configuration!
-  Compass::Frameworks::ALL.clear
-  Compass::Frameworks.discover :defaults
   @cleanup_directories = []
   @original_working_directory = Dir.pwd
 end

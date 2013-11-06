@@ -10,12 +10,6 @@ PATH
     sass (3.3.0.rc.1)
       listen (~> 1.1.0)
 
-PATH
-  remote: ~/Projects/true
-  specs:
-    true (0.2.0.rc.1)
-      sass (~> 3.3.0.rc.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,6 +33,8 @@ GEM
       ffi (>= 0.5.0)
     slop (3.4.6)
     timecop (0.6.3)
+    true (0.2.0.rc.3)
+      sass (~> 3.3.0.rc.1)
 
 PLATFORMS
   ruby
@@ -51,4 +47,4 @@ DEPENDENCIES
   rake
   sass!
   timecop
-  true!
+  true (~> 0.2.0.rc.3)
