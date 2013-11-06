@@ -7,10 +7,21 @@ rvm:
   - rbx
   - ree
   - 2.0.0
+env:
+  - TEST=core
+  - TEST=cli
 gemfile:
-  - gemfiles/sass_3_3.gemfile
-  - gemfiles/sass_master.gemfile
-script: "bundle exec rake"
+  - core/Gemfile
+  - cli/gemfiles/sass_3_3.gemfile
+  - cli/gemfiles/sass_master.gemfile
+script: "cd $TEST && bundle exec rake"
 matrix:
   allow_failures:
     - rvm: rbx
+  exclusions:
+    - gemfile: cli/gemfiles/sass_3_3.gemfile
+      env: TEST=core
+    - gemfile: cli/gemfiles/sass_master.gemfile
+      env: TEST=core
+    - gemfile: core/Gemfile
+      env: TEST=cli
