@@ -2,7 +2,8 @@ CI=true
 main_gemfile = File.expand_path(File.join(File.dirname(__FILE__), "..", "Gemfile"))
 eval File.read(main_gemfile), nil, main_gemfile
 
-gem 'sass', "~> 3.3.0.alpha"
+gem 'sass', "~> 3.3.0.rc.1"
 gem 'compass', :path => "../"
+gem 'compass-core', :path => "../../core"
 
 gemspec :path=>"../"
