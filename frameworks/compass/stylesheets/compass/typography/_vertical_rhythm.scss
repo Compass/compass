@@ -137,7 +137,7 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
     background: image-url($img);
   }
   @else {
-    @include baseline-grid-background(rhythm());
+    @include baseline-grid-background(if($round-to-nearest-half-line, rhythm(1/2), rhythm(1)));
   }
 }
 
