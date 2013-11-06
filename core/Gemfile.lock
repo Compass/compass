@@ -1,14 +1,15 @@
+GIT
+  remote: https://github.com/nex3/sass.git
+  revision: 4704960a0548d2aae444e9cbffffb430ee3f1ec8
+  specs:
+    sass (3.3.0.rc.1)
+      listen (~> 1.1.0)
+
 PATH
   remote: .
   specs:
     compass-core (0.0.1)
       sass (>= 3.3.rc.1)
-
-PATH
-  remote: ~/Projects/sass
-  specs:
-    sass (3.3.0.rc.1)
-      listen (~> 1.1.0)
 
 GEM
   remote: https://rubygems.org/
