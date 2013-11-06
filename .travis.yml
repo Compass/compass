@@ -6,7 +6,7 @@ env:
   - TEST=cli
 gemfile:
   - core/Gemfile
-  - cli/gemfiles/sass_3_3.gemfile
+  #- cli/gemfiles/sass_3_3.gemfile
   - cli/gemfiles/sass_master.gemfile
 script: "cd $TEST && bundle exec rake"
 matrix:
