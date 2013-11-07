@@ -8,12 +8,6 @@ module Sass::Script
         NO_CHILDREN
       end
 
-      def options=(opts)
-        @options = opts
-        children.each {|c| c.options = opts}
-        opts
-      end
-
       def opts(value)
         value.options = options
         value

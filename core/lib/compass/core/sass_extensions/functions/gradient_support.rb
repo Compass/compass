@@ -194,7 +194,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       input = if position_or_angle.is_a?(Sass::Script::Number)
           position_or_angle
         else
-          Sass::Script::List.new(position_or_angle.to_s.split(' ').map {|s| Sass::Script::String.new(s) }, :space)
+          opts(Sass::Script::List.new(position_or_angle.to_s.split(' ').map {|s| Sass::Script::String.new(s) }, :space))
         end
       return convert_angle_from_offical(input).to_s(options)
     end
@@ -261,9 +261,9 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     def grad_point(position)
       original_value = position
       position = unless position.is_a?(Sass::Script::List)
-        Sass::Script::List.new([position], :space)
+        opts(Sass::Script::List.new([position], :space))
       else
-        Sass::Script::List.new(position.value.dup, position.separator)
+        opts(Sass::Script::List.new(position.value.dup, position.separator))
       end
       # Handle unknown arguments by passing them along untouched.
       unless position.value.all?{|p| is_position(p) }
@@ -296,7 +296,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def color_stops(*args)
-      Sass::Script::List.new(args.map do |arg|
+      opts(Sass::Script::List.new(args.map do |arg|
         if ColorStop === arg
           arg
         elsif Sass::Script::Color === arg
@@ -310,7 +310,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
         else
           raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
         end
-      end, :comma)
+      end, :comma))
     end
 
     def radial_gradient(position_or_angle, shape_and_size, *color_stops)
@@ -506,7 +506,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
          raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
        end
       if defined?(Sass::Script::List)
-        Sass::Script::List.new(positions, color_list.separator)
+        opts(Sass::Script::List.new(positions, color_list.separator))
       else
         color_list.class.new(*positions)
       end
@@ -576,10 +576,15 @@ EOS
     end
 
     def _center_position
-      Sass::Script::List.new([
+      opts(Sass::Script::List.new([
         Sass::Script::String.new("center"),
         Sass::Script::String.new("center")
-      ],:space)
+      ],:space))
+    end
+
+    def opts(v)
+      v.options = options
+      v
     end
 
   end
