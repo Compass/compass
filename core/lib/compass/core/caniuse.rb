@@ -258,7 +258,6 @@ class Compass::Core::CanIUse
   # efficiently checks if a browser is valid
   def assert_valid_browser(browser)
     @known_browsers ||= Set.new(browsers)
-    @known_browsers.include?(browser)
     unless @known_browsers.include?(browser)
       raise ArgumentError, "#{browser} is not known browser."
     end
