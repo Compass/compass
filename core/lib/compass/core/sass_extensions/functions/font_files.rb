@@ -14,7 +14,7 @@ module Compass::Core::SassExtensions::Functions::FontFiles
     with_each_font_file(*args) do |path, type|
       formats << Sass::Script::String.new(type)
     end
-    return Sass::Script::List.new(formats)
+    return Sass::Script::List.new(formats, :comma)
   end
 
   def font_files(*args)
