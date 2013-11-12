@@ -7,13 +7,12 @@ module Compass::Core::SassExtensions::Functions::InlineImage
   end
 
   def inline_font_files(*args)
-    raise Sass::SyntaxError, "An even number of arguments must be passed to font_files()" unless args.size % 2 == 0
     files = []
-    while args.size > 0
-      path = args.shift.value
+    with_each_font_file(*args) do |path, type|
+      path = path.value
       real_path = File.join(Compass.configuration.fonts_path, path)
-      url = inline_image_string(data(real_path), compute_mime_type(path))
-      files << "#{url} format('#{args.shift}')"
+      data = inline_image_string(data(real_path), compute_mime_type(path))
+      files << "#{data} format('#{type}')"
     end
     Sass::Script::String.new(files.join(", "))
   end
