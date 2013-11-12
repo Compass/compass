@@ -136,6 +136,9 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "url(/font/with/no_ext) format('opentype')", evaluate("font_files('/font/with/no_ext', 'otf')")
     assert_equal "url(/font/with/weird.ext) format('truetype')", evaluate("font_files('/font/with/weird.ext', 'ttf')")
 
+    # unquoted path strings used to break because of a regex test
+    assert_equal "url(/font/with/right_ext.woff) format('woff')", evaluate("font_files(unquote('/font/with/right_ext.woff'))")
+
     assert_equal "url(/font/with/right_ext.woff) format('woff'), url(/font/with/right_ext_also.otf) format('opentype')", evaluate("font_files('/font/with/right_ext.woff', '/font/with/right_ext_also.otf')")
     assert_equal "url(/font/with/wrong_ext.woff) format('truetype'), url(/font/with/right_ext.otf) format('opentype')", evaluate("font_files('/font/with/wrong_ext.woff', 'ttf', '/font/with/right_ext.otf')")
 
@@ -182,6 +185,9 @@ class SassExtensionsTest < Test::Unit::TestCase
     Compass.configuration.fonts_path = File.expand_path "../fixtures/fonts", File.dirname(__FILE__)
     base64_string = File.read(File.join(Compass.configuration.fonts_path, "bgrove.base64.txt")).chomp
     assert_equal "url('data:font/truetype;base64,#{base64_string}') format('truetype')", evaluate("inline_font_files('bgrove.ttf', truetype)")
+
+    # without specifying the format
+    assert_equal "url('data:font/truetype;base64,#{base64_string}') format('truetype')", evaluate("inline_font_files('bgrove.ttf')")
   end
 
 
