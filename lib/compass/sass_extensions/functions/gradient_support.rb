@@ -271,16 +271,18 @@ module Compass::SassExtensions::Functions::GradientSupport
       end
       if (position.value.first.value =~ /top|bottom/) or (position.value.last.value =~ /left|right/)
         # browsers are pretty forgiving of reversed positions so we are too.
-        position.value.reverse!
+        position = Sass::Script::List.new(position.value.reverse, position.separator)
       end
       if position.value.size == 1
         if position.value.first.value =~ /top|bottom/
-          position.value.unshift Sass::Script::String.new("center")
+          position = Sass::Script::List.new(
+            [Sass::Script::String.new("center"), position.value.first], position.separator)
         elsif position.value.first.value =~ /left|right/
-          position.value.push Sass::Script::String.new("center")
+          position = Sass::Script::List.new(
+            [position.value.first, Sass::Script::String.new("center")], position.separator)
         end
       end
-      position.value.map! do |p|
+      position = Sass::Script::List.new(position.value.map do |p|
         case p.value
         when /top|left/
           Sass::Script::Number.new(0, ["%"])
@@ -291,7 +293,7 @@ module Compass::SassExtensions::Functions::GradientSupport
         else
           p
         end
-      end
+      end, position.separator)
       position
     end
 

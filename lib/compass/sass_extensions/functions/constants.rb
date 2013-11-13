@@ -14,7 +14,7 @@ module Compass::SassExtensions::Functions::Constants
       else
         Sass::Script::List.new(position.value.dup, position.separator)
       end
-      position.value.map! do |pos|
+      position = Sass::Script::List.new(position.value.map do |pos|
         if pos.is_a? Sass::Script::String
           opposite = case pos.value
           when "top" then "bottom"
@@ -38,7 +38,7 @@ module Compass::SassExtensions::Functions::Constants
           Compass::Util.compass_warn("Cannot determine the opposite position of: #{pos}")
           pos
         end
-      end
+      end, position.separator)
       if position.value.size == 1
         position.value.first
       else
