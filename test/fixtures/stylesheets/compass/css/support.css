@@ -1,24 +1,23 @@
 /*  
 
 ### Compass Support ------ */
-/*  - [function] set-arglist-default() with no arguments (1 assertions, 1 passed, 0 failed) */
-/*  - [function] set-arglist-default() with a "default" argument (1 assertions, 1 passed, 0 failed) */
-/*  - [function] set-arglist-default() with a "default" argument and another argument (1 assertions, 1 passed, 0 failed) */
-/*  - [function] set-arglist-default() with a "default" argument not first and another argument (1 assertions, 1 passed, 0 failed) */
-/*  - [function] support-legacy-browser() from threshold (2 assertions, 2 passed, 0 failed) */
-/*  - [function] support-legacy-browser() from minimums (2 assertions, 2 passed, 0 failed) */
-/*  - [function] browser-out-of-scope() with no scope (2 assertions, 2 passed, 0 failed) */
-/*  - prefix context tracking (9 assertions, 9 passed, 0 failed) */
-/*  - [function] browser-out-of-scope() with a scope (2 assertions, 2 passed, 0 failed) */
-/*  - [function] browser-out-of-scope() with version (3 assertions, 3 passed, 0 failed) */
-/*  - [mixin] with-prefix() (4 assertions, 4 passed, 0 failed) */
-/*  - [mixin] with-each-prefix() (1 assertions, 1 passed, 0 failed) */
-/*  - [mixin] with-each-prefix() respects $supported-browsers (1 assertions, 1 passed, 0 failed) */
-/*  - [mixin] with-each-prefix() respects $current-prefix (3 assertions, 3 passed, 0 failed) */
-/*  - [fuction] has-browser-subset() (5 assertions, 5 passed, 0 failed) */
+/*  - [function] set-arglist-default() with no arguments (1 Assertions, 1 Passed, 0 Failed) */
+/*  - [function] set-arglist-default() with a "default" argument (1 Assertions, 1 Passed, 0 Failed) */
+/*  - [function] set-arglist-default() with a "default" argument and another argument (1 Assertions, 1 Passed, 0 Failed) */
+/*  - [function] set-arglist-default() with a "default" argument not first and another argument (1 Assertions, 1 Passed, 0 Failed) */
+/*  - [function] support-legacy-browser() from threshold (2 Assertions, 2 Passed, 0 Failed) */
+/*  - [function] support-legacy-browser() from minimums (2 Assertions, 2 Passed, 0 Failed) */
+/*  - [function] browser-out-of-scope() with no scope (2 Assertions, 2 Passed, 0 Failed) */
+/*  - prefix context tracking (9 Assertions, 9 Passed, 0 Failed) */
+/*  - [function] browser-out-of-scope() with a scope (2 Assertions, 2 Passed, 0 Failed) */
+/*  - [function] browser-out-of-scope() with version (3 Assertions, 3 Passed, 0 Failed) */
+/*  - [mixin] with-prefix() (4 Assertions, 4 Passed, 0 Failed) */
+/*  - [mixin] with-each-prefix() (1 Assertions, 1 Passed, 0 Failed) */
+/*  - [mixin] with-each-prefix() respects $supported-browsers (1 Assertions, 1 Passed, 0 Failed) */
+/*  - [mixin] with-each-prefix() respects $current-prefix (3 Assertions, 3 Passed, 0 Failed) */
+/*  - [fuction] has-browser-subset() (5 Assertions, 5 Passed, 0 Failed) */
 /*  
-    Summary:
-    - 15 Tests
+    15 Tests:
     - 15 Passed
     - 0 Failed */
 /* Capability css-animation is prefixed with -moz because 1.03559% of users need it which is more than the threshold of 0.1%. */
