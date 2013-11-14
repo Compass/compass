@@ -32,6 +32,3 @@ end
 %w(watcher configuration frameworks app_integration compiler caniuse).each do |lib|
   require "compass/#{lib}"
 end
-
-# for rails upgrade warnings in 0.12
-require 'compass/app_integration/rails'
