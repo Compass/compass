@@ -1,7 +1,7 @@
 $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), '../../test')))
 
+require 'bundler/setup'
 require 'test_helper'
-require 'true'
 
 require 'compass/exec'
 include Compass::TestCaseHelper
