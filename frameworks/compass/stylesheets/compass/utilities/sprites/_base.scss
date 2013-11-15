@@ -68,12 +68,15 @@ $default-sprite-separator: "-" !default;
 // Determines if you want to use placeholder instead of class selectors.
 $all-sprites-as-placeholders: false !default;
 
-// Generates a class for each space separated name in `$sprite-names`.
-// The selector will be of the form .<map-name>-<sprite-name>.
+// Generates a selector for each space separated name in `$sprite-names`.
+// The selector will be of the form <base-selector>-<map-name>-<sprite-name>,
+// where <base-selector> defaults to `.`.
 //
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
+// 
+// If `$placeholder-sprite` is `true`, the selector will be a placeholder.
 // 
 // Positions are returned in pixel units. Set `$use_percentages` to true to
 // instead get percentages.
