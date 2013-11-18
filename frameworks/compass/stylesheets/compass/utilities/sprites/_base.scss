@@ -65,23 +65,32 @@ $default-sprite-separator: "-" !default;
   }
 }
 
-// Generates a class for each space separated name in `$sprite-names`.
-// The class will be of the form .<map-name>-<sprite-name>.
+// Determines if you want to use placeholder instead of class selectors.
+$all-sprites-as-placeholders: false !default;
+
+// Generates a selector for each space separated name in `$sprite-names`.
+// The selector will be of the form <base-selector>-<map-name>-<sprite-name>,
+// where <base-selector> defaults to `.`.
 //
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
+// 
+// If `$placeholder-sprite` is `true`, the selector will be a placeholder.
+// 
 // Positions are returned in pixel units. Set `$use_percentages` to true to
 // instead get percentages.
 @mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false,
                $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0,
                $use-percentages: false,
+               $placeholder-sprite: $all-sprites-as-placeholders,
                $separator: $default-sprite-separator) {
+  $base-selector: if($placeholder-sprite, "%", ".");
   @each $sprite-name in $sprite-names {
     @if sprite_does_not_have_parent($map, $sprite-name) {
       $full-sprite-name: "#{$prefix}#{$separator}#{$sprite-name}";
       @if sprite_has_valid_selector($full-sprite-name) {
-        .#{$full-sprite-name} {
+        #{$base-selector}#{$full-sprite-name} {
           @if $base-class { @extend #{$base-class}; }
           @include sprite($map, $sprite-name, $dimensions, $offset-x, $offset-y, 
                           $use-percentages, $separator: $separator);
