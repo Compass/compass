@@ -83,14 +83,14 @@ $all-sprites-as-placeholders: false !default;
 @mixin sprites($map, $sprite-names, $base-class: false, $dimensions: false,
                $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0,
                $use-percentages: false,
-               $separator: $default-sprite-separator,
-               $placeholder-sprite: $all-sprites-as-placeholders) {
+               $placeholder-sprite: $all-sprites-as-placeholders,
+               $separator: $default-sprite-separator) {
   $base-selector: if($placeholder-sprite, "%", ".");
   @each $sprite-name in $sprite-names {
     @if sprite_does_not_have_parent($map, $sprite-name) {
-      $full-sprite-name: "#{$base-selector}#{$prefix}#{$separator}#{$sprite-name}";
+      $full-sprite-name: "#{$prefix}#{$separator}#{$sprite-name}";
       @if sprite_has_valid_selector($full-sprite-name) {
-        #{$full-sprite-name} {
+        #{$base-selector}#{$full-sprite-name} {
           @if $base-class { @extend #{$base-class}; }
           @include sprite($map, $sprite-name, $dimensions, $offset-x, $offset-y, 
                           $use-percentages, $separator: $separator);

@@ -78,11 +78,11 @@ $<%= name %>-sprite-base-class  : "#{if($<%= name %>-placeholder-sprite, "%", ".
   @include sprite($<%= name %>-sprites, $name, $dimensions, $offset-x, $offset-y, $use-percentages, $separator: $separator);
 }
 
-@mixin <%= name %>-sprites($sprite-names, $dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages, $separator: $<%= name %>-class-separator, $placeholder-sprite: $<%= name %>-placeholder-sprite) {
-  @include sprites($<%= name %>-sprites, $sprite-names, $<%= name %>-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $separator: $separator, $placeholder-sprite)
+@mixin <%= name %>-sprites($sprite-names, $dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages, $placeholder-sprite: $<%= name %>-placeholder-sprite, $separator: $<%= name %>-class-separator) {
+  @include sprites($<%= name %>-sprites, $sprite-names, $<%= name %>-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $placeholder-sprite, $separator: $separator)
 }
 
 // Generates a class for each sprited image.
-@mixin all-<%= name %>-sprites($dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages, $separator: $<%= name %>-class-separator, $placeholder-sprite: $<%= name %>-placeholder-sprite) {
-  @include <%= name %>-sprites(<%= sprite_names.join(" ") %>, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $separator: $separator, $placeholder-sprite);
+@mixin all-<%= name %>-sprites($dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $<%= name %>-use-percentages, $placeholder-sprite: $<%= name %>-placeholder-sprite, $separator: $<%= name %>-class-separator) {
+  @include <%= name %>-sprites(<%= sprite_names.join(" ") %>, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $placeholder-sprite, $separator: $separator);
 }
