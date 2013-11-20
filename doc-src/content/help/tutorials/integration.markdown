@@ -30,7 +30,7 @@ Also checkout this [gist](https://gist.github.com/1184843)
     configure do
       set :haml, {:format => :html5}
       set :scss, {:style => :compact, :debug_info => false}
-      Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
+      Compass.add_project_configuration(File.join(settings.root, 'config', 'compass.rb'))
     end
 
     get '/stylesheets/:name.css' do
