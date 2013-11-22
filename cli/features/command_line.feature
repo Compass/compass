@@ -47,7 +47,7 @@ Feature: Command Line
     And I am told how to compile my sass stylesheets
 
   Scenario: Compiling a project with errors
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     And the project has a file named "sass/error.scss" containing:
       """
         .broken {
@@ -61,59 +61,46 @@ Feature: Command Line
     And the command exits with a non-zero error code
 
   Scenario: Compiling an existing project.
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile
     Then a directory tmp/ is created
-    And a css file tmp/layout.css is created
-    And a css file tmp/print.css is created
-    And a css file tmp/reset.css is created
-    And a css file tmp/utilities.css is created
+    And a css file tmp/simple.css is created
 
   Scenario: Compiling an existing project with a specified project
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     And I am in the parent directory
-    When I run: compass compile tmp_compass
-    Then a directory tmp_compass/tmp/ is created
-    And a css file tmp_compass/tmp/layout.css is created
-    And a css file tmp_compass/tmp/print.css is created
-    And a css file tmp_compass/tmp/reset.css is created
-    And a css file tmp_compass/tmp/utilities.css is created
+    When I run: compass compile tmp_valid
+    Then a directory tmp_valid/tmp/ is created
+    And a css file tmp_valid/tmp/simple.css is created
 
   Scenario: Dry Run of Compiling an existing project.
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile --dry-run
     Then a directory tmp/ is not created
-    And a css file tmp/layout.css is not created
-    And a css file tmp/print.css is not created
-    And a css file tmp/reset.css is not created
-    And a css file tmp/utilities.css is not created
-    And a css file tmp/layout.css is reported created
-    And a css file tmp/print.css is reported created
-    And a css file tmp/reset.css is reported created
-    And a css file tmp/utilities.css is reported created
+    And a css file tmp/simple.css is not created
+    And a css file tmp/simple.css is reported created
+    And a css file tmp/another_simple.css is not created
+    And a css file tmp/another_simple.css is reported created
 
   Scenario: Recompiling a project with no changes
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile
     And I run: compass compile
 
   Scenario: compiling a specific file in a project
-    Given I am using the existing project in test/fixtures/stylesheets/compass
-    And I run: compass compile sass/utilities.scss
-    Then a sass file sass/layout.sass is not mentioned
-    And a sass file sass/print.sass is not mentioned
-    And a sass file sass/reset.sass is not mentioned
-    And a css file tmp/utilities.css is reported created
-    And a css file tmp/utilities.css is created
+    Given I am using the existing project in test/fixtures/stylesheets/valid
+    And I run: compass compile sass/simple.sass
+    Then a sass file sass/another_simple.scss is not mentioned
+    And a css file tmp/simple.css is reported created
+    And a css file tmp/simple.css is created
+    And a css file tmp/another_simple.css is not created
 
   Scenario: Re-compiling a specific file in a project with no changes
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile
-    And I run: compass compile sass/utilities.scss --force
-    Then a sass file sass/layout.sass is not mentioned
-    And a sass file sass/print.sass is not mentioned
-    And a sass file sass/reset.sass is not mentioned
-    And a css file tmp/utilities.css is reported identical
+    And I run: compass compile sass/simple.sass --force
+    Then a sass file sass/another_simple.scss is not mentioned
+    And a css file tmp/simple.css is reported identical
 
   Scenario: Basic help
     When I run: compass help
@@ -138,53 +125,45 @@ Feature: Command Line
       | version     |
 
   Scenario: Recompiling a project with no material changes
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile
     And I wait 1 second
-    And I touch sass/layout.sass
+    And I touch sass/simple.sass
     And I run: compass compile
-    Then a css file tmp/layout.css is reported identical
+    Then a css file tmp/simple.css is reported identical
 
   Scenario: Recompiling a project with changes
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile
     And I wait 1 second
-    And I add some sass to sass/layout.sass
+    And I add some sass to sass/simple.sass
     And I run: compass compile
-    And a css file tmp/layout.css is reported overwritten
+    And a css file tmp/simple.css is reported overwritten
 
   Scenario: Cleaning a project
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile
     And I run: compass clean
     Then the following files are reported removed:
-      | .sass-cache/                |
-      | tmp/border_radius.css       |
-      | tmp/box.css                 |
-      | tmp/box_shadow.css          |
-      | tmp/columns.css             |
-      | tmp/fonts.css               |
-      | images/flag-s5b4f509715.png |
+      | .sass-cache/           |
+      | tmp/simple.css         |
+      | tmp/another_simple.css |
     And the following files are removed:
-      | .sass-cache/                |
-      | tmp/border_radius.css       |
-      | tmp/box.css                 |
-      | tmp/box_shadow.css          |
-      | tmp/columns.css             |
-      | tmp/fonts.css               |
-      | images/flag-s5b4f509715.png |
+      | .sass-cache/           |
+      | tmp/simple.css         |
+      | tmp/another_simple.css |
 
   @now
   Scenario: Watching a project for changes
     Given ruby supports fork
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass compile
     And I run in a separate process: compass watch 
-    And I wait 4 seconds
-    And I touch sass/layout.sass
+    And I wait 3 seconds
+    And I touch sass/simple.sass
     And I wait 2 seconds
     And I shutdown the other process
-    Then a css file tmp/layout.css is reported identical\
+    Then a css file tmp/simple.css is reported identical
 
   Scenario: Generate a compass configuration file
     Given I should clean up the directory: config
@@ -196,7 +175,7 @@ Feature: Command Line
       | css_dir  | assets/css |
 
   Scenario Outline: Print out a configuration value
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: compass config -p <property>
     Then I should see the following output: <value>
     And the command exits <exit>
@@ -220,23 +199,13 @@ Feature: Command Line
 
   @stats
   Scenario: Get stats for my project
-    Given I am using the existing project in test/fixtures/stylesheets/compass
+    Given I am using the existing project in test/fixtures/stylesheets/valid
     When I run: bundle exec compass stats
     Then I am told statistics for each file:
-      | Filename                  | Rules | Properties |    Mixins Defs | Mixins Used | Filesize | CSS Selectors | CSS Properties | CSS Filesize |
-      | sass/border_radius.scss   |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/box.sass             |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/fonts.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/gradients.sass       |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/image_size.sass      |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/images.scss          |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/layout.sass          |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/legacy_clearfix.scss |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/lists.scss           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/print.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/reset.sass           |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | sass/utilities.scss       |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
-      | Total.*                   |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | Filename                 | Rules | Properties |    Mixins Defs | Mixins Used | Filesize | CSS Selectors | CSS Properties | CSS Filesize |
+      | sass/simple.sass         |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | sass/another_simple.scss |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
+      | Total.*                  |   \d+ |        \d+ |            \d+ |         \d+ |  \d+ K?B |           \d+ |            \d+ |      \d+ K?B |
 
   @listframeworks
   Scenario: List frameworks registered with compass
