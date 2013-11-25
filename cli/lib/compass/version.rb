@@ -1,17 +1,14 @@
 module Compass
   module Version
-    # Returns a hash representing the version.
-    # The :major, :minor, and :teeny keys have their respective numbers.
-    # The :string key contains a human-readable string representation of the version.
-    # The :rev key will have the current revision hash.
+    # Returns a hash representing the semantic version of the current compass release.
+    # See http://semver.org/ for more details.
     #
-    # This method swiped from Haml and then modified, some credit goes to Nathan Weizenbaum
+    # The :major, :minor, and :patch keys have their respective release numbers.
+    # The :string key contains a human-readable string representation of the version.
+    # The :prerelease key will have the current pre-release state
+    # The :build key will have the current pre-release build
     def version
-      if defined?(@version)
-        @version
-      else
-        read_version
-      end
+      @version ||= read_version
     end
 
     protected
@@ -21,34 +18,20 @@ module Compass
     end
 
     def read_version
-      require 'yaml'
-      @version = YAML::load(File.read(scope('VERSION.yml')))
-      @version[:teeny]  = @version[:patch]
-      @version[:string] = "#{@version[:major]}.#{@version[:minor]}"
-      @version[:string] << ".#{@version[:patch]}" if @version[:patch]
-      @version[:string] << ".#{@version[:build]}" if @version[:build]
-      @version[:string] << ".#{@version[:state]}" if @version[:state]
-      @version[:string] << ".#{@version[:iteration]}" if @version[:iteration]
-      if !ENV['OFFICIAL'] && r = revision
-        @version[:string] << ".#{r[0..6]}"
-      end
-      @version
+      v = File.read(scope('VERSION')).strip
+      segments = v.split(".")
+      version_hash = {:string => v}
+      version_hash[:major] = segments.shift
+      version_hash[:minor] = segments.shift
+      version_hash[:patch] = segments.shift
+      version_hash[:prerelease] = segments.shift
+      version_hash[:build] = segments.shift
+      version_hash
     end
-
-    def revision
-      revision_from_git
-    end
-
-    def revision_from_git
-      if File.exists?(scope('.git/HEAD'))
-        Dir.chdir scope(".") do
-          `git rev-parse HEAD`
-        end
-      end
-    end
-
   end
+
   extend Compass::Version
+
   def self.const_missing(const)
     # This avoid reading from disk unless the VERSION is requested.
     if const == :VERSION

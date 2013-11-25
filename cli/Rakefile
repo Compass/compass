@@ -1,9 +1,13 @@
 require 'rubygems'
+require 'rubygems/package_task'
+require 'rake/testtask'
+require 'fileutils'
+
+
 if ENV["PKG"]
   $: << File.expand_path(File.dirname(__FILE__))+"/lib"
 else
-  require 'bundler'
-  Bundler.setup
+  require 'bundler/setup'
 end
 
 unless ENV['CI']
@@ -14,16 +18,11 @@ end
 begin
   require 'rake/dsl_definition'
 rescue LoadError
-  #pass
+  # pass
 end
-require 'compass'
 
 # ----- Default: Testing ------
-
 task :default => [:test, :features]
-
-require 'rake/testtask'
-require 'fileutils'
 
 begin
   require 'cucumber'
@@ -61,23 +60,6 @@ Rake::TestTask.new :integrations do |t|
   test_files.exclude('test/rails/*', 'test/haml/*')
   t.test_files = test_files
   t.verbose = true
-end
-
-desc "Download the latest browser stats data."
-task :caniuse do
-  require 'uri'
-  require 'net/http'
-  require 'net/https'
-  uri = URI.parse("https://raw.github.com/Fyrd/caniuse/master/data.json")
-  https = Net::HTTP.new(uri.host,uri.port)
-  https.use_ssl = true
-  req = Net::HTTP::Get.new(uri.path)
-  res = https.request(req)
-  filename = File.join(File.dirname(__FILE__), "data", "caniuse.json")
-  open(filename, "wb") do |file|
-    file.write(res.body)
-  end
-  puts "#{filename} (#{res.body.size} bytes)"
 end
 
 namespace :git do
@@ -120,24 +102,6 @@ rescue LoadError => e
   puts "WARNING: #{e}"
 end
 
-begin
-  require 'packager/rake_task'
-  require 'compass/version'
-  # Building a package:
-  # 1. Get packager installed and make sure your system is setup correctly according to their docs.
-  # 2. Make sure you are actually using a universal binary that has been nametooled.
-  # 3. PKG=1 OFFICIAL=1 rake packager:pkg
-  Packager::RakeTask.new(:pkg) do |t|
-    t.package_name = "Compass"
-    t.version = Compass::VERSION
-    t.domain = "compass-style.org"
-    t.bin_files = ["compass"]
-    t.resource_files = FileList["frameworks/**/*"] + ["VERSION.yml", "LICENSE.markdown"]
-  end
-rescue LoadError => e
-  puts "WARNING: #{e}"
-end
-
 namespace :test do
   debug = false
   desc "update test expectations if needed"
@@ -169,7 +133,7 @@ namespace :test do
         # check to see what's changed
         diff = %x[diff -r #{File.join(fixtures, EXPECTED, '')} #{File.join(fixtures, TMP, '')}]
         # ignore non-CSS files in css/
-        diff = diff.gsub(/^Only in .*\/css\/(.*)\:.*[^.css]/, '')
+        diff.gsub!(/^Only in .*\/css\/(.*)\:.*[^.]/, '')
         if diff.empty?
           puts "#{CHECKMARK}Cool! Looks like all the tests are up to date".colorize(:green)
         else
@@ -202,3 +166,55 @@ namespace :test do
     end
   end
 end
+
+# Release tasks
+gemspec_file = FileList['compass.gemspec'].first
+spec = eval(File.read(gemspec_file), binding, gemspec_file)
+
+def spec.bump!
+  segments = version.to_s.split(".")
+  segments[-1] = segments.last.succ
+  self.version = Gem::Version.new(segments.join("."))
+end
+
+# Set SAME_VERSION when moving to a new major version and you want to specify the new version
+# explicitly instead of bumping the current version.
+# E.g. rake build SAME_VERSION=true
+spec.bump! unless ENV["SAME_VERSION"]
+
+desc "Run tests and build compass-#{spec.version}.gem"
+task :build => [:default, :gem]
+
+desc "Make the prebuilt gem compass-#{spec.version}.gem public."
+task :publish => [:record_version, :push_gem, :tag]
+
+desc "Build & Publish version #{spec.version}" 
+task :release => [:build, :publish]
+
+Gem::PackageTask.new(spec) do |pkg|
+  pkg.need_zip = true
+  pkg.need_tar = true
+end
+
+desc "Record the new version in version control for posterity"
+task :record_version do
+  unless ENV["SAME_VERSION"]
+    open(FileList["VERSION"].first, "w") do |f|
+      f.write(spec.version.to_s)
+    end
+    sh "git add VERSION Gemfile.lock"
+    sh %Q{git commit -m "Bump version to #{spec.version}."}
+  end
+end
+
+desc "Tag the repo as #{spec.version} and push the code and tag."
+task :tag do
+  sh "git tag -a -m 'Version #{spec.version}' #{spec.version}"
+  sh "git push --tags origin #{`git rev-parse --abbrev-ref HEAD`}"
+end
+
+desc "Push compass-#{spec.version}.gem to the rubygems server"
+task :push_gem do
+  sh "gem push pkg/compass-#{spec.version}.gem"
+end
+

@@ -11,6 +11,24 @@ namespace :test do
   end
 end
 
+desc "Download the latest browser stats data."
+task :caniuse do
+  require 'uri'
+  require 'net/http'
+  require 'net/https'
+  uri = URI.parse("https://raw.github.com/Fyrd/caniuse/master/data.json")
+  https = Net::HTTP.new(uri.host,uri.port)
+  https.use_ssl = true
+  req = Net::HTTP::Get.new(uri.path)
+  res = https.request(req)
+  filename = File.join(File.dirname(__FILE__), "data", "caniuse.json")
+  open(filename, "wb") do |file|
+    file.write(res.body)
+  end
+  puts "#{filename} (#{res.body.size} bytes)"
+end
+
+
 desc "Run all tests"
 task :test => ["test:integrations"]
 
@@ -32,7 +50,7 @@ spec.bump! unless ENV["SAME_VERSION"]
 desc "Run tests and build compass-core-#{spec.version}.gem"
 task :build => [:test, :gem]
 
-desc "Make make the prebuilt gem compass-core-#{spec.version}.gem public."
+desc "Make the prebuilt gem compass-core-#{spec.version}.gem public."
 task :publish => [:record_version, :push_gem, :tag]
 
 desc "Build & Publish version #{spec.version}" 

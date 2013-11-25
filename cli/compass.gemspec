@@ -3,7 +3,7 @@ require File.join(path, 'compass/version')
 
 Gem::Specification.new do |gemspec|
   gemspec.name = "compass"
-  gemspec.version = Compass::VERSION # Update VERSION.yml file to set this.
+  gemspec.version = Compass::VERSION # Update VERSION file to set this.
   gemspec.description = "Compass is a Sass-based Stylesheet Framework that streamlines the creation and maintenance of CSS."
   gemspec.homepage = "http://compass-style.org"
   gemspec.authors = ["Chris Eppstein", "Scott Davis", "Eric A. Meyer", "Brandon Mathis", "Anthony Short", "Nico Hagenburger"]
@@ -23,7 +23,7 @@ Gem::Specification.new do |gemspec|
     Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/compass Thanks!
   MESSAGE
 
-  gemspec.files = %w(LICENSE.markdown VERSION.yml Rakefile)
+  gemspec.files = %w(LICENSE.markdown VERSION Rakefile)
   gemspec.files += Dir.glob("bin/*")
   gemspec.files += Dir.glob("data/**/*")
   gemspec.files += Dir.glob("frameworks/**/*")
