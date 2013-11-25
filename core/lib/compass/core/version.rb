@@ -1,5 +1,5 @@
 module Compass
   module Core
-    VERSION = "0.0.1"
+    VERSION = File.read(File.join(File.dirname(__FILE__), "..", "..", "..", "VERSION"))
   end
 end

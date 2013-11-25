@@ -1,14 +1,7 @@
-GIT
-  remote: https://github.com/nex3/sass.git
-  revision: 4704960a0548d2aae444e9cbffffb430ee3f1ec8
-  specs:
-    sass (3.3.0.rc.1)
-      listen (~> 1.1.0)
-
 PATH
   remote: .
   specs:
-    compass-core (0.0.1)
+    compass-core (1.0.0.alpha.0)
       multi_json (~> 1.0)
       sass (>= 3.3.rc.1)
 
@@ -34,6 +27,8 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
+    sass (3.3.0.rc.2)
+      listen (~> 1.1.0)
     slop (3.4.6)
     timecop (0.5.9.2)
     true (0.2.0.rc.3)
@@ -48,6 +43,6 @@ DEPENDENCIES
   diff-lcs (~> 1.1.2)
   pry
   rake
-  sass!
+  sass (~> 3.3.0.rc.2)
   timecop (~> 0.5.9.2)
   true (~> 0.2.0.rc.3)
