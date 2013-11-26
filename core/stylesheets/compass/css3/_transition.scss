@@ -122,9 +122,9 @@ $transitionable-prefixed-values: transform, transform-origin !default;
   $transitions: set-arglist-default($transitions, $default);
 
   @include with-each-prefix(css-transitions, $transition-support-threshold) {
-    $delays: ();
-    $transitions-without-delays: ();
-    $transitions-with-delays: ();
+    $delays: comma-list();
+    $transitions-without-delays: comma-list();
+    $transitions-with-delays: comma-list();
     $has-delays: false;
 
 
