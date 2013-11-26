@@ -28,10 +28,6 @@ Options:
           self.options[:patch] = true
           self.options[:custom] = true
         end
-        opts.on("--revision", "Include the source control revision") do
-          self.options[:revision] = true
-          self.options[:custom] = true
-        end
       end
     end
 
@@ -79,14 +75,7 @@ Options:
           version = ""
           version << "#{Compass.version[:major]}" if options[:major]
           version << ".#{Compass.version[:minor]}" if options[:minor]
-          version << ".#{Compass.version[:teeny]}" if options[:patch]
-          if options[:revision]
-            if version.size > 0
-              version << " [#{Compass.version[:rev][0..6]}]"
-            else
-              version << Compass.version[:rev]
-            end
-          end
+          version << ".#{Compass.version[:patch]}" if options[:patch]
           puts version
         elsif options[:quiet]
           puts ::Compass.version[:string]
