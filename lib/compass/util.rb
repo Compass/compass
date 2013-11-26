@@ -2,7 +2,7 @@ module Compass::Util
   extend self
 
   def compass_warn(*args)
-    Sass::Util.warn(*args)
+    Sass::Util.sass_warn(*args)
   end
 
   def blank?(value)
