@@ -1,0 +1,10 @@
+$project-path: absolute-path(join-file-segments(".."));
+
+@import "compass/configuration";
+
+@function busted($path) {
+  @return "busted=true";
+}
+
+@include compass-configuration($asset-cache-buster: busted);
+

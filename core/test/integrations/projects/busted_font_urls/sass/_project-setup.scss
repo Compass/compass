@@ -1,0 +1,29 @@
+$project-path: absolute-path(join-file-segments(".."));
+
+@import "compass/configuration";
+
+@function asset-host($path) {
+  @return "http://assets#{str-length($path) % 4}.example.com"
+}
+
+@function busted($path) {
+  $file-parts: split-filename($path);
+
+  $dirname: nth($file-parts, 1);
+  $basename: nth($file-parts, 2);
+  $extname: nth($file-parts, 3);
+
+  @if $basename == "grid" {
+    @return (path: "#{$dirname}/#{$basename}-BUSTED#{$extname}", query: null);
+  } @else if $basename == "feed" {
+    @return "query_string";
+  } @else if $basename == "dk" {
+    @return (query: "query_string");
+  } @else {
+    @return null;
+  }
+}
+
+@include compass-configuration($asset-cache-buster: busted, $asset-host: asset-host);
+
+

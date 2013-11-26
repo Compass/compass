@@ -1,0 +1,71 @@
+.clearfix {
+  overflow: hidden;
+  *zoom: 1; }
+
+.pie-clearfix {
+  *zoom: 1; }
+  .pie-clearfix:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden; }
+
+.simple-pie-clearfix {
+  *zoom: 1; }
+  .simple-pie-clearfix:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+p.light {
+  background-color: #f3aead;
+  color: black; }
+
+p.dark {
+  background-color: #a22321;
+  color: white; }
+
+p.light-with-args {
+  background-color: #f3aead;
+  color: blue; }
+
+p.dark-with-args {
+  background-color: #a22321;
+  color: yellow; }
+
+th {
+  background-color: white; }
+  th.even, th:nth-child(2n) {
+    background-color: yellow; }
+
+tr.odd td, tr:nth-child(2n+1) td {
+  background-color: white; }
+  tr.odd td.even, tr.odd td:nth-child(2n), tr:nth-child(2n+1) td.even, tr:nth-child(2n+1) td:nth-child(2n) {
+    background-color: yellow; }
+
+tr.even td {
+  background-color: red; }
+  tr.even td.even, tr.even td:nth-child(2n) {
+    background-color: red; }
+
+tfoot th, tfoot td {
+  background-color: white; }
+  tfoot th.even, tfoot th:nth-child(2n), tfoot td.even, tfoot td:nth-child(2n) {
+    background-color: yellow; }
+
+p.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis; }
+
+p.ellipsis.moz {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  -moz-binding: url('/tmp/xml/ellipsis.xml#ellipsis'); }

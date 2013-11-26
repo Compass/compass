@@ -1,0 +1,6 @@
+$project-path: absolute-path(join-file-segments(".."));
+
+@import "compass/configuration";
+
+@include compass-configuration($images-dir: join-file-segments("assets", "images"),
+                               $relative-assets: true);
