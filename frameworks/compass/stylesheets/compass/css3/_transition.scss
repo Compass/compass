@@ -118,38 +118,49 @@ $transitionable-prefixed-values: transform, transform-origin !default;
 }
 
 @mixin transition($transitions...) {
-  $default: compact($default-transition-property $default-transition-duration $default-transition-function $default-transition-delay);
-  $transitions: set-arglist-default($transitions, $default);
-
-  @include with-each-prefix(css-transitions, $transition-support-threshold) {
-    $transitions-without-delays: ();
-    $transitions-with-delays: ();
-
-
-    // This block can be made considerably simpler at the point in time that
-    // we no longer need to deal with the differences in how delays are treated.
-    @each $transition in $transitions {
-      // Extract the values from the list
-      // (this would be cleaner if nth took a 3rd argument to provide a default value).
-      $property: nth($transition, 1);
-      $duration: if(length($transition) >= 2, nth($transition, 2), null);
-      $timing-function: if(length($transition) >= 3, nth($transition, 3), null);
-      $delay: if(length($transition) >= 4, nth($transition, 4), null);
-
-      // If a delay is provided without a timing function
-      @if is-time($timing-function) and not $delay {
-        $delay: $timing-function;
-        $timing-function: null;
-      }
-
-      $transitions-with-delays: append($transitions-with-delays,
-          prefixed-for-transition($current-prefix, $property) $duration $timing-function $delay);
-    }
-
-    @if $current-prefix {
-      @include prefix-prop(transition, $transitions-with-delays);
-    } @else {
-      transition: $transitions-with-delays;
-    }
-  }
+	$default: compact($default-transition-property $default-transition-duration $default-transition-function $default-transition-delay);
+	$transitions: set-arglist-default($transitions, $default);
+	@include with-each-prefix(css-transitions, $transition-support-threshold) {
+		$delays: comma-list();
+		$transitions-without-delays: comma-list();
+		$transitions-with-delays: comma-list();
+		$has-delays: false;
+		// This block can be made considerably simpler at the point in time that
+		// we no longer need to deal with the differences in how delays are treated.
+		@each $transition in $transitions {
+			// Extract the values from the list
+			// (this would be cleaner if nth took a 3rd argument to provide a default value).
+			$property: nth($transition, 1);
+			$duration: if(length($transition) >= 2, nth($transition, 2), null);
+			$timing-function: if(length($transition) >= 3, nth($transition, 3), null);
+			$delay: if(length($transition) >= 4, nth($transition, 4), null);
+			$has-delays: $has-delays or $delay;
+			// If a delay is provided without a timing function
+			@if is-time($timing-function) and not $delay {
+				$delay: $timing-function;
+				$timing-function: null;
+				$has-delays: true;
+			}
+			@if $current-prefix == -webkit {
+				// Keep a list of delays in case one is specified
+				$delays: append($delays, if($delay, $delay, 0s));
+			 $transitions-without-delays: append($transitions-without-delays, prefixed-for-transition($current-prefix, $property) $duration $timing-function);
+			}
+			@else {
+				$transitions-with-delays: append($transitions-with-delays, compact(prefixed-for-transition($current-prefix, $property) $duration $timing-function $delay));
+			}
+		}
+		@if $current-prefix == -webkit {
+			@include prefix-prop(transition, $transitions-without-delays);
+			@if $has-delays {
+				@include prefix-prop(transition-delay, $delays);
+			}
+		}
+		@else if $current-prefix {
+			@include prefix-prop(transition, $transitions-with-delays);
+		}
+		@else {
+			transition: $transitions-with-delays;
+		}
+	}
 }
