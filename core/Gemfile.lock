@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    compass-core (1.0.0.alpha.12)
+    compass-core (1.0.0.alpha.13)
       multi_json (~> 1.0)
       sass (>= 3.3.rc.1)
 
