@@ -33,3 +33,11 @@ footer {
   margin: 0 auto;
   width: 640px;
 }
+
+blockquote {
+  @extend code;
+}
+
+#page h3 {
+  padding-left: 0;
+}

@@ -19,7 +19,6 @@ gem 'compass-theme', :git => 'git://github.com/Compass/compass-theme.git'
 # gem 'css-slideshow', "0.2.0"
 gem 'json'
 gem 'css_parser', "1.0.1"
-gem 'ruby-prof'
 gem 'rb-fsevent'
 gem 'builder'
 
