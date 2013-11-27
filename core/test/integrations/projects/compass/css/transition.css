@@ -43,10 +43,10 @@
   transition: transform 0.6s ease-out; }
 
 .multiple-transitions {
-  -moz-transition: -moz-transform 0.6s ease-out opacity 0.2s ease-in;
-  -o-transition: -o-transform 0.6s ease-out opacity 0.2s ease-in;
-  -webkit-transition: -webkit-transform 0.6s ease-out opacity 0.2s ease-in;
-  transition: transform 0.6s ease-out opacity 0.2s ease-in; }
+  -moz-transition: -moz-transform 0.6s ease-out, opacity 0.2s ease-in;
+  -o-transition: -o-transform 0.6s ease-out, opacity 0.2s ease-in;
+  -webkit-transition: -webkit-transform 0.6s ease-out, opacity 0.2s ease-in;
+  transition: transform 0.6s ease-out, opacity 0.2s ease-in; }
 
 .transition-property {
   -moz-transition-property: -moz-transform;
