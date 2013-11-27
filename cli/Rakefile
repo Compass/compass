@@ -202,7 +202,7 @@ task :record_version do
     open(FileList["VERSION"].first, "w") do |f|
       f.write(spec.version.to_s)
     end
-    sh "git add VERSION Gemfile.lock"
+    sh "git add VERSION"
     sh %Q{git commit -m "Bump version to #{spec.version}."}
   end
 end
