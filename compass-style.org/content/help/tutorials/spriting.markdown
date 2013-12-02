@@ -31,7 +31,7 @@ Each is an icon that is 32px square.
 <a name="basic-usage"></a>
 ## Basic Usage
 
-****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
+****Note**: The use of `my-icons` is only for this example, "my-icons" represents the folder name that contains your sprites.
 
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
     
@@ -65,7 +65,7 @@ sprite map, nor where a sprite is located within it.
 <a name='nested-folders' id='nested-folders'></a>    
 ## Nested Folders    
 
-****Note**: The use of `orange` is only for this example, "icon" represents the folder name that contains your sprites.
+****Note**: The use of `orange` is only for this example, "orange" represents the folder name that contains your sprites.
 
 Sprites stored in a nested folder will use the last folder name in the path as the sprite name.
 
@@ -77,7 +77,7 @@ Example:
 <a name="selector-control" id="selector-control"></a>
 ## Selector Control
 
-****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
+****Note**: The use of `my-icons` is only for this example, "my-icons" represents the folder name that contains your sprites.
 
 If you want control over what selectors are generated, it is easy to do. In this example,
 this is done by using the magic `my-icons-sprite` mixin. Note that the mixin's name is dependent
@@ -132,7 +132,7 @@ Example:
 <a name="magic-imports" id="magic-imports"></a>
 ## Magic Imports
 
-****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
+****Note**: The use of `my-icon` is only for this example, "my-icon" represents the folder name that contains your sprites.
 
 As noted above, compass will magically create sprite stylesheets for you. Some people like
 magic, some people are scared by it, and others are curious about how the magic works. If
