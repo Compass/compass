@@ -143,7 +143,7 @@ $rem-with-px-fallback: true !default;
 	}
 
 	// Use pixel fallback for browsers that don't understand rem units.
-	@if $use-px-fallback {
+	@if $use-px-fallback and $px-values != $rem-values {
 		#{$property}: $px-values;
 	}
 
