@@ -7,8 +7,8 @@
 $box-sizing-support:  -moz, -webkit, not -o, not -ms, not -khtml;
 
 
-// The default box-sizing model: [ content-box | border-box | padding-box ]
-$default-box-sizing: content-box !default;
+// The default box-sizing model: [ border-box | context-box | padding-box ]
+$default-box-sizing: border-box !default;
 
 
 // Change the box model for Mozilla, Webkit, IE8 and the future
