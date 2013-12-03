@@ -41,7 +41,7 @@ $default-text-shadow-spread:   false  !default;
       $has-spread: true;
       $shadows-without-spread: append($shadows-without-spread, nth($shadow,1) nth($shadow,2) nth($shadow,3) nth($shadow,5));
       $shadows: append($shadows, $shadow);
-    } else {
+    } @else {
       $shadows-without-spread: append($shadows-without-spread, $shadow);
       $shadows: append($shadows, $shadow);
     }
