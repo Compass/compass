@@ -34,8 +34,9 @@ classnames:
                           radial-gradient(#c00, #fff 100px));
     }</code></pre>
 
-    To enable SVG gradient support in Opera and IE9, set
-    <code>$experimental-support-for-svg: true</code> in your stylesheet.
+    To enable SVG gradient support in Opera and IE9, lower the SVG shim threshold
+    <code>$svg-gradient-shim-threshold</code> to <code>0.1</code> (or to whatever
+    threshold you feel is best) in your stylesheet.
 
     NOTE: At this time, Opera renders incorrectly an SVG background on a element
     with a border, repeating the gradient towards the end. You can set
