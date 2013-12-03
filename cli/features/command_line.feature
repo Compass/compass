@@ -161,7 +161,7 @@ Feature: Command Line
     And I run in a separate process: compass watch 
     And I wait 3 seconds
     And I touch sass/simple.sass
-    And I wait 2 seconds
+    And I wait 3 seconds
     And I shutdown the other process
     Then a css file tmp/simple.css is reported identical
 
