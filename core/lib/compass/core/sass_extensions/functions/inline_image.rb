@@ -26,7 +26,7 @@ protected
 
 private
   def compute_mime_type(path, mime_type = nil)
-    return mime_type if mime_type
+    return mime_type.value if mime_type
     case path
     when /\.png$/i
       'image/png'
