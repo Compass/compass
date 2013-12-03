@@ -102,7 +102,7 @@ later on.
     <td style="vertical-align:top;"><code>environment</code> </td>
     <td style="vertical-align:top;">Symbol </td>
     <td style="vertical-align:top;">The environment mode.
-      Defaults to <code>:production</code>, can also be <code>:development</code>
+      Defaults to <code>:development</code>, can also be <code>:production</code>
     </td>
   </tr>
   <tr>
