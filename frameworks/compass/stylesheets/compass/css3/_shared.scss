@@ -36,3 +36,20 @@
   @if $o       and $experimental-support-for-opera     { #{$property} :      -o-#{$value}; }
   @if $official                                        { #{$property} :         #{$value}; }
 }
+
+// Same as experimental(), but for cases when the property and the value are vendorized
+@mixin experimental-both($property, $value,
+  $moz      : $experimental-support-for-mozilla,
+  $webkit   : $experimental-support-for-webkit,
+  $o        : $experimental-support-for-opera,
+  $ms       : $experimental-support-for-microsoft,
+  $khtml    : $experimental-support-for-khtml,
+  $official : true
+) {
+  @if $webkit  and $experimental-support-for-webkit    { -webkit-#{$property} : -webkit-#{$value}; }
+  @if $khtml   and $experimental-support-for-khtml     {  -khtml-#{$property} :  -khtml-#{$value}; }
+  @if $moz     and $experimental-support-for-mozilla   {    -moz-#{$property} :    -moz-#{$value}; }
+  @if $ms      and $experimental-support-for-microsoft {     -ms-#{$property} :     -ms-#{$value}; }
+  @if $o       and $experimental-support-for-opera     {      -o-#{$property} :      -o-#{$value}; }
+  @if $official                                        {         #{$property} :         #{$value}; }
+}
