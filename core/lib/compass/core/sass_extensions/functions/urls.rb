@@ -47,7 +47,7 @@ module Compass::Core::SassExtensions::Functions::Urls
         base.declare :font_url,       [:path, :only_path, :cache_buster]
       end
     end
-    def font_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(false))
+    def font_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(true))
       path = path.value # get to the string value of the literal.
 
       # Short curcuit if they have provided an absolute url.
@@ -65,7 +65,7 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       # Compute the real path to the font on the file system if the fonts_dir is set.
       real_path = if Compass.configuration.fonts_dir
-        File.join(Compass.configuration.project_path, Compass.configuration.fonts_dir, path)
+        File.join(Compass.configuration.fonts_path, path.gsub(/#.*$/,""))
       end
 
       # prepend the path to the font if there's one
@@ -81,11 +81,13 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       # Compute and append the cache buster if there is one.
       if cache_buster.to_bool
+        path, anchor = path.split("#", 2)
         if cache_buster.is_a?(Sass::Script::String)
           path += "?#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
         end
+        path = "#{path}#{"#" if anchor}#{anchor}"
       end
 
       # prepend the asset host if there is one.
@@ -131,9 +133,9 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       # Compute the real path to the image on the file stystem if the images_dir is set.
       real_path = if Compass.configuration.images_path
-        File.join(Compass.configuration.images_path, path)
+        File.join(Compass.configuration.images_path, path.gsub(/#.*$/,""))
       else
-        File.join(Compass.configuration.project_path, path)
+        File.join(Compass.configuration.project_path, path.gsub(/#.*$/,""))
       end
 
       # prepend the path to the image if there's one
@@ -149,11 +151,13 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       # Compute and append the cache buster if there is one.
       if cache_buster.to_bool
+        path, anchor = path.split("#", 2)
         if cache_buster.is_a?(Sass::Script::String)
           path += "?#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
         end
+        path = "#{path}#{"#" if anchor}#{anchor}"
       end
 
       # prepend the asset host if there is one.
@@ -198,9 +202,9 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       # Compute the real path to the image on the file stystem if the generated_images_dir is set.
       real_path = if Compass.configuration.images_path
-        File.join(Compass.configuration.images_path, path)
+        File.join(Compass.configuration.images_path, path.gsub(/#.*$/,""))
       else
-        File.join(Compass.configuration.project_path, path)
+        File.join(Compass.configuration.project_path, path.gsub(/#.*$/,""))
       end
 
       # prepend the path to the image if there's one
@@ -216,11 +220,13 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       # Compute and append the cache buster if there is one.
       if cache_buster.to_bool
+        path, anchor = path.split("#", 2)
         if cache_buster.is_a?(Sass::Script::String)
           path += "?#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
         end
+        path = "#{path}#{"#" if anchor}#{anchor}"
       end
 
       # prepend the asset host if there is one.
@@ -275,15 +281,23 @@ module Compass::Core::SassExtensions::Functions::Urls
   end
 
   def compute_cache_buster(path, real_path)
+    file = nil
     if Compass.configuration.asset_cache_buster
       args = [path]
       if Compass.configuration.asset_cache_buster.arity > 1
-        args << (File.new(real_path) if real_path)
+        begin
+          file = File.new(real_path) if real_path
+        rescue Errno::ENOENT
+          # pass
+        end
+        args << file
       end
       Compass.configuration.asset_cache_buster.call(*args)
     elsif real_path
       default_cache_buster(path, real_path)
     end
+  ensure
+    file.close if file
   end
 
   def default_cache_buster(path, real_path)

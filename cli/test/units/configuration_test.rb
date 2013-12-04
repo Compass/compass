@@ -187,6 +187,136 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_equal "WARNING: asset_cache_buster is code and cannot be written to a file. You'll need to copy it yourself.\n", warning
   end
 
+  def test_cache_buster_file_not_passed_when_the_file_does_not_exist
+    config = Compass::Configuration::Data.new("test_cache_buster_file_not_passed_when_the_file_does_not_exist")
+    the_file = nil
+    was_called = nil
+    config.asset_cache_buster do |path, file|
+      was_called = true
+      the_file = file
+      "busted=true"
+    end
+
+    Compass.add_configuration(config)
+
+
+    sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
+      .foo { background: image-url("asdf.gif") }
+    SCSS
+    sass.render
+    assert was_called
+    assert_nil the_file
+  end
+
+  def test_cache_buster_file_is_closed
+    config = Compass::Configuration::Data.new("test_cache_buster_file_is_closed")
+    the_file = nil
+    was_called = nil
+    assert !File.exist?("images")
+    FileUtils.mkdir "images"
+    FileUtils.touch "images/asdf.gif"
+    config.asset_cache_buster do |path, file|
+      was_called = true
+      the_file = file
+      "busted=true"
+    end
+
+    Compass.add_configuration(config)
+
+    sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
+      .foo { background: image-url("asdf.gif") }
+    SCSS
+    sass.render
+    assert was_called
+    assert_kind_of File, the_file
+    assert the_file.closed?
+  ensure
+    FileUtils.rm_rf "images"
+  end
+
+  def test_cache_buster_handles_id_refs_for_images
+    config = Compass::Configuration::Data.new("test_cache_buster_file_is_closed")
+    the_file = nil
+    was_called = nil
+    assert !File.exist?("images")
+    FileUtils.mkdir "images"
+    FileUtils.touch "images/asdf.svg"
+    config.asset_cache_buster do |path, file|
+      was_called = true
+      the_file = file
+      "busted=true"
+    end
+
+    Compass.add_configuration(config)
+
+    sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
+      .foo { background: image-url("asdf.svg#image-1") }
+    SCSS
+    result = sass.render
+    assert was_called
+    assert_kind_of File, the_file
+    assert the_file.closed?
+     assert_equal <<CSS, result
+/* line 1 */
+.foo {
+  background: url('/images/asdf.svg?busted=true#image-1');
+}
+CSS
+  ensure
+    FileUtils.rm_rf "images"
+  end
+
+  def test_default_cache_buster_handles_id_refs_for_images
+    assert !File.exist?("images")
+    FileUtils.mkdir "images"
+    FileUtils.touch "images/asdf.svg"
+    sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
+      .foo { background: image-url("asdf.svg#image-1") }
+    SCSS
+    result = sass.render
+     assert_equal <<CSS, result
+/* line 1 */
+.foo {
+  background: url('/images/asdf.svg?#{File.mtime("images/asdf.svg").to_i}#image-1');
+}
+CSS
+  ensure
+    FileUtils.rm_rf "images"
+  end
+
+  def test_cache_buster_handles_id_refs_for_fonts
+    config = Compass::Configuration::Data.new("test_cache_buster_file_is_closed")
+    the_file = nil
+    was_called = nil
+    assert !File.exist?("fonts")
+    FileUtils.mkdir "fonts"
+    FileUtils.touch "fonts/asdf.ttf"
+    config.asset_cache_buster do |path, file|
+      was_called = true
+      the_file = file
+      "busted=true"
+    end
+
+    Compass.add_configuration(config)
+
+    sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
+      .foo { background: font-url("asdf.ttf#iefix") }
+    SCSS
+    result = sass.render
+    assert was_called
+    assert_kind_of File, the_file
+    assert the_file.closed?
+     assert_equal <<CSS, result
+/* line 1 */
+.foo {
+  background: url('/fonts/asdf.ttf?busted=true#iefix');
+}
+CSS
+  ensure
+    FileUtils.rm_rf "fonts"
+  end
+
+
   def test_inherited_arrays_augmentations_serialize
     inherited = TestData.new
     inherited.stuff << :a
