@@ -32,7 +32,7 @@ module Compass
     private #=========================================================================================>
 
       def create_compiler_options(additional_options)
-        compiler_opts = {:sass => Compass.sass_engine_options, :cache_store => @cache_store, :quiet => true, :loud => [:identical, :overwrite, :create]}.merge(additional_options)
+        compiler_opts = {:sass => Compass.sass_engine_options, :cache_store => @cache_store, :quiet => true, :loud => [:empty, :discarded, :identical, :overwrite, :create]}.merge(additional_options)
         compiler_opts[:cache_location] ||= determine_cache_location
         if compiler_opts.include?(:debug_info)
           compiler_opts[:sass][:debug_info] = compiler_opts.delete(:debug_info)

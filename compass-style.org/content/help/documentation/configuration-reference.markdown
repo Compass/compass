@@ -316,6 +316,13 @@ later on.
       Defaults to <code> [images_path] </code>
     </td>
   </tr>
+  <tr>
+    <td style="vertical-align:top;"><code>save_blank_files</code></td>
+    <td style="vertical-align:top;">Boolean </td>
+    <td style="vertical-align:top;">
+      When compiling, this prevents the saving of empty files. Defaults to false.
+    </td>
+  </tr>
 </table>
 
 <a name="configuration-functions"></a>

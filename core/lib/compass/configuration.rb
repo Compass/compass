@@ -48,6 +48,8 @@ module Compass
     end
 
     ATTRIBUTES = [
+      # Save blank rendered files?
+      :save_blank_files,
       # What kind of project?
       :project_type,
       # Where is the project?

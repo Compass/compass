@@ -2,11 +2,13 @@ module Compass
 
   class Logger
 
-    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical, :warning]
+    DEFAULT_ACTIONS = [:empty, :discarded, :directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical, :warning]
 
     COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     ACTION_COLORS = {
+      :empty     => :yellow,
+      :discarded => :red,
       :error     => :red,
       :warning   => :yellow,
       :info      => :green,
