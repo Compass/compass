@@ -68,7 +68,7 @@ $grid-background-force-fluid      : false                       !default;
     }
 
     // and we add this column/gutter pair to our grid
-    $grid: join($grid, ($column-color $a, $column-color $g, $gutter-color $g, $gutter-color $z));
+    $grid: join($grid, (lighten($column-color, 5%) $a, darken($column-color, 5%) $g, $gutter-color $g, $gutter-color $z));
   }
 
   @return $grid;
