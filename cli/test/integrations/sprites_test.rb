@@ -955,6 +955,7 @@ class SpritesTest < Test::Unit::TestCase
         text-indent:-119988px;
         overflow:hidden;
         text-align:left;
+        text-transform: capitalize;
         background-position:0 0;
         background-image:url('/images-tmp/colors-s58671cb5bb.png');
         background-repeat:no-repeat;
@@ -964,6 +965,7 @@ class SpritesTest < Test::Unit::TestCase
         text-indent:-119988px;
         overflow:hidden;
         text-align:left;
+        text-transform: capitalize;
         background-position:0 -10px;
         height:10px;
         width:10px;
