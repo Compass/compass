@@ -351,7 +351,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     # returns the end position of the gradient from the color stop
     def grad_end_position(color_list, radial = Sass::Script::Bool.new(false))
       assert_type color_list, :List
-      default = Sass::Script::Number.new(100)
+      default = Sass::Script::Number.new(100, ["%"])
       grad_position(color_list, Sass::Script::Number.new(color_list.value.size), default, radial)
     end
 
