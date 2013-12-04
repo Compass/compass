@@ -356,9 +356,9 @@ that points to the asset on disk — which may or may not exist.
 
     # Increment the deploy_version before every release to force cache busting.
     deploy_version = 1
-    asset_cache_buster do |http_path, real_path|
-      if File.exists?(real_path)
-        File.mtime(real_path).strftime("%s")
+    asset_cache_buster do |http_path, file|
+      if file
+        file.mtime.strftime("%s")
       else
         "v=#{deploy_version}"
       end
@@ -366,10 +366,10 @@ that points to the asset on disk — which may or may not exist.
 
 Busting the cache via path:
 
-    asset_cache_buster do |path, real_path|
-      if File.exists?(real_path)
+    asset_cache_buster do |path, file|
+      if file
         pathname = Pathname.new(path)
-        modified_time = File.mtime(real_path).strftime("%s")
+        modified_time = file.mtime.strftime("%s")
         new_path = "%s/%s-%s%s" % [pathname.dirname, pathname.basename(pathname.extname), modified_time, pathname.extname]
 
         {:path => new_path, :query => nil}
