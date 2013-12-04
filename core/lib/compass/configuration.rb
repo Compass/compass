@@ -36,7 +36,7 @@ module Compass
         Data.send(:define_method, :"default_#{name}", &default) if default
         Data.inherited_accessor(name)
         if name.to_s =~ /dir|path/
-          strip_trailing_separator(name)
+          Data.strip_trailing_separator(name)
         end
       end
 
