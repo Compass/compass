@@ -70,10 +70,12 @@ module Compass
         Compass::Frameworks::ALL.each do |f|
           load_paths << f.stylesheets_directory if File.directory?(f.stylesheets_directory)
         end
+        importer = sass_options[:filesystem_importer] if sass_options && sass_options[:filesystem_importer]
+        importer ||= Sass::Importers::Filesystem
         load_paths += resolve_additional_import_paths
         load_paths.map! do |p|
           next p if p.respond_to?(:find_relative)
-          Sass::Importers::Filesystem.new(p.to_s)
+          importer.new(p.to_s)
         end
         load_paths << Compass::SpriteImporter.new
         load_paths
