@@ -6,10 +6,17 @@ class ConfigurationTest < Test::Unit::TestCase
 
   setup do
     Compass.reset_configuration!
+    @original_wd = Dir.pwd
+    FileUtils.rm_rf "test_tmp"
+    FileUtils.mkdir_p "test_tmp/images"
+    FileUtils.mkdir_p "test_tmp/fonts"
+    Dir.chdir "test_tmp"
   end
   
   after do
     Compass.reset_configuration!
+    Dir.chdir @original_wd
+    FileUtils.rm_rf "test_tmp"
   end
 
   def test_parse_and_serialize
@@ -212,8 +219,6 @@ class ConfigurationTest < Test::Unit::TestCase
     config = Compass::Configuration::Data.new("test_cache_buster_file_is_closed")
     the_file = nil
     was_called = nil
-    assert !File.exist?("images")
-    FileUtils.mkdir "images"
     FileUtils.touch "images/asdf.gif"
     config.asset_cache_buster do |path, file|
       was_called = true
@@ -230,16 +235,12 @@ class ConfigurationTest < Test::Unit::TestCase
     assert was_called
     assert_kind_of File, the_file
     assert the_file.closed?
-  ensure
-    FileUtils.rm_rf "images"
   end
 
   def test_cache_buster_handles_id_refs_for_images
     config = Compass::Configuration::Data.new("test_cache_buster_file_is_closed")
     the_file = nil
     was_called = nil
-    assert !File.exist?("images")
-    FileUtils.mkdir "images"
     FileUtils.touch "images/asdf.svg"
     config.asset_cache_buster do |path, file|
       was_called = true
@@ -262,13 +263,9 @@ class ConfigurationTest < Test::Unit::TestCase
   background: url('/images/asdf.svg?busted=true#image-1');
 }
 CSS
-  ensure
-    FileUtils.rm_rf "images"
   end
 
   def test_default_cache_buster_handles_id_refs_for_images
-    assert !File.exist?("images")
-    FileUtils.mkdir "images"
     FileUtils.touch "images/asdf.svg"
     sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
       .foo { background: image-url("asdf.svg#image-1") }
@@ -280,16 +277,12 @@ CSS
   background: url('/images/asdf.svg?#{File.mtime("images/asdf.svg").to_i}#image-1');
 }
 CSS
-  ensure
-    FileUtils.rm_rf "images"
   end
 
   def test_cache_buster_handles_id_refs_for_fonts
     config = Compass::Configuration::Data.new("test_cache_buster_file_is_closed")
     the_file = nil
     was_called = nil
-    assert !File.exist?("fonts")
-    FileUtils.mkdir "fonts"
     FileUtils.touch "fonts/asdf.ttf"
     config.asset_cache_buster do |path, file|
       was_called = true
@@ -312,8 +305,6 @@ CSS
   background: url('/fonts/asdf.ttf?busted=true#iefix');
 }
 CSS
-  ensure
-    FileUtils.rm_rf "fonts"
   end
 
 
