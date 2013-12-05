@@ -1,3 +1,4 @@
+FileUtils.rm_f(FileList["RELEASE_VERSION"].first)
 require 'rubygems'
 require 'rubygems/package_task'
 require 'rake/testtask'
@@ -170,6 +171,7 @@ end
 # Release tasks
 gemspec_file = FileList['compass.gemspec'].first
 spec = eval(File.read(gemspec_file), binding, gemspec_file)
+spec.files << "RELEASE_VERSION"
 
 def spec.bump!
   segments = version.to_s.split(".")
@@ -184,6 +186,14 @@ spec.bump! unless ENV["SAME_VERSION"]
 
 desc "Run tests and build compass-#{spec.version}.gem"
 task :build => [:default, :gem]
+
+task :gem => :release_version
+
+task :release_version do
+  open("RELEASE_VERSION", "w") do |f|
+    f.write(spec.version.to_s)
+  end
+end
 
 desc "Make the prebuilt gem compass-#{spec.version}.gem public."
 task :publish => [:record_version, :push_gem, :tag]
@@ -204,6 +214,7 @@ task :record_version do
     end
     sh "git add VERSION"
     sh %Q{git commit -m "Bump version to #{spec.version}."}
+    sh "rm RELEASE_VERSION"
   end
 end
 

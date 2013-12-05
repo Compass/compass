@@ -18,7 +18,8 @@ module Compass
     end
 
     def read_version
-      v = File.read(scope('VERSION')).strip
+      version_file = File.exist?(scope("RELEASE_VERSION")) ? scope("RELEASE_VERSION") : scope("VERSION")
+      v = File.read(version_file).strip
       segments = v.split(".")
       version_hash = {:string => v}
       version_hash[:major] = segments.shift
