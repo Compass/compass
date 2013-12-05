@@ -6,7 +6,7 @@ require 'compass/core/version'
 Gem::Specification.new do |spec|
   spec.name          = "compass-core"
   spec.version       = Compass::Core::VERSION
-  spec.authors       = ["Chris Eppstein"]
+  spec.authors       = ["Chris Eppstein", "Scott Davis", "Eric A. Meyer", "Brandon Mathis"]
   spec.email         = ["chris@eppsteins.net"]
   spec.description   = %q{The Compass core stylesheet library and minimum required ruby extensions. This library can be used stand-alone without the compass ruby configuration file or compass command line tools.}
   spec.summary       = %q{The Compass core stylesheet library}
