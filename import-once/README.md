@@ -6,6 +6,9 @@ will be a no-op. This allows dependencies to behave how most people
 expect them to behave and provides a considerable performance improvement
 for some sass projects.
 
+**Note**: Although this plugin is maintained by compass, it can be used
+without compass in any Sass-based project.
+
 ## Installation
 
 Or add this line to your application's Gemfile if you have one:
