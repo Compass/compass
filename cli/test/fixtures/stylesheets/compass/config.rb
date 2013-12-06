@@ -1,5 +1,6 @@
 # Require any additional compass plugins here.
 require 'true'
+require 'compass/import-once/activate'
 project_type = :stand_alone
 css_dir = "tmp"
 sass_dir = "sass"
