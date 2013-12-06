@@ -43,6 +43,10 @@ module Compass
         (required_libraries || []).each do |lib|
           contents << %Q{require '#{lib}'\n}
         end
+        unless (required_libraries || []).include?("compass/import-once/activate") ||
+               (required_libraries || []).include?("compass/import-once")
+          contents << "require 'compass/import-once/activate'\n"
+        end
         (loaded_frameworks || []).each do |lib|
           contents << %Q{load '#{lib}'\n}
         end
