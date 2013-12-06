@@ -22,6 +22,7 @@ class ConfigurationTest < Test::Unit::TestCase
   def test_parse_and_serialize
     contents = StringIO.new(<<-CONFIG)
       require 'compass'
+      require 'compass/import-once/activate'
       # Require any additional compass plugins here.
 
       project_type = :stand_alone
@@ -353,6 +354,7 @@ CONFIG
     assert_equal "/home/chris/my_compass_project/css/foo", plugin_opts[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
 
     expected_serialization = <<EXPECTED
+require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
 
@@ -415,6 +417,7 @@ EXPECTED
     assert_equal "/home/chris/my_compass_project/css/foo", Compass.configuration.to_sass_plugin_options[:template_location].find{|s,c| s == "/home/chris/my_compass_project/../foo"}[1]
 
     expected_serialization = <<EXPECTED
+require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 project_path = "/home/chris/my_compass_project"
 
@@ -453,6 +456,7 @@ EXPECTED
       assert_equal 'bar', Compass.configuration.to_sass_plugin_options[:foo]
 
       expected_serialization = <<EXPECTED
+require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 
 # Set this to the root of your project when deployed:
@@ -488,6 +492,7 @@ EXPECTED
       assert_equal ["/Users/chris/Projects/my_compass_project/images/sprites"], Compass.configuration.sprite_load_path.to_a
 
       expected_serialization = <<EXPECTED
+require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 
 # Set this to the root of your project when deployed:
@@ -558,6 +563,7 @@ EXPECTED
 
     assert_equal "baz", Compass.configuration.foobar
     expected_serialization = <<EXPECTED
+require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 
 # Set this to the root of your project when deployed:
