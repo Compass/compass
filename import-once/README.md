@@ -2,7 +2,9 @@
 
 This plugin changes the behavior of Sass's `@import` directive so that
 if the same sass file is imported more than once, the second import
-will be a no-op. This allows dependencies to be
+will be a no-op. This allows dependencies to behave how most people
+expect them to behave and provides a considerable performance improvement
+for some sass projects.
 
 ## Installation
 

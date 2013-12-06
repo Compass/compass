@@ -14,6 +14,17 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+1.0.0.alpha.16 (12/05/2013)
+---------------------------
+
+* Compass now depends the `compass-import-once` gem that implements an
+  import once behavior for the `@import` directive in Sass. This makes
+  `@import` behave how most people expect it to work. New projects will
+  automatically be set up to use this gem. Existing projects need to add
+  `require 'compass/import-once/activate'` to their configuration. More
+  details about the import once gem are available in the
+  [README](https://github.com/chriseppstein/compass/blob/master/import-once/README.md)
+
 0.13.alpha.8 (10/21/2013)
 -------------------------
 
