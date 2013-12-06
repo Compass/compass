@@ -11,7 +11,7 @@ module Sass
         if path.is_a?(Sass::Importers::Base) && !path.is_a?(Compass::ImportOnce::Importer)
           path.extend(Compass::ImportOnce::Importer)
         elsif !path.is_a?(Sass::Importers::Base)
-          Sass::Util.sass_war "WARNING: #{path.inspect} is on the load path and is not an importer."
+          Sass::Util.sass_warn "WARNING: #{path.inspect} is on the load path and is not an importer."
         end
       end
       instance
