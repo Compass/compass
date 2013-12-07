@@ -1,10 +1,13 @@
 module Compass::SassExtensions::Functions::Sprites
 
   extend Compass::SassExtensions::Functions::SassDeclarationHelper
+  extend Sass::Script::Value::Helpers
+  include Sass::Script::Value::Helpers
 
-  ZERO = Sass::Script::Number::new(0)
-  BOOL_FALSE = Sass::Script::Bool::new(false)
+  ZERO = number(0)
+  BOOL_FALSE = bool(false)
   VALID_SELECTORS = %w(hover active target focus)
+
   # Provides a consistent interface for getting a variable in ruby
   # from a keyword argument hash that accounts for underscores/dash equivalence
   # and allows the caller to pass a symbol instead of a string.
@@ -19,7 +22,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, 'sprite-width')
     file = get_sprite_file(map, sprite)
     width, _ = image_dimensions(file)
-    Sass::Script::Number.new(width, ["px"])
+    number(width, "px")
   end
   declare :sprite_width, [:map]
   declare :sprite_width, [:map, :sprite]
@@ -29,7 +32,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, 'sprite-height')
     file = get_sprite_file(map, sprite)
     _, height = image_dimensions(file)
-    Sass::Script::Number.new(height, ["px"])
+    number(height, "px")
   end
   declare :sprite_height, [:map]
   declare :sprite_height, [:map, :sprite]
@@ -37,14 +40,14 @@ module Compass::SassExtensions::Functions::Sprites
   # Returns a list of all sprite names
   def sprite_names(map)
     verify_map(map, 'sprite-names')
-    Sass::Script::List.new(map.sprite_names.map { |f| Sass::Script::String.new(f) }, ' ')
+    list(map.sprite_names.map { |f| identifier(f) }, :comma)
   end
   declare :sprite_names, [:map]
 
   # Returns the system path of the sprite file
   def sprite_path(map)
     verify_map(map, 'sprite-path')
-    Sass::Script::String.new(map.filename)
+    identifier(map.filename)
   end
   declare :sprite_path, [:map]
 
@@ -96,7 +99,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_sprite(sprite)
     url = sprite_url(map)
     position = sprite_position(map, sprite, offset_x, offset_y, use_percentages)
-    Sass::Script::List.new([url] + position.value, :space)
+    list([url] + position.value, :space)
   end
   declare :sprite, [:map, :sprite]
   declare :sprite, [:map, :sprite, :offset_x]
@@ -107,7 +110,7 @@ module Compass::SassExtensions::Functions::Sprites
   # The name is derived from the folder than contains the sprites.
   def sprite_map_name(map)
     verify_map(map, "sprite-map-name")
-    Sass::Script::String.new(map.name)
+    identifier(map.name)
   end
   declare :sprite_name, [:sprite]
 
@@ -117,7 +120,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, "sprite")
     verify_sprite(sprite)
     if image = map.image_for(sprite.value)
-      Sass::Script::String.new(image.file)
+      identifier(image.file)
     else
       missing_image!(map, sprite)
     end
@@ -129,9 +132,8 @@ module Compass::SassExtensions::Functions::Sprites
     sprite = convert_sprite_name(sprite)
     verify_map map
     verify_sprite sprite
-    Sass::Script::Bool.new map.image_for(sprite.value).parent.nil?
+    bool(map.image_for(sprite.value).parent.nil?)
   end
-  
   declare :sprite_does_not_have_parent, [:map, :sprite]
 
   #return the name of the selector file
@@ -139,7 +141,7 @@ module Compass::SassExtensions::Functions::Sprites
     sprite = convert_sprite_name(sprite)
     image = map.image_for(sprite)
     if map.send(:"has_#{selector.value}?", sprite.value)
-      return Sass::Script::String.new(image.send(selector.value).name)
+      return identifier(image.send(selector.value).name)
     end
 
     raise Sass::SyntaxError, "Sprite: #{sprite.value} does not have a #{selector} state"
@@ -155,7 +157,7 @@ module Compass::SassExtensions::Functions::Sprites
     unless VALID_SELECTORS.include?(selector.value)
       raise Sass::SyntaxError, "Invalid Selctor did you mean one of: #{VALID_SELECTORS.join(', ')}"
     end
-    Sass::Script::Bool.new map.send(:"has_#{selector.value}?", sprite.value)
+    bool map.send(:"has_#{selector.value}?", sprite.value)
   end
   
   declare :sprite_has_selector, [:map, :sprite, :selector]
@@ -166,14 +168,14 @@ module Compass::SassExtensions::Functions::Sprites
     unless selector.value =~ IDENTIFIER_RX
       raise Sass::SyntaxError, "#{selector} must be a legal css identifier"
     end
-    Sass::Script::Bool.new true
+    bool true
   end
 
   # Returns a url to the sprite image.
   def sprite_url(map)
     verify_map(map, "sprite-url")
     map.generate
-    generated_image_url(Sass::Script::String.new("#{map.path}-s#{map.uniqueness_hash}.png"))
+    generated_image_url(identifier("#{map.path}-s#{map.uniqueness_hash}.png"))
   end
   declare :sprite_url, [:map]
 
@@ -221,21 +223,21 @@ module Compass::SassExtensions::Functions::Sprites
     if use_percentages.value
       xdivis = map.width - image.width;
       x = (offset_x.value + image.left.to_f) / (xdivis.nonzero? || 1) * 100
-      x = Sass::Script::Number.new(x, x == 0 ? [] : ["%"])
+      x = x == 0 ? number(x) : number(x, "%")
       ydivis = map.height - image.height;
       y = (offset_y.value + image.top.to_f) / (ydivis.nonzero? || 1) * 100
-      y = Sass::Script::Number.new(y, y == 0 ? [] : ["%"])
+      y = y == 0 ? number(y) : number(y, "%")
     else
       if offset_x.unit_str == "%"
         x = offset_x # CE: Shouldn't this be a percentage of the total width?
       else
         x = offset_x.value - image.left
-        x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
+        x = x == 0 ? number(x) : number(x, "px")
       end
       y = offset_y.value - image.top
-      y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
+      y = y == 0 ? number(y) : number(y, "px")
     end
-    Sass::Script::List.new([x, y],:space)
+    list(x, y, :space)
   end
   declare :sprite_position, [:map]
   declare :sprite_position, [:map, :sprite]
@@ -270,9 +272,9 @@ protected
                 # Sass 3.3 includes the alpha channel
                 sprite.rgba
               end
-        Sass::Script::String.new(reversed_color_names[rgb])
+        identifier(reversed_color_names[rgb])
       when Sass::Script::Bool
-        Sass::Script::String.new(sprite.to_s)
+        identifier(sprite.to_s)
       else
         sprite
     end

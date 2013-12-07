@@ -1,13 +1,14 @@
 module Compass
   module SassExtensions
     module Sprites
-      class SpriteMap < Sass::Script::Literal
+      class SpriteMap < Sass::Script::Value::Base
         attr_accessor :image_names, :path, :name, :map, :kwargs
         attr_accessor :images, :width, :height, :engine
 
         include SpriteMethods
         include ImageMethods
         include LayoutMethods
+        include Sass::Script::Value::Helpers
 
 
         # Initialize a new sprite object from a relative file path
@@ -38,9 +39,9 @@ module Compass
           @path = path
           @name = name
           @kwargs = kwargs
-          @kwargs['cleanup'] ||= Sass::Script::Bool.new(true)
-          @kwargs['layout'] ||= Sass::Script::String.new('vertical')
-          @kwargs['sort_by'] ||= Sass::Script::String.new('none')
+          @kwargs['cleanup'] ||= bool(true)
+          @kwargs['layout'] ||= identifier('vertical')
+          @kwargs['sort_by'] ||= identifier('none')
           @images = nil
           @width = nil
           @height = nil

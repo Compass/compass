@@ -2,6 +2,7 @@ module Compass
   module SassExtensions
     module Sprites
       class Image
+        include Sass::Script::Value::Helpers
         ACTIVE = %r{[_-]active$}
         TARGET = %r{[_-]target$}
         HOVER = %r{[_-]hover$}
@@ -58,7 +59,7 @@ module Compass
         # Value of <tt> $#{name}-repeat </tt> or <tt> $repeat </tt>
         def repeat
           @repeat ||= begin
-            rep = (get_var_file("repeat") || options.get_var("repeat") || Sass::Script::String.new(NO_REPEAT)).value
+            rep = (get_var_file("repeat") || options.get_var("repeat") || identifier(NO_REPEAT)).value
             unless VALID_REPEATS.include? rep
               raise SpriteException, "Invalid option for repeat \"#{rep}\" - valid options are #{VALID_REPEATS.join(', ')}"
             end
@@ -81,7 +82,7 @@ module Compass
 
         # Value of <tt> $#{name}-position </tt> or <tt> $position </tt> defaults to <tt>0px</tt>
         def position
-          @position ||= get_var_file("position") || options.get_var("position") || Sass::Script::Number.new(0, ["px"])
+          @position ||= get_var_file("position") || options.get_var("position") || number(0, "px")
         end
 
         # Offset within the sprite
@@ -91,7 +92,7 @@ module Compass
 
         # Spacing between this image and the next
         def spacing
-          @spacing ||= (get_var_file("spacing") || options.get_var("spacing") || Sass::Script::Number.new(0, ['px'])).value
+          @spacing ||= (get_var_file("spacing") || options.get_var("spacing") || number(0, 'px')).value
         end
 
         # MD5 hash of this file
