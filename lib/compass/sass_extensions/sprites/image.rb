@@ -20,6 +20,7 @@ module Compass
         def initialize(base, relative_file, options)
           @base, @relative_file, @options = base, relative_file, options
           @left = @top = 0
+          @height_with_spacing = @width_with_spacing = nil
         end
         
         # The Full path to the image
@@ -96,6 +97,14 @@ module Compass
         # Spacing between this image and the next
         def spacing
           @spacing ||= (get_var_file("spacing") || options.get_var("spacing") || Sass::Script::Number.new(0, ['px'])).value
+        end
+
+        def height_with_spacing
+          @height_with_spacing ||= (2*spacing)+height
+        end
+
+        def width_with_spacing
+          @width_with_spacing ||= (2*spacing)+width
         end
 
         # MD5 hash of this file
