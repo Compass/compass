@@ -11,13 +11,13 @@ module Compass
         # here: http://codeincomplete.com/posts/2011/5/7/bin_packing/
         def initialize(images)
           @images = images.sort do |a,b|
-            diff = [b.width, b.height].max <=> [a.width, a.height].max
-            diff = [b.width, b.height].min <=> [a.width, a.height].min if diff == 0
-            diff = b.height <=> a.height if diff == 0
-            diff = b.width <=> a.width if diff == 0
+            diff = [b.width_with_spacing, b.height_with_spacing].max <=> [a.width_with_spacing, a.height_with_spacing].max
+            diff = [b.width_with_spacing, b.height_with_spacing].min <=> [a.width_with_spacing, a.height_with_spacing].min if diff == 0
+            diff = b.height_with_spacing <=> a.height_with_spacing if diff == 0
+            diff = b.width_with_spacing <=> a.width_with_spacing if diff == 0
             diff
           end
-          @root = { :x => 0, :y => 0, :w => @images[0].width, :h => @images[0].height }
+          @root = { :x => 0, :y => 0, :w => @images[0].width_with_spacing, :h => @images[0].height_with_spacing }
           @packed = false
         end
 
@@ -26,11 +26,11 @@ module Compass
           
           @packed = true
           @images.each do |i|
-            if node = find_node(@root, i.width, i.height)
+            if node = find_node(@root, i.width_with_spacing, i.height_with_spacing)
               place_image(i, node)
-              split_node(node, i.width, i.height)
+              split_node(node, i.width_with_spacing, i.height_with_spacing)
             else
-              @root = grow(@root, i.width, i.height)
+              @root = grow(@root, i.width_with_spacing, i.height_with_spacing)
               redo
             end
           end
@@ -47,8 +47,8 @@ module Compass
 
         protected
         def place_image(image, node)
-          image.top = node[:y]
-          image.left = node[:x]
+          image.top = node[:y]+image.spacing
+          image.left = node[:x]+image.spacing
         end
         
         def find_node(root, w, h)
