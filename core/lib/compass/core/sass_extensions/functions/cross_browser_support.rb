@@ -31,7 +31,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
     assert_type prefix, :String
     aspect = prefix.value.sub(/^-/,"")
     needed = args.any?{|a| a.respond_to?(:supports?) && a.supports?(aspect)}
-    Sass::Script::Bool.new(needed)
+    bool(needed)
   end
 
   %w(webkit moz o ms svg css2).each do |prefix|
@@ -49,11 +49,11 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
     prefix = prefix.value if prefix.is_a?(Sass::Script::String)
     prefix = prefix[1..-1] if prefix[0] == ?-
     if objects.size > 1
-      self.prefix(prefix, Sass::Script::List.new(objects, :comma))
+      self.prefix(prefix, list(objects, :comma))
     else
       object = objects.first
       if object.is_a?(Sass::Script::List)
-        Sass::Script::List.new(object.value.map{|e|
+        list(object.value.map{|e|
           self.prefix(prefix, e)
         }, object.separator)
       elsif object.respond_to?(:supports?) && object.supports?(prefix) && object.respond_to?(:"to_#{prefix}")

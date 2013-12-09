@@ -50,6 +50,7 @@ module Sass::Script
     attr_accessor :name, :args
 
     include HasSimpleCrossBrowserFunctionSupport
+    include Sass::Script::Value::Helpers
 
     def initialize(name, args)
       self.name = name
@@ -81,9 +82,9 @@ module Sass::Script
           end
           contents = prefixed_args.join(', ')
           if contents.size > 0
-            opts(Sass::Script::String.new("\#{prefixed_name}(\#{contents})"))
+            opts(identifier("\#{prefixed_name}(\#{contents})"))
           else
-            opts(Sass::Script::String.new(""))
+            opts(null)
           end
         end
       RUBY

@@ -1,7 +1,10 @@
 module Compass::Core::SassExtensions::Functions::Math
   extend Compass::Core::SassExtensions::Functions::SassDeclarationHelper
+  extend Sass::Script::Value::Helpers
 
-  PI = Sass::Script::Number.new(Math::PI)
+  PI = number(Math::PI)
+  E = number(Math::E)
+
   def pi()
     PI
   end
@@ -14,7 +17,7 @@ module Compass::Core::SassExtensions::Functions::Math
       range = (args.first.value..args.last.value).to_a
       range[rand(range.length)]
     end
-    Sass::Script::Number.new(value)
+    number(value)
   end
   declare :random, [:limit]
   declare :random, [:start, :limit]
@@ -50,7 +53,7 @@ module Compass::Core::SassExtensions::Functions::Math
   declare :atan, [:number]
 
   def e
-    Sass::Script::Number.new(Math::E)
+    E
   end
   declare :e, []
 
@@ -60,7 +63,7 @@ module Compass::Core::SassExtensions::Functions::Math
     raise Sass::SyntaxError, "base to logarithm must be unitless." unless base.unitless?
 
     result = Math.log(number.value, base.value) rescue Math.log(number.value) / Math.log(base.value)
-    Sass::Script::Number.new(result, number.numerator_units, number.denominator_units)
+    number(result, number.unit_str)
   end
   declare :logarithm, [:number]
   declare :logarithm, [:number, :base]
@@ -77,16 +80,16 @@ module Compass::Core::SassExtensions::Functions::Math
     assert_type number, :Number
     assert_type exponent, :Number
     raise Sass::SyntaxError, "exponent to pow must be unitless." unless exponent.unitless?
-    Sass::Script::Number.new(number.value**exponent.value, number.numerator_units, number.denominator_units)
+    number(number.value**exponent.value, number.unit_str)
   end
   declare :pow, [:number, :exponent]
 
   private
   def trig(operation, number)
-    if number.numerator_units == ["deg"] && number.denominator_units == []
-      Sass::Script::Number.new(Math.send(operation, Math::PI * number.value / 180))
+    if number.unit_str == "deg"
+      number(Math.send(operation, Math::PI * number.value / 180))
     else
-      Sass::Script::Number.new(Math.send(operation, number.value), number.numerator_units, number.denominator_units)
+      number(Math.send(operation, number.value), number.unit_str)
     end
   end
 end

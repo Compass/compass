@@ -12,16 +12,16 @@ module Compass::Core::SassExtensions::Functions::InlineImage
       path = path.value
       real_path = File.join(Compass.configuration.fonts_path, path)
       data = inline_image_string(data(real_path), compute_mime_type(path))
-      files << "#{data} format('#{type}')"
+      files << list(data, unquoted_string("format('#{type}')"), :space)
     end
-    Sass::Script::String.new(files.join(", "))
+    list(files, :comma)
   end
 
 protected
   def inline_image_string(data, mime_type)
     data = [data].flatten.pack('m').gsub("\n","")
     url = "url('data:#{mime_type};base64,#{data}')"
-    Sass::Script::String.new(url)
+    unquoted_string(url)
   end
 
 private

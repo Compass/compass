@@ -12,17 +12,18 @@ module Compass::Core::SassExtensions::Functions::FontFiles
   def font_formats(*args)
     formats = []
     with_each_font_file(*args) do |path, type|
-      formats << Sass::Script::String.new(type)
+      formats << identifier(type)
     end
-    return Sass::Script::List.new(formats, :comma)
+    return list(formats, :comma)
   end
 
   def font_files(*args)
+    return null unless args.any?
     files = []
     with_each_font_file(*args) do |path, type|
-      files << "#{font_url(path)} format('#{type}')"
+      files << list(font_url(path), identifier("format('#{type}')"), :space)
     end
-    Sass::Script::String.new(files.join(", "))
+    list(files, :comma)
   end
 
 protected

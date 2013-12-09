@@ -35,14 +35,14 @@ module Compass::Core::SassExtensions::Functions::Colors
   def shade(color, percentage)
     assert_type color, :Color
     assert_type percentage, :Number
-    black = Sass::Script::Color.new([0, 0, 0])
+    black = rgb_color(0, 0, 0)
     mix(black, color, percentage)
   end
 
   def tint(color, percentage)
     assert_type color, :Color
     assert_type percentage, :Number
-    white = Sass::Script::Color.new([255, 255, 255])
+    white = rgb_color(255, 255, 255)
     mix(white, color, percentage)
   end
 
@@ -52,7 +52,7 @@ module Compass::Core::SassExtensions::Functions::Colors
     assert_type color, :Color
     alpha = (color.alpha * 255).round
     alphastr = alpha.to_s(16).rjust(2, '0')
-    Sass::Script::String.new("##{alphastr}#{color.send(:hex_str)[1..-1]}".upcase)
+    identifier("##{alphastr}#{color.send(:hex_str)[1..-1]}".upcase)
   end
   
   private

@@ -27,6 +27,6 @@ module Compass::Core::SassExtensions::Functions::Display
   # returns a comma delimited string for all the
   # elements according to their default css3 display value.
   def elements_of_type(display)
-    Sass::Script::String.new(DEFAULT_DISPLAY.fetch(display.value.to_s).join(", "))
+    identifier(DEFAULT_DISPLAY.fetch(display.value.to_s).join(", "))
   end
 end

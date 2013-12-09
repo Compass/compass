@@ -109,8 +109,8 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25px", evaluate("pow(5px, 2)")
     assert_equal "25px", evaluate("pow($number: 5px, $exponent: 2)")
     assert_equal "79.43236px", evaluate("pow(5px, e())")
-    assert (0..2).include?(evaluate("random(2)").to_i)
-    assert (4..16).include?(evaluate("random(4, 16)").to_i)
+    assert((0..2).include?(evaluate("random(2)").to_i))
+    assert((4..16).include?(evaluate("random(4, 16)").to_i))
   end
 
   def test_blank
@@ -210,6 +210,12 @@ class SassExtensionsTest < Test::Unit::TestCase
 
 protected
   def evaluate(value)
-    Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new).to_s
+    result = Sass::Script::Parser.parse(value, 0, 0).perform(Sass::Environment.new)
+    begin
+      result.to_s
+    rescue Sass::SyntaxError => e
+      raise e unless e.message =~ /isn't a valid CSS value/
+      result.inspect
+    end
   end
 end

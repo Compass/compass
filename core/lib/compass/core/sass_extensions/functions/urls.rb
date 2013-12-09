@@ -19,7 +19,7 @@ module Compass::Core::SassExtensions::Functions::Urls
         base.declare :stylesheet_url, [:path, :only_path]
       end
     end
-    def stylesheet_url(path, only_path = Sass::Script::Bool.new(false))
+    def stylesheet_url(path, only_path = bool(false))
       # Compute the path to the stylesheet, either root relative or stylesheet relative
       # or nil if the http_images_path is not set in the configuration.
       http_stylesheets_path = if relative?
@@ -32,7 +32,7 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       path = "#{http_stylesheets_path}/#{path.value}"
       if only_path.to_bool
-        Sass::Script::String.new(clean_path(path))
+        unquoted_string(clean_path(path))
       else
         clean_url(path)
       end
@@ -47,12 +47,12 @@ module Compass::Core::SassExtensions::Functions::Urls
         base.declare :font_url,       [:path, :only_path, :cache_buster]
       end
     end
-    def font_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(true))
+    def font_url(path, only_path = bool(false), cache_buster = bool(true))
       path = path.value # get to the string value of the literal.
 
       # Short curcuit if they have provided an absolute url.
       if absolute_path?(path)
-        return Sass::Script::String.new("url(#{path})")
+        return unquoted_string("url(#{path})")
       end
 
       # Compute the path to the font file, either root relative or stylesheet relative
@@ -94,7 +94,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
       if only_path.to_bool
-        Sass::Script::String.new(clean_path(path))
+        unquoted_string(clean_path(path))
       else
         clean_url(path)
       end
@@ -109,7 +109,7 @@ module Compass::Core::SassExtensions::Functions::Urls
         base.declare :image_url,      [:path, :only_path, :cache_buster]
       end
     end
-    def image_url(path, only_path = Sass::Script::Bool.new(false), cache_buster = Sass::Script::Bool.new(true))
+    def image_url(path, only_path = bool(false), cache_buster = bool(true))
       path = path.value # get to the string value of the literal.
 
       if path =~ %r{^#{Regexp.escape(Compass.configuration.http_images_path)}/(.*)}
@@ -118,7 +118,7 @@ module Compass::Core::SassExtensions::Functions::Urls
         path = $1
       elsif absolute_path?(path)
         # Short curcuit if they have provided an absolute url.
-        return Sass::Script::String.new("url(#{path})")
+        return unquoted_string("url(#{path})")
       end
 
       # Compute the path to the image, either root relative or stylesheet relative
@@ -164,7 +164,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
       if only_path.to_bool
-        Sass::Script::String.new(clean_path(path))
+        unquoted_string(clean_path(path))
       else
         clean_url(path)
       end
@@ -178,7 +178,7 @@ module Compass::Core::SassExtensions::Functions::Urls
         base.declare :generated_image_url, [:path, :cache_buster]
       end
     end
-    def generated_image_url(path, cache_buster = Sass::Script::Bool.new(false))
+    def generated_image_url(path, cache_buster = bool(false))
       path = path.value # get to the string value of the literal.
 
       if path =~ %r{^#{Regexp.escape(Compass.configuration.http_generated_images_path)}/(.*)}
@@ -187,7 +187,7 @@ module Compass::Core::SassExtensions::Functions::Urls
         path = $1
       elsif absolute_path?(path)
         # Short curcuit if they have provided an absolute url.
-        return Sass::Script::String.new("url(#{path})")
+        return unquoted_string("url(#{path})")
       end
 
       # Compute the path to the image, either root relative or stylesheet relative
@@ -246,7 +246,7 @@ module Compass::Core::SassExtensions::Functions::Urls
 
   # Emits a url, taking off any leading "./"
   def clean_url(url)
-    Sass::Script::String.new("url('#{clean_path(url)}')")
+    unquoted_string("url('#{clean_path(url)}')")
   end
 
   def relative?
