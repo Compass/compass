@@ -23,11 +23,11 @@ module Compass
         alias :<< :add
         
         def height
-          images.map(&:height).max
+          images.map(&:height_with_spacing).max
         end
         
         def width
-          images.map(&:width).max
+          images.map(&:width_with_spacing).max
         end
 
         def total_width
@@ -39,7 +39,7 @@ module Compass
         end
 
         def will_fit?(image)
-          (total_width + image.width) <= max_width
+          (total_width + image.width_with_spacing) <= max_width
         end
       end
     end
