@@ -10,7 +10,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
     def initialize(color, stop = nil)
       unless Sass::Script::Value::Color === color ||
-             Sass::Script::Funcall === color ||
+             Sass::Script::Tree::Funcall === color ||
              (Sass::Script::Value::String === color && color.value == "currentColor")||
              (Sass::Script::Value::String === color && color.value == "transparent")
         raise Sass::SyntaxError, "Expected a color. Got: #{color}"
@@ -519,9 +519,9 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       case expr
       when Sass::Script::Value::Color
         color = expr
-      when Sass::Script::Funcall
+      when Sass::Script::Tree::Funcall
         color = expr
-      when Sass::Script::Operation
+      when Sass::Script::Tree::Operation
         unless [:concat, :space].include?(expr.instance_variable_get("@operator"))
           # This should never happen.
           raise Sass::SyntaxError, "Couldn't parse a color stop from: #{arg.value}"
