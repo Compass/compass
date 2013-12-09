@@ -62,7 +62,7 @@ module Compass::Core::SassExtensions::Functions::Selectors
   # headers(2,4) => h2, h3, h4
   def headers(from = nil, to = nil)
     if from && !to
-      if from.is_a?(Sass::Script::String) && from.value == "all"
+      if from.is_a?(Sass::Script::Value::String) && from.value == "all"
         from = number(1)
         to = number(6)
       else

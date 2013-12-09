@@ -3,11 +3,11 @@ module Compass::Core::SassExtensions::Functions::Lists
   # Returns true when the object is false, an empty string, or an empty list
   def blank(obj)
     case obj
-    when Sass::Script::Bool, Sass::Script::Null
+    when Sass::Script::Value::Bool, Sass::Script::Value::Null
       bool(!obj.to_bool)
-    when Sass::Script::String
+    when Sass::Script::Value::String
       bool(obj.value.strip.size == 0)
-    when Sass::Script::List
+    when Sass::Script::Value::List
       bool(obj.value.size == 0 || obj.value.all?{|el| blank(el).to_bool})
     else
       bool(false)
@@ -17,7 +17,7 @@ module Compass::Core::SassExtensions::Functions::Lists
   # Returns a new list after removing any non-true values
   def compact(*args)
     sep = :comma
-    if args.size == 1 && args.first.is_a?(Sass::Script::List)
+    if args.size == 1 && args.first.is_a?(Sass::Script::Value::List)
       list = args.first
       args = list.value
       sep = list.separator
@@ -41,7 +41,7 @@ module Compass::Core::SassExtensions::Functions::Lists
   # This can be used to unpack a space separated list that got turned
   # into a string by sass before it was passed to a mixin.
   def _compass_list(arg)
-    if arg.is_a?(Sass::Script::List)
+    if arg.is_a?(Sass::Script::Value::List)
       list(arg.value.dup, arg.separator)
     else
       list(arg, :space)
@@ -51,7 +51,7 @@ module Compass::Core::SassExtensions::Functions::Lists
   # If the argument is a list, it will return a new list that is space delimited
   # Otherwise it returns a new, single element, space-delimited list.
   def _compass_space_list(list)
-    if list.is_a?(Sass::Script::List)
+    if list.is_a?(Sass::Script::Value::List)
       list(list.value.dup, :space)
     else
       list(list, :space)
@@ -81,10 +81,10 @@ module Compass::Core::SassExtensions::Functions::Lists
 
   # returns the first value of a space delimited list.
   def first_value_of(list)
-    if list.is_a?(Sass::Script::String)
+    if list.is_a?(Sass::Script::Value::String)
       r = list.value.split(/\s+/).first
       list.type == :identifier ? identifier(r) : quoted_string(r)
-    elsif list.is_a?(Sass::Script::List)
+    elsif list.is_a?(Sass::Script::Value::List)
       list.value.first
     else
       list
@@ -94,7 +94,7 @@ module Compass::Core::SassExtensions::Functions::Lists
   protected
 
   def assert_list(value)
-    unless value.is_a?(Sass::Script::List)
+    unless value.is_a?(Sass::Script::Value::List)
       raise ArgumentError.new("#{value.inspect} is not a list")
     end
   end

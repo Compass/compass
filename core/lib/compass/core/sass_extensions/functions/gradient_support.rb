@@ -2,20 +2,20 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
   GRADIENT_ASPECTS = %w(webkit moz svg css2 o owg).freeze
 
-  class ColorStop < Sass::Script::Literal
+  class ColorStop < Sass::Script::Value::Base
     include Sass::Script::Value::Helpers
     attr_accessor :color, :stop
     def children
       [color, stop].compact
     end
     def initialize(color, stop = nil)
-      unless Sass::Script::Color === color ||
+      unless Sass::Script::Value::Color === color ||
              Sass::Script::Funcall === color ||
-             (Sass::Script::String === color && color.value == "currentColor")||
-             (Sass::Script::String === color && color.value == "transparent")
+             (Sass::Script::Value::String === color && color.value == "currentColor")||
+             (Sass::Script::Value::String === color && color.value == "transparent")
         raise Sass::SyntaxError, "Expected a color. Got: #{color}"
       end
-      if stop && !stop.is_a?(Sass::Script::Number)
+      if stop && !stop.is_a?(Sass::Script::Value::Number)
         raise Sass::SyntaxError, "Expected a number. Got: #{stop}"
       end
       self.color, self.stop = color, stop
@@ -27,9 +27,9 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     def self.color_to_svg_s(c)
       # svg doesn't support the "transparent" keyword; we need to manually
       # refactor it into "transparent black"
-      if c.is_a?(Sass::Script::String) && c.value == "transparent"
+      if c.is_a?(Sass::Script::Value::String) && c.value == "transparent"
         "black"
-      elsif c.is_a?(Sass::Script::String)
+      elsif c.is_a?(Sass::Script::Value::String)
         c.value.dup
       else
         self.color_to_s(c.with(:alpha => 1))
@@ -39,9 +39,9 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     def self.color_to_svg_alpha(c)
       # svg doesn't support the "transparent" keyword; we need to manually
       # refactor it into "transparent black"
-      if c.is_a?(Sass::Script::String) && c.value == "transparent"
+      if c.is_a?(Sass::Script::Value::String) && c.value == "transparent"
         0
-      elsif c.is_a?(Sass::Script::String) && c.value == "currentColor"
+      elsif c.is_a?(Sass::Script::Value::String) && c.value == "currentColor"
         1
       else
         c.alpha
@@ -49,7 +49,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def self.color_to_s(c)
-      if c.is_a?(Sass::Script::String)
+      if c.is_a?(Sass::Script::Value::String)
         c.value.dup
       else
         c.inspect.dup
@@ -108,7 +108,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def angle?(value)
-      value.is_a?(Sass::Script::Number) &&
+      value.is_a?(Sass::Script::Value::Number) &&
       value.numerator_units.size == 1 &&
       value.numerator_units.first == "deg" &&
       value.denominator_units.empty?
@@ -116,7 +116,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
   end
 
-  class RadialGradient < Sass::Script::Literal
+  class RadialGradient < Sass::Script::Value::Base
     include Gradient
 
     attr_accessor :position, :shape_and_size, :color_stops
@@ -163,7 +163,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
   end
 
-  class LinearGradient < Sass::Script::Literal
+  class LinearGradient < Sass::Script::Value::Base
     include Gradient
 
     attr_accessor :color_stops, :position_or_angle, :legacy
@@ -193,7 +193,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def convert_to_or_from_legacy(position_or_angle, options = self.options)
-      input = if position_or_angle.is_a?(Sass::Script::Number)
+      input = if position_or_angle.is_a?(Sass::Script::Value::Number)
           position_or_angle
         else
           opts(list(position_or_angle.to_s.split(' ').map {|s| identifier(s) }, :space))
@@ -218,7 +218,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
     def supports?(aspect)
       # I don't know how to support degree-based gradients in old webkit gradients (owg) or svg so we just disable them.
-      if %w(owg svg).include?(aspect) && position_or_angle.is_a?(Sass::Script::Number) && position_or_angle.numerator_units.include?("deg")
+      if %w(owg svg).include?(aspect) && position_or_angle.is_a?(Sass::Script::Value::Number) && position_or_angle.numerator_units.include?("deg")
         false
       else
         super
@@ -238,7 +238,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     include Sass::Script::Value::Helpers
 
     def convert_angle_from_offical(deg)
-      if deg.is_a?(Sass::Script::Number)
+      if deg.is_a?(Sass::Script::Value::Number)
         return number((deg.value.to_f - 450).abs % 360, 'deg')
       else
         args = deg.value
@@ -263,7 +263,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     # otherwise, returns the original argument
     def grad_point(position)
       original_value = position
-      position = unless position.is_a?(Sass::Script::List)
+      position = unless position.is_a?(Sass::Script::Value::List)
         opts(list([position], :space))
       else
         opts(list(position.value.dup, position.separator))
@@ -302,13 +302,13 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       opts(list(args.map do |arg|
         if ColorStop === arg
           arg
-        elsif Sass::Script::Color === arg
+        elsif Sass::Script::Value::Color === arg
           ColorStop.new(arg)
-        elsif Sass::Script::List === arg
+        elsif Sass::Script::Value::List === arg
           ColorStop.new(*arg.value)
-        elsif Sass::Script::String === arg && arg.value == "transparent"
+        elsif Sass::Script::Value::String === arg && arg.value == "transparent"
           ColorStop.new(arg)
-        elsif Sass::Script::String === arg && arg.value == "currentColor"
+        elsif Sass::Script::Value::String === arg && arg.value == "currentColor"
           ColorStop.new(arg)
         else
           raise Sass::SyntaxError, "Not a valid color stop: #{arg.class.name}: #{arg}"
@@ -441,7 +441,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
           stop = stop.times(color_list.value.last.stop).div(number(100, "%"))
         end
         Compass::Logger.new.record(:warning, "Webkit only supports pixels for the start and end stops for radial gradients. Got: #{orig_stop}") if stop.numerator_units != ["px"]
-        stop.div(Sass::Script::Number.new(1, stop.numerator_units, stop.denominator_units))
+        stop.div(Sass::Script::Value::Number.new(1, stop.numerator_units, stop.denominator_units))
       elsif stop
         stop
       else
@@ -471,7 +471,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
     def color_stop?(arg)
       arg.is_a?(ColorStop) ||
-      (arg.is_a?(Sass::Script::List) && ColorStop.new(*arg.value)) ||
+      (arg.is_a?(Sass::Script::Value::List) && ColorStop.new(*arg.value)) ||
       ColorStop.new(arg)
     rescue
       nil
@@ -512,12 +512,12 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def parse_color_stop(arg)
-      return ColorStop.new(arg) if arg.is_a?(Sass::Script::Color)
-      return nil unless arg.is_a?(Sass::Script::String)
+      return ColorStop.new(arg) if arg.is_a?(Sass::Script::Value::Color)
+      return nil unless arg.is_a?(Sass::Script::Value::String)
       color = stop = nil
       expr = Sass::Script::Parser.parse(arg.value, 0, 0)
       case expr
-      when Sass::Script::Color
+      when Sass::Script::Value::Color
         color = expr
       when Sass::Script::Funcall
         color = expr
@@ -594,14 +594,14 @@ EOS
     end
   end
 
-  class LinearGradient < Sass::Script::Literal
+  class LinearGradient < Sass::Script::Value::Base
     include Assertions
     include Functions
     include Compass::Core::SassExtensions::Functions::Constants
     include Compass::Core::SassExtensions::Functions::InlineImage
   end
 
-  class RadialGradient < Sass::Script::Literal
+  class RadialGradient < Sass::Script::Value::Base
     include Assertions
     include Functions
     include Compass::Core::SassExtensions::Functions::Constants

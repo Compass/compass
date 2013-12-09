@@ -1,6 +1,6 @@
 module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
 
-  class CSS2FallbackValue < Sass::Script::Literal
+  class CSS2FallbackValue < Sass::Script::Value::Base
     attr_accessor :value, :css2_value
     def children
       [value, css2_value]
@@ -46,13 +46,13 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
 
   def prefix(prefix, *objects)
     assert_type prefix, :String if prefix.is_a?(Sass::Script::Value::Base)
-    prefix = prefix.value if prefix.is_a?(Sass::Script::String)
+    prefix = prefix.value if prefix.is_a?(Sass::Script::Value::String)
     prefix = prefix[1..-1] if prefix[0] == ?-
     if objects.size > 1
       self.prefix(prefix, list(objects, :comma))
     else
       object = objects.first
-      if object.is_a?(Sass::Script::List)
+      if object.is_a?(Sass::Script::Value::List)
         list(object.value.map{|e|
           self.prefix(prefix, e)
         }, object.separator)

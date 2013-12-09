@@ -82,7 +82,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       # Compute and append the cache buster if there is one.
       if cache_buster.to_bool
         path, anchor = path.split("#", 2)
-        if cache_buster.is_a?(Sass::Script::String)
+        if cache_buster.is_a?(Sass::Script::Value::String)
           path += "?#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
@@ -152,7 +152,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       # Compute and append the cache buster if there is one.
       if cache_buster.to_bool
         path, anchor = path.split("#", 2)
-        if cache_buster.is_a?(Sass::Script::String)
+        if cache_buster.is_a?(Sass::Script::Value::String)
           path += "?#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
@@ -221,7 +221,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       # Compute and append the cache buster if there is one.
       if cache_buster.to_bool
         path, anchor = path.split("#", 2)
-        if cache_buster.is_a?(Sass::Script::String)
+        if cache_buster.is_a?(Sass::Script::Value::String)
           path += "?#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)

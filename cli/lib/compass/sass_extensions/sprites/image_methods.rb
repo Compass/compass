@@ -4,7 +4,7 @@ module Compass
       module ImageMethods
         # Fetches the Sprite::Image object for the supplied name
          def image_for(name)
-          if name.is_a?(Sass::Script::String)
+          if name.is_a?(Sass::Script::Value::String)
             name = name.value
           end
           name = name.to_s

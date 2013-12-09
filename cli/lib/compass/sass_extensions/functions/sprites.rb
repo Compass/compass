@@ -213,7 +213,7 @@ module Compass::SassExtensions::Functions::Sprites
     assert_type offset_y, :Number
     sprite = convert_sprite_name(sprite)
     verify_map(map, "sprite-position")
-    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
+    unless sprite.is_a?(Sass::Script::Value::String) || sprite.is_a?(Sass::Script::Value::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite-position must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
     image = map.image_for(sprite.value)
@@ -256,16 +256,16 @@ protected
   end
 
   def reversed_color_names
-    if Sass::Script::Color.const_defined?(:HTML4_COLORS_REVERSE)
-      Sass::Script::Color::HTML4_COLORS_REVERSE
+    if Sass::Script::Value::Color.const_defined?(:HTML4_COLORS_REVERSE)
+      Sass::Script::Value::Color::HTML4_COLORS_REVERSE
     else
-      Sass::Script::Color::COLOR_NAMES_REVERSE
+      Sass::Script::Value::Color::COLOR_NAMES_REVERSE
     end
   end
 
   def convert_sprite_name(sprite)
     case sprite
-      when Sass::Script::Color
+      when Sass::Script::Value::Color
         rgb = if reversed_color_names.keys.first.size == 3
                 sprite.rgb
               else
@@ -273,7 +273,7 @@ protected
                 sprite.rgba
               end
         identifier(reversed_color_names[rgb])
-      when Sass::Script::Bool
+      when Sass::Script::Value::Bool
         identifier(sprite.to_s)
       else
         sprite
@@ -287,7 +287,7 @@ protected
   end
 
   def verify_sprite(sprite)
-    unless sprite.is_a?(Sass::Script::String) || sprite.is_a?(Sass::Script::Number)
+    unless sprite.is_a?(Sass::Script::Value::String) || sprite.is_a?(Sass::Script::Value::Number)
       raise Sass::SyntaxError, %Q(The second argument to sprite() must be a sprite name. See http://beta.compass-style.org/help/tutorials/spriting/ for more information.)
     end
   end
