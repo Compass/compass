@@ -1,4 +1,5 @@
 module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
+  extend Compass::Core::SassExtensions::Functions::SassDeclarationHelper
 
   class CSS2FallbackValue < Sass::Script::Value::Base
     attr_accessor :value, :css2_value
@@ -81,14 +82,14 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
                end
     list(browsers.map{|b| identifier(b)}, :comma)
   end
-  Sass::Script::Functions.declare(:browsers, [])
-  Sass::Script::Functions.declare(:browsers, [:prefix])
+  declare(:browsers, [])
+  declare(:browsers, [:prefix])
 
   # The known capabilities of browsers.
   def browser_capabilities
     list(Compass::Core::CanIUse.instance.capabilities.map{|c| identifier(c)}, :comma)
   end
-  Sass::Script::Functions.declare(:browser_capabilities, [])
+  declare(:browser_capabilities, [])
 
   # The versions for the given browser.
   def browser_versions(browser)
@@ -97,7 +98,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
-  Sass::Script::Functions.declare(:browser_versions, [:browser])
+  declare(:browser_versions, [:browser])
 
   # whether the browser uses a prefix for the given capability at the version
   # specified or a later version. Returns the prefix it requires, or null.
@@ -113,7 +114,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
-  Sass::Script::Functions.declare(:browser_requires_prefix, [:browser, :version, :capability])
+  declare(:browser_requires_prefix, [:browser, :version, :capability])
 
   # the prefix for the given browser.
   def browser_prefix(browser, version = nil)
@@ -122,8 +123,8 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
-  Sass::Script::Functions.declare(:browser_prefix, [:browser])
-  Sass::Script::Functions.declare(:browser_prefix, [:browser, :version])
+  declare(:browser_prefix, [:browser])
+  declare(:browser_prefix, [:browser, :version])
 
   # The prefixes used by the given browsers.
   def browser_prefixes(browsers)
@@ -135,7 +136,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
-  Sass::Script::Functions.declare(:browser_prefixes, [:browsers])
+  declare(:browser_prefixes, [:browsers])
 
   # The percent of users that are omitted by setting the min_version of browser
   # as specified.
@@ -147,8 +148,8 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
     versions << max_version.value if max_version
     number(Compass::Core::CanIUse.instance.omitted_usage(browser.value, *versions))
   end
-  Sass::Script::Functions.declare(:omitted_usage, [:browser, :min_version])
-  Sass::Script::Functions.declare(:omitted_usage, [:browser, :min_version, :max_version])
+  declare(:omitted_usage, [:browser, :min_version])
+  declare(:omitted_usage, [:browser, :min_version, :max_version])
 
   # The version before the version for the browser specified
   def previous_version(browser, version)
@@ -157,7 +158,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
     previous = Compass::Core::CanIUse.instance.previous_version(browser.value, version.value)
     previous.nil? ? null() : quoted_string(previous)
   end
-  Sass::Script::Functions.declare(:previous_version, [:browser, :version])
+  declare(:previous_version, [:browser, :version])
 
   # The version before the version for the browser specified
   def next_version(browser, version)
@@ -166,7 +167,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
     next_version = Compass::Core::CanIUse.instance.next_version(browser.value, version.value)
     next_version.nil? ? null() : quoted_string(next_version)
   end
-  Sass::Script::Functions.declare(:next_version, [:browser, :version])
+  declare(:next_version, [:browser, :version])
 
   # The percent of users relying on a particular prefix
   def prefix_usage(prefix, capability, capability_options)
@@ -178,7 +179,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
   rescue ArgumentError => e
     raise Sass::SyntaxError.new(e.message)
   end
-  Sass::Script::Functions.declare(:prefix_usage, [:prefix, :capability])
+  declare(:prefix_usage, [:prefix, :capability])
 
   # Compares two browser versions. Returning:
   #
@@ -203,7 +204,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
     end
     number(index1 <=> index2)
   end
-  Sass::Script::Functions.declare(:compare_browser_versions, [:browser, :version1, :version2])
+  declare(:compare_browser_versions, [:browser, :version1, :version2])
 
   # Returns a map of browsers to the first version the capability became available
   # without a prefix.
@@ -224,8 +225,8 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
       m
     end)
   end
-  Sass::Script::Functions.declare(:browser_minimums, [:capability])
-  Sass::Script::Functions.declare(:browser_minimums, [:capability, :prefix])
+  declare(:browser_minimums, [:capability])
+  declare(:browser_minimums, [:capability, :prefix])
 
   private
 
