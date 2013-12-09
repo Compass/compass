@@ -17,20 +17,20 @@ class RowFitterTest < Test::Unit::TestCase
   end
 
   def create_images(dims)
-    dims.collect { |width, height| 
+    dims.collect { |width, height, spacing| 
       image = Compass::SassExtensions::Sprites::Image.new('blah', 'blah', {})
-      image.stubs(:width => width, :height => height)
+      image.stubs(:width => width, :height => height, :spacing => spacing)
       image
     }
   end
 
   def basic_dims
     [
-      [ 100, 10 ],
-      [ 80, 10 ],
-      [ 50, 10 ],
-      [ 35, 10 ],
-      [ 20, 10 ]
+      [ 100, 10, 0 ],
+      [ 80, 10, 0 ],
+      [ 50, 10, 0 ],
+      [ 35, 10, 10 ],
+      [ 20, 10, 20 ]
     ]
   end
 
@@ -41,7 +41,7 @@ class RowFitterTest < Test::Unit::TestCase
     assert_equal images.length, packer.images.length
 
     assert_true packer.packed
-    assert_equal 100, packer.width
-    assert_equal 30, packer.height
+    assert_equal 150, packer.width
+    assert_equal 100, packer.height
   end
 end
