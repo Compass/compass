@@ -4,8 +4,8 @@
 @mixin inline-list {
   list-style-type: none;
   &, & li {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     display: inline;
   }
 }

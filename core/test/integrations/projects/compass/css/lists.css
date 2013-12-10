@@ -113,15 +113,15 @@ ul.wide-inline-block {
 ul.inline {
   list-style-type: none; }
   ul.inline, ul.inline li {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     display: inline; }
 
 ul.comma {
   list-style-type: none; }
   ul.comma, ul.comma li {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     display: inline; }
   ul.comma li:after {
     content: ", "; }
