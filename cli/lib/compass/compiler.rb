@@ -86,6 +86,12 @@ module Compass
       nil
     end
 
+    def reset!
+      reset_staleness_checker!
+      @sass_files = nil
+      @css_files = nil
+    end
+
     def clean!
       remove options[:cache_location]
       css_files.each do |css_file|
@@ -154,6 +160,7 @@ module Compass
     end
 
     def should_compile?(sass_filename, css_filename)
+      return true unless css_filename && File.exist?(css_filename)
       options[:force] || needs_update?(css_filename, sass_filename)
     end
 

@@ -102,7 +102,7 @@ module Compass
 
       def sass_removed(file)
         log_action(:info, "#{filename_for_display(file)} was removed", options)
-        css_file = compiler.corresponding_css_file(File.join(project_path, file))
+        css_file = compiler.corresponding_css_file(file)
         compile
         if File.exists?(css_file)
           remove(css_file)

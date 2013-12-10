@@ -16,7 +16,7 @@ module Compass
 
       def compile
         @memory_cache.reset! if @memory_cache
-        compiler.reset_staleness_checker!
+        compiler.reset!
         if file = compiler.out_of_date?
           begin
             time = Time.now.strftime("%T")
