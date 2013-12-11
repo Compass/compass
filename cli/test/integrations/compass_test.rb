@@ -11,8 +11,10 @@ class CompassTest < Test::Unit::TestCase
   end
 
   def teardown
-    [:empty, :compass, :image_urls, :relative].each do |project_name|
+    Dir.glob(absolutize("fixtures/stylesheets/*")).each do |dir|
+      project_name = File.basename(dir)
       ::FileUtils.rm_rf tempfile_path(project_name)
+      ::FileUtils.rm_rf File.join(project_path(project_name), ".sass-cache")
     end
   end
 
@@ -36,7 +38,7 @@ class CompassTest < Test::Unit::TestCase
       before_compile = Proc.new do |config|
         config.on_stylesheet_error {|filename, message| file = filename; error = true }
       end
-      within_project(:error, before_compile) rescue nil;
+      within_project(:error, before_compile) rescue nil
       assert error, "Project did not throw a compile error"
       assert file.is_a?(String), "Filename was not a string"
     end
