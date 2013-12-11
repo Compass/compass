@@ -190,10 +190,10 @@ module Compass
 
     def should_compile?(sass_filename, css_filename, sourcemap_filename = nil)
       return true if css_filename && !File.exist?(css_filename)
-      return true if sourcemap_filename && !File.exist?(sourcemap_filename)
+      return true if sourcemap_filename && options[:sourcemap] && !File.exist?(sourcemap_filename)
       options[:force] ||
         needs_update?(css_filename, sass_filename) ||
-        needs_update?(sourcemap_filename, sass_filename)
+        (options[:sourcemap] && needs_update?(sourcemap_filename, sass_filename))
     end
 
     # A sass engine for compiling a single file.
