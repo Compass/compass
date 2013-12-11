@@ -37,8 +37,20 @@ module Compass
     def write_file(file_name, contents, options = nil, binary = false)
       options ||= self.options if self.respond_to?(:options)
       skip_write = options[:dry_run]
-      contents = process_erb(contents, options[:erb]) if options[:erb]
-      if File.exists?(file_name)
+	  discarded = false
+	  contents = process_erb(contents, options[:erb]) if options[:erb]
+	  #Discard empty rendered CSS files unless specified in config
+      if contents.size == 0 && !Compass.configuration.save_blank_files
+        #remove file if exists and blank
+        if File.exists?(file_name)
+          log_action :discarded, basename(file_name), options
+          File.unlink(File.expand_path(file_name))
+        else
+          log_action :empty, basename(file_name), options
+        end
+        skip_write = true
+        discarded = true
+      elsif File.exists?(file_name)
         existing_contents = IO.read(file_name)
         if existing_contents == contents
           log_action :identical, basename(file_name), options
@@ -53,7 +65,7 @@ module Compass
         log_action :create, basename(file_name), options
       end
       if skip_write
-        FileUtils.touch file_name unless options[:dry_run]
+        FileUtils.touch file_name unless options[:dry_run] || discarded
       else
         mode = "w"
         mode << "b" if binary
