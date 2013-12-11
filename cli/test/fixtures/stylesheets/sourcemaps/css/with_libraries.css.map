@@ -1,0 +1,6 @@
+{
+"version": 3,
+"mappings": ";AAEA,CAAE;ECqVA,eAAwC,ECrU5B,UAAmB;EDqU/B,kBAAwC,ECrU5B,UAAmB;EDqU/B,UAAwC,ECrU5B,UAAmB",
+"sources": ["../sass/with_libraries.scss","../../../../../../core/stylesheets/compass/_support.scss","../../../../../../core/stylesheets/compass/css3/_box-sizing.scss"],
+"file": "with_libraries.css"
+}

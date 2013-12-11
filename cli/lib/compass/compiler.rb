@@ -66,7 +66,7 @@ module Compass
     end
 
     def corresponding_sourcemap_file(sass_file)
-      "#{to}/#{stylesheet_name(sass_file)}.map"
+      "#{to}/#{stylesheet_name(sass_file)}.css.map"
     end
 
     def target_directories

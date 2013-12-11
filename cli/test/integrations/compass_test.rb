@@ -62,6 +62,17 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
+  def test_sourcemaps
+    within_project('sourcemaps') do |proj|
+      each_css_file(proj.css_path) do |css_file|
+        assert_no_errors css_file, 'sourcemaps'
+      end
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file, :ignore_charset => true
+      end
+    end
+  end
+
   def test_env_in_development
     within_project('envtest', lambda {|c| c.environment = :development }) do |proj|
       each_css_file(proj.css_path) do |css_file|
