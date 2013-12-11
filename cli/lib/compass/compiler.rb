@@ -148,12 +148,13 @@ module Compass
       end
     end
 
-    def timed
+    def timed(timed_thing = lambda {|res| res})
       start_time = Time.now
       res = yield
       end_time = Time.now
-      res.instance_variable_set("@__duration", end_time - start_time)
-      def res.__duration
+      has_duration = timed_thing.call(res)
+      has_duration.instance_variable_set("@__duration", end_time - start_time)
+      def has_duration.__duration
         @__duration
       end
       res
@@ -161,9 +162,8 @@ module Compass
 
     # Compile one Sass file
     def compile(sass_filename, css_filename, sourcemap_filename = nil)
-      start_time = end_time = nil
       css_content, sourcemap = logger.red do
-        timed do
+        timed(lambda {|r| r[0]}) do
           engine = engine(sass_filename, css_filename)
           if sourcemap_filename && options[:sourcemap]
             engine.render_with_sourcemap(relative_path(css_filename, sourcemap_filename))
