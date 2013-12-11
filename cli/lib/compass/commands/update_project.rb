@@ -14,6 +14,10 @@ module Compass
           Options:
         }.split("\n").map{|l| l.gsub(/^ */,'')}.join("\n")
 
+        opts.on("--[no-]sourcemap", "Generate a sourcemap during compilation.") do |sm|
+          self.options[:sourcemap] = sm
+        end
+
         opts.on("--time", "Display compilation times.") do
           self.options[:time] = true
         end
@@ -64,6 +68,7 @@ module Compass
           compiler_opts.merge!(options)
           compiler_opts[:sass_files] = explicit_sass_files
           compiler_opts[:cache_location] = determine_cache_location
+          compiler_opts[:sourcemap] = Compass.configuration.sourcemap if compiler_opts[:sourcemap].nil?
           if options.include?(:debug_info) && options[:debug_info]
             compiler_opts[:sass][:debug_info] = options.delete(:debug_info)
           end

@@ -244,6 +244,13 @@ later on.
     </td>
   </tr>
   <tr>
+    <td style="vertical-align:top;"><code>sourcemap</code> </td>
+    <td style="vertical-align:top;">Boolean</td>
+    <td style="vertical-align:top;">
+      Set this to true to enable sourcemap output.
+    </td>
+  </tr>
+  <tr>
     <td style="vertical-align:top;"><code>disable_warnings</code> </td>
     <td style="vertical-align:top;">Boolean </td>
     <td style="vertical-align:top;">

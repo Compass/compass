@@ -1,3 +1,5 @@
+require 'pathname'
+
 module Compass
   class Compiler
 
@@ -55,8 +57,16 @@ module Compass
       @css_files ||= sass_files.map{|sass_file| corresponding_css_file(sass_file)}
     end
 
+    def sourcemap_files
+      @sourcemap_files ||= sass_files.map{|sass_file| corresponding_sourcemap_file(sass_file)}
+    end
+
     def corresponding_css_file(sass_file)
       "#{to}/#{stylesheet_name(sass_file)}.css"
+    end
+
+    def corresponding_sourcemap_file(sass_file)
+      "#{to}/#{stylesheet_name(sass_file)}.map"
     end
 
     def target_directories
@@ -90,12 +100,14 @@ module Compass
       reset_staleness_checker!
       @sass_files = nil
       @css_files = nil
+      @sourcemap_files = nil
     end
 
     def clean!
       remove options[:cache_location]
-      css_files.each do |css_file|
+      css_files.zip(sourcemap_files).each do |css_file, sourcemap_file|
         remove css_file
+        remove sourcemap_file
       end
     end
 
@@ -112,9 +124,9 @@ module Compass
 
       # Compile each sass file.
       result = timed do
-        sass_files.zip(css_files).each do |sass_filename, css_filename|
+        sass_files.zip(css_files, sourcemap_files).each do |sass_filename, css_filename, sourcemap_filename|
           begin
-            compile_if_required sass_filename, css_filename
+            compile_if_required sass_filename, css_filename, sourcemap_filename
           rescue Sass::SyntaxError => e
             failure_count += 1
             handle_exception(sass_filename, css_filename, e)
@@ -127,11 +139,12 @@ module Compass
       return failure_count
     end
 
-    def compile_if_required(sass_filename, css_filename)
-      if should_compile?(sass_filename, css_filename)
-        compile sass_filename, css_filename
+    def compile_if_required(sass_filename, css_filename, sourcemap_filename = nil)
+      if should_compile?(sass_filename, css_filename, sourcemap_filename)
+        compile sass_filename, css_filename, sourcemap_filename
       else
         logger.record :unchanged, basename(sass_filename) unless options[:quiet]
+        remove(sourcemap_filename) if sourcemap_filename && !options[:sourcemap]
       end
     end
 
@@ -147,21 +160,40 @@ module Compass
     end
 
     # Compile one Sass file
-    def compile(sass_filename, css_filename)
+    def compile(sass_filename, css_filename, sourcemap_filename = nil)
       start_time = end_time = nil
-      css_content = logger.red do
+      css_content, sourcemap = logger.red do
         timed do
-          engine(sass_filename, css_filename).render
+          engine = engine(sass_filename, css_filename)
+          if sourcemap_filename && options[:sourcemap]
+            engine.render_with_sourcemap(relative_path(css_filename, sourcemap_filename))
+          else
+            [engine.render, nil]
+          end
         end
       end
       duration = options[:time] ? "(#{(css_content.__duration * 1000).round / 1000.0}s)" : ""
       write_file(css_filename, css_content, options.merge(:force => true, :extra => duration), sass_options[:unix_newlines])
+      if sourcemap
+        sourcemap_content = sourcemap.to_json(:css_path => css_filename,
+                                              :sourcemap_path => sourcemap_filename)
+        write_file(sourcemap_filename, sourcemap_content, options.merge(:force => true), sass_options[:unix_newlines])
+      elsif File.exist?(sourcemap_filename)
+        remove sourcemap_filename
+      end
       Compass.configuration.run_stylesheet_saved(css_filename)
     end
 
-    def should_compile?(sass_filename, css_filename)
-      return true unless css_filename && File.exist?(css_filename)
-      options[:force] || needs_update?(css_filename, sass_filename)
+    def relative_path(from_path, to_path)
+      Pathname.new(to_path).relative_path_from(Pathname.new(from_path).dirname).to_s
+    end
+
+    def should_compile?(sass_filename, css_filename, sourcemap_filename = nil)
+      return true if css_filename && !File.exist?(css_filename)
+      return true if sourcemap_filename && !File.exist?(sourcemap_filename)
+      options[:force] ||
+        needs_update?(css_filename, sass_filename) ||
+        needs_update?(sourcemap_filename, sass_filename)
     end
 
     # A sass engine for compiling a single file.

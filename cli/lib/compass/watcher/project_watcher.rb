@@ -103,10 +103,10 @@ module Compass
       def sass_removed(file)
         log_action(:info, "#{filename_for_display(file)} was removed", options)
         css_file = compiler.corresponding_css_file(file)
+        sourcemap_file = compiler.corresponding_sourcemap_file(file)
         compile
-        if File.exists?(css_file)
-          remove(css_file)
-        end
+        remove(css_file) if File.exists?(css_file)
+        remove(sourcemap_file) if File.exists?(sourcemap_file)
       end
 
       def local_development_locations

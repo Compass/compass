@@ -63,6 +63,7 @@ module Compass
       attributes_for_directory(:extensions, nil),
       # Compilation options
       :output_style,
+      :sourcemap,
       :environment,
       :relative_assets,
       :additional_import_paths,

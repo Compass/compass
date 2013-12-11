@@ -24,6 +24,9 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
   `require 'compass/import-once/activate'` to their configuration. More
   details about the import once gem are available in the
   [README](https://github.com/chriseppstein/compass/blob/master/import-once/README.md)
+* Compass now supports Sass sourcemaps. Pass the `--sourcemap` option to
+  the compile or watch commands or set `sourcemap = true` in your
+  compass configuration.
 
 0.13.alpha.8 (10/21/2013)
 -------------------------
