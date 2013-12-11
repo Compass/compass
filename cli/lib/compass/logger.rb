@@ -4,6 +4,8 @@ module Compass
 
     DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical, :warning]
 
+    ERROR_ACTIONS = [:error, :warning]
+
     COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     ACTION_COLORS = {
@@ -37,7 +39,11 @@ module Compass
       msg << "#{action_padding(action)}#{action}"
       msg << color(:clear) if Compass.configuration.color_output
       msg << " #{arguments.join(' ')}"
-      log msg
+      if ERROR_ACTIONS.include? action
+        log_error msg
+      else
+        log msg
+      end
     end
 
     def red
@@ -78,6 +84,10 @@ module Compass
     def log(msg)
       puts msg
       $stdout.flush
+    end
+
+    def log_error(msg)
+      $stderr.write(msg << "\n")
     end
 
     # add padding to the left of an action that was performed.
