@@ -87,7 +87,8 @@ module Compass
     end
 
     def log_error(msg)
-      $stderr.write(msg << "\n")
+      $stderr.puts(msg)
+      $stderr.flush
     end
 
     # add padding to the left of an action that was performed.
