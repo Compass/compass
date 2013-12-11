@@ -1,15 +1,17 @@
 PATH
   remote: ..
   specs:
-    compass (1.0.0.alpha.0)
+    compass (1.0.0.alpha.16)
       chunky_png (~> 1.2)
-      compass-core
+      compass-core (~> 1.0.0.alpha.16)
+      compass-import-once (~> 1.0.1)
       json
       listen (~> 1.1.0)
       sass (~> 3.3.0.rc.1)
-    compass-core (1.0.0.alpha.0)
+    compass-core (1.0.0.alpha.16)
       multi_json (~> 1.0)
       sass (>= 3.3.rc.1)
+    compass-import-once (1.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -53,7 +55,6 @@ GEM
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
     rdiscount (2.0.7.2)
-    ruby-prof (0.13.0)
     sass (3.3.0.rc.2)
       listen (~> 1.1.0)
     susy (2.0.0.alpha.4)
@@ -90,7 +91,6 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   rdiscount
-  ruby-prof
   sass (>= 3.3.0.rc.2)
   susy
   thin
