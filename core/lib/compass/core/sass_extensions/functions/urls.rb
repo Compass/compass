@@ -259,7 +259,9 @@ module Compass::Core::SassExtensions::Functions::Urls
 
   def compute_relative_path(path)
     if (target_css_file = options[:css_filename])
-      Pathname.new(path).relative_path_from(Pathname.new(File.dirname(target_css_file))).to_s
+      target_path = Pathname.new(File.expand_path(path))
+      source_path = Pathname.new(File.dirname(File.expand_path(target_css_file)))
+      target_path.relative_path_from(source_path).to_s
     end
   end
 
