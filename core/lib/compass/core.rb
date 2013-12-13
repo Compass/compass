@@ -49,6 +49,7 @@ end
 
 require "sass"
 require "sass/plugin"
+require 'compass/util'
 require "compass/core/caniuse"
 require 'compass/core/sass_extensions'
 require 'compass/error'

@@ -4,7 +4,6 @@ end
 %w(frameworks
    core
    dependencies
-   util
    sass_extensions
    version
    errors
