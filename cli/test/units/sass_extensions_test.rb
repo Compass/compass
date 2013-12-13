@@ -194,6 +194,10 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "woff, truetype, svg, embedded-opentype", evaluate("font-formats('/font/name.woff', woff, '/fonts/name.ttf', '/fonts/name.svg#fontpath', unquote('/fonts/name.eot'))")
   end
 
+  def test_linear_gradient_with_calc
+    assert_equal "", evaluate("-webkit(linear-gradient(to right, white calc(100% - 50px), transparent calc(100% - 50px)))")
+  end
+
 
   def test_image_size_should_respond_to_to_path
     object = mock()
