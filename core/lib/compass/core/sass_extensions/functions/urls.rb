@@ -65,7 +65,7 @@ module Compass::Core::SassExtensions::Functions::Urls
 
       # Compute the real path to the font on the file system if the fonts_dir is set.
       real_path = if Compass.configuration.fonts_dir
-        File.join(Compass.configuration.fonts_path, path.gsub(/#.*$/,""))
+        File.join(Compass.configuration.fonts_path, path.gsub(/[?#].*$/,""))
       end
 
       # prepend the path to the font if there's one
@@ -83,7 +83,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       if cache_buster.to_bool
         path, anchor = path.split("#", 2)
         if cache_buster.is_a?(Sass::Script::Value::String)
-          path += "?#{cache_buster.value}"
+          path += "#{path["?"] ? "&" : "?"}#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
         end
@@ -153,7 +153,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       if cache_buster.to_bool
         path, anchor = path.split("#", 2)
         if cache_buster.is_a?(Sass::Script::Value::String)
-          path += "?#{cache_buster.value}"
+          path += "#{path["?"] ? "&" : "?"}#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
         end
@@ -222,7 +222,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       if cache_buster.to_bool
         path, anchor = path.split("#", 2)
         if cache_buster.is_a?(Sass::Script::Value::String)
-          path += "?#{cache_buster.value}"
+          path += "#{path["?"] ? "&" : "?"}#{cache_buster.value}"
         else
           path = cache_busted_path(path, real_path)
         end
@@ -276,7 +276,7 @@ module Compass::Core::SassExtensions::Functions::Urls
     end
     
     if cache_buster[:query]
-      "%s?%s" % [path, cache_buster[:query]]
+      "#{path}#{path["?"] ? "&" : "?"}#{cache_buster[:query]}"
     else
       path
     end
