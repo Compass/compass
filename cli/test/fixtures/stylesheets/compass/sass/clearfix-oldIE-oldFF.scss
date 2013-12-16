@@ -1,0 +1,22 @@
+$graceful-usage-threshold: 1;
+$critical-usage-threshold: 1;
+
+$browser-minimum-versions: (
+  "ie": "6",
+  "firefox": "2"
+);
+
+@import "project-setup";
+@import "compass/utilities";
+
+.legacy-clearfix {
+  @include clearfix-legacy(true);
+}
+
+.clearfix-extend {
+  @include clearfix;
+}
+
+.clearfix-no-extend {
+  @include clearfix(false);
+}

@@ -1,0 +1,19 @@
+.legacy-clearfix, .clearfix-extend {
+  *zoom: 1; }
+  .legacy-clearfix:before, .clearfix-extend:before, .legacy-clearfix:after, .clearfix-extend:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+  .legacy-clearfix:after, .clearfix-extend:after {
+    clear: both; }
+
+.clearfix-no-extend {
+  *zoom: 1; }
+  .clearfix-no-extend:before, .clearfix-no-extend:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+  .clearfix-no-extend:after {
+    clear: both; }

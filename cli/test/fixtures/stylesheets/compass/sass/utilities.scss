@@ -1,14 +1,68 @@
+@import "project-setup";
 @import "compass/utilities";
 
-.clearfix {
-    @include clearfix;
+.clearfix-overflow__mixin-no-extend {
+  @include clearfix-overflow(false);
+}
+.clearfix-overflow__mixin-extend {
+  @include clearfix-overflow(true);
+}
+.clearfix-overflow__master-mixin-type-no-extend {
+  @include clearfix(false, 'overflow');
+}
+.clearfix-overflow__master-mixin-type-extend {
+  @include clearfix(true, 'overflow');
+}
+.clearfix-overflow__extend {
+  @extend %clearfix-overflow;
 }
 
-.pie-clearfix {
-    @include legacy-pie-clearfix;
+.clearfix-legacy__mixin-no-extend {
+  @include clearfix-legacy(false);
 }
-.simple-pie-clearfix {
-  @include pie-clearfix;
+.clearfix-legacy__mixin-extend {
+  @include clearfix-legacy(true);
+}
+.clearfix-legacy__master-mixin-type-no-extend {
+  @include clearfix(false, 'legacy');
+}
+.clearfix-legacy__master-mixin-type-extend {
+  @include clearfix(true, 'legacy');
+}
+.clearfix-legacy__extend {
+  @extend %clearfix-legacy;
+}
+
+.clearfix-micro {
+  @include clearfix-micro(false);
+}
+.clearfix-micro__mixin-extend {
+  @include clearfix-micro(true);
+}
+.clearfix-micro__master-mixin-type-no-extend {
+  @include clearfix(false, 'micro');
+}
+.clearfix-micro__master-mixin-type-extend {
+  @include clearfix(true, 'micro');
+}
+.clearfix-micro__extend {
+  @extend %clearfix-micro;
+}
+
+.clearfix-modern {
+  @include clearfix-modern(false);
+}
+.clearfix-modern__mixin-extend {
+  @include clearfix-modern(true);
+}
+.clearfix-modern__master-mixin-type-no-extend {
+  @include clearfix(false, 'modern');
+}
+.clearfix-modern__master-mixin-type-extend {
+  @include clearfix(true, 'modern');
+}
+.clearfix-modern__extend {
+  @extend %clearfix-modern;
 }
 
 p.light { @include contrasted(#f3aead); }
