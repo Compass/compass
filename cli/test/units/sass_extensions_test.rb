@@ -195,7 +195,8 @@ class SassExtensionsTest < Test::Unit::TestCase
   end
 
   def test_linear_gradient_with_calc
-    assert_equal "", evaluate("-webkit(linear-gradient(to right, white calc(100% - 50px), transparent calc(100% - 50px)))")
+    assert_equal "-webkit-linear-gradient(left, #ffffff calc(100% - 50px), rgba(0, 0, 0, 0) calc(100% - 50px))",
+        evaluate("-webkit(-linear-gradient(to right, white calc(100% - 50px), transparent calc(100% - 50px)))")
   end
 
 
