@@ -1,0 +1,44 @@
+@import "compass/utilities/general/clearfix";
+
+.example {
+  [class$="clearfix"] {
+    /* Basic styling for classes ending in clearfix */
+    border: 1px solid black;
+    background: rgba(blue, .25);
+    margin-bottom: 1em;
+    @include box-sizing(border-box);
+  }
+
+  .float {
+    /* Basic styling for floated items */
+    width: 50%;
+    padding: .5em;
+    float: left;
+    border: 1px solid black;
+    background: rgba(red, .25);
+    @include box-sizing(border-box);
+  }
+
+  .overflow-clearfix {
+    /* Can also be used via `@extend %clearfix-overflow` or `@include clearfix-overflow` */
+    @include clearfix($type: "overflow");
+  }
+
+  .legacy-clearfix {
+    /* Chosen automatically if IE6, IE7 or Firefox < 3.5 is needed. */
+    /* Can also be used via `@extend %clearfix-legacy` or `@include clearfix-legacy` */
+    @include clearfix($type: "legacy");
+  }
+
+  .micro-clearfix {
+    /* Chosen automatically if IE6, IE7 and Firefox >= 3.5 is needed. */
+    /* Can also be used via `@extend %clearfix-micro` or `@include clearfix-micro` */
+    @include clearfix($type: "micro");
+  }
+
+  .modern-clearfix {
+    /* Chosen automatically if IE6 and IE7 not needed. */
+    /* Can also be used via `@extend %clearfix-modern` or `@include clearfix-modern` */
+    @include clearfix($type: "modern");
+  }
+}
