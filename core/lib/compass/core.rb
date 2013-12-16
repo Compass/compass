@@ -62,4 +62,10 @@ if defined?(Compass::Frameworks)
     :stylesheets_directory => Compass::Core.base_directory("stylesheets"),
     :templates_directory => Compass::Core.base_directory("templates")
   )
+else
+  if ENV.has_key?("SASS_PATH")
+    ENV["SASS_PATH"] = ENV["SASS_PATH"] + File::PATH_SEPARATOR + Compass::Core.base_directory("stylesheets")
+  else
+    ENV["SASS_PATH"] = Compass::Core.base_directory("stylesheets")
+  end
 end
