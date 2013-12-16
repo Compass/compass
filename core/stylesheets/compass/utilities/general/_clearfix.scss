@@ -109,13 +109,13 @@ $default-clearfix-type: false !default;
   // Clearfix based on browser support needs
   // Legacy and Micro Clearfixes
   @else if support-legacy-browser("ie", "6", "7") {
-    // Micro Clearfix
-    @if support-legacy-browser("firefox", "3.5") {
-      @include clearfix-micro($extend);
-    }
     // Legacy Clearfix
-    @else {
+    @if support-legacy-browser("firefox", "2", "3") {
       @include clearfix-legacy($extend);
+    }
+    // Micro Clearfix
+    @else {
+      @include clearfix-micro($extend);
     }
   }
   // Modern Clearfix
