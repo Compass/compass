@@ -73,8 +73,9 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
     @return false;
   } @else {
     // If the version is less than the current min, it is not supported
-    $too-old: compare-browser-versions($browser, $version, $current-max) < 0;
-    @if $too-old {
+    $too-old: compare-browser-versions($browser, $version, $current-min) < 0;
+    $too-new: compare-browser-versions($browser, $version, $current-max) > 0;
+    @if $too-old or $too-new {
       @if $debug-browser-support {
         @return "The current scope only works with #{display-browser-range($browser, $current-min, $current-max)}.";
       } @else {
