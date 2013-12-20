@@ -20,6 +20,6 @@ class UrlsTest < Test::Unit::TestCase
   private
 
   def options
-    @options || {}
+    @options ||= {}
   end
 end
