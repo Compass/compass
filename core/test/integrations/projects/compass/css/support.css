@@ -1,6 +1,7 @@
 /*  
 
 ### Compass Support ------ */
+/*  - [variable] $compass-extensions is set and is a map (3 Assertions, 3 Passed, 0 Failed) */
 /*  - [function] set-arglist-default() with no arguments (1 Assertions, 1 Passed, 0 Failed) */
 /*  - [function] set-arglist-default() with a "default" argument (1 Assertions, 1 Passed, 0 Failed) */
 /*  - [function] set-arglist-default() with a "default" argument and another argument (1 Assertions, 1 Passed, 0 Failed) */
@@ -18,8 +19,8 @@
 /*  - [function] has-browser-subset() (5 Assertions, 5 Passed, 0 Failed) */
 /*  - [function] support-legacy-browser() respects $supported-browsers (1 Assertions, 1 Passed, 0 Failed) */
 /*  
-    16 Tests:
-    - 16 Passed
+    17 Tests:
+    - 17 Passed
     - 0 Failed */
 /* Capability css-animation is prefixed with -moz because 0.94353% of users need it which is more than the threshold of 0.1%. */
 /* Creating new -moz context. */

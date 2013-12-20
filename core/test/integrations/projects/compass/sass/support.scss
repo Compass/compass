@@ -23,6 +23,11 @@ $some-default-value: some default value;
 }
 
 @include test-module('Compass Support') {
+  @include test('[variable] $compass-extensions is set and is a map') {
+    @include assert-true(global-variable-exists(compass-extensions));
+    @include assert-equal(map, type-of($compass-extensions));
+    @include assert-equal(0, str-index("1.0", map-get($compass-extensions, compass)));
+  }
   @include test('[function] set-arglist-default() with no arguments') {
     @include assert-true(
                has-default-arglist() == $some-default-value,

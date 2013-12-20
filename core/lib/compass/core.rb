@@ -60,7 +60,8 @@ if defined?(Compass::Frameworks)
   Compass::Frameworks.register(
     "compass",
     :stylesheets_directory => Compass::Core.base_directory("stylesheets"),
-    :templates_directory => Compass::Core.base_directory("templates")
+    :templates_directory => Compass::Core.base_directory("templates"),
+    :version => Compass::Core::VERSION
   )
 else
   if ENV.has_key?("SASS_PATH")

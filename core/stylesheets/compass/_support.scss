@@ -1,3 +1,7 @@
+// Map of compass extensions that are loaded. The value will either be
+// the version of the extension or `true` if the version is unknown.
+$compass-extensions: compass-extensions() !default;
+
 // The list of browsers you want to support.
 // Defaults to all.
 $supported-browsers: browsers() !default;

@@ -7,6 +7,7 @@ module Compass
     class Framework
       attr_accessor :name
       attr_accessor :path
+      attr_accessor :version
       attr_accessor :templates_directory, :stylesheets_directory
       def initialize(name, *arguments)
         options = arguments.last.is_a?(Hash) ? arguments.pop : {}
@@ -16,7 +17,9 @@ module Compass
         @templates_directory ||= File.join(path, 'templates') if path
         @stylesheets_directory = options[:stylesheets_directory]
         @stylesheets_directory ||= File.join(path, 'stylesheets') if path
+        @version = options[:version]
       end
+
       def template_directories
         if templates_directory
           Dir.glob(File.join(templates_directory, "*")).map{|f| File.basename(f)}
@@ -24,9 +27,11 @@ module Compass
           []
         end
       end
+
       def manifest_file(pattern)
         File.join(templates_directory, pattern.to_s, "manifest.rb")
       end
+
       def manifest(pattern, options = {})
         options[:pattern_name] ||= pattern
         Compass::Installers::Manifest.new(manifest_file(pattern), options)
@@ -42,6 +47,14 @@ module Compass
     end
 
     def register(name, *arguments)
+      opts = if arguments.last.is_a?(Hash)
+               arguments.last
+             else
+               o = {}
+               arguments << o
+               o
+             end
+      opts[:version] ||= guess_gem_version(caller[0])
       @registered = Framework.new(name, *arguments)
       if idx = ALL.index(self[name])
         ALL[idx] = @registered
@@ -52,6 +65,15 @@ module Compass
 
     def [](name)
       ALL.detect{|f| f.name.to_s == name.to_s}
+    end
+
+    def guess_gem_version(line_reference)
+      if line_reference =~ %r{/gems/([^/]*-[^/]*)/}
+        split_at = $1.rindex("-")
+        name = $1[1...split_at]
+        version = $1[(split_at + 1)..-1]
+        version unless name == "compass"
+      end
     end
 
     def discover(frameworks_directory)
