@@ -18,7 +18,7 @@ class ImporterTest < Test::Unit::TestCase
     {:foo => 'bar'}
   end
   
-  test "should use search path to find sprites" do
+  def test_should_use_search_path_to_find_sprites
     Compass.reset_configuration!
     uri = 'foo/*.png'
     other_folder = File.join(@images_tmp_path, '../other-temp')
@@ -39,19 +39,19 @@ class ImporterTest < Test::Unit::TestCase
     FileUtils.rm_rf other_folder
   end
   
-  test "name should return the sprite name" do
+  def test_name_should_return_the_sprite_name
     assert_equal 'selectors', Compass::SpriteImporter.sprite_name(URI)
   end
   
-  test "path should return the sprite path" do
+  def test_path_should_return_the_sprite_path
     assert_equal 'selectors',  Compass::SpriteImporter.path(URI)
   end
   
-  test "should return all the sprite names" do
+  def test_should_return_all_the_sprite_names
     assert_equal ["ten-by-ten", "ten-by-ten_active", "ten-by-ten_hover", "ten-by-ten_target"], Compass::SpriteImporter.sprite_names(URI)
   end
   
-  test "should have correct mtime" do
+  def test_should_have_correct_mtime
     thirtydays = Time.now.to_i + (60*60*24*30)
     file = Dir[File.join(@images_src_path, URI)].sort.first
     File.utime(thirtydays, thirtydays, file)
@@ -59,22 +59,22 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal thirtydays, @importer.mtime(URI, {}).to_i
   end
   
-  test "should return sass engine on find" do
+  def test_should_return_sass_engine_on_find
     assert @importer.find(URI, {}).is_a?(Sass::Engine)
   end
   
-  test "sass options should contain options" do
+  def test_sass_options_should_contain_options
     opts = Compass::SpriteImporter.sass_options('foo', @importer, options)
     assert_equal 'bar', opts[:foo]
   end
   
-  test "verify that the sass_engine passes the correct filename" do
+ def test_verify_that_the_sass_engine_passes_the_correct_filename
     importer = Compass::SpriteImporter.new
     engine = Compass::SpriteImporter.sass_engine(URI, 'foo', importer, options)
     assert_equal engine.options[:filename], URI
   end
   
-  test "should fail given bad sprite extensions" do
+  def test_should_fail_given_bad_sprite_extensions
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
     Compass.add_configuration(file, "sprite_config")

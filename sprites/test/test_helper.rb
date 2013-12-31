@@ -1,4 +1,18 @@
 
+test_dir = File.dirname(__FILE__)
+$:.unshift(test_dir) unless $:.include?(test_dir)
+cli_dir = File.join(test_dir, '..', '..', 'cli', 'lib')
+$:.unshift(cli_dir) unless $:.include?(cli_dir)
+core_dir = File.join(test_dir, '..', '..', 'core', 'lib')
+$:.unshift(core_dir) unless $:.include?(core_dir)
+lib_dir = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
+$:.unshift(lib_dir) unless $:.include?(lib_dir)
+
+require 'compass'
+require 'compass/logger'
+require 'compass/sprites'
+require 'test/unit'
+
 module SpriteHelper
   URI = "selectors/*.png"
   

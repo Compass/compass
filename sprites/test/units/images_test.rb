@@ -12,32 +12,32 @@ class ImagesTest < Test::Unit::TestCase
   end
 
 
-  test "sort by size" do
+  def test_sort_by_size
     @images.sort_by! :size
     assert_equal [3, 2, 4, 1], @images.map(&:foo)
   end
 
-  test "sort by !size" do
+  def test_sort_by_size_with_bang
     @images.sort_by! '!size'
     assert_equal [3, 2, 4, 1].reverse, @images.map(&:foo)
   end
 
-  test "sort by name" do
+  def test_sort_by_name
     @images.sort_by! :name
     assert_equal [3, 2, 1, 4], @images.map(&:foo)
   end
 
-  test "sort by !name" do
+  def test_sort_by_name_with_bang
     @images.sort_by! '!name'
     assert_equal [3, 2, 1, 4].reverse, @images.map(&:foo)
   end
 
-  test "sort by width" do
+  def test_sort_by_width
     @images.sort_by! :width
     assert_equal [1, 3, 4, 2], @images.map(&:foo)
   end
 
-    test "sort by !width" do
+  def test_sort_by_width_with_bang
     @images.sort_by! '!width'
     assert_equal [1, 3, 4, 2].reverse, @images.map(&:foo)
   end

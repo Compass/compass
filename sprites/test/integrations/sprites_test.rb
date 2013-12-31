@@ -1,6 +1,5 @@
 require 'test_helper'
 require 'fileutils'
-require 'compass'
 require 'compass/logger'
 require 'sass/plugin'
 

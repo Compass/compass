@@ -1,0 +1,61 @@
+PATH
+  remote: .
+  specs:
+    compass-sprites (1.0.0.alpha.17)
+      chunky_png (~> 1.2)
+
+PATH
+  remote: /Users/sdavis/OSS/compass/cli
+  specs:
+    compass (1.0.0.alpha.17)
+      chunky_png (~> 1.2)
+      compass-core (~> 1.0.0.alpha.16)
+      compass-import-once (~> 1.0.1)
+      json
+      listen (~> 1.1.0)
+      sass (~> 3.3.0.rc.1)
+
+PATH
+  remote: /Users/sdavis/OSS/compass/core
+  specs:
+    compass-core (1.0.0.alpha.16)
+      multi_json (~> 1.0)
+      sass (>= 3.3.rc.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    chunky_png (1.2.9)
+    compass-import-once (1.0.2)
+    ffi (1.9.3)
+    json (1.8.1)
+    listen (1.1.6)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      rb-kqueue (>= 0.2)
+    metaclass (0.0.1)
+    mocha (0.11.4)
+      metaclass (~> 0.0.1)
+    multi_json (1.8.2)
+    rake (10.1.1)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.3)
+      ffi (>= 0.5.0)
+    rb-kqueue (0.2.0)
+      ffi (>= 0.5.0)
+    sass (3.3.0.rc.2)
+      listen (~> 1.1.0)
+    true (0.2.0.rc.4)
+      sass (~> 3.3.0.rc.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.3)
+  compass!
+  compass-core!
+  compass-sprites!
+  mocha (= 0.11.4)
+  rake
+  true (>= 0.2.0.rc.3)

@@ -30,28 +30,28 @@ class ImageRowTest < Test::Unit::TestCase
     end
   end
   
-  it "should return false if image will not fit in row" do
+  def test_should_return_false_if_image_will_not_fit_in_row
     image_row(100)
     img = Compass::SassExtensions::Sprites::Image.new(nil, File.join('image_row', 'large.png'), {})
     assert !@image_row.add(img)
   end
   
-  it "should have 5 images" do
+  def test_should_have_5_images
     populate_row
     assert_equal 5, @image_row.images.size
   end
   
-  it "should return max image width" do
+  def test_should_return_max_image_width
     populate_row
     assert_equal 400, @image_row.width
   end
   
-  it "should return max image height" do
+  def test_should_return_max_image_height
     populate_row
     assert_equal 40, @image_row.height
   end
   
-  it "should have an efficiency rating" do
+  def test_should_have_an_efficiency_rating
     populate_row
     assert_equal 1 - (580.0 / 1000.0), @image_row.efficiency
   end

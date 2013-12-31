@@ -1,0 +1,10 @@
+# A sample Gemfile
+source "https://rubygems.org"
+gemspec
+gemspec :path => '../cli'
+gemspec :path => '../core'
+
+group :test do
+  gem 'mocha', '0.11.4'
+  gem 'true', ">= 0.2.0.rc.3"
+end
