@@ -53,7 +53,7 @@ class LayoutTest < Test::Unit::TestCase
 
   # REPEAT_X
 
-  test 'repeat-x layout single image' do
+  def test_repeat_x_layout_single_image
     opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x'), 'sort_by' => Sass::Script::String.new('width')}
     map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
     assert_equal 6, map.width
@@ -61,13 +61,13 @@ class LayoutTest < Test::Unit::TestCase
     assert_equal [0, 0, 0, 0, 0, 0, 3], map.images.map(&:left)
   end
 
-  test 'repeat-x layout multi image' do
+  def test_repeat_x_layout_multi_image
     opts = {"repeat_x_three_repeat" => Sass::Script::String.new('repeat-x'), "repeat_x_four_repeat" => Sass::Script::String.new('repeat-x')}
     map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
     assert_equal 12, map.width
   end
 
-  test "repeat-y layout single image" do
+  def test_repeat_y_layout_single_image
     opts = {"layout" => Sass::Script::String.new('horizontal'), "squares_ten_by_ten_repeat" => Sass::Script::String.new('repeat-y')}
     map = sprite_map_test(@options.merge(opts), 'squares/*.png')
     assert_equal 30, map.width
@@ -77,7 +77,7 @@ class LayoutTest < Test::Unit::TestCase
     assert map.horizontal?
   end
 
-  test "repeat-y layout multi image" do
+  def test_repeat_y_layout_multi_image
     opts = {"layout" => Sass::Script::String.new('horizontal'), "repeat_x_three_repeat" => Sass::Script::String.new('repeat-y'), "repeat_x_four_repeat" => Sass::Script::String.new('repeat-y')}
     map = sprite_map_test(@options.merge(opts), 'repeat_x/*.png')
     assert_equal [[0, 0], [0, 5], [0, 9], [0, 10], [0, 13], [4, 5], [8, 5], [3, 10], [6, 10], [9, 10]], map.images.map { |img| [img.top, img.left] }
@@ -85,19 +85,19 @@ class LayoutTest < Test::Unit::TestCase
 
   # VERTICAL LAYOUT
 
-  it "should have a vertical layout" do
+  def test_should_have_a_vertical_layout
     vert = vertical
     assert_equal [0, 10, 20, 30], vert.images.map(&:top)
     assert_equal [0, 0, 0, 0], vert.images.map(&:left)
     assert vert.vertical?
   end
   
-  it "should have a vertical layout with spacing" do
+  def test_should_have_a_vertical_layout_with_spacing
     vert = sprite_map_test(@options.merge({"spacing" => Sass::Script::Number.new(10, ['px'])}))
     assert_equal [0, 20, 40, 60], vert.images.map(&:top)
   end
   
-  it "should layout vertical with position" do
+  def test_should_layout_vertical_with_position
     vert = sprite_map_test("selectors_ten_by_ten_active_position" => Sass::Script::Number.new(10, ['px']))
     assert_equal [0, 10, 0, 0], vert.images.map(&:left)
   end
