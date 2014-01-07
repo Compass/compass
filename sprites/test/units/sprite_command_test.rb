@@ -47,7 +47,7 @@ class SpriteCommandTest < Test::Unit::TestCase
     end
   end
 
-  it "should create sprite file" do
+  def test_should_create_sprite_file
     assert_equal 0, run_compass_with_options(['sprite', "-f", 'stylesheet.scss', "squares/*.png"]).to_i
     assert File.exists?(File.join(test_dir, 'stylesheet.scss'))
   end

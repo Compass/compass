@@ -34,7 +34,7 @@ class RowFitterTest < Test::Unit::TestCase
     ]
   end
 
-  it 'should use the fast placement algorithm' do
+  def test_should_use_the_fast_placement_algorithm
     images = create_images(basic_dims)
 
     row_fitter(images)
@@ -50,7 +50,7 @@ class RowFitterTest < Test::Unit::TestCase
     assert_equal [ images[4] ], row_fitter[3].images
   end
 
-  it 'should use the scan placement algorithm' do
+  def test_should_use_the_scan_placement_algorithm
     images = create_images(basic_dims)
 
     row_fitter(images)

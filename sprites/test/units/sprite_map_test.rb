@@ -21,69 +21,63 @@ class SpriteMapTest < Test::Unit::TestCase
     @base = nil
   end
   
-  it "should have the correct size" do
+  def test_should_have_the_correct_size
     assert_equal [10,40], @base.size
   end
   
-  it "should have the sprite names" do
+  def test_should_have_the_sprite_names
     assert_equal Compass::SpriteImporter.sprite_names(URI), @base.sprite_names
   end
   
-  it 'should have image filenames' do
+  def test_should_have_image_filenames
     assert_equal Dir["#{@images_tmp_path}/selectors/*.png"].sort, @base.image_filenames
   end
   
-  it 'should need generation' do
+  def test_should_need_generation
     assert @base.generation_required?
   end
   
-  test 'uniqueness_hash' do
+   def test_uniqueness_hash
     assert_equal '4c703bbc05', @base.uniqueness_hash
   end
   
-  it 'should be outdated' do
+  def test_should_be_outdated
     assert @base.outdated?
   end
 
-  it 'should have correct filename' do
+  def test_should_have_correct_filename
     assert_equal File.join(@images_tmp_path, "#{@base.path}-s#{@base.uniqueness_hash}.png"), @base.filename
   end
   
-  it "should return the 'ten-by-ten' image" do
+ def test_should_return_the_ten_by_ten_image
     assert_equal 'ten-by-ten', @base.image_for('ten-by-ten').name
     assert @base.image_for('ten-by-ten').is_a?(Compass::SassExtensions::Sprites::Image)
   end
   
-  %w(target hover active).each do |selector|
-    it "should have a #{selector}" do
-      assert @base.send(:"has_#{selector}?", 'ten-by-ten')
-    end
-    
-    it "should return #{selector} image class" do
-      assert_equal "ten-by-ten_#{selector}", @base.image_for('ten-by-ten').send(:"#{selector}").name
-    end
-    
-    it "should find file with '-' #{selector}" do
-      map = sprite_map_test(:seperator => '-')
-      map.images.each_index do |i|
-        if map.images[i].name != 'ten-by-ten'
-          name = map.images[i].name.gsub(/_/, '-')
-          map.images[i].stubs(:name).returns(name)
-        end
-      end
-      assert_equal "ten-by-ten-#{selector}", map.image_for('ten-by-ten').send(:"#{selector}").name
-    end
+ def test_should_have_selectors
+   %w(target hover active).each do |selector|
+     assert @base.send(:"has_#{selector}?", 'ten-by-ten')
+     assert_equal "ten-by-ten_#{selector}", @base.image_for('ten-by-ten').send(:"#{selector}").name
 
-  end
+     map = sprite_map_test(:seperator => '-')
+     map.images.each_index do |i|
+       if map.images[i].name != 'ten-by-ten'
+         name = map.images[i].name.gsub(/_/, '-')
+         map.images[i].stubs(:name).returns(name)
+       end
+     end
+     assert_equal "ten-by-ten-#{selector}", map.image_for('ten-by-ten').send(:"#{selector}").name
+   end
+ end
 
-  it "should generate sprite" do
+  def test_should_generate_sprite
     @base.generate
     assert File.exists?(@base.filename)
     assert !@base.generation_required?
     assert !@base.outdated?
   end
   
-  it "should remove old sprite when generating new" do
+  def test_should_remove_old_sprite_when_generating_new
     @base.generate
     file = @base.filename
     assert File.exists?(file), "Original file does not exist"
@@ -95,7 +89,7 @@ class SpriteMapTest < Test::Unit::TestCase
     assert !File.exists?(file), "Sprite file did not get removed"
   end
   
-  test "should get correct relative_name" do
+  def test_should_get_correct_relative_name
     Compass.reset_configuration!
     uri = 'foo/*.png'
     other_folder = File.join(@images_tmp_path, '../other-temp')
@@ -112,7 +106,7 @@ class SpriteMapTest < Test::Unit::TestCase
     FileUtils.rm_rf other_folder
   end
   
-  test "should get correct relative_name for directories with similar names" do
+  def test_should_get_correct_relative_name_for_directories_with_similar_names
     Compass.reset_configuration!
     uri = 'foo/*.png'
     other_folder = File.join(@images_tmp_path, '../other-temp')
@@ -132,6 +126,7 @@ class SpriteMapTest < Test::Unit::TestCase
     Compass.add_configuration(config, "sprite_config")
 
     assert_equal 'foo/my.png', Compass::SassExtensions::Sprites::SpriteMap.relative_name(File.join(other_folder2, 'foo/my.png'))
+  ensure
     FileUtils.rm_rf other_folder
     FileUtils.rm_rf other_folder2
   end
