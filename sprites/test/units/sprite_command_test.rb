@@ -1,9 +1,9 @@
 require 'test_helper'
 require 'compass/exec'
 class SpriteCommandTest < Test::Unit::TestCase
-  include Compass::TestCaseHelper
-  include Compass::CommandLineHelper
-  include Compass::IoHelper
+  include Compass::Test::TestCaseHelper
+  include Compass::Test::CommandLineHelper
+  include Compass::Test::IoHelper
   
   attr_reader :test_dir
   include SpriteHelper

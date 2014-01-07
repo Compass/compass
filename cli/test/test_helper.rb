@@ -20,10 +20,10 @@ end
 
 
 class Test::Unit::TestCase
-  include Compass::Diff
-  include Compass::TestCaseHelper
-  include Compass::IoHelper
-  extend Compass::TestCaseHelper::ClassMethods
+  include Compass::Test::Diff
+  include Compass::Test::TestCaseHelper
+  include Compass::Test::IoHelper
+  extend Compass::Test::TestCaseHelper::ClassMethods
   
   def fixture_path
     File.join(File.expand_path('../', __FILE__), 'fixtures')

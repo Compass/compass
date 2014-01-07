@@ -5,7 +5,7 @@ require 'stringio'
 
 class RegressionsTest < Test::Unit::TestCase
   include SpriteHelper
-  include Compass::CommandLineHelper
+  include Compass::Test::CommandLineHelper
 
   def setup
     create_sprite_temp
