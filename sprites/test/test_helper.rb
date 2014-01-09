@@ -12,6 +12,7 @@ require 'compass'
 require 'compass/logger'
 require 'compass/sprites'
 require 'test/unit'
+require "mocha/setup"
 
 require File.join(test_dir, '..', '..', 'test', 'common', 'helpers')
 require File.join(test_dir, 'helpers', 'sprite_helper')
