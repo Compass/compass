@@ -5,6 +5,7 @@ $:.unshift(test_dir) unless $:.include?(test_dir)
 
 require 'compass'
 require 'test/unit'
+require "mocha/setup"
 require 'true'
 
 
@@ -14,16 +15,20 @@ class String
   end
 end
 
-%w(command_line diff io rails test_case).each do |helper|
-  require "helpers/#{helper}"
-end
+require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'test', 'common', 'helpers'))
 
+module Compass::Test::TestCaseHelper
+
+  def absolutize(path)
+    File.join(File.expand_path('../', __FILE__), path)
+  end
+end
 
 class Test::Unit::TestCase
   include Compass::Test::Diff
   include Compass::Test::TestCaseHelper
   include Compass::Test::IoHelper
-  extend Compass::Test::TestCaseHelper::ClassMethods
+  extend  Compass::Test::TestCaseHelper::ClassMethods
   
   def fixture_path
     File.join(File.expand_path('../', __FILE__), 'fixtures')
