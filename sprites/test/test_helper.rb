@@ -13,11 +13,26 @@ require 'compass/logger'
 require 'compass/sprites'
 require 'test/unit'
 
+require File.join(test_dir, '..', '..', 'test', 'common', 'helpers')
+require File.join(test_dir, 'helpers', 'sprite_helper')
+
+class Test::Unit::TestCase
+  include Compass::Test::Diff
+  include Compass::Test::TestCaseHelper
+  include Compass::Test::IoHelper
+  extend  Compass::Test::TestCaseHelper::ClassMethods
+  
+  def fixture_path
+    File.join(test_dir, 'fixtures')
+  end
+
+end 
+
 module SpriteHelper
   URI = "selectors/*.png"
   
   def init_sprite_helper
-    @images_proj_path = File.join(File.expand_path('../', __FILE__), 'fixtures', 'sprites', 'public')
+    @images_proj_path = File.join(fixture_path, 'sprites', 'public')
     @images_src_dir = 'images'
     @images_src_path = File.join(@images_proj_path, @images_src_dir)
     @images_tmp_dir = 'images-tmp'
