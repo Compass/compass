@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ImageRowTest < Test::Unit::TestCase
-  include SpriteHelper
+  include Compass::Sprite::Test::SpriteHelper
   def setup
     clean_up_sprites
     create_sprite_temp

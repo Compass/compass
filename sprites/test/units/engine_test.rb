@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EngineTest < Test::Unit::TestCase
-  include SpriteHelper
+  include Compass::Sprite::Test::SpriteHelper
   def setup
     create_sprite_temp
     sprite_filename = 'squares/ten-by-ten.png'

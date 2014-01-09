@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class ImporterTest < Test::Unit::TestCase
-  include SpriteHelper
-  
+  include Compass::Sprite::Test::SpriteHelper
+
   def setup
     create_sprite_temp
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
@@ -13,11 +13,11 @@ class ImporterTest < Test::Unit::TestCase
   def teardown
     Compass.reset_configuration!
   end
-  
+
   def options
     {:foo => 'bar'}
   end
-  
+
   def test_should_use_search_path_to_find_sprites
     Compass.reset_configuration!
     uri = 'foo/*.png'
@@ -35,22 +35,22 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal 2, Compass.configuration.sprite_load_path.compact.size
     assert Compass.configuration.sprite_load_path.include?(other_folder)
     assert_equal ["bar", "my"], Compass::SpriteImporter.sprite_names(uri)
-    
+  ensure
     FileUtils.rm_rf other_folder
   end
-  
+
   def test_name_should_return_the_sprite_name
     assert_equal 'selectors', Compass::SpriteImporter.sprite_name(URI)
   end
-  
+
   def test_path_should_return_the_sprite_path
     assert_equal 'selectors',  Compass::SpriteImporter.path(URI)
   end
-  
+
   def test_should_return_all_the_sprite_names
     assert_equal ["ten-by-ten", "ten-by-ten_active", "ten-by-ten_hover", "ten-by-ten_target"], Compass::SpriteImporter.sprite_names(URI)
   end
-  
+
   def test_should_have_correct_mtime
     thirtydays = Time.now.to_i + (60*60*24*30)
     file = Dir[File.join(@images_src_path, URI)].sort.first
@@ -58,22 +58,22 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal thirtydays, File.mtime(file).to_i
     assert_equal thirtydays, @importer.mtime(URI, {}).to_i
   end
-  
+
   def test_should_return_sass_engine_on_find
     assert @importer.find(URI, {}).is_a?(Sass::Engine)
   end
-  
+
   def test_sass_options_should_contain_options
     opts = Compass::SpriteImporter.sass_options('foo', @importer, options)
     assert_equal 'bar', opts[:foo]
   end
-  
+
  def test_verify_that_the_sass_engine_passes_the_correct_filename
     importer = Compass::SpriteImporter.new
     engine = Compass::SpriteImporter.sass_engine(URI, 'foo', importer, options)
     assert_equal engine.options[:filename], URI
   end
-  
+
   def test_should_fail_given_bad_sprite_extensions
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")
@@ -87,5 +87,4 @@ class ImporterTest < Test::Unit::TestCase
       assert e.message.include?("invalid sprite path")
     end
   end
-  
 end
