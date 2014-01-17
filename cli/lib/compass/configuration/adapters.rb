@@ -80,6 +80,18 @@ module Compass
         load_paths << Compass::SpriteImporter.new
         load_paths
       end
+
+      def watch_load_paths
+        load_paths = []
+        importer = sass_options[:filesystem_importer] if sass_options && sass_options[:filesystem_importer]
+        importer ||= Sass::Importers::Filesystem
+        load_paths += resolve_additional_import_paths
+        load_paths.map! do |p|
+          next p if p.respond_to?(:find_relative)
+          importer.new(p.to_s)
+        end
+        load_paths
+      end
     end
     class Data
       include Adapters

@@ -46,7 +46,7 @@ module Compass
       end
 
       def directories_to_watch
-        [Compass.configuration.sass_path] + Compass.configuration.sass_load_paths.map{|p| p.respond_to?(:root) ? p.root : nil}.compact
+        [Compass.configuration.sass_path] + Compass.configuration.watch_load_paths.map{|p| p.respond_to?(:root) ? p.root : nil}.compact
       end
 
       def listen_callback(modified_files, added_files, removed_files)
