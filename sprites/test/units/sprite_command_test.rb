@@ -24,7 +24,7 @@ class SpriteCommandTest < Test::Unit::TestCase
   end
 
   def create_temp_cli_dir
-    directory = File.join(File.expand_path('../', __FILE__), 'test')
+    directory = File.join(File.expand_path('../', __FILE__), '..', 'test')
     ::FileUtils.mkdir_p directory
      @test_dir = directory
   end
@@ -49,7 +49,7 @@ class SpriteCommandTest < Test::Unit::TestCase
 
   def test_should_create_sprite_file
     assert_equal 0, run_compass_with_options(['sprite', "-f", 'stylesheet.scss', "squares/*.png"]).to_i
-    assert File.exists?(File.join(test_dir, 'stylesheet.scss'))
+    assert File.exists?(File.join(test_dir, 'stylesheet.scss')), "Stylesheet.scss was not created"
   end
 
 end

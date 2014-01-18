@@ -27,11 +27,11 @@ class LayoutTest < Test::Unit::TestCase
 
   def smart
     options = @options.merge("layout" => Sass::Script::String.new('smart'))
-    importer = Compass::SpriteImporter.new
+    importer = Compass::Sprites::Importer.new
     uri = "image_row/*.png"
-    path, name = Compass::SpriteImporter.path_and_name(uri)
-    sprite_names = Compass::SpriteImporter.sprite_names(uri)
-    sass_engine = Compass::SpriteImporter.sass_engine(uri, name, importer, options)
+    path, name = Compass::Sprites::Importer.path_and_name(uri)
+    sprite_names = Compass::Sprites::Importer.sprite_names(uri)
+    sass_engine = Compass::Sprites::Importer.sass_engine(uri, name, importer, options)
     map = Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map {|n| "image_row/#{n}.png"}, path, name, sass_engine, options)
     map.options = {:compass => {:logger => Compass::NullLogger.new}}
 

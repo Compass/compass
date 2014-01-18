@@ -1,9 +1,8 @@
 require 'test_helper'
-require 'mocha'
 require 'ostruct'
 
 class SpritesImageTest < Test::Unit::TestCase
-  include Compass::Sprite::Test::SpriteHelper
+  include Compass::Sprites::Test::SpriteHelper
 
   def setup
     create_sprite_temp

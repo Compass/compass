@@ -15,8 +15,8 @@ module Compass
         # the path is relative to the <tt>images_path</tt> confguration option
         def self.from_uri(uri, context, kwargs)
           uri = uri.value
-          path, name = Compass::SpriteImporter.path_and_name(uri)
-          files = Compass::SpriteImporter.files(uri)
+          path, name = Compass::Sprites::Importer.path_and_name(uri)
+          files = Compass::Sprites::Importer.files(uri)
           sprites = files.map do |sprite|
             relative_name(sprite)
           end

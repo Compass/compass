@@ -26,7 +26,7 @@ class SpriteMapTest < Test::Unit::TestCase
   end
   
   def test_should_have_the_sprite_names
-    assert_equal Compass::SpriteImporter.sprite_names(URI), @base.sprite_names
+    assert_equal Compass::Sprites::Importer.sprite_names(URI), @base.sprite_names
   end
   
   def test_should_have_image_filenames
