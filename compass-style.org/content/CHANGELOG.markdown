@@ -17,7 +17,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 1.0.0.alpha.18 (Unreleased)
 ---------------------------
 
-* The `rem()` mixin can now handle comma-seperated and nested lists
+* The `rem()` mixin can now handle comma-separated and nested lists
   for the `$values` argument, e.g. `rem(background-size, (2rem, 100% 24px, auto))`.
 
 1.0.0.alpha.17 (12/20/2013)
