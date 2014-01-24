@@ -11,11 +11,9 @@ $selection-support-threshold: $graceful-usage-threshold !default;
 // during selection: color and background-color. Firefox supports the
 // text-shadow property.
 //
-// At the stylesheet root, include the mixin within the * selector.
+// At the stylesheet root, include the mixin.
 //
-//     * {
-//       @include selection(#fe57a1, #fff)
-//     }
+//     @include selection(#fe57a1, #fff)
 //
 // If a specific element or selector's selection is being styled
 // you can use that selector instead. For example:
@@ -49,7 +47,7 @@ $selection-support-threshold: $graceful-usage-threshold !default;
     @if $current-prefix != null {
       $selector: $current-prefix + '-';
     }
-    $selector: "&::#{$selector}selection";
+    $selector: if("#{&}" != '', '&', '') + "::#{$selector}selection";
     #{$selector} {
       color: $color;
       background-color: $background-color;
