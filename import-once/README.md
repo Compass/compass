@@ -13,7 +13,7 @@ without compass in any Sass-based project.
 
 Either add this line to your application's Gemfile if you have one:
 
-    gem 'compass-import-once', :require => "compass/import-once/activate"
+    gem 'compass-import-once', :require => 'compass/import-once/activate'
 
 And then execute:
 
