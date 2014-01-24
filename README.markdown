@@ -27,4 +27,4 @@ Chris is a software engineer at [LinkedIn](http://www.linkedin.com/) and a membe
 ## License
 Copyright (c) 2008-2009 Christopher M. Eppstein<br>
 All Rights Reserved.<br>
-Released under a [slightly modified MIT License](compass/blob/stable/LICENSE.markdown).
+Released under a [slightly modified MIT License](LICENSE.markdown).
