@@ -36,7 +36,7 @@ $grid-background-force-fluid      : false                       !default;
 @function get-baseline-gradient(
   $color : $grid-background-baseline-color
 ) {
-  $gradient: linear-gradient(bottom, $color 5%, rgba($color,0) 5%);
+  $gradient: linear-gradient(to bottom, $color 5%, rgba($color,0) 5%);
   @return $gradient;
 }
 
