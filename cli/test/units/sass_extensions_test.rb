@@ -110,7 +110,14 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "25px", evaluate("pow($number: 5px, $exponent: 2)")
     assert_equal "79.43236px", evaluate("pow(5px, e())")
     assert((0..2).include?(evaluate("random(2)").to_i))
-    assert((4..16).include?(evaluate("random(4, 16)").to_i))
+    random_warning = capture_warning do
+      assert((4..16).include?(evaluate("random(4, 16)").to_i))
+    end
+    assert_equal <<WARNING.strip, random_warning.strip
+WARNING: The $start value for random(4, 16) is not supported by Sass and is now
+  deprecated in Compass and will be removed in a future release.
+  Use `4 + random(12)` instead.
+WARNING
   end
 
   def test_blank
@@ -198,7 +205,6 @@ class SassExtensionsTest < Test::Unit::TestCase
     assert_equal "-webkit-linear-gradient(left, #ffffff calc(100% - 50px), rgba(0, 0, 0, 0) calc(100% - 50px))",
         evaluate("-webkit(-linear-gradient(to right, white calc(100% - 50px), transparent calc(100% - 50px)))")
   end
-
 
   def test_image_size_should_respond_to_to_path
     object = mock()
