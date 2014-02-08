@@ -168,16 +168,14 @@ $rem-with-px-fallback: true !default;
 //
 @mixin rem($property, $values, $use-px-fallback: $rem-with-px-fallback) {
 
-  @if $use-px-fallback {
-    // get converted values.
-    $values: list-convert-rems($values);
-    $px-values: map-get($values, px);
-    $values: map-get($values, rem);
+  // get converted values.
+  $values: list-convert-rems($values);
+  $px-values: map-get($values, px);
+  $values: map-get($values, rem);
 
-    // Use pixel fallback for browsers that don't understand rem units.
-    @if $px-values != $values {
-      #{$property}: $px-values;
-    }
+  // Use pixel fallback for browsers that don't understand rem units.
+  @if $use-px-fallback and $px-values != $values {
+    #{$property}: $px-values;
   }
 
   // Use rem values for everyone else (overrides pixel values).
