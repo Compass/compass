@@ -28,3 +28,7 @@
   margin-right: 0.55556%;
   /* 1rem should always be 16px for this page, even when own font-size is 18px */
   margin-bottom: 16px; }
+
+.rem {
+  background-size: 400px, 100% 32px;
+  background-size: 25rem, 100% 2rem; }
