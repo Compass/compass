@@ -62,4 +62,9 @@ module Compass::Core::SassExtensions::Functions::Env
     map(exts)
   end
   declare :compass_extensions, []
+
+  def at_stylesheet_root
+    bool(environment.selector.nil?)
+  end
+  declare :at_stylesheet_root, []
 end
