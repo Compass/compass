@@ -118,12 +118,9 @@ $multicolumn-support-threshold: $critical-usage-threshold !default;
     } @else if $current-prefix == -moz {
       // Moz uses a different non-standard syntax
       -moz-page-break-#{$type}: $value;
-    } @else if $current-prefix {
-      // Official property name but prefixed
-      #{$current-prefix}-break-#{$type}: $value;
     } @else {
       // Official syntax
-      break-#{$type}: $value;
+      @include prefix-prop(break-#{$type}, $value);
     }
   }
 }
