@@ -14,6 +14,26 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+1.0.0.alpha.17 (12/20/2013)
+---------------------------
+
+
+* A variable `$compass-extensions` is available after importing
+  `compass/support` that is a map of extensions to their version.
+* Fixed bugs in the `browser-out-of-scope` function.
+* Update to the latest caniuse.com data.
+* Url methods will now correctly handle urls with query strings in them.
+* There are now ruby callbacks for when sourcemap files are saved.
+* calc() expressions are now handled in gradients.
+* Fix a bug in `compass --time` when writing sourcemaps.
+* Sourcemap filenames now match the convention used in Sass
+  (`<name>.css.map`) because chrome seems to require this.
+* Compass frameworks can tell compass their version using the `:version`
+  option when registering themselves via `Compass::Frameworks.register`.
+  When loading an extension from rubygems, compass will automatically
+  detect the gem version in use.
+
+
 1.0.0.alpha.16 (12/05/2013)
 ---------------------------
 

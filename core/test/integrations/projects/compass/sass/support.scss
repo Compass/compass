@@ -23,6 +23,11 @@ $some-default-value: some default value;
 }
 
 @include test-module('Compass Support') {
+  @include test('[variable] $compass-extensions is set and is a map') {
+    @include assert-true(global-variable-exists(compass-extensions));
+    @include assert-equal(map, type-of($compass-extensions));
+    @include assert-equal(1, str-index(map-get($compass-extensions, compass), "1.0"));
+  }
   @include test('[function] set-arglist-default() with no arguments') {
     @include assert-true(
                has-default-arglist() == $some-default-value,
@@ -98,7 +103,7 @@ $some-default-value: some default value;
 
   @include test('[function] browser-out-of-scope() with version') {
     @include with-browser-ranges((ie: '8' '8')) {
-      @include assert-true(not browser-out-of-scope('ie', '10'), "should be in scope.");
+      @include assert-false(not browser-out-of-scope('ie', '10'), "should not be in scope.");
       @include assert-true(not browser-out-of-scope('ie', '8'), "should be in scope.");
       @include assert-false(not browser-out-of-scope('ie', '7'), "should not be in scope.");
     }

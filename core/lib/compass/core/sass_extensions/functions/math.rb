@@ -2,6 +2,13 @@ module Compass::Core::SassExtensions::Functions::Math
   extend Compass::Core::SassExtensions::Functions::SassDeclarationHelper
   extend Sass::Script::Value::Helpers
 
+  def self.included(base)
+    if base == Sass::Script::Functions
+      base.send :alias_method, :sass_random, :random
+      base.send :alias_method, :random, :deprecated_random
+    end
+  end
+
   PI = number(Math::PI)
   E = number(Math::E)
 
@@ -10,16 +17,19 @@ module Compass::Core::SassExtensions::Functions::Math
   end
   declare :pi, []
 
-  def random(*args)
-    value = if args.length == 1
-      rand(args.pop.value)
-    else
+  def deprecated_random(*args)
+    if args.length == 2
+      Compass::Util.compass_warn <<WARNING
+WARNING: The $start value for random(#{args.first}, #{args.last}) is not supported by Sass and is now
+  deprecated in Compass and will be removed in a future release.
+  Use `#{args.first} + random(#{args.last.minus(args.first)})` instead.
+WARNING
       range = (args.first.value..args.last.value).to_a
-      range[rand(range.length)]
+      number(range[rand(range.length)])
+    else
+      sass_random(*args)
     end
-    number(value)
   end
-  declare :random, [:limit]
   declare :random, [:start, :limit]
 
   def sin(number)

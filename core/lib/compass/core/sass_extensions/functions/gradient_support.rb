@@ -9,19 +9,30 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       [color, stop].compact
     end
     def initialize(color, stop = nil)
+      assert_legal_color! color
+      assert_legal_color_stop! stop if stop
+      self.color, self.stop = color, stop
+    end
+    def inspect
+      to_s
+    end
+
+    def assert_legal_color!(color)
       unless Sass::Script::Value::Color === color ||
              Sass::Script::Tree::Funcall === color ||
              (Sass::Script::Value::String === color && color.value == "currentColor")||
              (Sass::Script::Value::String === color && color.value == "transparent")
         raise Sass::SyntaxError, "Expected a color. Got: #{color}"
       end
-      if stop && !stop.is_a?(Sass::Script::Value::Number)
-        raise Sass::SyntaxError, "Expected a number. Got: #{stop}"
-      end
-      self.color, self.stop = color, stop
     end
-    def inspect
-      to_s
+    def assert_legal_color_stop!(stop)
+      case stop
+      when Sass::Script::Value::String
+        return stop.value.start_with?("calc(")
+      when Sass::Script::Value::Number
+        return true
+      end
+      raise Sass::SyntaxError, "Expected a number or numerical expression. Got: #{stop.inspect}"
     end
 
     def self.color_to_svg_s(c)
@@ -60,10 +71,10 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       s = self.class.color_to_s(color)
       if stop
         s << " "
-        if stop.unitless?
+        if stop.respond_to?(:unitless?) && stop.unitless?
           s << stop.times(number(100, "%")).inspect
         else
-          s << stop.inspect
+          s << stop.to_s
         end
       end
       s
@@ -219,6 +230,9 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     def supports?(aspect)
       # I don't know how to support degree-based gradients in old webkit gradients (owg) or svg so we just disable them.
       if %w(owg svg).include?(aspect) && position_or_angle.is_a?(Sass::Script::Value::Number) && position_or_angle.numerator_units.include?("deg")
+        false
+      elsif aspect == "svg" && color_stops.value.any?{|cs| cs.stop.is_a?(Sass::Script::Value::String) }
+        # calc expressions cannot be represented in svg
         false
       else
         super
@@ -384,7 +398,8 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       color_list = normalize_stops(color_list)
       max = color_list.value.last.stop
       last_value = nil
-      color_stops = color_list.value.map do |pos|
+      color_list.value.map do |pos|
+        next [pos.stop, pos.color] if pos.stop.is_a?(Sass::Script::Value::String)
         # have to convert absolute units to percentages for use in color stop functions.
         stop = pos.stop
         stop = stop.div(max).times(number(100, "%")) if stop.numerator_units == max.numerator_units && max.numerator_units != ["%"]
@@ -498,6 +513,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       end
       # normalize unitless numbers
       positions.each do |pos|
+        next pos if pos.stop.is_a?(Sass::Script::Value::String)
         if pos.stop.unitless? && pos.stop.value <= 1
           pos.stop = pos.stop.times(number(100, "%"))
         elsif pos.stop.unitless?

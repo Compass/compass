@@ -49,4 +49,22 @@ module Compass::Core::SassExtensions::Functions::Env
   end
   declare :current_output_file, []
   declare :current_output_file, [:absolute]
+
+  def compass_extensions
+    exts = Sass::Util.ordered_hash(identifier("compass") => quoted_string(Compass::Core::VERSION))
+    if defined?(Compass::Frameworks::ALL)
+      Compass::Frameworks::ALL.each do |framework|
+        next if framework.name == "compass"
+        exts[identifier(framework.name)] =
+          framework.version ? quoted_string(framework.version) : bool(true);
+      end
+    end
+    map(exts)
+  end
+  declare :compass_extensions, []
+
+  def at_stylesheet_root
+    bool(environment.selector.nil?)
+  end
+  declare :at_stylesheet_root, []
 end

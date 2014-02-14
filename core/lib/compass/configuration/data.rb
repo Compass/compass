@@ -48,6 +48,18 @@ module Compass
       define_callback :stylesheet_saved
       chained_method :run_stylesheet_saved
 
+      # on_sourcemap_saved
+      # yields the filename
+      # usage: on_sourcemap_saved {|filename| do_something(filename) }
+      define_callback :sourcemap_saved
+      chained_method :run_sourcemap_saved
+
+      # on_sourcemap_removed
+      # yields the filename
+      # usage: on_sourcemap_removed {|filename| do_something(filename) }
+      define_callback :sourcemap_removed
+      chained_method :run_sourcemap_removed
+
       # on_stylesheet_error
       # yields the filename & message
       # usage: on_stylesheet_error {|filename, message| do_something(filename, message) }

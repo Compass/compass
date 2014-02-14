@@ -7,7 +7,13 @@ namespace :test do
   Rake::TestTask.new(:integrations) do |t|
     t.libs << "test/integrations"
     t.libs << "lib"
-    t.test_files = FileList['test/integrations/*_test.rb']
+    t.test_files = FileList['test/integrations/**/*_test.rb']
+    t.verbose = true
+  end
+  Rake::TestTask.new(:units) do |t|
+    t.libs << "test/units"
+    t.libs << "lib"
+    t.test_files = FileList['test/units/**/*_test.rb']
     t.verbose = true
   end
 end
@@ -31,7 +37,7 @@ end
 
 
 desc "Run all tests"
-task :test => ["test:integrations"]
+task :test => ["test:integrations", "test:units"]
 
 task :default => :test
 

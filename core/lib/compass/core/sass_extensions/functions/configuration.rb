@@ -38,8 +38,14 @@ module Compass::Core::SassExtensions::Functions::Configuration
   declare :reset_configuration, []
 
   def add_sass_configuration(project_path)
-    css_location = File.expand_path(options[:css_location]) if options[:css_location]
-    template_location = File.expand_path(options[:template_location]) if options[:template_location]
+    css_location = template_location = nil
+    if options[:template_location] && options[:template_location].is_a?(Array)
+      css_location = File.expand_path(options[:template_location].first.last)
+      template_location = File.expand_path(options[:template_location].first.first)
+    else
+      css_location = File.expand_path(options[:css_location]) if options[:css_location]
+      template_location = File.expand_path(options[:template_location]) if options[:template_location]
+    end
     original_filename = File.expand_path(options[:original_filename]) if options[:original_filename]
     project_path = if project_path.value.nil?
                      if css_location && template_location

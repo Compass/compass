@@ -45,6 +45,7 @@ class Compass::Core::CanIUse
 
   # Returns the prefix corresponding to a particular browser
   def prefix(browser, version = nil)
+    version = caniuse_version(browser, version)
     assert_valid_browser browser
     assert_valid_version browser, version if version
     data = browser_data(browser)
@@ -98,10 +99,10 @@ class Compass::Core::CanIUse
     versions.find do |version|
       support = browser_support(browser, version, capability)
       if prefix.nil?
-        support !~ /\bn\b/ && support !~ /\bx\b/
+        support !~ /\b(n|p)\b/ && support !~ /\bx\b/
       else
         actual_prefix = prefix(browser, version)
-        support !~ /\bn\b/ && support =~ /\bx\b/ && prefix == actual_prefix
+        support !~ /\b(n|p)\b/ && support =~ /\bx\b/ && prefix == actual_prefix
       end
     end
   end
@@ -114,6 +115,8 @@ class Compass::Core::CanIUse
   #   How many users would be omitted if the browsers with version
   def omitted_usage(browser, min_version, max_version = nil)
     versions = versions(browser)
+    min_version = caniuse_version(browser, min_version)
+    max_version = caniuse_version(browser, max_version)
     if max_version.nil?
       assert_valid_version browser, min_version
     else
@@ -175,12 +178,14 @@ class Compass::Core::CanIUse
   end
 
   def next_version(browser, version)
+    version = caniuse_version(browser, version)
     versions = versions(browser)
     index = versions.index(version)
     index < versions.length - 1 ? versions[index + 1] : nil
   end
 
   def previous_version(browser, version)
+    version = caniuse_version(browser, version)
     versions = versions(browser)
     index = versions.index(version)
     index > 0 ? versions[index - 1] : nil
@@ -189,6 +194,7 @@ class Compass::Core::CanIUse
   # Returns whether the given minimum version of a browser
   # requires the use of a prefix for the stated capability.
   def requires_prefix(browser, min_version, capability, capability_options_list)
+    min_version = caniuse_version(browser, min_version)
     assert_valid_browser browser
     assert_valid_capability capability
     found_version = false
@@ -203,6 +209,24 @@ class Compass::Core::CanIUse
     raise ArgumentError, "#{min_version} is not a version for #{browser}" unless found_version
     nil
   end
+
+  # These are versions that users might reasonably type
+  # mapped to the caniuse version.
+  ALTERNATE_VERSIONS = {
+    "android" => {
+      "4.2" => "4.2-4.3",
+      "4.3" => "4.2-4.3"
+    },
+    "opera" => {
+      "9.5" => "9.5-9.6",
+      "9.6" => "9.5-9.6",
+      "10.0" => "10.0-10.1",
+      "10.1" => "10.0-10.1",
+    },
+    "opera-mobile" => {
+      "14" => "0"
+    }
+  }
 
   # Returns the versions of a browser. If the min_usage parameter is provided,
   # only those versions having met the threshold of user percentage.
@@ -228,6 +252,13 @@ class Compass::Core::CanIUse
     browser_data(browser)["usage_global"][version]
   end
 
+  # returns a valid version given the version provided by the user
+  # This is used to maintain API compatibility when caniuse removes
+  # a version from their data (which seems to be replaced with a semantic equivalent).
+  def caniuse_version(browser, version)
+    return unless version
+    ALTERNATE_VERSIONS[browser] && ALTERNATE_VERSIONS[browser][version] || version
+  end
 
   def inspect
     "#{self.class.name}(#{browsers.join(", ")})"
@@ -239,6 +270,7 @@ class Compass::Core::CanIUse
   end
 
   def browser_support(browser, version, capability)
+    version = caniuse_version(browser, version)
     capability_data(capability)["stats"][CAN_I_USE_NAMES[browser]][version]
   end
 

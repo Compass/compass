@@ -97,7 +97,7 @@ $some-default-value: some default value;
 
   @include test('[function] browser-out-of-scope() with version') {
     @include with-browser-ranges((ie: '8' '8')) {
-      @include assert-true(not browser-out-of-scope('ie', '10'), "should be in scope.");
+      @include assert-false(not browser-out-of-scope('ie', '10'), "should not be in scope.");
       @include assert-true(not browser-out-of-scope('ie', '8'), "should be in scope.");
       @include assert-false(not browser-out-of-scope('ie', '7'), "should not be in scope.");
     }

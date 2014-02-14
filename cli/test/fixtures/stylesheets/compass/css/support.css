@@ -20,7 +20,7 @@
     15 Tests:
     - 15 Passed
     - 0 Failed */
-/* Capability css-animation is prefixed with -moz because 1.03559% of users need it which is more than the threshold of 0.1%. */
+/* Capability css-animation is prefixed with -moz because 0.94353% of users need it which is more than the threshold of 0.1%. */
 /* Creating new -moz context. */
 @-moz-keyframes foo {
   0% {
@@ -33,8 +33,8 @@
        Not allowed in the current scope: ie 8 is incompatible with -moz. */
     opacity: 1; } }
 /* Capability css-animation is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
-/* Capability css-animation is not prefixed with -o because 0.04931% of users are affected which is less than the threshold of 0.1. */
-/* Capability css-animation is prefixed with -webkit because 51.42143% of users need it which is more than the threshold of 0.1%. */
+/* Capability css-animation is not prefixed with -o because 0.03998% of users are affected which is less than the threshold of 0.1. */
+/* Capability css-animation is prefixed with -webkit because 49.71721% of users need it which is more than the threshold of 0.1%. */
 /* Creating new -webkit context. */
 @-webkit-keyframes foo {
   0% {
@@ -57,12 +57,12 @@
        Not allowed in the current scope: The current scope only works with ie 10 - 11. */
     opacity: 1; } }
 .foo {
-  /* Capability css-animation is prefixed with -moz because 1.03559% of users need it which is more than the threshold of 0.1%. */
+  /* Capability css-animation is prefixed with -moz because 0.94353% of users need it which is more than the threshold of 0.1%. */
   /* Creating new -moz context. */
   -moz-animation: foo 1s;
   /* Capability css-animation is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
-  /* Capability css-animation is not prefixed with -o because 0.04931% of users are affected which is less than the threshold of 0.1. */
-  /* Capability css-animation is prefixed with -webkit because 51.42143% of users need it which is more than the threshold of 0.1%. */
+  /* Capability css-animation is not prefixed with -o because 0.03998% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-animation is prefixed with -webkit because 49.71721% of users need it which is more than the threshold of 0.1%. */
   /* Creating new -webkit context. */
   -webkit-animation: foo 1s;
   animation: foo 1s; }

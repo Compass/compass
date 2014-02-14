@@ -39,6 +39,9 @@ $svg-gradient-shim-threshold: 0
 .currentColor-in-linear-gradient
   +background-image(#fff linear-gradient(top left, transparent, currentColor))
 
+.calc-in-linear-gradient
+  +background-image(linear-gradient(to right, white calc(100% - 50px), transparent calc(100% - 50px)))
+
 .rgba-in-linear-gradient
   +background-image(#fff linear-gradient(top left, rgba(255,255,255,0.8), rgba(0,0,0,0.1)))
 

@@ -49,6 +49,7 @@ end
 
 require "sass"
 require "sass/plugin"
+require 'compass/util'
 require "compass/core/caniuse"
 require 'compass/core/sass_extensions'
 require 'compass/error'
@@ -59,6 +60,13 @@ if defined?(Compass::Frameworks)
   Compass::Frameworks.register(
     "compass",
     :stylesheets_directory => Compass::Core.base_directory("stylesheets"),
-    :templates_directory => Compass::Core.base_directory("templates")
+    :templates_directory => Compass::Core.base_directory("templates"),
+    :version => Compass::Core::VERSION
   )
+else
+  if ENV.has_key?("SASS_PATH")
+    ENV["SASS_PATH"] = ENV["SASS_PATH"] + File::PATH_SEPARATOR + Compass::Core.base_directory("stylesheets")
+  else
+    ENV["SASS_PATH"] = Compass::Core.base_directory("stylesheets")
+  end
 end
