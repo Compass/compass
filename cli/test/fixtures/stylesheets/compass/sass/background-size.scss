@@ -1,0 +1,7 @@
+@import "compass/css3/background-size";
+
+.background-size-default { @include background-size; }
+
+.background-size-single { @include background-size(50% 25%); }
+
+.background-size-multiple { @include background-size(4em 3em, $default-background-size, 50%); }

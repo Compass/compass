@@ -1,0 +1,50 @@
+*::-moz-selection {
+  background-color: #fe57a1;
+  color: #fff; }
+*::selection {
+  background-color: #fe57a1;
+  color: #fff; }
+
+.hot-pink::-moz-selection {
+  background-color: #fe57a1;
+  color: #fff; }
+.hot-pink::selection {
+  background-color: #fe57a1;
+  color: #fff; }
+
+.hot-pink-with-arguments::-moz-selection {
+  color: white;
+  background-color: #fe57a1; }
+.hot-pink-with-arguments::selection {
+  color: white;
+  background-color: #fe57a1; }
+
+.hot-pink-with-arguments-and-extra-stuff::-moz-selection {
+  color: white;
+  background-color: #fe57a1;
+  text-decoration: line-through; }
+.hot-pink-with-arguments-and-extra-stuff::selection {
+  color: white;
+  background-color: #fe57a1;
+  text-decoration: line-through; }
+
+.hot-pink-with-default-foreground::-moz-selection {
+  color: black;
+  background-color: #fe57a1; }
+.hot-pink-with-default-foreground::selection {
+  color: black;
+  background-color: #fe57a1; }
+
+.browser-support-is-considered::-moz-selection {
+  color: black;
+  background-color: #fe57a1;
+  prefix: -moz;
+  -moz-prefix: true;
+  -ms-prefix: false;
+  -webkit-prefix: false; }
+.browser-support-is-considered::selection {
+  color: black;
+  background-color: #fe57a1;
+  -moz-prefix: false;
+  -ms-prefix: false;
+  -webkit-prefix: false; }

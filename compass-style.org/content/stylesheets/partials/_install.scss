@@ -1,0 +1,10 @@
+body#install {
+  #steps, p.madlib, p.note, h4 { margin-top: 1em;                        }
+  p.note                       { font-size: smaller; font-style: italic; }
+  p.warning                    { color: #c00;                            }
+  .customization               { display: none;                          }
+  .customizable .customization { display: inline;                        }
+  blockquote                   { border-left: 2px solid #ccc;
+                                 text-indent: 0; padding-left: 0.5em;    }
+  .customization input         { width: 8em;                             }
+}

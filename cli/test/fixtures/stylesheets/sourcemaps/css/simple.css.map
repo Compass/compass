@@ -1,0 +1,6 @@
+{
+"version": 3,
+"mappings": ";AAAA,GAAG;EACD,KAAK,EAAE,GAAG",
+"sources": ["../sass/simple.sass"],
+"file": "simple.css"
+}

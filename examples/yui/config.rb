@@ -1,1 +1,0 @@
-sass_options = {:quiet => true}

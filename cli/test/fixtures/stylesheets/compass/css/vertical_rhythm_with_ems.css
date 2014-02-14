@@ -1,0 +1,51 @@
+/* New test using em output */
+html {
+  font-size: 112.5%;
+  line-height: 1.4em; }
+
+.container {
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  -moz-background-size: 100% 1.4em;
+  -o-background-size: 100% 1.4em;
+  -webkit-background-size: 100% 1.4em;
+  background-size: 100% 1.4em;
+  background-position: left top; }
+
+p {
+  margin-top: 1.4em;
+  margin-bottom: 1.4em; }
+
+th,
+td {
+  padding-top: 0.35em;
+  padding-bottom: 0.35em; }
+
+.caption {
+  font-size: 0.72222em;
+  line-height: 1.55077em; }
+
+.spaced-out {
+  line-height: 2.1em; }
+
+blockquote {
+  margin-top: 1.4em;
+  margin-bottom: 1.4em;
+  padding: 0 1.4em; }
+
+.fig-quote > blockquote {
+  margin-bottom: 0.7em; }
+.fig-quote .source {
+  font-size: 0.72222em;
+  line-height: 1.93846em;
+  margin-bottom: 0.96923em; }
+
+.panel {
+  font-size: 0.88889em;
+  line-height: 1.575em;
+  border-width: 0.0625em;
+  border-style: solid;
+  border-color: #aaaaaa;
+  padding: 1.5125em; }

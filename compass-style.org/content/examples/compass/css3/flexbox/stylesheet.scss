@@ -1,0 +1,91 @@
+@import "compass/css3";
+
+#vertical-center {
+  padding: 0;
+
+  li {
+    background: #CCC;
+    width: 15em;
+    margin: .5em;
+    height: 5em;
+    text-align: center;
+    vertical-align: text-top;
+    display: inline-block; /* non-flexbox browsers */
+    @include display-flex(inline-flex);
+    @include align-items(center);
+    @include justify-content(center);
+  }
+}
+
+#flexible {
+  padding: 0;
+  text-align: center;
+  @include display-flex;
+  @include flex-wrap(wrap);
+
+  li {
+    background: #CCC;
+    min-width: 12em;
+    margin: .5em;
+    padding: .5em;
+    display: inline-block; /* non-flexbox browsers */
+    @include flex(1 0);
+  }
+}
+
+#reorder {
+  $flex-legacy-enabled: true;
+  width: 100%; /* fix for old Firefox */
+  @include display-flex;
+  @include flex-direction(column);
+
+  li:nth-child(even) {
+    background: #CCC;
+    @include order(1);
+  }
+  $flex-legacy-enabled: false;
+}
+
+#layout {
+  @include display-flex;
+  @include flex-wrap(wrap);
+
+  header, footer {
+    @include flex(1 0 100%);
+  }
+
+  header {
+    background: lighten(yellow, 40%);
+  }
+
+  nav {
+    $flex-legacy-enabled: true;
+    ul {
+      padding: 0;
+      margin: -.5em;
+      min-width: 100%; /* fix for old Firefox */
+      @include display-flex(flex);
+    }
+
+    li {
+      background: #CCC;
+      margin: .5em;
+      display: inline-block; /* non-flexbox browsers */
+      @include flex(1 1 30%);
+    }
+    $flex-legacy-enabled: false;
+  }
+
+  article {
+    @include flex(2 1 30em);
+  }
+
+  aside {
+    flex: 1 0 15em;
+    background: lighten(blue, 40%);
+  }
+
+  footer {
+    background: lighten(green, 50%);
+  }
+}
