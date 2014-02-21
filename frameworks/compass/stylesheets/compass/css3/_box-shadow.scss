@@ -28,6 +28,10 @@ $default-box-shadow-inset : false !default;
 // shadows are needed.
 // Each shadow argument should adhere to the standard css3 syntax for the
 // box-shadow property.
+// 
+// * Possible values:
+//   * `none`
+
 @mixin box-shadow(
   $shadow-1 : default,
   $shadow-2 : false,
