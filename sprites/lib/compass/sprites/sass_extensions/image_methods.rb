@@ -1,6 +1,6 @@
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       module ImageMethods
         # Fetches the Sprite::Image object for the supplied name
          def image_for(name)

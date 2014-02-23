@@ -1,6 +1,6 @@
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       class SpriteMap < Sass::Script::Value::Base
         attr_accessor :image_names, :path, :name, :map, :kwargs
         attr_accessor :images, :width, :height, :engine

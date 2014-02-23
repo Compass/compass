@@ -4,7 +4,7 @@ class LayoutTest < Test::Unit::TestCase
   include SpriteHelper
 
   def setup
-    Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
+    Hash.send(:include, Compass::Sprites::SassExtensions::Functions::VariableReader)
     clean_up_sprites
     create_sprite_temp
     file = StringIO.new("images_path = #{@images_tmp_path.inspect}\n")
@@ -32,7 +32,7 @@ class LayoutTest < Test::Unit::TestCase
     path, name = Compass::Sprites::Importer.path_and_name(uri)
     sprite_names = Compass::Sprites::Importer.sprite_names(uri)
     sass_engine = Compass::Sprites::Importer.sass_engine(uri, name, importer, options)
-    map = Compass::SassExtensions::Sprites::SpriteMap.new(sprite_names.map {|n| "image_row/#{n}.png"}, path, name, sass_engine, options)
+    map = Compass::Sprites::SassExtensions::SpriteMap.new(sprite_names.map {|n| "image_row/#{n}.png"}, path, name, sass_engine, options)
     map.options = {:compass => {:logger => Compass::NullLogger.new}}
 
     map

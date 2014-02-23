@@ -1,6 +1,6 @@
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       module SpriteMethods
         
         # Changing this string will invalidate all previously generated sprite images.

@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'compass/sass_extensions/sprites/row_fitter'
+require 'compass/sprites/sass_extensions/row_fitter'
 
 class RowFitterTest < Test::Unit::TestCase
   include SpriteHelper
@@ -18,7 +18,7 @@ class RowFitterTest < Test::Unit::TestCase
 
   def create_images(dims)
     dims.collect { |width, height| 
-      image = Compass::SassExtensions::Sprites::Image.new('blah', 'blah', {})
+      image = Compass::Sprites::SassExtensions::Image.new('blah', 'blah', {})
       image.stubs(:width => width, :height => height)
       image
     }

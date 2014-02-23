@@ -1,6 +1,6 @@
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       module LayoutMethods
         HORIZONTAL = 'horizontal'
         DIAGONAL = 'diagonal'
@@ -32,16 +32,16 @@ module Compass
         def compute_image_positions!
           case layout
           when SMART
-            require 'compass/sass_extensions/sprites/layout/smart'
+            require 'compass/sprites/sass_extensions/layout/smart'
             @images, @width, @height = Layout::Smart.new(@images, @kwargs).properties
           when DIAGONAL
-            require 'compass/sass_extensions/sprites/layout/diagonal'
+            require 'compass/sprites/sass_extensions/layout/diagonal'
             @images, @width, @height = Layout::Diagonal.new(@images, @kwargs).properties
           when HORIZONTAL
-            require 'compass/sass_extensions/sprites/layout/horizontal'
+            require 'compass/sprites/sass_extensions/layout/horizontal'
             @images, @width, @height = Layout::Horizontal.new(@images, @kwargs).properties
           else
-            require 'compass/sass_extensions/sprites/layout/vertical'
+            require 'compass/sprites/sass_extensions/layout/vertical'
             @images, @width, @height = Layout::Vertical.new(@images, @kwargs).properties
           end
         end

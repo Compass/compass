@@ -1,6 +1,6 @@
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       class Images < Array
 
         def sort_by!(method)

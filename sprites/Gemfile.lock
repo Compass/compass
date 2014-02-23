@@ -5,7 +5,7 @@ PATH
       chunky_png (~> 1.2.9)
 
 PATH
-  remote: /Users/sdavis/OSS/compass/cli
+  remote: /Volumes/SSD/oss/compass/cli
   specs:
     compass (1.0.0.alpha.17)
       chunky_png (~> 1.2)
@@ -16,14 +16,14 @@ PATH
       sass (~> 3.3.0.rc.1)
 
 PATH
-  remote: /Users/sdavis/OSS/compass/core
+  remote: /Volumes/SSD/oss/compass/core
   specs:
     compass-core (1.0.0.alpha.16)
       multi_json (~> 1.0)
       sass (>= 3.3.rc.1)
 
 PATH
-  remote: /Users/sdavis/OSS/compass/import-once
+  remote: /Volumes/SSD/oss/compass/import-once
   specs:
     compass-import-once (1.0.1)
 
@@ -41,7 +41,7 @@ GEM
     metaclass (0.0.1)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
     oily_png (1.1.0)
       chunky_png (~> 1.2.7)
     rake (10.1.1)

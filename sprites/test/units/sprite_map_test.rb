@@ -4,7 +4,7 @@ class SpriteMapTest < Test::Unit::TestCase
   include SpriteHelper
   
   def setup
-    Hash.send(:include, Compass::SassExtensions::Functions::Sprites::VariableReader)
+    Hash.send(:include, Compass::Sprites::SassExtensions::Functions::VariableReader)
     create_sprite_temp
     file = StringIO.new(<<-CONFIG)
       project_path = "#{@images_proj_path}"
@@ -51,7 +51,7 @@ class SpriteMapTest < Test::Unit::TestCase
   
  def test_should_return_the_ten_by_ten_image
     assert_equal 'ten-by-ten', @base.image_for('ten-by-ten').name
-    assert @base.image_for('ten-by-ten').is_a?(Compass::SassExtensions::Sprites::Image)
+    assert @base.image_for('ten-by-ten').is_a?(Compass::Sprites::SassExtensions::Image)
   end
   
  def test_should_have_selectors
@@ -102,7 +102,7 @@ class SpriteMapTest < Test::Unit::TestCase
     config.images_path = @images_tmp_path
     config.sprite_load_path = [@images_tmp_path, other_folder]
     Compass.add_configuration(config, "sprite_config")
-    assert_equal 'foo/my.png', Compass::SassExtensions::Sprites::SpriteMap.relative_name(File.join(other_folder, 'foo/my.png'))
+    assert_equal 'foo/my.png', Compass::Sprites::SassExtensions::SpriteMap.relative_name(File.join(other_folder, 'foo/my.png'))
     FileUtils.rm_rf other_folder
   end
   
@@ -125,14 +125,14 @@ class SpriteMapTest < Test::Unit::TestCase
     config.sprite_load_path = [@images_tmp_path, other_folder, other_folder2]
     Compass.add_configuration(config, "sprite_config")
 
-    assert_equal 'foo/my.png', Compass::SassExtensions::Sprites::SpriteMap.relative_name(File.join(other_folder2, 'foo/my.png'))
+    assert_equal 'foo/my.png', Compass::Sprites::SassExtensions::SpriteMap.relative_name(File.join(other_folder2, 'foo/my.png'))
   ensure
     FileUtils.rm_rf other_folder
     FileUtils.rm_rf other_folder2
   end
   
   test "should create map for nested" do
-    base = Compass::SassExtensions::Sprites::SpriteMap.from_uri OpenStruct.new(:value => 'nested/squares/*.png'), @base.instance_variable_get(:@evaluation_context), @options
+    base = Compass::Sprites::SassExtensions::SpriteMap.from_uri OpenStruct.new(:value => 'nested/squares/*.png'), @base.instance_variable_get(:@evaluation_context), @options
     assert_equal 'squares', base.name
     assert_equal 'nested/squares', base.path
   end

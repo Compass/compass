@@ -11,7 +11,7 @@ class ImageRowTest < Test::Unit::TestCase
     @image_files = Dir["#{@images_src_path}/image_row/*.png"].sort
     @images = @image_files.map do |img|
       img.gsub!("#{@images_src_path}/", '')
-      Compass::SassExtensions::Sprites::Image.new(nil, img, {})
+      Compass::Sprites::SassExtensions::Image.new(nil, img, {})
     end
     image_row(1000)
   end
@@ -21,7 +21,7 @@ class ImageRowTest < Test::Unit::TestCase
   end
   
   def image_row(max)
-    @image_row = Compass::SassExtensions::Sprites::ImageRow.new(max)
+    @image_row = Compass::Sprites::SassExtensions::ImageRow.new(max)
   end
   
   def populate_row
@@ -32,7 +32,7 @@ class ImageRowTest < Test::Unit::TestCase
   
   def test_should_return_false_if_image_will_not_fit_in_row
     image_row(100)
-    img = Compass::SassExtensions::Sprites::Image.new(nil, File.join('image_row', 'large.png'), {})
+    img = Compass::Sprites::SassExtensions::Image.new(nil, File.join('image_row', 'large.png'), {})
     assert !@image_row.add(img)
   end
   

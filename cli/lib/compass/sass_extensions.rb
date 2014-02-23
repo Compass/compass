@@ -8,4 +8,3 @@ module Compass
 end
 
 require 'compass/sass_extensions/functions'
-require 'compass/sass_extensions/sprites'

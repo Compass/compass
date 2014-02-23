@@ -1,4 +1,4 @@
-module Compass::SassExtensions::Functions::Sprites
+module Compass::Sprites::SassExtensions::Functions
 
   extend Compass::SassExtensions::Functions::SassDeclarationHelper
   extend Sass::Script::Value::Helpers
@@ -75,7 +75,7 @@ module Compass::SassExtensions::Functions::Sprites
   # the first time it is converted to a url. Simply constructing it has no side-effects.
   def sprite_map(glob, kwargs = {})
     kwargs.extend VariableReader
-    Compass::SassExtensions::Sprites::SpriteMap.from_uri(glob, self, kwargs)
+    Compass::Sprites::SassExtensions::SpriteMap.from_uri(glob, self, kwargs)
   end
   declare :sprite_map, [:glob], :var_kwargs => true
 
@@ -281,7 +281,7 @@ protected
   end
 
   def verify_map(map, error = "sprite")
-    unless map.is_a?(Compass::SassExtensions::Sprites::SpriteMap)
+    unless map.is_a?(Compass::Sprites::SassExtensions::SpriteMap)
       missing_sprite!(error)
     end
   end

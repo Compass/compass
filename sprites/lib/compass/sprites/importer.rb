@@ -1,5 +1,6 @@
 require 'erb'
 require 'compass'
+require 'compass/sprites/sass_extensions/sprites'
 require 'compass/sprites/importer/binding'
 
 module Compass
@@ -126,7 +127,7 @@ module Compass
     private
 
       def self.valid_extensions
-        @valid_extensions ||= SassExtensions::Sprites::SpriteMap.sprite_engine_class::VALID_EXTENSIONS
+        @valid_extensions ||= Compass::Sprites::SassExtensions::SpriteMap.sprite_engine_class::VALID_EXTENSIONS
       end
 
       def self.sprite_importer_regex_with_ext

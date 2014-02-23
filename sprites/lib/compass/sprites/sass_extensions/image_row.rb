@@ -1,8 +1,8 @@
 require 'forwardable'
 
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       class ImageRow
         extend Forwardable
 

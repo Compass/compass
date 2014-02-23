@@ -1,6 +1,6 @@
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       class Image
         include Sass::Script::Value::Helpers
         ACTIVE = %r{[_-]active$}

@@ -22,4 +22,4 @@ module Compass
   end
 end
 
-require 'compass/sass_extensions/sprites/engines/chunky_png_engine'
+require 'compass/sprites/sass_extensions/engines/chunky_png_engine'

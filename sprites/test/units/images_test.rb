@@ -1,10 +1,10 @@
 require 'test_helper'
-require 'compass/sass_extensions/sprites/images'
+require 'compass/sprites/sass_extensions/images'
 
 class ImagesTest < Test::Unit::TestCase
 
   def setup
-    @images = Compass::SassExtensions::Sprites::Images.new
+    @images = Compass::Sprites::SassExtensions::Images.new
     @images << OpenStruct.new(:foo => 1, :name => 'bob', :size => 1200, :width => 10)
     @images << OpenStruct.new(:foo => 2, :name => 'bob', :size => 300, :width => 100)
     @images << OpenStruct.new(:foo => 3, :name => 'aob', :size => 120, :width => 50)

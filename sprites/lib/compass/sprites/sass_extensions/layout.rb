@@ -1,7 +1,7 @@
 require 'rational'
 module Compass
-  module SassExtensions
-    module Sprites
+  module Sprites
+    module SassExtensions
       module Layout
         class SpriteLayout
 

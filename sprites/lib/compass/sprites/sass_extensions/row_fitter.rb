@@ -39,7 +39,7 @@ module Compass
 
         private
         def new_row(image = nil)
-          row = Compass::SassExtensions::Sprites::ImageRow.new(width)
+          row = Compass::Sprites::SassExtensions::ImageRow.new(width)
           row.add(image) if image
           row
         end
