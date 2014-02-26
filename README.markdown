@@ -17,7 +17,7 @@ Chris is a software engineer at [LinkedIn](http://www.linkedin.com/) and a membe
 ## Core Team Members
 
 * [Scott Davis](https://github.com/scottdavis)
-* [Eric Meyer](https://github.com/ericam)
+* [Eric Suzanne](https://github.com/ericam)
 * [Brandon Mathis](https://github.com/imathis)
 
 ## Major Contributors

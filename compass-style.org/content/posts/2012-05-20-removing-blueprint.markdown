@@ -19,7 +19,7 @@ that the project is over, has through negligence, caused the project to
 fall behind. It has not kept up with layout and responsive approaches
 that are essential to web design in 2012.
 
-Furthermore, there are many new layout mechanisms coming in CSS: 
+Furthermore, there are many new layout mechanisms coming in CSS:
 [columns][css-columns], [box-sizing][box-sizing], [regions][css-regions],
 [grid layout][css-grid], and [flexbox][css-flexbox]. The future of
 layout looks bright and we want Sass users to be at the forefront of
@@ -43,7 +43,7 @@ project's specific needs.
 If you are looking for a grid system for your next site, or to replace
 blueprint with something more modern. We suggest you look into
 [Susy](http://susy.oddbird.net/). It is written by Compass core team
-member, [Eric Meyer](http://twitter.com/eriiicam). Susy 1.0 has been
+member, [Eric Suzanne](http://twitter.com/ericmsuzanne). Susy 1.0 has been
 completely overhauled to take advantage of modern browsers and the very
 latest features in Sass 3.2 and Compass 0.13. If you have a favorite
 grid framework, please feel free to mention it in the comments.
