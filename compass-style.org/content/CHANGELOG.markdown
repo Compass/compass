@@ -363,10 +363,6 @@ gem to integrate with compass. Please read the [README](https://github.com/Compa
 0.11.0 (04/24/2011)
 -------------------
 
-This changelog entry is aggregated across all the v0.11 beta releases.
-If you're upgrading from a previous beta v0.11 beta release, you can read
-[the 0.11 beta release notes here](/CHANGELOG-v0-11-beta/).
-
 ### !important
 
 #### Breaking Changes & Deprecations:
@@ -702,8 +698,6 @@ This is a bug fix release. [Details on Github.](http://github.com/chriseppstein/
 
 0.10.0 (May 10, 2010)
 ---------------------
-
-This changelog entry is condensed from a very long beta release. You can read [the 0.10.0 beta release notes here](/CHANGELOG-v0-10-0-beta/).
 
 ### Gem Location
 
