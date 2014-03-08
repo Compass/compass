@@ -25,6 +25,12 @@ Or install it yourself as:
 
 ## Usage
 
+To use with the Sass command line:
+
+```
+sass -r 'compass/import-once/activate' ...
+```
+
 To enable in non-compass environments there's two options:
 
     require 'compass/import-once/activate'
