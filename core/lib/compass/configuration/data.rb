@@ -93,8 +93,9 @@ module Compass
         # the additional_import_paths gets overwritten during parse
         @added_import_paths ||= []
         @added_import_paths += paths
-        self.additional_import_paths ||= []
-        self.additional_import_paths += paths
+        paths.each do |p|
+          self.additional_import_paths << p unless additional_import_paths.include?(p)
+        end
       end
 
       # When called with a block, defines the asset host url to be used.

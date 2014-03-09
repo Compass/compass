@@ -31,9 +31,9 @@ module Compass
           end
         end
         if @added_import_paths
-          self.additional_import_paths ||= []
-          self.additional_import_paths += @added_import_paths
-          self.additional_import_paths.uniq!
+          @added_import_paths.each do |p|
+            self.additional_import_paths << p unless self.additional_import_paths.include?(p)
+          end
         end
         issue_deprecation_warnings
       end

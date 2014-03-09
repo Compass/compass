@@ -66,7 +66,6 @@ module Compass
       :sourcemap,
       :environment,
       :relative_assets,
-      :additional_import_paths,
       :sass_options,
       attributes_for_directory(:cache, nil),
       :cache,
@@ -82,6 +81,7 @@ module Compass
     ].flatten
 
     ARRAY_ATTRIBUTES = [
+      :additional_import_paths,
       :sprite_load_path,
       :required_libraries,
       :loaded_frameworks,

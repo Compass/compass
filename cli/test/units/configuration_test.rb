@@ -366,7 +366,6 @@ css_dir = "css"
 
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
-additional_import_paths = ["../foo", "/path/to/my/framework"]
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
@@ -377,6 +376,7 @@ additional_import_paths = ["../foo", "/path/to/my/framework"]
 # preferred_syntax = :sass
 # and then run:
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+additional_import_paths = ["../foo", "/path/to/my/framework"]
 EXPECTED
     assert_equal "/", Compass.configuration.http_path
     assert_correct expected_serialization, Compass.configuration.serialize
@@ -429,7 +429,6 @@ css_dir = "css"
 
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
-additional_import_paths = ["../foo", "/path/to/my/framework"]
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:
 # line_comments = false
@@ -440,6 +439,7 @@ additional_import_paths = ["../foo", "/path/to/my/framework"]
 # preferred_syntax = :sass
 # and then run:
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+additional_import_paths = ["../foo", "/path/to/my/framework"]
 EXPECTED
     assert_equal "/", Compass.configuration.http_path
     assert_correct expected_serialization.split("\n"), Compass.configuration.serialize.split("\n")
