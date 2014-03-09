@@ -164,7 +164,7 @@ module Compass
     def compile(sass_filename, css_filename, sourcemap_filename = nil)
       css_content, sourcemap = logger.red do
         timed(lambda {|r| r[0]}) do
-          engine = engine(sass_filename, css_filename)
+          engine = engine(sass_filename, css_filename, sourcemap_filename)
           if sourcemap_filename && options[:sourcemap]
             engine.render_with_sourcemap(relative_path(css_filename, sourcemap_filename))
           else
@@ -199,9 +199,12 @@ module Compass
     end
 
     # A sass engine for compiling a single file.
-    def engine(sass_filename, css_filename)
+    def engine(sass_filename, css_filename, sourcemap_filename = nil)
       syntax = (sass_filename =~ /\.(s[ac]ss)$/) && $1.to_sym || :sass
-      opts = sass_options.merge(:filename => sass_filename, :css_filename => css_filename, :syntax => syntax)
+      opts = sass_options.merge(:filename => sass_filename,
+                                :css_filename => css_filename,
+                                :syntax => syntax,
+                                :sourcemap_filename => sourcemap_filename)
       Sass::Engine.new(open(sass_filename).read, opts)
     end
 
@@ -209,7 +212,7 @@ module Compass
     # formatted to display in the browser (in development mode)
     # if there's an error.
     def handle_exception(sass_filename, css_filename, e)
-      exception_file = basename(e.sass_filename)
+      exception_file = basename(e.sass_filename || sass_filename)
       file = basename(sass_filename)
       exception_file = nil if exception_file == file
       formatted_error = "(Line #{e.sass_line}#{ " of #{exception_file}" if exception_file}: #{e.message})"
