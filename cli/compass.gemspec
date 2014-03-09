@@ -13,7 +13,7 @@ Gem::Specification.new do |gemspec|
   gemspec.rubygems_version = "1.3.5"
   gemspec.summary = %q{A Real Stylesheet Framework}
 
-  gemspec.add_dependency 'sass', '~> 3.3.0'
+  gemspec.add_dependency 'sass', '>= 3.3.0', '< 3.5'
   gemspec.add_dependency 'compass-core', "~> #{File.read(File.join(File.dirname(__FILE__),"..","core","VERSION")).strip}"
   gemspec.add_dependency 'compass-import-once', "~> #{File.read(File.join(File.dirname(__FILE__),"..","import-once","VERSION")).strip}"
   gemspec.add_dependency 'chunky_png', '~> 1.2'
