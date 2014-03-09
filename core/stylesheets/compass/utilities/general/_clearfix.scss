@@ -2,43 +2,147 @@
 // Extends the bottom of the element to enclose any floats it contains.
 // @doc on
 
+@import "compass/support";
 @import "hacks";
 
-// This basic method is preferred for the usual case, when positioned
-// content will not show outside the bounds of the container.
-//
-// Recommendations include using this in conjunction with a width.
-// Credit: [quirksmode.org](http://www.quirksmode.org/blog/archives/2005/03/clearing_floats.html)
-@mixin clearfix {
-  overflow: hidden;
-  @include has-layout;
+// Determines whether the clearfix mixin should extend selectors by default
+// Default to true
+$default-clearfix-extend: true !default;
+
+// The type of clearfix to use by default
+// Default to false
+$default-clearfix-type: false !default;
+
+//////////////////////////////
+// Clearfix Mixins
+//////////////////////////////
+// [Overflow Clearfix](http://www.quirksmode.org/blog/archives/2005/03/clearing_floats.html)
+@mixin clearfix-overflow($extend: $default-clearfix-extend) {
+  @if not $extend {
+    overflow: hidden;
+    @include has-layout;
+  }
+  @else {
+    @extend %clearfix-overflow;
+  }
 }
 
-// This older method from Position Is Everything called
-// [Easy Clearing](http://www.positioniseverything.net/easyclearing.html)
-// has the advantage of allowing positioned elements to hang
-// outside the bounds of the container at the expense of more tricky CSS.
-@mixin legacy-pie-clearfix {
-  &:after {
-    content    : "\0020";
-    display    : block;
-    height     : 0;
-    clear      : both;
-    overflow   : hidden;
-    visibility : hidden;
+// [Legacy Clearfix](http://www.css-101.org/articles/clearfix/latest-new-clearfix-so-far.php)
+// Chosen automatically if IE6, IE7 or Firefox < 3.5 is needed.
+@mixin clearfix-legacy($extend: $default-clearfix-extend) {
+  @if not $extend {
+    // Legacy IE layout
+    @include has-layout;
+
+    &:before,
+    &:after {
+      content: ".";
+      display: block;
+      height: 0;
+      overflow: hidden;
+    }
+
+    &:after {
+      clear: both;
+    }
   }
-  @include has-layout;
+  @else {
+    @extend %clearfix-legacy;
+  }
 }
 
-// This is an updated version of the PIE clearfix method that reduces the amount of CSS output.
-// If you need to support Firefox before 3.5 you need to use `legacy-pie-clearfix` instead.
-//
-// Adapted from: [A new micro clearfix hack](http://nicolasgallagher.com/micro-clearfix-hack/)
-@mixin pie-clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
+// [Micro Clearfix](http://nicolasgallagher.com/better-float-containment-in-ie/)
+// Chosen automatically if IE6, IE7 and Firefox < 3.5 is not needed.
+@mixin clearfix-micro($extend: $default-clearfix-extend) {
+  @if not $extend {
+    // Legacy IE layout
+    @include has-layout;
+
+    &:before,
+    &:after {
+      content: "";
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
   }
-  @include has-layout;
+  @else {
+    @extend %clearfix-micro;
+  }
+}
+
+// [Modern Clearfix](http://www.css-101.org/articles/clearfix/latest-new-clearfix-so-far.php)
+// Chosen automatically if IE6 and IE7 not needed.
+@mixin clearfix-modern($extend: $default-clearfix-extend) {
+  @if not $extend {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  @else {
+    @extend %clearfix;
+  }
+}
+
+// Smart mixin to determine which clearfix type to use
+@mixin clearfix($extend: $default-clearfix-extend, $type: $default-clearfix-type) {
+  // Overflow Clearfix
+  @if $type == 'overflow' {
+    @include clearfix-overflow($extend);
+  }
+  // Legacy Clearfix
+  @else if $type == 'legacy' {
+    @include clearfix-legacy($extend);
+  }
+  // Micro Clearfix
+  @else if $type == 'micro' {
+    @include clearfix-micro($extend);
+  }
+  // Modern Clearfix
+  @else if $type == 'modern' {
+    @include clearfix-modern($extend);
+  }
+  // Clearfix based on browser support needs
+  // Legacy and Micro Clearfixes
+  @else if support-legacy-browser("ie", "6", "7") {
+    // Legacy Clearfix
+    @if support-legacy-browser("firefox", "2", "3") {
+      @include clearfix-legacy($extend);
+    }
+    // Micro Clearfix
+    @else {
+      @include clearfix-micro($extend);
+    }
+  }
+  // Modern Clearfix
+  @else {
+    @include clearfix-modern($extend);
+  }
+}
+
+//////////////////////////////
+// Clearfix Extendables
+//////////////////////////////
+%clearfix-overflow {
+  @include clearfix(false, overflow);
+}
+
+%clearfix-legacy {
+  @include clearfix(false, legacy);
+}
+
+%clearfix-micro {
+  @include clearfix(false, micro);
+}
+
+%clearfix-modern {
+  @include clearfix(false, modern);
+}
+
+%clearfix {
+  @extend %clearfix-modern;
 }

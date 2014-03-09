@@ -1,0 +1,15 @@
+.micro-clearfix, .clearfix-extend {
+  *zoom: 1; }
+  .micro-clearfix:before, .clearfix-extend:before, .micro-clearfix:after, .clearfix-extend:after {
+    content: "";
+    display: table; }
+  .micro-clearfix:after, .clearfix-extend:after {
+    clear: both; }
+
+.clearfix-no-extend {
+  *zoom: 1; }
+  .clearfix-no-extend:before, .clearfix-no-extend:after {
+    content: "";
+    display: table; }
+  .clearfix-no-extend:after {
+    clear: both; }

@@ -1,0 +1,9 @@
+.modern-clearfix:after, .clearfix-extend:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+.clearfix-no-extend:after {
+  content: "";
+  display: table;
+  clear: both; }
