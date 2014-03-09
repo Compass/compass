@@ -2,18 +2,18 @@ module Compass
   module ImportOnce
     # Any importer object that is extended with this module will get the import once behavior.
     module Importer
-      def find_relative(uri, base, options)
+      def find_relative(uri, base, options, *args)
         uri, force_import = handle_force_import(uri)
-        maybe_replace_with_dummy_engine(super(uri, base, options), options, force_import)
+        maybe_replace_with_dummy_engine(super(uri, base, options, *args), options, force_import)
       end
 
-      def find(uri, options)
+      def find(uri, options, *args)
         uri, force_import = handle_force_import(uri)
-        maybe_replace_with_dummy_engine(super(uri, options), options, force_import)
+        maybe_replace_with_dummy_engine(super(uri, options, *args), options, force_import)
       end
 
       # ensure that all dummy engines share the same sass cache entry.
-      def key(uri, options)
+      def key(uri, options, *args)
         if uri =~ /^\(NOT IMPORTED\)/
           ["(import-once)", "dummy_engine"]
         else
@@ -21,7 +21,7 @@ module Compass
         end
       end
 
-      def mtime(uri, options)
+      def mtime(uri, options, *args)
         if uri =~ /^\(NOT IMPORTED\) (.*)$/
           File.mtime($1)
         else
