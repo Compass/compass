@@ -88,6 +88,10 @@ module Compass
       :framework_path
     ]
 
+    ARRAY_ATTRIBUTE_OPTIONS = {
+      :sprite_load_path => { :clobbers => true }
+    }
+
     RUNTIME_READONLY_ATTRIBUTES = [
       :cache,
       attributes_for_directory(:cache, nil),

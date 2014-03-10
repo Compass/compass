@@ -70,7 +70,9 @@ module Compass
 
       strip_trailing_separator(*ATTRIBUTES.select{|a| a.to_s =~ /dir|path/})
 
-      inherited_array(*ARRAY_ATTRIBUTES)
+      ARRAY_ATTRIBUTES.each do |array_attr|
+        inherited_array(array_attr, ARRAY_ATTRIBUTE_OPTIONS.fetch(array_attr, {}))
+      end
 
       def initialize(name, attr_hash = nil)
         raise "I need a name!" unless name

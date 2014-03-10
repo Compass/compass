@@ -110,6 +110,7 @@ module Compass
         end
 
         def inherited_array(*attributes)
+          options = attributes.last.is_a?(Hash) ? attributes.pop : {}
           inherited_reader(*attributes)
           inherited_writer(*attributes)
           attributes.each do |attr|
@@ -126,17 +127,19 @@ module Compass
                 @removed_from_#{attr} = []                         #   @removed_from_sprite_load_paths = []
               end                                                  # end
               def read_inherited_#{attr}_array                     # def read_inherited_sprite_load_paths_array
-                if #{attr}_set?                                    #  if sprite_load_paths_set?
-                  @#{attr}                                         #    Array(@#{attr})
-                else                                               #  else
-                  value = if inherited_data                        #    value = Array(read(:sprite_load_paths))
-                    Array(inherited_data.#{attr})
+                value = if inherited_data                          #   value = if inherited_data
+                  if #{!!options[:clobbers]} && #{attr}_set?
+                    Array(@#{attr})                                #     Array(@#{attr})
                   else
-                    Array(read(#{attr.inspect}))
+                    Array(@#{attr}) + inherited_data.read_inherited_#{attr}_array  #      inherited_data.read_inherited_sprite_load_paths_array + Array(@sprite_load_paths)
                   end
-                  value -= Array(@removed_from_#{attr})            #    value -= Array(@removed_from_sprite_load_paths)
-                  Array(@added_to_#{attr}) + value                 #    Array(@added_to_sprite_load_paths) + value
-                end                                                #  end
+                elsif #{attr}_set?                                 #   elsif sprite_load_paths_set?
+                  Array(@#{attr})                                  #     Array(@#{attr})
+                else                                               #   else
+                  top_level.default_for(#{attr.inspect}) || []     #     top_level.default_for(:sprite_load_paths) || []
+                end                                                #   end
+                value -= Array(@removed_from_#{attr})              #   value -= Array(@removed_from_sprite_load_paths)
+                Array(@added_to_#{attr}) + value                   #   Array(@added_to_sprite_load_paths) + value
               end                                                  # end
               def add_to_#{attr}(v)                                # def add_to_sprite_load_paths(v)
                 if #{attr}_set?                                    #   if sprite_load_paths_set?

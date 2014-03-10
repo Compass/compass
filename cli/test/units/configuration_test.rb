@@ -92,7 +92,17 @@ class ConfigurationTest < Test::Unit::TestCase
     def initialize
       super(:test)
     end
-    inherited_array :stuff
+    inherited_array :stuff, :clobbers => true
+    inherited_array :accumulated
+  end
+
+  def test_accumulated_array_does_not_clobber
+    data1 = TestData.new
+    data1.accumulated = [:a]
+    data2 = TestData.new
+    data2.accumulated = [:b]
+    data2.inherit_from!(data1)
+    assert_equal [:b, :a], data2.accumulated.to_a
   end
 
   def test_inherited_array_can_clobber
