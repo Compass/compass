@@ -201,8 +201,8 @@ module Compass::Core::SassExtensions::Functions::Urls
       end
 
       # Compute the real path to the image on the file stystem if the generated_images_dir is set.
-      real_path = if Compass.configuration.images_path
-        File.join(Compass.configuration.images_path, path.gsub(/#.*$/,""))
+      real_path = if Compass.configuration.generated_images_path
+        File.join(Compass.configuration.generated_images_path, path.gsub(/#.*$/,""))
       else
         File.join(Compass.configuration.project_path, path.gsub(/#.*$/,""))
       end
