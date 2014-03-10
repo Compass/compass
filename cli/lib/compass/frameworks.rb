@@ -157,7 +157,11 @@ module Compass
     def discover_gem_extensions!
       if defined?(Gem)
         Gem.find_files("compass-*").map{|f| File.basename(f, ".rb")}.each do |compass_extension|
-          require compass_extension
+          begin
+            require compass_extension
+          rescue Gem::LoadError, LoadError
+            Compass::Util.compass_warn "Unable to load extension: #{compass_extension}"
+          end
         end
       end
     end
