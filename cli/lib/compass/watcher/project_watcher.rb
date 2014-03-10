@@ -51,8 +51,7 @@ module Compass
                                       Compass.configuration.sass_load_paths.map{|p| p.directories_to_watch}
                                     dirs.flatten!
                                     dirs.compact!
-                                    dirs.select! {|d| File.writable?(d) }
-                                    dirs
+                                    dirs.select {|d| File.writable?(d) }
                                   end
       end
 
