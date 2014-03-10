@@ -382,8 +382,9 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
   }
   @if length($old-variables-in-use) > 0 {
     @warn "Compass has changed how browser support is configured. " +
-          "See the CHANGELOG for more details. The following configuration variables " +
-          "are no longer supported: #{$old-variables-in-use}."
+          "The following configuration variables " +
+          "are no longer supported: #{$old-variables-in-use}." +
+          "Details: http://compass-style.org/help/documentation/tuning-vendor-prefixes/"
   }
   @return $old-variables-in-use;
 }
