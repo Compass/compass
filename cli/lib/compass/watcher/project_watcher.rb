@@ -46,7 +46,25 @@ module Compass
       end
 
       def directories_to_watch
-        [Compass.configuration.sass_path] + Compass.configuration.sass_load_paths.map{|p| p.respond_to?(:root) ? p.root : nil}.compact
+        remove_redundant_directories([Compass.configuration.sass_path] + Compass.configuration.watch_load_paths.map{|p| p.respond_to?(:root) ? p.root : nil}.compact)
+      end
+
+      #blatantly copied from sass (lib/sass/plugin/compiler.rb#L327-L342)
+      #This code is going to be rewritten to use Sass watchers, so this is a short term fix
+      def remove_redundant_directories(directories)
+        dedupped = []
+        directories.each do |new_directory|
+          # no need to add a directory that is already watched.
+          next if dedupped.any? do |existing_directory|
+            child_of_directory?(existing_directory, new_directory)
+          end
+          # get rid of any sub directories of this new directory
+          dedupped.reject! do |existing_directory|
+            child_of_directory?(new_directory, existing_directory)
+          end
+          dedupped << new_directory
+        end
+        dedupped
       end
 
       def listen_callback(modified_files, added_files, removed_files)
