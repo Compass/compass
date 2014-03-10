@@ -1,3 +1,6 @@
+$contrasted-dark-default: black;
+$contrasted-light-default: white;
+
 @import "compass/css3/selection";
 
 * {
@@ -15,11 +18,11 @@
 }
 
 .hot-pink-with-arguments {
-  @include selection(#fe57a1, #fff);
+  @include selection(#fe57a1, white);
 }
 
 .hot-pink-with-arguments-and-extra-stuff {
-  @include selection(#fe57a1, #fff) {
+  @include selection(#fe57a1, white) {
     text-decoration: line-through;
   }
 }

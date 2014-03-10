@@ -27,8 +27,8 @@ class CanIUseTest < Test::Unit::TestCase
     assert_equal "-webkit", caniuse.prefix("chrome")
     assert_equal "-webkit", caniuse.prefix("safari")
     assert_equal "-ms", caniuse.prefix("ie")
-    assert_equal "-o", caniuse.prefix("opera")
-    assert_equal "-webkit", caniuse.prefix("opera", "15")
+    assert_equal "-webkit", caniuse.prefix("opera")
+    assert_equal "-o", caniuse.prefix("opera", "12.1")
   end
 
   def test_browsers_with_prefix
@@ -41,21 +41,69 @@ class CanIUseTest < Test::Unit::TestCase
   def test_capabilities
     # This is meant to break if a capability goes away or arrives
     # So that we can think about what that means for compass
-    assert_equal ["background-img-opts", "border-image", "border-radius", "calc",
-                  "css-animation", "css-boxshadow", "css-canvas", "css-counters",
-                  "css-featurequeries", "css-filters", "css-fixed", "css-gencontent",
-                  "css-gradients", "css-grid", "css-hyphens", "css-masks",
-                  "css-mediaqueries", "css-opacity", "css-placeholder", "css-reflections", "css-regions",
-                  "css-repeating-gradients", "css-resize", "css-sel2", "css-sel3",
-                  "css-selection", "css-table", "css-textshadow", "css-transitions",
-                  "css3-boxsizing", "css3-colors", "css3-tabsize", "flexbox",
-                  "font-feature", "fontface", "getcomputedstyle", "inline-block",
-                  "intrinsic-width", "minmaxwh", "multibackgrounds", "multicolumn",
-                  "object-fit", "outline", "pointer-events", "rem", "style-scoped",
-                  "svg-css", "text-overflow", "text-stroke", "transforms2d",
-                  "transforms3d", "ttf", "user-select-none", "viewport-units",
-                  "word-break", "wordwrap"],
-                 caniuse.capabilities
+
+    assert_equal [
+      "background-img-opts",
+      "border-image",
+      "border-radius",
+      "calc",
+      "css-animation",
+      "css-backgroundblendmode",
+      "css-boxshadow",
+      "css-canvas",
+      "css-counters",
+      "css-featurequeries",
+      "css-filters",
+      "css-fixed",
+      "css-gencontent",
+      "css-gradients",
+      "css-grid",
+      "css-hyphens",
+      "css-masks",
+      "css-mediaqueries",
+      "css-opacity",
+      "css-placeholder",
+      "css-reflections",
+      "css-regions",
+      "css-repeating-gradients",
+      "css-resize",
+      "css-sel2",
+      "css-sel3",
+      "css-selection",
+      "css-sticky",
+      "css-table",
+      "css-textshadow",
+      "css-transitions",
+      "css-variables",
+      "css3-boxsizing",
+      "css3-colors",
+      "css3-cursors",
+      "css3-tabsize",
+      "flexbox",
+      "font-feature",
+      "fontface",
+      "getcomputedstyle",
+      "inline-block",
+      "intrinsic-width",
+      "minmaxwh",
+      "multibackgrounds",
+      "multicolumn",
+      "object-fit",
+      "outline",
+      "pointer-events",
+      "rem",
+      "style-scoped",
+      "svg-css",
+      "text-overflow",
+      "text-stroke",
+      "transforms2d",
+      "transforms3d",
+      "ttf",
+      "user-select-none",
+      "viewport-units",
+      "word-break",
+      "wordwrap"],
+    caniuse.capabilities
   end
 
   def test_usage
@@ -108,7 +156,7 @@ class CanIUseTest < Test::Unit::TestCase
     mins = caniuse.browser_ranges("border-radius", "-webkit")
     expected = {
       "android"=>["2.1", "4.4"],
-      "chrome"=>["4", "33"],
+      "chrome"=>["4", "36"],
       "ios-safari"=>["3.2", "7.0"],
       "safari"=>["3.1", "7"]
     }

@@ -1,2 +1,4 @@
 pkg/
+.bundle/
+Gemfile.lock
 RELEASE_VERSION

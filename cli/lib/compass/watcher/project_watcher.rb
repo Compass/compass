@@ -46,7 +46,13 @@ module Compass
       end
 
       def directories_to_watch
-        [Compass.configuration.sass_path] + Compass.configuration.sass_load_paths.map{|p| p.respond_to?(:root) ? p.root : nil}.compact
+        @directories_to_watch ||= begin
+                                    dirs = [Compass.configuration.sass_path] +
+                                      Compass.configuration.sass_load_paths.map{|p| p.directories_to_watch}
+                                    dirs.flatten!
+                                    dirs.compact!
+                                    dirs.select {|d| File.writable?(d) }
+                                  end
       end
 
       def listen_callback(modified_files, added_files, removed_files)
@@ -117,10 +123,10 @@ module Compass
       end
 
       def filename_for_display(f)
-        if local_development_locations.detect{|d| in_directory?(d, f) }
-          relative_to_working_directory(f)
-        elsif framework = Frameworks::ALL.detect {|framework| in_directory?(framework.stylesheets_directory, f) }
+        if framework = Frameworks::ALL.detect {|fmwk| in_directory?(fmwk.stylesheets_directory, f) }
           "(#{framework.name}) #{relative_to(f, framework.stylesheets_directory)}"
+        elsif directories_to_watch.detect{|d| in_directory?(d, f) }
+          relative_to_working_directory(f)
         else
           f
         end

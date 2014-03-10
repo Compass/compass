@@ -11,9 +11,9 @@ without compass in any Sass-based project.
 
 ## Installation
 
-Or add this line to your application's Gemfile if you have one:
+Either add this line to your application's Gemfile if you have one:
 
-    gem 'compass-import-once', :require => "compass/import-once/activate"
+    gem 'compass-import-once', :require => 'compass/import-once/activate'
 
 And then execute:
 
@@ -24,6 +24,12 @@ Or install it yourself as:
     $ gem install compass-import-once
 
 ## Usage
+
+To use with the Sass command line:
+
+```
+sass -r 'compass/import-once/activate' ...
+```
 
 To enable in non-compass environments there's two options:
 

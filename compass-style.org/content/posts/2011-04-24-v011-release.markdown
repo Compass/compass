@@ -73,7 +73,7 @@ For example, let's imagine that in your project's image folder there are four ic
 * `<images_dir>/icon/delete.png`
 
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
-    
+
     @import "icon/*.png";
     @include all-icon-sprites;
 
@@ -84,7 +84,7 @@ And you'll get the following CSS output:
     .icon-edit,
     .icon-new,
     .icon-save   { background: url('/images/icon-34fe0604ab.png') no-repeat; }
-    
+
     .icon-delete { background-position: 0 0; }
     .icon-edit   { background-position: 0 -32px; }
     .icon-new    { background-position: 0 -64px; }
@@ -131,7 +131,7 @@ provides a ton of great features that have made this Compass release possible.
 
 Compass is far to big for one person to manage it now. I'd like to thank the hard work of the Compass core team members:
 
-* [Eric Meyer](http://eric.oddbird.net/)
+* [Eric Suzanne](http://ericsuzanne.com/)
 * [Brandon Mathis](http://brandonmathis.com/)
 * [Scott Davis](https://github.com/jetviper21)
 * [Nico Hagenburger](http://www.hagenburger.net/)

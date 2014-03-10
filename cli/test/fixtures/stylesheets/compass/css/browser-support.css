@@ -83,7 +83,7 @@
   user-select-none: -webkit; }
 
 .chrome {
-  versions: "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33";
+  versions: "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36";
   border-image: -webkit;
   border-image-unprefixed-at: "16";
   border-radius: -webkit;
@@ -120,7 +120,7 @@
   user-select-none: -webkit; }
 
 .firefox {
-  versions: "2", "3", "3.5", "3.6", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28";
+  versions: "2", "3", "3.5", "3.6", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30";
   background-img-opts: -moz;
   background-img-opts-unprefixed-at: "4";
   border-image: -moz;
@@ -146,6 +146,7 @@
   css-transitions: -moz;
   css-transitions-unprefixed-at: "16";
   css3-boxsizing: -moz;
+  css3-boxsizing-unprefixed-at: "29";
   css3-tabsize: -moz;
   font-feature: -moz;
   inline-block: prefix-no-longer-needed;
@@ -197,6 +198,7 @@
   css-regions: -webkit;
   css-repeating-gradients: -webkit;
   css-repeating-gradients-unprefixed-at: "7.0";
+  css-sticky: -webkit;
   css-transitions: -webkit;
   css-transitions-unprefixed-at: "7.0";
   css3-boxsizing: -webkit;
@@ -211,39 +213,39 @@
   user-select-none: -webkit; }
 
 .opera {
-  versions: "9.5-9.6", "10.0-10.1", "10.5", "10.6", "11", "11.1", "11.5", "11.6", "12", "12.1", "15", "16", "17", "18";
-  background-img-opts: prefix-no-longer-needed;
+  versions: "9.5-9.6", "10.0-10.1", "10.5", "10.6", "11", "11.1", "11.5", "11.6", "12", "12.1", "15", "16", "17", "18", "19", "20", "21";
+  background-img-opts: -webkit;
   background-img-opts-unprefixed-at: "10.5";
-  border-image: -o;
+  border-image: -webkit;
   border-image-unprefixed-at: "15";
-  css-animation: prefix-no-longer-needed;
-  css-canvas: prefix-no-longer-needed;
-  css-filters: prefix-no-longer-needed;
-  css-gradients: -o;
+  css-animation: -webkit;
+  css-canvas: -webkit;
+  css-filters: -webkit;
+  css-gradients: -webkit;
   css-gradients-unprefixed-at: "12.1";
-  css-masks: prefix-no-longer-needed;
-  css-placeholder: prefix-no-longer-needed;
+  css-masks: -webkit;
+  css-placeholder: -webkit;
   css-placeholder-unprefixed-at: "16";
-  css-reflections: prefix-no-longer-needed;
-  css-repeating-gradients: -o;
+  css-reflections: -webkit;
+  css-repeating-gradients: -webkit;
   css-repeating-gradients-unprefixed-at: "12.1";
-  css-transitions: -o;
+  css-transitions: -webkit;
   css-transitions-unprefixed-at: "12.1";
-  css3-tabsize: -o;
+  css3-tabsize: prefix-no-longer-needed;
   css3-tabsize-unprefixed-at: "15";
-  flexbox: prefix-no-longer-needed;
+  flexbox: -webkit;
   flexbox-unprefixed-at: "17";
-  font-feature: prefix-no-longer-needed;
-  intrinsic-width: prefix-no-longer-needed;
-  multicolumn: prefix-no-longer-needed;
-  object-fit: -o;
+  font-feature: -webkit;
+  intrinsic-width: -webkit;
+  multicolumn: -webkit;
+  object-fit: prefix-no-longer-needed;
   object-fit-unprefixed-at: "15";
-  text-overflow: -o;
+  text-overflow: prefix-no-longer-needed;
   text-overflow-unprefixed-at: "11";
-  text-stroke: prefix-no-longer-needed;
-  transforms2d: -o;
-  transforms3d: prefix-no-longer-needed;
-  user-select-none: prefix-no-longer-needed; }
+  text-stroke: -webkit;
+  transforms2d: -webkit;
+  transforms3d: -webkit;
+  user-select-none: -webkit; }
 
 .opera-mini {
   versions: "5.0-7.0";
@@ -256,11 +258,11 @@
   css-animation: prefix-no-longer-needed;
   css-canvas: prefix-no-longer-needed;
   css-filters: prefix-no-longer-needed;
-  css-gradients: -o;
+  css-gradients: prefix-no-longer-needed;
   css-gradients-unprefixed-at: "12.1";
   css-masks: prefix-no-longer-needed;
   css-reflections: prefix-no-longer-needed;
-  css-repeating-gradients: -o;
+  css-repeating-gradients: prefix-no-longer-needed;
   css-repeating-gradients-unprefixed-at: "12.1";
   css-transitions: -o;
   css-transitions-unprefixed-at: "12.1";
@@ -274,7 +276,7 @@
   text-overflow: -o;
   text-overflow-unprefixed-at: "12.1";
   text-stroke: prefix-no-longer-needed;
-  transforms2d: -o;
+  transforms2d: prefix-no-longer-needed;
   transforms3d: prefix-no-longer-needed;
   user-select-none: prefix-no-longer-needed; }
 
@@ -300,6 +302,7 @@
   css-regions: -webkit;
   css-repeating-gradients: -webkit;
   css-repeating-gradients-unprefixed-at: "6.1";
+  css-sticky: -webkit;
   css-transitions: -webkit;
   css-transitions-unprefixed-at: "6.1";
   css3-boxsizing: -webkit;

@@ -6,7 +6,7 @@ require 'compass/core/version'
 Gem::Specification.new do |spec|
   spec.name          = "compass-core"
   spec.version       = Compass::Core::VERSION
-  spec.authors       = ["Chris Eppstein", "Scott Davis", "Eric A. Meyer", "Brandon Mathis"]
+  spec.authors       = ["Chris Eppstein", "Scott Davis", "Eric M. Suzanne", "Brandon Mathis"]
   spec.email         = ["chris@eppsteins.net"]
   spec.description   = %q{The Compass core stylesheet library and minimum required ruby extensions. This library can be used stand-alone without the compass ruby configuration file or compass command line tools.}
   spec.summary       = %q{The Compass core stylesheet library}
@@ -21,8 +21,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "sass", ">= 3.3.rc.3"
+  spec.add_dependency "sass", ">= 3.3.0", "< 3.5"
   spec.add_dependency 'multi_json', '~> 1.0'
-  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
 end

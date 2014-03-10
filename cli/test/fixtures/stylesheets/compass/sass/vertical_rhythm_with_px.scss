@@ -2,7 +2,7 @@
 $base-font-size: 18px;
 $base-line-height: $base-font-size * 1.4;
 $rhythm-unit: px;
-$default-rhythm-border-style: solid #aaa;
+$default-rhythm-border-style: solid #aaaaaa;
 @import "compass/typography/vertical_rhythm";
 
 @include establish-baseline;

@@ -5,3 +5,7 @@ $flag_states-class-separator: "_";
 
 @include all-flag_states-sprites;
 
+.sprite-file {
+  location: image-url(sprite_file($flag-states-sprites, foo));
+}
+

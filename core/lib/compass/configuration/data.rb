@@ -70,7 +70,9 @@ module Compass
 
       strip_trailing_separator(*ATTRIBUTES.select{|a| a.to_s =~ /dir|path/})
 
-      inherited_array(*ARRAY_ATTRIBUTES)
+      ARRAY_ATTRIBUTES.each do |array_attr|
+        inherited_array(array_attr, ARRAY_ATTRIBUTE_OPTIONS.fetch(array_attr, {}))
+      end
 
       def initialize(name, attr_hash = nil)
         raise "I need a name!" unless name
@@ -93,8 +95,9 @@ module Compass
         # the additional_import_paths gets overwritten during parse
         @added_import_paths ||= []
         @added_import_paths += paths
-        self.additional_import_paths ||= []
-        self.additional_import_paths += paths
+        paths.each do |p|
+          self.additional_import_paths << p unless additional_import_paths.include?(p)
+        end
       end
 
       # When called with a block, defines the asset host url to be used.
