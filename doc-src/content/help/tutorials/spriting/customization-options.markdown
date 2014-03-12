@@ -11,7 +11,7 @@ classnames:
 
 ### Options per Sprite Map
 
-When constructing the sprite map, the entire sprite map and it's associated stylesheet
+When constructing the sprite map, the entire sprite map and its associated stylesheet
 can be configured in the following ways. Each option is specified by setting a [configuration
 variable](/help/tutorials/configurable-variables/) before importing the sprite. The variables
 are named according to the name of the folder containing the sprites. In the examples below
@@ -19,7 +19,7 @@ the sprites were contained within a folder called `icon`.
 
 * `$<map>-spacing` -- The amount of transparent space, in pixels, around each sprite.
   Defaults to `0px`. E.g. `$icon-spacing: 20px`.
-* `$<map>-repeat` -- Wether or not each sprite should repeat along the x axis. Defaults
+* `$<map>-repeat` -- Whether or not each sprite should repeat along the x axis. Defaults
   to `no-repeat`. E.g. `$icon-repeat: repeat-x`.
 * `$<map>-position` -- The position of the sprite in the sprite map along the x-axis. Can
   be specified in pixels or percentage of the sprite map's width. `100%` would cause the
@@ -37,7 +37,7 @@ When constructing the sprite map, each sprite can be configured in the following
 
 * `$<map>-<sprite>-spacing` -- The amount of transparent space, in pixels, around the sprite. Defaults
   to the sprite map's spacing which defaults to `0px`. E.g. `$icon-new-spacing: 20px`.
-* `$<map>-<sprite>-repeat` -- Wether or not the sprite should repeat along the x axis. Defaults
+* `$<map>-<sprite>-repeat` -- Whether or not the sprite should repeat along the x axis. Defaults
   to the sprite map's repeat which defaults to `no-repeat`. E.g. `$icon-new-repeat: repeat-x`.
 * `$<map>-<sprite>-position` -- The position of the sprite in the sprite map along the x-axis. Can
   be specified in pixels or percentage of the sprite map's width. `100%` would cause the
