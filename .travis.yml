@@ -7,6 +7,7 @@ rvm:
   - rbx
   - ree
   - 2.0.0
+  - 2.1.0
 env:
   - CI_TEST=core
   - CI_TEST=cli
@@ -91,3 +92,12 @@ matrix:
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: 2.0.0
+    - gemfile: cli/gemfiles/sass_3_3.gemfile
+      env: CI_TEST=core
+      rvm: 2.1.0
+    - gemfile: cli/gemfiles/sass_master.gemfile
+      env: CI_TEST=core
+      rvm: 2.1.0
+    - gemfile: core/Gemfile
+      env: CI_TEST=cli
+      rvm: 2.1.0
