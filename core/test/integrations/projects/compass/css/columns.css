@@ -49,17 +49,17 @@
   column-rule: 1px solid blue; }
 
 .column-break-before {
-  break-before: always;
+  -moz-page-break-before: always;
   -webkit-column-break-before: always;
   break-before: always; }
 
 .column-break-after {
-  break-after: always;
+  -moz-page-break-after: always;
   -webkit-column-break-after: always;
   break-after: always; }
 
 .column-break-inside {
-  break-inside: auto;
+  -moz-page-break-inside: auto;
   -webkit-column-break-inside: auto;
   break-inside: auto; }
 
@@ -104,31 +104,31 @@
   column-rule: 1px solid blue; }
 
 .column-break-before {
-  break-before: always;
+  -moz-page-break-before: always;
   -webkit-column-break-before: always;
   break-before: always; }
 
 .column-break-after {
-  break-after: always;
+  -moz-page-break-after: always;
   -webkit-column-break-after: always;
   break-after: always; }
 
 .column-break-inside {
-  break-inside: auto;
+  -moz-page-break-inside: auto;
   -webkit-column-break-inside: auto;
   break-inside: auto; }
 
 .column-break-before-shortcut {
-  break-before: always;
+  -moz-page-break-before: always;
   -webkit-column-break-before: always;
   break-before: always; }
 
 .column-break-after-shortcut {
-  break-after: always;
+  -moz-page-break-after: always;
   -webkit-column-break-after: always;
   break-after: always; }
 
 .column-break-inside-shortcut {
-  break-inside: auto;
+  -moz-page-break-inside: auto;
   -webkit-column-break-inside: auto;
   break-inside: auto; }
