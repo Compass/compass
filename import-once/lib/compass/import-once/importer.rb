@@ -12,10 +12,9 @@ module Compass
         maybe_replace_with_dummy_engine(super(uri, options, *args), options, force_import)
       end
 
-      # ensure that all dummy engines share the same sass cache entry.
       def key(uri, options, *args)
-        if uri =~ /^\(NOT IMPORTED\)/
-          ["(import-once)", "dummy_engine"]
+        if uri =~ /^\(NOT IMPORTED\) (.*)$/
+          ["(import-once)", $1]
         else
           super
         end
