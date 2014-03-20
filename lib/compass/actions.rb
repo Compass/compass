@@ -55,9 +55,7 @@ module Compass
       if skip_write
         FileUtils.touch file_name unless options[:dry_run]
       else
-        mode = "w"
-        mode << "b" if binary
-        open(file_name, mode) do |file|
+        Sass::Util.atomic_create_and_write_file(file_name) do |file|
           file.write(contents)
         end
       end
