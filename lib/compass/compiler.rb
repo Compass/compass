@@ -152,7 +152,7 @@ module Compass
     def engine(sass_filename, css_filename)
       syntax = (sass_filename =~ /\.(s[ac]ss)$/) && $1.to_sym || :sass
       opts = sass_options.merge(:filename => sass_filename, :css_filename => css_filename, :syntax => syntax)
-      Sass::Engine.new(open(sass_filename).read, opts)
+      Sass::Engine.new(File.read(sass_filename), opts)
     end
 
     # Place the syntax error into the target css file,
