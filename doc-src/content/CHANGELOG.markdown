@@ -14,6 +14,16 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.4 (03/20/2014)
+-------------------
+
+* Fix concurrency issues with css and sprite files.
+
+0.12.3 (03/04/2014)
+-------------------
+
+* Restrict Sass version to 3.2
+
 0.12.2 (06/24/2012)
 -------------------
 
