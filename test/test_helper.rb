@@ -21,6 +21,7 @@ require 'rubygems' if need_gems
 require 'compass'
 
 require 'test/unit'
+require "mocha/test_unit"
 
 
 class String
