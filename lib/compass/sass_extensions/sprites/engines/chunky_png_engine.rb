@@ -15,17 +15,19 @@ module Compass
             input_png  = ChunkyPNG::Image.from_file(image.file)
             canvas.replace! input_png, image.left, image.top
           end
-        end    
-        
+        end
+
         def save(filename)
           if canvas.nil?
             construct_sprite
           end
-          
-          canvas.save(filename,  Compass.configuration.chunky_png_options)
+
+          Sass::Util.atomic_create_and_write_file(filename) do |file|
+            canvas.write(file, Compass.configuration.chunky_png_options)
+          end
         end
-        
+
       end
     end
   end
-end  
+end
