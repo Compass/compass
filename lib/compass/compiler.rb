@@ -134,7 +134,6 @@ module Compass
 
     # Compile one Sass file
     def compile(sass_filename, css_filename)
-      start_time = end_time = nil
       css_content = logger.red do
         timed do
           engine(sass_filename, css_filename).render
