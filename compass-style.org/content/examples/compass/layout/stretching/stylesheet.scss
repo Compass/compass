@@ -10,7 +10,7 @@
   @include inline-block;
 }
 
-.stretched {
+%stretched {
   $stretch-color: #4c6b99;
   border: 3px solid $stretch-color;
   @include border-radius(8px);
