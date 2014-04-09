@@ -1,0 +1,25 @@
+$contrasted-dark-default: black;
+$contrasted-light-default: white;
+
+@import "compass/utilities/color";
+
+.handles-null {
+  content: "there should be no property below this one";
+  color: contrast-color(null);
+}
+
+.contrasts-light {
+  @include contrasted(#eeeeee);
+}
+
+.contrasts-dark {
+  @include contrasted(#222222);
+}
+
+.contrasts-light-with-contrast-color-override {
+  @include contrasted(#eeeeee, $dark: red);
+}
+
+.contrasts-dark-with-contrast-color-override {
+  @include contrasted(#222222, $light: yellow);
+}

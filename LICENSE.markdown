@@ -1,4 +1,4 @@
-Copyright (c) 2009 Christopher M. Eppstein
+Copyright (c) 2009-2014 Christopher M. Eppstein
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

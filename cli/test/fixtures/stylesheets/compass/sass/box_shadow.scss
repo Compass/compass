@@ -1,0 +1,7 @@
+@import "compass/css3/box-shadow";
+
+.no-box-shadow { @include box-shadow(none); }
+.box-shadow { @include box-shadow(default, 2px 2px 5px #222222);}
+.single-box-shadow { @include single-box-shadow;}
+.multiple-box-shadows { @include box-shadow(default, 2px 2px 5px #222222);}
+.legacy-single-box-shadow { @include single-box-shadow(blue);}

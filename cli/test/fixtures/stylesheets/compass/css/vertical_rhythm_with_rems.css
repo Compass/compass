@@ -1,0 +1,64 @@
+/* New using rem output with pixel fallbacks */
+html {
+  font-size: 112.5%;
+  line-height: 1.4em; }
+
+.container {
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  -moz-background-size: 100% 1.4rem;
+  -o-background-size: 100% 1.4rem;
+  -webkit-background-size: 100% 1.4rem;
+  background-size: 100% 1.4rem;
+  background-position: left top; }
+
+p {
+  margin-top: 25px;
+  margin-top: 1.4rem;
+  margin-bottom: 25px;
+  margin-bottom: 1.4rem; }
+
+th,
+td {
+  padding-top: 6px;
+  padding-top: 0.35rem;
+  padding-bottom: 6px;
+  padding-bottom: 0.35rem; }
+
+/* Incremental leading made easy! */
+.caption {
+  font-size: 15px;
+  font-size: 0.85rem;
+  line-height: 20px;
+  line-height: 1.12rem; }
+
+.spaced-out {
+  line-height: 38px;
+  line-height: 2.1rem; }
+
+blockquote {
+  margin-top: 25px;
+  margin-top: 1.4rem;
+  margin-bottom: 25px;
+  margin-bottom: 1.4rem;
+  padding: 0 1.4rem; }
+
+.fig-quote > blockquote {
+  margin-bottom: 13px;
+  margin-bottom: 0.7rem; }
+.fig-quote .source {
+  font-size: 15px;
+  font-size: 0.85rem;
+  line-height: 25px;
+  line-height: 1.4rem;
+  margin-bottom: 13px;
+  margin-bottom: 0.7rem; }
+
+.panel {
+  border-width: 1px;
+  border-width: 0.05556rem;
+  border-style: solid;
+  border-color: #aaaaaa;
+  padding: 24px;
+  padding: 1.34444rem; }

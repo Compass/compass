@@ -1,0 +1,33 @@
+$contrasted-dark-default: black;
+$contrasted-light-default: white;
+
+@import "compass/utilities";
+
+.clearfix {
+    @include clearfix;
+}
+
+.pie-clearfix {
+    @include legacy-pie-clearfix;
+}
+.simple-pie-clearfix {
+  @include pie-clearfix;
+}
+
+p.light { @include contrasted(#f3aead); }
+p.dark  { @include contrasted(#a22321); }
+p.light-with-args { @include contrasted(#f3aead, blue, yellow); }
+p.dark-with-args  { @include contrasted(#a22321, blue, yellow); }
+
+
+@include alternating-rows-and-columns(red, white, blue);
+
+p.ellipsis {
+  @include ellipsis;
+}
+
+p.ellipsis.moz {
+  $legacy-support-for-mozilla: true !global;
+  $use-mozilla-ellipsis-binding: true !global;
+  @include ellipsis;
+}

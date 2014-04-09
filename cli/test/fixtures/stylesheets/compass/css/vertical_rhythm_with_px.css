@@ -1,0 +1,49 @@
+/* New using px output */
+html {
+  font-size: 18px;
+  line-height: 25px; }
+
+.container {
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  -moz-background-size: 100% 25px;
+  -o-background-size: 100% 25px;
+  -webkit-background-size: 100% 25px;
+  background-size: 100% 25px;
+  background-position: left top; }
+
+p {
+  margin-top: 25px;
+  margin-bottom: 25px; }
+
+th,
+td {
+  padding-top: 6px;
+  padding-bottom: 6px; }
+
+/* Incremental leading made easy! */
+.caption {
+  font-size: 15px;
+  line-height: 20px; }
+
+.spaced-out {
+  line-height: 37px; }
+
+blockquote {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 0 25px; }
+
+.fig-quote > blockquote {
+  margin-bottom: 12px; }
+.fig-quote .source {
+  font-size: 15px;
+  line-height: 25px;
+  margin-bottom: 12px; }
+
+.panel {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #aaaaaa;
+  padding: 24px; }

@@ -1,0 +1,34 @@
+.foo {
+  width: 600px;
+  height: 200px; }
+
+.foo .test {
+  /* 16px for margins should be 1em */
+  margin-top: 1em;
+  /* 16px for margins should be 2.66667% (relative to parent's width) */
+  margin-right: 2.66667%;
+  /* 1.35em for margins should be 3.6% (relative to parent's width,
+   * even for top and bottom margins) */
+  margin-bottom: 3.6%;
+  /* 16px for margins should be 2ex */
+  margin-left: 2ex; }
+
+.bar {
+  font-size: 18px;
+  width: 360px; }
+
+.bar .test {
+  /* 150% for line-height should be 27px */
+  line-height: 27px;
+  /* 1px should always be .0625rem for this page */
+  border-top: 0.0625rem;
+  /* 2em for this element should be 9.525mm (relative to own font-size, as inherited) */
+  margin-top: 9.525mm;
+  /* 2px for margins should be .55556% (relative to parent's width) */
+  margin-right: 0.55556%;
+  /* 1rem should always be 16px for this page, even when own font-size is 18px */
+  margin-bottom: 16px; }
+
+.rem {
+  background-size: 400px, 100% 32px;
+  background-size: 25rem, 100% 2rem; }

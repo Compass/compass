@@ -1,0 +1,17 @@
+@import "compass/css3/animation";
+@import "compass/css3/opacity";
+
+$browser-minimum-versions: (ie: "6");
+
+@include keyframes(test) {
+  0%, 100% {
+    @include opacity(1);
+  }
+  50% {
+    @include opacity(0);
+  }
+}
+
+.animation {
+  @include animation(test);
+}

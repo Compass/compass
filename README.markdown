@@ -11,21 +11,20 @@ Code Quality: [![Code Climate](https://codeclimate.com/github/chriseppstein/comp
 * [Compass Reference](http://compass-style.org/install/reference/)
 
 ## Author
-Compass is written by [Chris Eppstein](http://chriseppstein.github.com/).<br>
-Chris is the Software Architect of [Caring.com](http://caring.com) and a member of the [Sass](https://github.com/nex3/sass) core team.
+Compass is written by [Chris Eppstein](http://chriseppstein.github.io/).<br>
+Chris is a software engineer at [LinkedIn](http://www.linkedin.com/) and a member of the [Sass](https://github.com/nex3/sass) core team.
 
 ## Core Team Members
 
 * [Scott Davis](https://github.com/scottdavis)
-* [Eric Meyer](https://github.com/ericam)
+* [Eric Suzanne](https://github.com/ericam)
 * [Brandon Mathis](https://github.com/imathis)
-* [Anthony Short](https://github.com/anthonyshort/)
 
 ## Major Contributors
 
 * [Nico Hagenburger](https://github.com/hagenburger)
 
 ## License
-Copyright (c) 2008-2009 Christopher M. Eppstein<br>
+Copyright (c) 2008-2014 Christopher M. Eppstein<br>
 All Rights Reserved.<br>
-Released under a [slightly modified MIT License](compass/blob/stable/LICENSE.markdown).
+Released under a [slightly modified MIT License](LICENSE.markdown).
