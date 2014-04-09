@@ -576,7 +576,7 @@ class SpritesTest < Test::Unit::TestCase
       }
       
       .bar {
-        background-position: 33.33333% 100%;
+        background-position: 33.51351% 91.66667%;
       }
     CSS
   end
