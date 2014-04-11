@@ -2,7 +2,7 @@ module Compass::SassExtensions::Functions::InlineImage
 
   def inline_image(path, mime_type = nil)
     path = path.value
-    real_path = File.join(Compass.configuration.images_path, path)
+    real_path = image_path_for_size(path)
     inline_image_string(data(real_path), compute_mime_type(path, mime_type))
   end
 
