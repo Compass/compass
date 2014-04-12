@@ -18,7 +18,6 @@ Gem::Specification.new do |gemspec|
   gemspec.add_dependency 'compass-import-once', "~> #{File.read(File.join(File.dirname(__FILE__),"..","import-once","VERSION")).strip}"
   gemspec.add_dependency 'chunky_png', '~> 1.2'
   gemspec.add_dependency 'listen', '~> 1.1.0'
-  gemspec.add_dependency 'json'
 
   gemspec.post_install_message = <<-MESSAGE
     Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/compass Thanks!
