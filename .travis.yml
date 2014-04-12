@@ -15,6 +15,7 @@ gemfile:
   - core/Gemfile
   - cli/gemfiles/sass_3_3.gemfile
   - cli/gemfiles/sass_master.gemfile
+  - cli/gemfiles/listen_2.gemfile
 script: "cd $CI_TEST && bundle exec rake"
 matrix:
   allow_failures:
@@ -26,6 +27,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: 1.8.7
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: 1.8.7
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: 1.8.7
@@ -35,6 +39,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: 1.9.2
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: 1.9.2
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: 1.9.2
@@ -44,6 +51,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: 1.9.3
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: 1.9.3
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: 1.9.3
@@ -53,6 +63,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: jruby-18mode
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: jruby-18mode
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: jruby-18mode
@@ -62,6 +75,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: jruby-19mode
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: jruby-19mode
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: jruby-19mode
@@ -71,6 +87,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: rbx
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: rbx
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: rbx
@@ -80,6 +99,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: ree
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: ree
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: ree
@@ -89,6 +111,9 @@ matrix:
     - gemfile: cli/gemfiles/sass_master.gemfile
       env: CI_TEST=core
       rvm: 2.0.0
+    - gemfile: cli/gemfiles/listen_2.gemfile
+      env: CI_TEST=core
+      rvm: 2.0.0
     - gemfile: core/Gemfile
       env: CI_TEST=cli
       rvm: 2.0.0
@@ -96,6 +121,9 @@ matrix:
       env: CI_TEST=core
       rvm: 2.1.0
     - gemfile: cli/gemfiles/sass_master.gemfile
+      env: CI_TEST=core
+      rvm: 2.1.0
+    - gemfile: cli/gemfiles/listen_2.gemfile
       env: CI_TEST=core
       rvm: 2.1.0
     - gemfile: core/Gemfile
