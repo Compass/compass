@@ -45,28 +45,34 @@ module Compass
       extend HasDeprecatedConstantsFromCore
     end
   end
+
+  def shared_extension_paths
+    @shared_extension_paths ||= begin
+      if ENV["HOME"] && File.directory?(ENV["HOME"])
+        [File.join(ENV["HOME"], ".compass", "extensions")]
+      else
+        []
+      end
+    rescue ArgumentError # If HOME is relative
+      []
+    end
+  end
+  module_function :shared_extension_paths
 end
 
 require "sass"
 require "sass/plugin"
 require 'compass/util'
+require "compass/frameworks"
 require "compass/core/caniuse"
 require 'compass/core/sass_extensions'
 require 'compass/error'
 require 'compass/browser_support'
 require 'compass/configuration'
 
-if defined?(Compass::Frameworks)
-  Compass::Frameworks.register(
-    "compass",
-    :stylesheets_directory => Compass::Core.base_directory("stylesheets"),
-    :templates_directory => Compass::Core.base_directory("templates"),
-    :version => Compass::Core::VERSION
-  )
-else
-  if ENV.has_key?("SASS_PATH")
-    ENV["SASS_PATH"] = ENV["SASS_PATH"] + File::PATH_SEPARATOR + Compass::Core.base_directory("stylesheets")
-  else
-    ENV["SASS_PATH"] = Compass::Core.base_directory("stylesheets")
-  end
-end
+Compass::Frameworks.register(
+  "compass",
+  :stylesheets_directory => Compass::Core.base_directory("stylesheets"),
+  :templates_directory => Compass::Core.base_directory("templates"),
+  :version => Compass::Core::VERSION
+)

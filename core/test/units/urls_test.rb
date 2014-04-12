@@ -2,8 +2,6 @@
 test_directory = File.expand_path(File.dirname(__FILE__))
 $: << test_directory unless $:.include? test_directory
 require 'test_helper'
-require 'fileutils'
-require 'compass/core'
 
 class UrlsTest < Test::Unit::TestCase
   include Compass::Core::SassExtensions::Functions::Urls
