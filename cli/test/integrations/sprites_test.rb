@@ -572,11 +572,11 @@ class SpritesTest < Test::Unit::TestCase
       }
       
       .foo {
-        background-position: 0 50%;
+        background-position: 56.61972% 0;
       }
       
       .bar {
-        background-position: 33.51351% 91.66667%;
+        background-position: 68.31169% 0;
       }
     CSS
   end

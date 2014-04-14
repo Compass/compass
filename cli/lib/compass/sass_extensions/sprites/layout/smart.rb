@@ -11,7 +11,7 @@ module Compass
           private # ===========================================================================================>
 
           def calculate_positions!
-            fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images)
+            fitter = ::Compass::SassExtensions::Sprites::RowFitter.new(@images, 800)
         
             extra_x = 0
             extra_y = 0
