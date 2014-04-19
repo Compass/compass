@@ -14,6 +14,17 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
+0.12.6 (04/07/2014)
+-------------------
+
+* Don't read the compass version from a file, this causes issues in
+  jruby environments.
+
+0.12.5 (04/07/2014)
+-------------------
+
+* Fix a windows issue by forcing a Sass upgrade.
+
 0.12.4 (03/20/2014)
 -------------------
 
