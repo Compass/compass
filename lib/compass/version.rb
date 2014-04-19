@@ -1,5 +1,12 @@
 module Compass
   module Version
+    VERSION_DETAILS = {
+      :major => 0,
+      :minor => 12,
+      :build => 6,
+      :name => "Alnilam"
+    }
+
     # Returns a hash representing the version.
     # The :major, :minor, and :teeny keys have their respective numbers.
     # The :string key contains a human-readable string representation of the version.
@@ -21,8 +28,7 @@ module Compass
     end
 
     def read_version
-      require 'yaml'
-      @version = YAML::load(File.read(scope('VERSION.yml')))
+      @version = VERSION_DETAILS.dup
       @version[:teeny]  = @version[:patch]
       @version[:string] = "#{@version[:major]}.#{@version[:minor]}"
       @version[:string] << ".#{@version[:patch]}" if @version[:patch]
@@ -45,6 +51,8 @@ module Compass
           `git rev-parse HEAD`
         end
       end
+    rescue
+      nil
     end
 
   end

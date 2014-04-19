@@ -19,7 +19,7 @@ Gem::Specification.new do |gemspec|
   gemspec.add_dependency 'chunky_png', '~> 1.2'
   gemspec.add_dependency 'fssm', '>= 0.2.7'
 
-  gemspec.files = %w(README.markdown LICENSE.markdown VERSION.yml Rakefile)
+  gemspec.files = %w(README.markdown LICENSE.markdown Rakefile)
   gemspec.files += Dir.glob("bin/*")
   gemspec.files += Dir.glob("examples/**/*.*")
   gemspec.files -= Dir.glob("examples/**/*.css")
