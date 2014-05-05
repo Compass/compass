@@ -120,9 +120,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_map(map, "sprite")
     verify_sprite(sprite)
     if image = map.image_for(sprite.value)
-      image_path = Pathname.new(File.expand_path(image.file, Compass.configuration.images_path))
-      generated_images_path = Pathname.new(File.expand_path(Compass.configuration.generated_images_path))
-      quoted_string(image_path.relative_path_from(generated_images_path).to_s)
+      Sass::Script::String.new(image.file)
     else
       missing_image!(map, sprite)
     end
