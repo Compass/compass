@@ -40,6 +40,13 @@
   -webkit-transition: -webkit-transform 0.6s ease-out, opacity 0.2s ease-in;
   transition: transform 0.6s ease-out, opacity 0.2s ease-in; }
 
+.multiple-transitions-with-params-in-random-order {
+  -moz-transition: -moz-transform 0.6s ease-out, opacity 0.2s ease-in 0.5s, color 0.4s ease-in 0.5s;
+  -o-transition: -o-transform 0.6s ease-out, opacity 0.2s ease-in 0.5s, color 0.4s ease-in 0.5s;
+  -webkit-transition: -webkit-transform 0.6s ease-out, opacity 0.2s ease-in, color 0.4s ease-in;
+  -webkit-transition-delay: 0s, 0.5s, 0.5s;
+  transition: transform 0.6s ease-out, opacity 0.2s ease-in 0.5s, color 0.4s ease-in 0.5s; }
+
 .transition-property {
   -moz-transition-property: -moz-transform;
   -webkit-transition-property: -webkit-transform;
