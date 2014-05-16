@@ -9,6 +9,7 @@
 .single-transform-transition-with-delay     { @include single-transition(transform, 0.6s, ease-out, 0.2s); }
 .transform-transition { @include transition(transform 0.6s ease-out) }
 .multiple-transitions { @include transition(transform 0.6s ease-out, opacity 0.2s ease-in) }
+.multiple-transitions-with-params-in-random-order { @include transition(0.6s transform ease-out, 0.2s ease-in opacity 0.5s, ease-in color 0.4s 0.5s) }
 .transition-property { @include transition-property(transform); }
 .transition-properties { @include transition-property(transform, opacity, width, height, left, top); }
 .multiple-transition-properties { @include transition-property((opacity, transform, left)); }
