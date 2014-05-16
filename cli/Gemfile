@@ -7,6 +7,7 @@ unless ENV['PKG']
   gem "sass", :git => "https://github.com/nex3/sass.git", :branch => "stable"
   gem "compass-core", :path => "../core" unless defined?(CI)
   gem "compass-import-once", :path => "../import-once" unless defined?(CI)
+  gem 'sass-globbing', "~> 1.1.1"
   gem "cucumber", "~> 1.2.1"
   gem "rspec", "~> 2.0.0"
   gem "compass-validator", "3.0.1"
