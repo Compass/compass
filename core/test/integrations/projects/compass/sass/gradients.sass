@@ -130,3 +130,8 @@ $use-legacy-gradient-syntax: true
 .linear-gradient-unknown-old
   +background(linear-gradient(120deg, #ff0000 0%, #88aa44 100%))
 
+$svg-gradient-shim-threshold: 100
+$browser-minimum-versions: ('ie': '9')
+.issue-1676-has-svg-because-of-minimums
+  +background-image(linear-gradient(#ddd, #aaa))
+
