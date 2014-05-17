@@ -109,8 +109,8 @@
   transition-delay: 1s, 2s, 3s; }
 
 .regression-912 {
-  -moz-transition: background-color, 0.5s, ease-in, 0s width 0.5s ease-out 0s height 0.5s ease-in 0s top 0.5s ease-out 0s;
-  -o-transition: background-color, 0.5s, ease-in, 0s width 0.5s ease-out 0s height 0.5s ease-in 0s top 0.5s ease-out 0s;
-  -webkit-transition: background-color, 0.5s, ease-in, 0s width 0.5s ease-out 0s height 0.5s ease-in 0s;
-  -webkit-transition-delay: top 0.5s ease-out 0s;
-  transition: background-color 0.5s ease-in 0s width 0.5s ease-out 0s height 0.5s ease-in 0s top 0.5s ease-out 0s; }
+  -moz-transition: background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s;
+  -o-transition: background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s;
+  -webkit-transition: background-color 0.5s ease-in, width 0.5s ease-out, height 0.5s ease-in, top 0.5s ease-out;
+  -webkit-transition-delay: 0s, 0s, 0s, 0s;
+  transition: background-color 0.5s ease-in 0s, width 0.5s ease-out 0s, height 0.5s ease-in 0s, top 0.5s ease-out 0s; }

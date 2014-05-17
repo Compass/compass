@@ -119,7 +119,9 @@ $transitionable-prefixed-values: transform, transform-origin !default;
 
 @mixin transition($transitions...) {
   $default: (compact($default-transition-property $default-transition-duration $default-transition-function $default-transition-delay),);
+  $transitions: if(length($transitions) == 1 and type-of(nth($transitions, 1)) == list and list-separator(nth($transitions, 1)) == comma, nth($transitions, 1), $transitions);
   $transitions: set-arglist-default($transitions, $default);
+
 
   @include with-each-prefix(css-transitions, $transition-support-threshold) {
     $delays: comma-list();
