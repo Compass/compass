@@ -8,7 +8,6 @@ html {
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
   -moz-background-size: 100% 25px;
-  -o-background-size: 100% 25px;
   -webkit-background-size: 100% 25px;
   background-size: 100% 25px;
   background-position: left top; }

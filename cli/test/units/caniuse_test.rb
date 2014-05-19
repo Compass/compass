@@ -156,7 +156,7 @@ class CanIUseTest < Test::Unit::TestCase
     mins = caniuse.browser_ranges("border-radius", "-webkit")
     expected = {
       "android"=>["2.1", "4.4"],
-      "chrome"=>["4", "36"],
+      "chrome"=>["4", "37"],
       "ios-safari"=>["3.2", "7.0"],
       "safari"=>["3.1", "7"]
     }
