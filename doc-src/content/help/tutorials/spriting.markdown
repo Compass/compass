@@ -28,7 +28,7 @@ Each is an icon that is 32px square.
 <a name="basic-usage"></a>
 ## Basic Usage
 
-****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
+****Note**: The use of `my-icons` is only for this example, "my-icons" represents the folder name that contains your sprites.
 
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
     
