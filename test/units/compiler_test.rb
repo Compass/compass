@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'fileutils'
 
-class CompilerTest < Test::Unit::TestCase
+class CompilerTest < MiniTest::Test
   
   it "should strip css from file name and reappend" do
     compiler = Compass::Compiler.new(Dir.pwd, 'foo', 'bar', {})

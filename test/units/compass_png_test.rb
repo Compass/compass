@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'fileutils'
 
-class CompassPngTest < Test::Unit::TestCase
+class CompassPngTest < MiniTest::Test
   
   def test_class_crc_table  
     assert_equal 256, Compass::PNG::CRC_TABLE.length 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LayoutTest < Test::Unit::TestCase
+class LayoutTest < MiniTest::Test
   include SpriteHelper
 
   def setup

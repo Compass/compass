@@ -2,7 +2,7 @@ require 'test_helper'
 require 'compass'
 require 'stringio'
 
-class ConfigurationTest < Test::Unit::TestCase
+class ConfigurationTest < MiniTest::Test
 
   setup do
     Compass.reset_configuration!

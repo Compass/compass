@@ -3,7 +3,7 @@ require 'compass'
 require 'compass/exec'
 require 'stringio'
 
-class RegressionsTest < Test::Unit::TestCase
+class RegressionsTest < MiniTest::Test
   include Compass::CommandLineHelper
   setup do
     Compass.reset_configuration!

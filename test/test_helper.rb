@@ -20,8 +20,8 @@ require 'rubygems' if need_gems
 
 require 'compass'
 
-require 'test/unit'
-require "mocha/test_unit"
+require 'minitest/autorun'
+#require "mocha/test_unit"
 
 
 class String
@@ -35,7 +35,7 @@ end
 end
 
 
-class Test::Unit::TestCase
+class MiniTest::Test
   include Compass::Diff
   include Compass::TestCaseHelper
   include Compass::IoHelper

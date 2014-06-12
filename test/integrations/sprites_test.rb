@@ -5,7 +5,7 @@ require 'compass/logger'
 require 'sass/plugin'
 
 
-class SpritesTest < Test::Unit::TestCase
+class SpritesTest < MiniTest::Test
   
   def setup
     Compass.reset_configuration!
@@ -95,7 +95,7 @@ class SpritesTest < Test::Unit::TestCase
       @import "squares/*.png";
       @include all-squares-sprites;
     SCSS
-    assert_not_nil Dir.glob("#{@generated_images_tmp_path}/squares-s*.png").first
+    refute_nil Dir.glob("#{@generated_images_tmp_path}/squares-s*.png").first
     assert_correct <<-CSS, css
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/images/generated/squares-sbbc18e2129.png') no-repeat;
@@ -420,21 +420,21 @@ class SpritesTest < Test::Unit::TestCase
   end
 
   it "should provide a nice errors for lemonade's old users" do
-    assert_raise(Sass::SyntaxError) do
+    assert_raises(Sass::SyntaxError) do
       render <<-SCSS
         .squares {
           background: sprite-url("squares/*.png") no-repeat;
         }
       SCSS
     end
-    assert_raise(Sass::SyntaxError) do
+    assert_raises(Sass::SyntaxError) do
       css = render <<-SCSS
         .squares {
           background: sprite-image("squares/twenty-by-twenty.png") no-repeat;
         }
       SCSS
     end
-    assert_raise(Sass::SyntaxError) do
+    assert_raises(Sass::SyntaxError) do
       css = render <<-SCSS
         @import "squares/*.png";
 
@@ -610,7 +610,7 @@ class SpritesTest < Test::Unit::TestCase
   end
   
   it "should raise error on filenames that are not valid sass syntax" do
-    assert_raise(Compass::Error) do
+    assert_raises(Compass::Error) do
       css = render <<-SCSS
         @import "prefix/*.png";
         a {
