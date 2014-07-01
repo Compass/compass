@@ -286,7 +286,7 @@ module Compass
 
         def debug
           normalized_attrs = {}
-          ATTRIBUTES.each do |prop|
+          (ATTRIBUTES + ARRAY_ATTRIBUTES).each do |prop|
             values = []
             chain.each do |instance|
               values << {
