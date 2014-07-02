@@ -57,7 +57,7 @@ stylesheet is [magic](#magic-imports), it is not written to disk, and it can be 
 by setting configuration variables before you import it. See the section below on
 [Customization Options](customization-options). The goal of this stylesheet is to provide a
 simple naming convention for your sprites so that you they are easy to remember and use. You
-should never have to care what the is name of the generated sprite map, nor where a sprite
+should never have to care what is the name of the generated sprite map, nor where a sprite
 is located within it.
 
 <a name='nested-folders' id='nested-folders'></a>    
