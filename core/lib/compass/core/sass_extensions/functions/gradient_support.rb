@@ -228,8 +228,8 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     standardized_prefix :o
 
     def supports?(aspect)
-      # I don't know how to support degree-based gradients in old webkit gradients (owg) or svg so we just disable them.
-      if %w(owg svg).include?(aspect) && position_or_angle.is_a?(Sass::Script::Value::Number) && position_or_angle.numerator_units.include?("deg")
+      # I don't know how to support degree-based gradients in old webkit gradients (owg) so we just disable them.
+      if aspect == "owg"  && position_or_angle.is_a?(Sass::Script::Value::Number) && position_or_angle.numerator_units.include?("deg")
         false
       elsif aspect == "svg" && color_stops.value.any?{|cs| cs.stop.is_a?(Sass::Script::Value::String) }
         # calc expressions cannot be represented in svg

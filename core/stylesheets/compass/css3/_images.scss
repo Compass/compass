@@ -2,7 +2,7 @@
 @import "compass/utilities/general/hacks";
 
 $gradient-support-threshold: $graceful-usage-threshold !default;
-$svg-gradient-shim-threshold: 10.0 !default;
+$svg-gradient-shim-threshold: $graceful-usage-threshold !default;
 $border-image-support-threshold: $graceful-usage-threshold !default;
 
 // Compass assumes you will use the official gradient syntax,
