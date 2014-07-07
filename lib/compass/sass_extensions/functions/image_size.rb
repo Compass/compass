@@ -13,6 +13,7 @@ module Compass::SassExtensions::Functions::ImageSize
 
   class ImageProperties
     def initialize(file)
+      File.expand_path(Compass.configuration.generated_images_path)
       @file = (file.respond_to?(:to_path) ? file.to_path : file)
       @file_type = File.extname(@file)[1..-1]
     end
