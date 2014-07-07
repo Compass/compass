@@ -4,7 +4,7 @@ gemspec unless defined?(CI)
 
 unless ENV['PKG']
 
-  gem "sass", "~> 3.3.8" unless defined?(CI)
+  gem "sass", :git => "https://github.com/sass/sass.git", :branch => "stable", :submodules => true  unless defined?(CI)
   gem "compass-core", :path => "../core" unless defined?(CI)
   gem "compass-import-once", :path => "../import-once" unless defined?(CI)
   gem 'sass-globbing', "~> 1.1.1"
@@ -17,7 +17,7 @@ unless ENV['PKG']
   gem 'diff-lcs', '~> 1.1.2'
   gem 'rake'
   gem 'json', '~> 1.7.7', :platforms => :ruby_18
-  gem 'true', ">= 0.2.0"
+  gem 'true', :git => "https://github.com/ericam/true.git"
 
   # Warning be carful adding OS dependant gems above this line it will break the CI server please
   # place them below so they are excluded
@@ -25,12 +25,13 @@ unless ENV['PKG']
   unless ENV["CI"]
     gem 'rb-fsevent'
     gem 'ruby_gntp'
-    gem "ruby-prof", :platforms => :mri_18
+    gem "ruby-prof", :platforms => [:mri_19, :mri_20]
     gem "rcov", :platforms => :mri_18
-    gem 'guard'
-    gem 'guard-test'
-    gem 'guard-cucumber'
-    gem 'packager'
+    gem 'guard', :platforms => [:mri_20]
+    gem 'guard-test', :platforms => [:mri_20]
+    gem 'guard-cucumber', :platforms => [:mri_20]
+    # gem 'packager'
     gem 'colorize'
+    gem 'pry'
   end
 end

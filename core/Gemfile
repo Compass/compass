@@ -5,5 +5,5 @@ gemspec
 
 gem 'pry'
 gem 'diff-lcs', '~> 1.1.2'
-gem 'true', "~> 0.2.0"
+gem 'true', :git => "https://github.com/ericam/true.git"
 gem 'timecop', "~> 0.5.9.2"
