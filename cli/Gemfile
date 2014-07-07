@@ -14,6 +14,7 @@ unless ENV['PKG']
   gem "css_parser", "~> 1.0.1"
   gem "rubyzip", "0.9.9"
   gem 'mocha', '0.11.4'
+  gem 'minitest', '2.12.1'
   gem 'diff-lcs', '~> 1.1.2'
   gem 'rake'
   gem 'json', '~> 1.7.7', :platforms => :ruby_18
