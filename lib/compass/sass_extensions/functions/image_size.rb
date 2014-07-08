@@ -57,8 +57,6 @@ private
     real_path(image_file)
   end
 
-
-
   def real_path(image_file)
     # Compute the real path to the image on the file stystem if the images_dir is set.
     if Compass.configuration.generated_images_path
