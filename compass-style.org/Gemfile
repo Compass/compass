@@ -15,7 +15,7 @@ gem 'coderay'
 gem 'haml'
 gem 'rake'
 gem 'activesupport', '~> 3.0.10', :require => 'active_support/inflector'
-gem 'sass', ">= 3.3.0.rc.2"
+gem 'sass', "~> 3.3.0"
 gem 'compass', :path => ".."
 gem 'susy'
 gem 'css-slideshow', "0.2.0"
