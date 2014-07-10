@@ -24,6 +24,7 @@
     /* Content for ie 8 omitted.
        Not allowed in the current scope: ie 8 is incompatible with -moz. */
     opacity: 0; }
+
   100% {
     /* Content for ie 8 omitted.
        Not allowed in the current scope: ie 8 is incompatible with -moz. */
@@ -37,6 +38,7 @@
     /* Content for ie 8 omitted.
        Not allowed in the current scope: ie 8 is incompatible with -webkit. */
     opacity: 0; }
+
   100% {
     /* Content for ie 8 omitted.
        Not allowed in the current scope: ie 8 is incompatible with -webkit. */
@@ -46,6 +48,7 @@
     /* Content for ie 8 omitted.
        Not allowed in the current scope: The current scope only works with ie 10 - 11. */
     opacity: 0; }
+
   100% {
     /* Content for ie 8 omitted.
        Not allowed in the current scope: The current scope only works with ie 10 - 11. */

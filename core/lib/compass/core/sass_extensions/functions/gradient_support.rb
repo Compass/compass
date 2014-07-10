@@ -2,6 +2,147 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
   GRADIENT_ASPECTS = %w(webkit moz svg css2 o owg).freeze
 
+  class CSS3AngleToSVGConverter
+    include Math
+
+    def initialize(angle)
+      @original_angle = angle
+      @angle = handle_keywords(angle)
+      @angle = in_radians(@angle) % (2 * PI)
+      @quadrant = (@angle * 2 / PI).to_i
+      @angle = case @quadrant
+               when 0
+                 @angle
+               when 1
+                 PI - @angle
+               when 2
+                 @angle - PI
+               when 3
+                 2 * PI  - @angle
+               end
+    end
+
+    TOP    = 1
+    BOTTOM = 2
+    RIGHT  = 4
+    LEFT   = 8
+
+    DIR_KEYWORDS_TO_ANGLE = {
+      TOP            => 0,
+      TOP    | RIGHT => 45,
+               RIGHT => 90,
+      BOTTOM | RIGHT => 135,
+      BOTTOM         => 180,
+      BOTTOM | LEFT  => 225,
+               LEFT  => 270,
+      TOP    | LEFT  => 315,
+    }
+
+    def handle_keywords(angle)
+      if angle.is_a?(Sass::Script::Value::List) || angle.is_a?(Sass::Script::Value::String)
+        direction = angle.to_sass
+        is_end_point = !!/\bto\b/i.match(direction)
+        dir = 0
+        dir |= TOP if /\btop\b/i.match(direction)
+        dir |= BOTTOM if /\bbottom\b/i.match(direction)
+        dir |= RIGHT if /\bright\b/i.match(direction)
+        dir |= LEFT if /\bleft\b/i.match(direction)
+        if (r = DIR_KEYWORDS_TO_ANGLE[dir])
+          r += 180 unless is_end_point
+          Sass::Script::Value::Number.new(r, %w(deg), [])
+        else
+          raise Sass::SyntaxError, "Unknown direction: #{angle.to_sass}"
+        end
+      else
+        angle
+      end
+    end
+
+    def in_radians(angle)
+      case angle.unit_str
+      when "deg"
+        angle.value * PI / 180.0
+      when "grad"
+        angle.value * PI / 200.0
+      when "rad"
+        angle.value
+      when "turn"
+        angle.value * PI * 2
+      else
+        raise Sass::SyntaxError.new("#{angle.unit_str} is not an angle")
+      end
+    end
+
+    def sin2(a)
+      v = sin(a)
+      v * v
+    end
+
+    def x
+      @x ||= if @angle > 1.570621793869697
+               1.0 # avoid floating point rounding error at the asymptote
+             else
+               tan(@angle) + (1 - tan(@angle)) * sin2(@angle)
+             end
+    end
+
+    def y
+      @y ||= if @angle < 0.0001
+               1.0 # the limit of the expression as we approach 0 is 1.
+             else
+               x / tan(@angle)
+             end
+    end
+
+    def x1
+      result case @quadrant
+             when 0, 1
+               -x
+             when 2, 3
+               x
+             end
+    end
+
+    def y1
+      result case @quadrant
+             when 0, 3
+               y
+             when 1, 2
+               -y
+             end
+    end
+
+    def x2
+      result case @quadrant
+             when 0, 1
+               x
+             when 2, 3
+               -x
+             end
+    end
+
+    def y2
+      result case @quadrant
+             when 0, 3
+               -y
+             when 1, 2
+               y
+             end
+    end
+
+    def scale(p)
+      (p + 1) / 2.0
+    end
+
+    def round6(v)
+      (v * 1_000_000).round / 1_000_000.0
+    end
+
+    def result(v)
+      round6(scale(v))
+    end
+  end
+
   class ColorStop < Sass::Script::Value::Base
     include Sass::Script::Value::Helpers
     attr_accessor :color, :stop
@@ -94,11 +235,11 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
     module ClassMethods
       def standardized_prefix(prefix)
-        class_eval %Q{
+        class_eval %Q<
           def to_#{prefix}(options = self.options)
             identifier("-#{prefix}-\#{to_s_prefixed(options)}")
           end
-        }
+        >
       end
     end
 
@@ -229,7 +370,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
     def supports?(aspect)
       # I don't know how to support degree-based gradients in old webkit gradients (owg) or svg so we just disable them.
-      if %w(owg svg).include?(aspect) && position_or_angle.is_a?(Sass::Script::Value::Number) && position_or_angle.numerator_units.include?("deg")
+      if %w(owg).include?(aspect) && position_or_angle.is_a?(Sass::Script::Value::Number) && position_or_angle.numerator_units.include?("deg")
         false
       elsif aspect == "svg" && color_stops.value.any?{|cs| cs.stop.is_a?(Sass::Script::Value::String) }
         # calc expressions cannot be represented in svg
@@ -465,11 +606,10 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def linear_svg_gradient(color_stops, start)
-      x1, y1 = *grad_point(start).value
-      x2, y2 = *grad_point(opposite_position(start)).value
+      converter = CSS3AngleToSVGConverter.new(start)
       stops = color_stops_in_percentages(color_stops)
 
-      svg = linear_svg(stops, x1, y1, x2, y2)
+      svg = linear_svg(stops, converter.x1, converter.y1, converter.x2, converter.y2)
       inline_image_string(svg.gsub(/\s+/, ' '), 'image/svg+xml')
     end
 
@@ -559,11 +699,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
     
     def linear_svg(color_stops, x1, y1, x2, y2)
-      transform = ''
-      if angle?(position_or_angle)
-        transform = %Q{ gradientTransform = "rotate(#{position_or_angle.value})"}
-      end
-      gradient = %Q{<linearGradient id="grad" gradientUnits="userSpaceOnUse" x1="#{x1}" y1="#{y1}" x2="#{x2}" y2="#{y2}"#{transform}>#{color_stops_svg(color_stops)}</linearGradient>}
+      gradient = %Q{<linearGradient id="grad" gradientUnits="objectBoundingBox" x1="#{x1}" y1="#{y1}" x2="#{x2}" y2="#{y2}">#{color_stops_svg(color_stops)}</linearGradient>}
       svg(gradient)
     end
 

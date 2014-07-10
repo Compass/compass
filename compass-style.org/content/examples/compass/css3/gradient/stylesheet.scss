@@ -5,6 +5,9 @@
   margin-right: 2%;
   float: left;
   @include clearfix;
+  p {
+    padding-top: 10px;
+  }
 }
 
 .gradient-example {
@@ -48,6 +51,19 @@
 #svg-gradient {
   $svg-gradient-shim-threshold: 1 !global;
   @include background-image(linear-gradient(to right, #2ac363, #cd8c14, #9c4cc2));
+  width: 80px;
+  height: 80px;
+}
+
+#angle-gradient {
+  $svg-gradient-shim-threshold: 1 !global;
+  @include background-image(linear-gradient(120deg, #2ac363, #cd8c14, #9c4cc2));
+  width: 80px;
+  height: 80px;
+}
+
+#angle-gradient-svg {
+  background-image: -svg(linear-gradient(120deg, #2ac363, #cd8c14, #9c4cc2));
   width: 80px;
   height: 80px;
 }
