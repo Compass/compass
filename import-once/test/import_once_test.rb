@@ -2,6 +2,27 @@
 require 'test_helper'
 require 'fileutils'
 
+# These are useful in debugging.
+module Sass::Script::Functions
+  def filename
+    if @options[:filename]
+      Sass::Script::String.new(@options[:filename], true)
+    else
+      Sass::Script::Null.new
+    end
+  end
+  def importer
+    if @options[:importer]
+      Sass::Script::String.new(@options[:importer].inspect, true)
+    else
+      Sass::Script::Null.new
+    end
+  end
+  def importer_is_import_onced
+    Sass::Script::Bool.new(@options[:importer].is_a?(Compass::ImportOnce::Importer))
+  end
+end
+
 class ImportOnceTest < Test::Unit::TestCase
   FIXTURES_DIR = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures")
   Dir.glob(File.join(FIXTURES_DIR, "**", "*.scss")).each do |scss_file|
