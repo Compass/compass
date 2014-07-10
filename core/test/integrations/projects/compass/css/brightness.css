@@ -14,7 +14,7 @@
   brightness: 29.9%; }
 
 .numeric-brightness-keeps-value {
-  brightness: 1.1; }
+  brightness: brightness(1.1); }
 
 .percentage-brightness-keeps-value {
-  brightness: 110%; }
+  brightness: brightness(110%); }

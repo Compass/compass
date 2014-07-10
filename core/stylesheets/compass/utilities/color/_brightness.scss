@@ -14,7 +14,7 @@
     @return ((red($color) * .299) + (green($color) * .587) + (blue($color) * .114)) / 255 * 100%;
   }
   @else {
-    @return $color;
+    @return unquote("brightness(#{$color})");
   }
 }
 
