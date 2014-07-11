@@ -28,43 +28,43 @@ module Compass
 
       def watch!
         if Sass::Util.listen_geq_2?
-          listener.start.join
+          @listeners.each {|l| l.start}
+          sleep
         else
           listener.start!
         end
       rescue Interrupt
+        if Sass::Util.listen_geq_2?
+          Listen.stop
+        else
+          listener.stop
+        end
         logger.log "\nHappy Styling!"
-        listener.stop
       end
 
     private #============================================================================>
 
       def setup_listener
+        Sass::Util.load_listen!
         listen_opts = {:relative_paths => false}
 
         if Sass::Util.listen_geq_2?
           listen_opts.update(:force_polling => true) if poll
-          listen_opts.update(:polling_fallback_message => POLLING_MESSAGE)
-        end
-
-        @listener = create_listener(directories_to_watch, listen_opts, &method(:listen_callback))
-
-        if !Sass::Util.listen_geq_2?
+          listen_opts.update(:polling_fallback_message => POLLING_MESSAGE,
+                             :ignore => /\.css$/)
+          @listeners = []
+          directories_to_watch.each do |dir|
+            # work around https://github.com/guard/listen/issues/243
+            @listeners << Listen.to(dir, listen_opts, &method(:listen_callback))
+          end
+        else
+          @listener = Listen::Listener.new(*directories_to_watch, listen_opts, &method(:listen_callback))
           @listener = listener.force_polling(true) if poll
           @listener = listener.polling_fallback_message(POLLING_MESSAGE)
+          @listener.ignore(/\.css$/)
         end
 
-        listener.ignore(/\.css$/)
         @listener
-      end
-
-      def create_listener(*args, &block)
-        Sass::Util.load_listen!
-        if Sass::Util.listen_geq_2?
-          Listen.to(*args, &block)
-        else
-          Listen::Listener.new(*args, &block)
-        end
       end
 
       def directories_to_watch
@@ -74,11 +74,13 @@ module Compass
                                     dirs.flatten!
                                     dirs.compact!
                                     dirs.select {|d| File.writable?(d) }
+                                    dirs.uniq!
+                                    dirs
                                   end
       end
 
       def listen_callback(modified_files, added_files, removed_files)
-        #log_action(:info, ">>> Listen Callback fired added: #{added_files}, mod: #{modified_files}, rem: #{removed_files}", {})
+        # log_action(:info, ">>> Listen Callback fired added: #{added_files}, mod: #{modified_files}, rem: #{removed_files}", {})
         files = {:modified => modified_files,
                  :added    => added_files,
                  :removed  => removed_files}
