@@ -223,12 +223,18 @@ module Compass
 
     # Haml refactored this logic in 2.3, this is backwards compatibility for either one
     def error_contents(e, sass_filename)
-      if Sass::SyntaxError.respond_to?(:exception_to_css)
+      if show_full_exception?
         e.sass_template = sass_filename
-        Sass::SyntaxError.exception_to_css(e, :full_exception => show_full_exception?)
+        Sass::SyntaxError.exception_to_css(e)
       else
-        Sass::Plugin.options[:full_exception] ||= show_full_exception?
-        Sass::Plugin.send(:exception_string, e)
+        header = Sass::SyntaxError.send(:header_string, e, 1)
+        <<END
+/*
+#{header.gsub("*/", "*\\/")}
+
+Backtrace:\n#{e.backtrace.join("\n").gsub("*/", "*\\/")}
+*/
+END
       end
     end
 

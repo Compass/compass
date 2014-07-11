@@ -52,8 +52,16 @@ module Compass
          Compass::ImportOnce.import_tracker[options[:css_filename]] ||= Set.new
       end
 
+      # Giant hack to support sass-globbing.
+      # Need to find a better fix.
+      def normalize_filesystem_importers(key)
+        key.map do |part|
+          part.sub(/Glob:/, 'Sass::Importers::Filesystem:')
+        end
+      end
+
       def import_tracker_key(engine, options)
-        key(engine.options[:filename], options).join("|").freeze
+        normalize_filesystem_importers(key(engine.options[:filename], options)).join("|").freeze
       end
 
       def dummy_engine(engine, options)

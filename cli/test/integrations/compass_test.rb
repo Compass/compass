@@ -119,6 +119,17 @@ class CompassTest < Test::Unit::TestCase
     end
   end
 
+  def test_with_sass_globbing
+    within_project('with_sass_globbing') do |proj|
+      each_css_file(proj.css_path) do |css_file|
+        assert_no_errors css_file, 'with_sass_globbing'
+      end
+      each_sass_file do |sass_file|
+        assert_renders_correctly sass_file
+      end
+    end
+  end
+
   def test_image_urls
     within_project('image_urls') do |proj|
       each_css_file(proj.css_path) do |css_file|
@@ -202,6 +213,7 @@ private
   def each_sass_file(sass_dir = nil)
     sass_dir ||= template_path(@current_project)
     Dir.glob("#{sass_dir}/**/*.s[ac]ss").each do |sass_file|
+      next if File.basename(sass_file).start_with?("_")
       yield sass_file[(sass_dir.length+1)..-6]
     end
   end

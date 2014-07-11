@@ -56,6 +56,27 @@ $transitionable-prefixed-values: transform, transform-origin !default;
   }
 }
 
+// Returns $transition-map which includes key and values that map to a transition declaration
+@function transition-map($transition) {
+  $transition-map: ();
+
+  @each $item in $transition {
+    @if is-time($item) {
+      @if map-has-key($transition-map, duration) {
+        $transition-map: map-merge($transition-map, (delay: $item));
+      } @else {
+        $transition-map: map-merge($transition-map, (duration: $item));
+      }
+    } @else if map-has-key($transition-map, property) {
+      $transition-map: map-merge($transition-map, (timing-function: $item));
+    } @else {
+      $transition-map: map-merge($transition-map, (property: $item));
+    }
+  }
+
+  @return $transition-map;
+}
+
 // One or more properties to transition
 //
 // * for multiple, use a comma-delimited list
@@ -119,7 +140,9 @@ $transitionable-prefixed-values: transform, transform-origin !default;
 
 @mixin transition($transitions...) {
   $default: (compact($default-transition-property $default-transition-duration $default-transition-function $default-transition-delay),);
+  $transitions: if(length($transitions) == 1 and type-of(nth($transitions, 1)) == list and list-separator(nth($transitions, 1)) == comma, nth($transitions, 1), $transitions);
   $transitions: set-arglist-default($transitions, $default);
+
 
   @include with-each-prefix(css-transitions, $transition-support-threshold) {
     $delays: comma-list();
@@ -131,20 +154,16 @@ $transitionable-prefixed-values: transform, transform-origin !default;
     // This block can be made considerably simpler at the point in time that
     // we no longer need to deal with the differences in how delays are treated.
     @each $transition in $transitions {
-      // Extract the values from the list
-      // (this would be cleaner if nth took a 3rd argument to provide a default value).
-      $property: nth($transition, 1);
-      $duration: if(length($transition) >= 2, nth($transition, 2), null);
-      $timing-function: if(length($transition) >= 3, nth($transition, 3), null);
-      $delay: if(length($transition) >= 4, nth($transition, 4), null);
-      $has-delays: $has-delays or $delay;
+      // Declare initial values for transition
+      $transition: transition-map($transition);
 
-      // If a delay is provided without a timing function
-      @if is-time($timing-function) and not $delay {
-        $delay: $timing-function;
-        $timing-function: null;
-        $has-delays: true;
-      }
+      $property: map-get($transition, property);
+      $duration: map-get($transition, duration);
+      $timing-function: map-get($transition, timing-function);
+      $delay: map-get($transition, delay);
+
+      // Parse transition string to assign values into correct variables
+      $has-delays: $has-delays or $delay;
 
       @if $current-prefix == -webkit {
         // Keep a list of delays in case one is specified

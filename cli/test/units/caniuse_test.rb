@@ -59,8 +59,10 @@ class CanIUseTest < Test::Unit::TestCase
       "css-gradients",
       "css-grid",
       "css-hyphens",
+      "css-image-orientation",
       "css-masks",
       "css-mediaqueries",
+      "css-mixblendmode",
       "css-opacity",
       "css-placeholder",
       "css-reflections",
@@ -70,6 +72,7 @@ class CanIUseTest < Test::Unit::TestCase
       "css-sel2",
       "css-sel3",
       "css-selection",
+      "css-shapes",
       "css-sticky",
       "css-table",
       "css-textshadow",
@@ -85,6 +88,7 @@ class CanIUseTest < Test::Unit::TestCase
       "getcomputedstyle",
       "inline-block",
       "intrinsic-width",
+      "kerning-pairs-ligatures",
       "minmaxwh",
       "multibackgrounds",
       "multicolumn",
@@ -94,7 +98,9 @@ class CanIUseTest < Test::Unit::TestCase
       "rem",
       "style-scoped",
       "svg-css",
+      "text-decoration",
       "text-overflow",
+      "text-size-adjust",
       "text-stroke",
       "transforms2d",
       "transforms3d",
@@ -155,10 +161,10 @@ class CanIUseTest < Test::Unit::TestCase
   def test_browser_ranges_including_unprefixed
     mins = caniuse.browser_ranges("border-radius", "-webkit")
     expected = {
-      "android"=>["2.1", "4.4"],
-      "chrome"=>["4", "36"],
-      "ios-safari"=>["3.2", "7.0"],
-      "safari"=>["3.1", "7"]
+      "android"=>["2.1", "4.4.3"],
+      "chrome"=>["4", "38"],
+      "ios-safari"=>["3.2", "8"],
+      "safari"=>["3.1", "8"]
     }
     assert_equal(expected, mins)
   end

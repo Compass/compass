@@ -115,9 +115,11 @@ $multicolumn-support-threshold: $critical-usage-threshold !default;
     @if $current-prefix == -webkit {
       // Webkit uses non-standard syntax
       -webkit-column-break-#{$type}: $value;
+    } @else if $current-prefix == -moz {
+      // Moz uses a different non-standard syntax
+      -moz-page-break-#{$type}: $value;
     } @else {
-      // Official syntax
-      break-#{$type}: $value;
+      @include prefix-prop(break-#{$type}, $value);
     }
   }
 }

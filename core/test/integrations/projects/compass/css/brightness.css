@@ -12,3 +12,9 @@
 
 .red-is-29-point-9-percent {
   brightness: 29.9%; }
+
+.numeric-brightness-keeps-value {
+  brightness: brightness(1.1); }
+
+.percentage-brightness-keeps-value {
+  brightness: brightness(110%); }

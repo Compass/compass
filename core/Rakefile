@@ -23,7 +23,7 @@ task :caniuse do
   require 'uri'
   require 'net/http'
   require 'net/https'
-  uri = URI.parse("https://raw.github.com/Fyrd/caniuse/master/data.json")
+  uri = URI.parse("https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json")
   https = Net::HTTP.new(uri.host,uri.port)
   https.use_ssl = true
   req = Net::HTTP::Get.new(uri.path)

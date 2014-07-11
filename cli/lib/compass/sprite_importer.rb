@@ -51,6 +51,11 @@ module Compass
     def key(uri, options={})
       [self.class.name + ":sprite:" + File.dirname(File.expand_path(uri)), File.basename(uri)]
     end
+
+    def public_url
+      nil
+    end
+
     
     def self.path_and_name(uri)
       if uri =~ SPRITE_IMPORTER_REGEX

@@ -1,4 +1,3 @@
-require 'listen'
 require 'forwardable'
 module Compass
   module Watcher
@@ -28,7 +27,11 @@ module Compass
       end
 
       def watch!
-        listener.start!
+        if Sass::Util.listen_geq_2?
+          listener.start.join
+        else
+          listener.start!
+        end
       rescue Interrupt
         logger.log "\nHappy Styling!"
         listener.stop
@@ -37,12 +40,31 @@ module Compass
     private #============================================================================>
 
       def setup_listener
-        @listener = Listen::Listener.new(directories_to_watch,
-                                         :relative_paths => false)
-        @listener = listener.force_polling(true) if poll
-        @listener = listener.polling_fallback_message(POLLING_MESSAGE)
-        @listener = listener.ignore(/\.css$/)
-        @listener = listener.change(&method(:listen_callback))
+        listen_opts = {:relative_paths => false}
+
+        if Sass::Util.listen_geq_2?
+          listen_opts.update(:force_polling => true) if poll
+          listen_opts.update(:polling_fallback_message => POLLING_MESSAGE)
+        end
+
+        @listener = create_listener(directories_to_watch, listen_opts, &method(:listen_callback))
+
+        if !Sass::Util.listen_geq_2?
+          @listener = listener.force_polling(true) if poll
+          @listener = listener.polling_fallback_message(POLLING_MESSAGE)
+        end
+
+        listener.ignore(/\.css$/)
+        @listener
+      end
+
+      def create_listener(*args, &block)
+        Sass::Util.load_listen!
+        if Sass::Util.listen_geq_2?
+          Listen.to(*args, &block)
+        else
+          Listen::Listener.new(*args, &block)
+        end
       end
 
       def directories_to_watch
