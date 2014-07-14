@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CompassModuleTest < Test::Unit::TestCase
+class CompassModuleTest < MiniTest::Test
 
   def setup
     Compass.reset_configuration!

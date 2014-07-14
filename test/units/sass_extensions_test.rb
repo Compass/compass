@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SassExtensionsTest < Test::Unit::TestCase
+class SassExtensionsTest < MiniTest::Test
   def test_simple
     assert_equal "a b", evaluate(%Q{nest("a", "b")})
   end

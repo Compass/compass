@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EngineTest < Test::Unit::TestCase
+class EngineTest < MiniTest::Test
   include SpriteHelper
   def setup
     create_sprite_temp

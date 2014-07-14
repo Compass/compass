@@ -2,7 +2,7 @@ require 'test_helper'
 require 'mocha'
 require 'ostruct'
 
-class SpritesImageTest < Test::Unit::TestCase
+class SpritesImageTest < MiniTest::Test
   include SpriteHelper
 
   def setup
@@ -57,7 +57,7 @@ class SpritesImageTest < Test::Unit::TestCase
   end
   
   test 'image type is "global" should raise exception' do
-    assert_raise ::Compass::SpriteException do
+    assert_raises ::Compass::SpriteException do
       image = test_image "selectors_ten_by_ten_repeat" => Sass::Script::String.new('global')
       image.repeat
     end
