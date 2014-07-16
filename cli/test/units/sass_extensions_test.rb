@@ -188,6 +188,10 @@ WARNING
     }
   end
 
+  def test_absolute_font_path_only
+    assert_equal '/font/name.ext', evaluate('font-url("/font/name.ext", true)')
+  end
+
   def test_inline_font_files
     Compass.configuration.fonts_path = File.expand_path "../fixtures/fonts", File.dirname(__FILE__)
     base64_string = File.read(File.join(Compass.configuration.fonts_path, "bgrove.base64.txt")).chomp
