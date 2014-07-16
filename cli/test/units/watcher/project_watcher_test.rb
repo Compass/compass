@@ -24,7 +24,11 @@ class ProjectWatcherTest < Test::Unit::TestCase
   end
 
   test "should initalize correctly" do
-    assert @project_watcher.listener.is_a?(Listen::Listener)
+    if Sass::Util.listen_geq_2?
+      assert @project_watcher.listener.is_a?(Listen::Listener)
+    else
+      assert @project_watcher.listeners.is_a?(Array) && @project_watcher.listeners.size > 0
+    end
     assert_equal 1, @project_watcher.watchers.size
   end
 

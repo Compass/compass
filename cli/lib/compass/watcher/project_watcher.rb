@@ -42,6 +42,10 @@ module Compass
         logger.log "\nHappy Styling!"
       end
 
+      def listeners
+        @listeners || [@listener]
+      end
+
     private #============================================================================>
 
       def setup_listener
@@ -58,7 +62,8 @@ module Compass
             @listeners << Listen.to(dir, listen_opts, &method(:listen_callback))
           end
         else
-          @listener = Listen::Listener.new(*directories_to_watch, listen_opts, &method(:listen_callback))
+          args = directories_to_watch + [listen_opts]
+          @listener = Listen::Listener.new(*args, &method(:listen_callback))
           @listener = listener.force_polling(true) if poll
           @listener = listener.polling_fallback_message(POLLING_MESSAGE)
           @listener.ignore(/\.css$/)
