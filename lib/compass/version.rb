@@ -3,7 +3,7 @@ module Compass
     VERSION_DETAILS = {
       :major => 0,
       :minor => 12,
-      :build => 6,
+      :build => 7,
       :name => "Alnilam"
     }
 
