@@ -59,7 +59,14 @@ $default-border-radius: 5px !default;
     );
   }
   @else {
-    @include experimental(border-radius, $radius);
+    @include experimental(border-radius, $radius,
+      -moz,
+      -webkit,
+      not -o,
+      not -ms,
+      -khtml,
+      official
+    );
   }
 }
 
