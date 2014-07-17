@@ -178,7 +178,7 @@ $default-skew-y      : 5deg                  !default;
 // z-axis. The higher the perspective, the more exaggerated the foreshortening.
 // values from 500 to 1000 are more-or-less "normal" - a good starting-point.
 @mixin perspective($p) {
-  @include experimental(perspective, $p,
+  @include experimental(perspective, #{$p}px,
     -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
