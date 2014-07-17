@@ -35,6 +35,12 @@ The simplest way to use these icon sprites is to let compass give you a class fo
     @import "compass/utilities/sprites";
     @import "my-icons/*.png";
     @include all-my-icons-sprites;
+    
+****Note**
+
+    @include all-[sprite_name]-sprites - generates all the selectors automatically.
+    @include [sprite_name]-sprite - used for selector control.
+
 
 And you'll get the following CSS output:
 
