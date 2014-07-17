@@ -1,4 +1,4 @@
-/* ### Compass Support ------ */
+/* ### Compass Support ---------- */
 /* - [function] set-arglist-default() with no arguments (1 Assertions, 1 Passed, 0 Failed) */
 /* - [function] set-arglist-default() with a "default" argument (1 Assertions, 1 Passed, 0 Failed) */
 /* - [function] set-arglist-default() with a "default" argument and another argument (1 Assertions, 1 Passed, 0 Failed) */
@@ -14,9 +14,13 @@
 /* - [mixin] with-each-prefix() respects $supported-browsers (1 Assertions, 1 Passed, 0 Failed) */
 /* - [mixin] with-each-prefix() respects $current-prefix (3 Assertions, 3 Passed, 0 Failed) */
 /* - [fuction] has-browser-subset() (5 Assertions, 5 Passed, 0 Failed) */
-/*      15 Tests: */
-/*      - 15 Passed */
-/*      - 0 Failed */
+/*
+*/
+/* 15 Tests: */
+/* - 15 Passed */
+/* - 0 Failed */
+/*
+*/
 /* Capability css-animation is prefixed with -moz because 0.59827% of users need it which is more than the threshold of 0.1%. */
 /* Creating new -moz context. */
 @-moz-keyframes foo {
