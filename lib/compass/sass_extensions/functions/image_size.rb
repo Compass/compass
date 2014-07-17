@@ -59,11 +59,15 @@ private
 
   def real_path(image_file)
     # Compute the real path to the image on the file stystem if the images_dir is set.
-    if Compass.configuration.images_path
-      File.join(Compass.configuration.images_path, image_file)
-    else
-      File.join(Compass.configuration.project_path, image_file)
+    if Compass.configuration.generated_images_path
+      if File.file?(File.join(Compass.configuration.generated_images_path, image_file))
+        return File.join(Compass.configuration.generated_images_path, image_file)
+      end
     end
+    if Compass.configuration.images_path
+      return File.join(Compass.configuration.images_path, image_file)
+    end
+    File.join(Compass.configuration.project_path, image_file)
   end
 
   class JPEG
