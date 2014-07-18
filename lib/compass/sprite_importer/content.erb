@@ -7,7 +7,7 @@ $<%= name %>-sprite-dimensions: false !default;
 $<%= name %>-position: 0% !default;
 $<%= name %>-spacing: 0 !default;
 $<%= name %>-repeat: no-repeat !default;
-$<%= name %>-prefix: '' !default;
+$<%= name %>-prefix: '<%= name %>-' !default;
 $<%= name %>-clean-up: true !default;
 $<%= name %>-layout:vertical !default;
 $<%= name %>-inline: false !default;
@@ -76,6 +76,6 @@ $<%= name %>-inline: false !default;
 }
 
 // Generates a class for each sprited image.
-@mixin all-<%= name %>-sprites($dimensions: $<%= name %>-sprite-dimensions, $prefix: sprite-map-name($<%= name %>-sprites), $offset-x: 0, $offset-y: 0) {
+@mixin all-<%= name %>-sprites($dimensions: $<%= name %>-sprite-dimensions, $prefix: $<%= name %>-prefix, $offset-x: 0, $offset-y: 0) {
   @include <%= name %>-sprites(<%= sprite_names.join(" ") %>, $dimensions, $prefix, $offset-x, $offset-y);
 }
