@@ -126,7 +126,7 @@ Lastly, Compass v0.11 will have point releases as needed to adapt to changes in 
 
 ## Many Thanks
 
-Compass wouldn't be possible without Nathan Weizenbaum and his hard work on Sass. The latest Sass release
+Compass wouldn't be possible without Natalie Weizenbaum and her hard work on Sass. The latest Sass release
 provides a ton of great features that have made this Compass release possible.
 
 Compass is far to big for one person to manage it now. I'd like to thank the hard work of the Compass core team members:
