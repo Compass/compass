@@ -27,7 +27,7 @@ module Compass
       end
 
       def default_output_style
-        if top_level.environment == :development
+        if top_level.environment != :production
           :expanded
         else
           :compressed
@@ -35,7 +35,7 @@ module Compass
       end
 
       def default_line_comments
-        top_level.environment == :development
+        top_level.environment != :production
       end
 
       def default_color_output
