@@ -66,7 +66,7 @@ module Sass::Script
     end
 
     def to_s(options = self.options)
-      s = "#{name}(#{args.join(", ")})"
+      "#{name}(#{args.map{|a| a.to_s(options)}.join(", ")})"
     end
 
     %w(webkit moz o ms svg css2).each do |prefix|

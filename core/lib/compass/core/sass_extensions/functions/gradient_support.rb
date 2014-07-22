@@ -290,11 +290,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def to_s(options = self.options)
-      s = "radial-gradient("
-      s << position.to_s(options) << ", " if position
-      s << shape_and_size.to_s(options) << ", " if shape_and_size
-      s << color_stops.to_s(options)
-      s << ")"
+      to_official
     end
 
     def to_s_prefixed(options = self.options)
@@ -303,7 +299,47 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     
     standardized_prefix :webkit
     standardized_prefix :moz
-    standardized_prefix :o
+
+    def to_webkit(options = self.options)
+      s = "-webkit-radial-gradient("
+      s << old_standard_arguments(options)
+      s << ")"
+      identifier(s)
+    end
+
+    def to_moz(options = self.options)
+      s = "-moz-radial-gradient("
+      s << old_standard_arguments(options)
+      s << ")"
+      identifier(s)
+    end
+
+    def to_official
+      s = "radial-gradient("
+      s << new_standard_arguments(options)
+      s << ")"
+      identifier(s)
+    end
+
+    def new_standard_arguments(options = self.options)
+      if shape_and_size
+        "#{array_to_s(shape_and_size, options)} at #{array_to_s(position, options)}, #{array_to_s(color_stops, options)}"
+      elsif position
+        "#{array_to_s(position, options)}, #{array_to_s(color_stops, options)}"
+      else
+        array_to_s(color_stops, options)
+      end
+    end
+
+    def old_standard_arguments(options = self.options)
+      if shape_and_size
+        "#{array_to_s(position, options)}, #{array_to_s(shape_and_size, options)}, #{array_to_s(color_stops, options)}"
+      elsif position
+        "#{array_to_s(position, options)}, #{array_to_s(color_stops, options)}"
+      else
+        array_to_s(color_stops, options)
+      end
+    end
 
     def to_svg(options = self.options)
       # XXX Add shape support if possible
@@ -312,6 +348,16 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
     def to_css2(options = self.options)
       null
+    end
+
+    def array_to_s(array, opts)
+      if array.is_a?(Sass::Script::Value::List)
+        array.to_s
+      else
+        l = list(array, :space)
+        l.options = opts
+        l.to_s
+      end
     end
   end
 
@@ -495,6 +541,13 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       # Support legacy use of the color-stops() function
       if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
         color_stops = color_stops.first.value
+      end
+      if position_or_angle.is_a?(Sass::Script::Value::List) &&
+         (i = position_or_angle.value.index {|word| word.is_a?(Sass::Script::Value::String) && word.value == "at"})
+        shape_and_size = list(position_or_angle.value[0..(i-1)], :space)
+        shape_and_size.options = options
+        position_or_angle = list(position_or_angle.value[(i+1)..-1], :space)
+        position_or_angle.options = options
       end
       RadialGradient.new(position_or_angle, shape_and_size, send(:color_stops, *color_stops))
     end
