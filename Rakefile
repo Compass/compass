@@ -1,8 +1,14 @@
+
+GEMS = ['core', 'cli', 'import-once']
+
+
 task default: %w[test]
 
 desc "Run all tests"
 task :test do
-  sh './test_all.sh'
+  sh %{./test_all.sh} do |ok, res|
+     Rake::Task["test_cleanup"].invoke if ok
+  end
 end
 
 
@@ -21,4 +27,14 @@ task :test_cleanup do
     'import-once/.sass-cache/'
   ]
   dirs.each { |dir| rm_rf dir }
+end
+
+
+desc "Bundle Update"
+task :bundle_update do
+  GEMS.each do |gem|
+    chdir gem do
+      sh "bundle update"
+    end
+  end
 end
