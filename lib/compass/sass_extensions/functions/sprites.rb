@@ -161,8 +161,12 @@ module Compass::SassExtensions::Functions::Sprites
       x = offset_x.value - image.left
       x = Sass::Script::Number.new(x, x == 0 ? [] : ["px"])
     end
-    y = offset_y.value - image.top
-    y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
+    if offset_y.unit_str == "%"
+      y = offset_y
+    else
+      y = offset_y.value - image.top
+      y = Sass::Script::Number.new(y, y == 0 ? [] : ["px"])
+    end
     Sass::Script::List.new([x, y],:space)
   end
   Sass::Script::Functions.declare :sprite_position, [:map]
