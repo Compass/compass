@@ -84,6 +84,7 @@ module Compass
     end
 
     def relativize(path)
+      path = File.expand_path(path)
       if path.index(working_path+File::SEPARATOR) == 0
         path[(working_path+File::SEPARATOR).length..-1]
       elsif block_given?

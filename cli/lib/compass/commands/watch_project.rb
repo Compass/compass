@@ -1,9 +1,7 @@
 require 'fileutils'
 require 'pathname'
-require 'compass/commands/base'
 require 'compass/commands/update_project'
-require 'compass/watcher'
-require 'sass/plugin'
+require "compass/sass_compiler"
 
 module Compass
   module Commands
@@ -34,20 +32,19 @@ module Compass
       attr_accessor :last_update_time, :last_sass_files
 
       def perform
-        # '.' assumes you are in the executing directory. so get the full path to the directory
-        if options[:project_name] == '.'
-          Compass.configuration.project_path = Dir.pwd
+        compiler = new_compiler_instance
+        compiler.logger.time = true if options[:time]
+        prepare_project!(compiler)
+        compiler.logger.log ">>> #{compiler.logger.color(:green)}Compass is watching for changes.#{compiler.logger.color(:clear)} #{compiler.logger.color(:red)}Press Ctrl-C to Stop.#{compiler.logger.color(:clear)}"
+        begin
+          compiler.watch!
+        rescue Interrupt
+          compiler.logger.log "Happy Styling!"
         end
-        
-        project_watcher = Compass::Watcher::ProjectWatcher.new(Compass.configuration.project_path, Compass.configuration.watches, options, options[:poll])
+      end
 
-        puts ">>> Compass is watching for changes. Press Ctrl-C to Stop."
-        $stdout.flush
-        
-        project_watcher.compile
-        project_watcher.watch!
-
-
+      def compiler_options
+        super.merge(:poll => options[:poll])
       end
 
       class << self

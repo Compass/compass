@@ -30,12 +30,14 @@ module Compass
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
         plugin_opts[:line_comments] = line_comments
+        plugin_opts[:sourcemap] = sourcemap
         plugin_opts[:cache] = cache unless cache.nil?
         plugin_opts[:cache_location] = cache_path unless cache_path.nil?
         plugin_opts.merge!(sass_options || {})
         plugin_opts[:load_paths] ||= []
         plugin_opts[:load_paths] += load_paths
         plugin_opts[:load_paths] << Compass::SpriteImporter.new
+        plugin_opts[:full_exception] = (environment == :development)
         plugin_opts
       end
 

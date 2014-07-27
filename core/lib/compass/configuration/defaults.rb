@@ -97,8 +97,18 @@ module Compass
         end
       end
 
+      def default_cache_dir
+        ".sass-cache"
+      end
+
       def default_cache_path
-        if (pp = top_level.project_path) && (dir = top_level.cache_dir)
+        if (pp = top_level.project_path) && (dir = top_level.cache_dir_without_default)
+          Compass.projectize(dir, pp)
+        # TODO We should make Sass::Plugin.options a configuration source instead of
+        # TODO one-offing it like this.
+        elsif defined?(Sass::Plugin) && Sass::Plugin.options[:cache_location]
+          File.expand_path(Sass::Plugin.options[:cache_location])
+        elsif (pp = top_level.project_path) && (dir = top_level.cache_dir)
           Compass.projectize(dir, pp)
         end
       end

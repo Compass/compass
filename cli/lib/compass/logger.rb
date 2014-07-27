@@ -2,8 +2,6 @@ module Compass
 
   class Logger
 
-    DEFAULT_ACTIONS = [:directory, :exists, :remove, :create, :overwrite, :compile, :error, :identical, :warning]
-
     COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
 
     ACTION_COLORS = {
@@ -12,8 +10,14 @@ module Compass
       :info      => :green,
       :compile   => :green,
       :overwrite => :yellow,
+      :modified  => :yellow,
+      :clean     => :yellow,
+      :write     => :green,
       :create    => :green,
       :remove    => :yellow,
+      :delete    => :yellow,
+      :deleted   => :yellow,
+      :created   => :yellow,
       :exists    => :green,
       :directory => :green,
       :identical => :green,
@@ -21,8 +25,9 @@ module Compass
       :unchanged => :yellow
     }
 
+    DEFAULT_ACTIONS = ACTION_COLORS.keys
 
-    attr_accessor :actions, :options
+    attr_accessor :actions, :options, :time
 
     def initialize(*actions)
       self.options = actions.last.is_a?(Hash) ? actions.pop : {}
@@ -33,6 +38,9 @@ module Compass
     # Record an action that has occurred
     def record(action, *arguments)
       msg = ""
+      if time
+        msg << Time.now.strftime("%I:%M:%S.%3N %p")
+      end
       msg << color(ACTION_COLORS[action]) if Compass.configuration.color_output
       msg << "#{action_padding(action)}#{action}"
       msg << color(:clear) if Compass.configuration.color_output
@@ -40,22 +48,26 @@ module Compass
       log msg
     end
 
+    def green
+      wrap(:green) { yield }
+    end
+
     def red
-      $stderr.write(color(:red))
-      $stdout.write(color(:red))
-      yield
-    ensure
-      $stderr.write(color(:clear))
-      $stdout.write(color(:clear))
+      wrap(:red) { yield }
     end
 
     def yellow
-      $stderr.write(color(:yellow))
-      $stdout.write(color(:yellow))
+      wrap(:yellow) { yield }
+    end
+
+    def wrap(c, reset_to = :clear)
+      $stderr.write(color(c))
+      $stdout.write(color(c))
       yield
     ensure
-      $stderr.write(color(:clear))
-      $stdout.write(color(:clear))
+      $stderr.write(color(reset_to))
+      $stdout.write(color(reset_to))
+      $stdout.flush
     end
 
     def color(c)
@@ -70,11 +82,13 @@ module Compass
       end
     end
 
+    # Emit a log message without a trailing newline
     def emit(msg)
       print msg
+      $stdout.flush
     end
 
-    # Emit a log message
+    # Emit a log message with a trailing newline
     def log(msg)
       puts msg
       $stdout.flush
@@ -91,15 +105,14 @@ module Compass
     end
   end
 
-  class NullLogger
+  class NullLogger < Logger
     def record(*args)
     end
 
     def log(msg)
     end
 
-    def red
-      yield
+    def emit(msg)
     end
   end
 end
