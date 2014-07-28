@@ -97,20 +97,8 @@ module Compass
         Compass::SassCompiler.new(compiler_options)
       end
 
-      # TODO Filter the sass compiler
-      def explicit_sass_files
-        return unless options[:sass_files]
-        options[:sass_files].map do |sass_file|
-          if absolute_path? sass_file
-            sass_file
-          else
-            File.join(Dir.pwd, sass_file)
-          end
-        end
-      end
-
       def compiler_options
-        transfer_options(options, {}, :time, :debug_info)
+        compiler_opts = transfer_options(options, {}, :time, :debug_info, :only_sass_files)
       end
 
       def transfer_options(from, to, *keys)
@@ -149,10 +137,15 @@ module Compass
           if arguments.size > 0
             parser.options[:project_name] = arguments.shift if File.directory?(arguments.first)
             unless arguments.empty?
-              parser.options[:sass_files] = arguments.dup
+              parser.options[:only_sass_files] = absolutize(*arguments)
             end
           end
         end
+
+        def absolutize(*paths)
+          paths.map {|path| File.expand_path(path) }
+        end
+
       end
     end
   end
