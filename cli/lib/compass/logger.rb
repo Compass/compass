@@ -2,7 +2,7 @@ module Compass
 
   class Logger
 
-    COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33 }
+    COLORS = { :clear => 0, :red => 31, :green => 32, :yellow => 33, :blue => 34 }
 
     ACTION_COLORS = {
       :error     => :red,

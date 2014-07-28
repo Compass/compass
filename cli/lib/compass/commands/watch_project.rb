@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'fileutils'
 require 'pathname'
 require 'compass/commands/update_project'
@@ -38,9 +39,14 @@ module Compass
         compiler.logger.log ">>> #{compiler.logger.color(:green)}Compass is watching for changes.#{compiler.logger.color(:clear)} #{compiler.logger.color(:red)}Press Ctrl-C to Stop.#{compiler.logger.color(:clear)}"
         begin
           compiler.watch!
+          happy_styling!(compiler.logger)
         rescue Interrupt
-          compiler.logger.log "Happy Styling!"
+          happy_styling!(compiler.logger)
         end
+      end
+
+      def happy_styling!(logger)
+          logger.log "\n#{logger.color(:yellow)}★★★ #{logger.color(:blue)}Happy Styling!#{logger.color(:yellow)} ★★★#{logger.color(:clear)}"
       end
 
       def compiler_options
