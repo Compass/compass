@@ -8,6 +8,8 @@ module Compass
     attr_accessor :working_path, :from, :to, :options, :sass_options, :staleness_checker, :importer
 
     def initialize(working_path, from, to, options)
+      Compass::Deprecation.deprecated!(:compass_compiler_constructor,
+        "Compass::Compiler is deprecated. Use Compass::SassCompiler instead.")
       self.working_path = working_path.to_s
       self.from, self.to = File.expand_path(from), to
       self.logger = options.delete(:logger)

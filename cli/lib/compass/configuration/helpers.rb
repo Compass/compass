@@ -95,8 +95,16 @@ module Compass
         end
       end
 
+      # @deprecated
       def compiler
+        Compass::Deprecation.deprecated!(:compiler_accessor,
+          "Compass.compiler is deprecated. Use Compass.sass_compiler instead.")
+        Compass::Deprecation.mark_as_issued(:compass_compiler_constructor)
         Compass::Compiler.new(*Compass.configuration.to_compiler_arguments)
+      end
+
+      def sass_compiler(*args)
+        Compass::SassCompiler.new(*args)
       end
     end
   end

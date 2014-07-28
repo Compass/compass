@@ -2,6 +2,7 @@ module Compass
 end
 
 %w(core
+   deprecation
    dependencies
    sass_extensions
    version
