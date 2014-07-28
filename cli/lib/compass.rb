@@ -27,8 +27,7 @@ module Compass
   extend QuickCache
 end
 
-%w(watcher
-   configuration/adapters
+%w(configuration/adapters
    configuration/comments
    configuration/helpers
    configuration/serialization
