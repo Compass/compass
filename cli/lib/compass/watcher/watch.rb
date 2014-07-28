@@ -25,6 +25,7 @@ module Compass
 
     class Watch < BasicWatch
       attr_reader :glob
+      attr_reader :full_glob
 
       def initialize(glob, &block)
         super(&block)
@@ -32,10 +33,16 @@ module Compass
           raise WatcherException, "A glob must be supplied in order to be watched"
         end
         @glob = glob
+
+        if Pathname.new(glob).absolute?
+          @full_glob = glob
+        else
+          @full_glob = File.join(Compass.configuration.project_path, glob)
+        end
       end
 
       def match?(changed_path)
-        File.fnmatch(glob, changed_path)
+        File.fnmatch(full_glob, changed_path, File::FNM_PATHNAME)
       end
     end
 
