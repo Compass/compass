@@ -45,10 +45,6 @@ module Compass::Exec::GlobalOptionsParser
       self.options[:force] = true
     end
 
-    opts.on('--dry-run', :NONE, 'Dry Run. Tells you what it plans to do.') do
-      self.options[:dry_run] = true
-    end
-
     opts.on('--boring', :NONE, 'Turn off colorized output.') do
       self.options[:color_output] = false
     end

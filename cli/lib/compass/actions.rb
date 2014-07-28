@@ -29,14 +29,14 @@ module Compass
         raise Compass::FilesystemConflict.new(msg)
       else
         log_action :directory, separate("#{basename(dir)}/"), options
-        FileUtils.mkdir_p(dir) unless options[:dry_run]
+        FileUtils.mkdir_p(dir)
       end
     end
 
     # Write a file given the file contents as a string
     def write_file(file_name, contents, options = nil, binary = false)
       options ||= self.options if self.respond_to?(:options)
-      skip_write = options[:dry_run]
+      skip_write = false
       contents = process_erb(contents, options[:erb]) if options[:erb]
       if File.exists?(file_name)
         existing_contents = IO.read(file_name)
@@ -53,7 +53,7 @@ module Compass
         log_action :create, basename(file_name), options
       end
       if skip_write
-        FileUtils.touch file_name unless options[:dry_run]
+        FileUtils.touch file_name
       else
         mode = "w"
         mode << "b" if binary

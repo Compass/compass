@@ -39,7 +39,7 @@ module Compass
 
       def initialize(working_path, options)
         super
-        assert_project_directory_exists! unless dry_run?
+        assert_project_directory_exists!
       end
 
       def perform
@@ -87,10 +87,6 @@ module Compass
         elsif missing = file_list.find {|(sass_file, _, _)| !File.exist?(sass_file)}
           raise Compass::Error, "File not found: #{missing[0]}"
         end
-      end
-
-      def dry_run?
-        options[:dry_run]
       end
 
       def new_compiler_instance

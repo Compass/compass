@@ -25,17 +25,6 @@ Feature: Command Line
     And a sass file custom_project/sass/screen.scss is created
     And a css file custom_project/css/screen.css is created
 
-  Scenario: Perform a dry run of creating a project
-    When I create a project using: compass create my_project --dry-run
-    Then a directory my_project/ is not created
-    But a configuration file my_project/config.rb is reported created
-    And a sass file my_project/sass/screen.scss is reported created
-    And a sass file my_project/sass/print.scss is reported created
-    And a sass file my_project/sass/ie.scss is reported created
-    And I am told how to link to /stylesheets/screen.css for media "screen, projection"
-    And I am told how to link to /stylesheets/print.css for media "print"
-    And I am told how to conditionally link "IE" to /stylesheets/ie.css for media "screen, projection"
-
   Scenario: Creating a bare project
     When I create a project using: compass create bare_project --bare
     Then a directory bare_project/ is created
@@ -72,15 +61,6 @@ Feature: Command Line
     When I run: compass compile tmp_valid
     Then a directory tmp_valid/tmp/ is created
     And a css file tmp_valid/tmp/simple.css is created
-
-  Scenario: Dry Run of Compiling an existing project.
-    Given I am using the existing project in test/fixtures/stylesheets/valid
-    When I run: compass compile --dry-run
-    Then a directory tmp/ is not created
-    And a css file tmp/simple.css is not created
-    And a css file tmp/simple.css is reported created
-    And a css file tmp/another_simple.css is not created
-    And a css file tmp/another_simple.css is reported created
 
   Scenario: Recompiling a project with no changes
     Given I am using the existing project in test/fixtures/stylesheets/valid
