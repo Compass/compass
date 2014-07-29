@@ -3,7 +3,7 @@ test_directory = File.expand_path(File.dirname(__FILE__))
 $: << test_directory unless $:.include? test_directory
 require 'test_helper'
 
-class UrlsTest < Test::Unit::TestCase
+class UrlsTest < Minitest::Test
   include Compass::Core::SassExtensions::Functions::Urls
 
   def test_compute_relative_path

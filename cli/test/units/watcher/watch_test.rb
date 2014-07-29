@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'compass'
 
-class WatcherWatchTest < Test::Unit::TestCase
+class WatcherWatchTest < Minitest::Test
 
   test "should throw exception if given absolute path" do
     begin 

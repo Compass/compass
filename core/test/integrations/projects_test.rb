@@ -9,7 +9,7 @@ require 'pathname'
 require 'true'
 require 'timecop'
 
-class ProjectsTest < Test::Unit::TestCase
+class ProjectsTest < Minitest::Test
   def setup
     Compass.reset_configuration!
   end

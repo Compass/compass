@@ -9,7 +9,7 @@ end
 require 'test_helper'
 require 'compass'
 
-class GradientsTest < Test::Unit::TestCase
+class GradientsTest < Minitest::Test
   include Sass::Script::Value::Helpers
 
   def klass

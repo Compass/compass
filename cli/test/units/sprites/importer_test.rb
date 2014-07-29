@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImporterTest < Test::Unit::TestCase
+class ImporterTest < Minitest::Test
   include SpriteHelper
   
   def setup
