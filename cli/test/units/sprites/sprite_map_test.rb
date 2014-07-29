@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SpriteMapTest < Test::Unit::TestCase
+class SpriteMapTest < Minitest::Test
   include SpriteHelper
   
   def setup

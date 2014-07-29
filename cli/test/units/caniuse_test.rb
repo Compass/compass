@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'compass'
 
-class CanIUseTest < Test::Unit::TestCase
+class CanIUseTest < Minitest::Test
 
   def caniuse
     Compass::Core::CanIUse.instance

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SharedExtensionsTest < Test::Unit::TestCase
+class SharedExtensionsTest < Minitest::Test
 
   def setup
     Compass.reset_configuration!

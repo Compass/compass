@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'compass'
 
-class ProjectWatcherTest < Test::Unit::TestCase
+class ProjectWatcherTest < Minitest::Test
 
   def setup
     @working_path = File.join(fixture_path, 'stylesheets', 'valid')
