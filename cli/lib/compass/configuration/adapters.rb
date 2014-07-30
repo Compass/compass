@@ -30,7 +30,11 @@ module Compass
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
         plugin_opts[:line_comments] = line_comments
-        plugin_opts[:sourcemap] = sourcemap
+        if sass_3_4?
+          plugin_opts[:sourcemap] = sourcemap ? :auto : :none
+        else
+          plugin_opts[:sourcemap] = sourcemap
+        end
         plugin_opts[:cache] = cache unless cache.nil?
         plugin_opts[:cache_location] = cache_path unless cache_path.nil?
         plugin_opts[:quiet] = disable_warnings if disable_warnings
@@ -63,7 +67,11 @@ module Compass
         engine_opts = {:load_paths => sass_load_paths}
         engine_opts[:style] = output_style if output_style
         engine_opts[:line_comments] = line_comments
-        engine_opts[:sourcemap] = sourcemap
+        if sass_3_4?
+          engine_opts[:sourcemap] = sourcemap ? :auto : :none
+        else
+          engine_opts[:sourcemap] = sourcemap
+        end
         engine_opts[:cache] = cache
         engine_opts[:cache_location] = cache_path
         engine_opts[:quiet] = disable_warnings if disable_warnings
@@ -88,6 +96,10 @@ module Compass
         end
         load_paths << Compass::SpriteImporter.new
         load_paths
+      end
+
+      def sass_3_4?
+        Sass.version[:major] == 3 && Sass.version[:minor] == 4
       end
     end
     class Data

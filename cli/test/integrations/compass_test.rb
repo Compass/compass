@@ -189,6 +189,7 @@ private
     Compass.add_configuration(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
     Compass.configuration.project_path = project_path(project_name)
     Compass.configuration.environment = :production
+    Compass.configuration.sourcemap = false unless Compass.configuration.sourcemap_set?
 
     if config_block
       config_block.call(Compass.configuration)
