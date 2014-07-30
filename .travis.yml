@@ -18,8 +18,6 @@ gemfile:
 - cli/gemfiles/listen_2.gemfile
 script: cd $CI_TEST && bundle exec rake
 matrix:
-  allow_failures:
-  - rvm: rbx
   exclude:
   - gemfile: cli/gemfiles/sass_3_3.gemfile
     env: CI_TEST=core
