@@ -71,7 +71,7 @@ Feature: Command Line
     Given I am using the existing project in test/fixtures/stylesheets/valid
     And I run: compass compile sass/simple.sass
     Then a sass file sass/another_simple.scss is not mentioned
-    And a css file tmp/simple.css is reported created
+    And a css file tmp/simple.css is reported written
     And a css file tmp/simple.css is created
     And a css file tmp/another_simple.css is not created
 
@@ -80,7 +80,7 @@ Feature: Command Line
     When I run: compass compile
     And I run: compass compile sass/simple.sass --force
     Then a sass file sass/another_simple.scss is not mentioned
-    And a css file tmp/simple.css is reported identical
+    And a css file tmp/simple.css is reported written
 
   Scenario: Basic help
     When I run: compass help
@@ -110,7 +110,7 @@ Feature: Command Line
     And I wait 1 second
     And I touch sass/simple.sass
     And I run: compass compile
-    Then a css file tmp/simple.css is reported identical
+    Then a css file tmp/simple.css is reported written
 
   Scenario: Recompiling a project with changes
     Given I am using the existing project in test/fixtures/stylesheets/valid
@@ -118,7 +118,7 @@ Feature: Command Line
     And I wait 1 second
     And I add some sass to sass/simple.sass
     And I run: compass compile
-    And a css file tmp/simple.css is reported overwritten
+    And a css file tmp/simple.css is reported written
 
   Scenario: Cleaning a project
     Given I am using the existing project in test/fixtures/stylesheets/valid
@@ -143,7 +143,7 @@ Feature: Command Line
     And I touch sass/simple.sass
     And I wait 2 seconds
     And I shutdown the other process
-    Then a css file tmp/simple.css is reported identical
+    Then a css file tmp/simple.css is reported written
 
   Scenario: Generate a compass configuration file
     Given I should clean up the directory: config

@@ -135,11 +135,11 @@ Then "the following files are removed:" do |table|
 end
 
 Then /an? \w+ file ([^ ]+) is reported removed/ do |filename|
-  @last_result.should =~ /remove.*#{Regexp.escape(filename)}/
+  @last_result.should =~ /delete.*#{Regexp.escape(filename)}/
 end
 
-Then /an? \w+ file ([^ ]+) is reported created/ do |filename|
-  @last_result.should =~ /create.*#{Regexp.escape(filename)}/
+Then /an? \w+ file ([^ ]+) is reported written/ do |filename|
+  @last_result.should =~ /write.*#{Regexp.escape(filename)}/
 end
 
 Then /a \w+ file ([^ ]+) is (?:reported )?compiled/ do |filename|
