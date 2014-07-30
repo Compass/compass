@@ -28,7 +28,7 @@ class Compass::SassCompiler
     @error_count = 0
 
     public_methods(true).grep(/^when_/).each do |callback|
-      @compiler.send(callback.to_s.sub(/^when_/, 'on_'), &method(callback))
+      @compiler.send(callback.to_s.sub(/^when_/, 'on_')) {|*args| send(callback, *args) }
     end
   end
 
