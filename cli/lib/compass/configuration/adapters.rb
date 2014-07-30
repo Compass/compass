@@ -33,6 +33,9 @@ module Compass
         plugin_opts[:sourcemap] = sourcemap
         plugin_opts[:cache] = cache unless cache.nil?
         plugin_opts[:cache_location] = cache_path unless cache_path.nil?
+        plugin_opts[:quiet] = disable_warnings if disable_warnings
+        plugin_opts[:compass] = {}
+        plugin_opts[:compass][:environment] = environment
         plugin_opts.merge!(sass_options || {})
         plugin_opts[:load_paths] ||= []
         plugin_opts[:load_paths] += load_paths
@@ -60,9 +63,13 @@ module Compass
         engine_opts = {:load_paths => sass_load_paths}
         engine_opts[:style] = output_style if output_style
         engine_opts[:line_comments] = line_comments
+        engine_opts[:sourcemap] = sourcemap
         engine_opts[:cache] = cache
         engine_opts[:cache_location] = cache_path
         engine_opts[:quiet] = disable_warnings if disable_warnings
+        engine_opts[:compass] = {}
+        engine_opts[:compass][:environment] = environment
+        engine_opts[:full_exception] = (environment == :development)
         engine_opts.merge!(sass_options || {})
       end
 

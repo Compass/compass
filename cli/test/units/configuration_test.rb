@@ -70,7 +70,7 @@ class ConfigurationTest < Test::Unit::TestCase
     Compass.add_configuration(contents, 'test_watch_config')
     watch = Compass.configuration.watches.first
     assert_equal 'img/**/*', watch.glob
-    assert watch.is_a?(Compass::Watcher::Watch)
+    assert watch.is_a?(Compass::Configuration::Watch)
   end
 
   def test_serialization_warns_with_asset_host_set

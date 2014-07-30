@@ -4,7 +4,7 @@ gemspec unless defined?(CI)
 
 unless ENV['PKG']
 
-  gem "sass", "~> 3.3.10" unless defined?(CI)
+  gem "sass", "~> 3.3.12" unless defined?(CI)
   gem "compass-core", :path => "../core" unless defined?(CI)
   gem "compass-import-once", :path => "../import-once" unless defined?(CI)
   gem 'sass-globbing', "~> 1.1.1"

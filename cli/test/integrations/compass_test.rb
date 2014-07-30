@@ -179,7 +179,7 @@ private
         end
       end
       if expected_lines.size < actual_lines.size
-        assert(false, "#{actual_lines.size - expected_lines.size} Trailing lines found in #{actual_result_file}.css: #{actual_lines[expected_lines.size..-1].join('\n')}")
+        assert(false, "#{actual_lines.size - expected_lines.size} Trailing lines found in #{actual_result_file}: #{actual_lines[expected_lines.size..-1].join('\n')}")
       end
     end
   end
@@ -189,16 +189,16 @@ private
     Compass.add_configuration(configuration_file(project_name)) if File.exists?(configuration_file(project_name))
     Compass.configuration.project_path = project_path(project_name)
     Compass.configuration.environment = :production
-    args = Compass.configuration.to_compiler_arguments(:logger => Compass::NullLogger.new)
 
     if config_block
       config_block.call(Compass.configuration)
     end
 
     if Compass.configuration.sass_path && File.exists?(Compass.configuration.sass_path)
-      compiler = Compass::Compiler.new *args
+      compiler = Compass.sass_compiler
+      compiler.logger = Compass::NullLogger.new
       compiler.clean!
-      compiler.run
+      compiler.compile!
     end
     yield Compass.configuration if block_given?
   rescue

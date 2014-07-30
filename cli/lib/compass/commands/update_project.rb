@@ -94,7 +94,7 @@ module Compass
       end
 
       def compiler_options
-        compiler_opts = transfer_options(options, {}, :time, :debug_info, :only_sass_files)
+        transfer_options(options, {}, :time, :debug_info, :only_sass_files, :force)
       end
 
       def transfer_options(from, to, *keys)

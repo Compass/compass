@@ -12,6 +12,7 @@ class Compass::SassCompiler
   attr_accessor :only_sass_files
 
   def initialize(options = {}, config = Compass.configuration)
+    options = options.dup
     self.config = config
     self.display_compilation_times = options.delete(:time)
     self.working_path = options.delete(:working_path) || Dir.pwd
@@ -21,6 +22,7 @@ class Compass::SassCompiler
       plugin_options[:template_location] = []
       plugin_options[:load_paths] = config.sass_load_paths
     end
+    plugin_options[:always_update] = true if options.delete(:force)
     @compiler = Sass::Plugin::Compiler.new(plugin_options)
     @start_times = {}
     @error_count = 0
