@@ -52,7 +52,7 @@ module Compass
       [self.class.name + ":sprite:" + File.dirname(File.expand_path(uri)), File.basename(uri)]
     end
 
-    def public_url
+    def public_url(*args)
       nil
     end
 
