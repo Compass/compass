@@ -1,4 +1,4 @@
-FileUtils.rm_f "RELEASE_VERSION"
+sh "git checkout lib/compass/core/generated_version.rb"
 require 'rake/testtask'
 require 'rubygems/package_task'
 require 'bundler/setup'
@@ -42,7 +42,8 @@ task :test => ["test:integrations", "test:units"]
 task :default => :test
 
 spec = eval(File.read(FileList['compass-core.gemspec'].first), binding, "compass-core.gemspec")
-spec.files << "RELEASE_VERSION"
+spec.files << "lib/compass/core/generated_version.rb"
+spec.files.delete("VERSION")
 
 def spec.bump!
   segments = version.to_s.split(".")
@@ -60,11 +61,19 @@ task :build => [:test, :gem]
 
 task :gem => :release_version
 
-task :release_version do
-  open("RELEASE_VERSION", "w") do |f|
-    f.write(spec.version.to_s)
+task "lib/compass/core/generated_version.rb" do
+  open("lib/compass/core/generated_version.rb", "w") do |f|
+    f.write(<<VERSION_EOF)
+module Compass
+  module Core
+    VERSION = "#{spec.version}"
   end
 end
+VERSION_EOF
+  end
+end
+
+task :release_version => "lib/compass/core/generated_version.rb"
 
 desc "Make the prebuilt gem compass-core-#{spec.version}.gem public."
 task :publish => [:record_version, :push_gem, :tag]
@@ -84,8 +93,8 @@ task :record_version do
       f.write(spec.version.to_s)
     end
     sh "git add VERSION"
+    sh "git checkout lib/compass/core/generated_version.rb"
     sh %Q{git commit -m "Bump version to #{spec.version}."}
-    sh "rm RELEASE_VERSION"
   end
 end
 
