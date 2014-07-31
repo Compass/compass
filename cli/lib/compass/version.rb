@@ -1,14 +1,26 @@
 module Compass
   module Version
-    # Returns a hash representing the semantic version of the current compass release.
-    # See http://semver.org/ for more details.
-    #
-    # The :major, :minor, and :patch keys have their respective release numbers.
+    VERSION_DETAILS = {
+      :major => 1,
+      :minor => 0,
+      :patch => 0,
+      :state => "rc",
+      :iteration => 0,
+      :name => "Polaris"
+    }
+
+    # Returns a hash representing the version.
+    # The :major, :minor, and :teeny keys have their respective numbers.
     # The :string key contains a human-readable string representation of the version.
-    # The :prerelease key will have the current pre-release state
-    # The :build key will have the current pre-release build
+    # The :rev key will have the current revision hash.
+    #
+    # This method swiped from Haml and then modified, some credit goes to Nathan Weizenbaum
     def version
-      @version ||= read_version
+      if defined?(@version)
+        @version
+      else
+        read_version
+      end
     end
 
     protected
@@ -18,27 +30,36 @@ module Compass
     end
 
     def read_version
-      version_file = File.exist?(scope("RELEASE_VERSION")) ? scope("RELEASE_VERSION") : scope("VERSION")
-      v = File.read(version_file).strip
-      segments = v.split(".")
-      version_hash = {:string => v}
-      version_hash[:major] = segments.shift
-      version_hash[:minor] = segments.shift
-      version_hash[:patch] = segments.shift
-      version_hash[:prerelease] = segments.shift
-      version_hash[:build] = segments.shift
-      version_hash
+      @version = VERSION_DETAILS.dup
+      @version[:teeny]  = @version[:patch]
+      @version[:string] = "#{@version[:major]}.#{@version[:minor]}"
+      @version[:string] << ".#{@version[:patch]}" if @version[:patch]
+      @version[:string] << ".#{@version[:build]}" if @version[:build]
+      @version[:string] << ".#{@version[:state]}" if @version[:state]
+      @version[:string] << ".#{@version[:iteration]}" if @version[:iteration]
+      if !ENV['OFFICIAL'] && r = revision
+        @version[:string] << ".#{r[0..6]}"
+      end
+      @version
     end
+
+    def revision
+      revision_from_git
+    end
+
+    def revision_from_git
+      if File.exists?(scope('.git/HEAD'))
+        Dir.chdir scope(".") do
+          `git rev-parse HEAD`
+        end
+      end
+    rescue
+      nil
+    end
+
   end
 
   extend Compass::Version
 
-  def self.const_missing(const)
-    # This avoid reading from disk unless the VERSION is requested.
-    if const == :VERSION
-      version[:string]
-    else
-      super
-    end
-  end
+  VERSION = version[:string]
 end
