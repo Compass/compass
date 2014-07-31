@@ -27,19 +27,19 @@ Every release contains updated caniuse data unless otherwise noted.
 * Numerous bug fixes to gradients. All current syntax is fully supported
   and shimmed with older spec versions/vendor variants/svg when possible.
 
-1.0.0.alpha.21 (11/27/2013)
+1.0.0.alpha.21 (07/16/2013)
 ---------------------------
 * Handle the brightness() CSS syntax, which had been broken when compass
   defined a function by the same name.
 * Fixed incompatibilities between sass-globbing and import-once.
 *  [Numerous bug fixes](https://github.com/Compass/compass/compare/core-1.0.0.alpha.20...core-1.0.0.alpha.21)
 
-1.0.0.alpha.20 (11/27/2013)
+1.0.0.alpha.20 (06/27/2013)
 ---------------------------
 
 *  [Numerous bug fixes](https://github.com/Compass/compass/compare/core-1.0.0.alpha.19...core-1.0.0.alpha.20)
 
-1.0.0.alpha.19 (11/27/2013)
+1.0.0.alpha.19 (03/12/2103)
 ---------------------------
 
 * The `rem()` mixin can now handle comma-separated and nested lists
