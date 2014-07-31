@@ -48,6 +48,7 @@ class CanIUseTest < Test::Unit::TestCase
       "border-radius",
       "calc",
       "css-animation",
+      "css-appearance",
       "css-backgroundblendmode",
       "css-boxshadow",
       "css-canvas",
@@ -116,7 +117,12 @@ class CanIUseTest < Test::Unit::TestCase
     total = 0
     caniuse.browsers.each do |browser|
       caniuse.versions(browser).each do |version|
-        total += caniuse.usage(browser, version)
+        usage = caniuse.usage(browser, version)
+        if usage.nil?
+          puts "nil usage for #{browser} at version #{version}"
+          next
+        end
+        total += usage
       end
     end
     # all browsers add up to about 94%. that's... unfortunate.
@@ -162,7 +168,7 @@ class CanIUseTest < Test::Unit::TestCase
     mins = caniuse.browser_ranges("border-radius", "-webkit")
     expected = {
       "android"=>["2.1", "4.4.3"],
-      "chrome"=>["4", "38"],
+      "chrome"=>["4", "39"],
       "ios-safari"=>["3.2", "8"],
       "safari"=>["3.1", "8"]
     }
