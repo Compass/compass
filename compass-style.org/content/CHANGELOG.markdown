@@ -14,7 +14,32 @@ The Documentation for the [latest stable release](http://compass-style.org/docs/
 
 The Documentation for the [latest preview release](http://beta.compass-style.org/)
 
-1.0.0.alpha.18 (Unreleased)
+Every release contains updated caniuse data unless otherwise noted.
+
+1.0.0.rc.0 (11/27/2013)
+-----------------------
+
+* The compass watcher and compiler are now built upon the Sass watcher
+  and compiler, reducing the overal complexity and amount of code that's
+  needed to be maintained.
+* The `--dry-run` option is no longer supported for any compass commands.
+* Sass 3.4 is now supported.
+* Numerous bug fixes to gradients. All current syntax is fully supported
+  and shimmed with older spec versions/vendor variants/svg when possible.
+
+1.0.0.alpha.21 (11/27/2013)
+---------------------------
+* Handle the brightness() CSS syntax, which had been broken when compass
+  defined a function by the same name.
+* Fixed incompatibilities between sass-globbing and import-once.
+*  [Numerous bug fixes](https://github.com/Compass/compass/compare/core-1.0.0.alpha.20...core-1.0.0.alpha.21)
+
+1.0.0.alpha.20 (11/27/2013)
+---------------------------
+
+*  [Numerous bug fixes](https://github.com/Compass/compass/compare/core-1.0.0.alpha.19...core-1.0.0.alpha.20)
+
+1.0.0.alpha.19 (11/27/2013)
 ---------------------------
 
 * The `rem()` mixin can now handle comma-separated and nested lists
@@ -22,7 +47,6 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 1.0.0.alpha.17 (12/20/2013)
 ---------------------------
-
 
 * A variable `$compass-extensions` is available after importing
   `compass/support` that is a map of extensions to their version.
