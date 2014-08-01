@@ -1,13 +1,23 @@
+require 'compass/generated_version'
 module Compass
   module Version
-    VERSION_DETAILS = {
-      :major => 1,
-      :minor => 0,
-      :patch => 0,
-      :state => "rc",
-      :iteration => 0,
-      :name => "Polaris"
-    }
+    def scope(file) # :nodoc:
+      File.join(File.dirname(__FILE__), '..', '..', file)
+    end
+
+    def parse_version(version, name)
+      nil_or_int = lambda{|i| i.nil? ? nil : i.to_i}
+      segments = version.split(".")
+      {
+        :string => version,
+        :name => name,
+        :major => nil_or_int.call(segments.shift),
+        :minor => nil_or_int.call(segments.shift),
+        :patch => nil_or_int.call(segments.shift),
+        :state => segments.shift,
+        :iteration => nil_or_int.call(segments.shift)
+      }
+    end
 
     # Returns a hash representing the version.
     # The :major, :minor, and :teeny keys have their respective numbers.
@@ -16,50 +26,17 @@ module Compass
     #
     # This method swiped from Haml and then modified, some credit goes to Nathan Weizenbaum
     def version
-      if defined?(@version)
-        @version
-      else
-        read_version
-      end
+      Compass::VERSION_DETAILS
     end
-
-    protected
-
-    def scope(file) # :nodoc:
-      File.join(File.dirname(__FILE__), '..', '..', file)
-    end
-
-    def read_version
-      @version = VERSION_DETAILS.dup
-      @version[:teeny]  = @version[:patch]
-      @version[:string] = "#{@version[:major]}.#{@version[:minor]}"
-      @version[:string] << ".#{@version[:patch]}" if @version[:patch]
-      @version[:string] << ".#{@version[:build]}" if @version[:build]
-      @version[:string] << ".#{@version[:state]}" if @version[:state]
-      @version[:string] << ".#{@version[:iteration]}" if @version[:iteration]
-      if !ENV['OFFICIAL'] && r = revision
-        @version[:string] << ".#{r[0..6]}"
-      end
-      @version
-    end
-
-    def revision
-      revision_from_git
-    end
-
-    def revision_from_git
-      if File.exists?(scope('.git/HEAD'))
-        Dir.chdir scope(".") do
-          `git rev-parse HEAD`
-        end
-      end
-    rescue
-      nil
-    end
-
   end
 
   extend Compass::Version
 
-  VERSION = version[:string]
+  unless defined?(VERSION)
+    VERSION = File.read(scope("VERSION")).strip 
+    VERSION_NAME = File.read(scope("VERSION_NAME")).strip
+  end
+
+  VERSION_DETAILS = parse_version(VERSION, VERSION_NAME)
+
 end

@@ -1,5 +1,6 @@
-path = "#{File.dirname(__FILE__)}/lib"
-require File.join(path, 'compass/version')
+path = File.expand_path("lib", File.dirname(__FILE__))
+$:.unshift(path) unless $:.include?(path)
+require 'compass/version'
 
 Gem::Specification.new do |gemspec|
   gemspec.name = "compass"
