@@ -32,7 +32,7 @@ module Compass
 
   extend Compass::Version
 
-  unless defined?(VERSION)
+  unless defined?(::Compass::VERSION)
     VERSION = File.read(scope("VERSION")).strip 
     VERSION_NAME = File.read(scope("VERSION_NAME")).strip
   end

@@ -2,7 +2,7 @@
 GEMS = ['core', 'cli', 'import-once']
 
 
-task default: %w[test]
+task :default => %w[test]
 
 desc "Run all tests"
 task :test do
