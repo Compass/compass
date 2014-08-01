@@ -6,7 +6,9 @@ module Compass
 
     SIMPLE_FUNCTIONS = {
            "image" => %w(webkit),
-      "cross-fade" => %w(webkit)
+      "cross-fade" => %w(webkit),
+      "repeating-linear-gradient" => %w(webkit moz), # Hacky implementation
+      "repeating-radial-gradient" => %w(webkit moz)  # Hacky implementation
     }
 
     # Adds support for one or more aspects for the given simple function
