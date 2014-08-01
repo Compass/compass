@@ -420,7 +420,7 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
 $old-variable-warnings-issued: warn-about-old-variables() !default;
 
 // @private
-$pie-removal-warnging-issued: warn-about-pie-removal() !default;
+$pie-removal-warning-issued: warn-about-pie-removal() !default;
 
 // @private
 @function warn-about-useless-prefix-arguments($moz: null, $webkit: null, $o: null, $khtml: null, $official: null) {
