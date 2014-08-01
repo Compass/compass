@@ -19,14 +19,6 @@ module Compass
         Compass::Frameworks::ALL.each do |framework|
           locations << [framework.stylesheets_directory, File.join(css_path || css_dir || ".", framework.name)]
         end
-        load_paths = []
-        resolve_additional_import_paths.each do |additional_path|
-          if additional_path.is_a?(String)
-            locations << [additional_path, File.join(css_path || css_dir || ".", File.basename(additional_path))]
-          else
-            load_paths << additional_path
-          end
-        end
         plugin_opts = {:template_location => locations}
         plugin_opts[:style] = output_style if output_style
         plugin_opts[:line_comments] = line_comments
@@ -42,7 +34,7 @@ module Compass
         plugin_opts[:compass][:environment] = environment
         plugin_opts.merge!(sass_options || {})
         plugin_opts[:load_paths] ||= []
-        plugin_opts[:load_paths] += load_paths
+        plugin_opts[:load_paths] += resolve_additional_import_paths
         plugin_opts[:load_paths] << Compass::SpriteImporter.new
         plugin_opts[:full_exception] = (environment == :development)
         plugin_opts
