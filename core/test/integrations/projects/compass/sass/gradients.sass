@@ -179,3 +179,7 @@ $browser-minimum-versions: ('ie': '9')
 .issue-1676-has-svg-because-of-minimums
   +background-image(linear-gradient(#ddd, #aaa))
 
+$svg-gradient-shim-threshold: $critical-usage-threshold
+$browser-minimum-versions: ('ie': '10')
+.issue-1524-has-no-svg-because-of-minimums
+  +background-image(linear-gradient(#ddd, #aaa))
