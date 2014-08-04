@@ -8,7 +8,7 @@ module Compass
             name = name.value
           end
           name = name.to_s
-          @images.detect { |img| img.name == name}
+          @images.detect { |img| img.name.downcase == name.downcase}
          end
 
          # Returns true if the image name has a hover selector image
