@@ -16,7 +16,20 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 Every release contains updated caniuse data unless otherwise noted.
 
-1.0.0.rc.0 (11/27/2013)
+1.0.0.rc.1 (08/04/2014)
+-----------------------
+
+* Non-partials found in additional import paths specified in compass config are no longer compiled
+  to a subdirectory. (Issue #1737)
+* Add vendor prefixes for repeating gradients. (Issue #401)
+* The configuration adapters for compass configuration to Sass engine
+  options were moved to compass-core. (Issue #1739)
+* Handle sprite images with uppercase characters. (Issue #1740)
+* Sprite changes are not logged in quiet mode. (Issue #862)
+* Fix import-once issue with sprites. (Issue #1720)
+* Miscellaneous bug fixes.
+
+1.0.0.rc.0 (08/01/2014)
 -----------------------
 
 * The compass watcher and compiler are now built upon the Sass watcher
