@@ -22,7 +22,7 @@ module Compass
 
       def mtime(uri, options, *args)
         if uri =~ /^\(NOT IMPORTED\) (.*)$/
-          File.mtime($1)
+          File.mtime($1) if File.exist?($1)
         else
           super
         end
