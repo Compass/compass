@@ -27,9 +27,8 @@ module Compass
   extend QuickCache
 end
 
-%w(configuration/adapters
+%w(configuration/helpers
    configuration/comments
-   configuration/helpers
    configuration/serialization
    configuration/file_data
    app_integration

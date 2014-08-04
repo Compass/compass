@@ -168,6 +168,6 @@ module Compass
   end
 end
 
-%w(defaults inheritance paths data watch).each do |lib|
+%w(defaults inheritance paths data watch adapters).each do |lib|
   require "compass/configuration/#{lib}"
 end
