@@ -108,10 +108,14 @@ class Compass::SassCompiler
 
   def when_compilation_error(error, sass_file, css_file, sourcemap_file)
     @error_count += 1
-    if relativize(error.sass_filename) == relativize(sass_file)
-      logger.record :error, "#{relativize(error.sass_filename)} (Line #{error.sass_line}: #{error.message})"
+    if error.respond_to?(:sass_filename)
+      if relativize(error.sass_filename) == relativize(sass_file)
+        logger.record :error, "#{relativize(error.sass_filename)} (Line #{error.sass_line}: #{error.message})"
+      else
+        logger.record :error, "#{relativize(sass_file)} (Line #{error.sass_line} of #{relativize(error.sass_filename)}: #{error.message})"
+      end
     else
-      logger.record :error, "#{relativize(sass_file)} (Line #{error.sass_line} of #{relativize(error.sass_filename)}: #{error.message})"
+      logger.record :error, "#{relativize(sass_file)} (#{error.backtrace.first}: #{error.message})"
     end
     config.run_stylesheet_error(sass_file, error.message)
   end
