@@ -27,6 +27,27 @@ module Compass
 
     DEFAULT_ACTIONS = ACTION_COLORS.keys
 
+    ACTION_CAN_BE_QUIET = {
+      :error     => false,
+      :warning   => true,
+      :info      => true,
+      :compile   => true,
+      :overwrite => true,
+      :modified  => true,
+      :clean     => true,
+      :write     => true,
+      :create    => true,
+      :remove    => true,
+      :delete    => true,
+      :deleted   => true,
+      :created   => true,
+      :exists    => true,
+      :directory => true,
+      :identical => true,
+      :convert   => true,
+      :unchanged => true
+    }
+
     attr_accessor :actions, :options, :time
 
     def initialize(*actions)
@@ -37,6 +58,7 @@ module Compass
 
     # Record an action that has occurred
     def record(action, *arguments)
+      return if options[:quiet] && ACTION_CAN_BE_QUIET[action]
       msg = ""
       if time
         msg << Time.now.strftime("%I:%M:%S.%3N %p")

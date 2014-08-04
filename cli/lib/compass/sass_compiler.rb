@@ -5,6 +5,7 @@ class Compass::SassCompiler
   include Compass::Actions
 
   attr_writer :logger
+  attr_reader :quiet
   attr_reader :error_count
   attr_accessor :config
   attr_accessor :display_compilation_times
@@ -17,6 +18,7 @@ class Compass::SassCompiler
     self.display_compilation_times = options.delete(:time)
     self.working_path = options.delete(:working_path) || Dir.pwd
     self.only_sass_files = options.delete(:only_sass_files) || []
+    @quiet = options[:quiet]
     plugin_options = config.to_sass_plugin_options.merge(options)
     if only_sass_files.any?
       plugin_options[:template_location] = []
@@ -123,7 +125,7 @@ class Compass::SassCompiler
   end
 
   def logger
-    @logger ||= Compass::Logger.new
+    @logger ||= Compass::Logger.new(:quiet => quiet)
   end
 
   def corresponding_css_file(sass_file)
