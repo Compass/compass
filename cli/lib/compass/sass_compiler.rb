@@ -23,6 +23,8 @@ class Compass::SassCompiler
       plugin_options[:load_paths] = config.sass_load_paths
     end
     plugin_options[:always_update] = true if options.delete(:force)
+    plugin_options[:compass] ||= {}
+    plugin_options[:compass][:logger] = logger
     @compiler = Sass::Plugin::Compiler.new(plugin_options)
     @start_times = {}
     @error_count = 0
