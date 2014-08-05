@@ -136,7 +136,7 @@ WARNING
 
   def test_font_files
     assert_equal '', evaluate('font_files()')
-    assert_equal "url(/font/name.woff) format('woff'), url(/fonts/name.ttf) format('truetype'), url(/fonts/name.svg#fontpath) format('svg')", evaluate("font-files('/font/name.woff', woff, '/fonts/name.ttf', truetype, '/fonts/name.svg#fontpath', svg)")
+    assert_equal "url(/font/name.woff) format('woff'), url(/font/name.woff2) format('woff2'), url(/fonts/name.ttf) format('truetype'), url(/fonts/name.svg#fontpath) format('svg')", evaluate("font-files('/font/name.woff', woff, '/font/name.woff2', woff2, '/fonts/name.ttf', truetype, '/fonts/name.svg#fontpath', svg)")
 
     assert_equal "url(/font/with/right_ext.woff) format('woff')", evaluate("font_files('/font/with/right_ext.woff')")
     assert_equal "url(/font/with/wrong_ext.woff) format('svg')", evaluate("font_files('/font/with/wrong_ext.woff', 'svg')")
