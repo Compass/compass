@@ -1,0 +1,19 @@
+.flag_states_sprite, .flag_states_foo {
+  background-image: url('/images/flag_states-sc42d7bf926.png');
+  background-repeat: no-repeat; }
+
+.flag_states_foo {
+  background-position: 0 0;
+  height: 11px;
+  width: 16px; }
+  .flag_states_foo:hover, .flag_states_foo.foo_hover {
+    background-position: 0 -33px; }
+  .flag_states_foo:target, .flag_states_foo.foo_target {
+    background-position: 0 -44px; }
+  .flag_states_foo:active, .flag_states_foo.foo_active {
+    background-position: 0 -11px; }
+  .flag_states_foo:focus, .flag_states_foo.foo_focus {
+    background-position: 0 -22px; }
+
+.sprite-file {
+  location: url('/images/flag_states/foo.png?busted=true'); }

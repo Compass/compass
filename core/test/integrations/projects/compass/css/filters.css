@@ -1,0 +1,53 @@
+.blur {
+  /* Capability css-filters is not prefixed with -moz because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -o because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is prefixed with -webkit because 50.0928% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -webkit context. */
+  -webkit-filter: blur(5px);
+  filter: blur(5px); }
+
+.brightness {
+  /* Capability css-filters is not prefixed with -moz because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -o because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is prefixed with -webkit because 50.0928% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -webkit context. */
+  -webkit-filter: brightness(0.2);
+  filter: brightness(0.2); }
+
+.hue-rotate {
+  /* Capability css-filters is not prefixed with -moz because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -o because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is prefixed with -webkit because 50.0928% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -webkit context. */
+  -webkit-filter: hue-rotate(20deg);
+  filter: hue-rotate(20deg); }
+
+.contrast {
+  /* Capability css-filters is not prefixed with -moz because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -o because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is prefixed with -webkit because 50.0928% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -webkit context. */
+  -webkit-filter: contrast(150%);
+  filter: contrast(150%); }
+
+.grayscale {
+  /* Capability css-filters is not prefixed with -moz because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -o because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is prefixed with -webkit because 50.0928% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -webkit context. */
+  -webkit-filter: grayscale(150%);
+  filter: grayscale(150%); }
+
+.sepia {
+  /* Capability css-filters is not prefixed with -moz because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is not prefixed with -o because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-filters is prefixed with -webkit because 50.0928% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -webkit context. */
+  -webkit-filter: sepia(150%);
+  filter: sepia(150%); }

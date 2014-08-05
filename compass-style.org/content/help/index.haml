@@ -1,0 +1,41 @@
+---
+title: Compass Help
+crumb: Help
+classnames:
+  - help
+  - getting-started
+layout: site
+---
+%article
+  %h1 Getting started with Compass
+
+  :markdown
+    Compass is an open-source CSS authoring framework which uses the [Sass stylesheet
+    language](http://sass-lang.com) to make writing stylesheets powerful and easy. If you're
+    not familiar with Sass, you can take a look at [these simple tutorials](http://sass-lang.com/tutorial.html)
+    to get caught up.
+
+  :markdown
+    ## Installing Compass
+
+    Compass is a tool that runs on the command line. On any system with ruby installed, open your terminal and type:
+
+        gem install compass
+
+    This will install Compass and Sass too. If you want to verify that compass is installed:
+
+        compass version
+
+    ## Manual Setup
+
+        compass create /path/to/project
+        cd /path/to/project
+        compass watch
+
+    Now you can edit the `*.scss` files in the `sass` directory with the text editor of your choice.
+    the `compass watch` process will automatically compile your them into css in the stylesheets directory whenever they change.
+    The files in the `sass` directory are yours and you can change them, delete them, add new ones, etc.
+
+    ## Rails Setup
+
+      Use [compass-rails](https://github.com/Compass/compass-rails)

@@ -1,0 +1,11 @@
+@import "compass/utilities/tables";
+
+.example {
+  table {
+    $table-color: #7a98c6;
+    @include table-scaffolding;
+    @include inner-table-borders(1px, darken($table-color, 40%));
+    @include outer-table-borders(2px);
+    @include alternating-rows-and-columns($table-color, adjust-hue($table-color, -120deg), #222222);
+  }
+}

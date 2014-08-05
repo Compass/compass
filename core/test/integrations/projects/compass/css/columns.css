@@ -1,0 +1,134 @@
+.columns {
+  -moz-columns: 20em 5;
+  -webkit-columns: 20em 5;
+  columns: 20em 5; }
+
+.column-count {
+  -moz-column-count: 5;
+  -webkit-column-count: 5;
+  column-count: 5; }
+
+.column-gap {
+  -moz-column-gap: 10px;
+  -webkit-column-gap: 10px;
+  column-gap: 10px; }
+
+.column-width {
+  -moz-column-width: 90px;
+  -webkit-column-width: 90px;
+  column-width: 90px; }
+
+.column-span {
+  -moz-column-span: all;
+  -webkit-column-span: all;
+  column-span: all; }
+
+.column-rule-width {
+  -moz-rule-width: 1px;
+  -webkit-rule-width: 1px;
+  rule-width: 1px; }
+
+.column-rule-style {
+  -moz-rule-style: dotted;
+  -webkit-rule-style: dotted;
+  rule-style: dotted; }
+
+.column-rule-color {
+  -moz-rule-color: blue;
+  -webkit-rule-color: blue;
+  rule-color: blue; }
+
+.column-rule {
+  -moz-column-rule: 1px solid blue;
+  -webkit-column-rule: 1px solid blue;
+  column-rule: 1px solid blue; }
+
+.column-rule-spaced {
+  -moz-column-rule: 1px solid blue;
+  -webkit-column-rule: 1px solid blue;
+  column-rule: 1px solid blue; }
+
+.column-break-before {
+  -moz-page-break-before: always;
+  -webkit-column-break-before: always;
+  break-before: always; }
+
+.column-break-after {
+  -moz-page-break-after: always;
+  -webkit-column-break-after: always;
+  break-after: always; }
+
+.column-break-inside {
+  -moz-page-break-inside: auto;
+  -webkit-column-break-inside: auto;
+  break-inside: auto; }
+
+.column-count {
+  -moz-column-count: 5;
+  -webkit-column-count: 5;
+  column-count: 5; }
+
+.column-gap {
+  -moz-column-gap: 10px;
+  -webkit-column-gap: 10px;
+  column-gap: 10px; }
+
+.column-width {
+  -moz-column-width: 90px;
+  -webkit-column-width: 90px;
+  column-width: 90px; }
+
+.column-rule-width {
+  -moz-rule-width: 1px;
+  -webkit-rule-width: 1px;
+  rule-width: 1px; }
+
+.column-rule-style {
+  -moz-rule-style: dotted;
+  -webkit-rule-style: dotted;
+  rule-style: dotted; }
+
+.column-rule-color {
+  -moz-rule-color: blue;
+  -webkit-rule-color: blue;
+  rule-color: blue; }
+
+.column-rule {
+  -moz-column-rule: 1px solid blue;
+  -webkit-column-rule: 1px solid blue;
+  column-rule: 1px solid blue; }
+
+.column-rule-spaced {
+  -moz-column-rule: 1px solid blue;
+  -webkit-column-rule: 1px solid blue;
+  column-rule: 1px solid blue; }
+
+.column-break-before {
+  -moz-page-break-before: always;
+  -webkit-column-break-before: always;
+  break-before: always; }
+
+.column-break-after {
+  -moz-page-break-after: always;
+  -webkit-column-break-after: always;
+  break-after: always; }
+
+.column-break-inside {
+  -moz-page-break-inside: auto;
+  -webkit-column-break-inside: auto;
+  break-inside: auto; }
+
+.column-break-before-shortcut {
+  -moz-page-break-before: always;
+  -webkit-column-break-before: always;
+  break-before: always; }
+
+.column-break-after-shortcut {
+  -moz-page-break-after: always;
+  -webkit-column-break-after: always;
+  break-after: always; }
+
+.column-break-inside-shortcut {
+  -moz-page-break-inside: auto;
+  -webkit-column-break-inside: auto;
+  break-inside: auto; }

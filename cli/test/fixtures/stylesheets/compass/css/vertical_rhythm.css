@@ -1,0 +1,42 @@
+html {
+  font-size: 87.5%;
+  line-height: 1.14286em; }
+
+.small {
+  font-size: 0.85714em;
+  line-height: 1.33333em; }
+
+.padded {
+  margin-top: 1.14286em;
+  padding-top: 1.14286em;
+  padding-bottom: 1.14286em;
+  margin-bottom: 1.14286em; }
+
+.small-padded {
+  font-size: 0.85714em;
+  line-height: 1.33333em;
+  margin-top: 1.33333em;
+  padding-top: 1.33333em;
+  padding-bottom: 1.33333em;
+  margin-bottom: 1.33333em; }
+
+.borders {
+  border-top-width: 0.07143em;
+  border-top-style: solid;
+  padding-top: 1.07143em;
+  border-bottom-width: 0.07143em;
+  border-bottom-style: solid;
+  padding-bottom: 1.07143em; }
+
+.large-borders {
+  font-size: 1.71429em;
+  line-height: 2em;
+  border-top-width: 0.25em;
+  border-top-style: solid;
+  padding-top: 0.41667em;
+  border-bottom-width: 0.25em;
+  border-bottom-style: solid;
+  padding-bottom: 0.41667em; }
+
+.reset {
+  line-height: 1.14286em; }

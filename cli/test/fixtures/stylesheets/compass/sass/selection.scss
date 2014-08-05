@@ -1,0 +1,41 @@
+$contrasted-dark-default: black;
+$contrasted-light-default: white;
+
+@import "compass/css3/selection";
+
+* {
+  @include selection {
+    background-color: #fe57a1;
+    color: #fff;
+  }
+}
+
+.hot-pink {
+  @include selection {
+    background-color: #fe57a1;
+    color: #fff;
+  }
+}
+
+.hot-pink-with-arguments {
+  @include selection(#fe57a1, white);
+}
+
+.hot-pink-with-arguments-and-extra-stuff {
+  @include selection(#fe57a1, white) {
+    text-decoration: line-through;
+  }
+}
+
+.hot-pink-with-default-foreground {
+  @include selection(#fe57a1);
+}
+
+.browser-support-is-considered {
+  @include selection(#fe57a1) {
+    prefix: $current-prefix;
+    -moz-prefix: $current-prefix == -moz;
+    -ms-prefix: $current-prefix == -ms;
+    -webkit-prefix: $current-prefix == -webkit;
+  }
+}

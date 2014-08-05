@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in compass-core.gemspec
+gemspec
+
+gem 'pry'
+gem 'diff-lcs', '~> 1.1.2'
+gem 'true', "~> 0.2.3"
+gem 'timecop', "~> 0.5.9.2"

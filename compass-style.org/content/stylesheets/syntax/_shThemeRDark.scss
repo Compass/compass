@@ -1,0 +1,113 @@
+
+// Dark Theme
+
+$background: none;
+
+$line_highlighted_background:	#323E41;
+$line_highlighted_number:		#b9bdb6;
+
+$gutter_text:					#afafaf;
+$gutter_border_color:			rgba(#fff, .15);
+
+$toolbar_collapsed_a:			#5ba1cf;
+$toolbar_collapsed_a_hover:		#5ce638;
+$toolbar_collapsed_background:	#000;
+
+$toolbar_a:						#fff;
+$toolbar_a_hover:				#e0e8ff;
+
+$code_plain:					#dadbb1;
+$code_comments:					#878a85;
+$code_string:					#64b041;
+$code_keyword:					#6cc7eb;
+$code_preprocessor:				#cd5c57;
+$code_variable:					$code_keyword;
+$code_value:					#ffa0a0;
+$code_functions:				#3d95e6;
+$code_constants:				#e0e8ff;
+$code_script:					$code_keyword;
+$code_script_background:		none;
+$code_color1:					#b0b76b;
+$code_color2:					#98f77a;
+$code_color3:					#ffaa3e;
+$code_color4:					$code_plain;
+
+//@import "theme_template.scss";
+
+// Interface elements.
+html.dark .syntaxhighlighter {
+	// Actual syntax highlighter colors.
+	.plain, .plain a { color: $code_plain; }
+	.comments, .comments a { color: $code_comments; }
+	.string, .string a { color: $code_string; }
+	.keyword { color: $code_keyword; }
+	.preprocessor { color: $code_preprocessor; }
+	.variable { color: $code_variable; }
+	.value { color: $code_value; }
+	.functions { color: $code_functions; }
+	.constants { color: $code_constants; }
+	.script {
+		font-weight: bold;
+		color: $code_script;
+		background-color: $code_script_background;
+	}
+	.color1, .color1 a { color: $code_color1; }
+	.color2, .color2 a { color: $code_color2; }
+	.color3, .color3 a { color: $code_color3; }
+	.color4, .color4 a { color: $code_color4; }
+}
+
+// Light Theme
+
+$background: none;
+
+$line_highlighted_background:	#c3defe;
+$line_highlighted_number:		#fff;
+
+$gutter_text:					#787878;
+$gutter_border_color:			#d4d0c8;
+
+$toolbar_collapsed_a:			#3f5fbf;
+$toolbar_collapsed_a_hover:		#aa7700;
+$toolbar_collapsed_background:	#fff;
+
+$toolbar_a:						#a0a0a0;
+$toolbar_a_hover:				red;
+
+$code_plain:					black;
+$code_comments:					#3f5fbf;
+$code_string:					#4fa33f;
+$code_keyword:					#7f0055;
+$code_preprocessor:				#006699;
+$code_variable:					#aa7700;
+$code_value:					#4fa33f;
+$code_functions:				#b553ba;
+$code_constants:				#0066cc;
+$code_color1:					gray;
+$code_color2:					#ca6436;
+$code_color3:					red;
+$code_color4:					$code_plain;
+
+// Interface elements.
+html.light .syntaxhighlighter {
+	// Actual syntax highlighter colors.
+	.plain, .plain a { color: $code_plain; }
+	.comments, .comments a { color: $code_comments; }
+	.string, .string a { color: $code_string; }
+	.keyword { color: $code_keyword; }
+	.preprocessor { color: $code_preprocessor; }
+	.variable { color: $code_variable; }
+	.value { color: $code_value; }
+	.functions { color: $code_functions; }
+	.constants { color: $code_constants; }
+	.script {
+		font-weight: bold;
+		color: $code_script;
+		background-color: $code_script_background;
+	}
+	.color1, .color1 a { color: $code_color1; }
+	.color2, .color2 a { color: $code_color2; }
+	.color3, .color3 a { color: $code_color3; }
+	.color4, .color4 a { color: $code_color4; }
+}
+

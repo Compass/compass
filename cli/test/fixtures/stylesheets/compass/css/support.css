@@ -1,0 +1,69 @@
+/* ### Compass Support ---------- */
+/* - [function] set-arglist-default() with no arguments (1 Assertions, 1 Passed, 0 Failed) */
+/* - [function] set-arglist-default() with a "default" argument (1 Assertions, 1 Passed, 0 Failed) */
+/* - [function] set-arglist-default() with a "default" argument and another argument (1 Assertions, 1 Passed, 0 Failed) */
+/* - [function] set-arglist-default() with a "default" argument not first and another argument (1 Assertions, 1 Passed, 0 Failed) */
+/* - [function] support-legacy-browser() from threshold (2 Assertions, 2 Passed, 0 Failed) */
+/* - [function] support-legacy-browser() from minimums (2 Assertions, 2 Passed, 0 Failed) */
+/* - [function] browser-out-of-scope() with no scope (2 Assertions, 2 Passed, 0 Failed) */
+/* - prefix context tracking (9 Assertions, 9 Passed, 0 Failed) */
+/* - [function] browser-out-of-scope() with a scope (2 Assertions, 2 Passed, 0 Failed) */
+/* - [function] browser-out-of-scope() with version (3 Assertions, 3 Passed, 0 Failed) */
+/* - [mixin] with-prefix() (4 Assertions, 4 Passed, 0 Failed) */
+/* - [mixin] with-each-prefix() (1 Assertions, 1 Passed, 0 Failed) */
+/* - [mixin] with-each-prefix() respects $supported-browsers (1 Assertions, 1 Passed, 0 Failed) */
+/* - [mixin] with-each-prefix() respects $current-prefix (3 Assertions, 3 Passed, 0 Failed) */
+/* - [fuction] has-browser-subset() (5 Assertions, 5 Passed, 0 Failed) */
+/*
+*/
+/* 15 Tests: */
+/* - 15 Passed */
+/* - 0 Failed */
+/*
+*/
+/* Capability css-animation is prefixed with -moz because 0.57224% of users need it which is more than the threshold of 0.1%. */
+/* Creating new -moz context. */
+@-moz-keyframes foo {
+  0% {
+    /* Content for ie 8 omitted.
+       Not allowed in the current scope: ie 8 is incompatible with -moz. */
+    opacity: 0; }
+
+  100% {
+    /* Content for ie 8 omitted.
+       Not allowed in the current scope: ie 8 is incompatible with -moz. */
+    opacity: 1; } }
+/* Capability css-animation is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+/* Capability css-animation is not prefixed with -o because 0.02146% of users are affected which is less than the threshold of 0.1. */
+/* Capability css-animation is prefixed with -webkit because 57.87258% of users need it which is more than the threshold of 0.1%. */
+/* Creating new -webkit context. */
+@-webkit-keyframes foo {
+  0% {
+    /* Content for ie 8 omitted.
+       Not allowed in the current scope: ie 8 is incompatible with -webkit. */
+    opacity: 0; }
+
+  100% {
+    /* Content for ie 8 omitted.
+       Not allowed in the current scope: ie 8 is incompatible with -webkit. */
+    opacity: 1; } }
+@keyframes foo {
+  0% {
+    /* Content for ie 8 omitted.
+       Not allowed in the current scope: The current scope only works with ie 10 - 11. */
+    opacity: 0; }
+
+  100% {
+    /* Content for ie 8 omitted.
+       Not allowed in the current scope: The current scope only works with ie 10 - 11. */
+    opacity: 1; } }
+.foo {
+  /* Capability css-animation is prefixed with -moz because 0.57224% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -moz context. */
+  -moz-animation: foo 1s;
+  /* Capability css-animation is not prefixed with -ms because 0% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-animation is not prefixed with -o because 0.02146% of users are affected which is less than the threshold of 0.1. */
+  /* Capability css-animation is prefixed with -webkit because 57.87258% of users need it which is more than the threshold of 0.1%. */
+  /* Creating new -webkit context. */
+  -webkit-animation: foo 1s;
+  animation: foo 1s; }

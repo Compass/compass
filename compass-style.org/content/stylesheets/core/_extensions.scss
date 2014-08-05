@@ -1,0 +1,10 @@
+@mixin reset($reset-type: false){
+  @if($reset-type){
+    @if($reset-type == global){
+      @include global-reset;
+    }
+    @if($reset-type == html5){
+      @include reset-html5;
+    }
+  }
+}

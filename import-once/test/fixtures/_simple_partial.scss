@@ -1,0 +1,5 @@
+$simple-imported: 0 !default;
+$simple-imported: $simple-imported + 1;
+.simple {
+  times-imported: $simple-imported;
+}

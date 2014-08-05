@@ -1,0 +1,111 @@
+sh "git checkout lib/compass/core/generated_version.rb"
+require 'rake/testtask'
+require 'rubygems/package_task'
+require 'bundler/setup'
+
+namespace :test do
+  Rake::TestTask.new(:integrations) do |t|
+    t.libs << "test/integrations"
+    t.libs << "lib"
+    t.test_files = FileList['test/integrations/**/*_test.rb']
+    t.verbose = true
+  end
+  Rake::TestTask.new(:units) do |t|
+    t.libs << "test/units"
+    t.libs << "lib"
+    t.test_files = FileList['test/units/**/*_test.rb']
+    t.verbose = true
+  end
+end
+
+desc "Download the latest browser stats data."
+task :caniuse do
+  require 'uri'
+  require 'net/http'
+  require 'net/https'
+  uri = URI.parse("https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json")
+  https = Net::HTTP.new(uri.host,uri.port)
+  https.use_ssl = true
+  req = Net::HTTP::Get.new(uri.path)
+  res = https.request(req)
+  filename = File.join(File.dirname(__FILE__), "data", "caniuse.json")
+  open(filename, "wb") do |file|
+    file.write(res.body)
+  end
+  puts "#{filename} (#{res.body.size} bytes)"
+end
+
+
+desc "Run all tests"
+task :test => ["test:integrations", "test:units"]
+
+task :default => :test
+
+spec = eval(File.read(FileList['compass-core.gemspec'].first), binding, "compass-core.gemspec")
+spec.files << "lib/compass/core/generated_version.rb"
+spec.files.delete("VERSION")
+
+def spec.bump!
+  segments = version.to_s.split(".")
+  segments[-1] = segments.last.succ
+  self.version = Gem::Version.new(segments.join("."))
+end
+
+# Set SAME_VERSION when moving to a new major version and you want to specify the new version
+# explicitly instead of bumping the current version.
+# E.g. rake build SAME_VERSION=true
+spec.bump! unless ENV["SAME_VERSION"]
+
+desc "Run tests and build compass-core-#{spec.version}.gem"
+task :build => [:test, :gem]
+
+task :gem => :release_version
+
+task "lib/compass/core/generated_version.rb" do
+  open("lib/compass/core/generated_version.rb", "w") do |f|
+    f.write(<<VERSION_EOF)
+module Compass
+  module Core
+    VERSION = "#{spec.version}"
+  end
+end
+VERSION_EOF
+  end
+end
+
+task :release_version => "lib/compass/core/generated_version.rb"
+
+desc "Make the prebuilt gem compass-core-#{spec.version}.gem public."
+task :publish => [:record_version, :push_gem, :tag]
+
+desc "Build & Publish version #{spec.version}" 
+task :release => [:build, :publish]
+
+Gem::PackageTask.new(spec) do |pkg|
+  pkg.need_zip = true
+  pkg.need_tar = true
+end
+
+desc "Record the new version in version control for posterity"
+task :record_version do
+  unless ENV["SAME_VERSION"]
+    open(FileList["VERSION"].first, "w") do |f|
+      f.write(spec.version.to_s)
+    end
+    sh "git add VERSION"
+    sh "git checkout lib/compass/core/generated_version.rb"
+    sh %Q{git commit -m "Bump version to #{spec.version}."}
+  end
+end
+
+desc "Tag the repo as #{spec.version} and push the code and tag."
+task :tag do
+  sh "git tag -a -m 'Core Version #{spec.version}' core-#{spec.version}"
+  sh "git push --tags origin #{`git rev-parse --abbrev-ref HEAD`}"
+end
+
+desc "Push compass-core-#{spec.version}.gem to the rubygems server"
+task :push_gem do
+  sh "gem push pkg/compass-core-#{spec.version}.gem"
+end
+

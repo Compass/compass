@@ -1,0 +1,69 @@
+@import "compass";
+
+.ex {
+  width: 48%;
+  margin-right: 2%;
+  float: left;
+  @include clearfix;
+  p {
+    padding-top: 10px;
+  }
+}
+
+.gradient-example {
+  width: 80px;
+  height: 80px;
+  background: red;
+  float: left;
+  margin: 1em 1em 0 0;
+}
+
+// This will yield a radial gradient with an apparent specular highlight
+#radial-gradient {
+  @include background-image(radial-gradient(45px 45px, cyan 10px, dodgerblue 30px));
+}
+
+// This yields a linear gradient spanning from the upper left corner to the lower right corner
+#linear-gradient {
+  @include background-image(linear-gradient(to bottom right, white, #dddddd));
+}
+
+// This yields a gradient starting at the top with #fff, ending in #aaa
+#v-gradient {
+  @include background-image(linear-gradient(white, #aaaaaa));
+}
+
+// Same as above but with a #ccc at the halfway point
+#v-gradient-2 {
+  @include background-image(linear-gradient(white, #cccccc, #aaaaaa));
+}
+
+// Same as the first example but with #ccc at the 30% from the top, and #bbb at 70% from the top
+#v-gradient-3 {
+  @include background-image(linear-gradient(white, #cccccc 30%, #bbbbbb 70%, #aaaaaa));
+}
+
+// This yields a horizontal linear gradient spanning from left to right.
+#h-gradient {
+  @include background-image(linear-gradient(to right, white, #dddddd));
+}
+
+#svg-gradient {
+  $svg-gradient-shim-threshold: 1 !global;
+  @include background-image(linear-gradient(to right, #2ac363, #cd8c14, #9c4cc2));
+  width: 80px;
+  height: 80px;
+}
+
+#angle-gradient {
+  $svg-gradient-shim-threshold: 1 !global;
+  @include background-image(linear-gradient(120deg, #2ac363, #cd8c14, #9c4cc2));
+  width: 80px;
+  height: 80px;
+}
+
+#angle-gradient-svg {
+  background-image: -svg(linear-gradient(120deg, #2ac363, #cd8c14, #9c4cc2));
+  width: 80px;
+  height: 80px;
+}

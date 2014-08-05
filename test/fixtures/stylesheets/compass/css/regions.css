@@ -1,7 +1,0 @@
-.source {
-  -webkit-flow-into: target;
-  -ms-flow-into: target; }
-
-.new-container {
-  -webkit-flow-from: target;
-  -ms-flow-from: target; }

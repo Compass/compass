@@ -1,0 +1,11 @@
+$flag_states-sprite-dimensions: true;
+$flag_states-class-separator: "_";
+
+@import "flag_states/*.png";
+
+@include all-flag_states-sprites;
+
+.sprite-file {
+  location: image-url(sprite_file($flag-states-sprites, foo));
+}
+
