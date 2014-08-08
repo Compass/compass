@@ -15,6 +15,7 @@ end
 desc "Clean up all test files"
 task :test_cleanup do
   dirs = [
+    'core/devbin/',
     'core/.sass-cache/',
     'core/test/integrations/projects/busted_font_urls/tmp/',
     'core/test/integrations/projects/busted_image_urls/tmp/',
