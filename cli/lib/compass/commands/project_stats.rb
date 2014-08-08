@@ -66,7 +66,7 @@ module Compass
           print "\n"
         end
         if @missing_css_parser
-          puts "\nInstall css_parser to enable stats on your css files:\n\n\tgem install css_parser"
+          puts "\nInstall #{@missing_css_parser} to enable stats on your css files:\n\n\tgem install #{@missing_css_parser}"
         end
       end
 
@@ -96,7 +96,7 @@ module Compass
       end
 
       def sorted_sass_files(compiler)
-        sass_files = compiler.sass_files(:exclude_partials => false)
+        sass_files = compiler.sass_files
         sass_files.map! do |s| 
           filename = Compass.deprojectize(s, File.join(Compass.configuration.project_path, Compass.configuration.sass_dir))
           [s, File.dirname(filename), File.basename(filename)]
@@ -130,9 +130,9 @@ module Compass
         else
           return [ '--', '--' , '--']
         end
-      rescue LoadError
-        @missing_css_parser = true
-        return [ 'DISABLED', 'DISABLED' ]
+      rescue LoadError => e
+        @missing_css_parser = e.message =~ /iconv/ ? "iconv" : "css_parser"
+        return [ 'DISABLED', 'DISABLED', 'DISABLED' ]
       end
 
       class << self

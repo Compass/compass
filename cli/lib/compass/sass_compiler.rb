@@ -139,4 +139,13 @@ class Compass::SassCompiler
       raise Compass::Error, "Individual stylesheets must be in the sass directory."
     end
   end
+
+  def sass_files(options = {})
+    @compiler.template_location_array.map do |(sass_dir, css_dir)|
+      glob = options[:include_partials] ?
+               File.join("**","*.s[ac]ss*") :
+               File.join("**","[^_]*.s[ac]ss*")
+      Dir.glob(File.join(sass_dir, glob))
+    end.flatten
+  end
 end
