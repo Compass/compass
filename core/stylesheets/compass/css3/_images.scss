@@ -4,6 +4,7 @@
 $gradient-support-threshold: $graceful-usage-threshold !default;
 $svg-gradient-shim-threshold: $graceful-usage-threshold !default;
 $border-image-support-threshold: $graceful-usage-threshold !default;
+$owg-threshold: $graceful-usage-threshold !default;
 
 // Compass assumes you will use the official gradient syntax,
 // unless otherwise instructed.
@@ -31,12 +32,24 @@ $use-legacy-gradient-syntax: false !default;
 // so we can shim the gradient with an inline svg file.
 $browsers-supporting-svg-but-not-gradients: (ie: "9", opera: "9.5-9.6");
 
+// These browsers require the old webkit gradient syntax
+$browsers-supporting-old-webkit-gradients: (android: ("2.1", "3"));
+
 @mixin each-gradient-prefix($values) {
   @if prefixed(-svg, $values) {
     @include for-legacy-browsers($browsers-supporting-svg-but-not-gradients,
                                  $svg-gradient-shim-threshold)
     {
       @include with-prefix(-svg) {
+        @content;
+      }
+    }
+  }
+  @if prefixed(-owg, $values) {
+    @include for-legacy-browsers($browsers-supporting-old-webkit-gradients,
+                                 $owg-threshold)
+    {
+      @include with-prefix(-owg) {
         @content;
       }
     }
