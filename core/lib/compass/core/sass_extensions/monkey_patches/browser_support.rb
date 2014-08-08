@@ -69,7 +69,7 @@ module Sass::Script
       "#{name}(#{args.map{|a| a.to_s(options)}.join(", ")})"
     end
 
-    %w(webkit moz o ms svg css2).each do |prefix|
+    %w(webkit moz o ms svg css2 owg).each do |prefix|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def to_#{prefix}(options = self.options)
           prefixed_args = args.map do |arg|

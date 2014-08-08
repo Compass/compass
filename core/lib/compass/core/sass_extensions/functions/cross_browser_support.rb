@@ -35,7 +35,7 @@ module Compass::Core::SassExtensions::Functions::CrossBrowserSupport
     bool(needed)
   end
 
-  %w(webkit moz o ms svg css2).each do |prefix|
+  %w(webkit moz o ms svg css2 owg).each do |prefix|
     class_eval <<-RUBY, __FILE__, __LINE__ + 1
       # Syntactic sugar to apply the given prefix
       # -moz($arg) is the same as calling prefix(-moz, $arg)

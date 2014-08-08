@@ -296,7 +296,16 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     def to_s_prefixed(options = self.options)
       to_s(options)
     end
-    
+
+    def supports?(aspect)
+      # I don't know how to support radial old webkit gradients (owg)
+      if %w(owg).include?(aspect)
+        false
+      else
+        super
+      end
+    end
+
     standardized_prefix :webkit
     standardized_prefix :moz
 
@@ -418,12 +427,25 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       # I don't know how to support degree-based gradients in old webkit gradients (owg) or svg so we just disable them.
       if %w(owg).include?(aspect) && position_or_angle.is_a?(Sass::Script::Value::Number) && position_or_angle.numerator_units.include?("deg")
         false
-      elsif aspect == "svg" && color_stops.value.any?{|cs| cs.stop.is_a?(Sass::Script::Value::String) }
-        # calc expressions cannot be represented in svg
+      elsif %w(owg svg).include?(aspect) && color_stops.value.any?{|cs| cs.stop.is_a?(Sass::Script::Value::String) }
+        # calc expressions cannot be represented in svg or owg
         false
       else
         super
       end
+    end
+
+    # Output the original webkit gradient syntax
+    def to_owg(options = self.options)
+      position_list = reverse_side_or_corner(position_or_angle)
+
+      start_point = grad_point(position_list)
+      args = []
+      args << start_point
+      args << linear_end_position(position_list, start_point, color_stops.value.last.stop)
+      args << grad_color_stops(color_stops)
+      args.each{|a| a.options = options}
+      Sass::Script::String.new("-webkit-gradient(linear, #{args.join(', ')})")
     end
 
     def to_svg(options = self.options)
@@ -437,6 +459,24 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
 
   module Functions
     include Sass::Script::Value::Helpers
+
+    def reverse_side_or_corner(position)
+      position_array = position.nil? ? [identifier('top')] : position.value.dup
+      if position_array.first == identifier('to')
+        # Remove the 'to' element from the array
+        position_array.shift
+
+        # Reverse all the positions
+        reversed_position = position_array.map do |pos|
+          opposite_position(pos)
+        end
+      else
+        # When the position does not have the 'to' element we don't need to
+        # reverse the direction of the gradient
+        reversed_position = position_array
+      end
+      opts(list(reversed_position, :space))
+    end
 
     def convert_angle_from_offical(deg)
       if deg.is_a?(Sass::Script::Value::Number)
@@ -582,7 +622,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     # returns color-stop() calls for use in webkit.
     def grad_color_stops(color_list)
       stops = color_stops_in_percentages(color_list).map do |stop, color|
-        "color-stop(#{stop.inspect}, #{ColorStop.color_to_s(color)})"
+        Sass::Script::String.new("color-stop(#{stop.to_s}, #{ColorStop.color_to_s(color)})")
       end
       opts(list(stops, :comma))
     end
@@ -607,19 +647,23 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     # only used for webkit
-    def linear_end_position(position_or_angle, color_list)
-      start_point = grad_point(position_or_angle || identifier("top"))
-      end_point = grad_point(opposite_position(position_or_angle || identifier("top")))
-      end_target = color_list.value.last.stop
+    def linear_end_position(position_or_angle, start_point, end_target)
+      end_point = grad_point(opposite_position(position_or_angle))
 
-      if color_list.value.last.stop && color_list.value.last.stop.numerator_units == ["px"]
-        new_end = color_list.value.last.stop.value
+      if end_target && end_target.numerator_units == ["px"]
         if start_point.value.first == end_point.value.first && start_point.value.last.value == 0
           # this means top-to-bottom
-          end_point.value[1] = number(end_target.value)
+          new_end_point = end_point.value.dup
+          new_end_point[1] = number(end_target.value)
+
+          end_point = opts(list(new_end_point, end_point.separator))
         elsif start_point.value.last == end_point.value.last && start_point.value.first.value == 0
           # this implies left-to-right
-          end_point.value[0] = number(end_target.value)
+
+          new_end_point = end_point.value.dup
+          new_end_point[0] = number(end_target.value)
+
+          end_point = opts(list(new_end_point, end_point.separator))
         end
       end
       end_point
@@ -750,7 +794,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
         arg.all?{|a| color_stop?(a)} ? arg : nil
       end
     end
-    
+
     def linear_svg(color_stops, x1, y1, x2, y2)
       gradient = %Q{<linearGradient id="grad" gradientUnits="objectBoundingBox" x1="#{x1}" y1="#{y1}" x2="#{x2}" y2="#{y2}">#{color_stops_svg(color_stops)}</linearGradient>}
       svg(gradient)
