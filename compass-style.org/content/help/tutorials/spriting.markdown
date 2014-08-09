@@ -108,7 +108,7 @@ And your stylesheet will compile to:
 <a name="sass_functions" id="sass_functions"></a>
 ## Sass Functions
 
-****Note**: The use of `icon` is only for this example, "icon" represents the folder name that contains your sprites.
+****Note**: The use of `my-icons` is only for this example, "my-icons" represents the folder name that contains your sprites.
 
 Getting the image dimensions of a sprite
 
@@ -118,10 +118,10 @@ If you are looking to just return the dimensions see the [docs](/reference/compa
 Example:
 
 
-    @import "icon/*.png";
+    @import "my-icons/*.png";
     $box-padding: 5px;
-    $height: icon-sprite-height(some_icon);
-    $width: icon-sprite-width(some_icon);
+    $height: my-icons-sprite-height(some_icon);
+    $width: my-icons-sprite-width(some_icon);
     
     .somediv {
       height:$height + $box-padding;
@@ -132,7 +132,7 @@ Example:
 <a name="magic-imports" id="magic-imports"></a>
 ## Magic Imports
 
-****Note**: The use of `my-icon` is only for this example, "my-icon" represents the folder name that contains your sprites.
+****Note**: The use of `my-icons` is only for this example, "my-icons" represents the folder name that contains your sprites.
 
 As noted above, compass will magically create sprite stylesheets for you. Some people like
 magic, some people are scared by it, and others are curious about how the magic works. If
