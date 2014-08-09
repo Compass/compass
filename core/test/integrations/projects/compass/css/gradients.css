@@ -317,3 +317,8 @@
   background-image: -moz-linear-gradient(#dddddd, #aaaaaa);
   background-image: -webkit-linear-gradient(#dddddd, #aaaaaa);
   background-image: linear-gradient(#dddddd, #aaaaaa); }
+
+.issue-1524-has-no-svg-because-of-minimums {
+  background-image: -moz-linear-gradient(#dddddd, #aaaaaa);
+  background-image: -webkit-linear-gradient(#dddddd, #aaaaaa);
+  background-image: linear-gradient(#dddddd, #aaaaaa); }

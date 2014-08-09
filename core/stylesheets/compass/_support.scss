@@ -99,12 +99,17 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
   }
   // Check agaist usage stats and declared minimums
   $min-required-version: map-get($browser-minimum-versions, $browser);
+  $supported-browser: ($min-required-version and
+                       compare-browser-versions($browser, $max-version or $min-version, $min-required-version) >= 0);
+  // If a minimum required version is specified and the default threshold is
+  // used, we only check the declared browser minimums.
+  @if ($threshold == $critical-usage-threshold) and $min-required-version {
+    @return $supported-browser;
+  }
   $usage: if($max-version,
              omitted-usage($browser, $min-version, $max-version),
              omitted-usage($browser, $min-version));
-  @return $usage > $threshold or
-          ($min-required-version and
-           compare-browser-versions($browser, $max-version or $min-version, $min-required-version) >= 0);
+  @return $usage > $threshold or $supported-browser;
 }
 
 // Include content for a legacy browser
@@ -123,17 +128,23 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
     @include with-browser-ranges(intersect-browser-ranges($current-browser-versions, $ranges)) {
       @content;
     }
-  } @else if $debug-browser-support and browser-out-of-scope($browser, $max-version) {
-    /* Content for #{display-browser-range($browser, $min-version, $max-version)} omitted.
-       Not allowed in the current scope: #{browser-out-of-scope($browser, $max-version)} */
-  } @else if $debug-browser-support and not
-             support-legacy-browser($browser, $min-version, $max-version, $threshold) {
-    @if omitted-usage($browser, $min-version, $max-version) > $threshold {
+  } @else if $debug-browser-support {
+    @if browser-out-of-scope($browser, $max-version) {
       /* Content for #{display-browser-range($browser, $min-version, $max-version)} omitted.
-         User threshold to keep: #{$threshold}%. If #{display-browser-range($browser, $min-version, $max-version)} and below are omitted: #{omitted-usage($browser, $min-version, $max-version)}%. */
-    } @else {
-      /* Content for #{display-browser-range($browser, $min-version, $max-version)} omitted.
-         Minimum support is #{map-get($browser-minimum-versions, $browser)}. */
+         Not allowed in the current scope: #{browser-out-of-scope($browser, $max-version)} */
+    } @else if not support-legacy-browser($browser, $min-version, $max-version, $threshold) {
+      // Check agaist usage stats and declared minimums
+      $min-required-version: map-get($browser-minimum-versions, $browser);
+      $usage: if($max-version,
+                 omitted-usage($browser, $min-version, $max-version),
+                 omitted-usage($browser, $min-version));
+      @if ($threshold == $critical-usage-threshold) and $min-required-version or $usage <= $threshold {
+        /* Content for #{display-browser-range($browser, $min-version, $max-version)} omitted.
+           Minimum support is #{$min-required-version}. */
+      } @else {
+        /* Content for #{display-browser-range($browser, $min-version, $max-version)} omitted.
+           User threshold to keep: #{$threshold}%. If #{display-browser-range($browser, $min-version, $max-version)} and below are omitted: #{$usage}%. */
+      }
     }
   }
 }
