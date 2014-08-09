@@ -12,30 +12,44 @@ layout: site
   :markdown
     Compass is an open-source CSS authoring framework which uses the [Sass stylesheet
     language](http://sass-lang.com) to make writing stylesheets powerful and easy. If you're
-    not familiar with Sass, you can take a look at [these simple tutorials](http://sass-lang.com/tutorial.html)
-    to get caught up.
+    not familiar with Sass, Go to [sass-lang.com](http://sass-lang.com/guide) to learn
+    all about how it works.
 
   :markdown
     ## Installing Compass
 
-    Compass is a tool that runs on the command line. On any system with ruby installed, open your terminal and type:
+    To install, please follow the steps found in the [Compass installation guide](/install/).
 
-        gem install compass
+    This will install Compass and Sass too. If you want to verify that compass is installed, run:
 
-    This will install Compass and Sass too. If you want to verify that compass is installed:
+        $ compass version
 
-        compass version
+    ## Watching and Compiling your Project
 
-    ## Manual Setup
+    When doing development on your project, you can run the compass watcher to keep your CSS files
+    up to date as changes are made.
 
-        compass create /path/to/project
-        cd /path/to/project
-        compass watch
+        $ cd /path/to/project
+        $ compass watch
 
-    Now you can edit the `*.scss` files in the `sass` directory with the text editor of your choice.
-    the `compass watch` process will automatically compile your them into css in the stylesheets directory whenever they change.
-    The files in the `sass` directory are yours and you can change them, delete them, add new ones, etc.
+    When it comes time to compile your css files for production use, pass the `--production`
+    compiler option to select defaults that optimize your output for end-users:
 
-    ## Rails Setup
+        $ compass compile --production
 
-      Use [compass-rails](https://github.com/Compass/compass-rails)
+    ## Using Compass without the Command-Line
+
+    You can use compass without the compass command line tools. In some cases,
+    this may make it easier to integrate with sass-based compilers and frameworks.
+
+        $ gem install compass-core
+        $ cat <<- EOF > _project-setup.scss
+        \$project-path: absolute-path(join-file-segments(".."));
+        @import "compass/configuration";
+        \$compass-options: (http_path: "/");
+        @include compass-configuration(\$compass-options...);
+        EOF
+        # Add to the top of each sass file: @import "project-setup";
+        $ sass -r compass-core --update sass:css
+
+    TODO: Add full documentation on Sass-based configuration options.
