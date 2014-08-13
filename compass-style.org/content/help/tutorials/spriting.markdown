@@ -8,7 +8,7 @@ classnames:
 
 # Spriting with Compass
 
-Spriting has never been easier with Compass. You place the sprite images in a folder,
+Spriting has never been easier than Compass. You place the sprite images in a folder,
 import them into your stylesheet, and then you can use the sprite in your selectors in one
 of several convenient ways.
 
