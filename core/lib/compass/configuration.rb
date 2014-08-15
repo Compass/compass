@@ -99,6 +99,7 @@ module Compass
       :color_output,
       attributes_for_directory(:css, :stylesheets),
       :environment,
+      attributes_for_directory(:extensions, nil),
       :framework_path,
       attributes_for_directory(:javascripts),
       :line_comments,
@@ -110,6 +111,7 @@ module Compass
       :required_libraries,
       attributes_for_directory(:sass, nil),
       :sass_options,
+      :sourcemap,
       :sprite_engine,
     ].flatten
 
