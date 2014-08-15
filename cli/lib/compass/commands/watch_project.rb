@@ -50,7 +50,7 @@ module Compass
       end
 
       def compiler_options
-        super.merge(:poll => options[:poll])
+        super.merge(:poll => options[:poll], :full_exception => true)
       end
 
       def additional_watch_paths
