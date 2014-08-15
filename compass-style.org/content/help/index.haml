@@ -37,19 +37,34 @@ layout: site
 
         $ compass compile --production
 
-    ## Using Compass without the Command-Line
+    ## Using Compass without the command line tools
 
     You can use compass without the compass command line tools. In some cases,
-    this may make it easier to integrate with sass-based compilers and frameworks.
+    this may make it easier to integrate with sass-based compilers and frameworks that
+    do not explicitly support Compass.
 
         $ gem install compass-core
         $ cat <<- EOF > _project-setup.scss
         \$project-path: absolute-path(join-file-segments(".."));
         @import "compass/configuration";
         \$compass-options: (http_path: "/");
-        @include compass-configuration(\$compass-options...);
+        @include compass-configuration(\$compass-options);
         EOF
         # Add to the top of each sass file: @import "project-setup";
+        # Compile using the Sass command line:
         $ sass -r compass-core --update sass:css
 
-    TODO: Add full documentation on Sass-based configuration options.
+    Read more: [Compass's Sass-based configuration options](/help/documentation/sass-based-configuration-options/).
+
+    ## More command line options
+
+    Full documentation of all compass commands can be found by running:
+
+        $ compass help
+
+    To see the options available and description for a compass command run:
+
+        $ compass help <command>
+
+    Where `<command>` is one of the compass commands (E.g. `compile`)
+

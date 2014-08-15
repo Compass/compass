@@ -4,7 +4,7 @@ layout: documentation
 classnames:
   - documentation
 ---
-# Configuration Reference
+# Ruby-based Configuration Reference
 
 The compass configuration file is a ruby file, which means that we can do some
 clever things if we want to. But don’t let it frighten you; it’s really quite
