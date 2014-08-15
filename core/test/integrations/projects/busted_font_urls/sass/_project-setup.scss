@@ -6,8 +6,8 @@ $project-path: absolute-path(join-file-segments(".."));
   @return "http://assets#{str-length($path) % 4}.example.com"
 }
 
-@function busted($path) {
-  $file-parts: split-filename($path);
+@function busted($url, $file) {
+  $file-parts: split-filename($url);
 
   $dirname: nth($file-parts, 1);
   $basename: nth($file-parts, 2);

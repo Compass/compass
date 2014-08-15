@@ -6,8 +6,8 @@ $project-path: absolute-path(join-file-segments(".."));
   @return "http://assets#{str-length($path) % 4}.example.com"
 }
 
-@function busted($path) {
-  $file-parts: split-filename($path);
+@function busted($url, $file) {
+  $file-parts: split-filename($url);
 
   $dirname: nth($file-parts, 1);
   $basename: nth($file-parts, 2);
@@ -19,6 +19,10 @@ $project-path: absolute-path(join-file-segments(".."));
     @return "query_string";
   } @else if $basename == "dk" {
     @return (query: "query_string");
+  } @else if $basename == "us" {
+    @return (query: "h=#{md5sum($file)}");
+  } @else if $basename == "gb" {
+    @return (query: "i=#{md5sum($file, integer)}");
   } @else {
     @return null;
   }

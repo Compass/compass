@@ -85,9 +85,10 @@ module Compass::Core::SassExtensions::Functions::Configuration
 
   OPTION_TRANSFORMER = Hash.new() {|h, k| proc {|v, ctx| v.value } }
   OPTION_TRANSFORMER[:asset_cache_buster] = proc do |v, ctx|
-    proc do |file|
+    proc do |url, file|
       if ctx.environment.function(v.value) || Sass::Script::Functions.callable?(v.value.tr('-', '_'))
-        result = ctx.call(v, ctx.quoted_string(file))
+        result = ctx.call(v, ctx.quoted_string(url),
+                             file.nil? ? ctx.null() : ctx.quoted_string(file.path))
         case result
         when Sass::Script::Value::String, Sass::Script::Value::Null
           result.value
