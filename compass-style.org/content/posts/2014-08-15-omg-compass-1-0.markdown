@@ -1,0 +1,48 @@
+---
+title: "Compass 1.0 is Released!"
+description: "Better late than never."
+author: chris
+---
+
+Compass 1.0 is now available!
+
+First, let's address the elephant in the room: This release took way to
+long. I can give you a list of reasons and excuses, but none of them
+really matter. Suffice it to say that if you ever find yourself owning
+an open source project that has gone unmaintained for more than a year
+like Compass had when I re-engaged with the project, the most prudent
+course of action is to shut it down. But I'm way to stubborn for that.  
+
+What matters now is how things are going to work going forward.
+
+1. Regular bug fix releases. Compass 1.0 is not perfect. Now that it is
+   released, we will be shipping regular updates with bug fixes and
+   fresh browser stats so that your prefixes are always up to date.
+   You can expect a couple releases per month at a minimum.
+2. New features. While compass 1.0 has undergone significant rewrites
+   and refactoring, it is actually quite devoid of what I would consider
+   any new significant features since 0.12. Now that it is released and
+   following semantic versioning, we will be free to release new features.
+
+### What's in Compass 1.0?
+
+* Vendor prefixing decisions are now data driven by [caniuse.com data](/help/documentation/tuning-vendor-prefixes/). You tell Compass what percentage of users you want to support and we'll take it from there.
+* Compass core library now enables you to [use compass without using the
+  compass command-line tools](/help/documentation/sass-based-configuration-options/).
+* Compass speeds up your project compile times by enabling import-once
+   importing.  Existing projects should add `require "compass/import-once/activate"` to their configuration to enable this. [Documentation](https://github.com/Compass/compass/blob/master/import-once/README.md).
+* Sass sourcemap support. Set `sourcemap = true` in your compass
+  configuration file to enable it.
+* Rewritten watcher/compiler. Compass now use's Sass builtin compiler
+  guaranteeing tighter integration and consistency between the projects.
+* Blueprint is removed. Not that you were using it, but if you were it's
+  now maintained as a [separate plugin](http://compass-blueprint.org/).
+* CSS3Pie integration is removed.
+* Support for recent CSS Developments:
+  [Animation](/reference/compass/css3/animation/), [Flexbox](/reference/compass/css3/flexbox/), Official Gradient syntax support, [Input Placeholders](/reference/compass/css3/user_interface/), 
+* Compass extensions that have Sass files that are not partials will now deliver compiled css files into a subdirectory of the css output folder.
+* And [much, much more](/CHANGELOG/).
+
+Compass has been a release candidate for a few weeks now. We've fixed
+many bugs, but given the magnitude of the changes here, we expect that
+there will be more. If you see something strange, please [file a bug](https://github.com/Compass/compass/issues)! Or better yet, send us a patch :)
