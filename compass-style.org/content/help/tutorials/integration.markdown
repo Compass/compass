@@ -93,4 +93,4 @@ To filter the stylesheets using Sass and Compass, call the sass filter with Sass
 
 ### nanoc projects using the formal approach
 
-* [This Site](https://github.com/chriseppstein/compass/tree/master/doc-src)
+* [This Site](https://github.com/chriseppstein/compass/tree/master/compass-style.org)
