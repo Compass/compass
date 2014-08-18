@@ -59,8 +59,10 @@ Let's go over what happened there. The import statement told compass to [generat
 stylesheet that is customized for your sprites](https://gist.github.com/729507). This
 stylesheet is [magic](#magic-imports), it is not written to disk, and it can be customized
 by setting configuration variables before you import it. See the page on
-[Customization Options](/help/tutorials/spriting/customization-options/). The goal of this stylesheet is to provide a simple naming convention for your sprites so that you they are
-easy to remember and use. You should never have to care what is the name of the generated
+[Customization Options](/help/tutorials/spriting/customization-options/). The goal of
+this stylesheet is to provide a simple naming convention for your
+sprites so that they are easy to remember and use. You should never have
+to care what is the name of the generated
 sprite map, nor where a sprite is located within it.
 
 <a name='nested-folders' id='nested-folders'></a>    
