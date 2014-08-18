@@ -89,17 +89,20 @@ $ (sudo) gem install bundler
 Bundle the gems for this application:
 
 ```sh
-$ cd doc-src
+$ cd compass-style.org
 $ bundle install
 ```
 
 ### 3/4. Binstubs
 
-If your bundler is still stuck with generating binstubs (an approach we used before), check if there's a `.bundler` directory in `doc-src`. If there is, delete it and try again. If you don't know what we're talking about, then everything is fine, continue... :)
+If your bundler is still stuck with generating binstubs (an approach we
+used before), check if there's a `.bundler` directory in
+`compass-style.org`. If there is, delete it and try again. If you don't
+know what we're talking about, then everything is fine, continue... :)
 
 ### 4. Compile the docs
 
-First, make sure you're in the `doc-src` directory. To watch the folder for changes and to preview the site in your browser, run:
+First, make sure you're in the `compass-style.org` directory. To watch the folder for changes and to preview the site in your browser, run:
 
 ```sh
 $ foreman start
@@ -107,7 +110,7 @@ $ foreman start
 
 Then go to [http://localhost:3000](http://localhost:3000) to view the site.
 
-We use [foreman](https://github.com/ddollar/foreman) to combine two nanoc commands using a `Procfile`, which you'll find in `doc-src`. If you take a look a it, you'll see two processes, `watch` and `view`:
+We use [foreman](https://github.com/ddollar/foreman) to combine two nanoc commands using a `Procfile`, which you'll find in `compass-style.org`. If you take a look a it, you'll see two processes, `watch` and `view`:
 
 ```sh
 watch: bundle exec nanoc watch
@@ -261,7 +264,7 @@ If you are adding an asset (e.g. image, CSS, JavaScript) place the file(s) in th
 
 ### How to Add a New Example
 
-(Again, make sure you're in the `doc-src` directory.)
+(Again, make sure you're in the `compass-style.org` directory.)
 
 We're using [Thor](https://github.com/wycats/thor) to generate examples and references. The command for generating examples is `generate:example`, you can see command's description and available options by running:
 
@@ -288,7 +291,7 @@ All of these are optional and have reasonable defaults, you can use them when un
 **Note**: When generating examples or references, Thor is searching for the appropriate
 module stylesheet. If it doesn't find one, it raises an error and doesn't
 generate anything. So before generating anything make sure the stylesheet exists and is
-under `../frameworks/compass/stylesheets/compass/path/to/module` (relative to the `doc-src` directory). If the path confuses you, just take a few minutes to study how other modules are organized and you'll quickly get the hang of it.
+under `../frameworks/compass/stylesheets/compass/path/to/module` (relative to the `compass-style.org` directory). If the path confuses you, just take a few minutes to study how other modules are organized and you'll quickly get the hang of it.
 
 Let's do an example:
 
@@ -342,7 +345,7 @@ After adding the example and adjusting the metadata, go to the reference page in
 Existing modules already have reference files, so you'll most likely be adding
 reference files to new modules.
 
-So we got a great idea for an awesome module, and after a lot of thinking we decided to name it `super-awesome-module`. The first step to adding a new module is creating the stylesheet. Let's say this will be a Compass CSS3 module, so we'll create a new file as `../frameworks/compass/stylesheets/compass/css3/_super-awesome-module.scss` (relative to the `doc-src` directory). Keep in mind that the comments inside those stylesheets are parsed with Markdown and output into the reference.
+So we got a great idea for an awesome module, and after a lot of thinking we decided to name it `super-awesome-module`. The first step to adding a new module is creating the stylesheet. Let's say this will be a Compass CSS3 module, so we'll create a new file as `../frameworks/compass/stylesheets/compass/css3/_super-awesome-module.scss` (relative to the `compass-style.org` directory). Keep in mind that the comments inside those stylesheets are parsed with Markdown and output into the reference.
 
 The easiest way to find out how you should write your stylesheet is to take a look at some existing modules. This module won't be very useful, but you'll get the point:
 

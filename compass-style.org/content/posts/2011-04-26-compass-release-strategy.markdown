@@ -45,7 +45,7 @@ as appropriate as part of the commit.
 Additionally, we now have a compass team blog that we can use to communicate
 about new features, best practices, or other Compass related stuff.
 It's easy to add a post, you just drop a markdown file into
-[this directory](https://github.com/chriseppstein/compass/tree/stable/doc-src/content/posts).
+[this directory](https://github.com/chriseppstein/compass/tree/stable/compass-style.org/content/posts).
 Guest posts are totally welcome via pull requests.
 
 Stable

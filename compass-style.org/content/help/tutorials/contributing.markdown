@@ -61,7 +61,7 @@ Now you need to get your change [accepted](#patches).
 
 <h2 id="documentation-changes">Making Documentation Changes</h2>
 
-The compass documentation is stored in two places. First, the `doc-src` directory is
+The compass documentation is stored in two places. First, the `compass-style.org` directory is
 where the documentation lives -- however much of the documentation is generated
 from comments in the Sass files themselves. More information on [changing
 documentation][documentation]. Once your changes are pushed, please
@@ -168,7 +168,7 @@ will result:
       bin/
         compass             - CLI executable
       devbin/               - development scripts after installing the bundle
-      doc-src/              - source for documentation
+      compass-style.org/    - source for documentation
       docs/                 - generated documentation
       examples/             - fully working compass projects that you can explore
       features/             - tests for compass
@@ -344,6 +344,6 @@ a couple of ways you can react:
 
 [pulls]: http://help.github.com/pull-requests/
 [issues]: http://github.com/chriseppstein/compass/issues
-[documentation]: http://github.com/chriseppstein/compass/blob/stable/doc-src/README.markdown
+[documentation]: http://github.com/chriseppstein/compass/blob/stable/compass-style.org/README.markdown
 [bundler]: http://gembundler.com/
 [extensions]: /help/tutorials/extensions/
