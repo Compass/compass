@@ -254,15 +254,9 @@ Getting recent changes from the main repo:
    command line that uses the local changes you have made. You can add `/path/to/compass/bin`
    to your `$PATH`, or refer to it directly.
 2. Build and install a gem:
-   1. Edit VERSION.yml and add a build indicator like so (**Do not commit this change**):
-
-          ---
-          :major: 0
-          :minor: 10
-          :patch: 6
-          :build: something-uniq-to-me.1
+   1. Edit VERSION and change the version to something like: `1.0.0.something-unique-to-me.0`
    2. `gem build compass.gemspec`
-   3. `gem install compass-0.10.6.something-uniq-to-me.1.gem` -- If installing to your
+   3. `gem install compass-0.10.6.something-uniq-to-me.0.gem` -- If installing to your
       system gems, you'll probably need to add `sudo` to the front. If you don't know
       what that means, you probably need to add `sudo` to the front.
 3. In a [bundled][bundler] environment, you can configure your gem to use compass
