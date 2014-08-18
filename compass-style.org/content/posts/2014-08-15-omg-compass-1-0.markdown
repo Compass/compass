@@ -6,12 +6,12 @@ author: chris
 
 Compass 1.0 is now available!
 
-First, let's address the elephant in the room: This release took way to
+First, let's address the elephant in the room: This release took way too
 long. I can give you a list of reasons and excuses, but none of them
 really matter. Suffice it to say that if you ever find yourself owning
 an open source project that has gone unmaintained for more than a year
 like Compass had when I re-engaged with the project, the most prudent
-course of action is to shut it down. But I'm way to stubborn for that.  
+course of action is to shut it down. But I'm way too stubborn for that.
 
 What matters now is how things are going to work going forward.
 
