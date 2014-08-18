@@ -1,6 +1,7 @@
 module Compass::Core::SassExtensions::Functions::FontFiles
   FONT_TYPES = {
     :woff => 'woff',
+    :woff2 => 'woff2',
     :otf => 'opentype',
     :opentype => 'opentype',
     :ttf => 'truetype',
