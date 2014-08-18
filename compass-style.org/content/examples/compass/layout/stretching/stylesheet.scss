@@ -23,21 +23,21 @@
 }
 
 #stretch-full {
-  @extend .stretched;
+  @extend %stretched;
   @include stretch;
 }
 
 #stretch-offset {
-  @extend .stretched;
+  @extend %stretched;
   @include stretch(1em, 1em, 1em, 1em);
 }
 
 #stretch-x {
-  @extend .stretched;
+  @extend %stretched;
   @include stretch-x;
 }
 
 #stretch-y {
-  @extend .stretched;
+  @extend %stretched;
   @include stretch-y;
 }
