@@ -20,6 +20,7 @@ Every release contains updated caniuse data unless otherwise noted.
 ------------------
 
 * Add support for `woff2` font format.
+* Handle gradient functions when not using the compass mixins.
 
 1.0.0 (08/15/2014)
 ------------------

@@ -53,6 +53,7 @@ Basic Extension Layout
 |- <strong>lib</strong> (optional ruby code)
    |
    |- <strong>my_extension.rb</strong> (this code can register your framework if you deviate from conventions and require sass extensions, etc.)
+   |- <strong>compass-my_extension.rb</strong> (This file is automatically required by compass if it is present. Avoiding the need to pass <code>-r</code> to the compass command line tool.)
    |
    |- my_extension
       |
@@ -260,6 +261,11 @@ for help [here](http://help.rubygems.org/).
 The big advantages of using rubygems to distribute your extension is that
 it allows your extension to be a dependency for other projects and that each
 install is versioned, which makes supporting your extension easier.
+
+If distributing as a rubygem, it is a good idea to have a file
+`compass-<framework>.rb` in your lib directory that registers the
+compass framework. This will allow compass to automatically require the
+framework from within rubygems.
 
 Tips for Developing Extensions
 ------------------------------
