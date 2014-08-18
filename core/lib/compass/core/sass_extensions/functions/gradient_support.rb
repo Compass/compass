@@ -290,7 +290,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def to_s(options = self.options)
-      to_official
+      to_official.to_s
     end
 
     def to_s_prefixed(options = self.options)

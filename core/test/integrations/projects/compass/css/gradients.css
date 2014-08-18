@@ -317,3 +317,7 @@
   background-image: -moz-linear-gradient(#dddddd, #aaaaaa);
   background-image: -webkit-linear-gradient(#dddddd, #aaaaaa);
   background-image: linear-gradient(#dddddd, #aaaaaa); }
+
+.issue-1766 {
+  background: radial-gradient(#ffffff, #000000);
+  background: linear-gradient(#ffffff, #000000); }
