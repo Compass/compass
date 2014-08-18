@@ -165,32 +165,37 @@ will result:
 <h2 id="project-structure">Project Structure</h2>
 
     compass/
-      bin/
-        compass             - CLI executable
-      devbin/               - development scripts after installing the bundle
-      compass-style.org/    - source for documentation
-      docs/                 - generated documentation
-      examples/             - fully working compass projects that you can explore
-      features/             - tests for compass
-      frameworks/           - All frameworks in this directory are loaded automatically
-        compass/            - The compass framework
-          stylesheets/      - The compass libraries
-          templates/        - The compass project templates and patterns
-        blueprint/
-          stylesheets/      - The blueprint libraries
-          templates/        - The blueprint project templates and patterns
-      lib/
-        compass.rb          - The main compass ruby library
-        compass/
-          app_integration/  - integration with app frameworks
-          commands/         - UI agnostic support for the CLI
-          configuration/    - support for project configuration
-          exec/             - UI code for the CLI
-          installers/       - support for installing templates
-          sass_extensions/  - enhancements to Sass
-            functions/      - Sass functions exposed by compass
-            monkey_patches/ - Changes to sass itself
-      test/                 - unit tests
+      core/                     - The core of compass's configuration and stylesheets.
+        frameworks/             - All frameworks in this directory are loaded automatically
+          compass/              - The compass framework
+            stylesheets/        - The compass libraries
+            templates/          - The compass project templates and patterns
+        test/                   - unit tests
+        lib/
+          compass-core.rb       - The main compass-core ruby library
+          compass/
+            core/
+              sass_extensions/  - enhancements to Sass
+                functions/      - Sass functions exposed by compass
+                monkey_patches/ - Changes to sass itself
+            configuration/      - support for project configuration
+      cli/                      - All the compass code that makes the command line work
+        bin/
+          compass               - CLI executable
+        devbin/                 - development scripts after installing the bundle
+        test/                   - unit tests
+        features/               - tests for compass
+        lib/
+          compass.rb            - The main compass ruby library
+          compass/
+            app_integration/    - integration with app frameworks
+            commands/           - UI agnostic support for the CLI
+            configuration/      - Some CLI specific configuration.
+            exec/               - UI code for the CLI
+            installers/         - support for installing templates
+      compass-style.org/        - source for documentation
+        output/                 - generated documentation
+      import-once/              - Compass's import-once importer for Sass.
 
 <h2 id="project-philosophy">General Philosophy</h2>
 
