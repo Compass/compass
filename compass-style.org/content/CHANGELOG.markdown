@@ -16,6 +16,21 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 Every release contains updated caniuse data unless otherwise noted.
 
+1.0.1 (UNRELEASED)
+------------------
+
+* Add support for `woff2` font format.
+
+1.0.0 (08/15/2014)
+------------------
+
+* `md5sum($file)` - new helper to compute the md5sum of a file. Can be
+  used to create sass-based asset-cache-buster implementations.
+* Fixed a bug in compass watch that caused the watcher to abort when a
+  syntax error occured.
+* Fix the broken `compass stats` command.
+* Brought back support for the original webkit gradient syntax.
+
 1.0.0.rc.1 (08/04/2014)
 -----------------------
 
