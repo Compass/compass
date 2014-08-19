@@ -52,15 +52,7 @@ that are worth explaining.
 Compass provides a function called `absolute-path` that will turn any
 path relative to the sass file it is called from into an absolute path.
 In order to make your stylesheets work on both windows and unix-based
-var gulp = require('gulp');
-var sass = require('gulp-ruby-sass');
-
-gulp.task('default', function () {
-    return gulp.src('src/scss/app.scss')
-        .pipe(sass({sourcemap: true, sourcemapPath: '../scss'}))
-        .on('error', function (err) { console.log(err.message); })
-        .pipe(gulp.dest('dist/css'));
-});operating systems, you should use the `join-file-segments` function
+operating systems, you should use the `join-file-segments` function
 instead of a file separator.
 
 For example. If your configuration partial was stored in a subdirectory
@@ -80,7 +72,12 @@ accepts and should return depends on the particular configuration
 property. For example:
 
     @function my-cache-buster($url, $file) {
-      @return (query: "h=#{md5sum($file)}");
+      $hash: md5sum($file);
+      @if $hash {
+        @return (query: "h=#{$hash}");
+      } @else {
+        @return null;
+      }
     }
     
     @include compass-configuration($asset-cache-buster: my-cache-buster);
@@ -98,7 +95,7 @@ should be imported into every Sass file that is to be used with Compass.
     $project-path: absolute-path("..");
 
 The global `$project-path` must be set to an absolute path to the
-directory of the`project. This global is used to initial compass
+directory of the project. This global is used to initial compass
 when importing `compass/configuration`.
 
     $debug-configuration: true;
