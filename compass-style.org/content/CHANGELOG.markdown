@@ -16,7 +16,7 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 Every release contains updated caniuse data unless otherwise noted.
 
-1.0.1 (UNRELEASED)
+1.0.1 (08/19/2014)
 ------------------
 
 * Add support for `woff2` font format.
