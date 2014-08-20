@@ -16,4 +16,11 @@ module Compass::Util
     end
   end
 
+  def assert_valid_keys(hash, *keys)
+    invalid_keys = hash.keys - keys
+    if invalid_keys.any?
+      raise ArgumentError, "Invalid key#{'s' if invalid_keys.size > 1} found: #{invalid_keys.map{|k| k.inspect}.join(", ")}"
+    end
+  end
+
 end
