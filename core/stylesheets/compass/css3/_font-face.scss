@@ -8,6 +8,7 @@
 // * $eot is required by IE, and is a relative location of the eot file.
 // * $weight shows if the font is bold, defaults to normal
 // * $style defaults to normal, might be also italic
+// * $unicode-range defaults to all, the range of characters present in the fonts file
 // * For android 2.2 Compatiblity, please ensure that your web page has
 //   a meta viewport tag.
 // * To support iOS < 4.2, an SVG file must be provided
@@ -28,7 +29,8 @@
   $font-files,
   $eot: false,
   $weight: false,
-  $style: false
+  $style: false,
+  $unicode-range: false
 ) {
   $iefont: unquote("#{$eot}?#iefix");
   @font-face {
@@ -43,6 +45,9 @@
     }
     @if $style {
       font-style: $style;
+    }
+    @if $unicode-range {
+      unicode-range: quote($unicode-range);
     }
   }
 }
