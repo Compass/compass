@@ -1,21 +1,29 @@
+language: ruby
+
 rvm:
-- 1.8.7
-- 1.9.2
-- 1.9.3
-- jruby-18mode
-- jruby-19mode
-- rbx
-- ree
-- 2.0.0
-- 2.1.0
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
+  - jruby-18mode
+  - jruby-19mode
+  - rbx
+  - ree
+  - 2.0.0
+  - 2.1.0
+
+sudo: false
+
 env:
-- CI_TEST=core
-- CI_TEST=cli
+  - CI_TEST=core
+  - CI_TEST=cli
+
 gemfile:
-- core/Gemfile
-- cli/gemfiles/sass_3_3.gemfile
-- cli/gemfiles/listen_2.gemfile
+  - core/Gemfile
+  - cli/gemfiles/sass_3_3.gemfile
+  - cli/gemfiles/listen_2.gemfile
+
 script: cd $CI_TEST && bundle exec rake
+
 matrix:
   exclude:
   - gemfile: cli/gemfiles/sass_3_3.gemfile
@@ -114,6 +122,7 @@ matrix:
   - gemfile: cli/gemfiles/listen_2.gemfile
     env: CI_TEST=cli
     rvm: ree
+
 notifications:
   irc: {channels: "irc.freenode.org#compass"}
   campfire:
