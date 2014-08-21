@@ -47,7 +47,7 @@
       font-style: $style;
     }
     @if $unicode-range {
-      unicode-range: quote($unicode-range);
+      unicode-range: unquote($unicode-range);
     }
   }
 }
