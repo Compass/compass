@@ -1,6 +1,7 @@
 module Compass::Core::SassExtensions::Functions::GradientSupport
 
   GRADIENT_ASPECTS = %w(webkit moz svg css2 o owg).freeze
+  RADIAL_ENDING_SHAPE_SIZE = %w(ellipse circle closest-side closest-corner farthest-side farthest-corner).freeze
 
   class CSS3AngleToSVGConverter
     include Math
@@ -331,23 +332,20 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def new_standard_arguments(options = self.options)
-      if shape_and_size
-        "#{array_to_s(shape_and_size, options)} at #{array_to_s(position, options)}, #{array_to_s(color_stops, options)}"
-      elsif position
-        "#{array_to_s(position, options)}, #{array_to_s(color_stops, options)}"
-      else
-        array_to_s(color_stops, options)
-      end
+      result = ""
+      result << "#{array_to_s(shape_and_size, options)}" if shape_and_size
+      result << " " if position && !result.empty?
+      result << "at #{array_to_s(position, options)}" if position
+      result << ", " unless result.empty?
+      result << array_to_s(color_stops, options)
+      result
     end
 
     def old_standard_arguments(options = self.options)
-      if shape_and_size
-        "#{array_to_s(position, options)}, #{array_to_s(shape_and_size, options)}, #{array_to_s(color_stops, options)}"
-      elsif position
-        "#{array_to_s(position, options)}, #{array_to_s(color_stops, options)}"
-      else
-        array_to_s(color_stops, options)
-      end
+      result = ""
+      result << "#{array_to_s(position, options)}, " if position
+      result << "#{array_to_s(shape_and_size, options)}, " if shape_and_size
+      result << array_to_s(color_stops, options)
     end
 
     def to_svg(options = self.options)
@@ -582,14 +580,28 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       if color_stops.size == 1 && list_of_color_stops?(color_stops.first)
         color_stops = color_stops.first.value
       end
+
       if position_or_angle.is_a?(Sass::Script::Value::List) &&
          (i = position_or_angle.value.index {|word| word.is_a?(Sass::Script::Value::String) && word.value == "at"})
         shape_and_size = list(position_or_angle.value[0..(i-1)], :space)
         shape_and_size.options = options
         position_or_angle = list(position_or_angle.value[(i+1)..-1], :space)
         position_or_angle.options = options
+      elsif position_or_angle && is_shape_and_size?(position_or_angle)
+        shape_and_size, position_or_angle = position_or_angle, shape_and_size
       end
       RadialGradient.new(position_or_angle, shape_and_size, send(:color_stops, *color_stops))
+    end
+
+    def is_shape_and_size?(obj)
+      if obj.is_a?(Sass::Script::Value::String)
+        is_shape_and_size = RADIAL_ENDING_SHAPE_SIZE.include?(obj.value)
+      else
+        is_shape_and_size = obj.value.any? do |o|
+          RADIAL_ENDING_SHAPE_SIZE.include?(o.value)
+        end
+      end
+      is_shape_and_size
     end
 
     def _build_linear_gradient(position_or_angle, *color_stops)
