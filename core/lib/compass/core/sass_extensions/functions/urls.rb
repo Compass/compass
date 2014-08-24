@@ -48,56 +48,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       end
     end
     def font_url(path, only_path = bool(false), cache_buster = bool(true))
-      path = path.value # get to the string value of the literal.
-
-      # Short curcuit if they have provided an absolute url.
-      if absolute_path?(path)
-        return unquoted_string("url(#{path})")
-      end
-
-      # Compute the path to the font file, either root relative or stylesheet relative
-      # or nil if the http_fonts_path cannot be determined from the configuration.
-      http_fonts_path = if relative?
-                          compute_relative_path(Compass.configuration.fonts_path)
-                        else
-                          Compass.configuration.http_fonts_path
-                        end
-
-      # Compute the real path to the font on the file system if the fonts_dir is set.
-      real_path = if Compass.configuration.fonts_dir
-        File.join(Compass.configuration.fonts_path, path.gsub(/[?#].*$/,""))
-      end
-
-      # prepend the path to the font if there's one
-      if http_fonts_path
-        http_fonts_path = "#{http_fonts_path}/" unless http_fonts_path[-1..-1] == "/"
-        path = "#{http_fonts_path}#{path}"
-      end
-
-      # Compute the asset host unless in relative mode.
-      asset_host = if !relative? && Compass.configuration.asset_host
-        Compass.configuration.asset_host.call(path)
-      end
-
-      # Compute and append the cache buster if there is one.
-      if cache_buster.to_bool
-        path, anchor = path.split("#", 2)
-        if cache_buster.is_a?(Sass::Script::Value::String)
-          path += "#{path["?"] ? "&" : "?"}#{cache_buster.value}"
-        else
-          path = cache_busted_path(path, real_path)
-        end
-        path = "#{path}#{"#" if anchor}#{anchor}"
-      end
-
-      # prepend the asset host if there is one.
-      path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
-
-      if only_path.to_bool
-        unquoted_string(clean_path(path))
-      else
-        clean_url(path)
-      end
+      resolve_asset_url(:font, path, only_path, cache_buster)
     end
   end
 
@@ -111,17 +62,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       end
     end
     def image_url(path, only_path = bool(false), cache_buster = bool(true))
-      path = path.value # get to the string value of the literal.
-      css_file = nil
-      if Compass.configuration.relative_assets? && options[:css_filename] && options[:css_filename].start_with?("#{Compass.configuration.css_path}/")
-        css_file = url_join(Compass.configuration.http_stylesheets_path, options[:css_filename][(Compass.configuration.css_path.size + 1)..-1])
-      end
-      url = Compass.configuration.url_resolver.compute_url(:image, path, css_file, cache_buster.to_bool)
-      if only_path.to_bool
-        unquoted_string(url)
-      else
-        unquoted_string("url('#{url}')")
-      end
+      resolve_asset_url(:image, path, only_path, cache_buster)
     end
   end
 
@@ -191,6 +132,20 @@ module Compass::Core::SassExtensions::Functions::Urls
   end
 
   private
+
+  def resolve_asset_url(type, path, only_path, cache_buster)
+    path = path.value # get to the string value of the literal.
+    css_file = nil
+    if Compass.configuration.relative_assets? && options[:css_filename] && options[:css_filename].start_with?("#{Compass.configuration.css_path}/")
+      css_file = url_join(Compass.configuration.http_stylesheets_path, options[:css_filename][(Compass.configuration.css_path.size + 1)..-1])
+    end
+    url = Compass.configuration.url_resolver.compute_url(type, path, css_file, cache_buster.to_bool)
+    if only_path.to_bool
+      unquoted_string(url)
+    else
+      unquoted_string("url('#{url}')")
+    end
+  end
 
   # Emits a path, taking off any leading "./"
   def clean_path(url)
