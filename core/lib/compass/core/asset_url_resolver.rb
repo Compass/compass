@@ -127,18 +127,4 @@ class Compass::Core::AssetUrlResolver
     end
   end
 
-  def compute_relative_path(from_url, to_url)
-    from_components = expand_url_path(from_url).split("/")
-    from_components.pop # drop the filename from the source
-    to_components = expand_url_path(to_url).split("/")
-    to_base = to_components.pop
-    while from_components.first == to_components.first
-      break if from_components.empty?
-      from_components.shift
-      to_components.shift
-    end
-
-    ([".."] * from_components.size + to_components + [to_base]).join("/")
-  end
-
 end
