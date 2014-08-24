@@ -85,7 +85,8 @@ module Compass
       :sprite_load_path,
       :required_libraries,
       :loaded_frameworks,
-      :framework_path
+      :framework_path,
+      :asset_collections
     ]
 
     ARRAY_ATTRIBUTE_OPTIONS = {
@@ -170,6 +171,6 @@ module Compass
   end
 end
 
-%w(defaults inheritance paths data watch adapters).each do |lib|
+%w(defaults inheritance paths data watch adapters asset_collection).each do |lib|
   require "compass/configuration/#{lib}"
 end

@@ -23,4 +23,11 @@ module Compass::Util
     end
   end
 
+  def symbolize_keys!(hash)
+    hash.keys.select {|k| k.is_a?(String)}.each do |k|
+      hash[k.to_sym] = hash.delete(k)
+    end
+    nil
+  end
+
 end
