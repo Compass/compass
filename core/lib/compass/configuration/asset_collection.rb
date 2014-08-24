@@ -41,6 +41,10 @@ class Compass::Configuration::AbstractAssetCollection
     end
   end
 
+  def includes_generated_image?(relative_path)
+    nil
+  end
+
   def root_path
     Sass::Util.abstract!
   end
@@ -196,6 +200,20 @@ class Compass::Configuration::AssetCollection < Compass::Configuration::Abstract
 end
 
 class Compass::Configuration::DefaultAssetCollection < Compass::Configuration::AbstractAssetCollection
+  def includes_generated_image?(relative_path)
+    # Treat root relative urls (without a protocol) like normal if they start with  the images path.
+    if relative_path.start_with?("#{http_generated_images_path}/")
+      relative_path = relative_path[(http_generated_images_path.size + 1)..-1]
+    end
+    fs_relative_path = as_filesystem_path(relative_path)
+    absolute_path = File.join(generated_images_path, fs_relative_path)
+    if File.exists?(absolute_path)
+      [relative_path, absolute_path]
+    else
+      nil
+    end
+  end
+
   def root_path
     configuration.project_path
   end
@@ -214,6 +232,14 @@ class Compass::Configuration::DefaultAssetCollection < Compass::Configuration::A
 
   def http_images_path
     configuration.http_images_path
+  end
+
+  def generated_images_path
+    configuration.generated_images_path
+  end
+
+  def http_generated_images_path
+    configuration.http_generated_images_path
   end
 
   def fonts_path
