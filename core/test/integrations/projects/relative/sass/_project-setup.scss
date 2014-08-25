@@ -2,5 +2,37 @@ $project-path: absolute-path(join-file-segments(".."));
 
 @import "compass/configuration";
 
-@include compass-configuration($images-dir: join-file-segments("assets", "images"),
-                               $relative-assets: true);
+@function different-cache-buster($url, $filename) {
+  $parsed-file: split-filename($url);
+  $directory: nth($parsed-file, 1);
+  $base: nth($parsed-file, 2);
+  $ext: nth($parsed-file, 3);
+  @return (path: "/assets/#{md5sum($filename)}#{$ext}");
+}
+
+@function my-cache-buster($url, $filename) {
+  $parsed-file: split-filename($url);
+  $directory: nth($parsed-file, 1);
+  $base: nth($parsed-file, 2);
+  $ext: nth($parsed-file, 3);
+  @return (path: "#{$directory}/#{$base}-#{md5sum($filename)}#{$ext}");
+}
+
+$compass-config: (
+  relative-assets: true,
+  images-dir: join-file-segments("assets", "images"),
+  asset-cache-buster: my-cache-buster,
+  asset-collections: (
+    (root-dir: join-file-segments("vendor", "asset-collection-1"),
+     http-dir: "assets-1",
+     images-dir: img,
+     fonts-dir: fnt),
+    (root-dir: join-file-segments("vendor", "asset-collection-2"),
+     http-dir: "assets-2",
+     images-dir: assets,
+     fonts-dir: assets,
+     asset-cache-buster: different-cache-buster),
+  ),
+);
+
+@include compass-configuration($compass-config);

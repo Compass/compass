@@ -94,6 +94,7 @@ module Compass
     }
 
     RUNTIME_READONLY_ATTRIBUTES = [
+      :additional_import_paths,
       :cache,
       attributes_for_directory(:cache, nil),
       :chunky_png_options,

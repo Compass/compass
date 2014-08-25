@@ -115,11 +115,11 @@ class Compass::Configuration::AssetCollection < Compass::Configuration::Abstract
   #   or a lambda or proc that will compute the cache_buster for assets in this collection.
   #   If :http_dir is set instead of http_path, this defaults to the project's asset_cache_buster.
   def initialize(options, configuration = nil)
-    symbolize_keys!(options)
     assert_valid_keys(options, :root_path, :root_dir, :http_path, :http_dir, :sass_dir,
                                :fonts_dir, :http_fonts_dir, :http_fonts_path,
                                :images_dir, :http_images_dir, :http_images_path,
                                :asset_host, :asset_cache_buster)
+    symbolize_keys!(options)
     unless options.has_key?(:root_path) || options.has_key?(:root_dir)
       raise ArgumentError, "Either :root_path or :root_dir must be specified."
     end
