@@ -1,0 +1,10 @@
+rm -rf output
+if [[ `bundle exec compass version` == *alpha* ]]
+then
+  SITE=beta.compass-style.org;
+else
+  SITE=compass-style.org;
+fi
+
+echo "Deploying to $SITE"
+bundle exec nanoc co && scp -r output/* compassweb@compass-style.org:$SITE/public/

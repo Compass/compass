@@ -5,5 +5,4 @@ vendor/ruby
 crash.log
 tmp
 .bundle
-sync
 .rvmrc
