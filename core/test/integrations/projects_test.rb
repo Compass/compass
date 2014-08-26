@@ -74,7 +74,8 @@ private
     options = arguments.last.is_a?(Hash) ? arguments.pop : {}
     for name in arguments
       actual_result_file = "#{tempfile_path(@current_project)}/#{name}".gsub(/s[ac]ss/, "css")
-      expected_result_file = "#{result_path(@current_project)}/#{name}".gsub(/s[ac]ss/, "css")
+      expected_result_file = "#{result_path(@current_project)}/#{name}.#{Sass.version[:major]}.#{Sass.version[:minor]}".gsub(/s[ac]ss/, "css")
+      expected_result_file = "#{result_path(@current_project)}/#{name}".gsub(/s[ac]ss/, "css") unless File.exists?(expected_result_file)
       actual_lines = File.read(actual_result_file)
       actual_lines.gsub!(/^@charset[^;]+;/,'') if options[:ignore_charset]
       actual_lines = actual_lines.split("\n").reject{|l| l=~/\A\Z/}
@@ -100,7 +101,8 @@ private
     @current_project = project_name
     options = {
       :always_update => true,
-      :load_paths => []
+      :load_paths => [],
+      :sourcemap => false
     }.merge(options)
     options.update(
       :css_location => tempfile_path(project_name),

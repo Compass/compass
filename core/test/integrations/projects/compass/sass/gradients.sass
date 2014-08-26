@@ -4,10 +4,10 @@
 $svg-gradient-shim-threshold: 0
 
 .bg-shortcut-simple-image
-  +background(#fff url('foo.png'))
+  +background(white url('foo.png'))
 
 .bg-shortcut-linear-gradient
-  +background(#fff linear-gradient(top left, #ddd, #aaa))
+  +background(white linear-gradient(top left, #ddd, #aaa))
 
 .bg-linear-gradient-angle-svg
   +background-image(linear-gradient(-45deg, blue, black))
@@ -28,19 +28,19 @@ $svg-gradient-shim-threshold: 0
   +background-image(linear-gradient(left, #ddd 10px, #aaa 40px))
 
 .transparent-in-linear-gradient
-  +background-image(#fff linear-gradient(top left, transparent, #aaa))
+  +background-image(white linear-gradient(top left, transparent, #aaa))
 
 .currentColor-in-linear-gradient
-  +background-image(#fff linear-gradient(top left, transparent, currentColor))
+  +background-image(white linear-gradient(top left, transparent, currentColor))
 
 .calc-in-linear-gradient
   +background-image(linear-gradient(to right, white calc(100% - 50px), transparent calc(100% - 50px)))
 
 .rgba-in-linear-gradient
-  +background-image(#fff linear-gradient(top left, rgba(255,255,255,0.8), rgba(0,0,0,0.1)))
+  +background-image(white linear-gradient(top left, rgba(255,255,255,0.8), rgba(0,0,0,0.1)))
 
 .bg-shortcut-radial-gradient
-  +background(#fff radial-gradient(center center, #ddd, #aaa 100px))
+  +background(white radial-gradient(center center, #ddd, #aaa 100px))
 
 .bg-all-gradient-types-with-simplification
   +background-with-css2-fallback(image-url("4x6.png"), linear-gradient(top left, #ddd, #aaa), radial-gradient(center center, #ddd, #aaa 100px), #ffcc00)
@@ -91,7 +91,7 @@ $svg-gradient-shim-threshold: 10
   +background-image(radial-gradient(#ddd, #aaa 100px))
 
 .image-fallback
-  +background-image(image(radial-gradient(#ddd, #aaa 100px), image-url("4x6.png"), #c00))
+  +background-image(image(radial-gradient(#ddd, #aaa 100px), image-url("4x6.png"), #cc0000))
 
 .cross-fade
   +background-image(cross-fade(radial-gradient(#ddd, #aaa 100px), image-url("4x6.png")))
@@ -106,7 +106,7 @@ $svg-gradient-shim-threshold: 10
   +filter-gradient(white, black, vertical)
 
 .ie-alpha-filter
-  +filter-gradient(rgba(#fff, 1), rgba(#fff, 0))
+  +filter-gradient(rgba(white, 1), rgba(white, 0))
 
 .linear-gradient-new
   +background(linear-gradient(to bottom, #ff0000 0%, #88aa44 100%))
