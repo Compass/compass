@@ -1,1 +1,5 @@
-test { background: url('../assets/images/testing.png?<%= File.mtime(File.join(Compass.configuration.project_path, 'assets', 'images', 'testing.png')).strftime("%s") %>'); }
+test { background: url('../assets/images/testing-d41d8cd98f00b204e9800998ecf8427e.png'); }
+
+.assets-one { font-url: url('../assets-1/fnt/font-one-d41d8cd98f00b204e9800998ecf8427e.woff'); image-url: url('../assets-1/img/image-one-d41d8cd98f00b204e9800998ecf8427e.png'); }
+
+.assets-two { font-url: url('../assets/d41d8cd98f00b204e9800998ecf8427e.ttf'); image-url: url('../assets/d41d8cd98f00b204e9800998ecf8427e.jpg'); subdir-image-url: url('../assets/d41d8cd98f00b204e9800998ecf8427e.gif'); }

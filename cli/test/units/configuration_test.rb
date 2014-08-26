@@ -206,24 +206,30 @@ class ConfigurationTest < Test::Unit::TestCase
   end
 
   def test_cache_buster_file_not_passed_when_the_file_does_not_exist
-    config = Compass::Configuration::Data.new("test_cache_buster_file_not_passed_when_the_file_does_not_exist")
-    the_file = nil
-    was_called = nil
-    config.asset_cache_buster do |path, file|
-      was_called = true
-      the_file = file
-      "busted=true"
+    FileUtils.mkdir_p("images")
+    begin
+      config = Compass::Configuration::Data.new("test_cache_buster_file_not_passed_when_the_file_does_not_exist")
+      open("images/asdf.gif", "w") {|f| }
+      the_file = nil
+      was_called = nil
+      config.asset_cache_buster do |path, file|
+        was_called = true
+        the_file = file
+        "busted=true"
+      end
+
+      Compass.add_configuration(config)
+
+
+      sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
+        .foo { background: image-url("asdf.gif") }
+      SCSS
+      sass.render
+      assert was_called
+      assert the_file.closed?
+    ensure
+      FileUtils.rm_r("images")
     end
-
-    Compass.add_configuration(config)
-
-
-    sass = Sass::Engine.new(<<-SCSS, Compass.configuration.to_sass_engine_options.merge(:syntax => :scss))
-      .foo { background: image-url("asdf.gif") }
-    SCSS
-    sass.render
-    assert was_called
-    assert_nil the_file
   end
 
   def test_cache_buster_file_is_closed

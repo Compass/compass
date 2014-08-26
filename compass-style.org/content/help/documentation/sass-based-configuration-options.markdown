@@ -22,6 +22,14 @@ The options that can be set via Sass configuration are:
   containing the keys query and/or path mapped to a string. The string
   is a simple value to set as the query parameter on all urls, when
   `null`, the cache busting feature is disabled.
+* `asset-collections` - List of Maps. Each map is a set of keys
+  that describe an asset collection. The keys are basically the same
+  as for the [ruby configuration of asset
+  collections](/help/documentation/configuration-reference/#asset-collections)
+  with the following exceptions: 1. keys can be dashed instead of
+  underscored. 2. Procs should be function references as described here
+  for `asset-cache-buster` and `asset-host`. 3. The `sass-dir` option
+  doesn't work because it must be set up external to the sass file itself.
 * `asset-host` - Function reference, or `null`. When `null` this feature
   is disabled (default). A referenced function must accept a single
   argument (the root relative url) and return a full url (starting with

@@ -17,3 +17,10 @@ end
 asset_host do |path|
   "http://assets%d.example.com" % (path.size % 4)
 end
+
+add_asset_collection(
+  :root_dir => "other/asset_collection",
+  :http_dir => "ext-assets",
+  :images_dir => "img",
+  :sass_dir => "scss"
+)
