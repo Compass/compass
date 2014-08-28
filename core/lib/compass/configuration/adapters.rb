@@ -51,7 +51,10 @@ module Compass
           else
             path
           end
-        end
+        end +
+        (asset_collections || []).map do |asset_collection|
+          asset_collection.sass_path
+        end.compact
       end
 
       def absolute_path?(path)

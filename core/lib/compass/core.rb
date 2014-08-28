@@ -65,6 +65,8 @@ require "sass/plugin"
 require 'compass/util'
 require "compass/frameworks"
 require "compass/core/caniuse"
+require "compass/core/http_util"
+require "compass/core/asset_url_resolver"
 require 'compass/core/sass_extensions'
 require 'compass/error'
 require 'compass/browser_support'
