@@ -389,6 +389,68 @@ To disable the asset cache buster:
 
 ---
 
+<a name="asset-collections"></a>
+**`add_asset_collection`** - Each asset collection is a bundle of sass stylesheets,
+images, and fonts that potentially have their own URL location, cache
+busting, and host requirements. Unlike compass extensions, asset
+collections don't require the publisher to package their assets
+in any particular way and the image and fonts don't need to be bundled
+or delivered as part of your projects's assets. This makes asset
+collections ideal for integrating with drupal extensions, bower, and
+other front-end packagers.
+
+To add an asset collection to your project, call `add_asset_collection`
+and pass the asset collection configuration options to describe where
+to find the assets and how the urls for them are constructed. The
+following options are allowed:
+
+
+* `:root_path` - The absolute path to the asset collection.
+* `:root_dir` - A relative path to the asset collection from the project path.
+* `:http_path` - Web root location of assets in this collection.
+  Starts with '/'.
+* `:http_dir` - Web root location of assets in this collection.
+  Relative to the project's `http_path`.
+* `:sass_dir` - Sass directory to be added to the Sass import paths.
+  Relative to the `:root_path` or `:root_dir.`
+* `:fonts_dir` - Directory of fonts to be added to the font look up path.
+  Relative to the `:root_path` or `:root_dir.`
+* `:http_fonts_dir` - Where to find fonts on the webserver relative to
+  the `http_path` or `http_dir.` Defaults to `<http_path>/<fonts_dir>`.
+  Can be overridden by setting `:http_fonts_path`.
+* `:http_fonts_path` - Where to find fonts on the webserver.
+* `:images_dir` - Directory of images to be added to the image look up path.
+  Relative to the `:root_path` or `:root_dir.`
+* `:http_images_dir` - Where to find images on the webserver relative to
+  the `http_path` or `http_dir.` Defaults to `<http_path>/<images_dir>`.
+  Can be overridden by setting `:http_images_path`.
+* `:http_images_path` - Where to find images on the webserver.
+* `:asset_host` - A string starting with `'http://'` for a single host,
+  or a lambda or proc that will compute the asset host for assets in this collection.
+  If `:http_dir` is set instead of `http_path,` this defaults to the project's `asset_host`.
+* `:asset_cache_buster` - A string, `:none`, or
+  or a lambda or proc that will compute the `cache_buster` for assets in this collection.
+  If `:http_dir` is set instead of `http_path,` this defaults to the project's `asset_cache_buster`.
+
+It is required to pass either `:root_path` or `:root_dir` and
+`:http_path` or `:http_dir`.
+
+Example:
+
+    add_asset_collection(
+      :root_dir => "other/asset_collection",
+      :http_dir => "ext-assets",
+      :images_dir => "img",
+      :sass_dir => "scss"
+      :asset_cache_buster => proc {|url_path, file|
+        {:path => "/#{Digest::MD5.file(file)}#{File.extname(url_path)}"} },
+      :asset_host => proc {|url_path|
+        "http://assets#{url_path.hash % 4 + 1}.other-asset-server.com" }
+    )
+
+
+---
+
 **`watch`** -- React to changes to arbitrary files within your project. Can be invoked
 more than once. Example:
 

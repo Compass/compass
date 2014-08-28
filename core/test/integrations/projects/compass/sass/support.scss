@@ -26,7 +26,7 @@ $some-default-value: some default value;
   @include test('[variable] $compass-extensions is set and is a map') {
     @include assert-true(global-variable-exists(compass-extensions));
     @include assert-equal(map, type-of($compass-extensions));
-    @include assert-equal(1, str-index(map-get($compass-extensions, compass), "1.0"));
+    @include assert-equal(1, str-index(map-get($compass-extensions, compass), "1.1"));
   }
   @include test('[function] set-arglist-default() with no arguments') {
     @include assert-true(

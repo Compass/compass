@@ -83,8 +83,7 @@ module Compass::Core::SassExtensions::Functions::Configuration
   end
   declare :add_sass_configuration, [:project_path]
 
-  OPTION_TRANSFORMER = Hash.new() {|h, k| proc {|v, ctx| v.value } }
-  OPTION_TRANSFORMER[:asset_cache_buster] = proc do |v, ctx|
+  def self.make_cache_buster_proc(v, ctx)
     proc do |url, file|
       if ctx.environment.function(v.value) || Sass::Script::Functions.callable?(v.value.tr('-', '_'))
         result = ctx.call(v, ctx.quoted_string(url),
@@ -108,7 +107,8 @@ module Compass::Core::SassExtensions::Functions::Configuration
       end
     end
   end
-  OPTION_TRANSFORMER[:asset_host] = proc do |v, ctx|
+
+  def self.make_asset_host_proc(v, ctx)
     proc do |file|
       if ctx.environment.function(v.value) || Sass::Script::Functions.callable?(v.value.tr('-', '_'))
         result = ctx.call(v, ctx.quoted_string(file))
@@ -122,6 +122,39 @@ module Compass::Core::SassExtensions::Functions::Configuration
         raise ArgumentError, "#{v.value} is not a function."
       end
     end
+
+  end
+
+  OPTION_TRANSFORMER = Hash.new() {|h, k| proc {|v, ctx| v.value } }
+  OPTION_TRANSFORMER[:asset_cache_buster] = proc {|v, ctx| make_cache_buster_proc(v, ctx) }
+  OPTION_TRANSFORMER[:asset_host] = proc {|v, ctx| make_asset_host_proc(v, ctx) }
+
+  OPTION_TRANSFORMER[:asset_collections] = proc do |v, ctx|
+    v = list([v], :comma) if v.is_a?(Sass::Script::Value::Map)
+    ctx.assert_type(v, :List)
+
+    asset_collections = []
+
+    v.value.each do |map|
+      ctx.assert_type(map, :Map)
+      asset_collection = {}
+      map.value.keys.each do |key|
+        ctx.assert_type key, :String
+        ctx.assert_type map.value[key], :String unless map.value[key].value.nil?
+        underscored = key.value.tr("-", "_")
+        case underscored
+        when "asset_host"
+          asset_collection[underscored] = make_asset_host_proc(map.value[key], ctx)
+        when "asset_cache_buster"
+          asset_collection[underscored] = make_cache_buster_proc(map.value[key], ctx)
+        else
+          asset_collection[underscored] = map.value[key].value
+        end
+      end
+      asset_collections << Compass::Configuration::AssetCollection.new(asset_collection)
+    end
+
+    asset_collections
   end
 
   def add_configuration(options)
@@ -144,7 +177,8 @@ module Compass::Core::SassExtensions::Functions::Configuration
   private
 
   def runtime_writable_attributes
-    Compass::Configuration::ATTRIBUTES - Compass::Configuration::RUNTIME_READONLY_ATTRIBUTES
+    (Compass::Configuration::ATTRIBUTES + Compass::Configuration::ARRAY_ATTRIBUTES) -
+      Compass::Configuration::RUNTIME_READONLY_ATTRIBUTES
   end
 
   def common_parent_directory(directory1, directory2)
