@@ -73,6 +73,7 @@ Options:
       def perform
         installer.init
         installer.run(:skip_finalization => true, :skip_preparation => !is_project_creation?)
+        Compass.configuration.cache_path = options[:cache_location] || File.join(working_path, ".sass-cache")
         UpdateProject.new(working_path, options).perform if installer.compilation_required?
         installer.finalize(options.merge(:create => is_project_creation?))
       end
