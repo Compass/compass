@@ -1,0 +1,61 @@
+init:
+  - git config --global core.autocrlf input
+
+clone_folder: c:\projects\compass
+
+version: "{build}"
+
+# list some environment info + install bundler
+install:
+  - ps: Get-Date
+  - ps: $env:Path = $env:RUBYPATH + "\bin;" + $env:Path
+  - ruby -v
+  - gem -v
+  - gem install bundler
+  - gem list bundler
+
+# any building is done during test using rake
+build: off
+
+test_script:
+  - ps: Write-Host "Getting ready to test core" -ForegroundColor Magenta
+  - cd C:\projects\compass\core 
+  - bundle install --quiet --jobs 2
+  - bundle exec rake test
+  - ps: Write-Host "Getting ready to test cli" -ForegroundColor Magenta
+  - cd C:\projects\compass\cli
+  - bundle install --quiet --jobs 2
+  - bundle exec rake
+  - ps: Write-Host "Getting ready to test import-once" -ForegroundColor Magenta
+  - cd C:\projects\compass\import-once
+  - bundle install --quiet --jobs 2
+  - bundle exec rake
+  - ps: Write-Host "Getting ready to test import-once with Gemfile_sass_3_2" -ForegroundColor Magenta
+  - cd C:\projects\compass\import-once
+  - SET BUNDLE_GEMFILE=Gemfile_sass_3_2
+  - bundle install --quiet --gemfile Gemfile_sass_3_2 --jobs 4
+  - bundle exec rake test
+
+after_test:
+  - ps: Get-Date
+
+on_success:
+  - ps: Write-Host "Done testing (SUCCESS)" -ForegroundColor Green
+  
+on_failure:
+  - ps: Write-Host "Done testing (FAILURE)" -ForegroundColor Red
+
+environment:
+
+  matrix:
+  - myEnv: ruby193x86
+    RUBYPATH: C:\Ruby193
+  
+  - myEnv: ruby200x86
+    RUBYPATH: C:\Ruby200
+  
+  - myEnv: ruby200x64
+    RUBYPATH: C:\Ruby200-x64
+
+matrix:
+  fast_finish: false
