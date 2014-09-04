@@ -4,7 +4,7 @@ require 'compass'
 require 'compass/logger'
 require 'sass/plugin'
 
-class CompassTest < Test::Unit::TestCase
+class CompassTest < Minitest::Test
 
   def setup
     Compass.reset_configuration!

@@ -4,7 +4,7 @@ $: << test_directory unless $:.include? test_directory
 require 'test_helper'
 require 'compass/util'
 
-class UtilTest < Test::Unit::TestCase
+class UtilTest < Minitest::Test
 
   def test_assert_valid_keys
     Compass::Util.assert_valid_keys({:key1 => true}, :key1, :key2, :key3)

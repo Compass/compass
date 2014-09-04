@@ -3,7 +3,7 @@ require 'compass'
 require 'compass/exec'
 require 'stringio'
 
-class RegressionsTest < Test::Unit::TestCase
+class RegressionsTest < Minitest::Test
   include SpriteHelper
   include Compass::CommandLineHelper
 

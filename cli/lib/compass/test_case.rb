@@ -6,7 +6,7 @@ module Compass
   #   def test_stylesheets
   #     my_sass_files.each do |sass_file|
   #       assert_compiles(sass_file) do |result|
-  #         assert_not_blank result
+  #         refute_blank result
   #       end
   #     end
   #   end

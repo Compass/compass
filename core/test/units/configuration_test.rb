@@ -4,7 +4,7 @@ $: << test_directory unless $:.include? test_directory
 require 'test_helper'
 require 'compass-core'
 
-class ConfigurationTest < Test::Unit::TestCase
+class ConfigurationTest < Minitest::Test
 
   def test_sass_engine_options
     result = Compass.configuration.to_sass_engine_options

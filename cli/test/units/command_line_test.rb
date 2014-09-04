@@ -4,7 +4,7 @@ require 'compass'
 require 'compass/exec'
 require 'timeout'
 
-class CommandLineTest < Test::Unit::TestCase
+class CommandLineTest < Minitest::Test
   include Compass::TestCaseHelper
   include Compass::CommandLineHelper
   include Compass::IoHelper

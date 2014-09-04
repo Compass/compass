@@ -1,9 +1,9 @@
 #! /usr/bin/env ruby
 test_directory = File.expand_path(File.dirname(__FILE__))
 $: << test_directory unless $:.include? test_directory
-require 'test_helper'
+require "minitest/autorun"
 
-class FrameworksTest < Test::Unit::TestCase
+class FrameworksTest < Minitest::Test
 
   def test_compass_has_the_compass_framework
     names = []

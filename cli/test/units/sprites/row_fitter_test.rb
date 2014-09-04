@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'compass/sass_extensions/sprites/row_fitter'
 
-class RowFitterTest < Test::Unit::TestCase
+class RowFitterTest < Minitest::Test
   include SpriteHelper
   def setup
     file = StringIO.new("images_path = #{@images_src_path.inspect}\n")

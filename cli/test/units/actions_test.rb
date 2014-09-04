@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'compass'
 
-class ActionsTest < Test::Unit::TestCase
+class ActionsTest < Minitest::Test
   class BaseActionExtender
     include Compass::Actions
     def options

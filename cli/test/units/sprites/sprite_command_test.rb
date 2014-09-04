@@ -1,6 +1,7 @@
 require 'test_helper'
 require 'compass/exec'
-class SpriteCommandTest < Test::Unit::TestCase
+
+class SpriteCommandTest < Minitest::Test
   include Compass::TestCaseHelper
   include Compass::CommandLineHelper
   include Compass::IoHelper
