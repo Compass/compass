@@ -19,7 +19,7 @@ class UtilTest < Test::Unit::TestCase
                                       :key1, :key2, :key3)
       fail "Did not raise"
     rescue ArgumentError => e
-      assert_equal "Invalid keys found: :invalid, :another_invalid", e.message
+      assert_equal "Invalid keys found: :another_invalid, :invalid", e.message
     end
   end
 
