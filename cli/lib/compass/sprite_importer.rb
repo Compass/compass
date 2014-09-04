@@ -86,7 +86,7 @@ module Compass
         end
         basenames
       end[:files]
-      return resolved_files if resolved_files.any?
+      return resolved_files.sort if resolved_files.any?
       path = Compass.configuration.sprite_resolver.asset_collections.map{|ac| ac.images_path }.join(", ")
       raise Compass::SpriteException, %Q{No images were found in the sprite path matching "#{uri}". Your current load paths are: #{path}}
     end
