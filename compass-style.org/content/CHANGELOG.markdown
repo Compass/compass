@@ -16,6 +16,11 @@ The Documentation for the [latest preview release](http://beta.compass-style.org
 
 Every release contains updated caniuse data unless otherwise noted.
 
+1.0.2 (UNRELEASED)
+------------------
+
+* Handle change in Sass 3.4.2 that requires importer paths to exist.
+
 1.0.1 (08/19/2014)
 ------------------
 
