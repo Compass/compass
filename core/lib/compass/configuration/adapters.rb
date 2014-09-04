@@ -82,7 +82,7 @@ module Compass
 
       def sass_load_paths
         load_paths = []
-        load_paths << sass_path if sass_path
+        load_paths << sass_path if sass_path && File.directory?(sass_path)
         Compass::Frameworks::ALL.each do |f|
           load_paths << f.stylesheets_directory if File.directory?(f.stylesheets_directory)
         end

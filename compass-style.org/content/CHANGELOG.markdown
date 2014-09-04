@@ -37,6 +37,10 @@ Every release contains updated caniuse data unless otherwise noted.
   If two images have the same basename the first one is kept and the
   other(s) discarded according to the order above.
 
+1.0.2 (UNRELEASED)
+------------------
+
+* Handle change in Sass 3.4.2 that requires importer paths to exist.
 
 1.0.1 (08/19/2014)
 ------------------
