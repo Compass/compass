@@ -88,8 +88,8 @@ module Compass
         load_paths += resolve_additional_import_paths
         load_paths.map! do |p|
           next p if p.respond_to?(:find_relative)
-          importer.new(p.to_s)
-        end
+          importer.new(p.to_s) if File.exist?(p.to_s)
+        end.compact!
         # TODO: When sprites are extracted to their own plugin, this
         # TODO: will need to be extracted to there.
         if defined?(Compass::SpriteImporter.new)
