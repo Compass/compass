@@ -15,6 +15,23 @@ class Compass::Configuration::AbstractAssetCollection
     end
   end
 
+  def globs?(type, glob)
+    # Treat root relative urls (without a protocol) like normal if they start with  the images path.
+    asset_http_path = send(:"http_#{type}s_path")
+    if glob.start_with?("#{asset_http_path}/")
+      glob = glob[(asset_http_path.size + 1)..-1]
+    end
+    fs_glob = as_filesystem_path(glob)
+    absolute_glob = File.join(send(:"#{type}s_path"), fs_glob)
+    resolved_files = Dir.glob(absolute_glob)
+    if resolved_files.any?
+      [glob, resolved_files]
+    else
+      nil
+    end
+
+  end
+
   def includes_image?(relative_path)
     # Treat root relative urls (without a protocol) like normal if they start with  the images path.
     if relative_path.start_with?("#{http_images_path}/")
@@ -133,6 +150,7 @@ class Compass::Configuration::AssetCollection < Compass::Configuration::Abstract
   def root_path
     return @root_path if defined?(@root_path)
     @root_path = @options[:root_path] || File.join(configuration.project_path, @options[:root_dir])
+    @root_path = File.expand_path(@root_path)
   end
 
   def http_path
@@ -143,14 +161,14 @@ class Compass::Configuration::AssetCollection < Compass::Configuration::Abstract
   def sass_path
     return @sass_path if defined?(@sass_path)
     @sass_path = if options[:sass_dir]
-      File.join(root_path, options[:sass_dir])
+      File.expand_path File.join(root_path, options[:sass_dir])
     end
   end
 
   def images_path
     return @images_path if defined?(@images_path)
     @images_path = if options[:images_dir]
-      File.join(root_path, options[:images_dir])
+      File.expand_path File.join(root_path, options[:images_dir])
     end
   end
 
@@ -169,7 +187,7 @@ class Compass::Configuration::AssetCollection < Compass::Configuration::Abstract
   def fonts_path
     return @fonts_path if defined?(@fonts_path)
     @fonts_path = if options[:fonts_dir]
-      File.join(root_path, options[:fonts_dir])
+      File.expand_path File.join(root_path, options[:fonts_dir])
     end
   end
 

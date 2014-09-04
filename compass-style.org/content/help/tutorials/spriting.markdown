@@ -183,3 +183,19 @@ Or install the Rubygem:
     gem install oily_png
 
 Compass will automatically detect its presence.
+
+## Sprite Paths
+
+Sprite source images don't have to only come from your project's image
+directory. If you have configured your application to have any [asset
+collections](/help/documentation/configuration-reference/#asset-collections),
+Then the sprite source images can also come from there. Furthermore, you
+can use the `sprite_load_path` configuration setting to list full paths
+to directories where sprite source files can be found.
+
+Sprite import globs match across all of the sprite paths. This makes it
+possible to add or replace images to an external sprite map without merging their
+directories. When a sprite source image has the same file name as
+another image in the sprite, the first file found is used. The search
+order is: You project's images directory, asset collections in their
+declation order, and then the sprite load paths.

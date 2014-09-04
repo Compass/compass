@@ -5,12 +5,10 @@ module Compass
     VAILD_FILE_NAME       = /\A#{Sass::SCSS::RX::IDENT}\Z/
     SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.png}
     VALID_EXTENSIONS      = ['.png']
-    
+
     TEMPLATE_FOLDER       = File.join(File.expand_path('../', __FILE__), 'sprite_importer')
     CONTENT_TEMPLATE_FILE = File.join(TEMPLATE_FOLDER, 'content.erb')
     CONTENT_TEMPLATE      = ERB.new(File.read(CONTENT_TEMPLATE_FILE))
-
-
 
     # finds all sprite files
     def self.find_all_sprite_map_files(path)
@@ -18,22 +16,22 @@ module Compass
       glob = "*-s#{hex*10}{#{VALID_EXTENSIONS.join(",")}}"
       Sass::Util.glob(File.join(path, "**", glob))
     end
-    
+
     def find(uri, options)
       if uri =~ SPRITE_IMPORTER_REGEX
         return self.class.sass_engine(uri, self.class.sprite_name(uri), self, options)
       end
       nil
     end
-    
+
     def find_relative(uri, base, options)
       nil
     end
-    
+
     def to_s
       self.class.name
     end
-    
+
     def hash
       self.class.name.hash
     end
@@ -41,13 +39,13 @@ module Compass
     def eql?(other)
       other.class == self.class
     end
-    
+
     def mtime(uri, options)
       self.class.files(uri).sort.inject(Time.at(0)) do |max_time, file|
         (t = File.mtime(file)) > max_time ? t : max_time
       end
     end
-    
+
     def key(uri, options={})
       [self.class.name + ":sprite:" + File.dirname(File.expand_path(uri)), File.basename(uri)]
     end
@@ -56,8 +54,7 @@ module Compass
       nil
     end
 
-    
-    def self.path_and_name(uri)
+   def self.path_and_name(uri)
       if uri =~ SPRITE_IMPORTER_REGEX
         [$1, $3]
       else
@@ -76,17 +73,22 @@ module Compass
       path, _ = path_and_name(uri)
       path
     end
-    
+
     # Returns the Glob of image files for the uri
     def self.files(uri)
-      Compass.configuration.sprite_load_path.compact.each do |folder|
-        files = Sass::Util.glob(File.join(folder, uri)).sort
-        next if files.empty?
-        return files
-      end
-
-      path = Compass.configuration.sprite_load_path.to_a.join(', ')
-      raise Compass::SpriteException, %Q{No files were found in the load path matching "#{uri}". Your current load paths are: #{path}}
+      resolved_files = Compass.configuration.sprite_resolver.glob(:image, uri, :match_all => true)
+      resolved_files = resolved_files.inject({}) do |basenames, file|
+        basename = File.basename(file, '.png')
+        unless basenames.has_key?(basename)
+          basenames[basename] = true
+          basenames[:files] ||= []
+          basenames[:files] << file
+        end
+        basenames
+      end[:files]
+      return resolved_files if resolved_files.any?
+      path = Compass.configuration.sprite_resolver.asset_collections.map{|ac| ac.images_path }.join(", ")
+      raise Compass::SpriteException, %Q{No images were found in the sprite path matching "#{uri}". Your current load paths are: #{path}}
     end
 
     # Returns an Array of image names without the file extension
@@ -95,12 +97,12 @@ module Compass
         File.basename(file, '.png')
       end
     end
-    
+
     # Returns the sass_options for this sprite
     def self.sass_options(uri, importer, options)
       options.merge!(:filename => uri.gsub(%r{\*/},"*\\/"), :syntax => :scss, :importer => importer)
     end
-    
+
     # Returns a Sass::Engine for this sprite object
     def self.sass_engine(uri, name, importer, options)
       content = content_for_images(uri, name, options[:skip_overrides])

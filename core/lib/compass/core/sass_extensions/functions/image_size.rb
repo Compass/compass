@@ -62,12 +62,7 @@ private
   end
 
   def real_path(image_file)
-    # Compute the real path to the image on the file stystem if the images_dir is set.
-    if Compass.configuration.images_path
-      File.join(Compass.configuration.images_path, image_file)
-    else
-      File.join(Compass.configuration.project_path, image_file)
-    end
+    Compass.configuration.url_resolver.find_asset(:image, image_file)
   end
 
   class JPEG

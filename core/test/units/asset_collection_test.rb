@@ -89,11 +89,11 @@ class AssetCollectionTest < Test::Unit::TestCase
 
   def test_resolved_attributes_relative
     collection = AssetCollection.new(RELATIVE_COLLECTION_OPTS)
-    assert_equal "./some_assets", collection.root_path
+    assert_equal File.expand_path("./some_assets"), collection.root_path
     assert_equal "/some-assets", collection.http_path
-    assert_equal "./some_assets/scss", collection.sass_path
-    assert_equal "./some_assets/fnts", collection.fonts_path
-    assert_equal "./some_assets/imgs", collection.images_path
+    assert_equal File.expand_path("./some_assets/scss"), collection.sass_path
+    assert_equal File.expand_path("./some_assets/fnts"), collection.fonts_path
+    assert_equal File.expand_path("./some_assets/imgs"), collection.images_path
     assert_equal "/some-assets/fnts", collection.http_fonts_path
     assert_equal "/some-assets/imgs", collection.http_images_path
     assert_equal nil, collection.asset_host
@@ -102,11 +102,11 @@ class AssetCollectionTest < Test::Unit::TestCase
 
   def test_resolved_attributes_http_absolute
     collection = AssetCollection.new(HTTP_ABSOLUTE_COLLECTION_OPTS)
-    assert_equal "./some_assets", collection.root_path
+    assert_equal File.expand_path("./some_assets"), collection.root_path
     assert_equal "/some-assets", collection.http_path
-    assert_equal "./some_assets/scss", collection.sass_path
-    assert_equal "./some_assets/fnts", collection.fonts_path
-    assert_equal "./some_assets/imgs", collection.images_path
+    assert_equal File.expand_path("./some_assets/scss"), collection.sass_path
+    assert_equal File.expand_path("./some_assets/fnts"), collection.fonts_path
+    assert_equal File.expand_path("./some_assets/imgs"), collection.images_path
     assert_equal "/font-assets", collection.http_fonts_path
     assert_equal "/image-assets", collection.http_images_path
     assert_equal nil, collection.asset_host
@@ -115,11 +115,11 @@ class AssetCollectionTest < Test::Unit::TestCase
 
   def test_resolved_attributes_http_relative
     collection = AssetCollection.new(HTTP_RELATIVE_COLLECTION_OPTS)
-    assert_equal "./some_assets", collection.root_path
+    assert_equal File.expand_path("./some_assets"), collection.root_path
     assert_equal "/some-assets", collection.http_path
-    assert_equal "./some_assets/scss", collection.sass_path
-    assert_equal "./some_assets/fnts", collection.fonts_path
-    assert_equal "./some_assets/imgs", collection.images_path
+    assert_equal File.expand_path("./some_assets/scss"), collection.sass_path
+    assert_equal File.expand_path("./some_assets/fnts"), collection.fonts_path
+    assert_equal File.expand_path("./some_assets/imgs"), collection.images_path
     assert_equal "/some-assets/hfnts", collection.http_fonts_path
     assert_equal "/some-assets/himgs", collection.http_images_path
     assert_equal nil, collection.asset_host
@@ -149,7 +149,7 @@ class AssetCollectionTest < Test::Unit::TestCase
     Compass.configuration.asset_cache_buster(&asset_cache_buster_proc)
     collection = AssetCollection.new(:root_dir => RELATIVE_COLLECTION_OPTS[:root_dir],
                                      :http_dir => RELATIVE_COLLECTION_OPTS[:http_dir])
-    assert_equal "./some_assets", collection.root_path
+    assert_equal File.expand_path("./some_assets"), collection.root_path
     assert_equal "/some-assets", collection.http_path
     assert_equal nil, collection.sass_path
     assert_equal nil, collection.fonts_path

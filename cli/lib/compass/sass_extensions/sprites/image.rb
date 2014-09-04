@@ -30,12 +30,7 @@ module Compass
         end
 
         def find_file
-          Compass.configuration.sprite_load_path.compact.each do |path|
-            f = File.join(path, relative_file)
-            if File.exists?(f)
-              return f
-            end
-          end
+          Compass.configuration.sprite_resolver.find_asset(:image, relative_file)
         end
 
         # Width of the image

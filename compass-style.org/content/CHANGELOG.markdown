@@ -32,6 +32,10 @@ Every release contains updated caniuse data unless otherwise noted.
   and pass the asset collection configuration options to describe where
   to find the assets and how the urls for them are constructed. [Asset
   Collection Documentation](/help/documentation/configuration-reference/#asset-collections).
+* Sprite import globs now match all files found across the project
+  images directory, all asset collections and the sprite load paths.
+  If two images have the same basename the first one is kept and the
+  other(s) discarded according to the order above.
 
 
 1.0.1 (08/19/2014)

@@ -27,14 +27,7 @@ class Compass::Core::AssetUrlResolver
     # pass through fully specified urls
     return relative_path if relative_path.start_with?("http://")
 
-    # If the image has an target reference, remove it (Common with SVG)
-    clean_relative_path, target = relative_path.split("#", 2)
-
-    # If the image has a query, remove it
-    clean_relative_path, query = clean_relative_path.split("?", 2)
-
-    # Get rid of silliness in the url
-    clean_relative_path = expand_url_path(clean_relative_path)
+    clean_relative_path, query, target = clean_path(relative_path)
 
     # Find the asset collection that includes this asset
     asset_collection, clean_relative_path, real_path = find_collection(type, clean_relative_path)
@@ -70,7 +63,49 @@ class Compass::Core::AssetUrlResolver
     return url
   end
 
+  # Find the real path to a relative asset path
+  def find_asset(type, relative_path)
+    clean_relative_path, _, _ = clean_path(relative_path)
+    _, _, real_path = find_collection(type, clean_relative_path)
+    return real_path
+  end
+
+  def relative_path(type, absolute_path)
+    absolute_path = File.expand_path(absolute_path)
+    @asset_collections.find do |ac|
+      asset_path = File.expand_path(ac.send(:"#{type}s_path"))
+      if absolute_path.start_with?(asset_path+File::SEPARATOR)
+        return absolute_path[(asset_path+File::SEPARATOR).size..-1]
+      end
+    end
+    nil
+  end
+
+  def glob(type, glob_expression, options = {})
+    match_all = options.fetch(:match_all, false)
+    resolved_files = []
+    @asset_collections.each do |ac|
+      _, some_resolved_files = ac.globs?(type, glob_expression)
+      resolved_files += some_resolved_files if some_resolved_files
+      return resolved_files if resolved_files.any? and !match_all
+    end
+    resolved_files
+  end
+
   protected
+
+  def clean_path(relative_path)
+    # If the image has an target reference, remove it (Common with SVG)
+    clean_relative_path, target = relative_path.split("#", 2)
+
+    # If the image has a query, remove it
+    clean_relative_path, query = clean_relative_path.split("?", 2)
+
+    # Get rid of silliness in the url
+    clean_relative_path = expand_url_path(clean_relative_path)
+
+    [clean_relative_path, query, target]
+  end
 
   def find_collection(type, relative_path)
     asset_collection = nil
@@ -98,7 +133,6 @@ class Compass::Core::AssetUrlResolver
     cache_buster = {:query => cache_buster} if cache_buster.is_a?(String)
     [cache_buster[:path] || path, cache_buster[:query]]
   end
-  
 
   def compute_cache_buster(asset_collection, path, real_path)
     file = nil
@@ -126,5 +160,4 @@ class Compass::Core::AssetUrlResolver
       nil
     end
   end
-
 end

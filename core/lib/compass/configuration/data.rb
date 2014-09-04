@@ -213,8 +213,26 @@ module Compass
       end
 
       def url_resolver
+        return @url_resolver if @url_resolver
         if top_level == self
           @url_resolver = Compass::Core::AssetUrlResolver.new(asset_collections.to_a, self)
+        else
+          top_level.url_resolver
+        end
+      end
+
+      def sprite_resolver
+        return @sprite_resolver if @sprite_resolver
+        if top_level == self
+          sprite_collections = asset_collections.to_a
+          sprite_collections += sprite_load_path.to_a.map do |slp|
+            AssetCollection.new(
+              :root_path => slp,
+              :http_path => http_images_path,
+              :images_dir => "."
+            )
+          end
+          @sprite_resolver = Compass::Core::AssetUrlResolver.new(sprite_collections, self)
         else
           top_level.url_resolver
         end
