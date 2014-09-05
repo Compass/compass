@@ -1,5 +1,5 @@
 require 'erb'
-require 'compass'
+require 'compass-core'
 require 'compass/sprites/sass_extensions/sprites'
 require 'compass/sprites/importer/binding'
 
@@ -98,6 +98,12 @@ module Compass
         return resolved_files.sort if resolved_files.any?
         path = Compass.configuration.sprite_resolver.asset_collections.map{|ac| ac.images_path }.join(", ")
         raise Compass::SpriteException, %Q{No images were found in the sprite path matching "#{uri}". Your current load paths are: #{path}}
+      end
+
+      # Name of this spite
+      def self.sprite_name(uri)
+        _, name = path_and_name(uri)
+        name
       end
 
       # Returns an Array of image names without the file extension
