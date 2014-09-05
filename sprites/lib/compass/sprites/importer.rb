@@ -13,8 +13,6 @@ module Compass
       CONTENT_TEMPLATE_FILE = File.join(TEMPLATE_FOLDER, 'content.erb')
       CONTENT_TEMPLATE      = ERB.new(File.read(CONTENT_TEMPLATE_FILE))
 
-
-
       # finds all sprite files
       def self.find_all_sprite_map_files(path)
         hex = "[0-9a-f]"
@@ -49,11 +47,13 @@ module Compass
         nil
       end
 
-    def self.path_and_name(uri)
-      if uri =~ sprite_importer_regex_with_ext
-        [$1, $3]
-      else
-        raise Compass::Error, "invalid sprite path"
+      def self.path_and_name(uri)
+        if uri =~ sprite_importer_regex_with_ext
+          [$1, $3]
+        else
+          raise Compass::Error, "invalid sprite path"
+        end
+      end
 
       def eql?(other)
         other.class == self.class
@@ -77,28 +77,28 @@ module Compass
         end
       end
 
-    # The on-disk location of this sprite
-    def self.path(uri)
-      path, _ = path_and_name(uri)
-      path
-    end
+      # The on-disk location of this sprite
+      def self.path(uri)
+        path, _ = path_and_name(uri)
+        path
+      end
 
-    # Returns the Glob of image files for the uri
-    def self.files(uri)
-      resolved_files = Compass.configuration.sprite_resolver.glob(:image, uri, :match_all => true)
-      resolved_files = resolved_files.inject({}) do |basenames, file|
-        basename = File.basename(file, '.png')
-        unless basenames.has_key?(basename)
-          basenames[basename] = true
-          basenames[:files] ||= []
-          basenames[:files] << file
-        end
-        basenames
-      end[:files]
-      return resolved_files.sort if resolved_files.any?
-      path = Compass.configuration.sprite_resolver.asset_collections.map{|ac| ac.images_path }.join(", ")
-      raise Compass::SpriteException, %Q{No images were found in the sprite path matching "#{uri}". Your current load paths are: #{path}}
-    end
+      # Returns the Glob of image files for the uri
+      def self.files(uri)
+        resolved_files = Compass.configuration.sprite_resolver.glob(:image, uri, :match_all => true)
+        resolved_files = resolved_files.inject({}) do |basenames, file|
+          basename = File.basename(file, '.png')
+          unless basenames.has_key?(basename)
+            basenames[basename] = true
+            basenames[:files] ||= []
+            basenames[:files] << file
+          end
+          basenames
+        end[:files]
+        return resolved_files.sort if resolved_files.any?
+        path = Compass.configuration.sprite_resolver.asset_collections.map{|ac| ac.images_path }.join(", ")
+        raise Compass::SpriteException, %Q{No images were found in the sprite path matching "#{uri}". Your current load paths are: #{path}}
+      end
 
       # Returns an Array of image names without the file extension
       def self.sprite_names(uri)
