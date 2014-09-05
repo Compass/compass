@@ -7,7 +7,7 @@ module Compass
   module Sprites
     class Importer < Sass::Importers::Base
       VAILD_FILE_NAME       = /\A#{Sass::SCSS::RX::IDENT}\Z/
-      SPRITE_IMPORTER_REGEX = %r{((.+/)?([^\*.]+))/(.+?)}
+      SPRITE_IMPORTER_REGEX = %r{((.+\/)?([^\*.]+))\/(.+?)}
 
       TEMPLATE_FOLDER       = File.join(File.expand_path('../', __FILE__), 'importer')
       CONTENT_TEMPLATE_FILE = File.join(TEMPLATE_FOLDER, 'content.erb')
@@ -21,7 +21,7 @@ module Compass
       end
 
       def find(uri, options)
-        if uri =~ SPRITE_IMPORTER_REGEX
+        if uri =~ self.class.sprite_importer_regex_with_ext
           return self.class.sass_engine(uri, self.class.sprite_name(uri), self, options)
         end
         nil

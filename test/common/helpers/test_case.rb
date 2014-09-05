@@ -14,6 +14,7 @@ module Compass
       # compile a Sass string in the context of a project in the current working directory.
       def compile_for_project(contents, options = {})
         Compass.add_project_configuration
+        Compass.configuration.add_import_path Compass::Sprites::Importer.new
         options[:syntax] ||= :scss
         Sass::Engine.new(contents, Compass.configuration.to_sass_engine_options.merge(options)).render
       end

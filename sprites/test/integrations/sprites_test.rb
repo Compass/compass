@@ -18,8 +18,10 @@ class SpritesTest < Test::Unit::TestCase
     ::FileUtils.cp_r @images_src_path, @images_tmp_path
     ::FileUtils.mkdir_p @generated_images_tmp_path
     file = StringIO.new(<<-CONFIG)
+      require 'compass/sprites'
       project_path = "#{@images_project_path}"
       images_dir = "#{@images_tmp_dir}"
+      add_import_path(Compass::Sprites::Importer.new)
     CONFIG
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
@@ -95,6 +97,7 @@ class SpritesTest < Test::Unit::TestCase
       images_path = #{@images_tmp_path.inspect}
       generated_images_path = #{@generated_images_tmp_path.inspect}
       http_generated_images_path = "/images/generated"
+      add_import_path(Compass::Sprites::Importer.new)
     CONFIG
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
@@ -980,6 +983,7 @@ class SpritesTest < Test::Unit::TestCase
     file = StringIO.new(<<-CONFIG)
       images_path = #{@images_tmp_path.inspect}
       generated_images_path = #{@generated_images_tmp_path.inspect}
+      add_import_path(Compass::Sprites::Importer.new)
     CONFIG
     Compass.add_configuration(file, "sprite_config")
     Compass.configure_sass_plugin!
