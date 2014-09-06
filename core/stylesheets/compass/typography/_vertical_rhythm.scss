@@ -52,11 +52,11 @@ $relative-font-sizing: if($rhythm-unit == px, false, true);
 
 // Calculate rhythm units.
 @function rhythm($lines: 1, $font-size: $base-font-size, $offset: 0) {
-  $length: $lines * $base-line-height - $offset;
-  @if unit($length) == "" {
-    $length: $length * ($font-size * 0 + 1);
+  $line-height: $base-line-height;
+  @if unit($line-height) == "" {
+    $line-height: $line-height * 1em;
   }
-  $rhythm: convert-length($length, $rhythm-unit, $font-size);
+  $rhythm: convert-length($lines * $line-height - $offset, $rhythm-unit, $font-size);
   @if unit($rhythm) == px {
     $rhythm: floor($rhythm);
   }
