@@ -33,6 +33,7 @@ end
    configuration/file_data
    app_integration
    compiler
+   sass_compiler
    sprite_importer
 ).each do |lib|
   require "compass/#{lib}"

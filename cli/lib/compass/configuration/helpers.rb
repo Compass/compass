@@ -47,11 +47,11 @@ module Compass
           else
             Sass::Plugin.on_updating_stylesheet(&on_saved)
           end
-          
+
           Sass::Plugin.on_compilation_error do |e, filename, css|
             Compass.configuration.run_stylesheet_error(filename, e.message)
           end
-          
+
           @callbacks_loaded = true
         end
       end
