@@ -23,9 +23,3 @@ p.dark-with-args  { @include contrasted(#a22321, blue, yellow); }
 p.ellipsis {
   @include ellipsis;
 }
-
-p.ellipsis.moz {
-  $legacy-support-for-mozilla: true !global;
-  $use-mozilla-ellipsis-binding: true !global;
-  @include ellipsis;
-}

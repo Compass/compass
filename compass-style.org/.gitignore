@@ -6,3 +6,4 @@ crash.log
 tmp
 .bundle
 .rvmrc
+.sass-cache
