@@ -36,6 +36,7 @@ Every release contains updated caniuse data unless otherwise noted.
   images directory, all asset collections and the sprite load paths.
   If two images have the same basename the first one is kept and the
   other(s) discarded according to the order above.
+* Make gradients work properly with Sass's `inspect()` function.
 
 1.0.2 (UNRELEASED)
 ------------------
