@@ -293,6 +293,10 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       to_official.to_s
     end
 
+    def to_sass(*args)
+      to_s(*args)
+    end
+
     def to_s_prefixed(options = self.options)
       to_s(options)
     end
@@ -417,6 +421,10 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       end
       s << color_stops.to_s(options)
       s << ")"
+    end
+
+    def to_sass(*args)
+      to_s(*args)
     end
 
     standardized_prefix :webkit
