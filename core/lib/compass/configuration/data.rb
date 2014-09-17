@@ -119,8 +119,7 @@ module Compass
       # @see AssetCollection#initialize for options
       def add_asset_collection(options)
         @url_resolver = nil
-        @asset_collections ||= []
-        @asset_collections << AssetCollection.new(options)
+        asset_collections << AssetCollection.new(options)
       end
 
       # When called with a block, defines the asset host url to be used.
