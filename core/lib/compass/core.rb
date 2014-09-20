@@ -1,4 +1,5 @@
 require "compass/core/version"
+require "compass/core/encoding"
 
 module Compass
   module Core
