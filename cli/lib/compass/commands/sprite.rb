@@ -40,7 +40,6 @@ module Compass
       def perform
         relative_uri = options[:uri].gsub(/^#{Compass.configuration.images_dir}\//, '')
         name = Compass::Sprites::Importer.sprite_name(relative_uri)
-        sprites = Compass::Sprites::Importer.new
         options[:output_file] ||= File.join(Compass.configuration.sass_path, "sprites", "_#{name}.#{Compass.configuration.preferred_syntax}")
         options[:skip_overrides] ||= false
         contents = Compass::Sprites::Importer.content_for_images(relative_uri, name, options[:skip_overrides])
