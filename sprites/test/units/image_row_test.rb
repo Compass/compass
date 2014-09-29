@@ -11,9 +11,16 @@ class ImageRowTest < Test::Unit::TestCase
     @image_files = Dir["#{@images_src_path}/image_row/*.png"].sort
     @images = @image_files.map do |img|
       img.gsub!("#{@images_src_path}/", '')
-      Compass::Sprites::SassExtensions::Image.new(nil, img, {})
+      Compass::Sprites::SassExtensions::Image.new(img.split('/').last, img, option_stub)
     end
     image_row(1000)
+  end
+
+  def option_stub
+    option_stub = {}
+    option_stub.stubs(:get_var => Sass::Script::Number.new(0, ['px']))
+    # stubs the get_var used for Sprites::Image#spacing
+    option_stub
   end
   
   def teardown
@@ -32,7 +39,7 @@ class ImageRowTest < Test::Unit::TestCase
   
   def test_should_return_false_if_image_will_not_fit_in_row
     image_row(100)
-    img = Compass::Sprites::SassExtensions::Image.new(nil, File.join('image_row', 'large.png'), {})
+    img = Compass::Sprites::SassExtensions::Image.new('large.png', File.join('image_row', 'large.png'), option_stub)
     assert !@image_row.add(img)
   end
   

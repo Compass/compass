@@ -11,10 +11,10 @@ module Compass
 
         def initialize(images)
           @images = images.sort do |a,b|
-            if a.height == b.height
-              b.width <=> a.width
+            if a.height_with_spacing == b.height_with_spacing
+              b.width_with_spacing <=> a.width_with_spacing
             else
-              a.height <=> b.height
+              a.height_with_spacing <=> b.height_with_spacing
             end
           end
           @rows = []
@@ -26,7 +26,7 @@ module Compass
         end
 
         def width
-          @width ||= @images.collect(&:width).max
+          @width ||= @images.collect(&:width_with_spacing).max
         end
         
         def height

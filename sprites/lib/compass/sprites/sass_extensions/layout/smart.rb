@@ -16,9 +16,9 @@ module Compass
             fitter.fit!.each do |row|
               current_x = 0
               row.images.each_with_index do |image, index|
-                image.left = current_x
-                image.top = current_y
-                current_x += image.width
+                image.left = current_x+image.spacing
+                image.top = current_y+image.spacing
+                current_x += image.width_with_spacing
               end
               current_y += row.height
             end

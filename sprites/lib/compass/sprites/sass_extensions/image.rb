@@ -22,6 +22,7 @@ module Compass
           @base, @relative_file, @options = base, relative_file, options
           @left = @top = 0
           @name = File.basename(relative_file, '.png')
+          @height_with_spacing = @width_with_spacing = nil
         end
 
         # The Full path to the image
@@ -48,7 +49,7 @@ module Compass
         end
 
         def get_var_file(var)
-          options.get_var "#{base.name}_#{name}_#{var}"
+          options.get_var "#{base.respond_to?(:name) ? base.name : base}_#{name}_#{var}"
         end
 
         # Value of <tt> $#{name}-repeat </tt> or <tt> $repeat </tt>
@@ -88,6 +89,14 @@ module Compass
         # Spacing between this image and the next
         def spacing
           @spacing ||= (get_var_file("spacing") || options.get_var("spacing") || number(0, 'px')).value
+        end
+
+        def height_with_spacing
+          @height_with_spacing ||= (2*spacing)+height
+        end
+
+        def width_with_spacing
+          @width_with_spacing ||= (2*spacing)+width
         end
 
         # MD5 hash of this file

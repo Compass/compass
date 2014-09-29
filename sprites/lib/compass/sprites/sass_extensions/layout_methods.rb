@@ -6,6 +6,7 @@ module Compass
         DIAGONAL = 'diagonal'
         SMART = 'smart'
         VERTICAL = 'vertical'
+        PACKED = 'packed'
         
         def smart?
           layout == SMART
@@ -23,6 +24,10 @@ module Compass
           layout == VERTICAL
         end
         
+        def packed?
+          layout == PACKED
+        end
+        
         def layout
           @layout ||= @kwargs.get_var('layout').value
         end
@@ -34,6 +39,9 @@ module Compass
           when SMART
             require 'compass/sprites/sass_extensions/layout/smart'
             @images, @width, @height = Layout::Smart.new(@images, @kwargs).properties
+          when PACKED
+            require 'compass/sprites/sass_extensions/layout/packed'
+            @images, @width, @height = Layout::Packed.new(@images, @kwargs).properties
           when DIAGONAL
             require 'compass/sprites/sass_extensions/layout/diagonal'
             @images, @width, @height = Layout::Diagonal.new(@images, @kwargs).properties
