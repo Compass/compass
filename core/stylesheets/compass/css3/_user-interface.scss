@@ -16,6 +16,12 @@ $userselect-support-threshold: $graceful-usage-threshold !default;
 @mixin user-select($select) {
   $select: unquote($select);
 
+  // Controls behavior of the callout and highlight color on iOS and Android devices.
+  @if $select == none {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+  }
+
   @include with-each-prefix(user-select-none, $userselect-support-threshold) {
     // old Firefox used a proprietary `-moz-none` value, starting with Firefox 21 `none` behaves like `-moz-none`
     // @link https://developer.mozilla.org/en-US/docs/Web/CSS/user-select
