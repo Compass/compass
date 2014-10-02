@@ -37,4 +37,3 @@ end
 ).each do |lib|
   require "compass/#{lib}"
 end
-require 'compass/sprites/importer'
