@@ -10,7 +10,12 @@ task :test do
      Rake::Task["test_cleanup"].invoke if ok
   end
 end
-
+desc "run cli sass 3.3 tests"
+task "sass_3_3_test" do
+  sh "cd cli && (BUNDLE_GEMFILE=gemfiles/sass_3_3.gemfile bundle install --quiet && bundle exec rake test) && cd .." do |ok, res|
+    Rake::Task["test_cleanup"].invoke if ok
+  end
+end
 
 desc "Clean up all test files"
 task :test_cleanup do
