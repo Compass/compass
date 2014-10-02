@@ -37,8 +37,8 @@ module Compass
         plugin_opts[:load_paths] += resolve_additional_import_paths
         # TODO: When sprites are extracted to their own plugin, this
         # TODO: will need to be extracted to there.
-        if defined?(Compass::SpriteImporter.new)
-          plugin_opts[:load_paths] << Compass::SpriteImporter.new
+        if defined?(Compass::Sprites::Importer.new)
+          plugin_opts[:load_paths] << Compass::Sprites::Importer.new
         end
         plugin_opts[:full_exception] = (environment == :development)
         plugin_opts
@@ -95,8 +95,8 @@ module Compass
         end
         # TODO: When sprites are extracted to their own plugin, this
         # TODO: will need to be extracted to there.
-        if defined?(Compass::SpriteImporter.new)
-          load_paths << Compass::SpriteImporter.new
+        if defined?(Compass::Sprites::Importer.new)
+          load_paths << Compass::Sprites::Importer.new
         end
         load_paths
       end
