@@ -17,6 +17,13 @@ task "sass_3_3_test" do
   end
 end
 
+desc "run cli listen 2 tests"
+task "listen_2_test" do
+  sh "cd cli && (BUNDLE_GEMFILE=gemfiles/listen_2.gemfile bundle install --quiet && bundle exec rake test) && cd .." do |ok, res|
+    Rake::Task["test_cleanup"].invoke if ok
+  end
+end
+
 desc "Clean up all test files"
 task :test_cleanup do
   dirs = [
