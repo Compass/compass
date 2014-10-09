@@ -1,3 +1,4 @@
+require "compass/sprites"
 module Compass::Sprites::Test::SpriteHelper
   URI = "selectors/*.png"
 

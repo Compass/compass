@@ -939,7 +939,7 @@ class SpritesTest < Test::Unit::TestCase
 
   it "should replace text with images and dimensions using sprites" do
      css = render <<-SCSS
-     @import "compass/utilities/sprites/sprite-img";
+     @import "compass/sprites/sprite-img";
      @import "colors/*.png";
      .blue { 
        @include sprite-replace-text($colors-sprites, blue); 
