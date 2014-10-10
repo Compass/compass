@@ -6,7 +6,6 @@ gemspec :path => '../core'
 gemspec :path => '../import-once'
 
 group :test do
-  gem 'true', ">= 0.2.0.rc.3"
   gem "mocha", "~> 0.14.0", :require => false
 end
 
