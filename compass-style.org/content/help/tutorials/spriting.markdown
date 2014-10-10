@@ -36,7 +36,7 @@ Each is an icon that is 32px square.
 
 The simplest way to use these icon sprites is to let compass give you a class for each sprite:
     
-    @import "compass/utilities/sprites";
+    @import "compass/sprites";
     @import "my-icons/*.png";
     @include all-my-icons-sprites;
 
@@ -116,7 +116,7 @@ And your stylesheet will compile to:
 Getting the image dimensions of a sprite
 
 You can get a unit value by using the magical dimension functions `<map>-sprite-height` and `<map>-sprite-width`
-If you are looking to just return the dimensions see the [docs](/reference/compass/utilities/sprites/base/#mixin-sprite-dimensions)
+If you are looking to just return the dimensions see the [docs](/reference/compass/sprites/base/#mixin-sprite-dimensions)
 
 Example:
 

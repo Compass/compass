@@ -35,11 +35,6 @@ module Compass
         plugin_opts.merge!(sass_options || {})
         plugin_opts[:load_paths] ||= []
         plugin_opts[:load_paths] += resolve_additional_import_paths
-        # TODO: When sprites are extracted to their own plugin, this
-        # TODO: will need to be extracted to there.
-        if defined?(Compass::SpriteImporter.new)
-          plugin_opts[:load_paths] << Compass::SpriteImporter.new
-        end
         plugin_opts[:full_exception] = (environment == :development)
         plugin_opts
       end
@@ -92,11 +87,6 @@ module Compass
         load_paths.map! do |p|
           next p if p.respond_to?(:find_relative)
           importer.new(p.to_s)
-        end
-        # TODO: When sprites are extracted to their own plugin, this
-        # TODO: will need to be extracted to there.
-        if defined?(Compass::SpriteImporter.new)
-          load_paths << Compass::SpriteImporter.new
         end
         load_paths
       end

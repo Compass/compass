@@ -6,6 +6,7 @@ gem 'sass', '~> 3.3.12'
 gem 'compass', :path => "../"
 gem 'compass-core', :path => "../../core"
 gem 'compass-import-once', :path => "../../import-once"
+gem 'compass-sprites', :path=> '../../sprites'
 gem 'listen', '~> 2.7.1'
 
 gemspec :path=>"../"

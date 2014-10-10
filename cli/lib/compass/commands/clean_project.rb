@@ -30,8 +30,12 @@ module Compass
       def perform
         compiler = new_compiler_instance
         compiler.clean!
-        Compass::SpriteImporter.find_all_sprite_map_files(Compass.configuration.generated_images_path).each do |sprite|
-          remove sprite
+        # if compass sprites is loaded clean those
+        # todo: the cli interface should emmit some kinda events so addons can attach there cleanup
+        if defined?(Compass::Sprites::Importer)
+          Compass::Sprites::Importer.find_all_sprite_map_files(Compass.configuration.generated_images_path).each do |sprite|
+            remove sprite
+          end
         end
       end
 

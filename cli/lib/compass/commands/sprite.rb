@@ -39,11 +39,10 @@ module Compass
 
       def perform
         relative_uri = options[:uri].gsub(/^#{Compass.configuration.images_dir}\//, '')
-        name = Compass::SpriteImporter.sprite_name(relative_uri)
-        sprites = Compass::SpriteImporter.new
+        name = Compass::Sprites::Importer.sprite_name(relative_uri)
         options[:output_file] ||= File.join(Compass.configuration.sass_path, "sprites", "_#{name}.#{Compass.configuration.preferred_syntax}")
         options[:skip_overrides] ||= false
-        contents = Compass::SpriteImporter.content_for_images(relative_uri, name, options[:skip_overrides])
+        contents = Compass::Sprites::Importer.content_for_images(relative_uri, name, options[:skip_overrides])
         if options[:output_file][-4..-1] != "scss"
           contents = Sass::Engine.new(contents, Compass.sass_engine_options.merge(:syntax => :scss)).to_tree.to_sass
         end

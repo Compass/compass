@@ -25,7 +25,7 @@ class CompassTest < Test::Unit::TestCase
     before_compile = Proc.new do |config|
       config.on_stylesheet_saved {|filepath| path = filepath; saved = true }
     end
-    within_project(:compass, before_compile)
+    within_project('envtest', before_compile)
     assert saved, "Stylesheet callback didn't get called"
     assert path.is_a?(String), "Path is not a string. Got: #{path.class.name}"
   end

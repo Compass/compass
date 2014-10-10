@@ -1,0 +1,13 @@
+# A sample Gemfile
+source "https://rubygems.org"
+gemspec
+gemspec :path => '../cli'
+gemspec :path => '../core'
+gemspec :path => '../import-once'
+
+group :test do
+  gem 'true', ">= 0.2.0.rc.3"
+  gem "mocha", "~> 0.14.0", :require => false
+end
+
+gem "oily_png", "~> 1.1.0"

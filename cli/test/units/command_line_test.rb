@@ -5,9 +5,9 @@ require 'compass/exec'
 require 'timeout'
 
 class CommandLineTest < Test::Unit::TestCase
-  include Compass::TestCaseHelper
-  include Compass::CommandLineHelper
-  include Compass::IoHelper
+  include Compass::Test::TestCaseHelper
+  include Compass::Test::CommandLineHelper
+  include Compass::Test::IoHelper
 
   def teardown
     Compass.reset_configuration!
