@@ -16,15 +16,21 @@ sudo: false
 env:
   - CI_TEST=core
   - CI_TEST=cli
+  - CI_TEST=sprites
 
 gemfile:
   - core/Gemfile
   - cli/gemfiles/sass_3_3.gemfile
   - cli/gemfiles/listen_2.gemfile
+  - sprites/Gemfile
 
 script: cd $CI_TEST && bundle exec rake
 
 matrix:
+  allow_failures:
+  - gemfile: cli/gemfiles/listen_2.gemfile
+    env: CI_TEST=cli
+    rvm: rbx
   exclude:
   - gemfile: cli/gemfiles/sass_3_3.gemfile
     env: CI_TEST=core
