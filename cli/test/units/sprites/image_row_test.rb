@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImageRowTest < Test::Unit::TestCase
+class ImageRowTest < Minitest::Test
   include SpriteHelper
   def setup
     clean_up_sprites

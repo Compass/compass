@@ -23,7 +23,7 @@ module Sass::Script::Functions
   end
 end
 
-class ImportOnceTest < Test::Unit::TestCase
+class ImportOnceTest < Minitest::Test
   FIXTURES_DIR = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures")
   Dir.glob(File.join(FIXTURES_DIR, "**", "*.scss")).each do |scss_file|
     if ENV["FIXTURE"]

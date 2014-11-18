@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'compass/sass_extensions/sprites/images'
 
-class ImagesTest < Test::Unit::TestCase
+class ImagesTest < Minitest::Test
 
   def setup
     @images = Compass::SassExtensions::Sprites::Images.new

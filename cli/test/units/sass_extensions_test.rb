@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SassExtensionsTest < Test::Unit::TestCase
+class SassExtensionsTest < Minitest::Test
   def test_simple
     assert_equal "a b", evaluate(%Q{nest("a", "b")})
   end
@@ -149,21 +149,32 @@ WARNING
     assert_equal "url('/font/with/right_ext.woff') format('woff'), url('/font/with/right_ext_also.otf') format('opentype')", evaluate("font_files('/font/with/right_ext.woff', '/font/with/right_ext_also.otf')")
     assert_equal "url('/font/with/wrong_ext.woff') format('truetype'), url('/font/with/right_ext.otf') format('opentype')", evaluate("font_files('/font/with/wrong_ext.woff', 'ttf', '/font/with/right_ext.otf')")
 
-    assert_nothing_raised Sass::SyntaxError do
+    nothing_raised = true
+    begin
       evaluate("font-files('/font/name.woff')")
+    rescue
+      nothing_raised = false
     end
 
-    assert_nothing_raised Sass::SyntaxError do
+    begin
       evaluate("font-files('/font/name.svg#fontId')")
+    rescue
+      nothing_raised = false
     end
 
-    assert_nothing_raised Sass::SyntaxError do
+    begin
       evaluate("font-files('/font/name.eot?#iefix')")
+    rescue
+      nothing_raised = false
     end
 
-    assert_nothing_raised Sass::SyntaxError do
+    begin
       evaluate("font-files('/font/name.svg?mightbedynamic=something%20+escaped#fontId')")
+    rescue
+      nothing_raised = false
     end
+
+    assert nothing_raised
 
     assert_raises Sass::SyntaxError do
       evaluate("font-files('/font/name.ext')")

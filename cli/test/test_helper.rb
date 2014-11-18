@@ -4,7 +4,8 @@ test_dir = File.dirname(__FILE__)
 $:.unshift(test_dir) unless $:.include?(test_dir)
 
 require 'compass'
-require 'test/unit'
+require 'minitest/autorun'
+require 'mocha/mini_test'
 require 'true'
 
 
@@ -19,7 +20,7 @@ end
 end
 
 
-class Test::Unit::TestCase
+class Minitest::Test
   include Compass::Diff
   include Compass::TestCaseHelper
   include Compass::IoHelper
@@ -43,6 +44,7 @@ module SpriteHelper
   end
   
   def sprite_map_test(options, uri = URI)
+    Compass.configuration.add_to_sprite_load_path @images_tmp_path
     importer = Compass::SpriteImporter.new
     path, name = Compass::SpriteImporter.path_and_name(uri)
     sprite_names = Compass::SpriteImporter.sprite_names(uri)

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CompassUtilTest < Test::Unit::TestCase
+class CompassUtilTest < Minitest::Test
   def test_warn
     $stderr, old_err = StringIO.new, $stderr
     Compass::Util.compass_warn("this is a warning")

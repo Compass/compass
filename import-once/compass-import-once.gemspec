@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "diff-lcs"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "sass-globbing"
+  spec.add_development_dependency "minitest"
 end

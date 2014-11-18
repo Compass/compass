@@ -3,7 +3,7 @@ test_directory = File.expand_path(File.dirname(__FILE__))
 $: << test_directory unless $:.include? test_directory
 require 'test_helper'
 
-class AssetCollectionTest < Test::Unit::TestCase
+class AssetCollectionTest < Minitest::Test
 
   include Compass::Configuration
   include Compass::Core::HTTPUtil

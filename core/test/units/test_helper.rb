@@ -3,12 +3,12 @@ $: << lib_directory unless $:.include? lib_directory
 require 'fileutils'
 require 'compass/core'
 
-require "test/unit"
+require "minitest/autorun"
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "helpers", "diff"))
 
 include Compass::Diff
 
-class Test::Unit::TestCase
+class Minitest::Test
   def assert_raise_message(klass, message)
     begin
       yield
