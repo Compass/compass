@@ -14,6 +14,8 @@ The sprite engine is the work horse of sprite generation it's the interface for 
 
 ### Requirements
 
+A sprite engine requires a constant be defined called `VALID_EXTENSIONS` that returns and array of valid image extensions ex. `['.png', '.jpg']`
+
 A sprite engine requires two methods `construct_sprite`, and `save(filename)`
 
 Once inside the class you have access to `images` which is a collection of [Compass::SassExtensions::Sprites::Image](http://rdoc.info/github/chriseppstein/compass/dda7c9/Compass/SassExtensions/Sprites/Image)

@@ -1,5 +1,5 @@
 
-GEMS = ['core', 'cli', 'import-once']
+GEMS = ['core', 'cli', 'import-once', 'sprites']
 
 
 task :default => %w[test]

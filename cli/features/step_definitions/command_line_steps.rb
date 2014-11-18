@@ -4,9 +4,9 @@ require 'bundler/setup'
 require 'test_helper'
 
 require 'compass/exec'
-include Compass::TestCaseHelper
-include Compass::CommandLineHelper
-include Compass::IoHelper
+include Compass::Test::TestCaseHelper
+include Compass::Test::CommandLineHelper
+include Compass::Test::IoHelper
 
 Before do
   Compass.reset_configuration!
