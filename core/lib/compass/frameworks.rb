@@ -84,7 +84,9 @@ module Compass
       frameworks_directory = Dir.new(frameworks_directory) unless frameworks_directory.is_a?(Dir)
       dirs = frameworks_directory.entries.reject{|e| e =~ /^\./}.sort_by{|n| n =~ /^_/ ? n[1..-1] : n}
       dirs.each do |framework|
-        register_directory File.join(frameworks_directory.path, framework)
+        if File.directory?(framework)
+          register_directory File.join(frameworks_directory.path, framework)
+        end
       end
     end
 
