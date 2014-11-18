@@ -4,12 +4,20 @@
 
 @import "hacks";
 
+
+// You can configure your preferred clearfix method using
+// $default-clearfix
+$default-clearfix: overflow-clearfix !default;
+
 // This basic method is preferred for the usual case, when positioned
 // content will not show outside the bounds of the container.
 //
+// However, do note this can cause side-effects such as clipping the
+// fuzzy blue outline shown around focused input elements (on OS X).
+//
 // Recommendations include using this in conjunction with a width.
 // Credit: [quirksmode.org](http://www.quirksmode.org/blog/archives/2005/03/clearing_floats.html)
-@mixin clearfix {
+@mixin overflow-clearfix {
   overflow: hidden;
   @include has-layout;
 }
@@ -41,4 +49,15 @@
     clear: both;
   }
   @include has-layout;
+}
+
+
+@mixin clearfix {
+  @if $default-clearfix == pie-clearfix {
+    @include pie-clearfix;
+  } @else if $default-clearfix == legacy-pie-clearfix {
+    @include legacy-pie-clearfix;
+  } @else {
+    @include overflow-clearfix;
+  }
 }
