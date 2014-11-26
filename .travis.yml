@@ -10,6 +10,7 @@ rvm:
   - ree
   - 2.0.0
   - 2.1.0
+  - 2.2
 
 sudo: false
 
@@ -107,6 +108,15 @@ matrix:
   - gemfile: core/Gemfile
     env: CI_TEST=cli
     rvm: 2.1.0
+  - gemfile: cli/gemfiles/sass_3_3.gemfile
+    env: CI_TEST=core
+    rvm: 2.2
+  - gemfile: cli/gemfiles/listen_2.gemfile
+    env: CI_TEST=core
+    rvm: 2.2
+  - gemfile: core/Gemfile
+    env: CI_TEST=cli
+    rvm: 2.2
   - gemfile: cli/gemfiles/listen_2.gemfile
     env: CI_TEST=cli
     rvm: 1.8.7
