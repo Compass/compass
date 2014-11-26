@@ -1,0 +1,16 @@
+@import "compass/support";
+@import "compass/css3/images";
+
+// An actual use-case that demonstrates the problem
+.use-case {
+  @include with-browser-ranges(css-mediaqueries) {
+    @include background-image(linear-gradient(red, blue));
+  }
+}
+
+// A simplification of the issue
+$ranges: (ie: "9" "11");
+$new-ranges: (ie: "9");
+.simple {
+  content: inspect(intersect-browser-ranges($ranges, $new-ranges));
+}

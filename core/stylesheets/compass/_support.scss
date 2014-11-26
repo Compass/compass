@@ -275,9 +275,9 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
     $old-range: map-get($ranges, $browser);
     @if $old-range {
       $old-min: nth($old-range, 1);
-      $old-max: nth($old-range, 2);
+      $old-max: if(length($old-range) == 1, $old-min, nth($old-range, 2));
       $new-min: nth($new-range, 1);
-      $new-max: nth($new-range, 2);
+      $new-max: if(length($new-range) == 1, $new-min, nth($new-range, 2));
       $maximin: if(compare-browser-versions($browser, $old-min, $new-min) > 0,
                    $old-min, $new-min);
       $minimax: if(compare-browser-versions($browser, $old-max, $new-max) < 0,
