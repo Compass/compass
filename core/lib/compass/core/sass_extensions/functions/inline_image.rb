@@ -44,6 +44,8 @@ private
       'font/truetype'
     when /\.woff$/i
       'application/font-woff'
+    when /\.woff2$/i
+      'application/font-woff2'
     when /\.off$/i
       'font/openfont'
     when /\.([a-zA-Z]+)$/
