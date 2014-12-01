@@ -155,7 +155,7 @@ It compiles and previews the site in the browser (also at [http://localhost:3000
 For convenience, all these commands are written as rake tasks:
 
 ```sh
-$ rake watch    # bundle execn nanoc watch
+$ rake watch    # bundle exec nanoc watch
 $ rake view     # bundle exec nanoc view -H thin
 $ rake compile  # bundle exec nanoc (compile)
 $ rake aco      # bundle exec nanoc aco -H thin
