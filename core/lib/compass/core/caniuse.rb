@@ -69,7 +69,7 @@ class Compass::Core::CanIUse
   end
 
   # returns the prefixes needed by the list of browsers given
-  def prefixes(browsers = browsers)
+  def prefixes(browsers = self.browsers)
     result = browsers.map{|b| all_prefixes(b) }
     result.flatten!
     result.uniq!
