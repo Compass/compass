@@ -19,6 +19,7 @@ unless ENV['PKG']
   gem 'rake'
   gem 'json', '~> 1.7.7', :platforms => :ruby_18
   gem 'true', "~> 0.2.3"
+  gem 'test-unit', '~> 3.0.9'
 
   # Warning be carful adding OS dependant gems above this line it will break the CI server please
   # place them below so they are excluded

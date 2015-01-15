@@ -11,6 +11,31 @@ task :test do
   end
 end
 
+desc "build gems"
+task :build_gems => [:test] do
+  GEMS.each do |gem|
+    chdir gem do
+      if gem == 'cli'
+        sh "gem build compass.gemspec"
+      else
+        sh "gem build compass-#{gem}.gemspec"
+      end
+    end
+  end
+end
+
+desc "publish gems"
+task :publish_gems => [:build_gems] do
+  GEMS.each do |gem|
+    chdir gem do
+      if gem == 'cli'
+        sh "gem push compass.gemspec"
+      else
+        sh "gem push compass-#{gem}.gemspec"
+      end
+    end
+  end
+end
 
 desc "Clean up all test files"
 task :test_cleanup do
