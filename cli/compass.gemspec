@@ -25,7 +25,7 @@ Gem::Specification.new do |gemspec|
     Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/compass Thanks!
   MESSAGE
 
-  gemspec.files = %w(LICENSE.markdown VERSION Rakefile)
+  gemspec.files = %w(LICENSE.markdown VERSION VERSION_NAME Rakefile)
   gemspec.files += Dir.glob("bin/*")
   gemspec.files += Dir.glob("data/**/*")
   gemspec.files += Dir.glob("frameworks/**/*")
