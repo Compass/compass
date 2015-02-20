@@ -11,7 +11,11 @@ module Compass
         def construct_sprite
           raise ::Compass::Error, "You must implement construct_sprite"
         end
-        
+
+        def file_extension
+          'png'
+        end
+
         def save(filename)
           raise ::Compass::Error, "You must implement save(filename)"
         end
