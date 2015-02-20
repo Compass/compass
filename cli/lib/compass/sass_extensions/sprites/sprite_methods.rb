@@ -36,7 +36,7 @@ module Compass
         end
 
         def name_and_hash
-          "#{path}-s#{uniqueness_hash}.png"
+          "#{path}-s#{uniqueness_hash}.#{file_extension}"
         end
 
         # The on-the-disk filename of the sprite
@@ -63,7 +63,7 @@ module Compass
         end
         
         def cleanup_old_sprites
-          Sass::Util.glob(File.join(Compass.configuration.generated_images_path, "#{path}-s*.png")).each do |file|
+          Sass::Util.glob(File.join(Compass.configuration.generated_images_path, "#{path}-s*.#{file_extension}")).each do |file|
             log :remove, file
             FileUtils.rm file
             Compass.configuration.run_sprite_removed(file)
@@ -90,6 +90,12 @@ module Compass
             sum.hexdigest[0...10]
           end
           @uniqueness_hash
+        end
+
+        # Returns the file extension for this sprite object as decided by the
+        # sprite engine.
+        def file_extension
+          engine.file_extension
         end
 
         # Saves the sprite engine
