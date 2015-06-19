@@ -133,7 +133,7 @@ class Compass::SassCompiler
   end
 
   def stylesheet_name(sass_file)
-    if sass_file.index(config.sass_path) == 0
+    if sass_file.gsub('\\', '/').index(config.sass_path.gsub('\\', '/')) == 0
       sass_file[(config.sass_path.length + 1)..-6].sub(/\.css$/,'')
     else
       raise Compass::Error, "Individual stylesheets must be in the sass directory."
