@@ -37,6 +37,10 @@ module Compass
         :development
       end
 
+      def use_image_helper_on_output
+        false
+      end
+
       def default_output_style
         if top_level.environment == :development
           :expanded

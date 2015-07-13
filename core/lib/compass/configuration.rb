@@ -72,6 +72,7 @@ module Compass
       # Helper configuration
       :asset_host,
       :asset_cache_buster,
+      :use_image_helper_on_output,
       :line_comments,
       :color_output,
       :preferred_syntax,
