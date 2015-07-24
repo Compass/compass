@@ -228,7 +228,7 @@ $css-sel2-support-threshold: $critical-usage-threshold !default;
         }
       }
     } @else if $debug-browser-support {
-      /* Capability #{$capability} is not prefixed with #{$prefix} because #{prefix-usage($prefix, $capability, $capability-options)}% of users are affected which is less than the threshold of #{$threshold}. */
+      /* Capability #{$capability} is not prefixed with #{$prefix} because #{prefix-usage($prefix, $capability, $capability-options)}% of users are affected which is less than the threshold of #{$threshold}%. */
     }
   }
   @include with-prefix(null) {
