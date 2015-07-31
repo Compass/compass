@@ -15,10 +15,10 @@
 
 // shorthand to stretch element height and width
 
-@mixin stretch($offset-top:0, $offset-right:0, $offset-bottom:0, $offset-left:0) {
+@mixin stretch($offset-top:'', $offset-right:'', $offset-bottom:'', $offset-left:'') {
   position: absolute;
-  @if $offset-top { top: $offset-top; }
-  @if $offset-bottom { bottom: $offset-bottom; }
-  @if $offset-left { left: $offset-left; }
-  @if $offset-right { right: $offset-right; }
+  @if $offset-top { top: #{$offset-top}; }
+  @if $offset-bottom { bottom: #{$offset-bottom}; }
+  @if $offset-left { left: #{$offset-left}; }
+  @if $offset-right { right: #{$offset-right}; }
 }
