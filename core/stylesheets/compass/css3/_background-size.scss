@@ -1,7 +1,7 @@
 // Background Size
 @import "compass/support";
 
-// The the user threshold for background-clip support. Defaults to `$critical-usage-threshold`
+// The user threshold for background-clip support. Defaults to `$critical-usage-threshold`
 $background-size-threshold: $critical-usage-threshold !default;
 
 //  override to change the default
