@@ -35,18 +35,22 @@ Options:
           parser.extend(Compass::Exec::ProjectOptionsParser)
           parser.extend(StampPatternOptionsParser)
         end
+
         def usage
           option_parser([]).to_s
         end
+
         def description(command)
           "Install an extension's pattern into your compass project"
         end
+
         def parse!(arguments)
           parser = option_parser(arguments)
           parser.parse!
           parse_arguments!(parser, arguments)
           parser.options
         end
+
         def parse_arguments!(parser, arguments)
           if arguments.size == 0
             raise OptionParser::ParseError, "Please specify a pattern."
@@ -61,7 +65,6 @@ Options:
             raise OptionParser::ParseError, "Unexpected trailing arguments: #{arguments.join(" ")}"
           end
         end
-
       end
       include InstallerCommand
 
@@ -84,7 +87,6 @@ Options:
       def template_directory(pattern)
         File.join(framework.templates_directory, pattern)
       end
-
     end
   end
 end

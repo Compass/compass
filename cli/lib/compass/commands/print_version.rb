@@ -39,17 +39,21 @@ Options:
           parser = Compass::Exec::CommandOptionParser.new(arguments)
           parser.extend(VersionOptionsParser)
         end
+
         def usage
           option_parser([]).to_s
         end
+
         def description(command)
           "Print out version information"
         end
+
         def parse!(arguments)
           parser = option_parser(arguments)
           parser.parse!
           parser.options
         end
+
         def long_output_string
           lines = []
           lines << "Compass #{::Compass.version[:string]}"
@@ -69,7 +73,7 @@ Options:
       def initialize(working_path, options)
         self.options = options
       end
-  
+
       def execute
         if options[:custom]
           version = ""

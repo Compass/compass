@@ -2,12 +2,14 @@ module Compass
   module Stats
     class StatsVisitor
       attr_accessor :rule_count, :prop_count, :mixin_def_count, :mixin_count
+
       def initialize
         self.rule_count = 0
         self.prop_count = 0
         self.mixin_def_count = 0
         self.mixin_count = 0
       end
+
       def visit(node)
         self.prop_count += 1 if node.is_a?(Sass::Tree::PropNode) && !node.children.any?
         if node.is_a?(Sass::Tree::RuleNode)
@@ -16,20 +18,25 @@ module Compass
         self.mixin_def_count += 1 if node.is_a?(Sass::Tree::MixinDefNode)
         self.mixin_count += 1 if node.is_a?(Sass::Tree::MixinNode)
       end
+
       def up(node)
       end
+
       def down(node)
       end
+
       def import?(node)
         return false
         full_filename = node.send(:import)
         full_filename != Compass.deprojectize(full_filename)
       end
     end
+
     class CssFile
       attr_accessor :path, :css
       attr_accessor :selector_count, :prop_count
       attr_accessor :file_size
+
       def initialize(path)
         require 'css_parser'
         self.path = path
@@ -38,12 +45,15 @@ module Compass
         self.selector_count = 0
         self.prop_count = 0
       end
+
       def contents
         @contents ||= File.read(path)
       end
+
       def lines
         contents.inject(0){|m,c| m + 1 }
       end
+
       def analyze!
         self.file_size = File.size(path)
         css.each_selector do |selector, declarations, specificity|
@@ -54,6 +64,7 @@ module Compass
         end
       end
     end
+
     class SassFile
       attr_accessor :path
       attr_reader :visitor
@@ -62,35 +73,44 @@ module Compass
       def initialize(path)
         self.path = path
       end
+
       def contents
         @contents ||= File.read(path)
       end
+
       def tree
         opts = Compass.configuration.to_sass_engine_options
         opts[:syntax] = path[-4..-1].to_sym
         @tree = Sass::Engine.new(contents, opts).to_tree
       end
+
       def visit_tree!
         @visitor = StatsVisitor.new
         tree.visit_depth_first(@visitor)
         @visitor
       end
+
       def analyze!
         self.file_size = File.size(path)
         visit_tree!
       end
+
       def lines
         contents.inject(0){|m,c| m + 1 }
       end
+
       def rule_count
         visitor.rule_count
       end
+
       def prop_count
         visitor.prop_count
       end
+
       def mixin_def_count
         visitor.mixin_def_count
       end
+
       def mixin_count
         visitor.mixin_count
       end

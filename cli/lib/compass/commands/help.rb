@@ -16,7 +16,7 @@ Donating:
 To get help on a particular command please specify the command.
 
 }
-        
+
         primary_commands = Compass::Commands.all.select do |c|
           cmd = Compass::Commands[c]
           cmd.respond_to?(:primary) && cmd.primary
@@ -25,7 +25,7 @@ To get help on a particular command please specify the command.
 
         banner << command_list("Primary Commands:", primary_commands)
         banner << command_list("Other Commands:", other_commands)
- 
+
         banner << "\nAvailable Frameworks & Patterns:\n\n"
         banner << Compass::Frameworks.pretty_print
         banner << "\nGlobal Options:\n"
@@ -55,12 +55,15 @@ To get help on a particular command please specify the command.
           parser.extend(Compass::Exec::GlobalOptionsParser)
           parser.extend(HelpOptionsParser)
         end
+
         def usage
           option_parser([]).to_s
         end
+
         def description(command)
           "Get help on a compass command or extension"
         end
+
         def parse!(arguments)
           parser = option_parser(arguments)
           parser.parse!

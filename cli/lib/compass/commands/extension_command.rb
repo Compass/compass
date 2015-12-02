@@ -32,12 +32,15 @@ Example:
           parser = Compass::Exec::CommandOptionParser.new(arguments)
           parser.extend(ExtensionsOptionParser)
         end
+
         def usage
           option_parser([]).to_s
         end
+
         def description(command)
           "Manage the list of compass extensions on your system"
         end
+
         def parse!(arguments)
           {:arguments => arguments}
         end
@@ -53,7 +56,6 @@ Example:
         require 'rubygems/gem_runner'
         Gem::GemRunner.new.run(options[:arguments])
       end
-
     end
   end
 end
