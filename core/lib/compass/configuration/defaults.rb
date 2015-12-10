@@ -118,7 +118,7 @@ module Compass
       end
 
       def default_http_generated_images_dir
-        top_level.http_images_dir
+        top_level.generated_images_dir
       end
 
       def default_http_images_dir
