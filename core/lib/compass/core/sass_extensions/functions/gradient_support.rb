@@ -306,9 +306,6 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       end
     end
 
-    standardized_prefix :webkit
-    standardized_prefix :moz
-
     def to_webkit(options = self.options)
       s = "-webkit-radial-gradient("
       s << old_standard_arguments(options)
