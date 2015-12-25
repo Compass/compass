@@ -34,13 +34,13 @@ module Compass
          SEPERATORS = ['_', '-']
 
          def get_magic_selector_image(name, selector)
-          SEPERATORS.each do |seperator|
-            file = image_for("#{name}#{seperator}#{selector}")
-            return file if !file.nil?
-          end
+           SEPERATORS.each do |seperator|
+             file = image_for("#{name}#{seperator}#{selector}")
+             return file if !file.nil?
+           end
 
-          nil
-        end
+           nil
+         end
 
          # Return and array of image names that make up this sprite
          def sprite_names
