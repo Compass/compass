@@ -759,9 +759,9 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       end
       if (positions.last.stop.eq(number(0, "px")).to_bool ||
          positions.last.stop.eq(number(0, "%")).to_bool)
-         raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
-       end
-       opts(list(positions, color_list.separator))
+        raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
+      end
+      opts(list(positions, color_list.separator))
     end
 
     def parse_color_stop(arg)
