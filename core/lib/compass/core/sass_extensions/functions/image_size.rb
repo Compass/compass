@@ -6,7 +6,7 @@ module Compass::Core::SassExtensions::Functions::ImageSize
     width, _ = image_dimensions(image_file)
     number(width, "px")
   end
-  
+
   # Returns the height of the image relative to the images directory
   def image_height(image_file)
     _, height = image_dimensions(image_file)
@@ -15,7 +15,13 @@ module Compass::Core::SassExtensions::Functions::ImageSize
 
   class ImageProperties
     def initialize(file)
-      @file = (file.respond_to?(:to_path) ? file.to_path : file)
+      @file = if file.respond_to?(:to_path)
+        file.to_path
+      elsif file.respond_to?(:filename)
+        file.filename
+      else
+        file
+      end
       @file_type = File.extname(@file)[1..-1].downcase
       unless KNOWN_TYPES.include?(@file_type)
         raise Sass::SyntaxError, "Unrecognized file type: #{@file_type}"
@@ -53,10 +59,10 @@ private
     options[:compass][:image_dimensions] ||= {}
     options[:compass][:image_dimensions][image_file] = ImageProperties.new(image_path_for_size(image_file)).size
   end
-  
+
   def image_path_for_size(image_file)
     if File.exists?(image_file)
-      return image_file 
+      return image_file
     end
     real_path(image_file)
   end
