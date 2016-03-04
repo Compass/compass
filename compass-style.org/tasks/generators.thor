@@ -61,10 +61,10 @@ class Generate < Thor
     open(file_name, "w") do |example_file|
       example_contents = <<-EXAMPLE
         | @import "#{module_path}";
-        | 
+        |
         | // This file is used to style the example markup.
         | // And the source is shown to the user as SCSS, Sass and as CSS.
-        | 
+        |
         | .example {
         |   .title {
         |     font-size: 36px;
@@ -72,7 +72,7 @@ class Generate < Thor
         |     color: #333;
         |     border: none;
         |   }
-        | 
+        |
         |   p { color: #666; }
         | }
       EXAMPLE
@@ -128,7 +128,7 @@ class Generate < Thor
     stylesheet_name = array.pop
     prefix = array.join("/")
 
-    stylesheet = Dir["../frameworks/compass/stylesheets/#{prefix}/_#{stylesheet_name}.{scss,sass}"].first
+    stylesheet = Dir["../core/stylesheets/#{prefix}/_#{stylesheet_name}.{scss,sass}"].first
     raise "no stylesheet found for module #{module_path}" if stylesheet.nil?
     stylesheet = File.expand_path(stylesheet)
 

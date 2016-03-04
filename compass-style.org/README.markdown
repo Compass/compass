@@ -291,7 +291,7 @@ All of these are optional and have reasonable defaults, you can use them when un
 **Note**: When generating examples or references, Thor is searching for the appropriate
 module stylesheet. If it doesn't find one, it raises an error and doesn't
 generate anything. So before generating anything make sure the stylesheet exists and is
-under `../frameworks/compass/stylesheets/compass/path/to/module` (relative to the `compass-style.org` directory). If the path confuses you, just take a few minutes to study how other modules are organized and you'll quickly get the hang of it.
+under `../core/stylesheets/compass/path/to/module` (relative to the `compass-style.org` directory). If the path confuses you, just take a few minutes to study how other modules are organized and you'll quickly get the hang of it.
 
 Let's do an example:
 
@@ -345,7 +345,7 @@ After adding the example and adjusting the metadata, go to the reference page in
 Existing modules already have reference files, so you'll most likely be adding
 reference files to new modules.
 
-So we got a great idea for an awesome module, and after a lot of thinking we decided to name it `super-awesome-module`. The first step to adding a new module is creating the stylesheet. Let's say this will be a Compass CSS3 module, so we'll create a new file as `../frameworks/compass/stylesheets/compass/css3/_super-awesome-module.scss` (relative to the `compass-style.org` directory). Keep in mind that the comments inside those stylesheets are parsed with Markdown and output into the reference.
+So we got a great idea for an awesome module, and after a lot of thinking we decided to name it `super-awesome-module`. The first step to adding a new module is creating the stylesheet. Let's say this will be a Compass CSS3 module, so we'll create a new file as `../core/stylesheets/compass/css3/_super-awesome-module.scss` (relative to the `compass-style.org` directory). Keep in mind that the comments inside those stylesheets are parsed with Markdown and output into the reference.
 
 The easiest way to find out how you should write your stylesheet is to take a look at some existing modules. This module won't be very useful, but you'll get the point:
 
