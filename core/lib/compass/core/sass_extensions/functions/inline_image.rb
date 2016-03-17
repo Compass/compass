@@ -1,3 +1,6 @@
+require 'RMagick'
+include Magick
+
 module Compass::Core::SassExtensions::Functions::InlineImage
 
   def inline_image(path, mime_type = nil)
@@ -17,10 +20,25 @@ module Compass::Core::SassExtensions::Functions::InlineImage
     list(files, :comma)
   end
 
+  def inline_svg_code(str)
+    code = str.value
+    inline_svg_string(format_svg_code(code))
+  end
+
+  def inline_svg_code_to_png(str)
+    code = str.value
+    inline_image_string(convert_svg_code_to_png(code), 'png')
+  end
+
 protected
   def inline_image_string(data, mime_type)
     data = [data].flatten.pack('m').gsub("\n","")
     url = "url('data:#{mime_type};base64,#{data}')"
+    unquoted_string(url)
+  end
+
+  def inline_svg_string(data)
+    url = "url('data:image/svg+xml,#{data}')"
     unquoted_string(url)
   end
 
@@ -59,5 +77,19 @@ private
     else
       raise Compass::Error, "File not found or cannot be read: #{real_path}"
     end
+  end
+
+  def format_svg_code(code)
+    ERB::Util.url_encode(code)
+  end
+
+  def convert_svg_code_to_png(str)
+    img, data = Magick::Image.from_blob(str) {
+      self.format = 'SVG'
+      self.background_color = 'transparent'
+    }
+    img.to_blob {
+      self.format = 'PNG'
+    }
   end
 end
