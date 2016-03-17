@@ -1,5 +1,6 @@
-require 'RMagick'
-include Magick
+# Uncomment lines to enable `inline-svg-code-to-png` functionality
+# require 'RMagick'
+# include Magick
 
 module Compass::Core::SassExtensions::Functions::InlineImage
 
@@ -25,10 +26,10 @@ module Compass::Core::SassExtensions::Functions::InlineImage
     inline_svg_string(format_svg_code(code))
   end
 
-  def inline_svg_code_to_png(str)
-    code = str.value
-    inline_image_string(convert_svg_code_to_png(code), 'png')
-  end
+  # def inline_svg_code_to_png(str)
+  #   code = str.value
+  #   inline_image_string(convert_svg_code_to_png(code), 'png')
+  # end
 
 protected
   def inline_image_string(data, mime_type)
@@ -83,13 +84,13 @@ private
     ERB::Util.url_encode(code)
   end
 
-  def convert_svg_code_to_png(str)
-    img, data = Magick::Image.from_blob(str) {
-      self.format = 'SVG'
-      self.background_color = 'transparent'
-    }
-    img.to_blob {
-      self.format = 'PNG'
-    }
-  end
+  # def convert_svg_code_to_png(str)
+  #   img, data = Magick::Image.from_blob(str) {
+  #     self.format = 'SVG'
+  #     self.background_color = 'transparent'
+  #   }
+  #   img.to_blob {
+  #     self.format = 'PNG'
+  #   }
+  # end
 end
