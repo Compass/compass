@@ -23,6 +23,11 @@ module Compass::Core::SassExtensions::Functions::InlineImage
 
   def inline_svg_code(str)
     code = str.value
+
+    # Add the XML header (because it's a real drag adding it each time)
+    code = '<?xml version="1.0" ?>' + code
+
+    # Inline the SVG code
     inline_svg_string(format_svg_code(code))
   end
 
