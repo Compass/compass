@@ -1,4 +1,0 @@
-RedirectMatch 301 /docs/$ /reference/compass/
-RedirectMatch 301 /docs/tutorials/(.*) /help/tutorials/$1
-RedirectMatch 301 /docs/(.*) /$1
-RedirectMatch 301 /reference/$ /reference/compass/

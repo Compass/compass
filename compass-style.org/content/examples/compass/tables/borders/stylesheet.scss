@@ -1,8 +1,0 @@
-@import "compass/utilities/tables/borders";
-
-.example {
-  table {
-    @include inner-table-borders(1px, #7a98c6);
-    @include outer-table-borders(2px);
-  }
-}

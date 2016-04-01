@@ -1,4 +1,0 @@
-- classes = [("selected" if @selected), ("deprecated" if @current_item[:deprecated]), ("beta" if @current_item[:beta])].compact.join(" ")
-%li{:class => classes}
-  %a{:href => default_path(@current_item), :class => classes}
-    %span= @crumb

@@ -1,9 +1,0 @@
-bin
-vendor
-output
-vendor/ruby
-crash.log
-tmp
-.bundle
-sync
-.rvmrc

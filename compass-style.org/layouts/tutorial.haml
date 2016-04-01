@@ -1,5 +1,0 @@
-- render 'site' do
-  %aside(role="sidebar")
-    %nav#local-nav
-      %ul= item_tree(tutorial_item(:root), :depth => 2, :omit_self => false, :heading_level => 2)
-  %article= yield

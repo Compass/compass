@@ -1,4 +1,0 @@
-@import "compass/css3/regions";
-
-.source   { @include flow-into(target); }
-.new-container { @include flow-from(target); }
