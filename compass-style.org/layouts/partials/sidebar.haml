@@ -1,8 +1,0 @@
-%nav#local-nav
-  - sidebar_item = reference_item(:stylesheet => @item[:nav_stylesheet]) if @item[:nav_stylesheet]
-  - sidebar_item ||= sidebar_item(@item)
-  - sidebar_item ||= reference_item(:stylesheet => @default_stylesheet)
-  %ul= item_tree(sidebar_item, :depth => 1, :omit_self => get_var(:omit_self){true}, :heading_level => get_var(:heading_level){1}, :heading_depth => get_var(:heading_depth){10})
-
-
-= render 'partials/ad'

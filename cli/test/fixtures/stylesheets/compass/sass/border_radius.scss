@@ -1,5 +1,0 @@
-@import "compass/css3/border-radius";
-
-.simple   { @include border-radius(4px, 4px); }
-.compound { @include border-radius(2px 5px, 3px 6px); }
-.crazy    { @include border-radius(1px 3px 5px 7px, 2px 4px 6px 8px)}

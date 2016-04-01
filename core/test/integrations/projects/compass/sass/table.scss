@@ -1,5 +1,0 @@
-@import "project-setup";
-@import "compass/utilities/tables";
-
-.outer-table-borders { @include outer-table-borders; }
-.inner-table-borders { @include inner-table-borders; }

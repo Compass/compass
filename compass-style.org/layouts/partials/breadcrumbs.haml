@@ -1,8 +1,0 @@
-- if breadcrumbs_trail.size > 1
-  %ol#breadcrumbs
-    - breadcrumbs_trail.each_with_index do |bc, index|
-      - next unless bc
-      - klass = "first" if index == 0
-      - klass = "last" if index == breadcrumbs_trail.size - 1
-      %li{:class => klass}= link_to_unless_current((bc[:crumb] || bc[:title]), bc.reps.find { |r| r.name == :default })
-  

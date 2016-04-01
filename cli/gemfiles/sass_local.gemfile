@@ -1,8 +1,0 @@
-CI=true
-main_gemfile = File.expand_path(File.join(File.dirname(__FILE__), "..", "Gemfile"))
-eval File.read(main_gemfile), nil, main_gemfile
-
-gem 'sass', :path => "../../sass"
-gem 'compass', :path => "../"
-
-gemspec :path=>"../"

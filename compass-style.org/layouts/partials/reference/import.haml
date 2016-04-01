@@ -1,7 +1,0 @@
-- if path = reference_path(:stylesheet => import)
-  - imported_item = reference_item(:stylesheet => import)
-  %a{:href => path, :title => "@import #{import}"}= imported_item[:crumb] || imported_item[:title]
-  - if imported_item[:meta_description]
-    &ndash; #{imported_item[:meta_description]}
-- else
-  = import

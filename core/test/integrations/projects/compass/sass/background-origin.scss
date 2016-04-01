@@ -1,6 +1,0 @@
-@import "project-setup";
-@import "compass/css3/background-origin";
-
-.background-origin { @include background-origin('border-box'); }
-
-.background-origin-multiple { @include background-origin('border-box', padding-box, content-box); }

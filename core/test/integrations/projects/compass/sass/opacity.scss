@@ -1,6 +1,0 @@
-@import "project-setup";
-@import "compass/css3/opacity";
-
-div {
-  @include opacity(.2);
-}

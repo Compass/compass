@@ -1,5 +1,0 @@
-- render 'main' do
-  - content_for :module_nav do
-    %ul= item_tree(reference_item(:stylesheet => "compass.scss"), :depth => 1, :omit_self => true, :headings => false)
-  %aside(role="sidebar")= render 'partials/sidebar', :default_stylesheet => "_compass.scss", :omit_self => false, :heading_level => 2, :heading_depth => 1
-  %article= yield
