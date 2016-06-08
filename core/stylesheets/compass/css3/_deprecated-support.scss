@@ -84,14 +84,8 @@ $legacy-support-for-webkit: true !default;
 
 // A debug tool for checking browser support
 @mixin debug-support-matrix($experimental: true, $ie: true) {
-  @debug  #{'$moz-'}$experimental-support-for-mozilla
-          #{'$webkit-'}$experimental-support-for-webkit
-          #{'$opera-'}$experimental-support-for-opera
-          #{'$microsoft-'}$experimental-support-for-microsoft
-          #{'$khtml-'}$experimental-support-for-khtml;
-  @debug  #{'$ie6-'}$legacy-support-for-ie6
-          #{'$ie7-'}$legacy-support-for-ie7
-          #{'$ie8-'}$legacy-support-for-ie8;
+  @debug "#{$moz-}$experimental-support-for-mozilla #{$webkit-}$experimental-support-for-webkit #{$opera-}$experimental-support-for-opera #{$microsoft-}$experimental-support-for-microsoft #{$khtml-}$experimental-support-for-khtml";
+  @debug "#{$ie6-}$legacy-support-for-ie6 #{$ie7-}$legacy-support-for-ie7 #{$ie8-}$legacy-support-for-ie8";
 }
 
 // Capture the current exerimental support settings
