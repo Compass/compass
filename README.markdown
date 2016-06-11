@@ -1,8 +1,8 @@
 # Compass Stylesheet Authoring Framework
 
-Build Status: [![Build Status](https://travis-ci.org/Compass/compass.png)](https://travis-ci.org/Compass/compass)
+Build Status: [![Build Status](https://travis-ci.org/Compass/compass.svg)](https://travis-ci.org/Compass/compass)
 
-Code Quality: [![Code Climate](https://codeclimate.com/github/Compass/compass.png)](https://codeclimate.com/github/Compass/compass)
+Code Quality: [![Code Climate](https://codeclimate.com/github/Compass/compass.svg)](https://codeclimate.com/github/Compass/compass)
 
 ## Resources
 
@@ -11,7 +11,8 @@ Code Quality: [![Code Climate](https://codeclimate.com/github/Compass/compass.pn
 * [Compass Reference](http://compass-style.org/install/reference/)
 
 ## Author
-Compass is written by [Chris Eppstein](http://chriseppstein.github.io/).<br>
+
+Compass is written by [Chris Eppstein](http://chriseppstein.github.io/).
 Chris is a software engineer at [LinkedIn](http://www.linkedin.com/) and a member of the [Sass](https://github.com/nex3/sass) core team.
 
 ## Core Team Members
@@ -25,6 +26,7 @@ Chris is a software engineer at [LinkedIn](http://www.linkedin.com/) and a membe
 * [Nico Hagenburger](https://github.com/hagenburger)
 
 ## License
-Copyright (c) 2008-2014 Christopher M. Eppstein<br>
-All Rights Reserved.<br>
+
+Copyright (c) 2008-2014 Christopher M. Eppstein
+All Rights Reserved.
 Released under a [slightly modified MIT License](LICENSE.markdown).
