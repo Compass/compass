@@ -15,7 +15,7 @@ module Compass::Core::SassExtensions::Functions::ImageSize
 
   class ImageProperties
     def initialize(file)
-      @file = (file.respond_to?(:to_path) ? file.to_path : file)
+      @file = (file.respond_to?(:filename) ? file.filename : file)
       @file_type = File.extname(@file)[1..-1].downcase
       unless KNOWN_TYPES.include?(@file_type)
         raise Sass::SyntaxError, "Unrecognized file type: #{@file_type}"
