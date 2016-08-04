@@ -1,7 +1,7 @@
 // Background Clip
 @import "compass/support";
 
-// The the user threshold for background-clip support. Defaults to `$critical-usage-threshold`
+// The user threshold for background-clip support. Defaults to `$critical-usage-threshold`
 $background-clip-support-threshold: $critical-usage-threshold !default;
 
 // The default border-box model: [border-box | padding-box | content-box]
