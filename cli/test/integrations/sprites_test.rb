@@ -51,14 +51,14 @@ class SpritesTest < Test::Unit::TestCase
     md5.hexdigest
   end
 
-  def render(scss)
+  def render(scss, opts = {})
     options = Compass.sass_engine_options
     options[:line_comments] = false
     options[:style] = :expanded
     options[:syntax] = :scss
     options[:compass] ||= {}
     options[:compass][:logger] ||= Compass::NullLogger.new
-    css = Sass::Engine.new(scss, options).render
+    css = Sass::Engine.new(scss, options.merge(opts)).render
     # reformat to fit result of heredoc:
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
   end
@@ -1002,6 +1002,28 @@ class SpritesTest < Test::Unit::TestCase
     CSS
     assert_correct clean(other_css), clean(css)
    end
+
+  it "should be able to compress the sprite stylesheet correctly" do
+    css = render <<-SCSS, :style => :compressed
+     @import "colors/*.png";
+     @include all-colors-sprites;
+    SCSS
+    other_css = <<-CSS
+     .colors-sprite, .colors-blue, .colors-yellow {
+       background-image: url('/images-tmp/colors-s58671cb5bb.png');
+       background-repeat: no-repeat
+     }
+
+     .colors-blue {
+       background-position: 0 0
+     }
+
+     .colors-yellow {
+       background-position: 0 -10px
+     }
+    CSS
+    assert_correct clean(other_css), clean(css)
+  end
 
   it "should have a sprite_name function that returns the names of the sprites in a sass list" do
     css = render <<-SCSS

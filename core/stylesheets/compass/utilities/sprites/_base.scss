@@ -78,6 +78,7 @@ $default-sprite-separator: "-" !default;
                $use-percentages: false,
                $separator: $default-sprite-separator) {
   @each $sprite-name in $sprite-names {
+    $sprite-name: convert_sprite_name($sprite-name);
     @if sprite_does_not_have_parent($map, $sprite-name) {
       $full-sprite-name: "#{$prefix}#{$separator}#{$sprite-name}";
       @if sprite_has_valid_selector($full-sprite-name) {

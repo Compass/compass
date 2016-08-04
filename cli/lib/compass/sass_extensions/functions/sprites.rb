@@ -247,6 +247,24 @@ module Compass::SassExtensions::Functions::Sprites
   declare :sprite_position, [:map, :sprite, :offset_x, :offset_y]
   declare :sprite_position, [:map, :sprite, :offset_x, :offset_y, :use_percentages]
 
+  def convert_sprite_name(sprite)
+    case sprite
+      when Sass::Script::Value::Color
+        rgb = if reversed_color_names.keys.first.size == 3
+                sprite.rgb
+              else
+                # Sass 3.3 includes the alpha channel
+                sprite.rgba
+              end
+        identifier(reversed_color_names[rgb])
+      when Sass::Script::Value::Bool
+        identifier(sprite.to_s)
+      else
+        sprite
+    end
+  end
+  declare :convert_sprite_name, [:sprite]
+
 protected
 
   def get_sprite_file(map, sprite=nil)
@@ -262,23 +280,6 @@ protected
       Sass::Script::Value::Color::HTML4_COLORS_REVERSE
     else
       Sass::Script::Value::Color::COLOR_NAMES_REVERSE
-    end
-  end
-
-  def convert_sprite_name(sprite)
-    case sprite
-      when Sass::Script::Value::Color
-        rgb = if reversed_color_names.keys.first.size == 3
-                sprite.rgb
-              else
-                # Sass 3.3 includes the alpha channel
-                sprite.rgba
-              end
-        identifier(reversed_color_names[rgb])
-      when Sass::Script::Value::Bool
-        identifier(sprite.to_s)
-      else
-        sprite
     end
   end
 
