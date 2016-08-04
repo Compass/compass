@@ -306,9 +306,6 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       end
     end
 
-    standardized_prefix :webkit
-    standardized_prefix :moz
-
     def to_webkit(options = self.options)
       s = "-webkit-radial-gradient("
       s << old_standard_arguments(options)
@@ -759,9 +756,9 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       end
       if (positions.last.stop.eq(number(0, "px")).to_bool ||
          positions.last.stop.eq(number(0, "%")).to_bool)
-         raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
-       end
-       opts(list(positions, color_list.separator))
+        raise Sass::SyntaxError.new("Color stops must be specified in increasing order")
+      end
+      opts(list(positions, color_list.separator))
     end
 
     def parse_color_stop(arg)
@@ -817,7 +814,7 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
     end
 
     def svg(gradient)
-      svg = <<-EOS
+      <<-EOS
 <?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs>#{gradient}</defs><rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" /></svg>
 EOS
