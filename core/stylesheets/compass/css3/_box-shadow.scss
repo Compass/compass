@@ -66,7 +66,7 @@ $default-box-shadow-inset: null !default;
 
   // Need to set these defaults here instead of the arglist to support the above backwards compat handling
   @if $hoff   == null { $hoff:   $default-box-shadow-h-offset; }
-  @if $voff   == null { $hoff:   $default-box-shadow-v-offset; }
+  @if $voff   == null { $voff:   $default-box-shadow-v-offset; }
   @if $blur   == null { $blur:   $default-box-shadow-blur;     }
   @if $spread == null { $spread: $default-box-shadow-spread;   }
   @if $color  == null { $color:  $default-box-shadow-color;    }
