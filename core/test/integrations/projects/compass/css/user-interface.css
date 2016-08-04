@@ -2,6 +2,8 @@
   -moz-user-select: -moz-none;
   -ms-user-select: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
   user-select: none; }
 
 *:-moz-placeholder {
