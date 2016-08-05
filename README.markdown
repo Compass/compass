@@ -1,6 +1,6 @@
 # Compass Stylesheet Authoring Framework
 
-**Depreciated:** Compass is no longer supported.
+## **Depreciated:** Compass is no longer supported.
 
 Build Status: [![Build Status](https://travis-ci.org/Compass/compass.png)](https://travis-ci.org/Compass/compass)
 
