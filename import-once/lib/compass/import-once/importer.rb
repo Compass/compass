@@ -8,7 +8,7 @@ module Compass
       end
 
       def find(uri, options, *args)
-        uri, force_import = handle_force_import(uri)
+        uri, force_import = handle_force_import(uri.gsub(/^\(NOT IMPORTED\) /, ''))
         maybe_replace_with_dummy_engine(super(uri, options, *args), options, force_import)
       end
 
