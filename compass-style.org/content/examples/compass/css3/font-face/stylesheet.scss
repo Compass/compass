@@ -1,6 +1,6 @@
 @import "compass/css3";
 
-@include font-face("Blooming Grove", font-files("examples/bgrove.ttf", "examples/bgrove.otf"));
+@include font-face("Blooming Grove", font-files("examples/bgrove.ttf", "examples/bgrove.otf"), "examples/bgrove.eot", normal, normal);
 
 .example {
   font-family: "Blooming Grove";
