@@ -144,6 +144,10 @@ module Compass::Core::SassExtensions::Functions::Urls
         path = "#{http_images_path}#{path}"
       end
 
+      if Compass.configuration.use_image_helper_on_output
+        path = "<%= image_path('#{path}') %>"
+      end
+
       # Compute the asset host unless in relative mode.
       asset_host = if !relative? && Compass.configuration.asset_host
         Compass.configuration.asset_host.call(path)
@@ -274,7 +278,7 @@ module Compass::Core::SassExtensions::Functions::Urls
     else
       path = cache_buster[:path] if cache_buster[:path]
     end
-    
+
     if cache_buster[:query]
       "#{path}#{path["?"] ? "&" : "?"}#{cache_buster[:query]}"
     else
