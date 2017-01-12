@@ -9,7 +9,8 @@ module Compass
         attr_reader :images, :rows
         def_delegators :rows, :[]
 
-        def initialize(images)
+        def initialize(images, width = nil)
+          @width = width if width
           @images = images.sort do |a,b|
             if a.height == b.height
               b.width <=> a.width

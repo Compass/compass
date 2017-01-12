@@ -1,0 +1,22 @@
+.outer-table-borders {
+  border: 2px solid black; }
+  .outer-table-borders thead th {
+    border-bottom: 2px solid black; }
+  .outer-table-borders tfoot th, .outer-table-borders tfoot td {
+    border-top: 2px solid black; }
+  .outer-table-borders th:first-child {
+    border-right: 2px solid black; }
+
+.inner-table-borders th, .inner-table-borders td {
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left-width: 0;
+  border-top-width: 0; }
+  .inner-table-borders th:last-child, .inner-table-borders td:last-child {
+    border-right-width: 0; }
+  .inner-table-borders th.last, .inner-table-borders td.last {
+    border-right-width: 0; }
+.inner-table-borders tbody tr:last-child th, .inner-table-borders tbody tr:last-child td, .inner-table-borders tfoot tr:last-child th, .inner-table-borders tfoot tr:last-child td {
+  border-bottom-width: 0; }
+.inner-table-borders tbody tr.last th, .inner-table-borders tbody tr.last td, .inner-table-borders tfoot tr.last th, .inner-table-borders tfoot tr.last td {
+  border-bottom-width: 0; }

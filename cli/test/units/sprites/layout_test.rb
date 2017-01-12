@@ -114,9 +114,9 @@ class LayoutTest < Test::Unit::TestCase
     base = smart
     base.generate
     assert base.smart?
-    assert_equal 400, base.width
-    assert_equal 60, base.height
-    assert_equal [[0, 0], [20, 120], [20, 0], [20, 100], [20, 160]], base.images.map {|i| [i.top, i.left]}
+    assert_equal 810, base.width
+    assert_equal 42, base.height    
+    assert_equal [[0, 0], [0, 526], [0, 402], [0, 504], [0, 568]], base.images.map {|i| [i.top, i.left]}
     assert File.exists?(base.filename)
     FileUtils.rm base.filename
   end
