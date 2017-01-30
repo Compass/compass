@@ -30,12 +30,7 @@ module Compass::Core::SassExtensions::Functions::Urls
         Compass.configuration.http_root_relative(Compass.configuration.css_dir)
       end
 
-      path = "#{http_stylesheets_path}/#{path.value}"
-      if only_path.to_bool
-        unquoted_string(clean_path(path))
-      else
-        clean_url(path)
-      end
+      sass_clean_url "#{http_stylesheets_path}/#{path.value}", only_path
     end
   end
 
@@ -50,9 +45,9 @@ module Compass::Core::SassExtensions::Functions::Urls
     def font_url(path, only_path = bool(false), cache_buster = bool(true))
       path = path.value # get to the string value of the literal.
 
-      # Short curcuit if they have provided an absolute url.
+      # Short circuit if they have provided an absolute url.
       if absolute_path?(path)
-        return unquoted_string("url(#{path})")
+        return sass_url(path, only_path)
       end
 
       # Compute the path to the font file, either root relative or stylesheet relative
@@ -93,11 +88,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       # prepend the asset host if there is one.
       path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
-      if only_path.to_bool
-        unquoted_string(clean_path(path))
-      else
-        clean_url(path)
-      end
+      sass_clean_url(path, only_path)
     end
   end
 
@@ -117,8 +108,8 @@ module Compass::Core::SassExtensions::Functions::Urls
         # the images path.
         path = $1
       elsif absolute_path?(path)
-        # Short curcuit if they have provided an absolute url.
-        return unquoted_string("url(#{path})")
+        # Short circuit if they have provided an absolute url.
+        return sass_url(path)
       end
 
       # Compute the path to the image, either root relative or stylesheet relative
@@ -163,11 +154,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       # prepend the asset host if there is one.
       path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
-      if only_path.to_bool
-        unquoted_string(clean_path(path))
-      else
-        clean_url(path)
-      end
+      sass_clean_url path, only_path
     end
   end
 
@@ -186,8 +173,8 @@ module Compass::Core::SassExtensions::Functions::Urls
         # the generated_images path.
         path = $1
       elsif absolute_path?(path)
-        # Short curcuit if they have provided an absolute url.
-        return unquoted_string("url(#{path})")
+        # Short circuit if they have provided an absolute url.
+        return sass_url(path)
       end
 
       # Compute the path to the image, either root relative or stylesheet relative
@@ -232,7 +219,7 @@ module Compass::Core::SassExtensions::Functions::Urls
       # prepend the asset host if there is one.
       path = "#{asset_host}#{'/' unless path[0..0] == "/"}#{path}" if asset_host
 
-      clean_url(path)
+      sass_clean_url(path)
     end
   end
 
@@ -241,12 +228,8 @@ module Compass::Core::SassExtensions::Functions::Urls
   # Emits a path, taking off any leading "./"
   def clean_path(url)
     url = url.to_s
-    url = url[0..1] == "./" ? url[2..-1] : url
-  end
-
-  # Emits a url, taking off any leading "./"
-  def clean_url(url)
-    unquoted_string("url('#{clean_path(url)}')")
+    url = url[2..-1] if url.start_with?('./')
+    url
   end
 
   def relative?
@@ -255,6 +238,14 @@ module Compass::Core::SassExtensions::Functions::Urls
 
   def absolute_path?(path)
     path[0..0] == "/" || path[0..3] == "http"
+  end
+
+  def sass_url(path, only_path = Sass::Script::Bool.new(false))
+    unquoted_string(only_path.to_bool ? path : "url(#{path})")
+  end
+
+  def sass_clean_url(path, only_path = Sass::Script::Bool.new(false))
+    unquoted_string(only_path.to_bool ? clean_path(path) : "url('#{clean_path(path)}')")
   end
 
   def compute_relative_path(path)
