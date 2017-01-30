@@ -25,13 +25,13 @@ $default-text-shadow-spread     : false   !default;
   $shadow...
 ) {
   $shadow: if(length($shadow) > 0, $shadow, default);
-  $default: -compass-space-list(compact($default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur $default-text-shadow-spread $default-text-shadow-color));
+  $default-shadow: -compass-space-list(compact($default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur $default-text-shadow-spread $default-text-shadow-color));
   $shadows-without-spread: join((),(),comma);
   $shadows: join((),(),comma);
   $has-spread: false;
 
   @each $layer in $shadow {
-    $layer: if($layer == 'default', $default, $layer);
+    $layer: if($layer == 'default', $default-shadow, $layer);
     @if length($layer) > 4 {
       $has-spread: true;
       $shadows-without-spread: append($shadows-without-spread, nth($layer,1) nth($layer,2) nth($layer,3) nth($layer,5));
