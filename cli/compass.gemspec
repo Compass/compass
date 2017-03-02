@@ -22,7 +22,7 @@ Gem::Specification.new do |gemspec|
   gemspec.add_dependency 'rb-inotify', '>= 0.9'
 
   gemspec.post_install_message = <<-MESSAGE
-    Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/compass Thanks!
+    Compass is charityware. If you love it, please donate on our behalf at http://umdf.org/ Thanks!
   MESSAGE
 
   gemspec.files = %w(LICENSE.markdown VERSION VERSION_NAME Rakefile)
@@ -36,4 +36,3 @@ Gem::Specification.new do |gemspec|
   gemspec.test_files -= Dir.glob("test/fixtures/stylesheets/*/saved/**/*.*")
   gemspec.test_files += Dir.glob("features/**/*.*")
 end
-

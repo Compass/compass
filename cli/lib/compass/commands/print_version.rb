@@ -59,7 +59,7 @@ Options:
           lines << "Copyright (c) 2008-#{Time.now.year} Chris Eppstein"
           lines << "Released under the MIT License."
           lines << "Compass is charityware."
-          lines << "Please make a tax deductable donation for a worthy cause: http://umdf.org/compass"
+          lines << "Please make a tax deductable donation for a worthy cause: http://umdf.org/"
           lines.join("\n")
         end
       end
@@ -69,7 +69,7 @@ Options:
       def initialize(working_path, options)
         self.options = options
       end
-  
+
       def execute
         if options[:custom]
           version = ""

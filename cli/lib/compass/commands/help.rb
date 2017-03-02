@@ -11,12 +11,12 @@ Description:
 
 Donating:
   Compass is charityware. If you find it useful please make
-  a tax deductable donation: http://umdf.org/compass
+  a tax deductable donation: http://umdf.org/
 
 To get help on a particular command please specify the command.
 
 }
-        
+
         primary_commands = Compass::Commands.all.select do |c|
           cmd = Compass::Commands[c]
           cmd.respond_to?(:primary) && cmd.primary
@@ -25,7 +25,7 @@ To get help on a particular command please specify the command.
 
         banner << command_list("Primary Commands:", primary_commands)
         banner << command_list("Other Commands:", other_commands)
- 
+
         banner << "\nAvailable Frameworks & Patterns:\n\n"
         banner << Compass::Frameworks.pretty_print
         banner << "\nGlobal Options:\n"
@@ -48,7 +48,7 @@ To get help on a particular command please specify the command.
     end
     class Help < Base
       register :help
-      
+
       class << self
         def option_parser(arguments)
           parser = Compass::Exec::CommandOptionParser.new(arguments)
