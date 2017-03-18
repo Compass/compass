@@ -1,0 +1,17 @@
+// Style the html5 input placeholder in browsers that support it.
+// Requires that style rules be provided to the mixin using the @content feature.
+// For more on @content, see https://gist.github.com/1884016
+// 
+// 1. Webkit and Gecko (Mozilla) already support placeholders (2012/Mar/13)
+// 2. Future-proofing for IE10: http://msdn.microsoft.com/library/ie/hh772745.aspx
+@mixin input-placeholder {
+	@if $experimental-support-for-webkit {
+		&::-webkit-input-placeholder { @content; }  // [1]
+	}
+	@if $experimental-support-for-mozilla {
+		&:-moz-placeholder { @content; }            // [1]
+	}
+	@if $experimental-support-for-microsoft {
+		&:-ms-input-placeholder { @content; }       // [2]
+	}
+}
