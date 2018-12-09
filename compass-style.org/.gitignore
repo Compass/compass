@@ -7,3 +7,4 @@ tmp
 .bundle
 sync
 .rvmrc
+*.DS_Store
