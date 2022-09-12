@@ -162,7 +162,8 @@ module Compass::Core::SassExtensions::Functions::GradientSupport
       unless Sass::Script::Value::Color === color ||
              Sass::Script::Tree::Funcall === color ||
              (Sass::Script::Value::String === color && color.value == "currentColor")||
-             (Sass::Script::Value::String === color && color.value == "transparent")
+             (Sass::Script::Value::String === color && color.value == "transparent") ||
+             (Sass::Script::Value::String === color && color.value.start_with?("var("))
         raise Sass::SyntaxError, "Expected a color. Got: #{color}"
       end
     end
