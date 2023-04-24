@@ -86,7 +86,7 @@ module Compass
       # Finds the configuration file, if it exists in a known location.
       def detect_configuration_file(project_path = nil)
         possible_files = KNOWN_CONFIG_LOCATIONS.map{|f| projectize(f, project_path) }
-        possible_files.detect{|f| File.exists?(f)}
+        possible_files.detect{|f| File.exist?(f)}
       end
 
       def handle_configuration_change!
